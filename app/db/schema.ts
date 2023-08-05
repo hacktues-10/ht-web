@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { boolean, pgEnum, pgTable, serial, varchar } from "drizzle-orm/pg-core";
+import { boolean, integer, pgEnum, pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
 
 export const classEnum = pgEnum("class", ["А", "Б", "В", "Г"]);
 export const gradeEnum = pgEnum("grade", ["8", "9", "10", "11", "12"]);
@@ -19,6 +19,7 @@ export const particpants = pgTable("participants", {
   allergiesId: serial("allergiesId")
     .references(() => allergies.id)
     .notNull(),
+    emailVerified: integer("emailVerified")
 });
 
 export const participantsRelations = relations(particpants, ({ one }) => ({
@@ -103,4 +104,41 @@ export const allergies = pgTable("allergies", {
   eggs: boolean("eggs").default(false),
   milk: boolean("milk").default(false),
   extra: varchar("extra").default(""),
+});
+
+
+export const account = pgTable("account", {
+  id: varchar("id").primaryKey(),
+  userId: varchar("userId").notNull(),
+  type: varchar("type").notNull(),
+  provider: varchar("provider").notNull(),
+  providerAccountId: varchar("providerAccountId").notNull(),
+  refresh_token: varchar("refresh_token").notNull(),
+  access_token: varchar("access_token").notNull(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+  expires_at: integer("expires_at").notNull(),
+  token_type: varchar("token_type").notNull(),
+  scope: varchar("scope").notNull(),
+  id_token: varchar("id_token").notNull(),
+  session_state: varchar("session_state").notNull(),
+});
+
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(particpants, {
+    fields: [account.userId],
+    references: [particpants.id],
+  })
+}));
+
+export const session = pgTable("session", {
+  id: varchar("id").primaryKey().notNull(),
+  userId: varchar("userId").notNull(),
+  expires: integer("expires").notNull(),
+  sessionToken: varchar("sessionToken").notNull()
+});
+
+export const verificationToken = pgTable("verificationToken", {
+  identifier: varchar("identifier").primaryKey().notNull(),
+  token: varchar("token").notNull(),
+  expires: integer("expires").notNull(),
 });
