@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:push": "drizzle-kit push:pg"
   },
   "dependencies": {
     "@types/node": "20.4.7",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
+    "dotenv": "^16.3.1",
     "drizzle-kit": "^0.19.12",
     "prettier-plugin-tailwindcss": "^0.4.1"
   }
