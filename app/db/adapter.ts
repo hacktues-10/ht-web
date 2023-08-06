@@ -1,7 +1,7 @@
+import { Adapter } from "@auth/core/adapters";
 import { and, eq } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
 
-import { db } from "./index";
 import {
   account,
   particpants,
@@ -10,82 +10,97 @@ import {
   type DrizzleClient,
 } from "./schema";
 
-interface Participants {
-  id: number;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  tShirtId: number;
-  allergiesId: number;
-  firstName: string;
-  lastName: string;
-}
-
-function generateUniqueID(): string {
+function generateUniqueID() {
   return uuidv4();
 }
 
-/** @return { import("next-auth/adapters").Adapter } */
-export function DrizzleAdapter(client: DrizzleClient) {
+export function DrizzleAdapter(client: DrizzleClient): Adapter {
   return {
-    createUser(user: any) {
-      return client
-        .insert(particpants)
-        .values({ ...user, id: user.id })
-        .returning();
+    async createUser(user) {
+      const res = (
+        await client.insert(particpants).values(user).returning()
+      )[0];
+      return {
+        ...res,
+        id: res.id.toString(),
+      };
     },
 
-    async getUser(id: number) {
+    async getUser(id) {
       const res =
-        (await db.select().from(particpants).where(eq(particpants.id, id))) ??
-        null;
-      return res;
+        (
+          await client
+            .select()
+            .from(particpants)
+            .where(eq(particpants.id, parseInt(id)))
+        )[0] ?? null;
+      return res !== null
+        ? {
+            ...res,
+            id: res.id.toString(),
+          }
+        : null;
     },
 
-    async getUserByEmail(email: string) {
-      const res =
-        (await db
+    async getUserByEmail(email) {
+      const res = (
+        await client
           .select()
           .from(particpants)
-          .where(eq(particpants.email, email))) ?? null;
-      return res;
+          .where(eq(particpants.email, email))
+      )[0];
+      return {
+        ...res,
+        id: res.id.toString(),
+      };
     },
 
-    async getUserByAccount({
-      providerAccountId,
-      provider,
-    }: {
-      providerAccountId: number;
-      provider: string;
-    }) {
-      const res = await db
-        .select()
-        .from(particpants)
-        .where(
-          and(
-            eq(account.providerAccountId, String(providerAccountId)),
-            eq(account.provider, provider),
-          ),
-        )
-        .limit(1);
-      return res;
+    async getUserByAccount({ providerAccountId, provider }) {
+      const res = (
+        await client
+          .select()
+          .from(particpants)
+          .where(
+            and(
+              eq(account.providerAccountId, String(providerAccountId)),
+              eq(account.provider, provider),
+            ),
+          )
+      )[0];
+      return {
+        ...res,
+        id: res.id.toString(),
+      };
     },
 
-    async updateUser(id: any, user: Participants) {
-      return await db.update(particpants).set(user).where(eq(id, user.id));
+    async updateUser(user) {
+      const res = (
+        await client
+          .update(particpants)
+          .set({ ...user, id: parseInt(user.id) })
+          .where(eq(particpants.id, parseInt(user.id)))
+          .returning()
+      )[0];
+      return {
+        ...res,
+        id: res.id.toString(),
+      };
     },
 
-    async deleteUser(userId: number) {
-      const res = await db
-        .delete(particpants)
-        .where(eq(particpants.id, userId));
-      return res;
+    async deleteUser(userId) {
+      const res = (
+        await client
+          .delete(particpants)
+          .where(eq(particpants.id, parseInt(userId)))
+          .returning()
+      )[0];
+      return { ...res, id: res.id.toString() };
     },
 
-    async linkAccount(rawAccount: any) {
+    async linkAccount(rawAccount) {
       const updatedAccount = await client
         .insert(account)
-        .values(rawAccount)
+        .values({ ...rawAccount, id: generateUniqueID() })
         .returning();
 
       const firstUpdatedAccount = updatedAccount[0];
@@ -107,101 +122,94 @@ export function DrizzleAdapter(client: DrizzleClient) {
       };
     },
 
-    async unlinkAccount(providerAccountId: string, provider: string) {
-      client
+    async unlinkAccount({ providerAccountId, provider }) {
+      await client
         .delete(account)
         .where(
           and(
             eq(account.provider, provider),
             eq(account.providerAccountId, providerAccountId),
           ),
-        )
-        .returning();
+        );
     },
 
-    async createSession({
-      sessionToken,
-      userId,
-      expires,
-    }: {
-      sessionToken: any;
-      userId: any;
-      expires: any;
-    }) {
-      const insertedSessions = await client
-        .insert(session)
-        .values({
-          id: generateUniqueID(),
-          sessionToken,
-          userId,
-          expires,
-        })
-        .returning();
+    async createSession({ sessionToken, userId, expires }) {
+      await client.insert(session).values({
+        id: generateUniqueID(),
+        sessionToken,
+        userId,
+        expires,
+      });
 
-      if (insertedSessions.length > 0) {
-        return insertedSessions[0];
-      } else {
-        return null;
-      }
+      return {
+        sessionToken,
+        userId,
+        expires,
+      };
     },
 
-    async getSessionAndUser(sessionToken: string) {
-      return client
-        .select({ session: session, user: particpants })
-        .from(session)
-        .where(eq(session.sessionToken, sessionToken))
-        .innerJoin(particpants, eq(particpants.id, session.userId));
-    },
-
-    async updateSession({ sessionToken }: { sessionToken: any }) {
-      return client
-        .update(session)
-        .set({ sessionToken: sessionToken })
-        .where(eq(sessionToken, session.sessionToken))
-        .returning();
-    },
-
-    async deleteSession(sessionToken: string) {
-      return client
-        .delete(session)
-        .where(eq(session.sessionToken, sessionToken))
-        .returning();
-    },
-
-    async createVerificationToken({
-      identifier,
-      expires,
-      token,
-    }: {
-      identifier: string;
-      expires: number;
-      token: string;
-    }) {
-      return client
-        .insert(verificationToken)
-        .values({ identifier, expires, token })
-        .returning();
-    },
-
-    async useVerificationToken({
-      identifier,
-      token,
-    }: {
-      identifier: string;
-      token: string;
-    }) {
-      try {
-        return client
-          .delete(verificationToken)
+    async getSessionAndUser(sessionToken) {
+      return (
+        await client
+          .select({ session: session, user: particpants })
+          .from(session)
           .where(
             and(
-              eq(verificationToken.identifier, identifier),
-              eq(verificationToken.token, token),
+              eq(session.sessionToken, sessionToken),
+              eq(particpants.id, session.userId),
             ),
-          );
-      } catch (error) {
-        console.log(error);
-      }
+          )
+      )[0];
+    },
+
+    async updateSession({ sessionToken }) {
+      return (
+        (
+          await client
+            .update(session)
+            .set({ sessionToken: sessionToken })
+            .where(eq(session.sessionToken, sessionToken))
+            .returning()
+        )[0] ?? null
+      );
+    },
+
+    async deleteSession(sessionToken) {
+      return (
+        (
+          await client
+            .delete(session)
+            .where(eq(session.sessionToken, sessionToken))
+            .returning()
+        )[0] ?? null
+      );
+    },
+
+    async createVerificationToken(newVerificationToken) {
+      return (
+        (
+          await client
+            .insert(verificationToken)
+            .values({ ...newVerificationToken })
+            .returning()
+        )[0] ?? null
+      );
+    },
+
+    async useVerificationToken({ identifier, token }) {
+      return (
+        (
+          await client
+            .delete(verificationToken)
+            .where(
+              and(
+                eq(verificationToken.identifier, identifier),
+                eq(verificationToken.token, token),
+              ),
+            )
+            .returning()
+        )[0] ?? null
+      );
     },
   };
 }

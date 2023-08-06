@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import {
   boolean,
+  date,
   integer,
   pgEnum,
   pgTable,
@@ -18,18 +19,14 @@ export const tShirtSizeEnum = pgEnum("tshirtsize", ["XS", "S", "M", "L", "XL"]);
 export const particpants = pgTable("participants", {
   id: serial("id").primaryKey(),
   email: varchar("email").notNull(),
-  firstName: varchar("firstName").notNull(),
-  lastName: varchar("lastName").notNull(),
-  phoneNumber: varchar("phoneNumber").notNull(),
-  grade: gradeEnum("grade").notNull(),
-  parallel: classEnum("class").notNull(),
-  tShirtId: serial("tShirtId")
-    .references(() => tShirt.id)
-    .notNull(),
-  allergiesId: serial("allergiesId")
-    .references(() => allergies.id)
-    .notNull(),
-  emailVerified: integer("emailVerified"),
+  firstName: varchar("firstName"),
+  lastName: varchar("lastName"),
+  phoneNumber: varchar("phoneNumber"),
+  grade: gradeEnum("grade"),
+  parallel: classEnum("class"),
+  tShirtId: serial("tShirtId").references(() => tShirt.id),
+  allergiesId: serial("allergiesId").references(() => allergies.id),
+  emailVerified: date("emailVerified", { mode: "date" }),
 });
 
 export const participantsRelations = relations(particpants, ({ one }) => ({
@@ -117,7 +114,7 @@ export const allergies = pgTable("allergies", {
 });
 
 export const account = pgTable("account", {
-  id: varchar("id").primaryKey(),
+  id: varchar("id").primaryKey().notNull(),
   userId: varchar("userId").notNull(),
   type: varchar("type").notNull(),
   provider: varchar("provider").notNull(),
@@ -142,14 +139,14 @@ export const accountRelations = relations(account, ({ one }) => ({
 export const session = pgTable("session", {
   id: varchar("id").primaryKey().notNull(),
   userId: varchar("userId").notNull(),
-  expires: integer("expires").notNull(),
+  expires: date("expires", { mode: "date" }).notNull(),
   sessionToken: varchar("sessionToken").notNull(),
 });
 
 export const verificationToken = pgTable("verificationToken", {
   identifier: varchar("identifier").primaryKey().notNull(),
   token: varchar("token").notNull(),
-  expires: integer("expires").notNull(),
+  expires: date("expires", { mode: "date" }).notNull(),
 });
 
 export type DrizzleClient = typeof db;
