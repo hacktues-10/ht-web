@@ -1,5 +1,15 @@
 import { relations } from "drizzle-orm";
-import { boolean, integer, pgEnum, pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  integer,
+  pgEnum,
+  pgTable,
+  serial,
+  timestamp,
+  varchar,
+} from "drizzle-orm/pg-core";
+
+import { db } from ".";
 
 export const classEnum = pgEnum("class", ["А", "Б", "В", "Г"]);
 export const gradeEnum = pgEnum("grade", ["8", "9", "10", "11", "12"]);
@@ -19,7 +29,7 @@ export const particpants = pgTable("participants", {
   allergiesId: serial("allergiesId")
     .references(() => allergies.id)
     .notNull(),
-    emailVerified: integer("emailVerified")
+  emailVerified: integer("emailVerified"),
 });
 
 export const participantsRelations = relations(particpants, ({ one }) => ({
@@ -106,7 +116,6 @@ export const allergies = pgTable("allergies", {
   extra: varchar("extra").default(""),
 });
 
-
 export const account = pgTable("account", {
   id: varchar("id").primaryKey(),
   userId: varchar("userId").notNull(),
@@ -127,14 +136,14 @@ export const accountRelations = relations(account, ({ one }) => ({
   user: one(particpants, {
     fields: [account.userId],
     references: [particpants.id],
-  })
+  }),
 }));
 
 export const session = pgTable("session", {
   id: varchar("id").primaryKey().notNull(),
   userId: varchar("userId").notNull(),
   expires: integer("expires").notNull(),
-  sessionToken: varchar("sessionToken").notNull()
+  sessionToken: varchar("sessionToken").notNull(),
 });
 
 export const verificationToken = pgTable("verificationToken", {
@@ -142,3 +151,5 @@ export const verificationToken = pgTable("verificationToken", {
   token: varchar("token").notNull(),
   expires: integer("expires").notNull(),
 });
+
+export type DrizzleClient = typeof db;
