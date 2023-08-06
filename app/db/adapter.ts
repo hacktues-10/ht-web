@@ -98,28 +98,10 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async linkAccount(rawAccount) {
-      const updatedAccount = await client
+      await client
         .insert(account)
         .values({ ...rawAccount, id: generateUniqueID() })
         .returning();
-
-      const firstUpdatedAccount = updatedAccount[0];
-
-      return {
-        ...firstUpdatedAccount,
-        id: firstUpdatedAccount.id ?? undefined,
-        userId: firstUpdatedAccount.userId ?? undefined,
-        provider: firstUpdatedAccount.provider ?? undefined,
-        providerAccountId: firstUpdatedAccount.providerAccountId ?? undefined,
-        refresh_token: firstUpdatedAccount.refresh_token ?? undefined,
-        access_token: firstUpdatedAccount.access_token ?? undefined,
-        creaeted_at: firstUpdatedAccount.created_at ?? undefined,
-        expires_at: firstUpdatedAccount.expires_at ?? undefined,
-        token_type: firstUpdatedAccount.token_type ?? undefined,
-        scope: firstUpdatedAccount.scope ?? undefined,
-        id_token: firstUpdatedAccount.id_token ?? undefined,
-        session_state: firstUpdatedAccount.session_state ?? undefined,
-      };
     },
 
     async unlinkAccount({ providerAccountId, provider }) {

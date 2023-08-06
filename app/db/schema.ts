@@ -119,14 +119,14 @@ export const account = pgTable("account", {
   type: varchar("type").notNull(),
   provider: varchar("provider").notNull(),
   providerAccountId: varchar("providerAccountId").notNull(),
-  refresh_token: varchar("refresh_token").notNull(),
-  access_token: varchar("access_token").notNull(),
+  refresh_token: varchar("refresh_token"),
+  access_token: varchar("access_token"),
   created_at: timestamp("created_at").defaultNow().notNull(),
-  expires_at: integer("expires_at").notNull(),
-  token_type: varchar("token_type").notNull(),
-  scope: varchar("scope").notNull(),
-  id_token: varchar("id_token").notNull(),
-  session_state: varchar("session_state").notNull(),
+  expires_at: integer("expires_at"),
+  token_type: varchar("token_type"),
+  scope: varchar("scope"),
+  id_token: varchar("id_token"),
+  session_state: varchar("session_state"),
 });
 
 export const accountRelations = relations(account, ({ one }) => ({
