@@ -18,7 +18,7 @@ export const tShirtSizeEnum = pgEnum("tshirtsize", ["XS", "S", "M", "L", "XL"]);
 
 export const particpants = pgTable("participants", {
   id: serial("id").primaryKey(),
-  email: varchar("email").notNull(),
+  // email: varchar("email").notNull(),
   firstName: varchar("firstName"),
   lastName: varchar("lastName"),
   phoneNumber: varchar("phoneNumber"),
@@ -26,7 +26,7 @@ export const particpants = pgTable("participants", {
   parallel: classEnum("class"),
   tShirtId: serial("tShirtId").references(() => tShirt.id),
   allergiesId: serial("allergiesId").references(() => allergies.id),
-  emailVerified: date("emailVerified", { mode: "date" }),
+  // emailVerified: date("emailVerified", { mode: "date" }),
 });
 
 export const participantsRelations = relations(particpants, ({ one }) => ({
@@ -39,6 +39,20 @@ export const participantsRelations = relations(particpants, ({ one }) => ({
     references: [allergies.id],
   }),
 }));
+
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  email: varchar("email").notNull(),
+  emailVerified: date("emailVerified", { mode: "date" }),
+  participantId: integer("participantId").default(0),
+});
+
+// export const usersRelations = relations(users, ({ one }) => ({
+//   participants: one(particpants, {
+//     fields: [users.participantId],
+//     references: [particpants.id],
+//   }),
+// }));
 
 export const mentors = pgTable("mentors", {
   id: serial("id").primaryKey(),
@@ -138,7 +152,7 @@ export const accountRelations = relations(account, ({ one }) => ({
 
 export const session = pgTable("session", {
   id: varchar("id").primaryKey().notNull(),
-  userId: varchar("userId").notNull(),
+  userId: integer("userId").notNull(),
   expires: date("expires", { mode: "date" }).notNull(),
   sessionToken: varchar("sessionToken").notNull(),
 });
