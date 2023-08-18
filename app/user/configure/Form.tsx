@@ -1,8 +1,18 @@
 // components/Form.js
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 
-const Form = () => {
-  const [formData, setFormData] = useState({
+interface FormData {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  grade: string;
+  parallel: string;
+  tShirtId: string;
+  allergies: string;
+}
+
+const Form: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
     phoneNumber: "",
@@ -14,13 +24,15 @@ const Form = () => {
 
   const [showAllergiesInput, setShowAllergiesInput] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Add logic here to submit the form data
     console.log(formData);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -28,9 +40,9 @@ const Form = () => {
     }));
   };
 
-  const handleAllergiesCheckboxChange = (e) => {
+  const handleAllergiesCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setShowAllergiesInput(e.target.checked);
-    if (e.target.checked === false) {
+    if (!e.target.checked) {
       setFormData((prevData) => ({
         ...prevData,
         allergies: "",
