@@ -17,7 +17,6 @@ export default function Home() {
     return (
       <div>
         <Link href="/api/auth/signin">Login</Link>
-        <Link href="/register">Register</Link>
       </div>
     );
   }
