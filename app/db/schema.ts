@@ -12,14 +12,14 @@ import {
 
 import { db } from ".";
 
-export const classEnum = pgEnum("class", ["А", "Б", "В", "Г"]);
-export const gradeEnum = pgEnum("grade", ["8", "9", "10", "11", "12"]);
+export const classEnum = pgEnum("class", ["А", "Б", "В", "Г", ""]);
+export const gradeEnum = pgEnum("grade", ["8", "9", "10", "11", "12", ""]);
 export const tShirtSizeEnum = pgEnum("tshirtsize", ["XS", "S", "M", "L", "XL"]);
 
 export const particpants = pgTable("participants", {
-  id: serial("id").primaryKey(),
+  id: integer("id").primaryKey(),
   // email: varchar("email").notNull(),
-  accountId: varchar("accountId").references(() => account.id),
+  userId: serial("userId").references(() => users.id),
   firstName: varchar("firstName"),
   lastName: varchar("lastName"),
   phoneNumber: varchar("phoneNumber"),
@@ -31,9 +31,9 @@ export const particpants = pgTable("participants", {
 });
 
 export const participantsRelations = relations(particpants, ({ one }) => ({
-  account: one(account, {
-    fields: [particpants.accountId],
-    references: [account.id],
+  users: one(users, {
+    fields: [particpants.userId],
+    references: [users.id],
   }),
   tShirt: one(tShirt, {
     fields: [particpants.tShirtId],

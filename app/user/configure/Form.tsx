@@ -1,7 +1,12 @@
 // components/Form.js
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { eq } from "drizzle-orm";
 import { useSession } from "next-auth/react";
 import { transliterate } from "transliteration";
+
+import { account, particpants, users } from "~/app/db/schema";
+import { db } from "../../db/index";
+import { InsertParticipant } from "./actions";
 
 async function convertLatinToCyrillic(latinText: string) {
   console.log("IN FUNCTION LATIN TEXT: ", latinText);
@@ -12,15 +17,15 @@ interface FormData {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  grade: string;
-  parallel: string;
+  grade: "8" | "9" | "10" | "11" | "12" | "";
+  parallel: "А" | "Б" | "В" | "Г" | "";
   tShirtId: string;
   allergies: string;
 }
 
 const Form: React.FC = () => {
   const { data: session } = useSession();
-
+  console.log(session);
   const handleConvertEmail = async (email: string) => {
     try {
       const res = await convertLatinToCyrillic(email);
@@ -29,13 +34,6 @@ const Form: React.FC = () => {
       console.error("Error converting email:", error);
     }
   };
-
-  useEffect(() => {
-    if (session?.user?.email) {
-      // handleConvertEmail(session.user.email);
-      handleConvertEmail("Димитър Желев");
-    }
-  }, [session]);
 
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -49,12 +47,6 @@ const Form: React.FC = () => {
 
   const [showAllergiesInput, setShowAllergiesInput] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add logic here to submit the form data
-    console.log(formData);
-  };
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -63,6 +55,13 @@ const Form: React.FC = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (session?.user?.email) {
+      await InsertParticipant(session.user.email, formData);
+    }
   };
 
   const handleAllergiesCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
