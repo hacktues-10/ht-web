@@ -19,6 +19,7 @@ export const tShirtSizeEnum = pgEnum("tshirtsize", ["XS", "S", "M", "L", "XL"]);
 export const particpants = pgTable("participants", {
   id: serial("id").primaryKey(),
   // email: varchar("email").notNull(),
+  accountId: serial("participantId").references(() => account.id),
   firstName: varchar("firstName"),
   lastName: varchar("lastName"),
   phoneNumber: varchar("phoneNumber"),
@@ -30,6 +31,10 @@ export const particpants = pgTable("participants", {
 });
 
 export const participantsRelations = relations(particpants, ({ one }) => ({
+  account: one(account, {
+    fields: [particpants.accountId],
+    references: [account.id],
+  }),
   tShirt: one(tShirt, {
     fields: [particpants.tShirtId],
     references: [tShirt.id],
