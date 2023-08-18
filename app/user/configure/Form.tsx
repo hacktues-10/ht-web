@@ -1,5 +1,12 @@
 // components/Form.js
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { transliterate } from "transliteration";
+
+async function convertLatinToCyrillic(latinText: string) {
+  console.log("IN FUNCTION LATIN TEXT: ", latinText);
+  return transliterate(latinText, { unknown: "ignore" });
+}
 
 interface FormData {
   firstName: string;
@@ -12,6 +19,24 @@ interface FormData {
 }
 
 const Form: React.FC = () => {
+  const { data: session } = useSession();
+
+  const handleConvertEmail = async (email: string) => {
+    try {
+      const res = await convertLatinToCyrillic(email);
+      console.log("Converted Cyrillic email:", res);
+    } catch (error) {
+      console.error("Error converting email:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      // handleConvertEmail(session.user.email);
+      handleConvertEmail("Димитър Желев");
+    }
+  }, [session]);
+
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",

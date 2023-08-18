@@ -19,14 +19,14 @@ export const tShirtSizeEnum = pgEnum("tshirtsize", ["XS", "S", "M", "L", "XL"]);
 export const particpants = pgTable("participants", {
   id: serial("id").primaryKey(),
   // email: varchar("email").notNull(),
-  accountId: serial("participantId").references(() => account.id),
+  accountId: varchar("accountId").references(() => account.id),
   firstName: varchar("firstName"),
   lastName: varchar("lastName"),
   phoneNumber: varchar("phoneNumber"),
   grade: gradeEnum("grade"),
   parallel: classEnum("class"),
   tShirtId: serial("tShirtId").references(() => tShirt.id),
-  allergiesId: serial("allergiesId").references(() => allergies.id),
+  allergies: varchar("allergies").default(""),
   // emailVerified: date("emailVerified", { mode: "date" }),
 });
 
@@ -39,17 +39,13 @@ export const participantsRelations = relations(particpants, ({ one }) => ({
     fields: [particpants.tShirtId],
     references: [tShirt.id],
   }),
-  allergies: one(allergies, {
-    fields: [particpants.allergiesId],
-    references: [allergies.id],
-  }),
 }));
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: varchar("email").notNull(),
   emailVerified: date("emailVerified", { mode: "date" }),
-  participantId: integer("participantId").default(0),
+  participantId: serial("participantId"),
 });
 
 // export const usersRelations = relations(users, ({ one }) => ({
@@ -74,19 +70,13 @@ export const mentors = pgTable("mentors", {
   tShirtId: serial("tShirtId")
     .references(() => tShirt.id)
     .notNull(),
-  allergiesId: serial("allergiesId")
-    .references(() => allergies.id)
-    .notNull(),
+  allergies: varchar("allergies").default(""),
 });
 
 export const mentorsRelations = relations(mentors, ({ one }) => ({
   tShirt: one(tShirt, {
     fields: [mentors.tShirtId],
     references: [tShirt.id],
-  }),
-  allergies: one(allergies, {
-    fields: [mentors.allergiesId],
-    references: [allergies.id],
   }),
 }));
 
@@ -123,13 +113,6 @@ export const projects = pgTable("projects", {
 export const tShirt = pgTable("tShirt", {
   id: serial("id").primaryKey(),
   tShirtSize: tShirtSizeEnum("tShirtSize"),
-});
-
-export const allergies = pgTable("allergies", {
-  id: serial("id").primaryKey(),
-  eggs: boolean("eggs").default(false),
-  milk: boolean("milk").default(false),
-  extra: varchar("extra").default(""),
 });
 
 export const account = pgTable("account", {

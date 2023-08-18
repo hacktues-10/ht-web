@@ -76,11 +76,14 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async getUserByEmail(email) {
+      console.log("getUserByEmail", email);
+
       const res = (
         await client.select().from(users).where(eq(users.email, email))
       )[0];
       console.log("get user by email res", res);
       if (res) {
+        console.log("In if");
         return {
           ...res,
           id: res.id.toString(),
