@@ -21,8 +21,6 @@ interface FormData {
 }
 
 const Form: React.FC = () => {
-  const { data: session } = useSession();
-  console.log(session);
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
@@ -48,20 +46,19 @@ const Form: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (session?.user?.email) {
-      const res = await insertParticipant(session.user.email, formData);
-      console.log(res);
-      if (res) {
+
+    const res = await insertParticipant(formData);
+    console.log(res);
+    if (res) {
+      router.push("/");
+    } else if (res == false) {
+      const result = await updateParticipant(formData);
+      console.log(result);
+      if (result) {
         router.push("/");
-      } else if (res == false) {
-        const result = await updateParticipant(session.user.email, formData);
-        console.log(result);
-        if (result) {
-          router.push("/");
-        }
-      } else if (res == undefined) {
-        alert("Phone number already in use.");
       }
+    } else if (res == undefined) {
+      alert("Phone number already in use.");
     }
   };
 
@@ -77,30 +74,26 @@ const Form: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (session?.user?.email) {
-        const res = await getParticipant(session.user.email);
-        return res;
-      }
+      const res = await getParticipant();
+      return res;
     };
     const setData = async () => {
-      if (session && session.user && session.user.email) {
-        let res = await fetchData();
-        if (res && res[0]) {
-          setFormData({
-            firstName: res[0].firstName ?? "",
-            lastName: res[0].lastName ?? "",
-            phoneNumber: res[0].phoneNumber ?? "",
-            grade: res[0].grade ?? "",
-            parallel: res[0].parallel ?? "",
-            tShirtId: res[0].tShirtId.toString() ?? 1,
-            allergies: res[0].allergies ?? "",
-          });
-          if (res[0].allergies) setShowAllergiesInput(true);
-        }
+      let res = await fetchData();
+      if (res && res[0]) {
+        setFormData({
+          firstName: res[0].firstName ?? "",
+          lastName: res[0].lastName ?? "",
+          phoneNumber: res[0].phoneNumber ?? "",
+          grade: res[0].grade ?? "",
+          parallel: res[0].parallel ?? "",
+          tShirtId: res[0].tShirtId.toString() ?? 1,
+          allergies: res[0].allergies ?? "",
+        });
+        if (res[0].allergies) setShowAllergiesInput(true);
       }
     };
     setData();
-  }, [session]);
+  }, []);
 
   return (
     <form

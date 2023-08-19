@@ -2,6 +2,7 @@
 
 import { eq } from "drizzle-orm";
 
+import { getHTSession } from "~/app/api/auth/session";
 import { particpants, users } from "~/app/db/schema";
 import { db } from "../../db/index";
 
@@ -15,7 +16,9 @@ interface FormData {
   allergies: string;
 }
 
-export const insertParticipant = async (email: string, formData: FormData) => {
+export const insertParticipant = async (formData: FormData) => {
+  const session = await getHTSession();
+  const email = session?.user?.email;
   if (email) {
     console.log("Session user email:", email);
     try {
@@ -59,7 +62,9 @@ export const insertParticipant = async (email: string, formData: FormData) => {
   }
 };
 
-export async function getParticipant(email: string) {
+export async function getParticipant() {
+  const session = await getHTSession();
+  const email = session?.user?.email;
   if (email) {
     try {
       const user = await db.select().from(users).where(eq(users.email, email));
@@ -80,7 +85,9 @@ export async function getParticipant(email: string) {
   }
 }
 
-export const updateParticipant = async (email: string, formData: FormData) => {
+export const updateParticipant = async (formData: FormData) => {
+  const session = await getHTSession();
+  const email = session?.user?.email;
   if (email) {
     console.log("Session user email:", email);
     try {
