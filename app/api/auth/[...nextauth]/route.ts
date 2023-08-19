@@ -2,6 +2,7 @@ import NextAuth, { Account, Profile, User } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
+import { env } from "~/app/env.mjs";
 import { DrizzleAdapter } from "../../../db/adapter";
 import { db } from "../../../db/index";
 import { DrizzleClient } from "../../../db/schema";
@@ -19,14 +20,7 @@ const drizzleClient = DrizzleAdapter(db);
 const handler = NextAuth({
   providers: [
     EmailProvider({
-      server: {
-        host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_PORT,
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASSWORD,
-        },
-      },
+      server: env.EMAIL_SERVER,
       sendVerificationRequest: async (params) => {
         const { identifier, url, provider, theme } = params;
         const { host } = new URL(url);
@@ -86,7 +80,7 @@ const handler = NextAuth({
     maxAge: 30 * 24 * 60 * 60 * 4, // 120 days
     updateAge: 30 * 24 * 60 * 60, // 30 days
   },
-  secret: process.env.SECRET,
+  secret: env.NEXTAUTH_SECRET,
 });
 
 function html(params: { url: string; host: string; theme: any }) {
