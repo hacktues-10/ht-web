@@ -1,3 +1,5 @@
+import "server-only";
+
 import { NextAuthOptions } from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
