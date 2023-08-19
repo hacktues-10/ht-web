@@ -1,7 +1,6 @@
-// components/Form.js
-import { error } from "console";
+"use client";
+
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
