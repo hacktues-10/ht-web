@@ -19,7 +19,7 @@ export const tShirtSizeEnum = pgEnum("tshirtsize", ["XS", "S", "M", "L", "XL"]);
 export const particpants = pgTable("participants", {
   id: integer("id").primaryKey(),
   // email: varchar("email").notNull(),
-  userId: serial("userId").references(() => users.id),
+  userId: integer("userId").references(() => users.id),
   firstName: varchar("firstName"),
   lastName: varchar("lastName"),
   phoneNumber: varchar("phoneNumber"),

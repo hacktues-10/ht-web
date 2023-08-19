@@ -1,17 +1,15 @@
 // components/Form.js
+import { error } from "console";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { eq } from "drizzle-orm";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { transliterate } from "transliteration";
 
-import { account, particpants, users } from "~/app/db/schema";
-import { db } from "../../db/index";
-import { InsertParticipant } from "./actions";
-
-async function convertLatinToCyrillic(latinText: string) {
-  console.log("IN FUNCTION LATIN TEXT: ", latinText);
-  return transliterate(latinText, { unknown: "ignore" });
-}
+import {
+  getParticipant,
+  InsertParticipant,
+  updateParticipant,
+} from "./actions";
 
 interface FormData {
   firstName: string;
@@ -26,15 +24,7 @@ interface FormData {
 const Form: React.FC = () => {
   const { data: session } = useSession();
   console.log(session);
-  const handleConvertEmail = async (email: string) => {
-    try {
-      const res = await convertLatinToCyrillic(email);
-      console.log("Converted Cyrillic email:", res);
-    } catch (error) {
-      console.error("Error converting email:", error);
-    }
-  };
-
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -60,7 +50,19 @@ const Form: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (session?.user?.email) {
-      await InsertParticipant(session.user.email, formData);
+      const res = await InsertParticipant(session.user.email, formData);
+      console.log(res);
+      if (res) {
+        router.push("/");
+      } else if (res == false) {
+        const result = await updateParticipant(session.user.email, formData);
+        console.log(result);
+        if (result) {
+          router.push("/");
+        }
+      } else if (res == undefined) {
+        alert("Phone number already in use.");
+      }
     }
   };
 
@@ -73,6 +75,33 @@ const Form: React.FC = () => {
       }));
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session?.user?.email) {
+        const res = await getParticipant(session.user.email);
+        return res;
+      }
+    };
+    const setData = async () => {
+      if (session && session.user && session.user.email) {
+        let res = await fetchData();
+        if (res && res[0]) {
+          setFormData({
+            firstName: res[0].firstName ?? "",
+            lastName: res[0].lastName ?? "",
+            phoneNumber: res[0].phoneNumber ?? "",
+            grade: res[0].grade ?? "",
+            parallel: res[0].parallel ?? "",
+            tShirtId: res[0].tShirtId.toString() ?? 1,
+            allergies: res[0].allergies ?? "",
+          });
+          if (res[0].allergies) setShowAllergiesInput(true);
+        }
+      }
+    };
+    setData();
+  }, [session]);
 
   return (
     <form

@@ -4,7 +4,6 @@ import { createTransport } from "nodemailer";
 
 import { DrizzleAdapter } from "../../../db/adapter";
 import { db } from "../../../db/index";
-import { DrizzleClient } from "../../../db/schema";
 
 type AdapterUser = {
   id: string;
@@ -70,7 +69,7 @@ const handler = NextAuth({
           const userInDb = await drizzleClient?.getUserByEmail(user.email);
 
           if (userInDb) {
-            return false;
+            return true;
           }
         } catch (error) {
           console.error("Error querying user:", error);
@@ -78,6 +77,9 @@ const handler = NextAuth({
       }
       return true;
     },
+  },
+  pages: {
+    newUser: "/user/configure",
   },
 
   adapter: DrizzleAdapter(db),
