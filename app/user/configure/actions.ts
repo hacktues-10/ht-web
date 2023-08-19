@@ -15,7 +15,7 @@ interface FormData {
   allergies: string;
 }
 
-export const InsertParticipant = async (email: string, formData: FormData) => {
+export const insertParticipant = async (email: string, formData: FormData) => {
   if (email) {
     console.log("Session user email:", email);
     try {

@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 
 import {
   getParticipant,
-  InsertParticipant,
+  insertParticipant,
   updateParticipant,
 } from "./actions";
 
@@ -50,7 +50,7 @@ const Form: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (session?.user?.email) {
-      const res = await InsertParticipant(session.user.email, formData);
+      const res = await insertParticipant(session.user.email, formData);
       console.log(res);
       if (res) {
         router.push("/");

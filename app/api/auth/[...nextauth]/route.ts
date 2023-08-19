@@ -51,31 +51,14 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({
-      user,
-      account,
-      profile,
-      email,
-      credentials,
-    }: {
-      user: User | AdapterUser;
-      account: Account | null;
-      profile?: Profile | null;
-      email?: { verificationRequest?: boolean };
-      credentials?: Record<string, unknown>;
-    }): Promise<string | boolean> {
-      if (user && user.email) {
-        try {
-          const userInDb = await drizzleClient?.getUserByEmail(user.email);
-
-          if (userInDb) {
-            return true;
-          }
-        } catch (error) {
-          console.error("Error querying user:", error);
-        }
+    async signIn({ user, account, profile, email, credentials }) {
+      if (account?.provider !== "email") {
+        return false;
       }
-      return true;
+      if (user.email?.endsWith("@elsys-bg.org")) {
+        return true;
+      }
+      return false;
     },
   },
   pages: {
