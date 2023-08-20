@@ -6,11 +6,12 @@ import { createTransport } from "nodemailer";
 
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
+import { env } from "~/app/env.mjs";
 
 export const authOptions = {
   providers: [
     EmailProvider({
-      server: process.env.EMAIL_SERVER,
+      server: env.EMAIL_SERVER,
       sendVerificationRequest: async ({ identifier, url, provider, theme }) => {
         const { host } = new URL(url);
         const transport = createTransport(provider.server);
@@ -55,7 +56,7 @@ export const authOptions = {
     maxAge: 30 * 24 * 60 * 60 * 4, // 120 days
     updateAge: 30 * 24 * 60 * 60, // 30 days
   },
-  secret: process.env.SECRET,
+  secret: env.NEXTAUTH_SECRET,
 } satisfies NextAuthOptions;
 
 function html(params: { url: string; host: string; theme: any }) {
