@@ -1,23 +1,20 @@
-"use client";
+import { getHTSession } from "./api/auth/session";
+import { SignInButton, SignOutButton } from "./components/buttons";
 
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
-
-export default function Home() {
-  const { data: session } = useSession();
+export default async function Home() {
+  const session = await getHTSession();
   console.log(session);
   if (session) {
     return (
       <>
         Signed in as {session?.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+        <SignOutButton>Sign out</SignOutButton>
       </>
     );
   } else {
     return (
       <div>
-        <Link href="/api/auth/signin">Login</Link>
-        <Link href="/register">Register</Link>
+        <SignInButton>Login</SignInButton>
       </div>
     );
   }
