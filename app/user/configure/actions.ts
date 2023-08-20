@@ -37,28 +37,53 @@ export const insertParticipant = async (formData: FormData) => {
           allergies: formData.allergies,
         };
         console.log("Participant data:", participantData);
-        if ((await checkPhoneNumber(participantData.phoneNumber)) < 1) {
+        const participant = await getParticipant();
+        console.log("Participant:", participant?.length);
+        if (
+          (await checkPhoneNumber(participantData.phoneNumber)) < 1 &&
+          (!participant || participant.length < 1)
+        ) {
           const res = await db
             .insert(particpants)
             .values(participantData)
             .returning();
           console.log(res);
-          return true;
+          return {
+            success: true,
+          };
         } else {
-          console.error("Phone number already exists.");
-          return undefined;
+          const result = await updateParticipant(formData);
+          if (!result) {
+            console.error("Phone number already exists.");
+            return {
+              success: false,
+              message: "Phone number already exists.",
+            };
+          }
+          return {
+            success: true,
+          };
         }
       } else {
         console.error("User not found or participantId missing.");
-        return false;
+        return {
+          success: false,
+          message: "User not found or participantId missing.",
+        };
       }
     } catch (error) {
       console.error("Error inserting participant:", error);
-      return false;
+      return {
+        success: false,
+        message: "Error inserting participant.",
+      };
     }
   } else {
     console.error("Session user email is missing.");
-    return false;
+    return {
+      success: false,
+      message: "Session user email is missing.",
+    };
   }
 };
 
@@ -78,7 +103,7 @@ export async function getParticipant() {
         console.error("User not found or participantId missing.");
       }
     } catch (error) {
-      console.error("Error inserting participant:", error);
+      console.error("Error while trying to participant:", error);
     }
   } else {
     console.error("Session user email is missing.");

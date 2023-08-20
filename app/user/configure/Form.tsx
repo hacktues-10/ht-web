@@ -4,11 +4,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-import {
-  getParticipant,
-  insertParticipant,
-  updateParticipant,
-} from "./actions";
+import { getParticipant, insertParticipant } from "./actions";
 
 interface FormData {
   firstName: string;
@@ -49,16 +45,10 @@ const Form: React.FC = () => {
 
     const res = await insertParticipant(formData);
     console.log(res);
-    if (res) {
+    if (!res.success) {
+      console.error(res.message);
+    } else {
       router.push("/");
-    } else if (res == false) {
-      const result = await updateParticipant(formData);
-      console.log(result);
-      if (result) {
-        router.push("/");
-      }
-    } else if (res == undefined) {
-      alert("Phone number already in use.");
     }
   };
 
