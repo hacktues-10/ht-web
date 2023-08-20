@@ -9,6 +9,8 @@ const config = {
     "prettier-plugin-tailwindcss",
   ],
   importOrder: [
+    "^client-only|server-only$",
+    "",
     "^(react/(.*)$)|^(react$)|^(react-native(.*)$)",
     "^(next/(.*)$)|^(next$)",
     "^(expo(.*)$)|^(expo$)",

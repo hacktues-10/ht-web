@@ -1,13 +1,9 @@
-"use client";
-
-// pages/index.js
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
-
+import { getHTSession } from "~/app/api/auth/session";
+import { SignInButton, SignOutButton } from "~/app/components/buttons";
 import Form from "./Form";
 
-export default function Home() {
-  const { data: session } = useSession();
+export default async function Home() {
+  const session = await getHTSession();
 
   if (session) {
     return (
@@ -16,12 +12,9 @@ export default function Home() {
           <h1 className="text-2xl font-semibold">
             Signed in as {session?.user?.email}.
           </h1>
-          <button
-            onClick={() => signOut()}
-            className="mt-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-          >
+          <SignOutButton className="mt-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
             Sign out
-          </button>
+          </SignOutButton>
         </div>
         <div className="w-full">
           <Form />
@@ -32,12 +25,9 @@ export default function Home() {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
         <p className="mb-4 text-lg font-semibold">Please sign in</p>
-        <Link
-          href="/api/auth/signin"
-          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-        >
+        <SignInButton className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
           Login
-        </Link>
+        </SignInButton>
       </div>
     );
   }

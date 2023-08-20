@@ -1,42 +1,23 @@
-// components/Form.js
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { transliterate } from "transliteration";
+"use client";
 
-async function convertLatinToCyrillic(latinText: string) {
-  console.log("IN FUNCTION LATIN TEXT: ", latinText);
-  return transliterate(latinText, { unknown: "ignore" });
-}
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
+import { getParticipant, insertParticipant } from "./actions";
 
 interface FormData {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  grade: string;
-  parallel: string;
+  grade: "8" | "9" | "10" | "11" | "12" | "";
+  parallel: "А" | "Б" | "В" | "Г" | "";
   tShirtId: string;
   allergies: string;
 }
 
 const Form: React.FC = () => {
-  const { data: session } = useSession();
-
-  const handleConvertEmail = async (email: string) => {
-    try {
-      const res = await convertLatinToCyrillic(email);
-      console.log("Converted Cyrillic email:", res);
-    } catch (error) {
-      console.error("Error converting email:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (session?.user?.email) {
-      // handleConvertEmail(session.user.email);
-      handleConvertEmail("Димитър Желев");
-    }
-  }, [session]);
-
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -49,12 +30,6 @@ const Form: React.FC = () => {
 
   const [showAllergiesInput, setShowAllergiesInput] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add logic here to submit the form data
-    console.log(formData);
-  };
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -63,6 +38,18 @@ const Form: React.FC = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const res = await insertParticipant(formData);
+    console.log(res);
+    if (!res.success) {
+      console.error(res.message);
+    } else {
+      router.push("/");
+    }
   };
 
   const handleAllergiesCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +61,29 @@ const Form: React.FC = () => {
       }));
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getParticipant();
+      return res;
+    };
+    const setData = async () => {
+      let res = await fetchData();
+      if (res && res[0]) {
+        setFormData({
+          firstName: res[0].firstName ?? "",
+          lastName: res[0].lastName ?? "",
+          phoneNumber: res[0].phoneNumber ?? "",
+          grade: res[0].grade ?? "",
+          parallel: res[0].parallel ?? "",
+          tShirtId: res[0].tShirtId.toString() ?? 1,
+          allergies: res[0].allergies ?? "",
+        });
+        if (res[0].allergies) setShowAllergiesInput(true);
+      }
+    };
+    setData();
+  }, []);
 
   return (
     <form
