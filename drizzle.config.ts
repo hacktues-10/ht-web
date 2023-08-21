@@ -2,7 +2,7 @@ import "dotenv/config";
 
 import type { Config } from "drizzle-kit";
 
-import { env } from "~/app/env.mjs";
+import { env } from "./app/env.mjs";
 
 export default {
   schema: "./app/db/schema.ts",

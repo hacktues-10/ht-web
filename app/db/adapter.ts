@@ -3,11 +3,11 @@ import { AuthOptions } from "next-auth";
 import { v4 as uuidv4 } from "uuid";
 
 import {
-  account,
+  accounts,
   particpants,
-  session,
+  sessions,
   users,
-  verificationToken,
+  verificationTokens,
   type DrizzleClient,
 } from "./schema";
 
@@ -29,8 +29,8 @@ async function getSessionFromDB({
   const res = (
     await client
       .select()
-      .from(session)
-      .where(eq(session.sessionToken, sessionToken))
+      .from(sessions)
+      .where(eq(sessions.sessionToken, sessionToken))
   )[0];
 
   if (res) {
@@ -103,8 +103,8 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
           .from(users)
           .where(
             and(
-              eq(account.providerAccountId, String(providerAccountId)),
-              eq(account.provider, provider),
+              eq(accounts.providerAccountId, String(providerAccountId)),
+              eq(accounts.provider, provider),
             ),
           )
       )[0];
@@ -146,7 +146,7 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
       console.log("link account");
 
       await client
-        .insert(account)
+        .insert(accounts)
         .values({ ...rawAccount, id: generateUniqueID() })
         .returning();
     },
@@ -155,11 +155,11 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
       console.log("unlink account");
 
       await client
-        .delete(account)
+        .delete(accounts)
         .where(
           and(
-            eq(account.provider, provider),
-            eq(account.providerAccountId, providerAccountId),
+            eq(accounts.provider, provider),
+            eq(accounts.providerAccountId, providerAccountId),
           ),
         );
     },
@@ -168,7 +168,7 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
       console.log("create Session");
       const newUserId = parseInt(userId);
 
-      await client.insert(session).values({
+      await client.insert(sessions).values({
         id: generateUniqueID(),
         sessionToken,
         userId: newUserId,
@@ -215,9 +215,9 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
       const res =
         (
           await client
-            .update(session)
+            .update(sessions)
             .set({ sessionToken: sessionToken })
-            .where(eq(session.sessionToken, sessionToken))
+            .where(eq(sessions.sessionToken, sessionToken))
             .returning()
         )[0] ?? null;
 
@@ -234,8 +234,8 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
       console.log("delete session");
 
       await client
-        .delete(session)
-        .where(eq(session.sessionToken, sessionToken));
+        .delete(sessions)
+        .where(eq(sessions.sessionToken, sessionToken));
     },
 
     async createVerificationToken(newVerificationToken) {
@@ -243,7 +243,7 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
       return (
         (
           await client
-            .insert(verificationToken)
+            .insert(verificationTokens)
             .values({ ...newVerificationToken })
             .returning()
         )[0] ?? null
@@ -256,11 +256,11 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
       return (
         (
           await client
-            .delete(verificationToken)
+            .delete(verificationTokens)
             .where(
               and(
-                eq(verificationToken.identifier, identifier),
-                eq(verificationToken.token, token),
+                eq(verificationTokens.identifier, identifier),
+                eq(verificationTokens.token, token),
               ),
             )
             .returning()

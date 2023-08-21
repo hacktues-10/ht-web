@@ -14,18 +14,24 @@ import { db } from ".";
 
 export const classEnum = pgEnum("class", ["А", "Б", "В", "Г", ""]);
 export const gradeEnum = pgEnum("grade", ["8", "9", "10", "11", "12", ""]);
-export const tShirtSizeEnum = pgEnum("tshirtsize", ["XS", "S", "M", "L", "XL"]);
+export const tShirtSizeEnum = pgEnum("tshirt_size", [
+  "XS",
+  "S",
+  "M",
+  "L",
+  "XL",
+]);
 
 export const particpants = pgTable("participants", {
   id: integer("id").primaryKey(),
   // email: varchar("email").notNull(),
-  userId: integer("userId").references(() => users.id),
-  firstName: varchar("firstName"),
-  lastName: varchar("lastName"),
-  phoneNumber: varchar("phoneNumber"),
+  userId: integer("user_id").references(() => users.id),
+  firstName: varchar("first_name"),
+  lastName: varchar("last_name"),
+  phoneNumber: varchar("phone_number"),
   grade: gradeEnum("grade"),
   parallel: classEnum("class"),
-  tShirtId: serial("tShirtId").references(() => tShirt.id),
+  tShirtId: serial("tshirt_id").references(() => tShirts.id),
   allergies: varchar("allergies").default(""),
   // emailVerified: date("emailVerified", { mode: "date" }),
 });
@@ -35,17 +41,17 @@ export const participantsRelations = relations(particpants, ({ one }) => ({
     fields: [particpants.userId],
     references: [users.id],
   }),
-  tShirt: one(tShirt, {
+  tShirt: one(tShirts, {
     fields: [particpants.tShirtId],
-    references: [tShirt.id],
+    references: [tShirts.id],
   }),
 }));
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: varchar("email").notNull(),
-  emailVerified: date("emailVerified", { mode: "date" }),
-  participantId: serial("participantId"),
+  emailVerified: date("email_verified", { mode: "date" }),
+  participantId: serial("participant_id"),
 });
 
 // export const usersRelations = relations(users, ({ one }) => ({
@@ -58,25 +64,25 @@ export const users = pgTable("users", {
 export const mentors = pgTable("mentors", {
   id: serial("id").primaryKey(),
   email: varchar("email"),
-  firstName: varchar("firstName"),
-  lastName: varchar("lastName"),
-  phoneNumber: varchar("phoneNumber"),
+  firstName: varchar("first_name"),
+  lastName: varchar("last_name"),
+  phoneNumber: varchar("phone_number"),
   // TODO: availability
   description: varchar("description"),
-  youtubeURL: varchar("youtubeURL"),
+  youtubeURL: varchar("youtube_url"),
   position: varchar("position"),
   // XXX: company??
   // TODO: technologies
-  tShirtId: serial("tShirtId")
-    .references(() => tShirt.id)
+  tShirtId: serial("tshirt_id")
+    .references(() => tShirts.id)
     .notNull(),
   allergies: varchar("allergies").default(""),
 });
 
 export const mentorsRelations = relations(mentors, ({ one }) => ({
-  tShirt: one(tShirt, {
+  tShirt: one(tShirts, {
     fields: [mentors.tShirtId],
-    references: [tShirt.id],
+    references: [tShirts.id],
   }),
 }));
 
@@ -85,9 +91,9 @@ export const teams = pgTable("teams", {
   id: varchar("id").primaryKey(),
   name: varchar("name").notNull(),
   description: varchar("description").notNull(),
-  mentorId: serial("mentorId").references(() => mentors.id),
+  mentorId: serial("mentor_id").references(() => mentors.id),
   // TODO: technologies
-  projectId: serial("projectId").references(() => projects.id),
+  projectId: serial("project_id").references(() => projects.id),
 });
 
 export const teamsRelations = relations(teams, ({ one }) => ({
@@ -106,21 +112,21 @@ export const projects = pgTable("projects", {
   name: varchar("name").notNull(),
   description: varchar("description").notNull(),
   technologies: varchar("technologies").notNull(),
-  websiteURL: varchar("websiteURL").notNull(),
+  websiteURL: varchar("website_url").notNull(),
   // TODO: technologies
 });
 
-export const tShirt = pgTable("tShirt", {
+export const tShirts = pgTable("tshirts", {
   id: serial("id").primaryKey(),
-  tShirtSize: tShirtSizeEnum("tShirtSize"),
+  tShirtSize: tShirtSizeEnum("tshirt_size"),
 });
 
-export const account = pgTable("account", {
+export const accounts = pgTable("accounts", {
   id: varchar("id").primaryKey().notNull(),
-  userId: varchar("userId").notNull(),
+  userId: varchar("user_id").notNull(),
   type: varchar("type").notNull(),
   provider: varchar("provider").notNull(),
-  providerAccountId: varchar("providerAccountId").notNull(),
+  providerAccountId: varchar("provider_account_id").notNull(),
   refresh_token: varchar("refresh_token"),
   access_token: varchar("access_token"),
   created_at: timestamp("created_at").defaultNow().notNull(),
@@ -131,21 +137,21 @@ export const account = pgTable("account", {
   session_state: varchar("session_state"),
 });
 
-export const accountRelations = relations(account, ({ one }) => ({
+export const accountRelations = relations(accounts, ({ one }) => ({
   user: one(particpants, {
-    fields: [account.userId],
+    fields: [accounts.userId],
     references: [particpants.id],
   }),
 }));
 
-export const session = pgTable("session", {
+export const sessions = pgTable("sessions", {
   id: varchar("id").primaryKey().notNull(),
-  userId: integer("userId").notNull(),
+  userId: integer("user_id").notNull(),
   expires: date("expires", { mode: "date" }).notNull(),
-  sessionToken: varchar("sessionToken").notNull(),
+  sessionToken: varchar("session_token").notNull(),
 });
 
-export const verificationToken = pgTable("verificationToken", {
+export const verificationTokens = pgTable("verification_tokens", {
   identifier: varchar("identifier").primaryKey().notNull(),
   token: varchar("token").notNull(),
   expires: date("expires", { mode: "date" }).notNull(),
