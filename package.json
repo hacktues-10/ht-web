@@ -30,6 +30,7 @@
     "transliteration": "^2.3.5",
     "typescript": "5.1.6",
     "uuid": "^9.0.0",
+    "zact": "^0.0.2",
     "zod": "^3.22.2"
   },
   "devDependencies": {

@@ -1,22 +1,24 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { zact } from "zact/server";
+import { z } from "zod";
 
 import { getHTSession } from "~/app/api/auth/session";
 import { particpants, users } from "~/app/db/schema";
 import { db } from "../../db/index";
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  grade: "8" | "9" | "10" | "11" | "12" | "";
-  parallel: "А" | "Б" | "В" | "Г" | "";
-  tShirtId: string;
-  allergies: string;
-}
+const formData = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  phoneNumber: z.string(),
+  grade: z.enum(["8", "9", "10", "11", "12"]),
+  parallel: z.enum(["А", "Б", "В", "Г"]),
+  tShirtId: z.number().int().min(1).max(5),
+  allergies: z.string(),
+});
 
-export const insertParticipant = async (formData: FormData) => {
+export const insertParticipant = zact(formData)(async (formData) => {
   const session = await getHTSession();
   const email = session?.user?.email;
   if (email) {
@@ -33,7 +35,7 @@ export const insertParticipant = async (formData: FormData) => {
           phoneNumber: formData.phoneNumber,
           grade: formData.grade,
           parallel: formData.parallel,
-          tShirtId: parseInt(formData.tShirtId),
+          tShirtId: formData.tShirtId,
           allergies: formData.allergies,
         };
         console.log("Participant data:", participantData);
@@ -85,7 +87,7 @@ export const insertParticipant = async (formData: FormData) => {
       message: "Session user email is missing.",
     };
   }
-};
+});
 
 export async function getParticipant() {
   const session = await getHTSession();
@@ -110,7 +112,7 @@ export async function getParticipant() {
   }
 }
 
-export const updateParticipant = async (formData: FormData) => {
+export const updateParticipant = zact(formData)(async (formData) => {
   const session = await getHTSession();
   const email = session?.user?.email;
   if (email) {
@@ -127,7 +129,7 @@ export const updateParticipant = async (formData: FormData) => {
           phoneNumber: formData.phoneNumber,
           grade: formData.grade,
           parallel: formData.parallel,
-          tShirtId: parseInt(formData.tShirtId),
+          tShirtId: formData.tShirtId,
           allergies: formData.allergies,
         };
 
@@ -153,7 +155,7 @@ export const updateParticipant = async (formData: FormData) => {
     console.error("Session user email is missing.");
     return false;
   }
-};
+});
 
 //check if phone number exists
 const checkPhoneNumber = async (phoneNumber: string) => {
