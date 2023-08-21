@@ -43,7 +43,16 @@ const Form: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await insertParticipant(formData);
+    if (!formData.grade || !formData.parallel || !formData.tShirtId) {
+      console.error("Please fill in all fields");
+      return;
+    }
+    const res = await insertParticipant({
+      ...formData,
+      grade: formData.grade,
+      parallel: formData.parallel,
+      tShirtId: parseInt(formData.tShirtId),
+    });
     console.log(res);
     if (!res.success) {
       console.error(res.message);
