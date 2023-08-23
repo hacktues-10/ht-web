@@ -33,6 +33,7 @@ export const particpants = pgTable("participants", {
   parallel: classEnum("class"),
   tShirtId: serial("tshirt_id").references(() => tShirts.id),
   allergies: varchar("allergies").default(""),
+  technologies: varchar("technologies").default(""),
   // emailVerified: date("emailVerified", { mode: "date" }),
 });
 

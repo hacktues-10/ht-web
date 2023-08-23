@@ -2,9 +2,10 @@
 
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import Select from "react-dropdown-select";
 
-import { getParticipant, insertParticipant } from "./actions";
+import { convertToTechnology, technologies } from "~/app/technologies";
+import { getParticipant, insertParticipant } from "../user/configure/actions";
 
 interface FormData {
   firstName: string;
@@ -14,10 +15,13 @@ interface FormData {
   parallel: "А" | "Б" | "В" | "Г" | "";
   tShirtId: string;
   allergies: string;
+  technologies: string;
 }
 
 const Form: React.FC = () => {
   const router = useRouter();
+  const [showAllergiesInput, setShowAllergiesInput] = useState(false);
+  const [values, setValues] = useState<any[]>([]);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -26,9 +30,8 @@ const Form: React.FC = () => {
     parallel: "",
     tShirtId: "",
     allergies: "",
+    technologies: "",
   });
-
-  const [showAllergiesInput, setShowAllergiesInput] = useState(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -47,11 +50,13 @@ const Form: React.FC = () => {
       console.error("Please fill in all fields");
       return;
     }
+
     const res = await insertParticipant({
       ...formData,
       grade: formData.grade,
       parallel: formData.parallel,
       tShirtId: parseInt(formData.tShirtId),
+      technologies: values.map((value) => value.name).join(", "),
     });
     console.log(res);
     if (!res.success) {
@@ -87,12 +92,20 @@ const Form: React.FC = () => {
           parallel: res[0].parallel ?? "",
           tShirtId: res[0].tShirtId.toString() ?? 1,
           allergies: res[0].allergies ?? "",
+          technologies: res[0].technologies ?? "",
         });
         if (res[0].allergies) setShowAllergiesInput(true);
       }
     };
     setData();
   }, []);
+
+  useEffect(() => {
+    if (formData.technologies) {
+      const res = convertToTechnology(formData.technologies);
+      setValues(res);
+    }
+  }, [formData]);
 
   return (
     <form
@@ -188,6 +201,28 @@ const Form: React.FC = () => {
           required
         />
       )}
+      <Select
+        options={technologies}
+        labelField="name"
+        valueField="id"
+        onChange={(values) => setValues(values)}
+        values={values}
+        searchBy="name"
+        multi={true}
+        dropdownHandle={false}
+        debounceDelay={300}
+        keepSelectedInList={true}
+        searchable={true}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          borderRadius: "6px",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.2)",
+          padding: ".5rem",
+          height: "198px",
+        }}
+      />
+
       <button
         type="submit"
         className="w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600"

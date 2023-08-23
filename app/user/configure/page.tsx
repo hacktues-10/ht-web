@@ -1,6 +1,6 @@
 import { getHTSession } from "~/app/api/auth/session";
 import { SignInButton, SignOutButton } from "~/app/components/buttons";
-import Form from "./Form";
+import Form from "../../components/Form";
 
 export default async function Home() {
   const session = await getHTSession();

@@ -16,6 +16,7 @@ const formData = z.object({
   parallel: z.enum(["А", "Б", "В", "Г"]),
   tShirtId: z.number().int().min(1).max(5),
   allergies: z.string(),
+  technologies: z.string(),
 });
 
 export const insertParticipant = zact(formData)(async (formData) => {
@@ -37,6 +38,7 @@ export const insertParticipant = zact(formData)(async (formData) => {
           parallel: formData.parallel,
           tShirtId: formData.tShirtId,
           allergies: formData.allergies,
+          technologies: formData.technologies,
         };
         console.log("Participant data:", participantData);
         const participant = await getParticipant();
@@ -131,6 +133,7 @@ export const updateParticipant = zact(formData)(async (formData) => {
           parallel: formData.parallel,
           tShirtId: formData.tShirtId,
           allergies: formData.allergies,
+          technologies: formData.technologies,
         };
 
         if ((await checkPhoneNumber(participantData.phoneNumber)) <= 1) {
