@@ -71,9 +71,8 @@ export const mentors = pgTable("mentors", {
   // TODO: availability
   description: varchar("description"),
   youtubeURL: varchar("youtube_url"),
-  position: varchar("position"),
-  // XXX: company??
-  // TODO: technologies
+  companyName: varchar("company_name"),
+  technologies: varchar("technologies"),
   tShirtId: serial("tshirt_id")
     .references(() => tShirts.id)
     .notNull(),

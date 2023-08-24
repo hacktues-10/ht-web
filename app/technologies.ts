@@ -1,6 +1,7 @@
 export function convertToTechnology(text: string) {
   const selectedNames = text.split(",");
   const selectedTechnologies = selectedNames.map((selectedName) => {
+    selectedName = selectedName.trim();
     const technology = technologies.find((tech) => tech.name === selectedName);
     return technology;
   });
