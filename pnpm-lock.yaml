@@ -27,8 +27,8 @@ dependencies:
     specifier: 10.4.14
     version: 10.4.14(postcss@8.4.27)
   drizzle-orm:
-    specifier: ^0.27.2
-    version: 0.27.2(@vercel/postgres@0.4.1)
+    specifier: ^0.28.5
+    version: 0.28.5(@vercel/postgres@0.4.1)
   eslint:
     specifier: 8.46.0
     version: 8.46.0
@@ -56,6 +56,9 @@ dependencies:
   tailwindcss:
     specifier: 3.3.3
     version: 3.3.3
+  tiny-invariant:
+    specifier: ^1.3.1
+    version: 1.3.1
   transliteration:
     specifier: ^2.3.5
     version: 2.3.5
@@ -75,7 +78,7 @@ dependencies:
 devDependencies:
   '@ianvs/prettier-plugin-sort-imports':
     specifier: ^4.1.0
-    version: 4.1.0(prettier@3.0.1)
+    version: 4.1.0(prettier@3.0.2)
   '@types/nodemailer':
     specifier: ^6.4.9
     version: 6.4.9
@@ -93,7 +96,7 @@ devDependencies:
     version: 6.9.4
   prettier-plugin-tailwindcss:
     specifier: ^0.4.1
-    version: 0.4.1(@ianvs/prettier-plugin-sort-imports@4.1.0)(prettier@3.0.1)
+    version: 0.4.1(@ianvs/prettier-plugin-sort-imports@4.1.0)(prettier@3.0.2)
 
 packages:
 
@@ -781,7 +784,7 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: false
 
-  /@ianvs/prettier-plugin-sort-imports@4.1.0(prettier@3.0.1):
+  /@ianvs/prettier-plugin-sort-imports@4.1.0(prettier@3.0.2):
     resolution: {integrity: sha512-IAXeTLU24k6mRPa6mFbW1qZJ/j0m3OeH44wyijWyr+YqqdNtBnfHxAntOAATS9iDfrT01NesKGsdzqnXdDQa/A==}
     peerDependencies:
       '@vue/compiler-sfc': '>=3.0.0'
@@ -795,7 +798,7 @@ packages:
       '@babel/parser': 7.22.7
       '@babel/traverse': 7.22.8
       '@babel/types': 7.22.5
-      prettier: 3.0.1
+      prettier: 3.0.2
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
@@ -1426,7 +1429,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /cli-color@2.0.3:
@@ -1653,8 +1656,8 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.27.2(@vercel/postgres@0.4.1):
-    resolution: {integrity: sha512-ZvBvceff+JlgP7FxHKe0zOU9CkZ4RcOtibumIrqfYzDGuOeF0YUY0F9iMqYpRM7pxnLRfC+oO7rWOUH3T5oFQA==}
+  /drizzle-orm@0.28.5(@vercel/postgres@0.4.1):
+    resolution: {integrity: sha512-6r6Iw4c38NAmW6TiKH3TUpGUQ1YdlEoLJOQptn8XPx3Z63+vFNKfAiANqrIiYZiMjKR9+NYAL219nFrmo1duXA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
@@ -2318,8 +2321,8 @@ packages:
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
@@ -3447,7 +3450,7 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: false
 
-  /prettier-plugin-tailwindcss@0.4.1(@ianvs/prettier-plugin-sort-imports@4.1.0)(prettier@3.0.1):
+  /prettier-plugin-tailwindcss@0.4.1(@ianvs/prettier-plugin-sort-imports@4.1.0)(prettier@3.0.2):
     resolution: {integrity: sha512-hwn2EiJmv8M+AW4YDkbjJ6HlZCTzLyz1QlySn9sMuKV/Px0fjwldlB7tol8GzdgqtkdPtzT3iJ4UzdnYXP25Ag==}
     engines: {node: '>=12.17.0'}
     peerDependencies:
@@ -3499,12 +3502,12 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
     dependencies:
-      '@ianvs/prettier-plugin-sort-imports': 4.1.0(prettier@3.0.1)
-      prettier: 3.0.1
+      '@ianvs/prettier-plugin-sort-imports': 4.1.0(prettier@3.0.2)
+      prettier: 3.0.2
     dev: true
 
-  /prettier@3.0.1:
-    resolution: {integrity: sha512-fcOWSnnpCrovBsmFZIGIy9UqK2FaI7Hqax+DIO0A9UxeVoY4iweyaFjS5TavZN97Hfehph0nhsZnjlVKzEQSrQ==}
+  /prettier@3.0.2:
+    resolution: {integrity: sha512-o2YR9qtniXvwEZlOKbveKfDQVyqxbEIWn48Z8m3ZJjBjcCmUy3xZGIv+7AkaeuaTr6yPXJjwv07ZWlsWbEy1rQ==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -3923,6 +3926,10 @@ packages:
       es5-ext: 0.10.62
       next-tick: 1.1.0
     dev: true
+
+  /tiny-invariant@1.3.1:
+    resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
+    dev: false
 
   /titleize@3.0.0:
     resolution: {integrity: sha512-KxVu8EYHDPBdUYdKZdKtU2aj2XfEx9AfjXxE/Aj0vT06w2icA09Vus1rh6eSu1y01akYg6BjIK/hxyLJINoMLQ==}
