@@ -1,18 +1,22 @@
 import { useState } from "react";
 
 import { getHTSession } from "../api/auth/session";
-import MentorFrom from "../components/mentorForm";
+import { Mentor } from "../components/Mentor";
+import { getAllMentors } from "./actions";
 
 export default async function Home() {
-  // const mentors = await getMentors();
+  const mentors = await getAllMentors();
+  console.log(mentors);
   const session = await getHTSession();
   console.log(session?.user?.email);
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
-      <div className="mb-4 w-full text-center">
-        <h1 className="text-2xl font-semibold">Mentors:</h1>
-      </div>
+      <h1 className="text-2xl font-semibold">Mentors:</h1>
+
       <div className="w-full"></div>
+      {mentors.map((mentor) => (
+        <Mentor key={mentor.email} mentor={mentor} />
+      ))}
     </div>
   );
 }

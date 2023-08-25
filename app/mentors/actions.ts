@@ -78,3 +78,8 @@ export const getMentor = async (email: string) => {
     .where(eq(mentors.email, email));
   return mentor[0];
 };
+
+export const getAllMentors = async () => {
+  const allMentors = await db.select().from(mentors);
+  return allMentors;
+};
