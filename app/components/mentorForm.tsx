@@ -27,6 +27,7 @@ interface FormData {
 }
 
 const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
+  const router = useRouter();
   const [showAllergiesInput, setShowAllergiesInput] = useState(false);
   const [values, setValues] = useState<any[]>([]);
   const [formData, setFormData] = useState<FormData>({
@@ -81,6 +82,9 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
       technologies: values.map((value) => value.name).join(", "),
     });
     console.log(res);
+    if (res) {
+      router.push("/");
+    }
   };
 
   useEffect(() => {

@@ -26,10 +26,16 @@ export const insertMentor = zact(formData)(async (formData) => {
   if (!exists) {
     const res = await db.insert(mentors).values(formData).returning();
     console.log(res);
-    return res;
+    if (res.length > 0) {
+      return true;
+    }
+    return false;
   } else {
-    const res = updateMentor(formData);
-    return res;
+    const res = await updateMentor(formData);
+    if (res.length > 0) {
+      return true;
+    }
+    return false;
   }
 });
 
