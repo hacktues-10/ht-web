@@ -4,10 +4,9 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Select from "react-dropdown-select";
 
+import { uploadFile } from "~/app/r2";
 import { convertToTechnology, technologies } from "~/app/technologies";
-import { getHTSession } from "../api/auth/session";
 import { getMentor, insertMentor } from "../mentors/actions";
-import { getParticipant, insertParticipant } from "../user/configure/actions";
 
 interface MentorFormProps {
   email: string | null | undefined;
@@ -28,6 +27,7 @@ interface FormData {
 
 const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   const router = useRouter();
+  const [file, setFile] = useState<File | null>(null);
   const [showAllergiesInput, setShowAllergiesInput] = useState(false);
   const [values, setValues] = useState<any[]>([]);
   const [formData, setFormData] = useState<FormData>({
@@ -81,6 +81,18 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
       tShirtId: parseInt(formData.tShirtId),
       technologies: values.map((value) => value.name).join(", "),
     });
+    if (!file) return;
+    uploadFile({ fileName: file.name })
+      .then((res) => {
+        const url = res.url;
+        return fetch(url, {
+          method: "PUT",
+          body: file,
+        });
+      })
+      .then((res) => {
+        console.log(res);
+      });
     console.log(res);
     if (res) {
       router.push("/");
@@ -159,6 +171,18 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
         value={formData.companyName}
         onChange={handleChange}
         className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
+        required
+      />
+      <label htmlFor="file-upload">File Upload</label>
+      <br />
+      <input
+        multiple={false}
+        id="file-upload"
+        type="file"
+        onChange={(e) => {
+          if (!e.target.files || e.target.files.length === 0) return;
+          setFile(e.target.files[0]);
+        }}
         required
       />
       <textarea
