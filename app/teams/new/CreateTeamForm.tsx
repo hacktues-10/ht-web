@@ -17,12 +17,7 @@ export function CreateTeamForm() {
     const name = formData.get("name");
     const description = formData.get("description");
 
-    if (
-      !name ||
-      !description ||
-      typeof name !== "string" ||
-      typeof description !== "string"
-    ) {
+    if (!name || typeof name !== "string" || typeof description !== "string") {
       return;
     }
 
@@ -49,7 +44,6 @@ export function CreateTeamForm() {
         name="description"
         placeholder="Описание на отбора"
         className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
-        required
       />
       <button
         type="submit"
