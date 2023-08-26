@@ -2,7 +2,7 @@ import { eq, type InferInsertModel } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
 import { db } from "../db";
-import { teams } from "../db/schema";
+import { particpants, teams } from "../db/schema";
 
 export async function getConfirmedTeams() {
   return db.select().from(teams);
@@ -27,5 +27,12 @@ export async function createTeam(team: {
     .returning({ id: teams.id });
   const insertedTeam = results.at(0);
   invariant(insertedTeam, "Failed to create team");
+  await db
+    .update(particpants)
+    .set({
+      captainOfTeamId: insertedTeam.id,
+      memberOfTeamId: null,
+    })
+    .where(eq(particpants.userId, team.captainId));
   return insertedTeam;
 }

@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, or, sql } from "drizzle-orm";
 
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
@@ -19,12 +19,19 @@ export async function getParticipantByEmail(email: string) {
       team: {
         id: teams.id,
         name: teams.name,
+        isCaptain: sql<boolean>`${particpants.captainOfTeamId} is not distinct from ${teams.id}`,
       },
     })
     .from(particpants)
     .innerJoin(users, eq(particpants.userId, users.id))
     .where(eq(users.email, email))
-    .leftJoin(teams, eq(teams.captainId, particpants.id));
+    .leftJoin(
+      teams,
+      or(
+        eq(particpants.captainOfTeamId, teams.id),
+        eq(particpants.memberOfTeamId, teams.id),
+      ),
+    );
   return results.at(0) ?? null;
 }
 
