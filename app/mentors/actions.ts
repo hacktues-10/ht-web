@@ -19,6 +19,7 @@ const formData = z.object({
   allergies: z.string(),
   technologies: z.string(),
   youtubeURL: z.string(),
+  fileName: z.string(),
 });
 
 export const insertMentor = zact(formData)(async (formData) => {
@@ -64,6 +65,7 @@ export const updateMentor = zact(formData)(async (formData) => {
       allergies: formData.allergies,
       technologies: formData.technologies,
       youtubeURL: formData.youtubeURL,
+      fileName: formData.fileName,
     })
     .where(eq(mentors.email, formData.email))
     .returning();

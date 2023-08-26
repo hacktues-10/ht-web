@@ -23,6 +23,7 @@ interface FormData {
   allergies: string;
   technologies: string;
   youtubeURL: string;
+  fileName: string;
 }
 
 const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
@@ -41,6 +42,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
     allergies: "",
     technologies: "",
     youtubeURL: "",
+    fileName: "",
   });
 
   const handleChange = (
@@ -80,6 +82,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
       ...formData,
       tShirtId: parseInt(formData.tShirtId),
       technologies: values.map((value) => value.name).join(", "),
+      fileName: file?.name || "",
     });
     if (!file) return;
     uploadFile({ fileName: file.name })
@@ -118,6 +121,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
           allergies: res.allergies ?? "",
           technologies: res.technologies ?? "",
           youtubeURL: res.youtubeURL ?? "",
+          fileName: res.fileName ?? "",
         });
         if (res.allergies) setShowAllergiesInput(true);
       }

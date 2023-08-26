@@ -20,6 +20,7 @@ const S3 = new S3Client({
   },
 });
 
+("https://a2a02c88eab70d64e2e085ee097694a0.r2.cloudflarestorage.com");
 export const uploadFile = zact(fileSchema)(async (input) => {
   const preSignedUrl = await getSignedUrl(
     S3,
@@ -31,7 +32,12 @@ export const uploadFile = zact(fileSchema)(async (input) => {
       expiresIn: 3600,
     },
   );
+  console.log(preSignedUrl);
   return {
     url: preSignedUrl,
   };
+});
+
+export const getImageUrl = zact(fileSchema)(async (name) => {
+  const url = `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${env.S3_UPLOAD_BUCKET}/${name}`;
 });
