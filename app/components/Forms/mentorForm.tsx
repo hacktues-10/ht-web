@@ -4,33 +4,49 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Select from "react-dropdown-select";
 
+import {
+  checkifFileExists,
+  getMentor,
+  insertMentor,
+} from "~/app/mentors/actions";
+import { uploadFile } from "~/app/r2";
 import { convertToTechnology, technologies } from "~/app/technologies";
-import { getParticipant, insertParticipant } from "../user/configure/actions";
+
+interface MentorFormProps {
+  email: string | null | undefined;
+}
 
 interface FormData {
   firstName: string;
   lastName: string;
+  email: string;
+  companyName: string;
   phoneNumber: string;
-  grade: "8" | "9" | "10" | "11" | "12" | "";
-  parallel: "А" | "Б" | "В" | "Г" | "";
+  description: string;
   tShirtId: string;
   allergies: string;
   technologies: string;
+  youtubeURL: string;
+  fileName: string;
 }
 
-const Form: React.FC = () => {
+const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   const router = useRouter();
+  const [file, setFile] = useState<File | null>(null);
   const [showAllergiesInput, setShowAllergiesInput] = useState(false);
   const [values, setValues] = useState<any[]>([]);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
+    companyName: "",
+    email: email || "",
     phoneNumber: "",
-    grade: "",
-    parallel: "",
+    description: "",
     tShirtId: "",
     allergies: "",
     technologies: "",
+    youtubeURL: "",
+    fileName: "",
   });
 
   const handleChange = (
@@ -43,27 +59,14 @@ const Form: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!formData.grade || !formData.parallel || !formData.tShirtId) {
-      console.error("Please fill in all fields");
-      return;
-    }
-
-    const res = await insertParticipant({
-      ...formData,
-      grade: formData.grade,
-      parallel: formData.parallel,
-      tShirtId: parseInt(formData.tShirtId),
-      technologies: values.map((value) => value.name).join(", "),
-    });
-    console.log(res);
-    if (!res.success) {
-      console.error(res.message);
-    } else {
-      router.push("/");
-    }
+  const handleChangeTextArea = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
   };
 
   const handleAllergiesCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -76,36 +79,66 @@ const Form: React.FC = () => {
     }
   };
 
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!file) return;
+    const name = `${formData.firstName}_${formData.lastName}`;
+    const res = await insertMentor({
+      ...formData,
+      tShirtId: parseInt(formData.tShirtId),
+      technologies: values.map((value) => value.name).join(", "),
+      fileName: name,
+    });
+    uploadFile({ fileName: name })
+      .then((res) => {
+        const url = res.url;
+        return fetch(url, {
+          method: "PUT",
+          body: file,
+        });
+      })
+      .then((res) => {
+        console.log(res);
+      });
+    console.log(res);
+    if (res) {
+      router.push("/");
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getParticipant();
+      const res = await getMentor(email ? email : "");
       return res;
     };
     const setData = async () => {
       let res = await fetchData();
-      if (res && res[0]) {
+      if (res) {
         setFormData({
-          firstName: res[0].firstName ?? "",
-          lastName: res[0].lastName ?? "",
-          phoneNumber: res[0].phoneNumber ?? "",
-          grade: res[0].grade ?? "",
-          parallel: res[0].parallel ?? "",
-          tShirtId: res[0].tShirtId.toString() ?? 1,
-          allergies: res[0].allergies ?? "",
-          technologies: res[0].technologies ?? "",
+          firstName: res.firstName ?? "",
+          lastName: res.lastName ?? "",
+          companyName: res.companyName ?? "",
+          email: res.email ?? "",
+          phoneNumber: res.phoneNumber ?? "",
+          description: res.description ?? "",
+          tShirtId: res.tShirtId.toString() ?? "",
+          allergies: res.allergies ?? "",
+          technologies: res.technologies ?? "",
+          youtubeURL: res.youtubeURL ?? "",
+          fileName: res.fileName ?? "",
         });
-        if (res[0].allergies) setShowAllergiesInput(true);
+        if (res.allergies) setShowAllergiesInput(true);
       }
     };
     setData();
-  }, []);
+  }, [email]);
 
   useEffect(() => {
     if (formData.technologies) {
       const res = convertToTechnology(formData.technologies);
       setValues(res);
     }
-  }, [formData]);
+  }, [formData.technologies]);
 
   return (
     <form
@@ -139,33 +172,36 @@ const Form: React.FC = () => {
         className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
         required
       />
-      <select
-        name="grade"
-        value={formData.grade}
+      <input
+        type="text"
+        name="companyName"
+        placeholder="Company Name"
+        value={formData.companyName}
         onChange={handleChange}
         className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
         required
-      >
-        <option value="">Избери клас</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-      </select>
-      <select
-        name="parallel"
-        value={formData.parallel}
-        onChange={handleChange}
+      />
+      <label htmlFor="file-upload">File Upload</label>
+      <br />
+      <input
+        multiple={false}
+        id="file-upload"
+        type="file"
+        onChange={(e) => {
+          if (!e.target.files || e.target.files.length === 0) return;
+          setFile(e.target.files[0]);
+        }}
+        required
+      />
+      <textarea
+        name="description"
+        placeholder="Description"
+        value={formData.description}
+        onChange={handleChangeTextArea}
         className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
         required
-      >
-        <option value="">Избери паралелка</option>
-        <option value="А">А</option>
-        <option value="Б">Б</option>
-        <option value="В">В</option>
-        <option value="Г">Г</option>
-      </select>
+      />
+
       <select
         name="tShirtId"
         value={formData.tShirtId}
@@ -180,6 +216,14 @@ const Form: React.FC = () => {
         <option value="4">L</option>
         <option value="5">XL</option>
       </select>
+      <input
+        type="text"
+        name="youtubeURL"
+        placeholder="Youtube URL(optional)"
+        value={formData.youtubeURL}
+        onChange={handleChange}
+        className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
+      />
       <label className="mb-2 flex items-center">
         <input
           type="checkbox"
@@ -201,6 +245,7 @@ const Form: React.FC = () => {
           required
         />
       )}
+
       <Select
         options={technologies}
         labelField="name"
@@ -233,4 +278,4 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+export default MentorFrom;

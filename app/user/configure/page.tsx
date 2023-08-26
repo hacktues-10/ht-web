@@ -1,7 +1,7 @@
 import { getHTSession } from "~/app/api/auth/session";
 import { SignInButton, SignOutButton } from "~/app/components/buttons";
-import MentorFrom from "~/app/components/mentorForm";
-import Form from "../../components/Form";
+import MentorFrom from "~/app/components/Forms/mentorForm";
+import Form from "../../components/Forms/Form";
 import { mentorWhitelist } from "./actions";
 
 export default async function Home() {

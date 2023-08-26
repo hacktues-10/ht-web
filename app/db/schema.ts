@@ -77,7 +77,7 @@ export const mentors = pgTable("mentors", {
     .references(() => tShirts.id)
     .notNull(),
   allergies: varchar("allergies").default(""),
-  fileName: varchar("file_name").default(""),
+  fileName: varchar("file_name").default("").notNull(),
 });
 
 export const mentorsRelations = relations(mentors, ({ one }) => ({
