@@ -38,6 +38,7 @@ export const uploadFile = zact(fileSchema)(async (input) => {
   };
 });
 
-export const getImageUrl = zact(fileSchema)(async (name) => {
-  const url = `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${env.S3_UPLOAD_BUCKET}/${name}`;
+export const getImageUrl = zact(fileSchema)(async (input) => {
+  const url = `${env.R2_ACCESS_URL}/${input.fileName}`;
+  return url;
 });

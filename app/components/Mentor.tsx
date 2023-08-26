@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Image from "next/image";
 
+import { getImageUrl } from "../r2";
 import DisplayTechnologies from "./Technologies/displayTechnologies";
 
 interface MentorInterface {
@@ -14,6 +16,7 @@ interface MentorInterface {
     allergies: string | null;
     technologies: string | null;
     youtubeURL: string | null;
+    fileName: string | "";
   };
 }
 
@@ -42,12 +45,19 @@ const descriptionStyle = {
   marginTop: "10px",
 };
 
-export const Mentor: React.FC<MentorInterface> = ({ mentor }) => {
+export const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
+  const url = await getImageUrl({ fileName: mentor.fileName });
   return (
     <div style={mentorCardStyle}>
       <h2 style={nameStyle}>
         {mentor.firstName} {mentor.lastName}
       </h2>
+      <Image
+        src={url}
+        alt={mentor.firstName + " " + mentor.lastName}
+        width={200}
+        height={200}
+      />
       <p style={emailStyle}>{mentor.email}</p>
       <p style={companyStyle}>{mentor.companyName}</p>
       <p style={descriptionStyle}>{mentor.description}</p>
