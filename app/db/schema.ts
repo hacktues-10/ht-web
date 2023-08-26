@@ -22,6 +22,7 @@ export const tShirtSizeEnum = pgEnum("tshirt_size", [
   "XL",
 ]);
 
+// FIXME: typo in word "participants" :/
 export const particpants = pgTable("participants", {
   id: integer("id").primaryKey(),
   // email: varchar("email").notNull(),
@@ -87,10 +88,13 @@ export const mentorsRelations = relations(mentors, ({ one }) => ({
 }));
 
 export const teams = pgTable("teams", {
-  // TODO: members
   id: varchar("id").primaryKey(),
   name: varchar("name").notNull(),
   description: varchar("description").notNull(),
+  captainId: integer("captain_id")
+    .notNull()
+    .references(() => particpants.id),
+  // TODO: members
   mentorId: integer("mentor_id").references(() => mentors.id),
   // TODO: technologies
   projectId: integer("project_id").references(() => projects.id),
@@ -100,6 +104,10 @@ export const teamsRelations = relations(teams, ({ one }) => ({
   mentor: one(mentors, {
     fields: [teams.mentorId],
     references: [mentors.id],
+  }),
+  captain: one(particpants, {
+    fields: [teams.captainId],
+    references: [particpants.id],
   }),
   project: one(projects, {
     fields: [teams.projectId],

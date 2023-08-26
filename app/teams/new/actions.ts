@@ -3,6 +3,7 @@
 import { zact } from "zact/server";
 import { z } from "zod";
 
+import { getParticipantFromSession } from "~/app/participants/service";
 import { createTeam } from "../service";
 
 export const createTeamAction = zact(
@@ -11,11 +12,18 @@ export const createTeamAction = zact(
     description: z.string(),
   }),
 )(async (input) => {
-  const team = await createTeam(input);
-  if (!team) {
-    throw new Error("Failed to create team, it's null for some reason");
+  const participant = await getParticipantFromSession();
+  console.log({ participant });
+  if (!participant) {
+    throw new Error("Not logged in as a participant");
   }
-  return {
-    team,
-  };
+  if (participant.team) {
+    throw new Error("Already in a team");
+  }
+  const team = await createTeam({
+    name: input.name,
+    description: input.description,
+    captainId: participant.id,
+  });
+  return { team };
 });

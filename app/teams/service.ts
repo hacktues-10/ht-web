@@ -1,4 +1,5 @@
 import { eq, type InferInsertModel } from "drizzle-orm";
+import invariant from "tiny-invariant";
 
 import { db } from "../db";
 import { teams } from "../db/schema";
@@ -12,7 +13,11 @@ export async function getTeamById(id: string) {
   return results.at(0) ?? null;
 }
 
-export async function createTeam(team: { name: string; description: string }) {
+export async function createTeam(team: {
+  name: string;
+  description: string;
+  captainId: number;
+}) {
   const results = await db
     .insert(teams)
     .values({
@@ -20,5 +25,7 @@ export async function createTeam(team: { name: string; description: string }) {
       ...team,
     })
     .returning({ id: teams.id });
-  return results.at(0) ?? null;
+  const insertedTeam = results.at(0);
+  invariant(insertedTeam, "Failed to create team");
+  return insertedTeam;
 }
