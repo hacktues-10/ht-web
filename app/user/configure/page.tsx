@@ -35,7 +35,7 @@ export default async function Home() {
           </SignOutButton>
         </div>
         <div className="w-full">
-          <Form />
+          <Form email={session?.user?.email} />
         </div>
       </div>
     );
