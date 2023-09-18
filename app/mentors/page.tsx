@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { getHTSession } from "../api/auth/session";
 import Mentor from "../components/MentorCard/Mentor";
-import { getAllMentors } from "./actions";
+import { getAllMentors } from "./services";
 
 export default async function Home() {
   const mentors = await getAllMentors();

@@ -4,11 +4,11 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Select from "react-dropdown-select";
 
+import { insertMentor } from "~/app/mentors/actions";
 import {
-  checkifFileExists,
+  // checkifFileExists,
   getMentor,
-  insertMentor,
-} from "~/app/mentors/actions";
+} from "~/app/mentors/services";
 import { uploadFile } from "~/app/r2";
 import { convertToTechnology, technologies } from "~/app/technologies";
 
