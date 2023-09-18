@@ -31,8 +31,9 @@ export const particpants = pgTable("participants", {
   phoneNumber: varchar("phone_number"),
   grade: gradeEnum("grade"),
   parallel: classEnum("class"),
-  tShirtId: serial("tshirt_id").references(() => tShirts.id),
   allergies: varchar("allergies").default(""),
+  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
+  technologies: varchar("technologies").default(""),
   // emailVerified: date("emailVerified", { mode: "date" }),
 });
 
@@ -70,13 +71,13 @@ export const mentors = pgTable("mentors", {
   // TODO: availability
   description: varchar("description"),
   youtubeURL: varchar("youtube_url"),
-  position: varchar("position"),
-  // XXX: company??
-  // TODO: technologies
-  tShirtId: serial("tshirt_id")
+  companyName: varchar("company_name"),
+  technologies: varchar("technologies"),
+  tShirtId: serial("tshirt_id") // FIXME: shouldnt use serial
     .references(() => tShirts.id)
     .notNull(),
   allergies: varchar("allergies").default(""),
+  fileName: varchar("file_name").default("").notNull(),
 });
 
 export const mentorsRelations = relations(mentors, ({ one }) => ({
@@ -91,9 +92,9 @@ export const teams = pgTable("teams", {
   id: varchar("id").primaryKey(),
   name: varchar("name").notNull(),
   description: varchar("description").notNull(),
-  mentorId: serial("mentor_id").references(() => mentors.id),
+  mentorId: integer("mentor_id").references(() => mentors.id),
   // TODO: technologies
-  projectId: serial("project_id").references(() => projects.id),
+  projectId: integer("project_id").references(() => projects.id),
 });
 
 export const teamsRelations = relations(teams, ({ one }) => ({
