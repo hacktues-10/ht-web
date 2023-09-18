@@ -86,13 +86,13 @@ export const getAllMentors = async () => {
   return allMentors;
 };
 
-export const checkifFileExists = async (fileName: string) => {
-  const file = await db
-    .select()
-    .from(mentors)
-    .where(eq(mentors.fileName, fileName));
-  if (file.length > 0) {
-    return true;
-  }
-  return false;
-};
+// export const checkifFileExists = async (fileName: string) => {
+//   const file = await db
+//     .select()
+//     .from(mentors)
+//     .where(eq(mentors.fileName, fileName));
+//   if (file.length > 0) {
+//     return true;
+//   }
+//   return false;
+// };
