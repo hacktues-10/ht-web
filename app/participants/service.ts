@@ -26,6 +26,7 @@ export async function getParticipantByEmail(email: string) {
     .innerJoin(users, eq(particpants.userId, users.id))
     .where(eq(users.email, email))
     .leftJoin(teams, eq(particpants.teamId, teams.id));
+
   return results.at(0) ?? null;
 }
 

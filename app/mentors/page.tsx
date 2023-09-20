@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { getHTSession } from "../api/auth/session";
 import Mentor from "../components/MentorCard/Mentor";
 import { getAllMentors } from "./services";
