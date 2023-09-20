@@ -19,19 +19,13 @@ export async function getParticipantByEmail(email: string) {
       team: {
         id: teams.id,
         name: teams.name,
-        isCaptain: sql<boolean>`${particpants.captainOfTeamId} is not distinct from ${teams.id}`,
+        isCaptain: particpants.isCaptain,
       },
     })
     .from(particpants)
     .innerJoin(users, eq(particpants.userId, users.id))
     .where(eq(users.email, email))
-    .leftJoin(
-      teams,
-      or(
-        eq(particpants.captainOfTeamId, teams.id),
-        eq(particpants.memberOfTeamId, teams.id),
-      ),
-    );
+    .leftJoin(teams, eq(particpants.teamId, teams.id));
   return results.at(0) ?? null;
 }
 
