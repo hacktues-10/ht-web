@@ -1,10 +1,9 @@
 import { eq, type InferInsertModel } from "drizzle-orm";
 import invariant from "tiny-invariant";
+import { slugify } from "transliteration";
 
 import { db } from "../db";
 import { particpants, teams } from "../db/schema";
-import { slugify } from "transliteration";
-
 
 export async function getConfirmedTeams() {
   return db.select().from(teams);
