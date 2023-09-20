@@ -17,7 +17,7 @@ export const createTeamAction = zact(
   if (!participant) {
     throw new Error("Not logged in as a participant");
   }
-  if (participant.team) {
+  if (participant.team.id) {
     throw new Error("Already in a team");
   }
   const team = await createTeam({

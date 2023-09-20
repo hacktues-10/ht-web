@@ -49,8 +49,9 @@ const formData = z.object({
     "2021",
     "2022",
     "2023",
+    ""
   ]),
-  parallel: z.enum(["А", "Б", "В", "Г"]),
+  parallel: z.enum(["А", "Б", "В", "Г", ""]),
   tShirtId: z.number().int().min(1).max(5),
   allergies: z.string(),
   technologies: z.string(),

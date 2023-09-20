@@ -74,10 +74,8 @@ export const particpants = pgTable("participants", {
   tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
   technologies: varchar("technologies").default(""),
   // emailVerified: date("emailVerified", { mode: "date" }),
-      captainOfTeamId: varchar("captain_of_team_id")
-    .unique()
-    .references(() => teams.id),
-  memberOfTeamId: varchar("member_of_team_id").references(() => teams.id),
+  isCaptain : boolean("is_captain").default(false),
+  teamId: varchar("team_id").references(() => teams.id),
 });
 
 export const participantsRelations = relations(particpants, ({ one }) => ({
@@ -89,12 +87,8 @@ export const participantsRelations = relations(particpants, ({ one }) => ({
     fields: [particpants.tShirtId],
     references: [tShirts.id],
   }),
-  captainOfTeam: one(teams, {
-    fields: [particpants.captainOfTeamId],
-    references: [teams.id],
-  }),
   memberOfTeam: one(teams, {
-    fields: [particpants.memberOfTeamId],
+    fields: [particpants.teamId],
     references: [teams.id],
   }),
 }));

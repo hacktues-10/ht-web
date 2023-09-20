@@ -3,6 +3,8 @@ import invariant from "tiny-invariant";
 
 import { db } from "../db";
 import { particpants, teams } from "../db/schema";
+import { slugify } from "transliteration";
+
 
 export async function getConfirmedTeams() {
   return db.select().from(teams);
@@ -21,7 +23,7 @@ export async function createTeam(team: {
   const results = await db
     .insert(teams)
     .values({
-      id: `the-team-${Date.now()}`, // TODO: generate a real ID
+      id: slugify(team.name),
       ...team,
     })
     .returning({ id: teams.id });
@@ -30,8 +32,8 @@ export async function createTeam(team: {
   await db
     .update(particpants)
     .set({
-      captainOfTeamId: insertedTeam.id,
-      memberOfTeamId: null,
+      isCaptain: true,
+      teamId: insertedTeam.id,
     })
     .where(eq(particpants.userId, team.captainId));
   return insertedTeam;
