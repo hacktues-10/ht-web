@@ -70,7 +70,6 @@ export const particpants = pgTable("participants", {
   phoneNumber: varchar("phone_number"),
   grade: gradeEnum("grade"),
   parallel: classEnum("class"),
-  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial
   allergies: varchar("allergies").default(""),
   tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
   technologies: varchar("technologies").default(""),
