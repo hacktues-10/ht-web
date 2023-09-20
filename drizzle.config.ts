@@ -8,6 +8,6 @@ export default {
   schema: "./app/db/schema.ts",
   driver: "pg",
   dbCredentials: {
-    connectionString: env.POSTGRES_URL as string,
+    connectionString: env.POSTGRES_URL,
   },
 } satisfies Config;

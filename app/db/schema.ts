@@ -60,10 +60,11 @@ export const tShirtSizeEnum = pgEnum("tshirt_size", [
   "XL",
 ]);
 
+// FIXME: typo in word "participants" :/
 export const particpants = pgTable("participants", {
   id: integer("id").primaryKey(),
-  // email: varchar("email").notNull(),
   userId: integer("user_id").references(() => users.id),
+
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
   phoneNumber: varchar("phone_number"),
@@ -73,6 +74,10 @@ export const particpants = pgTable("participants", {
   tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
   technologies: varchar("technologies").default(""),
   // emailVerified: date("emailVerified", { mode: "date" }),
+      captainOfTeamId: varchar("captain_of_team_id")
+    .unique()
+    .references(() => teams.id),
+  memberOfTeamId: varchar("member_of_team_id").references(() => teams.id),
 });
 
 export const participantsRelations = relations(particpants, ({ one }) => ({
@@ -83,6 +88,14 @@ export const participantsRelations = relations(particpants, ({ one }) => ({
   tShirt: one(tShirts, {
     fields: [particpants.tShirtId],
     references: [tShirts.id],
+  }),
+  captainOfTeam: one(teams, {
+    fields: [particpants.captainOfTeamId],
+    references: [teams.id],
+  }),
+  memberOfTeam: one(teams, {
+    fields: [particpants.memberOfTeamId],
+    references: [teams.id],
   }),
 }));
 
@@ -126,7 +139,6 @@ export const mentorsRelations = relations(mentors, ({ one }) => ({
 }));
 
 export const teams = pgTable("teams", {
-  // TODO: members
   id: varchar("id").primaryKey(),
   name: varchar("name").notNull(),
   description: varchar("description").notNull(),
@@ -196,4 +208,5 @@ export const verificationTokens = pgTable("verification_tokens", {
   expires: date("expires", { mode: "date" }).notNull(),
 });
 
+// TODO: maybe move to index.ts???
 export type DrizzleClient = typeof db;
