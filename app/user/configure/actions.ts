@@ -12,10 +12,48 @@ const formData = z.object({
   firstName: z.string(),
   lastName: z.string(),
   phoneNumber: z.string(),
-  grade: z.enum(["8", "9", "10", "11", "12"]),
+  grade: z.enum([
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "1993",
+    "1994",
+    "1995",
+    "1996",
+    "1997",
+    "1998",
+    "1999",
+    "2000",
+    "2001",
+    "2002",
+    "2003",
+    "2004",
+    "2005",
+    "2006",
+    "2007",
+    "2008",
+    "2009",
+    "2010",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+  ]),
   parallel: z.enum(["А", "Б", "В", "Г"]),
   tShirtId: z.number().int().min(1).max(5),
   allergies: z.string(),
+  technologies: z.string(),
 });
 
 export const insertParticipant = zact(formData)(async (formData) => {
@@ -37,6 +75,7 @@ export const insertParticipant = zact(formData)(async (formData) => {
           parallel: formData.parallel,
           tShirtId: formData.tShirtId,
           allergies: formData.allergies,
+          technologies: formData.technologies,
         };
         console.log("Participant data:", participantData);
         const participant = await getParticipant();
@@ -131,6 +170,7 @@ export const updateParticipant = zact(formData)(async (formData) => {
           parallel: formData.parallel,
           tShirtId: formData.tShirtId,
           allergies: formData.allergies,
+          technologies: formData.technologies,
         };
 
         if ((await checkPhoneNumber(participantData.phoneNumber)) <= 1) {
@@ -176,5 +216,26 @@ const checkPhoneNumber = async (phoneNumber: string) => {
     console.error("Phone number is missing.");
     console.log("Phone number is missing");
     return 2;
+  }
+};
+
+const whitelist = ["abv@trading.212"];
+
+//check if email is in whitelist json format
+export const mentorWhitelist = async (email: string | null | undefined) => {
+  if (email) {
+    try {
+      if (whitelist.includes(email)) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error checking whitelist:", error);
+      return false;
+    }
+  } else {
+    console.error("Email is missing.");
+    return false;
   }
 };

@@ -7,6 +7,7 @@ import { createTransport } from "nodemailer";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
+import { mentorWhitelist } from "~/app/user/configure/actions";
 
 export const authOptions = {
   providers: [
@@ -15,7 +16,11 @@ export const authOptions = {
       sendVerificationRequest: async ({ identifier, url, provider, theme }) => {
         const { host } = new URL(url);
         const transport = createTransport(provider.server);
-        if (identifier.endsWith("@elsys-bg.org")) {
+        console.log(await mentorWhitelist(identifier));
+        if (
+          identifier.endsWith("@elsys-bg.org") ||
+          (await mentorWhitelist(identifier))
+        ) {
           const result = await transport.sendMail({
             to: identifier,
             from: provider.from,
@@ -40,7 +45,10 @@ export const authOptions = {
       if (account?.provider !== "email") {
         return false;
       }
-      if (user.email?.endsWith("@elsys-bg.org")) {
+      if (
+        user.email?.endsWith("@elsys-bg.org") ||
+        (await mentorWhitelist(user.email))
+      ) {
         return true;
       }
       return false;

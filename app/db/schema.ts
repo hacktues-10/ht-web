@@ -13,7 +13,45 @@ import {
 import { db } from ".";
 
 export const classEnum = pgEnum("class", ["А", "Б", "В", "Г", ""]);
-export const gradeEnum = pgEnum("grade", ["8", "9", "10", "11", "12", ""]);
+export const gradeEnum = pgEnum("grade", [
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+  "1993",
+  "1994",
+  "1995",
+  "1996",
+  "1997",
+  "1998",
+  "1999",
+  "2000",
+  "2001",
+  "2002",
+  "2003",
+  "2004",
+  "2005",
+  "2006",
+  "2007",
+  "2008",
+  "2009",
+  "2010",
+  "2011",
+  "2012",
+  "2013",
+  "2014",
+  "2015",
+  "2016",
+  "2017",
+  "2018",
+  "2019",
+  "2020",
+  "2021",
+  "2022",
+  "2023",
+  "",
+]);
 export const tShirtSizeEnum = pgEnum("tshirt_size", [
   "XS",
   "S",
@@ -34,8 +72,10 @@ export const particpants = pgTable("participants", {
   parallel: classEnum("class"),
   tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial
   allergies: varchar("allergies").default(""),
-
-  captainOfTeamId: varchar("captain_of_team_id")
+  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
+  technologies: varchar("technologies").default(""),
+  // emailVerified: date("emailVerified", { mode: "date" }),
+      captainOfTeamId: varchar("captain_of_team_id")
     .unique()
     .references(() => teams.id),
   memberOfTeamId: varchar("member_of_team_id").references(() => teams.id),
@@ -83,13 +123,13 @@ export const mentors = pgTable("mentors", {
   // TODO: availability
   description: varchar("description"),
   youtubeURL: varchar("youtube_url"),
-  position: varchar("position"),
-  // XXX: company??
-  // TODO: technologies
+  companyName: varchar("company_name"),
+  technologies: varchar("technologies"),
   tShirtId: serial("tshirt_id") // FIXME: shouldnt use serial
     .references(() => tShirts.id)
     .notNull(),
   allergies: varchar("allergies").default(""),
+  fileName: varchar("file_name").default("").notNull(),
 });
 
 export const mentorsRelations = relations(mentors, ({ one }) => ({

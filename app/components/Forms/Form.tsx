@@ -2,22 +2,71 @@
 
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import Select from "react-dropdown-select";
 
-import { getParticipant, insertParticipant } from "./actions";
+import { convertToTechnology, technologies } from "~/app/technologies";
+import {
+  getParticipant,
+  insertParticipant,
+} from "../../user/configure/actions";
+import { convertStringToGrade, parseElsysEmail } from "./isAlumni";
 
-interface FormData {
+interface FromProps {
+  email: string | null | undefined;
+}
+
+export interface FormData {
   firstName: string;
   lastName: string;
   phoneNumber: string;
-  grade: "8" | "9" | "10" | "11" | "12" | "";
+  grade:
+    | "8"
+    | "9"
+    | "10"
+    | "11"
+    | "12"
+    | "1993"
+    | "1994"
+    | "1995"
+    | "1996"
+    | "1997"
+    | "1998"
+    | "1999"
+    | "2000"
+    | "2001"
+    | "2002"
+    | "2003"
+    | "2004"
+    | "2005"
+    | "2006"
+    | "2007"
+    | "2008"
+    | "2009"
+    | "2010"
+    | "2011"
+    | "2012"
+    | "2013"
+    | "2014"
+    | "2015"
+    | "2016"
+    | "2017"
+    | "2018"
+    | "2019"
+    | "2020"
+    | "2021"
+    | "2022"
+    | "2023"
+    | "";
   parallel: "А" | "Б" | "В" | "Г" | "";
   tShirtId: string;
   allergies: string;
+  technologies: string;
 }
 
-const Form: React.FC = () => {
+const Form: React.FC<FromProps> = ({ email }) => {
   const router = useRouter();
+  const [showAllergiesInput, setShowAllergiesInput] = useState(false);
+  const [values, setValues] = useState<any[]>([]);
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -26,9 +75,8 @@ const Form: React.FC = () => {
     parallel: "",
     tShirtId: "",
     allergies: "",
+    technologies: "",
   });
-
-  const [showAllergiesInput, setShowAllergiesInput] = useState(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -47,11 +95,13 @@ const Form: React.FC = () => {
       console.error("Please fill in all fields");
       return;
     }
+
     const res = await insertParticipant({
       ...formData,
       grade: formData.grade,
       parallel: formData.parallel,
       tShirtId: parseInt(formData.tShirtId),
+      technologies: values.map((value) => value.name).join(", "),
     });
     console.log(res);
     if (!res.success) {
@@ -87,12 +137,34 @@ const Form: React.FC = () => {
           parallel: res[0].parallel ?? "",
           tShirtId: res[0].tShirtId.toString() ?? 1,
           allergies: res[0].allergies ?? "",
+          technologies: res[0].technologies ?? "",
         });
+
         if (res[0].allergies) setShowAllergiesInput(true);
       }
     };
     setData();
   }, []);
+
+  useEffect(() => {
+    const getElsysEmail = async () => {
+      if (email) {
+        const a = parseElsysEmail(email);
+        if (a) {
+          const converted = convertStringToGrade(a?.grade);
+          setFormData((prevData) => ({ ...prevData, grade: converted }));
+        }
+      }
+    };
+    getElsysEmail();
+  }, [email]);
+
+  useEffect(() => {
+    if (formData.technologies) {
+      const res = convertToTechnology(formData.technologies);
+      setValues(res);
+    }
+  }, [formData]);
 
   return (
     <form
@@ -126,33 +198,47 @@ const Form: React.FC = () => {
         className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
         required
       />
-      <select
-        name="grade"
-        value={formData.grade}
-        onChange={handleChange}
-        className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
-        required
-      >
-        <option value="">Избери клас</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="11">11</option>
-        <option value="12">12</option>
-      </select>
-      <select
-        name="parallel"
-        value={formData.parallel}
-        onChange={handleChange}
-        className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
-        required
-      >
-        <option value="">Избери паралелка</option>
-        <option value="А">А</option>
-        <option value="Б">Б</option>
-        <option value="В">В</option>
-        <option value="Г">Г</option>
-      </select>
+      {parseInt(formData.grade) > 12 ? (
+        <select
+          name="vipusk"
+          value={formData.grade}
+          onChange={handleChange}
+          className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
+          required
+          disabled
+        >
+          <option value="">Избери випуск</option>
+          <option value={formData.grade}>{formData.grade}</option>
+        </select>
+      ) : (
+        <>
+          <select
+            name="grade"
+            value={formData.grade}
+            onChange={handleChange}
+            className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
+            required
+            disabled
+          >
+            <option value="">Избери клас</option>
+            <option value={formData.grade}>{formData.grade}</option>
+          </select>
+          <select
+            name="parallel"
+            value={formData.parallel}
+            onChange={handleChange}
+            className="mb-2 w-full rounded border border-gray-300 p-2 focus:ring focus:ring-blue-200"
+            required
+          >
+            <option value="">Избери паралелка</option>
+            <option value="А">А</option>
+            <option value="Б">Б</option>
+            <option value="В">В</option>
+            <option value="Г">Г</option>
+          </select>
+        </>
+      )}
+
       <select
         name="tShirtId"
         value={formData.tShirtId}
@@ -188,6 +274,28 @@ const Form: React.FC = () => {
           required
         />
       )}
+      <Select
+        options={technologies}
+        labelField="name"
+        valueField="id"
+        onChange={(values) => setValues(values)}
+        values={values}
+        searchBy="name"
+        multi={true}
+        dropdownHandle={false}
+        debounceDelay={300}
+        keepSelectedInList={true}
+        searchable={true}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          borderRadius: "6px",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.2)",
+          padding: ".5rem",
+          height: "198px",
+        }}
+      />
+
       <button
         type="submit"
         className="w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
