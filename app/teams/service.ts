@@ -1,4 +1,4 @@
-import { eq, type InferInsertModel } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
@@ -19,6 +19,7 @@ export async function createTeam(team: {
   description: string;
   captainId: number;
 }) {
+  // TODO: verify if name is ok
   const results = await db
     .insert(teams)
     .values({
