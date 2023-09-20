@@ -74,7 +74,7 @@ export const particpants = pgTable("participants", {
   tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
   technologies: varchar("technologies").default(""),
   // emailVerified: date("emailVerified", { mode: "date" }),
-  isCaptain : boolean("is_captain").default(false),
+  isCaptain: boolean("is_captain").notNull().default(false),
   teamId: varchar("team_id").references(() => teams.id),
 });
 
