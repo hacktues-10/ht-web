@@ -2,19 +2,17 @@
 
 import { useRouter } from "next/navigation";
 
-import { deleteTeamById } from "../teams/actions";
+import { deleteMyTeam } from "../teams/actions";
 
 export default function DeleteTeamButton({ id }: { id: string }) {
   const router = useRouter();
 
   async function deleteTeam() {
     console.log(`deleteTeam called ${id}`);
-    const res = await deleteTeamById(id);
-    console.log(res);
-    console.log(res.success);
-    if (res.success) {
+    const res = await deleteMyTeam();
+    if (res?.success) {
       router.push("/teams");
-    } else if (res.success === false) {
+    } else if (res?.success === false) {
       console.error(res.message);
     }
   }
