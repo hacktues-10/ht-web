@@ -20,7 +20,6 @@ const S3 = new S3Client({
   },
 });
 
-`https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`;
 export const uploadFile = zact(fileSchema)(async (input) => {
   const preSignedUrl = await getSignedUrl(
     S3,
