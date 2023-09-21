@@ -4,11 +4,11 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Select from "react-dropdown-select";
 
-import { insertMentor } from "~/app/mentors/actions";
 import {
   // checkifFileExists,
   getMentor,
-} from "~/app/mentors/services";
+  insertMentor,
+} from "~/app/mentors/actions";
 import { uploadFile } from "~/app/r2";
 import { convertToTechnology, technologies } from "~/app/technologies";
 
@@ -108,7 +108,10 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getMentor(email ? email : "");
+      if (!email) return null;
+      const res = await getMentor({
+        email,
+      });
       return res;
     };
     const setData = async () => {
