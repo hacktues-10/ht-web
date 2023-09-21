@@ -142,7 +142,7 @@ export const teams = pgTable("teams", {
   projectId: integer("project_id").references(() => projects.id),
 });
 
-export const teamsRelations = relations(teams, ({ one }) => ({
+export const teamsRelations = relations(teams, ({ one, many }) => ({
   mentor: one(mentors, {
     fields: [teams.mentorId],
     references: [mentors.id],
@@ -150,6 +150,31 @@ export const teamsRelations = relations(teams, ({ one }) => ({
   project: one(projects, {
     fields: [teams.projectId],
     references: [projects.id],
+  }),
+  invitations: many(invitations),
+}));
+
+export const invitations = pgTable("invitations", {
+  id: serial("id").primaryKey(),
+  createdAt: timestamp("created_at").defaultNow().notNull(), // Q: needed?
+  teamId: varchar("team_id")
+    .notNull()
+    .references(() => teams.id),
+  // email: varchar("email").notNull(), // Q: maybe??
+  participantId: integer("participant_id")
+    .notNull()
+    .references(() => particpants.id),
+  isAccepted: boolean("is_accepted").notNull().default(false),
+});
+
+export const invitationsRelations = relations(invitations, ({ one }) => ({
+  team: one(teams, {
+    fields: [invitations.teamId],
+    references: [teams.id],
+  }),
+  participant: one(particpants, {
+    fields: [invitations.participantId],
+    references: [particpants.id],
   }),
 }));
 
