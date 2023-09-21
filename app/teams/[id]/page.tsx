@@ -12,11 +12,11 @@ export default async function TeamDetailPage({
   params: { id: string };
 }) {
   const res = await getParticipantFromSession();
-
   const team = await getTeamById(id);
   if (!team) {
     notFound();
   }
+
   return (
     <div className="text-center">
       <Link
@@ -30,7 +30,7 @@ export default async function TeamDetailPage({
       {res?.team.isCaptain && res?.team.id == team.id && (
         <DeleteTeamButton id={team.id} />
       )}
-      {!res?.team.id && <AskToJoinButton />}
+      {!res?.team.id && <AskToJoinButton teamid={team.id} />}
     </div>
   );
 }

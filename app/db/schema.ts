@@ -60,6 +60,11 @@ export const tShirtSizeEnum = pgEnum("tshirt_size", [
   "XL",
 ]);
 
+export const notificationsTypes = pgEnum("notifications_types", [
+  "invitation",
+  "ask_join",
+]);
+
 // FIXME: typo in word "participants" :/
 export const particpants = pgTable("participants", {
   id: integer("id").primaryKey(),
@@ -202,6 +207,27 @@ export const verificationTokens = pgTable("verification_tokens", {
   token: varchar("token").notNull(),
   expires: date("expires", { mode: "date" }).notNull(),
 });
+
+export const notifications = pgTable("notifications", {
+  id: serial("id").primaryKey(),
+  referenceId: integer("reference_id").notNull(),
+  type: notificationsTypes("type").notNull(),
+});
+
+export const askJoin = pgTable("ask_join_notifications", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  teamId: varchar("team_id")
+    .notNull()
+    .references(() => teams.id),
+});
+
+export const askJoinRelations = relations(askJoin, ({ one }) => ({
+  team: one(teams, {
+    fields: [askJoin.teamId],
+    references: [teams.id],
+  }),
+}));
 
 // TODO: maybe move to index.ts???
 export type DrizzleClient = typeof db;

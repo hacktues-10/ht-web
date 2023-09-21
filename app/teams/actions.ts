@@ -2,7 +2,7 @@
 
 import { eq } from "drizzle-orm";
 
-import { particpants, teams } from "~/app/db/schema";
+import { askJoin, notifications, particpants, teams } from "~/app/db/schema";
 import { db } from "../db";
 import { getParticipantFromSession } from "../participants/service";
 
@@ -24,5 +24,34 @@ export async function deleteMyTeam() {
   } catch (e) {
     console.log(e);
     return { success: false, message: e };
+  }
+}
+
+export async function askToJoinHandler(teamIdToJoin: string) {
+  console.log("IN FUNC");
+  const participant = await getParticipantFromSession();
+  console.log(participant?.id);
+  console.log(teamIdToJoin);
+  try {
+    if (participant?.id) {
+      const res = await db
+        .insert(askJoin)
+        .values({
+          userId: participant?.id,
+          teamId: teamIdToJoin,
+        })
+        .returning();
+
+      console.log(res[0]);
+
+      await db.insert(notifications).values({
+        referenceId: res[0].id,
+        type: "ask_join",
+      });
+      return { success: true };
+    }
+  } catch (e) {
+    console.log(e);
+    return { success: false };
   }
 }
