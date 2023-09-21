@@ -1,6 +1,6 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import { askJoin, notifications, particpants, teams } from "~/app/db/schema";
 import { db } from "../db";
@@ -45,6 +45,7 @@ export async function askToJoinHandler(teamIdToJoin: string) {
       console.log(res[0]);
 
       await db.insert(notifications).values({
+        targetUserId: participant?.id,
         referenceId: res[0].id,
         type: "ask_join",
       });
@@ -53,5 +54,29 @@ export async function askToJoinHandler(teamIdToJoin: string) {
   } catch (e) {
     console.log(e);
     return { success: false };
+  }
+}
+
+export async function checkStateJoinRequests(targetTeamId: string) {
+  const participant = await getParticipantFromSession();
+  console.log(participant?.id);
+  try {
+    if (participant?.id != null) {
+      const res = await db
+        .select()
+        .from(askJoin)
+        .where(
+          and(
+            eq(askJoin.userId, participant?.id),
+            eq(askJoin.teamId, targetTeamId),
+          ),
+        );
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    console.log(e);
+    return false;
   }
 }

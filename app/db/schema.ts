@@ -210,9 +210,19 @@ export const verificationTokens = pgTable("verification_tokens", {
 
 export const notifications = pgTable("notifications", {
   id: serial("id").primaryKey(),
+  targetUserId: integer("targetUserId")
+    .notNull()
+    .references(() => particpants.id),
   referenceId: integer("reference_id").notNull(),
   type: notificationsTypes("type").notNull(),
 });
+
+export const notificationsRelations = relations(notifications, ({ one }) => ({
+  targetUser: one(particpants, {
+    fields: [notifications.targetUserId],
+    references: [particpants.id],
+  }),
+}));
 
 export const askJoin = pgTable("ask_join_notifications", {
   id: serial("id").primaryKey(),
