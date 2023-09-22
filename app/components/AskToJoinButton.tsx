@@ -18,7 +18,6 @@ export default function AskToJoinButton({ teamid }: { teamid: string }) {
 
   async function handleAskToJoin() {
     const res = await askToJoinHandler(teamid);
-    console.log(res);
     if (res?.success) {
       console.log("Request to join team sent successfully :)");
       setState(true);
