@@ -1,6 +1,7 @@
 import { getNotificationDetails } from "~/app/notifications/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getParticipantById } from "~/app/user/configure/actions";
+import NotificationActionButtons from "./NotificationActionButtons";
 
 // Rename the interface to avoid naming conflict
 interface NotificationData {
@@ -16,6 +17,7 @@ export default async function Notification({
   notification: NotificationData;
 }) {
   const res = await getNotificationDetails(notification);
+  console.log(res);
   const user = await getParticipantFromSession();
   const fromUser = await getParticipantById(res?.userId);
 
@@ -39,18 +41,7 @@ export default async function Notification({
           <p>Технологии: {fromUser?.technologies}</p>
         </div>
         <div>
-          <button
-            className="m-1 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-            // onClick={() => console.log("Request accepted")}
-          >
-            Accept
-          </button>
-          <button
-            className="m-1 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-            // onClick={() => console.log("Request declined")}
-          >
-            Decline
-          </button>
+          <NotificationActionButtons notificationDetails={res} />
         </div>
       </div>
     );
