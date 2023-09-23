@@ -6,7 +6,6 @@ export default async function NotificationsLoader() {
 
   return (
     <div>
-      <div></div>
       <h1>Notifications</h1>
       {notifications?.map((notification) => {
         return (
