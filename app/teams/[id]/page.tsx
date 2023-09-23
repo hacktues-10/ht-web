@@ -17,6 +17,12 @@ export default async function TeamDetailPage({
     notFound();
   }
 
+  if (!res?.team.id) {
+    console.log(true);
+  } else {
+    console.log(false);
+  }
+
   return (
     <div className="text-center">
       <Link

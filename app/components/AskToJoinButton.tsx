@@ -6,7 +6,7 @@ import { checkStateJoinRequests } from "~/app/teams/actions";
 import { askToJoinHandler } from "../teams/actions";
 
 export default function AskToJoinButton({ teamid }: { teamid: string }) {
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(true);
 
   useEffect(() => {
     const func = async () => {

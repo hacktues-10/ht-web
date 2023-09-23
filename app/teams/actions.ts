@@ -11,10 +11,13 @@ export async function deleteMyTeam() {
 
   try {
     if (participant?.team.id) {
+      await db.delete(askJoin).where(eq(askJoin.teamId, participant.team.id));
+      // await db.delete(notifications).where(eq(notifications.));
       await db
         .update(particpants)
         .set({ teamId: null, isCaptain: false })
         .where(eq(particpants.teamId, participant.team.id));
+
       await db
         .delete(teams)
         .where(eq(teams.id, participant?.team.id))
@@ -44,8 +47,20 @@ export async function askToJoinHandler(teamIdToJoin: string) {
 
       console.log(res[0]);
 
+      const captain = await db
+        .select()
+        .from(particpants)
+        .where(
+          and(
+            eq(particpants.isCaptain, true),
+            eq(particpants.teamId, teamIdToJoin),
+          ),
+        );
+
+      console.log(captain);
+
       await db.insert(notifications).values({
-        targetUserId: participant?.id,
+        targetUserId: captain[0].id,
         referenceId: res[0].id,
         type: "ask_join",
       });
@@ -71,10 +86,13 @@ export async function checkStateJoinRequests(targetTeamId: string) {
             eq(askJoin.teamId, targetTeamId),
           ),
         );
-      return true;
-    } else {
-      return false;
+      if (res.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    return false;
   } catch (e) {
     console.log(e);
     return false;
