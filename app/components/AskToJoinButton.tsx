@@ -27,9 +27,9 @@ export default function AskToJoinButton({ teamid }: { teamid: string }) {
   return (
     <div>
       {state === true ? (
-        <button className="btn btn-danger">
+        <div className="btn btn-danger">
           <h1>Already requested to join</h1>
-        </button>
+        </div>
       ) : (
         <button className="btn btn-danger" onClick={() => handleAskToJoin()}>
           <h1>Ask to Join</h1>

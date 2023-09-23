@@ -1,6 +1,6 @@
 "use client";
 
-import { handleAcceptedJoinRequest } from "./actions";
+import { handleAcceptedJoinRequest, handleDeclineJoinReqest } from "./actions";
 
 interface DetailedNotification {
   teamName: string | undefined;
@@ -22,6 +22,15 @@ export default function NotificationActionButtons({
       }
     }
   };
+
+  const handleReqDec = async () => {
+    if (notificationDetails) {
+      const res = await handleDeclineJoinReqest(notificationDetails);
+      if (res.success) {
+        window.location.reload();
+      }
+    }
+  };
   return (
     <div>
       <button
@@ -32,7 +41,7 @@ export default function NotificationActionButtons({
       </button>
       <button
         className="m-1 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-        onClick={() => console.log("Request declined")}
+        onClick={() => handleReqDec()}
       >
         Decline
       </button>
