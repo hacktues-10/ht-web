@@ -16,7 +16,6 @@ export const authOptions = {
       sendVerificationRequest: async ({ identifier, url, provider, theme }) => {
         const { host } = new URL(url);
         const transport = createTransport(provider.server);
-        console.log(await mentorWhitelist(identifier));
         if (
           identifier.endsWith("@elsys-bg.org") ||
           (await mentorWhitelist(identifier))

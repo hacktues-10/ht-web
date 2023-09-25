@@ -6,7 +6,6 @@ import { mentorWhitelist } from "./actions";
 
 export default async function Home() {
   const session = await getHTSession();
-
   if ((await mentorWhitelist(session?.user?.email)) && session) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">

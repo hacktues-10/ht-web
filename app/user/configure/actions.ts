@@ -49,7 +49,7 @@ const formData = z.object({
     "2021",
     "2022",
     "2023",
-    ""
+    "",
   ]),
   parallel: z.enum(["А", "Б", "В", "Г", ""]),
   tShirtId: z.number().int().min(1).max(5),
@@ -149,6 +149,21 @@ export async function getParticipant() {
     }
   } else {
     console.error("Session user email is missing.");
+  }
+}
+
+export async function getParticipantById(userId: number | undefined) {
+  if (!userId) {
+    return null;
+  }
+  try {
+    const participant = await db
+      .select()
+      .from(particpants)
+      .where(eq(particpants.id, userId));
+    return participant[0];
+  } catch (error) {
+    console.error("Error while trying to get participant by id:", error);
   }
 }
 
