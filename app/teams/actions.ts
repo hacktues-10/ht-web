@@ -2,7 +2,12 @@
 
 import { and, eq } from "drizzle-orm";
 
-import { askJoin, notifications, particpants, teams } from "~/app/db/schema";
+import {
+  joinRequests,
+  notifications,
+  particpants,
+  teams,
+} from "~/app/db/schema";
 import { db } from "../db";
 import { getParticipantFromSession } from "../participants/service";
 
@@ -11,7 +16,9 @@ export async function deleteMyTeam() {
 
   try {
     if (participant?.team.id) {
-      await db.delete(askJoin).where(eq(askJoin.teamId, participant.team.id));
+      await db
+        .delete(joinRequests)
+        .where(eq(joinRequests.teamId, participant.team.id));
       // await db.delete(notifications).where(eq(notifications.));
       await db
         .update(particpants)
@@ -31,16 +38,17 @@ export async function deleteMyTeam() {
 }
 
 export async function askToJoinHandler(teamIdToJoin: string) {
-  console.log("IN FUNC");
   const participant = await getParticipantFromSession();
-  console.log(participant?.id);
-  console.log(teamIdToJoin);
+  if (!participant) {
+    return { success: false };
+  }
+
   try {
-    if (participant?.id) {
+    if (participant.id) {
       const res = await db
-        .insert(askJoin)
+        .insert(joinRequests)
         .values({
-          userId: participant?.id,
+          userId: participant.id,
           teamId: teamIdToJoin,
         })
         .returning();
@@ -56,8 +64,6 @@ export async function askToJoinHandler(teamIdToJoin: string) {
             eq(particpants.teamId, teamIdToJoin),
           ),
         );
-
-      console.log(captain);
 
       await db.insert(notifications).values({
         targetUserId: captain[0].id,
@@ -79,11 +85,11 @@ export async function checkStateJoinRequests(targetTeamId: string) {
     if (participant?.id != null) {
       const res = await db
         .select()
-        .from(askJoin)
+        .from(joinRequests)
         .where(
           and(
-            eq(askJoin.userId, participant?.id),
-            eq(askJoin.teamId, targetTeamId),
+            eq(joinRequests.userId, participant?.id),
+            eq(joinRequests.teamId, targetTeamId),
           ),
         );
       if (res.length > 0) {

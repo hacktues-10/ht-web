@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "../db";
-import { askJoin, notifications } from "../db/schema";
+import { joinRequests, notifications } from "../db/schema";
 import { getParticipantFromSession } from "../participants/service";
 import { getTeamById } from "../teams/service";
 
@@ -26,8 +26,8 @@ export const getNotificationDetails = async (notification: {
   if (notification.type === "ask_join") {
     const res = await db
       .select()
-      .from(askJoin)
-      .where(eq(askJoin.id, notification.referenceId));
+      .from(joinRequests)
+      .where(eq(joinRequests.id, notification.referenceId));
 
     const team = await getTeamById(res[0].teamId);
 
@@ -37,3 +37,5 @@ export const getNotificationDetails = async (notification: {
     };
   }
 };
+
+export const handleAcceptedJoinRequest = () => {};

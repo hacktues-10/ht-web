@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { getParticipantFromSession } from "~/app/participants/service";
+import { checkStateJoinRequests } from "~/app/teams/actions";
 import { getTeamById } from "../service";
 
 export default async function TeamDetailPage({
@@ -16,6 +17,7 @@ export default async function TeamDetailPage({
   if (!team) {
     notFound();
   }
+  const hasAskedToJoinState = await checkStateJoinRequests(team.id);
 
   if (!res?.team.id) {
     console.log(true);
@@ -36,7 +38,12 @@ export default async function TeamDetailPage({
       {res?.team.isCaptain && res?.team.id == team.id && (
         <DeleteTeamButton id={team.id} />
       )}
-      {!res?.team.id && <AskToJoinButton teamid={team.id} />}
+      {!res?.team.id && (
+        <AskToJoinButton
+          teamid={team.id}
+          hasAskedToJoinState={hasAskedToJoinState}
+        />
+      )}
     </div>
   );
 }

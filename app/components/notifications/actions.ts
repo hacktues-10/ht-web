@@ -3,7 +3,7 @@
 import { eq } from "drizzle-orm";
 
 import { db } from "~/app/db";
-import { askJoin, notifications, particpants } from "~/app/db/schema";
+import { joinRequests, notifications, particpants } from "~/app/db/schema";
 
 interface DetailedNotification {
   teamName: string | undefined;
@@ -12,7 +12,7 @@ interface DetailedNotification {
   teamId: string;
 }
 
-export const handleAcceptedJoinRequest = async (
+export const acceptedJoinRequest = async (
   detailedNotific: DetailedNotification | undefined,
 ) => {
   console.log(detailedNotific);
@@ -28,7 +28,9 @@ export const handleAcceptedJoinRequest = async (
         .delete(notifications)
         .where(eq(notifications.referenceId, detailedNotific?.id));
 
-      await db.delete(askJoin).where(eq(askJoin.id, detailedNotific.id));
+      await db
+        .delete(joinRequests)
+        .where(eq(joinRequests.id, detailedNotific.id));
       return { success: true };
     } catch (err) {
       console.log(err);
@@ -38,7 +40,7 @@ export const handleAcceptedJoinRequest = async (
   return { success: false };
 };
 
-export const handleDeclineJoinReqest = async (
+export const declineJoinRequest = async (
   detailedNotific: DetailedNotification | undefined,
 ) => {
   console.log(detailedNotific);
@@ -48,7 +50,9 @@ export const handleDeclineJoinReqest = async (
         .delete(notifications)
         .where(eq(notifications.referenceId, detailedNotific?.id));
 
-      await db.delete(askJoin).where(eq(askJoin.id, detailedNotific.id));
+      await db
+        .delete(joinRequests)
+        .where(eq(joinRequests.id, detailedNotific.id));
       return { success: true };
     } catch (err) {
       console.log(err);

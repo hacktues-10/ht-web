@@ -1,15 +1,11 @@
+import { notifications } from "~/app/db/schema";
 import { getNotificationDetails } from "~/app/notifications/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getParticipantById } from "~/app/user/configure/actions";
 import NotificationActionButtons from "./NotificationActionButtons";
 
 // Rename the interface to avoid naming conflict
-interface NotificationData {
-  id: number;
-  targetUserId: number;
-  referenceId: number;
-  type: "invitation" | "ask_join";
-}
+type NotificationData = typeof notifications.$inferSelect;
 
 export default async function Notification({
   notification,
@@ -17,7 +13,6 @@ export default async function Notification({
   notification: NotificationData;
 }) {
   const res = await getNotificationDetails(notification);
-  console.log(res);
   const user = await getParticipantFromSession();
   const fromUser = await getParticipantById(res?.userId);
 

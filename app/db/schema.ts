@@ -210,7 +210,7 @@ export const verificationTokens = pgTable("verification_tokens", {
 
 export const notifications = pgTable("notifications", {
   id: serial("id").primaryKey(),
-  targetUserId: integer("targetUserId")
+  targetUserId: integer("target_user_id")
     .notNull()
     .references(() => particpants.id),
   referenceId: integer("reference_id").notNull(),
@@ -224,7 +224,7 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
   }),
 }));
 
-export const askJoin = pgTable("ask_join_notifications", {
+export const joinRequests = pgTable("join_requests", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull(),
   teamId: varchar("team_id")
@@ -232,9 +232,9 @@ export const askJoin = pgTable("ask_join_notifications", {
     .references(() => teams.id),
 });
 
-export const askJoinRelations = relations(askJoin, ({ one }) => ({
+export const joinRequestsRelations = relations(joinRequests, ({ one }) => ({
   team: one(teams, {
-    fields: [askJoin.teamId],
+    fields: [joinRequests.teamId],
     references: [teams.id],
   }),
 }));
