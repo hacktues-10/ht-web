@@ -1,8 +1,11 @@
 "use server";
 
 import { and, eq } from "drizzle-orm";
+import { zact } from "zact/server";
+import { z } from "zod";
 
 import {
+  invitations,
   joinRequests,
   notifications,
   particpants,
@@ -37,7 +40,8 @@ export async function deleteMyTeam() {
   }
 }
 
-export async function askToJoinHandler(teamIdToJoin: string) {
+// FIXME: use zact
+export async function askToJoinTeam(teamIdToJoin: string) {
   const participant = await getParticipantFromSession();
   if (!participant) {
     return { success: false };
@@ -78,6 +82,42 @@ export async function askToJoinHandler(teamIdToJoin: string) {
   }
 }
 
+export const inviteToTeam = zact(
+  z.object({
+    inviteeParticipantId: z.number(),
+    teamId: z.string(),
+  }),
+)(async ({ inviteeParticipantId, teamId }) => {
+  const participant = await getParticipantFromSession();
+  if (!participant) {
+    return { success: false, error: "Not logged in as a participant" };
+  }
+  if (!participant.team.isCaptain || participant.team.id != teamId) {
+    return { success: false, error: "Permission denied" };
+  }
+
+  try {
+    const res = await db
+      .insert(invitations)
+      .values({
+        participantId: inviteeParticipantId,
+        teamId,
+      })
+      .returning();
+
+    await db.insert(notifications).values({
+      targetUserId: inviteeParticipantId,
+      referenceId: res[0].id,
+      type: "invitation",
+    });
+    return { success: true };
+  } catch (e) {
+    console.log(e);
+    return { success: false };
+  }
+});
+
+// FIXME: use zact!!!
 export async function checkStateJoinRequests(targetTeamId: string) {
   const participant = await getParticipantFromSession();
   console.log(participant?.id);
