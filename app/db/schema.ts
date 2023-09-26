@@ -7,6 +7,7 @@ import {
   pgTable,
   serial,
   timestamp,
+  unique,
   varchar,
 } from "drizzle-orm/pg-core";
 
@@ -165,21 +166,27 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
   joinRequests: many(joinRequests),
 }));
 
-export const invitations = pgTable("invitations", {
-  id: serial("id").primaryKey(),
-  createdAt: timestamp("created_at").defaultNow().notNull(), // Q: needed?
-  teamId: varchar("team_id")
-    .notNull()
-    .references(() => teams.id),
-  // email: varchar("email").notNull(), // Q: maybe??
-  invitedParticipantId: integer("invited_participant_id")
-    .notNull()
-    .references(() => particpants.id),
-  senderParticipantId: integer("sender_participant_id")
-    .notNull()
-    .references(() => particpants.id),
-  isAccepted: boolean("is_accepted").notNull().default(false),
-});
+export const invitations = pgTable(
+  "invitations",
+  {
+    id: serial("id").primaryKey(),
+    createdAt: timestamp("created_at").defaultNow().notNull(), // Q: needed?
+    teamId: varchar("team_id")
+      .notNull()
+      .references(() => teams.id),
+    // email: varchar("email").notNull(), // Q: maybe??
+    invitedParticipantId: integer("invited_participant_id")
+      .notNull()
+      .references(() => particpants.id),
+    senderParticipantId: integer("sender_participant_id")
+      .notNull()
+      .references(() => particpants.id),
+    isAccepted: boolean("is_accepted").notNull().default(false),
+  },
+  (t) => ({
+    unique: unique().on(t.invitedParticipantId, t.teamId),
+  }),
+);
 
 export const invitationsRelations = relations(invitations, ({ one }) => ({
   team: one(teams, {
