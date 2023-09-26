@@ -84,10 +84,10 @@ export async function askToJoinTeam(teamIdToJoin: string) {
 
 export const inviteToTeam = zact(
   z.object({
-    inviteeParticipantId: z.number(),
+    invitedParticipantId: z.number(),
     teamId: z.string(),
   }),
-)(async ({ inviteeParticipantId, teamId }) => {
+)(async ({ invitedParticipantId, teamId }) => {
   const participant = await getParticipantFromSession();
   if (!participant) {
     return { success: false, error: "Not logged in as a participant" };
@@ -100,13 +100,14 @@ export const inviteToTeam = zact(
     const res = await db
       .insert(invitations)
       .values({
-        participantId: inviteeParticipantId,
+        invitedParticipantId,
+        senderParticipantId: participant.id,
         teamId,
       })
       .returning();
 
     await db.insert(notifications).values({
-      targetUserId: inviteeParticipantId,
+      targetUserId: invitedParticipantId,
       referenceId: res[0].id,
       type: "invitation",
     });

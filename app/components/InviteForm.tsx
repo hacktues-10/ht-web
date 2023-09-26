@@ -16,7 +16,7 @@ export const InviteForm = ({ teamId }: { teamId: string }) => {
     const participantId = parseInt(participantIdField, 10);
     invariant(!isNaN(participantId), "Participant ID must be a number");
     const { success } = await inviteToTeam({
-      inviteeParticipantId: participantId,
+      invitedParticipantId: participantId,
       teamId,
     });
     if (!success) {

@@ -84,20 +84,25 @@ export const particpants = pgTable("participants", {
   teamId: varchar("team_id").references(() => teams.id),
 });
 
-export const participantsRelations = relations(particpants, ({ one }) => ({
-  users: one(users, {
-    fields: [particpants.userId],
-    references: [users.id],
+export const participantsRelations = relations(
+  particpants,
+  ({ one, many }) => ({
+    users: one(users, {
+      fields: [particpants.userId],
+      references: [users.id],
+    }),
+    tShirt: one(tShirts, {
+      fields: [particpants.tShirtId],
+      references: [tShirts.id],
+    }),
+    memberOfTeam: one(teams, {
+      fields: [particpants.teamId],
+      references: [teams.id],
+    }),
+    invitations: many(invitations),
+    sentInvitations: many(invitations),
   }),
-  tShirt: one(tShirts, {
-    fields: [particpants.tShirtId],
-    references: [tShirts.id],
-  }),
-  memberOfTeam: one(teams, {
-    fields: [particpants.teamId],
-    references: [teams.id],
-  }),
-}));
+);
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -167,7 +172,10 @@ export const invitations = pgTable("invitations", {
     .notNull()
     .references(() => teams.id),
   // email: varchar("email").notNull(), // Q: maybe??
-  participantId: integer("participant_id")
+  invitedParticipantId: integer("invited_participant_id")
+    .notNull()
+    .references(() => particpants.id),
+  senderParticipantId: integer("sender_participant_id")
     .notNull()
     .references(() => particpants.id),
   isAccepted: boolean("is_accepted").notNull().default(false),
@@ -178,8 +186,12 @@ export const invitationsRelations = relations(invitations, ({ one }) => ({
     fields: [invitations.teamId],
     references: [teams.id],
   }),
-  participant: one(particpants, {
-    fields: [invitations.participantId],
+  invitedParticipant: one(particpants, {
+    fields: [invitations.invitedParticipantId],
+    references: [particpants.id],
+  }),
+  senderParticipant: one(particpants, {
+    fields: [invitations.senderParticipantId],
     references: [particpants.id],
   }),
 }));
