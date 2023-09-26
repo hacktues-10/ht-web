@@ -45,9 +45,15 @@ export default async function TeamDetailPage({
 
       {teamMembers.map((member) =>
         res?.team.isCaptain == true ? (
-          <TeamMember member={member} isCaptain={true} participantId={res.id} />
+          <TeamMember
+            key={member.id}
+            member={member}
+            isCaptain={true}
+            participantId={res.id}
+          />
         ) : (
           <TeamMember
+            key={member.id}
             member={member}
             isCaptain={false}
             participantId={res.id}
