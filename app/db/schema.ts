@@ -157,6 +157,7 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
     references: [projects.id],
   }),
   invitations: many(invitations),
+  joinRequests: many(joinRequests),
 }));
 
 export const invitations = pgTable("invitations", {
@@ -180,6 +181,21 @@ export const invitationsRelations = relations(invitations, ({ one }) => ({
   participant: one(particpants, {
     fields: [invitations.participantId],
     references: [particpants.id],
+  }),
+}));
+
+export const joinRequests = pgTable("join_requests", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  teamId: varchar("team_id")
+    .notNull()
+    .references(() => teams.id),
+});
+
+export const joinRequestsRelations = relations(joinRequests, ({ one }) => ({
+  team: one(teams, {
+    fields: [joinRequests.teamId],
+    references: [teams.id],
   }),
 }));
 
@@ -246,21 +262,6 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
   targetUser: one(particpants, {
     fields: [notifications.targetUserId],
     references: [particpants.id],
-  }),
-}));
-
-export const joinRequests = pgTable("join_requests", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id").notNull(),
-  teamId: varchar("team_id")
-    .notNull()
-    .references(() => teams.id),
-});
-
-export const joinRequestsRelations = relations(joinRequests, ({ one }) => ({
-  team: one(teams, {
-    fields: [joinRequests.teamId],
-    references: [teams.id],
   }),
 }));
 
