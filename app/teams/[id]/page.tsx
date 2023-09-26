@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { getParticipantFromSession } from "~/app/participants/service";
+import { checkStateJoinRequests } from "~/app/teams/actions";
 import { getTeamById } from "../service";
 
 export default async function TeamDetailPage({
@@ -11,11 +13,18 @@ export default async function TeamDetailPage({
   params: { id: string };
 }) {
   const res = await getParticipantFromSession();
-
   const team = await getTeamById(id);
   if (!team) {
     notFound();
   }
+  const hasAskedToJoinState = await checkStateJoinRequests(team.id);
+
+  if (!res?.team.id) {
+    console.log(true);
+  } else {
+    console.log(false);
+  }
+
   return (
     <div className="text-center">
       <Link
@@ -26,7 +35,15 @@ export default async function TeamDetailPage({
         Назад
       </Link>
       <h1>{team.name}</h1>
-      {res?.team.isCaptain && <DeleteTeamButton id={team.id} />}
+      {res?.team.isCaptain && res?.team.id == team.id && (
+        <DeleteTeamButton id={team.id} />
+      )}
+      {!res?.team.id && (
+        <AskToJoinButton
+          teamid={team.id}
+          hasAskedToJoinState={hasAskedToJoinState}
+        />
+      )}
     </div>
   );
 }
