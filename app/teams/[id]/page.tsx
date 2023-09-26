@@ -3,9 +3,10 @@ import { notFound } from "next/navigation";
 
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
+import TeamMember from "~/app/components/TeamMember";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { checkStateJoinRequests } from "~/app/teams/actions";
-import { getTeamById } from "../service";
+import { getTeamById, getTeamMembers } from "../service";
 
 export default async function TeamDetailPage({
   params: { id },
@@ -18,13 +19,10 @@ export default async function TeamDetailPage({
     notFound();
   }
   const hasAskedToJoinState = await checkStateJoinRequests(team.id);
-
-  if (!res?.team.id) {
-    console.log(true);
-  } else {
-    console.log(false);
+  const teamMembers = await getTeamMembers(team.id);
+  if (!res?.id) {
+    return null;
   }
-
   return (
     <div className="text-center">
       <Link
@@ -35,14 +33,26 @@ export default async function TeamDetailPage({
         Назад
       </Link>
       <h1>{team.name}</h1>
-      {res?.team.isCaptain && res?.team.id == team.id && (
+      {res.team.isCaptain && res.team.id == team.id && (
         <DeleteTeamButton id={team.id} />
       )}
-      {!res?.team.id && (
+      {!res.team.id && (
         <AskToJoinButton
           teamid={team.id}
           hasAskedToJoinState={hasAskedToJoinState}
         />
+      )}
+
+      {teamMembers.map((member) =>
+        res?.team.isCaptain == true ? (
+          <TeamMember member={member} isCaptain={true} participantId={res.id} />
+        ) : (
+          <TeamMember
+            member={member}
+            isCaptain={false}
+            participantId={res.id}
+          />
+        ),
       )}
     </div>
   );

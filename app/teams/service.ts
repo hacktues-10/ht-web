@@ -1,9 +1,12 @@
+"use server";
+
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
 import { db } from "../db";
 import { particpants, teams } from "../db/schema";
+import { getParticipantFromSession } from "../participants/service";
 
 export async function getConfirmedTeams() {
   return db.select().from(teams);
@@ -37,4 +40,32 @@ export async function createTeam(team: {
     })
     .where(eq(particpants.userId, team.captainId));
   return insertedTeam;
+}
+
+export async function getTeamMembers(teamId: string) {
+  const res = await db
+    .select()
+    .from(particpants)
+    .where(eq(particpants.teamId, teamId));
+  console.log(res);
+  return res;
+}
+
+export async function removeTeamMember(memberId: number) {
+  const user = await getParticipantFromSession();
+  if (!user?.id) {
+    return { success: false, message: "Unauthenticated" };
+  }
+  if (user.team.isCaptain) {
+    const res = await db
+      .update(particpants)
+      .set({ teamId: null, isCaptain: false })
+      .where(eq(particpants.id, memberId));
+    console.log(res);
+    if (res) {
+      return { success: true };
+    }
+    return { success: false, message: "Failed to remove team member" };
+  }
+  return { success: false, message: "You are not a team captain" };
 }
