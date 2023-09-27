@@ -112,11 +112,10 @@ export const inviteToTeam = zact(
   }
 
   const invitedParticipant = await getParticipantById(invitedParticipantId);
-  const isLookingForTeam = true; // TODO: change
   if (
     !invitedParticipant ||
     invitedParticipant.team.id !== null ||
-    !isLookingForTeam
+    !invitedParticipant.isLookingForTeam
   ) {
     return { success: false, error: "Този участник не може да бъде поканен" };
   }

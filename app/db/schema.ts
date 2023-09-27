@@ -79,7 +79,7 @@ export const particpants = pgTable("participants", {
   allergies: varchar("allergies").default(""),
   tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
   technologies: varchar("technologies").default(""),
-  // emailVerified: date("emailVerified", { mode: "date" }),
+  isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
 
   isCaptain: boolean("is_captain").notNull().default(false),
   teamId: varchar("team_id").references(() => teams.id),
@@ -102,7 +102,7 @@ export const participantsRelations = relations(
     }),
     invitations: many(invitations),
     sentInvitations: many(invitations),
-  }),
+  })
 );
 
 export const users = pgTable("users", {
@@ -185,7 +185,7 @@ export const invitations = pgTable(
   },
   (t) => ({
     unique: unique().on(t.invitedParticipantId, t.teamId),
-  }),
+  })
 );
 
 export const invitationsRelations = relations(invitations, ({ one }) => ({

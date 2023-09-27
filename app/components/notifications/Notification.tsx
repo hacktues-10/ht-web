@@ -10,16 +10,21 @@ import invariant from "tiny-invariant";
 // Rename the interface to avoid naming conflict
 type NotificationData = NotificationList[number];
 
-export default function Notification({
+export default async function Notification({
   notification,
 }: {
   notification: NotificationData;
 }) {
+  const participant = await getParticipantFromSession();
+  invariant(participant !== null);
+
   switch (notification.type) {
     case "ask_join":
       return <JoinRequestNotification notification={notification} />;
     case "invitation":
-      return <InvitationNotification notification={notification} />;
+      return participant.isLookingForTeam ? (
+        <InvitationNotification notification={notification} />
+      ) : null;
     default:
       return null;
   }
@@ -63,7 +68,6 @@ export async function JoinRequestNotification({
           <p>Технологии: {senderParticipant?.technologies}</p>
         </div>
         <div>
-          {/* XXX: maybe inline that component? */}
           <JoinRequestActionButtons joinRequest={notification.joinRequest} />
         </div>
       </div>
@@ -107,7 +111,6 @@ export async function InvitationNotification({
           <p>Технологии: {senderParticipant?.technologies}</p>
         </div>
         <div>
-          {/* XXX: maybe inline that component? */}
           <InvitationActionButtons invitation={notification.invitation} />
         </div>
       </div>

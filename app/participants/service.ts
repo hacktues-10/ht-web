@@ -16,6 +16,7 @@ const selectFromParticipants = () =>
       parallel: particpants.parallel,
       allergies: particpants.allergies,
       tShirtId: particpants.tShirtId,
+      isLookingForTeam: particpants.isLookingForTeam,
       team: {
         id: teams.id,
         name: teams.name,
