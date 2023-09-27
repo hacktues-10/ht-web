@@ -33,10 +33,10 @@ export default async function TeamDetailPage({
         Назад
       </Link>
       <h1>{team.name}</h1>
-      {res.team.isCaptain && res.team.id == team.id && (
+      {res && res.team.isCaptain && res.team.id == team.id && (
         <DeleteTeamButton id={team.id} />
       )}
-      {!res.team.id && (
+      {res && !res.team.id && (
         <AskToJoinButton
           teamid={team.id}
           hasAskedToJoinState={hasAskedToJoinState}
@@ -44,7 +44,7 @@ export default async function TeamDetailPage({
       )}
 
       {teamMembers.map((member) =>
-        res?.team.isCaptain == true ? (
+        res && res?.team.isCaptain == true ? (
           <TeamMember
             key={member.id}
             member={member}
