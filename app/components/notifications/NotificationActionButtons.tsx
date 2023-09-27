@@ -1,6 +1,11 @@
 "use client";
 
-import { acceptJoinRequest, declineJoinRequest } from "./actions";
+import {
+  acceptInvitation,
+  acceptJoinRequest,
+  declineInvitation,
+  declineJoinRequest,
+} from "./actions";
 // import type { joinRequests, invitations } from "~/app/db/schema";
 
 // FIXME: infer like this:
@@ -21,11 +26,21 @@ export function InvitationActionButtons({
   invitation: Invitation;
 }) {
   const handleAccept = async () => {
-    alert("accepted");
+    const { success } = await acceptInvitation({
+      invitationId: invitation.id,
+    });
+    if (success) {
+      window.location.reload();
+    }
   };
 
   const handleDecline = async () => {
-    alert("declined");
+    const { success } = await declineInvitation({
+      invitationId: invitation.id,
+    });
+    if (success) {
+      window.location.reload();
+    }
   };
 
   return (
@@ -50,8 +65,8 @@ export default function JoinRequestActionButtons({
 }) {
   const handleAccept = async () => {
     if (joinRequest) {
-      const res = await acceptJoinRequest(joinRequest);
-      if (res.success) {
+      const { success } = await acceptJoinRequest(joinRequest);
+      if (success) {
         window.location.reload();
       }
     }
@@ -59,8 +74,8 @@ export default function JoinRequestActionButtons({
 
   const handleDecline = async () => {
     if (joinRequest) {
-      const res = await declineJoinRequest(joinRequest);
-      if (res.success) {
+      const { success } = await declineJoinRequest(joinRequest);
+      if (success) {
         window.location.reload();
       }
     }
