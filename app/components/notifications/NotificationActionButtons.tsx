@@ -1,47 +1,47 @@
 "use client";
 
-import { acceptedJoinRequest, declineJoinRequest } from "./actions";
+import { acceptJoinRequest, declineJoinRequest } from "./actions";
 
-interface DetailedNotification {
-  teamName: string | undefined;
+interface JoinRequest {
   id: number;
   userId: number;
   teamId: string;
 }
 
-export default function NotificationActionButtons({
-  notificationDetails,
+export default function JoinRequestActionButtons({
+  joinRequest,
 }: {
-  notificationDetails: DetailedNotification | undefined;
+  joinRequest: JoinRequest | null;
 }) {
-  const handleReqAcc = async () => {
-    if (notificationDetails) {
-      const res = await acceptedJoinRequest(notificationDetails);
+  const handleAccept = async () => {
+    if (joinRequest) {
+      const res = await acceptJoinRequest(joinRequest);
       if (res.success) {
         window.location.reload();
       }
     }
   };
 
-  const handleReqDec = async () => {
-    if (notificationDetails) {
-      const res = await declineJoinRequest(notificationDetails);
+  const handleDecline = async () => {
+    if (joinRequest) {
+      const res = await declineJoinRequest(joinRequest);
       if (res.success) {
         window.location.reload();
       }
     }
   };
+
   return (
     <div>
       <button
         className="m-1 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-        onClick={() => handleReqAcc()}
+        onClick={() => handleAccept()}
       >
         Accept
       </button>
       <button
         className="m-1 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-        onClick={() => handleReqDec()}
+        onClick={() => handleDecline()}
       >
         Decline
       </button>

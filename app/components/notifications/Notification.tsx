@@ -1,22 +1,41 @@
-import { notifications } from "~/app/db/schema";
-import { getNotificationDetails } from "~/app/notifications/actions";
+import { joinRequests, notifications } from "~/app/db/schema";
+import { type NotificationList } from "~/app/notifications/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getParticipantById } from "~/app/user/configure/actions";
-import NotificationActionButtons from "./NotificationActionButtons";
+import JoinRequestActionButtons from "./NotificationActionButtons";
+import invariant from "tiny-invariant";
 
 // Rename the interface to avoid naming conflict
-type NotificationData = typeof notifications.$inferSelect;
+type NotificationData = NotificationList[number];
 
-export default async function Notification({
+export default function Notification({
   notification,
 }: {
   notification: NotificationData;
 }) {
-  const res = await getNotificationDetails(notification);
-  const user = await getParticipantFromSession();
-  const fromUser = await getParticipantById(res?.userId);
+  switch (notification.type) {
+    case "ask_join":
+      return <JoinRequestNotification notification={notification} />;
+    default:
+      return null;
+  }
+}
 
-  if (notification.targetUserId === user?.id) {
+async function JoinRequestNotification({
+  notification,
+}: {
+  notification: NotificationData;
+}) {
+  invariant(
+    notification.type === "ask_join" && notification.joinRequest !== null
+  );
+
+  const participant = await getParticipantFromSession();
+  const fromParticipant = await getParticipantById(
+    notification.joinRequest.userId
+  );
+
+  if (notification.targetUserId === participant?.id) {
     return (
       <div className="mb-4 rounded-lg border bg-white p-4 shadow-md">
         <div className="mb-2 text-lg font-semibold text-black">
@@ -25,18 +44,20 @@ export default async function Notification({
         <div className="text-sm text-black">
           <p>
             От:{" "}
-            {fromUser?.firstName +
-              (fromUser?.lastName ? " " + fromUser.lastName : "")}
+            {fromParticipant?.firstName +
+              (fromParticipant?.lastName ? " " + fromParticipant.lastName : "")}
           </p>
           <p>
             Клас:{" "}
-            {fromUser?.grade +
-              (fromUser?.parallel ? " " + fromUser.parallel : " ")}
+            {fromParticipant?.grade +
+              (fromParticipant?.parallel
+                ? " " + fromParticipant.parallel
+                : " ")}
           </p>
-          <p>Технологии: {fromUser?.technologies}</p>
+          <p>Технологии: {fromParticipant?.technologies}</p>
         </div>
         <div>
-          <NotificationActionButtons notificationDetails={res} />
+          <JoinRequestActionButtons joinRequest={notification.joinRequest} />
         </div>
       </div>
     );
