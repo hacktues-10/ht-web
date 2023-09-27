@@ -5,7 +5,7 @@ import { zact } from "zact/server";
 import { z } from "zod";
 
 import { getHTSession } from "~/app/api/auth/session";
-import { mentors, users } from "~/app/db/schema";
+import { mentors, teams } from "~/app/db/schema";
 import { db } from "../db";
 
 const formData = z.object({
@@ -50,6 +50,19 @@ export const checkifMentorExists = async (email: string) => {
   }
   return false;
 };
+
+export async function ChoseTeamMentor(mentorId: number, teamId: string) {
+  try {
+    await db
+      .update(teams)
+      .set({ mentorId: mentorId })
+      .where(eq(teams.id, teamId));
+    return { success: true };
+  } catch (err) {
+    console.log(err);
+    return { success: false };
+  }
+}
 
 export const updateMentor = zact(formData)(async (formData) => {
   const res = await db

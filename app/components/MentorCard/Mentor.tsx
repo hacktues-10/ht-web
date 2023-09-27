@@ -6,8 +6,14 @@ import DisplayTechnologies from "../Technologies/displayTechnologies";
 
 import "./MentorCard.css"; // Apply additional styles in a separate CSS file
 
+import { getParticipantFromSession } from "~/app/participants/service";
+import { getTeamById } from "~/app/teams/service";
+import { checkIfMentorIsTaken } from "../../mentors/services";
+import ChoseMentor from "./ChoseMentor";
+
 interface MentorInterface {
   mentor: {
+    id: number;
     firstName: string | null;
     lastName: string | null;
     email: string | null;
@@ -24,7 +30,17 @@ interface MentorInterface {
 
 const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
   const url = await getImageUrl({ fileName: mentor.fileName });
+  const participant = await getParticipantFromSession();
+  let participantTeam;
+  console.log(participant?.team.id);
+  if (participant?.team.id) {
+    participantTeam = await getTeamById(participant.team.id);
+  }
 
+  const isMentorTaken = await checkIfMentorIsTaken(mentor.id);
+  console.log(isMentorTaken);
+  console.log(participantTeam);
+  console.log(participant);
   return (
     <div className="mentor-card">
       <div className="mentor-card-header">
@@ -44,6 +60,15 @@ const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
         <p className="mentor-description">{mentor.description}</p>
         <DisplayTechnologies technologies={mentor.technologies} />
       </div>
+      {participant &&
+      participant.team.isCaptain == true &&
+      participantTeam?.id &&
+      participantTeam?.mentorId == null &&
+      !isMentorTaken ? (
+        <ChoseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };
