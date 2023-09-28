@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { askToJoinHandler } from "../teams/actions";
+import { askToJoinTeam } from "../teams/actions";
 
 export default function AskToJoinButton({
   teamid,
@@ -14,8 +14,9 @@ export default function AskToJoinButton({
   const [hasAsked, setHasAsked] = useState(hasAskedToJoinState);
 
   async function handleAskToJoin() {
-    const res = await askToJoinHandler(teamid);
+    const res = await askToJoinTeam(teamid);
     if (res?.success) {
+      console.log("Request to join team sent successfully :)");
       setHasAsked(true);
     }
   }
