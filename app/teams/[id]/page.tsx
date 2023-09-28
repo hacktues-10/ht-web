@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
-import ChoseMentor from "~/app/components/MentorCard/ChoseMentor";
+import { InviteForm } from "~/app/components/InviteForm";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { checkStateJoinRequests } from "~/app/teams/actions";
 import { getTeamById } from "../service";
@@ -20,6 +20,12 @@ export default async function TeamDetailPage({
   }
   const hasAskedToJoinState = await checkStateJoinRequests(team.id);
 
+  if (!participant?.team.id) {
+    console.log(true);
+  } else {
+    console.log(false);
+  }
+
   return (
     <div className="text-center">
       <Link
@@ -31,14 +37,19 @@ export default async function TeamDetailPage({
       </Link>
       <h1>{team.name}</h1>
       {participant &&
-        participant?.team.isCaptain &&
-        participant?.team.id == team.id && <DeleteTeamButton id={team.id} />}
-      {participant && !participant?.team.id && (
+        participant.team.isCaptain &&
+        participant.team.id == team.id && <DeleteTeamButton id={team.id} />}
+      {participant && !participant.team.id && (
         <AskToJoinButton
           teamid={team.id}
           hasAskedToJoinState={hasAskedToJoinState}
         />
       )}
+      {participant &&
+        participant.team.id === team.id &&
+        participant.team.isCaptain && (
+          <InviteForm teamId={participant.team.id.toString()} />
+        )}
     </div>
   );
 }
