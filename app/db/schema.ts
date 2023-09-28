@@ -7,6 +7,7 @@ import {
   pgTable,
   serial,
   timestamp,
+  unique,
   varchar,
 } from "drizzle-orm/pg-core";
 
@@ -78,26 +79,31 @@ export const particpants = pgTable("participants", {
   allergies: varchar("allergies").default(""),
   tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
   technologies: varchar("technologies").default(""),
-  // emailVerified: date("emailVerified", { mode: "date" }),
+  isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
 
   isCaptain: boolean("is_captain").notNull().default(false),
   teamId: varchar("team_id").references(() => teams.id),
 });
 
-export const participantsRelations = relations(particpants, ({ one }) => ({
-  users: one(users, {
-    fields: [particpants.userId],
-    references: [users.id],
+export const participantsRelations = relations(
+  particpants,
+  ({ one, many }) => ({
+    users: one(users, {
+      fields: [particpants.userId],
+      references: [users.id],
+    }),
+    tShirt: one(tShirts, {
+      fields: [particpants.tShirtId],
+      references: [tShirts.id],
+    }),
+    memberOfTeam: one(teams, {
+      fields: [particpants.teamId],
+      references: [teams.id],
+    }),
+    invitations: many(invitations),
+    sentInvitations: many(invitations),
   }),
-  tShirt: one(tShirts, {
-    fields: [particpants.tShirtId],
-    references: [tShirts.id],
-  }),
-  memberOfTeam: one(teams, {
-    fields: [particpants.teamId],
-    references: [teams.id],
-  }),
-}));
+);
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -147,7 +153,7 @@ export const teams = pgTable("teams", {
   projectId: integer("project_id").references(() => projects.id),
 });
 
-export const teamsRelations = relations(teams, ({ one }) => ({
+export const teamsRelations = relations(teams, ({ one, many }) => ({
   mentor: one(mentors, {
     fields: [teams.mentorId],
     references: [mentors.id],
@@ -155,6 +161,60 @@ export const teamsRelations = relations(teams, ({ one }) => ({
   project: one(projects, {
     fields: [teams.projectId],
     references: [projects.id],
+  }),
+  invitations: many(invitations),
+  joinRequests: many(joinRequests),
+}));
+
+export const invitations = pgTable(
+  "invitations",
+  {
+    id: serial("id").primaryKey(),
+    createdAt: timestamp("created_at").defaultNow().notNull(), // Q: needed?
+    teamId: varchar("team_id")
+      .notNull()
+      .references(() => teams.id),
+    // email: varchar("email").notNull(), // Q: maybe??
+    invitedParticipantId: integer("invited_participant_id")
+      .notNull()
+      .references(() => particpants.id),
+    senderParticipantId: integer("sender_participant_id")
+      .notNull()
+      .references(() => particpants.id),
+    isAccepted: boolean("is_accepted").notNull().default(false),
+  },
+  (t) => ({
+    unique: unique().on(t.invitedParticipantId, t.teamId),
+  }),
+);
+
+export const invitationsRelations = relations(invitations, ({ one }) => ({
+  team: one(teams, {
+    fields: [invitations.teamId],
+    references: [teams.id],
+  }),
+  invitedParticipant: one(particpants, {
+    fields: [invitations.invitedParticipantId],
+    references: [particpants.id],
+  }),
+  senderParticipant: one(particpants, {
+    fields: [invitations.senderParticipantId],
+    references: [particpants.id],
+  }),
+}));
+
+export const joinRequests = pgTable("join_requests", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull(),
+  teamId: varchar("team_id")
+    .notNull()
+    .references(() => teams.id),
+});
+
+export const joinRequestsRelations = relations(joinRequests, ({ one }) => ({
+  team: one(teams, {
+    fields: [joinRequests.teamId],
+    references: [teams.id],
   }),
 }));
 
@@ -221,21 +281,6 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
   targetUser: one(particpants, {
     fields: [notifications.targetUserId],
     references: [particpants.id],
-  }),
-}));
-
-export const joinRequests = pgTable("join_requests", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id").notNull(),
-  teamId: varchar("team_id")
-    .notNull()
-    .references(() => teams.id),
-});
-
-export const joinRequestsRelations = relations(joinRequests, ({ one }) => ({
-  team: one(teams, {
-    fields: [joinRequests.teamId],
-    references: [teams.id],
   }),
 }));
 
