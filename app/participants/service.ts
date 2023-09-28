@@ -4,8 +4,8 @@ import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
 import { particpants, teams, users } from "../db/schema";
 
-export async function getParticipantByEmail(email: string) {
-  const results = await db
+const selectFromParticipants = () =>
+  db
     .select({
       id: particpants.id,
       firstName: particpants.firstName,
@@ -16,6 +16,7 @@ export async function getParticipantByEmail(email: string) {
       parallel: particpants.parallel,
       allergies: particpants.allergies,
       tShirtId: particpants.tShirtId,
+      isLookingForTeam: particpants.isLookingForTeam,
       team: {
         id: teams.id,
         name: teams.name,
@@ -24,9 +25,15 @@ export async function getParticipantByEmail(email: string) {
     })
     .from(particpants)
     .innerJoin(users, eq(particpants.userId, users.id))
-    .where(eq(users.email, email))
     .leftJoin(teams, eq(particpants.teamId, teams.id));
 
+export async function getParticipantByEmail(email: string) {
+  const results = await selectFromParticipants().where(eq(users.email, email));
+  return results.at(0) ?? null;
+}
+
+export async function getParticipantById(id: number) {
+  const results = await selectFromParticipants().where(eq(particpants.id, id));
   return results.at(0) ?? null;
 }
 
