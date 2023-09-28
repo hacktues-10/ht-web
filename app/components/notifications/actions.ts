@@ -15,8 +15,6 @@ interface DetailedNotification {
 export const acceptedJoinRequest = async (
   detailedNotific: DetailedNotification | undefined,
 ) => {
-  console.log(detailedNotific);
-
   if (detailedNotific?.userId && detailedNotific.teamId) {
     try {
       await db
@@ -43,7 +41,6 @@ export const acceptedJoinRequest = async (
 export const declineJoinRequest = async (
   detailedNotific: DetailedNotification | undefined,
 ) => {
-  console.log(detailedNotific);
   if (detailedNotific?.userId && detailedNotific.teamId) {
     try {
       await db

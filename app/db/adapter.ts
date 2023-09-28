@@ -24,8 +24,6 @@ async function getSessionFromDB({
   client: DrizzleClient;
   sessionToken: string;
 }) {
-  console.log("getSessionFromDB");
-
   const res = (
     await client
       .select()
@@ -46,12 +44,8 @@ async function getSessionFromDB({
 export function DrizzleAdapter(client: DrizzleClient): Adapter {
   return {
     async createUser(user) {
-      console.log("Create User");
-      console.log("USER: ", JSON.stringify(user));
-
       const res = (await client.insert(users).values(user).returning())[0];
 
-      console.log(JSON.stringify(res));
       return {
         ...res,
         id: res.id.toString(),
@@ -59,8 +53,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async getUser(id) {
-      console.log("getUser", id);
-
       const res =
         (
           await client
@@ -77,14 +69,10 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async getUserByEmail(email) {
-      console.log("getUserByEmail", email);
-
       const res = (
         await client.select().from(users).where(eq(users.email, email))
       )[0];
-      console.log("get user by email res", res);
       if (res) {
-        console.log("In if");
         return {
           ...res,
           id: res.id.toString(),
@@ -95,8 +83,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async getUserByAccount({ providerAccountId, provider }) {
-      console.log("test");
-
       const res = (
         await client
           .select()
@@ -115,8 +101,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async updateUser(user) {
-      console.log("update user");
-
       const res = (
         await client
           .update(users)
@@ -131,8 +115,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async deleteUser(userId) {
-      console.log("delete user");
-
       const res = (
         await client
           .delete(users)
@@ -143,8 +125,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async linkAccount(rawAccount) {
-      console.log("link account");
-
       await client
         .insert(accounts)
         .values({ ...rawAccount, id: generateUniqueID() })
@@ -152,8 +132,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async unlinkAccount({ providerAccountId, provider }) {
-      console.log("unlink account");
-
       await client
         .delete(accounts)
         .where(
@@ -165,7 +143,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async createSession({ sessionToken, userId, expires }) {
-      console.log("create Session");
       const newUserId = parseInt(userId);
 
       await client.insert(sessions).values({
@@ -183,8 +160,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async getSessionAndUser(sessionToken) {
-      console.log("getSessionAndUser");
-
       const session = await getSessionFromDB({ client, sessionToken });
 
       if (session) {
@@ -210,8 +185,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async updateSession({ sessionToken }) {
-      console.log("update session");
-
       const res =
         (
           await client
@@ -231,15 +204,12 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async deleteSession(sessionToken) {
-      console.log("delete session");
-
       await client
         .delete(sessions)
         .where(eq(sessions.sessionToken, sessionToken));
     },
 
     async createVerificationToken(newVerificationToken) {
-      console.log("createVerificationToken", newVerificationToken);
       return (
         (
           await client
@@ -251,8 +221,6 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async useVerificationToken({ identifier, token }) {
-      console.log("useVerificationToken", identifier, token);
-
       return (
         (
           await client

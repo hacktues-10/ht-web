@@ -100,7 +100,6 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
       .then((res) => {
         console.log(res);
       });
-    console.log(res);
     if (res) {
       router.push("/");
     }

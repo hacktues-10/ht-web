@@ -53,8 +53,6 @@ export async function askToJoinHandler(teamIdToJoin: string) {
         })
         .returning();
 
-      console.log(res[0]);
-
       const captain = await db
         .select()
         .from(particpants)
@@ -80,7 +78,6 @@ export async function askToJoinHandler(teamIdToJoin: string) {
 
 export async function checkStateJoinRequests(targetTeamId: string) {
   const participant = await getParticipantFromSession();
-  console.log(participant?.id);
   try {
     if (participant?.id != null) {
       const res = await db

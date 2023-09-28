@@ -26,7 +26,6 @@ export const insertMentor = zact(formData)(async (formData) => {
   const exists = await checkifMentorExists(formData.email);
   if (!exists) {
     const res = await db.insert(mentors).values(formData).returning();
-    console.log(res);
     if (res.length > 0) {
       return true;
     }
@@ -82,7 +81,6 @@ export const updateMentor = zact(formData)(async (formData) => {
     })
     .where(eq(mentors.email, formData.email))
     .returning();
-  console.log(res);
   return res;
 });
 

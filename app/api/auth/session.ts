@@ -15,7 +15,6 @@ export function signInRedirect() {
   // I don't feel good about this
   // https://stackoverflow.com/a/76585119
   const invokePath = headers().get("x-invoke-path");
-  console.log({ invokePath });
   redirect(
     `/api/auth/signin?${new URLSearchParams({
       callbackUrl: invokePath ?? "/",

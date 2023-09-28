@@ -32,15 +32,12 @@ const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
   const url = await getImageUrl({ fileName: mentor.fileName });
   const participant = await getParticipantFromSession();
   let participantTeam;
-  console.log(participant?.team.id);
   if (participant?.team.id) {
     participantTeam = await getTeamById(participant.team.id);
   }
 
   const isMentorTaken = await checkIfMentorIsTaken(mentor.id);
-  console.log(isMentorTaken);
-  console.log(participantTeam);
-  console.log(participant);
+
   return (
     <div className="mentor-card">
       <div className="mentor-card-header">
