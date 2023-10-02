@@ -4,9 +4,10 @@ import { notFound } from "next/navigation";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
+import TeamMember from "~/app/components/TeamMember";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { checkStateJoinRequests } from "~/app/teams/actions";
-import { getTeamById } from "../service";
+import { getTeamById, getTeamMembers } from "../service";
 
 export default async function TeamDetailPage({
   params: { id },
@@ -20,11 +21,7 @@ export default async function TeamDetailPage({
   }
   const hasAskedToJoinState = await checkStateJoinRequests(team.id);
 
-  if (!participant?.team.id) {
-    console.log(true);
-  } else {
-    console.log(false);
-  }
+  const teamMembers = await getTeamMembers(team.id);
 
   return (
     <div className="text-center">
@@ -50,6 +47,13 @@ export default async function TeamDetailPage({
         participant.team.isCaptain && (
           <InviteForm teamId={participant.team.id.toString()} />
         )}
+      {teamMembers.map((member) => (
+        <TeamMember
+          member={member}
+          isCaptain={res.team.isCaptain}
+          participantId={res.id}
+        />
+      ))}
     </div>
   );
 }

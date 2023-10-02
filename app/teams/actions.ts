@@ -169,3 +169,22 @@ export async function checkStateJoinRequests(targetTeamId: string) {
     return false;
   }
 }
+
+export async function removeTeamMember(memberId: number) {
+  const participant = await getParticipantFromSession();
+  if (!participant?.id) {
+    return { success: false, message: "Unauthenticated" };
+  }
+  if (participant.team.isCaptain) {
+    const res = await db
+      .update(particpants)
+      .set({ teamId: null, isCaptain: false })
+      .where(eq(particpants.id, memberId));
+    console.log(res);
+    if (res) {
+      return { success: true };
+    }
+    return { success: false, message: "Failed to remove team member" };
+  }
+  return { success: false, message: "You are not a team captain" };
+}

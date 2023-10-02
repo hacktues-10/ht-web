@@ -1,6 +1,6 @@
 "use client";
 
-import { removeTeamMember } from "~/app/teams/service";
+import { removeTeamMember } from "~/app/teams/actions";
 import { particpants } from "../db/schema";
 
 type memberType = typeof particpants.$inferSelect;
@@ -11,8 +11,8 @@ export default function TeamMember({
   participantId,
 }: {
   member: memberType;
-  isCaptain: boolean;
-  participantId: number;
+  isCaptain: boolean | undefined;
+  participantId: number | undefined;
 }) {
   const DeleteParticipantFromTeam = async () => {
     const res = await removeTeamMember(member.id);
