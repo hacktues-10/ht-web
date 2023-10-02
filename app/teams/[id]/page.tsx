@@ -50,6 +50,7 @@ export default async function TeamDetailPage({
         )}
       {teamMembers.map((member) => (
         <TeamMember
+          key={member.id}
           member={member}
           isCaptain={participant?.team.isCaptain}
           participantId={participant?.id}
