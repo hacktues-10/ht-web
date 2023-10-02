@@ -52,7 +52,7 @@ export async function getTeamMembers(teamId: string) {
 }
 
 export async function removeTeamMember(memberId: number) {
-  const user = await getParticipantFromSession();
+  const participant = await getParticipantFromSession();
   if (!user?.id) {
     return { success: false, message: "Unauthenticated" };
   }
