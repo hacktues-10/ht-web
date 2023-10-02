@@ -38,12 +38,3 @@ export async function createTeam(team: {
     .where(eq(particpants.userId, team.captainId));
   return insertedTeam;
 }
-
-export async function getTeamMembers(teamId: string) {
-  const res = await db
-    .select()
-    .from(particpants)
-    .where(eq(particpants.teamId, teamId));
-  console.log(res);
-  return res;
-}

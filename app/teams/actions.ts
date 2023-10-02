@@ -188,3 +188,12 @@ export async function removeTeamMember(memberId: number) {
   }
   return { success: false, message: "You are not a team captain" };
 }
+
+export async function getTeamMembers(teamId: string) {
+  const res = await db
+    .select()
+    .from(particpants)
+    .where(eq(particpants.teamId, teamId));
+  console.log(res);
+  return res;
+}

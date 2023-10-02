@@ -6,8 +6,8 @@ import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
 import TeamMember from "~/app/components/TeamMember";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { checkStateJoinRequests } from "~/app/teams/actions";
-import { getTeamById, getTeamMembers } from "../service";
+import { checkStateJoinRequests, getTeamMembers } from "~/app/teams/actions";
+import { getTeamById } from "../service";
 
 export default async function TeamDetailPage({
   params: { id },
@@ -19,6 +19,7 @@ export default async function TeamDetailPage({
   if (!team) {
     notFound();
   }
+
   const hasAskedToJoinState = await checkStateJoinRequests(team.id);
 
   const teamMembers = await getTeamMembers(team.id);
@@ -50,8 +51,8 @@ export default async function TeamDetailPage({
       {teamMembers.map((member) => (
         <TeamMember
           member={member}
-          isCaptain={res.team.isCaptain}
-          participantId={res.id}
+          isCaptain={participant?.team.isCaptain}
+          participantId={participant?.id}
         />
       ))}
     </div>
