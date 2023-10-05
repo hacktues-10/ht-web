@@ -9,7 +9,7 @@ import "./MentorCard.css"; // Apply additional styles in a separate CSS file
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getTeamById } from "~/app/teams/service";
 import { checkIfMentorIsTaken } from "../../mentors/services";
-import ChoseMentor from "./ChoseMentor";
+import ChooseMentor from "./ChooseMentor";
 
 interface MentorInterface {
   mentor: {
@@ -62,7 +62,7 @@ const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
       participantTeam?.id &&
       participantTeam?.mentorId == null &&
       !isMentorTaken ? (
-        <ChoseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
+        <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
       ) : (
         <div></div>
       )}

@@ -8,7 +8,7 @@ export const getAllMentors = async () => {
   return allMentors;
 };
 
-export async function ChoseTeamMentor(mentorId: number, teamId: string) {
+export async function ChooseTeamMentor(mentorId: number, teamId: string) {
   try {
     await db
       .update(teams)
