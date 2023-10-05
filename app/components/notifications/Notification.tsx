@@ -1,42 +1,117 @@
-import { notifications } from "~/app/db/schema";
-import { getNotificationDetails } from "~/app/notifications/actions";
+import { joinRequests, notifications } from "~/app/db/schema";
+import { type NotificationList } from "~/app/notifications/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getParticipantById } from "~/app/user/configure/actions";
-import NotificationActionButtons from "./NotificationActionButtons";
+import JoinRequestActionButtons, {
+  InvitationActionButtons,
+} from "./NotificationActionButtons";
+import invariant from "tiny-invariant";
 
 // Rename the interface to avoid naming conflict
-type NotificationData = typeof notifications.$inferSelect;
+type NotificationData = NotificationList[number];
 
 export default async function Notification({
   notification,
 }: {
   notification: NotificationData;
 }) {
-  const res = await getNotificationDetails(notification);
-  const user = await getParticipantFromSession();
-  const fromUser = await getParticipantById(res?.userId);
+  const participant = await getParticipantFromSession();
+  invariant(participant !== null);
 
-  if (notification.targetUserId === user?.id) {
+  switch (notification.type) {
+    case "ask_join":
+      return <JoinRequestNotification notification={notification} />;
+    case "invitation":
+      return participant.isLookingForTeam ? (
+        <InvitationNotification notification={notification} />
+      ) : null;
+    default:
+      return null;
+  }
+}
+
+export async function JoinRequestNotification({
+  notification,
+}: {
+  notification: NotificationData;
+}) {
+  invariant(
+    notification.type === "ask_join" && notification.joinRequest !== null
+  );
+
+  const participant = await getParticipantFromSession();
+  const senderParticipant = await getParticipantById(
+    notification.joinRequest.userId
+  );
+
+  if (notification.targetUserId === participant?.id) {
     return (
       <div className="mb-4 rounded-lg border bg-white p-4 shadow-md">
         <div className="mb-2 text-lg font-semibold text-black">
-          {notification.type === "ask_join" ? "Join request" : "Invite request"}
+          Join request
         </div>
         <div className="text-sm text-black">
           <p>
             От:{" "}
-            {fromUser?.firstName +
-              (fromUser?.lastName ? " " + fromUser.lastName : "")}
+            {senderParticipant?.firstName +
+              (senderParticipant?.lastName
+                ? " " + senderParticipant.lastName
+                : "")}
           </p>
           <p>
             Клас:{" "}
-            {fromUser?.grade +
-              (fromUser?.parallel ? " " + fromUser.parallel : " ")}
+            {senderParticipant?.grade +
+              (senderParticipant?.parallel
+                ? " " + senderParticipant.parallel
+                : " ")}
           </p>
-          <p>Технологии: {fromUser?.technologies}</p>
+          <p>Технологии: {senderParticipant?.technologies}</p>
         </div>
         <div>
-          <NotificationActionButtons notificationDetails={res} />
+          <JoinRequestActionButtons joinRequest={notification.joinRequest} />
+        </div>
+      </div>
+    );
+  }
+}
+
+export async function InvitationNotification({
+  notification,
+}: {
+  notification: NotificationData;
+}) {
+  invariant(
+    notification.type === "invitation" && notification.invitation !== null
+  );
+
+  const participant = await getParticipantFromSession();
+  const senderParticipant = await getParticipantById(
+    notification.invitation.senderParticipantId
+  );
+
+  if (notification.targetUserId === participant?.id) {
+    return (
+      <div className="mb-4 rounded-lg border bg-white p-4 shadow-md">
+        <div className="mb-2 text-lg font-semibold text-black">Invitation</div>
+        <div className="text-sm text-black">
+          <p>
+            От:{" "}
+            {senderParticipant?.firstName +
+              (senderParticipant?.lastName
+                ? " " + senderParticipant.lastName
+                : "")}
+          </p>
+          <p>
+            Клас:{" "}
+            {senderParticipant?.grade +
+              (senderParticipant?.parallel
+                ? " " + senderParticipant.parallel
+                : " ")}
+          </p>
+          <p>Технологии: {senderParticipant?.technologies}</p>
+        </div>
+        <div>
+          <InvitationActionButtons invitation={notification.invitation} />
         </div>
       </div>
     );
