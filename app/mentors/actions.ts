@@ -84,6 +84,18 @@ export const updateMentor = zact(formData)(async (formData) => {
   return res;
 });
 
+export const getMentor = zact(
+  z.object({
+    email: z.string(),
+  }),
+)(async ({ email }) => {
+  const mentor = await db
+    .select()
+    .from(mentors)
+    .where(eq(mentors.email, email));
+  return mentor.at(0) ?? null;
+});
+
 // export const checkifFileExists = async (fileName: string) => {
 //   const file = await db
 //     .select()

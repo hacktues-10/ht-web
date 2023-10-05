@@ -1,6 +1,5 @@
 import invariant from "tiny-invariant";
 
-import { joinRequests, notifications } from "~/app/db/schema";
 import { type NotificationList } from "~/app/notifications/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getParticipantById } from "~/app/user/configure/actions";

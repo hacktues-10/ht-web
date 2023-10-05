@@ -14,6 +14,7 @@ export const env = createEnv({
     S3_UPLOAD_KEY: z.string(),
     S3_UPLOAD_SECRET: z.string(),
     S3_UPLOAD_BUCKET: z.string(),
+    // TODO: rename
     HOSTNAME: z.string(),
   },
   client: {},
