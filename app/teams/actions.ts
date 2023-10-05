@@ -175,7 +175,11 @@ export async function removeTeamMember(memberId: number) {
   if (!participant?.id) {
     return { success: false, message: "Unauthenticated" };
   }
-  if (participant.team.isCaptain) {
+  const member = await getParticipantById(memberId);
+  if (!member?.team.id) {
+    return { success: false, message: "The member is not part of this team" };
+  }
+  if (participant.team.isCaptain && participant.team.id == member.team.id) {
     const res = await db
       .update(particpants)
       .set({ teamId: null, isCaptain: false })
