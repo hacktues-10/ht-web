@@ -8,9 +8,9 @@ import AuthProvider from "./context/AuthProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "HackTues 10",
+  title: "Hack TUES 10",
   description:
-    "HackTues 10 is the most popular hackathon in Bulgaria made for students by students.",
+    "Hack TUES 10 is the most popular hackathon in Bulgaria made for students by students.",
 };
 
 export default function RootLayout({
