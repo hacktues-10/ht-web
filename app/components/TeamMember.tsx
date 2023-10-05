@@ -14,7 +14,7 @@ export default function TeamMember({
   isCaptain: boolean | undefined;
   participantId: number | undefined;
 }) {
-  const DeleteParticipantFromTeam = async () => {
+  const handleRemoveFromTeam = async () => {
     const res = await removeTeamMember(member.id);
     if (res.success) {
       window.location.reload();
@@ -39,7 +39,7 @@ export default function TeamMember({
         {isCaptain && participantId != member.id ? (
           <button
             className="mt-4 rounded-full bg-red-500 px-4 py-2 font-semibold text-white hover:bg-red-600"
-            onClick={() => DeleteParticipantFromTeam()}
+            onClick={() => handleRemoveFromTeam()}
           >
             Delete
           </button>
