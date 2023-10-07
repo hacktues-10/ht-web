@@ -17,6 +17,11 @@ export const createTeamAction = zact(
     throw new Error("Not logged in as a participant");
   }
 
+  let isAlumni = false;
+  if (participant.grade && parseInt(participant.grade) > 12) {
+    isAlumni = true;
+  }
+
   if (participant.team.id !== null) {
     throw new Error("Already in a team");
   }
@@ -24,6 +29,7 @@ export const createTeamAction = zact(
     name: input.name,
     description: input.description,
     captainId: participant.id,
+    isAlumni: isAlumni,
   });
   return { team };
 });

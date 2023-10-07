@@ -151,6 +151,9 @@ export const teams = pgTable("teams", {
   mentorId: integer("mentor_id").references(() => mentors.id),
   // TODO: technologies
   projectId: integer("project_id").references(() => projects.id),
+  isAlumni: boolean("is_alumni").notNull().default(false),
+  // isFinalist: boolean("is_finalist").notNull().default(false),
+  // semiFinalResult: integer("semi_final_result").default(0),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({

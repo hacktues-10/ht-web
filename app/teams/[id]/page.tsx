@@ -20,6 +20,14 @@ export default async function TeamDetailPage({
     notFound();
   }
 
+  let isEligabletoJoin = false;
+  if (participant?.grade) {
+    isEligabletoJoin =
+      (parseInt(participant.grade) > 12 && team.isAlumni) ||
+      (parseInt(participant.grade) < 13 && team.isAlumni == false);
+  }
+
+  console.log("isEligabletoJoin", isEligabletoJoin);
   const hasAskedToJoinState = await checkStateJoinRequests(team.id);
 
   const teamMembers = await getTeamMembers(team.id);
@@ -37,7 +45,7 @@ export default async function TeamDetailPage({
       {participant &&
         participant.team.isCaptain &&
         participant.team.id == team.id && <DeleteTeamButton id={team.id} />}
-      {participant && !participant.team.id && (
+      {participant && !participant.team.id && isEligabletoJoin && (
         <AskToJoinButton
           teamid={team.id}
           hasAskedToJoinState={hasAskedToJoinState}
