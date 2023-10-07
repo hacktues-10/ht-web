@@ -78,8 +78,8 @@ export async function askToJoinTeam(teamIdToJoin: string) {
       .where(
         and(
           eq(particpants.isCaptain, true),
-          eq(particpants.teamId, teamIdToJoin)
-        )
+          eq(particpants.teamId, teamIdToJoin),
+        ),
       );
 
     await db.insert(notifications).values({
@@ -98,7 +98,7 @@ export const inviteToTeam = zact(
   z.object({
     invitedParticipantId: z.number(),
     teamId: z.string(),
-  })
+  }),
 )(async ({ invitedParticipantId, teamId }) => {
   const participant = await getParticipantFromSession();
   if (!participant) {
@@ -156,8 +156,8 @@ export async function checkStateJoinRequests(targetTeamId: string) {
       .where(
         and(
           eq(joinRequests.userId, participant?.id),
-          eq(joinRequests.teamId, targetTeamId)
-        )
+          eq(joinRequests.teamId, targetTeamId),
+        ),
       );
     if (res.length > 0) {
       return true;
@@ -168,4 +168,36 @@ export async function checkStateJoinRequests(targetTeamId: string) {
     console.log(e);
     return false;
   }
+}
+
+export async function removeTeamMember(memberId: number) {
+  const participant = await getParticipantFromSession();
+  if (!participant?.id) {
+    return { success: false, message: "Unauthenticated" };
+  }
+  const member = await getParticipantById(memberId);
+  if (!member?.team.id) {
+    return { success: false, message: "The member is not part of this team" };
+  }
+  if (participant.team.isCaptain && participant.team.id == member.team.id) {
+    const res = await db
+      .update(particpants)
+      .set({ teamId: null, isCaptain: false })
+      .where(eq(particpants.id, memberId));
+    console.log(res);
+    if (res) {
+      return { success: true };
+    }
+    return { success: false, message: "Failed to remove team member" };
+  }
+  return { success: false, message: "You are not a team captain" };
+}
+
+export async function getTeamMembers(teamId: string) {
+  const res = await db
+    .select()
+    .from(particpants)
+    .where(eq(particpants.teamId, teamId));
+  console.log(res);
+  return res;
 }
