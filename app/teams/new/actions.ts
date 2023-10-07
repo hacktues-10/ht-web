@@ -10,10 +10,9 @@ export const createTeamAction = zact(
   z.object({
     name: z.string(),
     description: z.string(),
-  })
+  }),
 )(async (input) => {
   const participant = await getParticipantFromSession();
-  console.log({ participant });
   if (!participant) {
     throw new Error("Not logged in as a participant");
   }

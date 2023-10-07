@@ -1,11 +1,11 @@
-import { joinRequests, notifications } from "~/app/db/schema";
+import invariant from "tiny-invariant";
+
 import { type NotificationList } from "~/app/notifications/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getParticipantById } from "~/app/user/configure/actions";
 import JoinRequestActionButtons, {
   InvitationActionButtons,
 } from "./NotificationActionButtons";
-import invariant from "tiny-invariant";
 
 // Rename the interface to avoid naming conflict
 type NotificationData = NotificationList[number];
@@ -36,12 +36,12 @@ export async function JoinRequestNotification({
   notification: NotificationData;
 }) {
   invariant(
-    notification.type === "ask_join" && notification.joinRequest !== null
+    notification.type === "ask_join" && notification.joinRequest !== null,
   );
 
   const participant = await getParticipantFromSession();
   const senderParticipant = await getParticipantById(
-    notification.joinRequest.userId
+    notification.joinRequest.userId,
   );
 
   if (notification.targetUserId === participant?.id) {
@@ -81,12 +81,12 @@ export async function InvitationNotification({
   notification: NotificationData;
 }) {
   invariant(
-    notification.type === "invitation" && notification.invitation !== null
+    notification.type === "invitation" && notification.invitation !== null,
   );
 
   const participant = await getParticipantFromSession();
   const senderParticipant = await getParticipantById(
-    notification.invitation.senderParticipantId
+    notification.invitation.senderParticipantId,
   );
 
   if (notification.targetUserId === participant?.id) {

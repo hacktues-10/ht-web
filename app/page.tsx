@@ -3,7 +3,6 @@ import { SignInButton, SignOutButton } from "./components/buttons";
 
 export default async function Home() {
   const session = await getHTSession();
-  console.log(session);
   if (session) {
     return (
       <>

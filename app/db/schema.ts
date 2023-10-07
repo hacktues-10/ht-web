@@ -102,7 +102,7 @@ export const participantsRelations = relations(
     }),
     invitations: many(invitations),
     sentInvitations: many(invitations),
-  })
+  }),
 );
 
 export const users = pgTable("users", {
@@ -185,7 +185,7 @@ export const invitations = pgTable(
   },
   (t) => ({
     unique: unique().on(t.invitedParticipantId, t.teamId),
-  })
+  }),
 );
 
 export const invitationsRelations = relations(invitations, ({ one }) => ({

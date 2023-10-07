@@ -31,7 +31,6 @@ export const uploadFile = zact(fileSchema)(async (input) => {
       expiresIn: 3600,
     },
   );
-  console.log(preSignedUrl);
   return {
     url: preSignedUrl,
   };

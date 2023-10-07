@@ -91,10 +91,11 @@ const Form: React.FC<FromProps> = ({ email }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formData.grade  || (!formData.parallel && !(parseInt(formData.grade) > 12)) || !formData.tShirtId) {
-      console.log(formData.grade)
-      console.log(formData.parallel)
-      console.log(formData.tShirtId)
+    if (
+      !formData.grade ||
+      (!formData.parallel && !(parseInt(formData.grade) > 12)) ||
+      !formData.tShirtId
+    ) {
       console.error("Please fill in all fields");
       return;
     }
@@ -106,7 +107,6 @@ const Form: React.FC<FromProps> = ({ email }) => {
       tShirtId: parseInt(formData.tShirtId),
       technologies: values.map((value) => value.name).join(", "),
     });
-    console.log(res);
     if (!res.success) {
       console.error(res.message);
     } else {

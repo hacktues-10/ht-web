@@ -61,10 +61,8 @@ export const insertParticipant = zact(formData)(async (formData) => {
   const session = await getHTSession();
   const email = session?.user?.email;
   if (email) {
-    console.log("Session user email:", email);
     try {
       const user = await db.select().from(users).where(eq(users.email, email));
-      console.log("User:", user);
       if (user && user[0]?.participantId) {
         const participantData = {
           id: user[0]?.participantId,
@@ -78,9 +76,7 @@ export const insertParticipant = zact(formData)(async (formData) => {
           allergies: formData.allergies,
           technologies: formData.technologies,
         };
-        console.log("Participant data:", participantData);
         const participant = await getParticipant();
-        console.log("Participant:", participant?.length);
         if (
           (await checkPhoneNumber(participantData.phoneNumber)) < 1 &&
           (!participant || participant.length < 1)
@@ -89,7 +85,6 @@ export const insertParticipant = zact(formData)(async (formData) => {
             .insert(particpants)
             .values(participantData)
             .returning();
-          console.log(res);
           return {
             success: true,
           };
@@ -171,10 +166,8 @@ export const updateParticipant = zact(formData)(async (formData) => {
   const session = await getHTSession();
   const email = session?.user?.email;
   if (email) {
-    console.log("Session user email:", email);
     try {
       const user = await db.select().from(users).where(eq(users.email, email));
-      console.log("User:", user);
       if (user && user[0]?.participantId) {
         const participantId = user[0]?.participantId;
         const participantData = {
@@ -190,13 +183,10 @@ export const updateParticipant = zact(formData)(async (formData) => {
         };
 
         if ((await checkPhoneNumber(participantData.phoneNumber)) <= 1) {
-          console.log("Participant data:", participantData);
-
           const res = await db
             .update(particpants)
             .set(participantData)
             .where(eq(particpants.id, participantId));
-          console.log(res);
           return true;
         }
       } else {
@@ -221,7 +211,6 @@ const checkPhoneNumber = async (phoneNumber: string) => {
         .select()
         .from(particpants)
         .where(eq(particpants.phoneNumber, phoneNumber));
-      console.log("Participant length", participant.length);
       return participant.length;
     } catch (error) {
       console.error("Error checking phone number:", error);
@@ -230,7 +219,6 @@ const checkPhoneNumber = async (phoneNumber: string) => {
     }
   } else {
     console.error("Phone number is missing.");
-    console.log("Phone number is missing");
     return 2;
   }
 };

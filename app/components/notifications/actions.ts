@@ -21,7 +21,7 @@ interface JoinRequest {
 
 // FIXME: use zact
 export const acceptJoinRequest = async (
-  joinRequest: JoinRequest | undefined
+  joinRequest: JoinRequest | undefined,
 ) => {
   console.log(joinRequest);
 
@@ -76,7 +76,7 @@ function getInvitation(id: number) {
 export const acceptInvitation = zact(
   z.object({
     invitationId: z.number().int(),
-  })
+  }),
 )(async ({ invitationId }) => {
   const particpant = await getParticipantFromSession();
   if (!particpant) {
@@ -112,7 +112,7 @@ export const acceptInvitation = zact(
 export const declineInvitation = zact(
   z.object({
     invitationId: z.number().int(),
-  })
+  }),
 )(async ({ invitationId }) => {
   const particpant = await getParticipantFromSession();
   if (!particpant) {
