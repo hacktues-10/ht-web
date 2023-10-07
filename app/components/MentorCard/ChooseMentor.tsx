@@ -1,6 +1,6 @@
 "use client";
 
-import { ChooseTeamMentor } from "~/app/mentors/actions";
+import { chooseTeamMentor } from "~/app/mentors/actions";
 
 export default function ChooseMentor({
   mentorId,
@@ -10,7 +10,7 @@ export default function ChooseMentor({
   teamId: string;
 }) {
   const handleMentorChoose = async () => {
-    const res = await ChooseTeamMentor(mentorId, teamId);
+    const res = await chooseTeamMentor(mentorId, teamId);
     if (res.success) {
       window.location.reload();
     }
