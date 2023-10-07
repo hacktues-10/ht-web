@@ -50,7 +50,7 @@ export const checkifMentorExists = async (email: string) => {
   return false;
 };
 
-export async function ChooseTeamMentor(mentorId: number, teamId: string) {
+export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
     await db
       .update(teams)
