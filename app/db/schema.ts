@@ -153,6 +153,7 @@ export const teams = pgTable("teams", {
   // TODO: technologies
   projectId: integer("project_id").references(() => projects.id),
   isAlumni: boolean("is_alumni").notNull().default(false),
+  semiFinal: integer("semi_final").default(0),
   semiFinalResult: numeric("semi_final_result", { precision: 3, scale: 2 })
     .notNull()
     .default("0.00"),
