@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { db } from "../db";
 import { teams } from "../db/schema";
 
-export async function getTeams() {
+export async function getTeamsBySemiFinal() {
   let teamsResult = [];
   //TOMI KAZA CHE SHTE SA 7, TAKA CHE 7 :)))
   for (let i = 1; i < 8; i++) {
