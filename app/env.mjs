@@ -17,7 +17,10 @@ export const env = createEnv({
     // TODO: rename
     HOSTNAME: z.string(),
   },
-  client: {},
+  client: {
+    NEXT_PUBLIC_GROWTHBOOK_API_HOST: z.string().url(),
+    NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY: z.string(),
+  },
   // If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
   //   runtimeEnv: {
   //     ...

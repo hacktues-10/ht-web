@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import AuthProvider from "./context/AuthProvider";
+import { GrowthBookServerProvider } from "./context/growthbook/GrowthBookServerProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +23,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <main className="flex min-h-screen items-start justify-center p-6">
-            {children}
-          </main>
+          <GrowthBookServerProvider>
+            <main className="flex min-h-screen items-start justify-center p-6">
+              {children}
+            </main>
+          </GrowthBookServerProvider>
         </AuthProvider>
       </body>
     </html>
