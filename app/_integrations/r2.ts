@@ -20,6 +20,8 @@ const s3 = new S3Client({
   },
 });
 
+// FIXME: move to an actions file, perhaps in the proper location for mentors/wherever we need this.
+//        It breaks the convention to have "use server" in a file, not called `actions.ts`
 export const uploadFile = zact(fileSchema)(async (input) => {
   const preSignedUrl = await getSignedUrl(
     s3,

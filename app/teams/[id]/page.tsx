@@ -20,7 +20,9 @@ export default async function TeamDetailPage({
     notFound();
   }
 
-  const hasAskedToJoinState = await checkStateJoinRequests(team.id);
+  const hasAskedToJoinState = await checkStateJoinRequests({
+    targetTeamId: team.id,
+  });
 
   const teamMembers = await getTeamMembers(team.id);
 

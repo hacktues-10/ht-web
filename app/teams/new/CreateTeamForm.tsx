@@ -1,14 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import invariant from "tiny-invariant";
 
 import { createTeamAction } from "./actions";
 
 export function CreateTeamForm() {
   const router = useRouter();
-  const canCreateTeam = useFeatureIsOn("create-team");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -23,13 +21,12 @@ export function CreateTeamForm() {
       return;
     }
 
-    const { team } = await createTeamAction({ name, description });
-    router.push(`/teams/${team.id}`);
+    const res = await createTeamAction({ name, description });
+    if (res.success) {
+      router.push(`/teams/${res.team.id}`);
+    }
   }
 
-  if (!canCreateTeam) {
-    return null;
-  }
   return (
     <form
       className="mx-auto flex max-w-md flex-col gap-2 rounded-lg bg-gray-100 p-4 shadow-md"

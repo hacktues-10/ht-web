@@ -4,8 +4,8 @@ import { eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
-import { getHTSession } from "~/app/api/auth/session";
 import { mentors, teams } from "~/app/db/schema";
+import { getServerSideGrowthBook } from "../_integrations/growthbook";
 import { db } from "../db";
 
 const formData = z.object({
@@ -23,6 +23,14 @@ const formData = z.object({
 });
 
 export const insertMentor = zact(formData)(async (formData) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("register-mentors")) {
+    return {
+      success: false,
+      error: "Регистрацията на ментори не е позволена по това време.",
+    };
+  }
+
   const exists = await checkifMentorExists(formData.email);
   if (!exists) {
     const res = await db.insert(mentors).values(formData).returning();
@@ -32,6 +40,7 @@ export const insertMentor = zact(formData)(async (formData) => {
     return false;
   } else {
     const res = await updateMentor(formData);
+    // FIXME: typescript error here????
     if (res.length > 0) {
       return true;
     }
@@ -64,6 +73,14 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
 }
 
 export const updateMentor = zact(formData)(async (formData) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("register-mentors")) {
+    return {
+      success: false,
+      error: "Редактирането на ментори не е позволена по това време.",
+    };
+  }
+
   const res = await db
     .update(mentors)
     .set({
