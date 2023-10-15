@@ -3,6 +3,7 @@ export type HTFeatures = {
   "update-team-details": boolean;
   "update-team-members": boolean;
 
+  "show-mentors": boolean;
   "register-mentors": boolean;
   "select-team-mentors": boolean;
 };
