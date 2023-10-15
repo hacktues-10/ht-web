@@ -63,8 +63,7 @@ const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
         <p className="mentor-description">{mentor.description}</p>
         <DisplayTechnologies technologies={mentor.technologies} />
       </div>
-      {/* FIXME: rename feature to choose-mentor */}
-      <IfHTFeatureOn feature="select-team-mentors">
+      <IfHTFeatureOn feature="choose-mentor">
         {participant &&
         participant.team.isCaptain == true &&
         participantTeam?.id &&

@@ -5,5 +5,5 @@ export type HTFeatures = {
 
   "show-mentors": boolean;
   "register-mentors": boolean;
-  "select-team-mentors": boolean;
+  "choose-mentor": boolean;
 };
