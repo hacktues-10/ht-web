@@ -4,12 +4,12 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Select from "react-dropdown-select";
 
+import { uploadFile } from "~/app/_integrations/r2";
 import {
   // checkifFileExists,
   getMentor,
   insertMentor,
 } from "~/app/mentors/actions";
-import { uploadFile } from "~/app/r2";
 import { convertToTechnology, technologies } from "~/app/technologies";
 
 interface MentorFormProps {

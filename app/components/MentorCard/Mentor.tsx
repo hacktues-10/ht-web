@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 
-import { getImageUrl } from "../../r2";
+import { getImageUrl } from "../../_integrations/r2";
 import DisplayTechnologies from "../Technologies/displayTechnologies";
 
 import "./MentorCard.css"; // Apply additional styles in a separate CSS file

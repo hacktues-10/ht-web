@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { GrowthBook } from "@growthbook/growthbook";
 
-import { env } from "./env.mjs";
+import { env } from "../env.mjs";
 
 // FIXME: do we need to use user id:
 // https://github.com/esauri/growthbook-next-app-router/blob/main/src/utils/growthbook.ts
