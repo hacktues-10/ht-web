@@ -8,6 +8,8 @@ import {
 } from "@growthbook/growthbook";
 import { GrowthBookProvider } from "@growthbook/growthbook-react";
 
+import { HTFeatures } from "./features";
+
 // import { env } from "~/app/env.mjs"; // FIXME: use env.mjs
 
 type GrowthBookClientProviderProps = PropsWithChildren<{
@@ -22,7 +24,7 @@ export function GrowthBookClientProvider({
 }: GrowthBookClientProviderProps) {
   const growthbook = useMemo(
     () =>
-      new GrowthBook({
+      new GrowthBook<HTFeatures>({
         apiHost: process.env.NEXT_PUBLIC_GROWTHBOOK_API_HOST,
         clientKey: process.env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY,
         attributes,
