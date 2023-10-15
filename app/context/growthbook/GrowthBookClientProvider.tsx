@@ -8,35 +8,36 @@ import {
 } from "@growthbook/growthbook";
 import { GrowthBookProvider } from "@growthbook/growthbook-react";
 
+import { env } from "~/app/env.mjs";
 import { HTFeatures } from "./features";
-
-// import { env } from "~/app/env.mjs"; // FIXME: use env.mjs
 
 type GrowthBookClientProviderProps = PropsWithChildren<{
   attributes: Attributes;
   features: FeatureDefinitions;
+  enableDevMode?: boolean;
 }>;
 
 export function GrowthBookClientProvider({
   attributes,
   children,
   features,
+  enableDevMode = false,
 }: GrowthBookClientProviderProps) {
   const growthbook = useMemo(
     () =>
       new GrowthBook<HTFeatures>({
-        apiHost: process.env.NEXT_PUBLIC_GROWTHBOOK_API_HOST,
-        clientKey: process.env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY,
+        apiHost: env.NEXT_PUBLIC_GROWTHBOOK_API_HOST,
+        clientKey: env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY,
         attributes,
         features,
-        enableDevMode: true, // TODO: remove this in production
+        enableDevMode,
+        subscribeToChanges: true,
       }),
-    [attributes, features],
+    [attributes, features, enableDevMode],
   );
 
   useEffect(() => {
-    // FIXME: autoRefresh is deprecated
-    growthbook.loadFeatures({ autoRefresh: true });
+    growthbook.loadFeatures();
   }, [growthbook]);
 
   return (

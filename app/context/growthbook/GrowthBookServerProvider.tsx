@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { env } from "~/app/env.mjs";
 import { GrowthBookClientProvider } from "./GrowthBookClientProvider";
 
 export async function GrowthBookServerProvider({
@@ -11,7 +12,11 @@ export async function GrowthBookServerProvider({
   const features = growthbook.getFeatures();
 
   return (
-    <GrowthBookClientProvider attributes={attributes} features={features}>
+    <GrowthBookClientProvider
+      attributes={attributes}
+      features={features}
+      enableDevMode={env.VERCEL_ENV === "development"}
+    >
       {children}
     </GrowthBookClientProvider>
   );

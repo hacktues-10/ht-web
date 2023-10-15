@@ -11,7 +11,7 @@ export const getServerSideGrowthBook = cache(async (id?: string) => {
   const growthbook = new GrowthBook<HTFeatures>({
     apiHost: env.NEXT_PUBLIC_GROWTHBOOK_API_HOST,
     clientKey: env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY,
-    enableDevMode: true, // FIXME: remove this in production
+    enableDevMode: env.VERCEL_ENV === "development",
     attributes: {
       id,
     },
