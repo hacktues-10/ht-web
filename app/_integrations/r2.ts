@@ -11,7 +11,7 @@ const fileSchema = z.object({
   fileName: z.string(),
 });
 
-const S3 = new S3Client({
+const s3 = new S3Client({
   region: "auto",
   endpoint: `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
   credentials: {
@@ -22,7 +22,7 @@ const S3 = new S3Client({
 
 export const uploadFile = zact(fileSchema)(async (input) => {
   const preSignedUrl = await getSignedUrl(
-    S3,
+    s3,
     new PutObjectCommand({
       Bucket: env.S3_UPLOAD_BUCKET,
       Key: input.fileName,
