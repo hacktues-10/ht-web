@@ -2,7 +2,6 @@
 
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
-import axios from "axios";
 import { eq } from "drizzle-orm";
 
 import { db } from "~/app/db";
@@ -31,15 +30,22 @@ export async function GET(req: NextRequest) {
     "Accept-Encoding": "application/x-www-form-urlencoded",
   };
 
-  const res = await axios.post("https://discord.com/api/oauth2/token", params, {
-    headers,
+  const res = await fetch("https://discord.com/api/oauth2/token", {
+    method: "POST",
+    headers: headers,
+    body: params.toString(),
   });
+  const data = await res.json();
+  console.log(data);
 
-  const user = await axios.get("https://discord.com/api/users/@me", {
+  const response = await fetch("https://discord.com/api/users/@me", {
+    method: "GET",
     headers: {
-      Authorization: `Bearer ${res.data.access_token}`,
+      Authorization: `Bearer ${data.access_token}`,
     },
   });
+
+  const user = await response.json();
 
   const participant = await getParticipantFromSession();
   const session = await getHTSession();
@@ -85,7 +91,7 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  return new Response(JSON.stringify(user.data));
+  return new Response(JSON.stringify(res));
 }
 
 async function checkIfUserHaveDiscordEntry(participantid: number) {
