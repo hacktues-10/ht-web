@@ -80,7 +80,6 @@ export const particpants = pgTable("participants", {
   tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
   technologies: varchar("technologies").default(""),
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
-
   isCaptain: boolean("is_captain").notNull().default(false),
   teamId: varchar("team_id").references(() => teams.id),
 });
@@ -104,6 +103,21 @@ export const participantsRelations = relations(
     sentInvitations: many(invitations),
   }),
 );
+
+export const discord_table = pgTable("discord", {
+  id: serial("id").primaryKey(),
+  participant_id: integer("participant_id"),
+  discord_id: varchar("discord_id"),
+  discord_username: varchar("discord_username"),
+  lastUpdated: timestamp("last_updated").defaultNow().notNull(),
+});
+
+export const discordTableRelations = relations(discord_table, ({ one }) => ({
+  particpants: one(particpants, {
+    fields: [discord_table.participant_id],
+    references: [particpants.id],
+  }),
+}));
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),

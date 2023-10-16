@@ -1,7 +1,12 @@
-import { use } from "react";
-import { redirect } from "next/navigation";
+"use server";
+
 import { type NextRequest } from "next/server";
 import axios from "axios";
+import { eq } from "drizzle-orm";
+
+import { db } from "~/app/db";
+import { discord_table, particpants } from "~/app/db/schema";
+import { getParticipantFromSession } from "~/app/participants/service";
 
 const clientId = "1163022808192917514";
 const clientSecret = "-m73ILHECZQjpLaDChLWSUFs8FnH0jNz";
@@ -22,18 +27,48 @@ export async function GET(req: NextRequest) {
     "Content-Type": "application/x-www-form-urlencoded",
     "Accept-Encoding": "application/x-www-form-urlencoded",
   };
-  //post request to https://discord.com/api/oauth2/token	.
+
   const res = await axios.post("https://discord.com/api/oauth2/token", params, {
     headers,
   });
-  console.log(res);
 
   const user = await axios.get("https://discord.com/api/users/@me", {
     headers: {
       Authorization: `Bearer ${res.data.access_token}`,
     },
   });
-  console.log(user);
+
+  const participant = await getParticipantFromSession();
+  if (!participant) return null;
+  if (await checkIfUserHaveDiscordEntry(participant.id)) {
+    await db
+      .update(discord_table)
+      .set({
+        discord_id: user.data.id,
+        discord_username: user.data.username,
+        lastUpdated: new Date(),
+      })
+      .where(eq(discord_table.participant_id, participant.id));
+  } else {
+    await db.insert(discord_table).values({
+      participant_id: participant.id,
+      discord_id: user.data.id,
+      discord_username: user.data.username,
+    });
+  }
 
   return new Response(JSON.stringify(user.data));
+}
+
+async function checkIfUserHaveDiscordEntry(participantid: number) {
+  try {
+    const res = await db
+      .select()
+      .from(discord_table)
+      .where(eq(discord_table.participant_id, participantid));
+    if (res.length > 0) return true;
+    return false;
+  } catch (err) {
+    return false;
+  }
 }
