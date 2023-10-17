@@ -5,21 +5,20 @@ import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 
 import { db } from "~/app/db";
-import { discord_table, particpants } from "~/app/db/schema";
+import { discord_table } from "~/app/db/schema";
+import { env } from "~/app/env.mjs";
 import { getMentor } from "~/app/mentors/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getHTSession } from "../../auth/session";
 
-const clientId = "1163022808192917514";
-const clientSecret = "-m73ILHECZQjpLaDChLWSUFs8FnH0jNz";
-
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
+
   const code = searchParams.get("code");
   if (!code) return;
   const params = new URLSearchParams({
-    client_id: clientId,
-    client_secret: clientSecret,
+    client_id: env.DISCORD_CLIENT_ID,
+    client_secret: env.DISCORD_CLIENT_SECRET,
     grant_type: "authorization_code",
     code: code,
     redirect_uri: "http://localhost:3000/api/discord/callback",
@@ -29,14 +28,13 @@ export async function GET(req: NextRequest) {
     "Content-Type": "application/x-www-form-urlencoded",
     "Accept-Encoding": "application/x-www-form-urlencoded",
   };
-
   const res = await fetch("https://discord.com/api/oauth2/token", {
     method: "POST",
     headers: headers,
     body: params.toString(),
   });
+
   const data = await res.json();
-  console.log(data);
 
   const response = await fetch("https://discord.com/api/users/@me", {
     method: "GET",
@@ -46,7 +44,6 @@ export async function GET(req: NextRequest) {
   });
 
   const user = await response.json();
-
   const participant = await getParticipantFromSession();
   const session = await getHTSession();
   console.log("Session: ", session);
@@ -59,16 +56,18 @@ export async function GET(req: NextRequest) {
       await db
         .update(discord_table)
         .set({
-          discord_id: user.data.id,
-          discord_username: user.data.username,
+          discord_id: user.id,
+          discord_username: user.username,
           lastUpdated: new Date(),
         })
         .where(eq(discord_table.mentor_id, mentor.id));
     } else {
+      console.log("Mentor: ", mentor.id);
+      console.log("User: ", user);
       await db.insert(discord_table).values({
         mentor_id: mentor.id,
-        discord_id: user.data.id,
-        discord_username: user.data.username,
+        discord_id: user.id,
+        discord_username: user.username,
         lastUpdated: new Date(),
       });
     }
@@ -77,21 +76,43 @@ export async function GET(req: NextRequest) {
       await db
         .update(discord_table)
         .set({
-          discord_id: user.data.id,
-          discord_username: user.data.username,
+          discord_id: user.id,
+          discord_username: user.username,
           lastUpdated: new Date(),
         })
         .where(eq(discord_table.participant_id, participant.id));
     } else {
       await db.insert(discord_table).values({
         participant_id: participant.id,
-        discord_id: user.data.id,
-        discord_username: user.data.username,
+        discord_id: user.id,
+        discord_username: user.username,
       });
     }
   }
 
-  return new Response(JSON.stringify(res));
+  const inviteParams = {
+    access_token: data.access_token,
+  };
+
+  console.log(
+    `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
+  );
+
+  const invite_res = await fetch(
+    `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bot " + env.DISCORD_BOT_ID,
+      },
+      body: JSON.stringify(inviteParams),
+    },
+  );
+
+  console.log(await invite_res.json());
+
+  return new Response(JSON.stringify("res"));
 }
 
 async function checkIfUserHaveDiscordEntry(participantid: number) {
@@ -118,4 +139,15 @@ async function checkIfMentorHaveDiscordEntry(mentorid: number) {
   } catch (err) {
     return false;
   }
+}
+
+async function getGuilds(data: any) {
+  const response = await fetch("https://discord.com/api/users/@me/guilds", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${data.access_token}`,
+    },
+  });
+
+  console.log(await response.json());
 }
