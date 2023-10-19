@@ -58,6 +58,7 @@ export async function GET(req: NextRequest) {
         .set({
           discord_id: user.id,
           discord_username: user.username,
+          access_token: data.access_token,
           lastUpdated: new Date(),
         })
         .where(eq(discord_table.mentor_id, mentor.id));
@@ -68,6 +69,7 @@ export async function GET(req: NextRequest) {
         mentor_id: mentor.id,
         discord_id: user.id,
         discord_username: user.username,
+        access_token: data.access_token,
         lastUpdated: new Date(),
       });
     }
@@ -78,6 +80,7 @@ export async function GET(req: NextRequest) {
         .set({
           discord_id: user.id,
           discord_username: user.username,
+          access_token: data.access_token,
           lastUpdated: new Date(),
         })
         .where(eq(discord_table.participant_id, participant.id));
@@ -86,6 +89,7 @@ export async function GET(req: NextRequest) {
         participant_id: participant.id,
         discord_id: user.id,
         discord_username: user.username,
+        access_token: data.access_token,
       });
     }
   }
@@ -93,10 +97,6 @@ export async function GET(req: NextRequest) {
   const inviteParams = {
     access_token: data.access_token,
   };
-
-  console.log(
-    `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
-  );
 
   const invite_res = await fetch(
     `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,

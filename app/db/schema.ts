@@ -111,6 +111,7 @@ export const discord_table = pgTable("discord", {
   //todo: da slojim unique posle sled cqloto testvane!
   discord_id: varchar("discord_id"),
   discord_username: varchar("discord_username"),
+  access_token: varchar("access_token"),
   lastUpdated: timestamp("last_updated").defaultNow().notNull(),
 });
 
