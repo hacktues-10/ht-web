@@ -11,6 +11,9 @@ import { getMentor } from "~/app/mentors/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getHTSession } from "../../auth/session";
 
+const mentorRole = "1165569963386478633";
+const memberRole = "1165565914570293289";
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
@@ -49,8 +52,9 @@ export async function GET(req: NextRequest) {
   console.log("Session: ", session);
   if (!session?.user?.email) redirect("/");
 
+  const mentor = await getMentor({ email: session.user.email });
+
   if (!participant) {
-    const mentor = await getMentor({ email: session.user.email });
     if (!mentor) return;
     if (await checkIfMentorHaveDiscordEntry(mentor.id)) {
       await db
@@ -96,6 +100,14 @@ export async function GET(req: NextRequest) {
 
   const inviteParams = {
     access_token: data.access_token,
+    nick: participant
+      ? participant?.firstName + " " + participant?.lastName
+      : mentor
+      ? mentor.firstName + " " + mentor.lastName
+      : "",
+    roles: participant ? [memberRole] : mentor ? [mentorRole] : [],
+    mute: false,
+    deaf: false,
   };
 
   const invite_res = await fetch(
@@ -109,8 +121,6 @@ export async function GET(req: NextRequest) {
       body: JSON.stringify(inviteParams),
     },
   );
-
-  console.log(await invite_res.json());
 
   return new Response(JSON.stringify("res"));
 }
