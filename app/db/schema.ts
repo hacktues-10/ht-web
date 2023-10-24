@@ -172,6 +172,7 @@ export const teams = pgTable("teams", {
   mentorId: integer("mentor_id").references(() => mentors.id),
   // TODO: technologies
   projectId: integer("project_id").references(() => projects.id),
+  roleId: varchar("role_id"),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({

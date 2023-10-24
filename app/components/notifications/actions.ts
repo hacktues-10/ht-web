@@ -1,11 +1,13 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { zact } from "zact/server";
-import { z } from "zod";
+import { string, z } from "zod";
 
+import { addDiscordRole } from "~/app/api/discord/actions";
 import { db } from "~/app/db";
 import {
+  discord_table,
   invitations,
   joinRequests,
   notifications,
@@ -37,7 +39,26 @@ export const acceptJoinRequest = async (
         .where(eq(notifications.referenceId, joinRequest?.id));
 
       await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
-      return { success: true };
+
+      //add team role
+
+      const discord = await db
+        .select()
+        .from(discord_table)
+        .where(eq(discord_table.participant_id, joinRequest.userId));
+      if (!discord[0].discord_id || !discord[0].access_token) {
+        return { success: false };
+      }
+      const roleId = "1166396007718867054";
+      const res = await addDiscordRole(
+        discord[0].discord_id,
+        roleId,
+        discord[0].access_token,
+      );
+      if (res.success) {
+        return { success: true };
+      }
+      return { success: false };
     } catch (err) {
       console.log(err);
       return { success: false };
