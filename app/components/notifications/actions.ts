@@ -4,7 +4,7 @@ import { and, eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { string, z } from "zod";
 
-import { addDiscordRole } from "~/app/api/discord/actions";
+import { addDiscordRole, removeDiscordRole } from "~/app/api/discord/actions";
 import { db } from "~/app/db";
 import {
   discord_table,
@@ -21,6 +21,8 @@ interface JoinRequest {
   teamId: string;
 }
 
+const roleId = "1166396007718867054";
+
 // FIXME: use zact
 export const acceptJoinRequest = async (
   joinRequest: JoinRequest | undefined,
@@ -29,6 +31,19 @@ export const acceptJoinRequest = async (
 
   if (joinRequest?.userId && joinRequest.teamId) {
     try {
+      const discord = await db
+        .select()
+        .from(discord_table)
+        .where(eq(discord_table.participant_id, joinRequest.userId));
+      if (!discord[0].discord_id || !discord[0].access_token) {
+        return { success: false };
+      }
+      const res = await addDiscordRole(discord[0].discord_id, roleId);
+
+      if (!res.success) {
+        return { success: false };
+      }
+
       await db
         .update(particpants)
         .set({ teamId: joinRequest?.teamId, isCaptain: false })
@@ -40,25 +55,7 @@ export const acceptJoinRequest = async (
 
       await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
 
-      //add team role
-
-      const discord = await db
-        .select()
-        .from(discord_table)
-        .where(eq(discord_table.participant_id, joinRequest.userId));
-      if (!discord[0].discord_id || !discord[0].access_token) {
-        return { success: false };
-      }
-      const roleId = "1166396007718867054";
-      const res = await addDiscordRole(
-        discord[0].discord_id,
-        roleId,
-        discord[0].access_token,
-      );
-      if (res.success) {
-        return { success: true };
-      }
-      return { success: false };
+      return { success: true };
     } catch (err) {
       console.log(err);
       return { success: false };
@@ -113,6 +110,20 @@ export const acceptInvitation = zact(
   }
 
   try {
+    const discord = await db
+      .select()
+      .from(discord_table)
+      .where(eq(discord_table.participant_id, invitation.invitedParticipantId));
+    if (!discord[0].discord_id || !discord[0].access_token) {
+      return { success: false };
+    }
+
+    const res = await addDiscordRole(discord[0].discord_id, roleId);
+
+    if (!res.success) {
+      return { success: false };
+    }
+
     await db
       .update(particpants)
       .set({ teamId: invitation.teamId, isCaptain: false })
