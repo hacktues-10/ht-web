@@ -5,13 +5,17 @@ import { zact } from "zact/server";
 import { z } from "zod";
 
 import {
+  discord_table,
   invitations,
   joinRequests,
   notifications,
   particpants,
   teams,
 } from "~/app/db/schema";
-import { deleteChannelsRolesCategories } from "../api/discord/actions";
+import {
+  deleteChannelsRolesCategories,
+  deleteRoleFromMember,
+} from "../api/discord/actions";
 import { db } from "../db";
 import {
   getParticipantById,
@@ -182,7 +186,19 @@ export async function removeTeamMember(memberId: number) {
   if (!member?.team.id) {
     return { success: false, message: "The member is not part of this team" };
   }
+
+  const discordMember = await db
+    .select()
+    .from(discord_table)
+    .where(eq(discord_table.participant_id, member.id));
+  if (!discordMember[0].discord_id)
+    return {
+      success: false,
+      message: "The member does not have discord account",
+    };
+
   if (participant.team.isCaptain && participant.team.id == member.team.id) {
+    await deleteRoleFromMember(member.team.id, discordMember[0].discord_id);
     const res = await db
       .update(particpants)
       .set({ teamId: null, isCaptain: false })

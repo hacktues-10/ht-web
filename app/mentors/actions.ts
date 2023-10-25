@@ -5,7 +5,8 @@ import { zact } from "zact/server";
 import { z } from "zod";
 
 import { getHTSession } from "~/app/api/auth/session";
-import { mentors, teams } from "~/app/db/schema";
+import { discord_table, mentors, teams } from "~/app/db/schema";
+import { addDiscordRole } from "../api/discord/actions";
 import { db } from "../db";
 
 const formData = z.object({
@@ -52,6 +53,15 @@ export const checkifMentorExists = async (email: string) => {
 
 export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
+    const res = await db
+      .select()
+      .from(discord_table)
+      .where(eq(discord_table.mentor_id, mentorId));
+
+    const team = await db.select().from(teams).where(eq(teams.id, teamId));
+    if (!team[0].roleId) return { success: false };
+    if (!res[0].discord_id) return { success: false };
+    await addDiscordRole(res[0].discord_id, team[0].roleId);
     await db
       .update(teams)
       .set({ mentorId: mentorId })

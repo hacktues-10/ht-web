@@ -254,3 +254,22 @@ const deleteRole = async (roleId: string) => {
     console.error(`Error deleting role ${roleId}:`, roleResponse.statusText);
   }
 };
+
+export const deleteRoleFromMember = async (roleId: string, userId: string) => {
+  const deleteRoleResponse = await fetch(
+    `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/members/${userId}/roles/${roleId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_ID}`,
+      },
+    },
+  );
+
+  if (!deleteRoleResponse.ok) {
+    console.error(
+      `Error deleting role ${roleId}:`,
+      deleteRoleResponse.statusText,
+    );
+  }
+};
