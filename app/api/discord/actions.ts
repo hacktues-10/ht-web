@@ -178,3 +178,79 @@ const createChannel = async (
     );
   }
 };
+
+export const deleteChannelsRolesCategories = async (teamId: string) => {
+  const rolesResponse = await fetch(
+    `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/roles`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_ID}`,
+      },
+    },
+  );
+
+  const channelsResponse = await fetch(
+    `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/channels`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_ID}`,
+      },
+    },
+  );
+
+  if (!rolesResponse.ok || !channelsResponse.ok) {
+    return;
+  }
+  const rolesData = await rolesResponse.json();
+  const channelsData = await channelsResponse.json();
+  console.log(rolesData);
+
+  for (const role of rolesData) {
+    if (role.name === teamId) {
+      await deleteRole(role.id);
+    }
+  }
+
+  for (const channel of channelsData) {
+    if (channel.name === teamId || channel.name === `Team ${teamId}`) {
+      await deleteChannel(channel.id);
+    }
+  }
+};
+
+const deleteChannel = async (channelId: string) => {
+  const channelResponse = await fetch(
+    `https://discord.com/api/channels/${channelId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_ID}`,
+      },
+    },
+  );
+
+  if (!channelResponse.ok) {
+    console.error(
+      `Error deleting channel ${channelId}:`,
+      channelResponse.statusText,
+    );
+  }
+};
+
+const deleteRole = async (roleId: string) => {
+  const roleResponse = await fetch(
+    `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/roles/${roleId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_ID}`,
+      },
+    },
+  );
+
+  if (!roleResponse.ok) {
+    console.error(`Error deleting role ${roleId}:`, roleResponse.statusText);
+  }
+};

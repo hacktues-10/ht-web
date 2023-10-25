@@ -11,6 +11,7 @@ import {
   particpants,
   teams,
 } from "~/app/db/schema";
+import { deleteChannelsRolesCategories } from "../api/discord/actions";
 import { db } from "../db";
 import {
   getParticipantById,
@@ -31,6 +32,8 @@ export async function deleteMyTeam() {
   }
 
   try {
+    await deleteChannelsRolesCategories(participant.team.id);
+
     await db
       .delete(joinRequests)
       .where(eq(joinRequests.teamId, participant.team.id));
