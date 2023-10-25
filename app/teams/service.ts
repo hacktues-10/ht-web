@@ -37,8 +37,10 @@ export async function createTeam(team: {
     .select()
     .from(discord_table)
     .where(eq(discord_table.participant_id, team.captainId));
-  if (discordMember.length < 1 || !discordMember[0].discord_id)
-    return { success: false };
+  invariant(
+    !(discordMember.length < 1 || !discordMember[0].discord_id),
+    "Failed to get discord member",
+  );
   await addDiscordRole(discordMember[0].discord_id, roleId);
   await db
     .update(particpants)
