@@ -15,6 +15,9 @@ export default async function AdminLayout({ children }: PropsWithChildren<{}>) {
         <ul>
           {/* FIXME: dont hardcode /api/_админ/ </3 */}
           <li>
+            <a href="/api/_админ">Админ</a>
+          </li>
+          <li>
             <a href="/api/_админ/participants">Участници</a>
           </li>
           <li>

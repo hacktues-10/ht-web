@@ -112,6 +112,7 @@ export const users = pgTable("users", {
   participantId: serial("participant_id"),
 });
 
+// FIXME: why is this commented out?
 // export const usersRelations = relations(users, ({ one }) => ({
 //   participants: one(particpants, {
 //     fields: [users.participantId],
@@ -280,6 +281,32 @@ export const notifications = pgTable("notifications", {
 export const notificationsRelations = relations(notifications, ({ one }) => ({
   targetUser: one(particpants, {
     fields: [notifications.targetUserId],
+    references: [particpants.id],
+  }),
+}));
+
+export const adminPositions = pgEnum("admin_positions", [
+  "aztues",
+  "coordinator",
+  "pr",
+  "logistics",
+  "sponsors",
+  "it",
+  "design",
+]);
+
+export const admins = pgTable("admins", {
+  userId: integer("user_id")
+    .notNull()
+    .references(() => particpants.id)
+    .primaryKey(),
+  firstName: varchar("first_name").notNull(),
+  lastName: varchar("last_name").notNull(),
+});
+
+export const adminsRelations = relations(admins, ({ one }) => ({
+  user: one(particpants, {
+    fields: [admins.userId],
     references: [particpants.id],
   }),
 }));
