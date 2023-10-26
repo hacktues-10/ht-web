@@ -9,6 +9,11 @@ import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
 import { mentorWhitelist } from "~/app/user/configure/actions";
 
+function printReturn<T>(x: T) {
+  console.log(x);
+  return x;
+}
+
 export const authOptions = {
   providers: [
     EmailProvider({
@@ -24,7 +29,7 @@ export const authOptions = {
             to: identifier,
             from: provider.from,
             subject: `Sign in to ${host}`,
-            text: text({ url, host }),
+            text: printReturn(text({ url, host })),
             html: html({ url, host, theme }),
           });
           const failed = result.rejected.concat(result.pending).filter(Boolean);
