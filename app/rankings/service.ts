@@ -1,14 +1,14 @@
-"use server";
-
 import { eq } from "drizzle-orm";
 
 import { db } from "../db";
 import { teams } from "../db/schema";
 
+// TOMI KAZA CHE SHTE SA 7, TAKA CHE 7 :)))
+const SEMIFINALS_COUNT = 7;
+
 export async function getTeamsBySemiFinal() {
   let teamsResult = [];
-  //TOMI KAZA CHE SHTE SA 7, TAKA CHE 7 :)))
-  for (let i = 1; i < 8; i++) {
+  for (let i = 1; i <= SEMIFINALS_COUNT; i++) {
     const teamsInSemiFinal = await db
       .select()
       .from(teams)

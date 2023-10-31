@@ -1,6 +1,5 @@
-//represent the information as an array of arrays of teams, the [0] means its the first semi-final
-import SemiFinalRanking from "../components/SemiFinalRanking";
-import { getTeamsBySemiFinal } from "./actions";
+import { SemiFinalRanking } from "./components";
+import { getTeamsBySemiFinal } from "./service";
 
 export default async function RankingsPage() {
   const teams = await getTeamsBySemiFinal();
