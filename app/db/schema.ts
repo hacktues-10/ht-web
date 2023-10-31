@@ -285,16 +285,6 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
   }),
 }));
 
-export const adminPositions = pgEnum("admin_positions", [
-  "aztues",
-  "coordinator",
-  "pr",
-  "logistics",
-  "sponsors",
-  "it",
-  "design",
-]);
-
 export const admins = pgTable("admins", {
   userId: integer("user_id")
     .notNull()
