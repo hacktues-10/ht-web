@@ -1,7 +1,15 @@
+import { notFound } from "next/navigation";
+
+import { getServerSideGrowthBook } from "../_integrations/growthbook";
 import Mentor from "../components/MentorCard/Mentor";
 import { getAllMentors } from "./services";
 
 export default async function Home() {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("show-mentors")) {
+    notFound();
+  }
+
   const mentors = await getAllMentors();
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">

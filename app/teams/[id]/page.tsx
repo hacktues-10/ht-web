@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { IfHTFeatureOn } from "~/app/_integrations/components";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
@@ -20,7 +21,9 @@ export default async function TeamDetailPage({
     notFound();
   }
 
-  const hasAskedToJoinState = await checkStateJoinRequests(team.id);
+  const hasAskedToJoinState = await checkStateJoinRequests({
+    targetTeamId: team.id,
+  });
 
   const teamMembers = await getTeamMembers(team.id);
 
@@ -34,20 +37,24 @@ export default async function TeamDetailPage({
         Назад
       </Link>
       <h1>{team.name}</h1>
-      {participant &&
-        participant.team.isCaptain &&
-        participant.team.id == team.id && <DeleteTeamButton id={team.id} />}
-      {participant && !participant.team.id && (
-        <AskToJoinButton
-          teamid={team.id}
-          hasAskedToJoinState={hasAskedToJoinState}
-        />
-      )}
-      {participant &&
-        participant.team.id === team.id &&
-        participant.team.isCaptain && (
-          <InviteForm teamId={participant.team.id.toString()} />
+      <IfHTFeatureOn feature="update-team-details">
+        {participant &&
+          participant.team.isCaptain &&
+          participant.team.id == team.id && <DeleteTeamButton id={team.id} />}
+      </IfHTFeatureOn>
+      <IfHTFeatureOn feature="update-team-members">
+        {participant && !participant.team.id && (
+          <AskToJoinButton
+            teamid={team.id}
+            hasAskedToJoinState={hasAskedToJoinState}
+          />
         )}
+        {participant &&
+          participant.team.id === team.id &&
+          participant.team.isCaptain && (
+            <InviteForm teamId={participant.team.id.toString()} />
+          )}
+      </IfHTFeatureOn>
       {teamMembers.map((member) => (
         <TeamMember
           key={member.id}

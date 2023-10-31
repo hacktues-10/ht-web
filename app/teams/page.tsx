@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { IfHTFeatureOn } from "../_integrations/components";
 import { getHTSession } from "../api/auth/session";
 import { getConfirmedTeams } from "./service";
 
@@ -26,16 +27,18 @@ export default async function TeamList() {
       <h1 className="font-mono italic text-slate-800 underline">
         Всички отбори
       </h1>
-      {session && (
-        <div className="border-[5px] border-green-950 bg-yellow-500">
-          <Link
-            href="/teams/new"
-            className="bg-gradient-to-r from-pink-500 via-green-500 to-orange-900 bg-clip-text font-serif text-6xl font-extrabold italic text-transparent underline"
-          >
-            Създай отбор
-          </Link>
-        </div>
-      )}
+      <IfHTFeatureOn feature="create-team">
+        {session && (
+          <div className="border-[5px] border-green-950 bg-yellow-500">
+            <Link
+              href="/teams/new"
+              className="bg-gradient-to-r from-pink-500 via-green-500 to-orange-900 bg-clip-text font-serif text-6xl font-extrabold italic text-transparent underline"
+            >
+              Създай отбор
+            </Link>
+          </div>
+        )}
+      </IfHTFeatureOn>
       <ul className="flex flex-wrap gap-2 py-2">
         {teams.map((team) => (
           <li

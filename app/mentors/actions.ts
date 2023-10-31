@@ -4,11 +4,11 @@ import { eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
-import { getHTSession } from "~/app/api/auth/session";
 import { mentors, teams } from "~/app/db/schema";
+import { getServerSideGrowthBook } from "../_integrations/growthbook";
 import { db } from "../db";
 
-const formData = z.object({
+const formDataSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   email: z.string(),
@@ -22,7 +22,15 @@ const formData = z.object({
   fileName: z.string(),
 });
 
-export const insertMentor = zact(formData)(async (formData) => {
+export const insertMentor = zact(formDataSchema)(async (formData) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("register-mentors")) {
+    return {
+      success: false,
+      error: "Регистрацията на ментори не е позволена по това време.",
+    };
+  }
+
   const exists = await checkifMentorExists(formData.email);
   if (!exists) {
     const res = await db.insert(mentors).values(formData).returning();
@@ -31,11 +39,18 @@ export const insertMentor = zact(formData)(async (formData) => {
     }
     return false;
   } else {
-    const res = await updateMentor(formData);
-    if (res.length > 0) {
-      return true;
+    try {
+      const res = await updateMentor(formData);
+      return res !== null;
+    } catch (err) {
+      if (err instanceof Error) {
+        return {
+          success: false,
+          error: err.message,
+        };
+      }
+      throw err;
     }
-    return false;
   }
 });
 
@@ -63,7 +78,12 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
   }
 }
 
-export const updateMentor = zact(formData)(async (formData) => {
+const updateMentor = async (formData: z.infer<typeof formDataSchema>) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("register-mentors")) {
+    throw new Error("Редактирането на ментори не е позволена по това време.");
+  }
+
   const res = await db
     .update(mentors)
     .set({
@@ -81,8 +101,8 @@ export const updateMentor = zact(formData)(async (formData) => {
     })
     .where(eq(mentors.email, formData.email))
     .returning();
-  return res;
-});
+  return res.at(0) ?? null;
+};
 
 export const getMentor = zact(
   z.object({
