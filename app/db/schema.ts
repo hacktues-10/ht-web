@@ -3,6 +3,7 @@ import {
   boolean,
   date,
   integer,
+  numeric,
   pgEnum,
   pgTable,
   serial,
@@ -152,6 +153,15 @@ export const teams = pgTable("teams", {
   mentorId: integer("mentor_id").references(() => mentors.id),
   // TODO: technologies
   projectId: integer("project_id").references(() => projects.id),
+  isAlumni: boolean("is_alumni").notNull().default(false),
+  semiFinal: integer("semi_final").default(0),
+  semiFinalResult: numeric("semi_final_result", { precision: 3, scale: 2 })
+    .notNull()
+    .default("0.00"),
+  isFinalist: boolean("is_finalist").notNull().default(false),
+  finalResult: numeric("final_result", { precision: 3, scale: 2 })
+    .notNull()
+    .default("0.00"),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({
