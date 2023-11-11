@@ -3,6 +3,7 @@ import {
   boolean,
   date,
   integer,
+  numeric,
   pgEnum,
   pgTable,
   serial,
@@ -112,6 +113,7 @@ export const users = pgTable("users", {
   participantId: serial("participant_id"),
 });
 
+// FIXME: why is this commented out?
 // export const usersRelations = relations(users, ({ one }) => ({
 //   participants: one(particpants, {
 //     fields: [users.participantId],
@@ -152,8 +154,14 @@ export const teams = pgTable("teams", {
   // TODO: technologies
   projectId: integer("project_id").references(() => projects.id),
   isAlumni: boolean("is_alumni").notNull().default(false),
-  // isFinalist: boolean("is_finalist").notNull().default(false),
-  // semiFinalResult: integer("semi_final_result").default(0),
+  semiFinal: integer("semi_final").default(0),
+  semiFinalResult: numeric("semi_final_result", { precision: 3, scale: 2 })
+    .notNull()
+    .default("0.00"),
+  isFinalist: boolean("is_finalist").notNull().default(false),
+  finalResult: numeric("final_result", { precision: 3, scale: 2 })
+    .notNull()
+    .default("0.00"),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({
@@ -283,6 +291,22 @@ export const notifications = pgTable("notifications", {
 export const notificationsRelations = relations(notifications, ({ one }) => ({
   targetUser: one(particpants, {
     fields: [notifications.targetUserId],
+    references: [particpants.id],
+  }),
+}));
+
+export const admins = pgTable("admins", {
+  userId: integer("user_id")
+    .notNull()
+    .references(() => particpants.id)
+    .primaryKey(),
+  firstName: varchar("first_name").notNull(),
+  lastName: varchar("last_name").notNull(),
+});
+
+export const adminsRelations = relations(admins, ({ one }) => ({
+  user: one(particpants, {
+    fields: [admins.userId],
     references: [particpants.id],
   }),
 }));

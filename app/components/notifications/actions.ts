@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
 import {
   invitations,
@@ -19,11 +20,20 @@ interface JoinRequest {
   teamId: string;
 }
 
+// FIXME: should we move this to the teams actions.ts?
+
 // FIXME: use zact
 export const acceptJoinRequest = async (
   joinRequest: JoinRequest | undefined,
 ) => {
-  console.log(joinRequest);
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-team-members")) {
+    return {
+      success: false,
+      error:
+        "Промяната на участниците в отборите не е позволена по това време.",
+    };
+  }
 
   if (joinRequest?.userId && joinRequest.teamId) {
     try {
@@ -78,6 +88,15 @@ export const acceptInvitation = zact(
     invitationId: z.number().int(),
   }),
 )(async ({ invitationId }) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-team-members")) {
+    return {
+      success: false,
+      error:
+        "Промяната на участниците в отборите не е позволена по това време.",
+    };
+  }
+
   const particpant = await getParticipantFromSession();
   if (!particpant) {
     return { success: false };

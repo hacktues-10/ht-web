@@ -11,6 +11,7 @@ import {
   particpants,
   teams,
 } from "~/app/db/schema";
+import { getServerSideGrowthBook } from "../_integrations/growthbook";
 import { db } from "../db";
 import {
   getParticipantById,
@@ -19,6 +20,14 @@ import {
 import { getTeamById } from "./service";
 
 export async function deleteMyTeam() {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-team-details")) {
+    return {
+      success: false,
+      error: "Изтриването на отбори не е позволено по това време.",
+    };
+  }
+
   const participant = await getParticipantFromSession();
 
   if (!participant) {
@@ -27,7 +36,7 @@ export async function deleteMyTeam() {
   if (!participant.team.isCaptain || !participant.team.id) {
     return {
       success: false,
-      error: "Само капитана на този отбор може да го изтрие",
+      error: "Само капитанът на този отбор може да го изтрие",
     };
   }
 
@@ -54,6 +63,14 @@ export async function deleteMyTeam() {
 
 // FIXME: use zact
 export async function askToJoinTeam(teamIdToJoin: string) {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-team-members")) {
+    return {
+      success: false,
+      error: "Присъединяването към отбори не е позволено по това време.",
+    };
+  }
+
   const participant = await getParticipantFromSession();
   if (!participant) {
     return { success: false, error: "Не си влязъл като участник" };
@@ -101,6 +118,14 @@ export const inviteToTeam = zact(
     teamId: z.string(),
   }),
 )(async ({ invitedParticipantId, teamId }) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-team-members")) {
+    return {
+      success: false,
+      error: "Поканването на участници в отбори не е позволено по това време.",
+    };
+  }
+
   const participant = await getParticipantFromSession();
   const team = await getTeamById(teamId);
   if (!participant) {
@@ -151,8 +176,13 @@ export const inviteToTeam = zact(
   }
 });
 
-// FIXME: use zact!!!
-export async function checkStateJoinRequests(targetTeamId: string) {
+// XXX: do we need this? can we fetch in the server component?
+/** @deprecated */
+export const checkStateJoinRequests = zact(
+  z.object({
+    targetTeamId: z.string(),
+  }),
+)(async ({ targetTeamId }) => {
   const participant = await getParticipantFromSession();
   if (!participant) {
     return false;
@@ -177,9 +207,19 @@ export async function checkStateJoinRequests(targetTeamId: string) {
     console.log(e);
     return false;
   }
-}
+});
 
+// FIXME: use zact
 export async function removeTeamMember(memberId: number) {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-team-members")) {
+    return {
+      success: false,
+      error:
+        "Премахването на участници от отбори не е позволено по това време.",
+    };
+  }
+
   const participant = await getParticipantFromSession();
   if (!participant?.id) {
     return { success: false, message: "Unauthenticated" };
@@ -202,6 +242,7 @@ export async function removeTeamMember(memberId: number) {
   return { success: false, message: "You are not a team captain" };
 }
 
+// FIXME: do we need this? can we fetch in the server component?
 export async function getTeamMembers(teamId: string) {
   const res = await db
     .select()

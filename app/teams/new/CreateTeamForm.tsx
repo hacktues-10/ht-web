@@ -21,8 +21,10 @@ export function CreateTeamForm() {
       return;
     }
 
-    const { team } = await createTeamAction({ name, description });
-    router.push(`/teams/${team.id}`);
+    const res = await createTeamAction({ name, description });
+    if (res.success) {
+      router.push(`/teams/${res.team.id}`);
+    }
   }
 
   return (
