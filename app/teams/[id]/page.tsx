@@ -20,12 +20,7 @@ export default async function TeamDetailPage({
     notFound();
   }
 
-  let isEligabletoJoin = false;
-  if (participant?.grade) {
-    isEligabletoJoin =
-      (parseInt(participant.grade) > 12 && team.isAlumni) ||
-      (parseInt(participant.grade) < 13 && team.isAlumni == false);
-  }
+  const isEligabletoJoin = isParticipantEligableToJoin(participant, team);
 
   console.log("isEligabletoJoin", isEligabletoJoin);
   const hasAskedToJoinState = await checkStateJoinRequests(team.id);
@@ -66,4 +61,15 @@ export default async function TeamDetailPage({
       ))}
     </div>
   );
+}
+
+function isParticipantEligableToJoin(
+  participant: Awaited<ReturnType<typeof getParticipantFromSession>>,
+  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>,
+) {
+  if (!participant || !participant.grade) {
+    return false;
+  }
+  const grade = parseInt(participant.grade);
+  return (grade > 12 && team.isAlumni) || (grade < 13 && !team.isAlumni);
 }
