@@ -104,7 +104,7 @@ export const participantsRelations = relations(
   }),
 );
 
-export const discord_table = pgTable("discord", {
+export const discordUsers = pgTable("discord", {
   id: serial("id").primaryKey(),
   participant_id: integer("participant_id"),
   mentor_id: integer("mentor_id"),
@@ -115,13 +115,13 @@ export const discord_table = pgTable("discord", {
   lastUpdated: timestamp("last_updated").defaultNow().notNull(),
 });
 
-export const discordTableRelations = relations(discord_table, ({ one }) => ({
+export const discordTableRelations = relations(discordUsers, ({ one }) => ({
   particpants: one(particpants, {
-    fields: [discord_table.participant_id],
+    fields: [discordUsers.participant_id],
     references: [particpants.id],
   }),
   mentors: one(mentors, {
-    fields: [discord_table.mentor_id],
+    fields: [discordUsers.mentor_id],
     references: [mentors.id],
   }),
 }));

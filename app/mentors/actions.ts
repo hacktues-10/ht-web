@@ -6,7 +6,7 @@ import { z } from "zod";
 
 import { getHTSession } from "~/app/api/auth/session";
 import { discord_table, mentors, teams } from "~/app/db/schema";
-import { addDiscordRole } from "../api/discord/actions";
+import { addDiscordRole } from "../api/discord/service";
 import { db } from "../db";
 
 const formData = z.object({

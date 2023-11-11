@@ -5,7 +5,7 @@ import { zact } from "zact/server";
 import { z } from "zod";
 
 import {
-  discord_table,
+  discordUsers,
   invitations,
   joinRequests,
   notifications,
@@ -15,7 +15,7 @@ import {
 import {
   deleteChannelsRolesCategories,
   deleteRoleFromMember,
-} from "../api/discord/actions";
+} from "../api/discord/service";
 import { db } from "../db";
 import {
   getParticipantById,
@@ -189,8 +189,8 @@ export async function removeTeamMember(memberId: number) {
 
   const discordMember = await db
     .select()
-    .from(discord_table)
-    .where(eq(discord_table.participant_id, member.id));
+    .from(discordUsers)
+    .where(eq(discordUsers.participant_id, member.id));
   if (!discordMember[0].discord_id)
     return {
       success: false,

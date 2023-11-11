@@ -1,3 +1,5 @@
+import invariant from "tiny-invariant";
+
 import { env } from "~/app/env.mjs";
 
 export const addDiscordRole = async (userId: string, roleId: string) => {
@@ -44,14 +46,12 @@ export const CreateDiscordTeam = async (teamId: string) => {
   try {
     // Create the role with specified permissions
     const roleData = await createRole(teamId);
-    console.log(`Role created successfully ${roleData}`);
     // Create the section and channels with permission overwrites
     await createSectionAndChannels(teamId, roleData.id);
 
-    console.log(`Role created: ${roleData.name}`);
     return roleData.id;
   } catch (error) {
-    console.error("An error occurred:", error);
+    invariant(false, `An error occurred: ${error}`);
   }
 };
 
@@ -75,11 +75,9 @@ const createRole = async (teamId: string) => {
       body: JSON.stringify(params),
     },
   );
+  invariant(roleResponse.ok, "Bad role response");
 
-  if (roleResponse.ok) {
-    return await roleResponse.json();
-  }
-  return false;
+  return await roleResponse.json();
 };
 
 const createSectionAndChannels = async (teamId: string, roleId: string) => {
@@ -116,22 +114,21 @@ const createSectionAndChannels = async (teamId: string, roleId: string) => {
     },
   );
 
-  if (sectionResponse.ok) {
-    const sectionData = await sectionResponse.json();
+  invariant(
+    sectionResponse.ok,
+    `Error creating section: ${sectionResponse.statusText}`,
+  );
 
-    console.log(sectionData.id);
+  const sectionData = await sectionResponse.json();
 
-    // Create text channels in the section
-    for (const textChannelName of section.textChannels) {
-      await createChannel(sectionData.id, textChannelName, 0, roleId);
-    }
+  // Create text channels in the section
+  for (const textChannelName of section.textChannels) {
+    await createChannel(sectionData.id, textChannelName, 0, roleId);
+  }
 
-    // Create voice channels in the section
-    for (const voiceChannelName of section.voiceChannels) {
-      await createChannel(sectionData.id, voiceChannelName, 2, roleId);
-    }
-  } else {
-    console.error("Error creating section:", sectionResponse.statusText);
+  // Create voice channels in the section
+  for (const voiceChannelName of section.voiceChannels) {
+    await createChannel(sectionData.id, voiceChannelName, 2, roleId);
   }
 };
 
@@ -171,12 +168,10 @@ const createChannel = async (
     },
   );
 
-  if (!channelResponse.ok) {
-    console.error(
-      `Error creating channel (${channelType}):`,
-      channelResponse.statusText,
-    );
-  }
+  invariant(
+    channelResponse.ok,
+    `Error creating channel (${channelType}): ${channelResponse.statusText}`,
+  );
 };
 
 export const deleteChannelsRolesCategories = async (teamId: string) => {
@@ -200,9 +195,10 @@ export const deleteChannelsRolesCategories = async (teamId: string) => {
     },
   );
 
-  if (!rolesResponse.ok || !channelsResponse.ok) {
-    return;
-  }
+  invariant(
+    rolesResponse.ok || channelsResponse.ok,
+    "Channel or roles response error",
+  );
   const rolesData = await rolesResponse.json();
   const channelsData = await channelsResponse.json();
   console.log(rolesData);
@@ -231,12 +227,10 @@ const deleteChannel = async (channelId: string) => {
     },
   );
 
-  if (!channelResponse.ok) {
-    console.error(
-      `Error deleting channel ${channelId}:`,
-      channelResponse.statusText,
-    );
-  }
+  invariant(
+    channelResponse.ok,
+    `Error deleting channel ${channelId}: ${channelResponse.statusText}`,
+  );
 };
 
 const deleteRole = async (roleId: string) => {
@@ -250,9 +244,10 @@ const deleteRole = async (roleId: string) => {
     },
   );
 
-  if (!roleResponse.ok) {
-    console.error(`Error deleting role ${roleId}:`, roleResponse.statusText);
-  }
+  invariant(
+    roleResponse.ok,
+    `Error deleting role ${roleId}: ${roleResponse.statusText}`,
+  );
 };
 
 export const deleteRoleFromMember = async (roleId: string, userId: string) => {
@@ -266,10 +261,8 @@ export const deleteRoleFromMember = async (roleId: string, userId: string) => {
     },
   );
 
-  if (!deleteRoleResponse.ok) {
-    console.error(
-      `Error deleting role ${roleId}:`,
-      deleteRoleResponse.statusText,
-    );
-  }
+  invariant(
+    deleteRoleResponse.ok,
+    `Error deleting role ${roleId}: ${deleteRoleResponse.statusText}`,
+  );
 };

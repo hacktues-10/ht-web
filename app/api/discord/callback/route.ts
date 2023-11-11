@@ -1,21 +1,18 @@
-"use server";
-
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 
 import { db } from "~/app/db";
-import { discord_table } from "~/app/db/schema";
+import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 import { getMentor } from "~/app/mentors/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getHTSession } from "../../auth/session";
 
-const mentorRole = "1165569963386478633";
-const memberRole = "1165565914570293289";
-
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
+  const session = await getHTSession();
+  if (!session?.user?.email) redirect("/");
 
   const code = searchParams.get("code");
   if (!code) return;
@@ -48,9 +45,6 @@ export async function GET(req: NextRequest) {
 
   const user = await response.json();
   const participant = await getParticipantFromSession();
-  const session = await getHTSession();
-  console.log("Session: ", session);
-  if (!session?.user?.email) redirect("/");
 
   const mentor = await getMentor({ email: session.user.email });
 
@@ -58,18 +52,18 @@ export async function GET(req: NextRequest) {
     if (!mentor) return;
     if (await checkIfMentorHaveDiscordEntry(mentor.id)) {
       await db
-        .update(discord_table)
+        .update(discordUsers)
         .set({
           discord_id: user.id,
           discord_username: user.username,
           access_token: data.access_token,
           lastUpdated: new Date(),
         })
-        .where(eq(discord_table.mentor_id, mentor.id));
+        .where(eq(discordUsers.mentor_id, mentor.id));
     } else {
       console.log("Mentor: ", mentor.id);
       console.log("User: ", user);
-      await db.insert(discord_table).values({
+      await db.insert(discordUsers).values({
         mentor_id: mentor.id,
         discord_id: user.id,
         discord_username: user.username,
@@ -80,16 +74,16 @@ export async function GET(req: NextRequest) {
   } else {
     if (await checkIfUserHaveDiscordEntry(participant.id)) {
       await db
-        .update(discord_table)
+        .update(discordUsers)
         .set({
           discord_id: user.id,
           discord_username: user.username,
           access_token: data.access_token,
           lastUpdated: new Date(),
         })
-        .where(eq(discord_table.participant_id, participant.id));
+        .where(eq(discordUsers.participant_id, participant.id));
     } else {
-      await db.insert(discord_table).values({
+      await db.insert(discordUsers).values({
         participant_id: participant.id,
         discord_id: user.id,
         discord_username: user.username,
@@ -105,12 +99,12 @@ export async function GET(req: NextRequest) {
       : mentor
       ? mentor.firstName + " " + mentor.lastName
       : "",
-    roles: participant ? [memberRole] : mentor ? [mentorRole] : [],
+    roles: participant ? [env.MEMBER_ROLE] : mentor ? [env.MENTOR_ROLE] : [],
     mute: false,
     deaf: false,
   };
 
-  const invite_res = await fetch(
+  const inviteRes = await fetch(
     `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
     {
       method: "PUT",
@@ -129,8 +123,8 @@ async function checkIfUserHaveDiscordEntry(participantid: number) {
   try {
     const res = await db
       .select()
-      .from(discord_table)
-      .where(eq(discord_table.participant_id, participantid));
+      .from(discordUsers)
+      .where(eq(discordUsers.participant_id, participantid));
     if (res.length > 0) return true;
     return false;
   } catch (err) {
@@ -142,8 +136,8 @@ async function checkIfMentorHaveDiscordEntry(mentorid: number) {
   try {
     const res = await db
       .select()
-      .from(discord_table)
-      .where(eq(discord_table.mentor_id, mentorid));
+      .from(discordUsers)
+      .where(eq(discordUsers.mentor_id, mentorid));
     if (res.length > 0) return true;
     return false;
   } catch (err) {

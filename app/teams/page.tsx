@@ -11,7 +11,7 @@ export default async function TeamList() {
     return (
       <div>
         Все още няма потвърдени отбори.{" "}
-        {participant && participant.id && participant.team.id == null && (
+        {participant && participant.team.id == null && (
           <Link href="/teams/new" className="text-pink-700 underline">
             Създай отбор
           </Link>
@@ -25,7 +25,7 @@ export default async function TeamList() {
       <h1 className="font-mono italic text-slate-800 underline">
         Всички отбори
       </h1>
-      {participant && participant.id && participant.team.id == null && (
+      {participant && participant.team.id == null && (
         <div className="border-[5px] border-green-950 bg-yellow-500">
           <Link
             href="/teams/new"
