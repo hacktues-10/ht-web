@@ -17,6 +17,7 @@ import {
   getParticipantById,
   getParticipantFromSession,
 } from "../participants/service";
+import { getTeamById } from "./service";
 
 export async function deleteMyTeam() {
   const gb = await getServerSideGrowthBook();
@@ -126,6 +127,7 @@ export const inviteToTeam = zact(
   }
 
   const participant = await getParticipantFromSession();
+  const team = await getTeamById(teamId);
   if (!participant) {
     return { success: false, error: "Не си влязъл като участник" };
   }
@@ -145,6 +147,13 @@ export const inviteToTeam = zact(
     return { success: false, error: "Този участник не може да бъде поканен" };
   }
 
+  if (
+    invitedParticipant.grade &&
+    ((team?.isAlumni && parseInt(invitedParticipant?.grade) < 13) ||
+      (team?.isAlumni == false && parseInt(invitedParticipant?.grade) > 12))
+  ) {
+    return { success: false, error: "Този участник не може да бъде поканен" };
+  }
   try {
     const res = await db
       .insert(invitations)

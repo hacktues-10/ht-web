@@ -21,6 +21,8 @@ export default async function TeamDetailPage({
     notFound();
   }
 
+  const isEligabletoJoin = isParticipantEligableToJoin(participant, team);
+
   const hasAskedToJoinState = await checkStateJoinRequests({
     targetTeamId: team.id,
   });
@@ -43,7 +45,7 @@ export default async function TeamDetailPage({
           participant.team.id == team.id && <DeleteTeamButton id={team.id} />}
       </IfHTFeatureOn>
       <IfHTFeatureOn feature="update-team-members">
-        {participant && !participant.team.id && (
+        {participant && !participant.team.id && isEligabletoJoin && (
           <AskToJoinButton
             teamid={team.id}
             hasAskedToJoinState={hasAskedToJoinState}
@@ -65,4 +67,15 @@ export default async function TeamDetailPage({
       ))}
     </div>
   );
+}
+
+function isParticipantEligableToJoin(
+  participant: Awaited<ReturnType<typeof getParticipantFromSession>>,
+  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>,
+) {
+  if (!participant || !participant.grade) {
+    return false;
+  }
+  const grade = parseInt(participant.grade);
+  return (grade > 12 && team.isAlumni) || (grade < 13 && !team.isAlumni);
 }

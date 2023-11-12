@@ -18,6 +18,7 @@ export async function createTeam(team: {
   name: string;
   description: string;
   captainId: number;
+  isAlumni: boolean;
 }) {
   // TODO: verify if name is ok
   const results = await db
