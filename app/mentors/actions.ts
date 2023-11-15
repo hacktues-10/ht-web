@@ -4,8 +4,7 @@ import { eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
-import { getHTSession } from "~/app/api/auth/session";
-import { discord_table, mentors, teams } from "~/app/db/schema";
+import { discordUsers, mentors, teams } from "~/app/db/schema";
 import { addDiscordRole } from "../api/discord/service";
 import { db } from "../db";
 
@@ -55,13 +54,13 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
     const res = await db
       .select()
-      .from(discord_table)
-      .where(eq(discord_table.mentor_id, mentorId));
+      .from(discordUsers)
+      .where(eq(discordUsers.mentorId, mentorId));
 
     const team = await db.select().from(teams).where(eq(teams.id, teamId));
     if (!team[0].roleId) return { success: false };
-    if (!res[0].discord_id) return { success: false };
-    await addDiscordRole(res[0].discord_id, team[0].roleId);
+    if (!res[0].discordId) return { success: false };
+    await addDiscordRole(res[0].discordId, team[0].roleId);
     await db
       .update(teams)
       .set({ mentorId: mentorId })

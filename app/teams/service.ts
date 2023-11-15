@@ -2,9 +2,9 @@ import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
-import { addDiscordRole, CreateDiscordTeam } from "~/app/api/discord/actions";
+import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "../db";
-import { discord_table, particpants, teams } from "../db/schema";
+import { discordUsers, particpants, teams } from "../db/schema";
 
 export async function getConfirmedTeams() {
   return db.select().from(teams);
@@ -20,7 +20,7 @@ export async function createTeam(team: {
   description: string;
   captainId: number;
 }) {
-  const roleId = await CreateDiscordTeam(slugify(team.name));
+  const roleId = await createDiscordTeam(slugify(team.name));
 
   // TODO: verify if name is ok
   const results = await db
@@ -35,13 +35,13 @@ export async function createTeam(team: {
   invariant(insertedTeam, "Failed to create team");
   const discordMember = await db
     .select()
-    .from(discord_table)
-    .where(eq(discord_table.participant_id, team.captainId));
+    .from(discordUsers)
+    .where(eq(discordUsers.participantId, team.captainId));
   invariant(
-    !(discordMember.length < 1 || !discordMember[0].discord_id),
+    !(discordMember.length < 1 || !discordMember[0].discordId),
     "Failed to get discord member",
   );
-  await addDiscordRole(discordMember[0].discord_id, roleId);
+  await addDiscordRole(discordMember[0].discordId, roleId);
   await db
     .update(particpants)
     .set({

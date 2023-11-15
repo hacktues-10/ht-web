@@ -190,15 +190,15 @@ export async function removeTeamMember(memberId: number) {
   const discordMember = await db
     .select()
     .from(discordUsers)
-    .where(eq(discordUsers.participant_id, member.id));
-  if (!discordMember[0].discord_id)
+    .where(eq(discordUsers.participantId, member.id));
+  if (!discordMember[0].discordId)
     return {
       success: false,
       message: "The member does not have discord account",
     };
 
   if (participant.team.isCaptain && participant.team.id == member.team.id) {
-    await deleteRoleFromMember(member.team.id, discordMember[0].discord_id);
+    await deleteRoleFromMember(member.team.id, discordMember[0].discordId);
     const res = await db
       .update(particpants)
       .set({ teamId: null, isCaptain: false })

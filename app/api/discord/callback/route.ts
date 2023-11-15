@@ -53,20 +53,20 @@ export async function GET(req: NextRequest) {
       await db
         .update(discordUsers)
         .set({
-          discord_id: user.id,
-          discord_username: user.username,
-          access_token: data.access_token,
+          discordId: user.id,
+          discordUsername: user.username,
+          accessToken: data.access_token,
           lastUpdated: new Date(),
         })
-        .where(eq(discordUsers.mentor_id, mentor.id));
+        .where(eq(discordUsers.mentorId, mentor.id));
     } else {
       console.log("Mentor: ", mentor.id);
       console.log("User: ", user);
       await db.insert(discordUsers).values({
-        mentor_id: mentor.id,
-        discord_id: user.id,
-        discord_username: user.username,
-        access_token: data.access_token,
+        mentorId: mentor.id,
+        discordId: user.id,
+        discordUsername: user.username,
+        accessToken: data.access_token,
         lastUpdated: new Date(),
       });
     }
@@ -75,18 +75,18 @@ export async function GET(req: NextRequest) {
       await db
         .update(discordUsers)
         .set({
-          discord_id: user.id,
-          discord_username: user.username,
-          access_token: data.access_token,
+          discordId: user.id,
+          discordUsername: user.username,
+          accessToken: data.access_token,
           lastUpdated: new Date(),
         })
-        .where(eq(discordUsers.participant_id, participant.id));
+        .where(eq(discordUsers.participantId, participant.id));
     } else {
       await db.insert(discordUsers).values({
-        participant_id: participant.id,
-        discord_id: user.id,
-        discord_username: user.username,
-        access_token: data.access_token,
+        participantId: participant.id,
+        discordId: user.id,
+        discordUsername: user.username,
+        accessToken: data.access_token,
       });
     }
   }
@@ -118,24 +118,24 @@ export async function GET(req: NextRequest) {
   return new Response(JSON.stringify("res"));
 }
 
-async function checkIfUserHaveDiscordEntry(participantid: number) {
+async function checkIfUserHaveDiscordEntry(participantId: number) {
   try {
     const res = await db
       .select()
       .from(discordUsers)
-      .where(eq(discordUsers.participant_id, participantid));
+      .where(eq(discordUsers.participantId, participantId));
     return res.length > 0;
   } catch (err) {
     return false;
   }
 }
 
-async function checkIfMentorHaveDiscordEntry(mentorid: number) {
+async function checkIfMentorHaveDiscordEntry(mentorId: number) {
   try {
     const res = await db
       .select()
       .from(discordUsers)
-      .where(eq(discordUsers.mentor_id, mentorid));
+      .where(eq(discordUsers.mentorId, mentorId));
     return res.length > 0;
   } catch (err) {
     return false;

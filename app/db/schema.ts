@@ -77,7 +77,7 @@ export const particpants = pgTable("participants", {
   grade: gradeEnum("grade"),
   parallel: classEnum("class"),
   allergies: varchar("allergies").default(""),
-  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
+  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial
   technologies: varchar("technologies").default(""),
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
   isCaptain: boolean("is_captain").notNull().default(false),
@@ -106,22 +106,22 @@ export const participantsRelations = relations(
 
 export const discordUsers = pgTable("discord", {
   id: serial("id").primaryKey(),
-  participant_id: integer("participant_id"),
-  mentor_id: integer("mentor_id"),
-  //todo: da slojim unique posle sled cqloto testvane!
-  discord_id: varchar("discord_id"),
-  discord_username: varchar("discord_username"),
-  access_token: varchar("access_token"),
+  participantId: integer("participant_id"),
+  mentorId: integer("mentor_id"),
+  // TODO: da slojim unique posle sled cqloto testvane!
+  discordId: varchar("discord_id"),
+  discordUsername: varchar("discord_username"),
+  accessToken: varchar("access_token"),
   lastUpdated: timestamp("last_updated").defaultNow().notNull(),
 });
 
-export const discordTableRelations = relations(discordUsers, ({ one }) => ({
+export const discordUsersRelations = relations(discordUsers, ({ one }) => ({
   particpants: one(particpants, {
-    fields: [discordUsers.participant_id],
+    fields: [discordUsers.participantId],
     references: [particpants.id],
   }),
   mentors: one(mentors, {
-    fields: [discordUsers.mentor_id],
+    fields: [discordUsers.mentorId],
     references: [mentors.id],
   }),
 }));

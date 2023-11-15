@@ -4,10 +4,10 @@ import { and, eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { string, z } from "zod";
 
-import { addDiscordRole, removeDiscordRole } from "~/app/api/discord/actions";
+import { addDiscordRole, removeDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
-  discord_table,
+  discordUsers,
   invitations,
   joinRequests,
   notifications,
@@ -33,12 +33,12 @@ export const acceptJoinRequest = async (
     try {
       const discord = await db
         .select()
-        .from(discord_table)
-        .where(eq(discord_table.participant_id, joinRequest.userId));
-      if (!discord[0].discord_id || !discord[0].access_token) {
+        .from(discordUsers)
+        .where(eq(discordUsers.participantId, joinRequest.userId));
+      if (!discord[0].discordId || !discord[0].accessToken) {
         return { success: false };
       }
-      const res = await addDiscordRole(discord[0].discord_id, roleId);
+      const res = await addDiscordRole(discord[0].discordId, roleId);
 
       if (!res.success) {
         return { success: false };
@@ -112,13 +112,13 @@ export const acceptInvitation = zact(
   try {
     const discord = await db
       .select()
-      .from(discord_table)
-      .where(eq(discord_table.participant_id, invitation.invitedParticipantId));
-    if (!discord[0].discord_id || !discord[0].access_token) {
+      .from(discordUsers)
+      .where(eq(discordUsers.participantId, invitation.invitedParticipantId));
+    if (!discord[0].discordId || !discord[0].accessToken) {
       return { success: false };
     }
 
-    const res = await addDiscordRole(discord[0].discord_id, roleId);
+    const res = await addDiscordRole(discord[0].discordId, roleId);
 
     if (!res.success) {
       return { success: false };
