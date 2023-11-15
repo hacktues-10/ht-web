@@ -25,19 +25,17 @@ export async function GET(req: NextRequest) {
     redirect_uri: discordRedirectUri,
   });
 
-  const headers = {
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Accept-Encoding": "application/x-www-form-urlencoded",
-  };
-  const res = await fetch("https://discord.com/api/oauth2/token", {
+  const res = await fetch("https://discord.com/api/v10/oauth2/token", {
     method: "POST",
-    headers: headers,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
     body: params.toString(),
   });
 
   const data = await res.json();
 
-  const response = await fetch("https://discord.com/api/users/@me", {
+  const response = await fetch("https://discord.com/api/v10/users/@me", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${data.access_token}`,
@@ -106,7 +104,7 @@ export async function GET(req: NextRequest) {
   };
 
   const inviteRes = await fetch(
-    `https://discord.com/api/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
+    `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
     {
       method: "PUT",
       headers: {
@@ -126,8 +124,7 @@ async function checkIfUserHaveDiscordEntry(participantid: number) {
       .select()
       .from(discordUsers)
       .where(eq(discordUsers.participant_id, participantid));
-    if (res.length > 0) return true;
-    return false;
+    return res.length > 0;
   } catch (err) {
     return false;
   }
@@ -139,8 +136,7 @@ async function checkIfMentorHaveDiscordEntry(mentorid: number) {
       .select()
       .from(discordUsers)
       .where(eq(discordUsers.mentor_id, mentorid));
-    if (res.length > 0) return true;
-    return false;
+    return res.length > 0;
   } catch (err) {
     return false;
   }
