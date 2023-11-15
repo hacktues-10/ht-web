@@ -19,6 +19,7 @@ export async function createTeam(team: {
   name: string;
   description: string;
   captainId: number;
+  isAlumni: boolean;
 }) {
   const roleId = await createDiscordTeam(slugify(team.name));
 

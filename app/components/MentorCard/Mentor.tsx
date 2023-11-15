@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 
-import { getImageUrl } from "../../r2";
+import { getImageUrl } from "../../_integrations/r2";
 import DisplayTechnologies from "../Technologies/displayTechnologies";
 
 import "./MentorCard.css"; // Apply additional styles in a separate CSS file
 
+import { IfHTFeatureOn } from "~/app/_integrations/components";
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getTeamById } from "~/app/teams/service";
 import { checkIfMentorIsTaken } from "../../mentors/services";
@@ -29,13 +31,17 @@ interface MentorInterface {
 }
 
 const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
+  // FIXME: N+1 query right here
   const url = await getImageUrl({ fileName: mentor.fileName });
+  // FIXME: possibly another N+1 query right here
   const participant = await getParticipantFromSession();
   let participantTeam;
   if (participant?.team.id) {
+    // FIXME: and another N+1 query right here
     participantTeam = await getTeamById(participant.team.id);
   }
 
+  // FIXME: and yet another N+1 query right here, possibly??
   const isMentorTaken = await checkIfMentorIsTaken(mentor.id);
 
   return (
@@ -57,15 +63,17 @@ const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
         <p className="mentor-description">{mentor.description}</p>
         <DisplayTechnologies technologies={mentor.technologies} />
       </div>
-      {participant &&
-      participant.team.isCaptain == true &&
-      participantTeam?.id &&
-      participantTeam?.mentorId == null &&
-      !isMentorTaken ? (
-        <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
-      ) : (
-        <div></div>
-      )}
+      <IfHTFeatureOn feature="choose-mentor">
+        {participant &&
+        participant.team.isCaptain == true &&
+        participantTeam?.id &&
+        participantTeam?.mentorId == null &&
+        !isMentorTaken ? (
+          <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
+        ) : (
+          <div></div>
+        )}
+      </IfHTFeatureOn>
     </div>
   );
 };
