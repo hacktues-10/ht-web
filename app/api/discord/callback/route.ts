@@ -8,6 +8,7 @@ import { env } from "~/app/env.mjs";
 import { getMentor } from "~/app/mentors/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getHTSession } from "../../auth/session";
+import { discordRedirectUri } from "../service";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest) {
     client_secret: env.DISCORD_CLIENT_SECRET,
     grant_type: "authorization_code",
     code,
-    redirect_uri: `${env.NEXTAUTH_URL}/api/discord/callback`,
+    redirect_uri: discordRedirectUri,
   });
 
   const headers = {
@@ -143,15 +144,4 @@ async function checkIfMentorHaveDiscordEntry(mentorid: number) {
   } catch (err) {
     return false;
   }
-}
-
-async function getGuilds(data: any) {
-  const response = await fetch("https://discord.com/api/users/@me/guilds", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${data.access_token}`,
-    },
-  });
-
-  console.log(await response.json());
 }

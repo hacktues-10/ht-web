@@ -2,6 +2,8 @@ import invariant from "tiny-invariant";
 
 import { env } from "~/app/env.mjs";
 
+export const discordRedirectUri = `${env.NEXTAUTH_URL}/api/discord/callback`;
+
 export const addDiscordRole = async (userId: string, roleId: string) => {
   const headers = {
     Authorization: "Bot " + env.DISCORD_BOT_ID,
@@ -42,7 +44,7 @@ export const removeDiscordRole = async (userId: string, roleId: string) => {
   return { success: true };
 };
 
-export const CreateDiscordTeam = async (teamId: string) => {
+export const createDiscordTeam = async (teamId: string) => {
   try {
     // Create the role with specified permissions
     const roleData = await createRole(teamId);

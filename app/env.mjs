@@ -9,7 +9,6 @@ export const env = createEnv({
 
     DISCORD_BOT_ID: z.string(),
     DISCORD_CLIENT_ID: z.string(),
-    DISCORD_REDIRECT_URL: z.string().url(),
     DISCORD_CLIENT_SECRET: z.string(),
     DISCORD_GUILD_ID: z.string(),
     NEXTAUTH_URL: z.string().url(),
@@ -21,7 +20,7 @@ export const env = createEnv({
     S3_UPLOAD_BUCKET: z.string(),
     MEMBER_ROLE: z.string(),
     MENTOR_ROLE: z.string(),
-    
+
     // TODO: rename
     HOSTNAME: z.string(),
   },
