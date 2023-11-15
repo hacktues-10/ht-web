@@ -20,8 +20,8 @@ export async function GET(req: NextRequest) {
     client_id: env.DISCORD_CLIENT_ID,
     client_secret: env.DISCORD_CLIENT_SECRET,
     grant_type: "authorization_code",
-    code: code,
-    redirect_uri: "http://localhost:3000/api/discord/callback",
+    code,
+    redirect_uri: `${env.NEXTAUTH_URL}/api/discord/callback`,
   });
 
   const headers = {
