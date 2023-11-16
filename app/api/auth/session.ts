@@ -8,6 +8,8 @@ export function getHTSession() {
   return getServerSession(authOptions);
 }
 
+export type HTSession = Exclude<Awaited<ReturnType<typeof getHTSession>>, null>;
+
 export function signInRedirect(): never {
   // TODO: redirect to current page in a better way
   // Next App router doesn't have an API for this yet

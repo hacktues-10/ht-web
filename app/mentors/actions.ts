@@ -107,7 +107,7 @@ const updateMentor = async (formData: z.infer<typeof formDataSchema>) => {
 export const getMentor = zact(
   z.object({
     email: z.string(),
-  }),
+  })
 )(async ({ email }) => {
   const mentor = await db
     .select()
@@ -115,14 +115,3 @@ export const getMentor = zact(
     .where(eq(mentors.email, email));
   return mentor.at(0) ?? null;
 });
-
-// export const checkifFileExists = async (fileName: string) => {
-//   const file = await db
-//     .select()
-//     .from(mentors)
-//     .where(eq(mentors.fileName, fileName));
-//   if (file.length > 0) {
-//     return true;
-//   }
-//   return false;
-// };

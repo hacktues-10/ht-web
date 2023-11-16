@@ -18,7 +18,7 @@ export const authOptions = {
         const transport = createTransport(provider.server);
         if (
           identifier.endsWith("@elsys-bg.org") ||
-          (await isInMentorWhitelist(identifier))
+          isInMentorWhitelist(identifier)
         ) {
           const result = await transport.sendMail({
             to: identifier,
@@ -46,7 +46,7 @@ export const authOptions = {
       }
       if (
         user.email.endsWith("@elsys-bg.org") ||
-        (await isInMentorWhitelist(user.email))
+        isInMentorWhitelist(user.email)
       ) {
         return true;
       }

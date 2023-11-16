@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 
 import { mentors, teams } from "~/app/db/schema";
 import { db } from "../db";
+import { HTSession } from "../api/auth/session";
 
 export const getAllMentors = async () => {
   const allMentors = await db.select().from(mentors);
@@ -36,6 +37,11 @@ export async function checkIfMentorIsTaken(mentorId: number) {
 
 const whitelist = ["abv@trading.212"];
 
-export const isInMentorWhitelist = async (email: string) => {
+export const isInMentorWhitelist = (email: string) => {
   return whitelist.includes(email);
+};
+
+export const isWhitelistedMentor = (session: HTSession) => {
+  if (!session.user?.email) return false;
+  return isInMentorWhitelist(session.user.email);
 };
