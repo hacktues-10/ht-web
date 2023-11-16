@@ -175,6 +175,7 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
   }),
   invitations: many(invitations),
   joinRequests: many(joinRequests),
+  members: many(particpants),
 }));
 
 export const invitations = pgTable(

@@ -3,10 +3,39 @@ import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
 import { db } from "../db";
-import { particpants, teams } from "../db/schema";
+import { particpants, projects, teams } from "../db/schema";
 
 export async function getConfirmedTeams() {
-  return db.select().from(teams);
+  return db.query.teams.findMany({
+    with: {
+      members: true,
+      project: true,
+    },
+  });
+  // .select({
+  //   id: teams.id,
+  //   name: teams.name,
+  //   description: teams.description,
+  //   mentorId: teams.mentorId,
+  //   projectId: teams.projectId,
+  //   isAlumni: teams.isAlumni,
+  //   members: {
+  //     particiapntId: particpants.id,
+  //     firstName: particpants.firstName,
+  //     lastName: particpants.lastName,
+  //     grade: particpants.grade,
+  //     parallel: particpants.parallel,
+  //     technologies: particpants.technologies,
+  //   },
+  //   project: {
+  //     id: projects.id,
+  //     name: projects.name,
+  //     technologies: projects.technologies,
+  //   },
+  // })
+  // .from(teams)
+  // .leftJoin(particpants, eq(particpants.teamId, teams.id))
+  // .leftJoin(projects, eq(teams.projectId, projects.id));
 }
 
 export async function getTeamById(id: string) {

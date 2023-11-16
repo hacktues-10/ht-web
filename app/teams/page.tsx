@@ -2,16 +2,16 @@ import Link from "next/link";
 
 import { IfHTFeatureOn } from "../_integrations/components";
 import { getHTSession } from "../api/auth/session";
-import { getConfirmedTeams } from "./service";
+import TeamCard from "../components/Team/teamCard";
+import TeamMember from "../components/TeamMember";
+import { getConfirmedTeams, getTeamById } from "./service";
 
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
-
   if (!teams.length) {
     return (
       <div>
-        Все още няма потвърдени отбори.{" "}
-        {/* TODO: да показваме ли това когато не сме логнати? */}
+        Все още няма потвърдени отбори.
         <Link href="/teams/new" className="text-pink-700 underline">
           Създай отбор
         </Link>
@@ -21,9 +21,10 @@ export default async function TeamList() {
 
   //   TODO: move elsewhere
   const session = await getHTSession();
+  console.log(session);
 
   return (
-    <div>
+    <div className="h-full w-auto bg-[url('./assets/background.png')]">
       <h1 className="font-mono italic text-slate-800 underline">
         Всички отбори
       </h1>
@@ -41,12 +42,7 @@ export default async function TeamList() {
       </IfHTFeatureOn>
       <ul className="flex flex-wrap gap-2 py-2">
         {teams.map((team) => (
-          <li
-            key={team.id}
-            className="rounded border border-gray-800 bg-gray-100 p-2"
-          >
-            <Link href={`/teams/${team.id}`}>{team.name}</Link>
-          </li>
+          <TeamCard key={team.id} team={team} />
         ))}
       </ul>
     </div>

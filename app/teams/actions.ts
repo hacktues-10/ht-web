@@ -248,6 +248,5 @@ export async function getTeamMembers(teamId: string) {
     .select()
     .from(particpants)
     .where(eq(particpants.teamId, teamId));
-  console.log(res);
   return res;
 }
