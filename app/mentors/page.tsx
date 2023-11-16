@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { getServerSideGrowthBook } from "../_integrations/growthbook";
 import Mentor from "../components/MentorCard/Mentor";
-import { getAllMentors } from "./services";
+import { getAllMentors } from "./service";
 
 export default async function Home() {
   const gb = await getServerSideGrowthBook();

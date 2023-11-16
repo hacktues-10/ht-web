@@ -222,24 +222,3 @@ const checkPhoneNumber = async (phoneNumber: string) => {
     return 2;
   }
 };
-
-const whitelist = ["abv@trading.212"];
-
-//check if email is in whitelist json format
-export const mentorWhitelist = async (email: string | null | undefined) => {
-  if (email) {
-    try {
-      if (whitelist.includes(email)) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error("Error checking whitelist:", error);
-      return false;
-    }
-  } else {
-    console.error("Email is missing.");
-    return false;
-  }
-};

@@ -1,12 +1,14 @@
-import { getHTSession } from "~/app/api/auth/session";
-import { SignInButton, SignOutButton } from "~/app/components/buttons";
+import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import MentorFrom from "~/app/components/Forms/mentorForm";
+import { SignOutButton } from "~/app/components/buttons";
 import Form from "../../components/Forms/Form";
-import { mentorWhitelist } from "./actions";
+import { isInMentorWhitelist } from "~/app/mentors/services";
 
 export default async function Home() {
   const session = await getHTSession();
-  if ((await mentorWhitelist(session?.user?.email)) && session) {
+  if (!session) signInRedirect();
+
+  if (session.user?.email && (await isInMentorWhitelist(session.user.email))) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
         <div className="mb-4 w-full text-center">
@@ -22,7 +24,7 @@ export default async function Home() {
         </div>
       </div>
     );
-  } else if (session) {
+  } else {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
         <div className="mb-4 w-full text-center">
@@ -36,15 +38,6 @@ export default async function Home() {
         <div className="w-full">
           <Form email={session?.user?.email} />
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
-        <p className="mb-4 text-lg font-semibold">Please sign in</p>
-        <SignInButton className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-          Login
-        </SignInButton>
       </div>
     );
   }

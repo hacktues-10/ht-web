@@ -10,7 +10,7 @@ import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getTeamById } from "~/app/teams/service";
-import { checkIfMentorIsTaken } from "../../mentors/services";
+import { checkIfMentorIsTaken } from "../../mentors/service";
 import ChooseMentor from "./ChooseMentor";
 
 interface MentorInterface {

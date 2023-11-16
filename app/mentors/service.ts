@@ -33,3 +33,9 @@ export async function checkIfMentorIsTaken(mentorId: number) {
     return false;
   }
 }
+
+const whitelist = ["abv@trading.212"];
+
+export const isInMentorWhitelist = async (email: string) => {
+  return whitelist.includes(email);
+};

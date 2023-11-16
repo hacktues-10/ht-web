@@ -7,6 +7,7 @@ import { createTransport } from "nodemailer";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
+import { isInMentorWhitelist } from "~/app/mentors/services";
 
 export const authOptions = {
   providers: [
@@ -17,7 +18,7 @@ export const authOptions = {
         const transport = createTransport(provider.server);
         if (
           identifier.endsWith("@elsys-bg.org") ||
-          (await mentorWhitelist(identifier))
+          (await isInMentorWhitelist(identifier))
         ) {
           const result = await transport.sendMail({
             to: identifier,
@@ -29,7 +30,7 @@ export const authOptions = {
           const failed = result.rejected.concat(result.pending).filter(Boolean);
           if (failed.length) {
             throw new Error(
-              `Email(s) (${failed.join(", ")}) could not be sent`,
+              `Email(s) (${failed.join(", ")}) could not be sent`
             );
           }
         } else {
@@ -40,12 +41,12 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      if (account?.provider !== "email") {
+      if (account?.provider !== "email" || !user.email) {
         return false;
       }
       if (
-        user.email?.endsWith("@elsys-bg.org") ||
-        (await mentorWhitelist(user.email))
+        user.email.endsWith("@elsys-bg.org") ||
+        (await isInMentorWhitelist(user.email))
       ) {
         return true;
       }
