@@ -9,7 +9,8 @@ import {
   getParticipant,
   insertParticipant,
 } from "../../user/configure/actions";
-import { convertStringToGrade, parseElsysEmail } from "./isAlumni";
+import { parseElsysEmail } from "~/app/_elsys/service";
+import { convertStringToGrade } from "./isAlumni";
 
 interface FromProps {
   email: string | null | undefined;
@@ -79,7 +80,7 @@ const Form: React.FC<FromProps> = ({ email }) => {
   });
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
