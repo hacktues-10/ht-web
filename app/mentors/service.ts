@@ -2,11 +2,26 @@ import { eq } from "drizzle-orm";
 
 import { mentors, teams } from "~/app/db/schema";
 import { db } from "../db";
-import { HTSession } from "../api/auth/session";
+import { HTSession, getHTSession } from "../api/auth/session";
 
 export const getAllMentors = async () => {
   const allMentors = await db.select().from(mentors);
   return allMentors;
+};
+
+// FIXME: do we even need closure here?
+const selectFromMentors = () => db.select().from(mentors);
+
+export const getMentorByEmail = async (email: string) => {
+  const mentor = await selectFromMentors().where(eq(mentors.email, email));
+  return mentor.at(0) ?? null;
+};
+
+export const getMentorFromSession = async () => {
+  const session = await getHTSession();
+  if (!session?.user?.email) return null;
+  // FIXME: better to use the user relation?
+  return getMentorByEmail(session.user.email);
 };
 
 export async function chooseTeamMentor(mentorId: number, teamId: string) {

@@ -7,6 +7,7 @@ import { z } from "zod";
 import { mentors, teams } from "~/app/db/schema";
 import { getServerSideGrowthBook } from "../_integrations/growthbook";
 import { db } from "../db";
+import { getMentorByEmail } from "./service";
 
 const formDataSchema = z.object({
   firstName: z.string(),
@@ -104,14 +105,10 @@ const updateMentor = async (formData: z.infer<typeof formDataSchema>) => {
   return res.at(0) ?? null;
 };
 
-export const getMentor = zact(
+export const fetchMentor = zact(
   z.object({
     email: z.string(),
   })
 )(async ({ email }) => {
-  const mentor = await db
-    .select()
-    .from(mentors)
-    .where(eq(mentors.email, email));
-  return mentor.at(0) ?? null;
+  return getMentorByEmail(email);
 });

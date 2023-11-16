@@ -7,7 +7,7 @@ import Select from "react-dropdown-select";
 import { uploadFile } from "~/app/_integrations/r2";
 import {
   // checkifFileExists,
-  getMentor,
+  fetchMentor,
   insertMentor,
 } from "~/app/mentors/actions";
 import { convertToTechnology, technologies } from "~/app/technologies";
@@ -50,7 +50,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   });
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -60,7 +60,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   };
 
   const handleChangeTextArea = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
+    event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
@@ -108,7 +108,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!email) return null;
-      const res = await getMentor({
+      const res = await fetchMentor({
         email,
       });
       return res;
