@@ -2,7 +2,7 @@ import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import MentorFrom from "~/app/components/Forms/mentorForm";
 import { SignOutButton } from "~/app/components/buttons";
 import Form from "../../components/Forms/Form";
-import { isInMentorWhitelist } from "~/app/mentors/services";
+import { isInMentorWhitelist } from "~/app/mentors/service";
 
 export default async function Home() {
   const session = await getHTSession();

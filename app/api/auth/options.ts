@@ -7,7 +7,7 @@ import { createTransport } from "nodemailer";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
-import { isInMentorWhitelist } from "~/app/mentors/services";
+import { isInMentorWhitelist } from "~/app/mentors/service";
 
 export const authOptions = {
   providers: [
