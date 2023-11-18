@@ -10,16 +10,6 @@ import { getConfirmedTeams, getTeamById } from "./service";
 
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
-  let studentTeams = [];
-  let graduateTeams = [];
-  teams.map((te) => {
-    if (te.isAlumni) {
-      graduateTeams.push(te);
-    } else {
-      studentTeams.push(te);
-    }
-  });
-
   if (!teams.length) {
     return (
       <div>
@@ -30,6 +20,16 @@ export default async function TeamList() {
       </div>
     );
   }
+
+  let studentTeams = [];
+  let graduateTeams = [];
+  teams.map((te) => {
+    if (te.isAlumni) {
+      graduateTeams.push(te);
+    } else {
+      studentTeams.push(te);
+    }
+  });
 
   //   TODO: move elsewhere
   const participant = await getParticipantFromSession();
@@ -73,7 +73,7 @@ export default async function TeamList() {
       )}
       {graduateTeams.length > 0 && (
         <>
-          <h1 className="self-center font-mono mt-8 text-3xl font-semibold italic text-white sm:text-4xl">
+          <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
             Отбори на завършили
           </h1>
           <div className="inline-grid w-max grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
