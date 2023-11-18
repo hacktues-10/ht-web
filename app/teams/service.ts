@@ -4,6 +4,7 @@ import { slugify } from "transliteration";
 
 import { db } from "../db";
 import { particpants, projects, teams } from "../db/schema";
+import { getParticipantById } from "../participants/service";
 
 export async function getConfirmedTeams() {
   return db.query.teams.findMany({
@@ -49,11 +50,13 @@ export async function createTeam(team: {
   captainId: number;
   isAlumni: boolean;
 }) {
+  const captain = await getParticipantById(team.captainId);
   // TODO: verify if name is ok
   const results = await db
     .insert(teams)
     .values({
       id: slugify(team.name),
+      technologies: captain?.technologies || "",
       ...team,
     })
     .returning({ id: teams.id });

@@ -152,6 +152,7 @@ export const teams = pgTable("teams", {
   description: varchar("description").notNull(),
   mentorId: integer("mentor_id").references(() => mentors.id),
   // TODO: technologies
+  technologies: varchar("technologies").default(""),
   projectId: integer("project_id").references(() => projects.id),
   isAlumni: boolean("is_alumni").notNull().default(false),
   semiFinal: integer("semi_final").default(0),

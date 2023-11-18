@@ -1,44 +1,70 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { teams } from "~/app/db/schema";
 import { getConfirmedTeams, getTeamById } from "~/app/teams/service";
+import { getParticipant } from "~/app/user/configure/actions";
 
 interface TeamCardProps {
   team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;
 }
 
 const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
-  const colors = ["red", "green", "orange", "yellow"];
+  const colors = [
+    "bg-red-700",
+    "bg-green-700",
+    "bg-orange-700",
+    "bg-yellow-700",
+    "bg-emerald-700",
+    "bg-cyan-700",
+    "bg-sky-700",
+    "bg-indigo-700",
+    "bg-violet-700",
+    "bg-purple-700",
+  ];
 
-  console.log(team);
   const router = useRouter();
-  console.log();
+
   return (
     <div
       onClick={() => {
         router.push(`/teams/${team.id}`);
       }}
       key={team.id}
-      className="z-10 h-max w-max rounded-md bg-gray-300 bg-opacity-20 bg-clip-padding p-5 backdrop-blur-sm backdrop-filter hover:cursor-pointer"
+      className="z-10 h-max w-max rounded-md bg-gray-300 bg-opacity-20 bg-clip-padding p-5 shadow-[0_4px_12px_rgba(8,_112,_184,_0.7)] backdrop-blur-sm backdrop-filter hover:cursor-pointer"
     >
-      <h1 className="w-max  p-2 text-xl">{team.name}</h1>
-      <h3 className="border-b-2 border-gray-100 pl-2 text-xs">
+      <h2 className="w-max scroll-m-20 p-2 text-3xl font-semibold tracking-tight first:mt-0">
+        {team.name}
+      </h2>
+      <p className="scroll-m-20 border-b border-gray-100/50 pl-2 leading-7 [&:not(:first-child)]:mt-2">
         {team.project?.name ?? "Все още няма проект"}
-      </h3>
-      <div className="inline-grid grid-cols-5 gap-5 p-2">
+      </p>
+      <div className="mt-2 inline-grid grid-cols-5 gap-5 border-b border-gray-100/50 p-2">
         {team.members.map((member) => (
-          <div
-            //${colors[(team?.members?.firstName?.charCodeAt(0) ?? 0) % 4]}
-            className={`z-20 h-10 w-10 place-content-center items-center justify-center rounded-full bg-${
-              colors[(member.firstName?.charCodeAt(0) ?? 0) % 4]
-            }-700 text-center`}
-          >
-            <h1 className="p-2">{member.firstName?.at(0)?.toUpperCase()}</h1>
+          <div key={member.id}>
+            {/* {member.isCaptain ? <div></div> : null} */}
+            {/* HoverCard */}
+            {/* <HoverCardTrigger> */}
+            <div
+              className={`z-20 flex h-10 w-10 items-center justify-center rounded-full ${
+                colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
+              } text-center`}
+            >
+              <h1 className="p-2">
+                {member.firstName?.charAt(0).toUpperCase()}
+              </h1>
+            </div>
+            {/* </HoverCardTrigger>  */}
+            {/* <HoverCardContent>
+                The React Framework – created and maintained by @vercel.
+                </HoverCardContent> */}
+            {/* HoverCard */}
           </div>
         ))}
       </div>
+      <div></div>
     </div>
   );
 };

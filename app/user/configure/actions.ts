@@ -135,15 +135,21 @@ export async function getParticipant() {
           .select()
           .from(particpants)
           .where(eq(particpants.id, user[0]?.participantId));
-        return participant;
+        if (participant) {
+          return participant;
+        }
+        return null;
       } else {
         console.error("User not found or participantId missing.");
+        return null;
       }
     } catch (error) {
       console.error("Error while trying to participant:", error);
+      return null;
     }
   } else {
     console.error("Session user email is missing.");
+    return null;
   }
 }
 

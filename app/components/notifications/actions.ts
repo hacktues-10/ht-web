@@ -13,6 +13,7 @@ import {
   particpants,
 } from "~/app/db/schema";
 import { getParticipantFromSession } from "~/app/participants/service";
+import { updateTechnologies } from "~/app/teams/actions";
 
 interface JoinRequest {
   id: number;
@@ -47,6 +48,7 @@ export const acceptJoinRequest = async (
         .where(eq(notifications.referenceId, joinRequest?.id));
 
       await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
+      await updateTechnologies(joinRequest?.teamId);
       return { success: true };
     } catch (err) {
       console.log(err);
@@ -119,6 +121,8 @@ export const acceptInvitation = zact(
     await db
       .delete(notifications)
       .where(eq(notifications.referenceId, invitationId));
+
+    await updateTechnologies(invitation.teamId);
 
     await db.delete(invitations).where(eq(invitations.id, invitationId));
     return { success: true };

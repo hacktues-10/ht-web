@@ -4,10 +4,12 @@ import { IfHTFeatureOn } from "../_integrations/components";
 import { getHTSession } from "../api/auth/session";
 import TeamCard from "../components/Team/teamCard";
 import TeamMember from "../components/TeamMember";
+import { getParticipantFromSession } from "../participants/service";
 import { getConfirmedTeams, getTeamById } from "./service";
 
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
+
   if (!teams.length) {
     return (
       <div>
@@ -20,31 +22,31 @@ export default async function TeamList() {
   }
 
   //   TODO: move elsewhere
-  const session = await getHTSession();
-  console.log(session);
+  const participant = await getParticipantFromSession();
 
   return (
-    <div className="h-full w-auto bg-[url('./assets/background.png')]">
-      <h1 className="font-mono italic text-slate-800 underline">
+    //bg-[url('./assets/background.png')]
+    <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
+      <h1 className="self-center font-mono text-4xl font-semibold italic text-white sm:text-5xl">
         Всички отбори
       </h1>
       <IfHTFeatureOn feature="create-team">
-        {session && (
-          <div className="border-[5px] border-green-950 bg-yellow-500">
+        {participant && (
+          <div className="m-2 w-max rounded-lg bg-rose-400 hover:bg-orange-300">
             <Link
               href="/teams/new"
-              className="bg-gradient-to-r from-pink-500 via-green-500 to-orange-900 bg-clip-text font-serif text-6xl font-extrabold italic text-transparent underline"
+              className="p-5 font-serif text-3xl font-semibold italic tracking-tight sm:text-4xl "
             >
               Създай отбор
             </Link>
           </div>
         )}
       </IfHTFeatureOn>
-      <ul className="flex flex-wrap gap-2 py-2">
+      <div className="flex flex-wrap gap-2 py-2">
         {teams.map((team) => (
           <TeamCard key={team.id} team={team} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
