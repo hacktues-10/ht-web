@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { teams } from "~/app/db/schema";
@@ -26,6 +26,25 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   ];
 
   const router = useRouter();
+  const [technologies, setTechnologies] = useState<string[]>([]);
+
+  useEffect(() => {
+    const technologiesArray =
+      team.technologies?.split(", ").map((tech) => tech.trim()) || [];
+
+    if (technologiesArray.length > 3) {
+      const firstThreeTechnologies = technologiesArray.slice(0, 3);
+      const remainingTechnologiesCount = technologiesArray.length - 3;
+      const fourthTechnology = `+${remainingTechnologiesCount} more`;
+      const modifiedTechnologiesArray = [
+        ...firstThreeTechnologies,
+        fourthTechnology,
+      ];
+      setTechnologies(modifiedTechnologiesArray);
+    } else {
+      setTechnologies(technologiesArray);
+    }
+  }, []);
 
   return (
     <div
@@ -33,7 +52,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
         router.push(`/teams/${team.id}`);
       }}
       key={team.id}
-      className="z-10 h-max w-max rounded-md bg-gray-300 bg-opacity-20 bg-clip-padding p-5 shadow-[0_4px_12px_rgba(8,_112,_184,_0.7)] backdrop-blur-sm backdrop-filter hover:cursor-pointer"
+      className="z-10 m-5 h-max w-max rounded-md bg-gray-300 bg-opacity-20 bg-clip-padding p-5 shadow-[0_4px_12px_rgba(8,_112,_184,_0.7)] backdrop-blur-sm backdrop-filter hover:cursor-pointer"
     >
       <h2 className="w-max scroll-m-20 p-2 text-3xl font-semibold tracking-tight first:mt-0">
         {team.name}
@@ -44,9 +63,6 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
       <div className="mt-2 inline-grid grid-cols-5 gap-5 border-b border-gray-100/50 p-2">
         {team.members.map((member) => (
           <div key={member.id}>
-            {/* {member.isCaptain ? <div></div> : null} */}
-            {/* HoverCard */}
-            {/* <HoverCardTrigger> */}
             <div
               className={`z-20 flex h-10 w-10 items-center justify-center rounded-full ${
                 colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
@@ -56,15 +72,22 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
                 {member.firstName?.charAt(0).toUpperCase()}
               </h1>
             </div>
-            {/* </HoverCardTrigger>  */}
-            {/* <HoverCardContent>
-                The React Framework – created and maintained by @vercel.
-                </HoverCardContent> */}
-            {/* HoverCard */}
           </div>
         ))}
       </div>
-      <div></div>
+      <div className="mt-2">
+        {technologies && technologies.length > 0 ? (
+          <div className="inline-grid grid-cols-4 gap-2 p-2">
+            {technologies.map((technology, index) => (
+              <p className="scroll-m-20 leading-7" key={index}>
+                {technology}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <p className="scroll-m-20 leading-7">Няма технологии :(</p>
+        )}
+      </div>
     </div>
   );
 };

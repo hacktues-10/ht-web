@@ -44,7 +44,12 @@ export default async function TeamList() {
       </IfHTFeatureOn>
       <div className="flex flex-wrap gap-2 py-2">
         {teams.map((team) => (
-          <TeamCard key={team.id} team={team} />
+          <>
+            <TeamCard key={team.id} team={team} />
+            <TeamCard key={team.id} team={team} />
+            <TeamCard key={team.id} team={team} />
+            <TeamCard key={team.id} team={team} />
+          </>
         ))}
       </div>
     </div>
