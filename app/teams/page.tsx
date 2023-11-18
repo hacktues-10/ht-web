@@ -21,8 +21,8 @@ export default async function TeamList() {
     );
   }
 
-  let studentTeams = [];
-  let graduateTeams = [];
+  let studentTeams: typeof teams = [];
+  let graduateTeams: typeof teams = [];
   teams.map((te) => {
     if (te.isAlumni) {
       graduateTeams.push(te);
@@ -58,7 +58,7 @@ export default async function TeamList() {
             Отбори на ученици
           </h1>
           <div className="inline-grid w-max grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {teams.map((team) => (
+            {studentTeams.map((team) => (
               <>
                 <TeamCard team={team} />
                 <TeamCard team={team} />
@@ -77,7 +77,7 @@ export default async function TeamList() {
             Отбори на завършили
           </h1>
           <div className="inline-grid w-max grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {teams.map((team) => (
+            {graduateTeams.map((team) => (
               <>
                 <TeamCard team={team} />
                 <TeamCard team={team} />
