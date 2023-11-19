@@ -2,11 +2,10 @@ import { useState } from "react";
 import Link from "next/link";
 
 import { IfHTFeatureOn } from "../_integrations/components";
-import { getHTSession } from "../api/auth/session";
 import TeamCard from "../components/Team/teamCard";
-import TeamMember from "../components/TeamMember";
 import { getParticipantFromSession } from "../participants/service";
-import { getConfirmedTeams, getTeamById } from "./service";
+import { getConfirmedTeams } from "./service";
+import { Button } from "../components/ui/button";
 
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
@@ -42,14 +41,9 @@ export default async function TeamList() {
       </h1>
       <IfHTFeatureOn feature="create-team">
         {participant && (
-          <div className="m-2 w-max rounded-lg bg-rose-400 hover:bg-orange-300">
-            <Link
-              href="/teams/new"
-              className="p-5 font-serif text-3xl font-semibold italic tracking-tight sm:text-4xl "
-            >
-              Създай отбор
-            </Link>
-          </div>
+          <Button asChild variant="destructive" className="mt-4">
+            <Link href="/teams/new">Създай отбор</Link>
+          </Button>
         )}
       </IfHTFeatureOn>
       {studentTeams.length > 0 && (
