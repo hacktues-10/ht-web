@@ -2,10 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { teams } from "~/app/db/schema";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/app/components/ui/card";
 import { getConfirmedTeams, getTeamById } from "~/app/teams/service";
-import { getParticipant } from "~/app/user/configure/actions";
 
 interface TeamCardProps {
   team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;
