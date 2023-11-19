@@ -8,6 +8,20 @@ export function convertToTechnology(text: string) {
   return selectedTechnologies;
 }
 
+export function convertToPaginatedTechnologies(text: string) {
+  const selectedTechnologies = convertToTechnology(text);
+  if (selectedTechnologies.length > 3) {
+    const threeTechnologies = selectedTechnologies.slice(0, 3);
+    threeTechnologies.push({
+      id: 93,
+      name: `+${selectedTechnologies.length - 3} more`,
+      color: "#696969",
+    });
+    return threeTechnologies;
+  }
+  return selectedTechnologies;
+}
+
 export const technologies = [
   { id: 1, name: "Python", color: "#FF5733" },
   { id: 2, name: "JavaScript", color: "#FFC300" },

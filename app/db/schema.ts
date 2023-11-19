@@ -103,7 +103,7 @@ export const participantsRelations = relations(
     }),
     invitations: many(invitations),
     sentInvitations: many(invitations),
-  }),
+  })
 );
 
 export const users = pgTable("users", {
@@ -151,8 +151,7 @@ export const teams = pgTable("teams", {
   name: varchar("name").notNull(),
   description: varchar("description").notNull(),
   mentorId: integer("mentor_id").references(() => mentors.id),
-  // TODO: technologies
-  technologies: varchar("technologies").default(""),
+  technologies: varchar("technologies").default("").notNull(),
   projectId: integer("project_id").references(() => projects.id),
   isAlumni: boolean("is_alumni").notNull().default(false),
   semiFinal: integer("semi_final").default(0),
@@ -198,7 +197,7 @@ export const invitations = pgTable(
   },
   (t) => ({
     unique: unique().on(t.invitedParticipantId, t.teamId),
-  }),
+  })
 );
 
 export const invitationsRelations = relations(invitations, ({ one }) => ({

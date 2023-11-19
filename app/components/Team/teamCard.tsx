@@ -11,6 +11,11 @@ import {
 } from "~/app/components/ui/card";
 import { getConfirmedTeams, getTeamById } from "~/app/teams/service";
 import Link from "next/link";
+import { Badge } from "~/app/components/ui/badge";
+import {
+  convertToPaginatedTechnologies,
+  convertToTechnology,
+} from "~/app/technologies";
 
 interface TeamCardProps {
   team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;
@@ -30,25 +35,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
     "bg-purple-700",
   ];
 
-  const [technologies, setTechnologies] = useState<string[]>([]);
-
-  useEffect(() => {
-    const technologiesArray =
-      team.technologies?.split(", ").map((tech) => tech.trim()) || [];
-
-    if (technologiesArray.length > 3) {
-      const firstThreeTechnologies = technologiesArray.slice(0, 3);
-      const remainingTechnologiesCount = technologiesArray.length - 3;
-      const fourthTechnology = `+${remainingTechnologiesCount} more`;
-      const modifiedTechnologiesArray = [
-        ...firstThreeTechnologies,
-        fourthTechnology,
-      ];
-      setTechnologies(modifiedTechnologiesArray);
-    } else {
-      setTechnologies(technologiesArray);
-    }
-  }, []);
+  const techn = convertToPaginatedTechnologies(team.technologies || "");
 
   return (
     <Link href={`/teams/${team.id}`}>
@@ -59,8 +46,8 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
             {team.project?.name ?? "Все още няма проект"}
           </CardDescription>
         </CardHeader>
-        <CardContent className="pb-0">
-          <div className="inline-grid grid-cols-5 gap-5 border-b border-gray-100/50 p-2 mt-2">
+        <CardContent className="p-0 m-6 mb-0 mt-0 border-b border-gray-100/50">
+          <div className="inline-grid grid-cols-5 gap-5 p-2 mt-2">
             {team.members.map((member) => (
               <div key={member.id}>
                 <div
@@ -77,16 +64,24 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
           </div>
         </CardContent>
         <CardFooter>
-          {technologies && technologies.length > 0 ? (
+          {techn && techn.length > 0 ? (
             <div className="inline-grid grid-cols-4 gap-2 p-2">
-              {technologies.map((technology, index) => (
-                <p className="scroll-m-20 leading-7" key={index}>
-                  {technology}
-                </p>
+              {techn.map((technology, index) => (
+                <Badge
+                  className=""
+                  style={
+                    {
+                      // backgroundColor: `hsl(4, 100%,40%)`,
+                    }
+                  }
+                  key={index}
+                >
+                  {technology?.name}
+                </Badge>
               ))}
             </div>
           ) : (
-            <p className="scroll-m-20 leading-7">Няма технологии :(</p>
+            <Badge className="scroll-m-20 leading-7">Няма технологии :(</Badge>
           )}
         </CardFooter>
       </Card>
