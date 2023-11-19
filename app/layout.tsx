@@ -5,8 +5,9 @@ import { Inter } from "next/font/google";
 
 import AuthProvider from "./context/AuthProvider";
 import { GrowthBookServerProvider } from "./context/growthbook/GrowthBookServerProvider";
+import { cn } from "./utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Hack TUES 10",
@@ -21,7 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          inter.variable
+        )}
+      >
         <AuthProvider>
           <GrowthBookServerProvider>
             <main className="flex min-h-screen items-start justify-center p-6">
