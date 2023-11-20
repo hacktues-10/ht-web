@@ -2,25 +2,24 @@ import Link from "next/link";
 
 import { IfHTFeatureOn } from "../_integrations/components";
 import { getHTSession } from "../api/auth/session";
+import { getParticipantFromSession } from "../participants/service";
 import { getConfirmedTeams } from "./service";
 
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
-
+  const participant = await getParticipantFromSession();
   if (!teams.length) {
     return (
       <div>
         Все още няма потвърдени отбори.{" "}
-        {/* TODO: да показваме ли това когато не сме логнати? */}
-        <Link href="/teams/new" className="text-pink-700 underline">
-          Създай отбор
-        </Link>
+        {participant && participant.team.id == null && (
+          <Link href="/teams/new" className="text-pink-700 underline">
+            Създай отбор
+          </Link>
+        )}
       </div>
     );
   }
-
-  //   TODO: move elsewhere
-  const session = await getHTSession();
 
   return (
     <div>
@@ -28,7 +27,7 @@ export default async function TeamList() {
         Всички отбори
       </h1>
       <IfHTFeatureOn feature="create-team">
-        {session && (
+        {participant && !participant.team.id && (
           <div className="border-[5px] border-green-950 bg-yellow-500">
             <Link
               href="/teams/new"

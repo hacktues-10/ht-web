@@ -78,10 +78,9 @@ export const particpants = pgTable("participants", {
   grade: gradeEnum("grade"),
   parallel: classEnum("class"),
   allergies: varchar("allergies").default(""),
-  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial  allergies: varchar("allergies").default(""),
+  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial
   technologies: varchar("technologies").default(""),
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
-
   isCaptain: boolean("is_captain").notNull().default(false),
   teamId: varchar("team_id").references(() => teams.id),
 });
@@ -105,6 +104,28 @@ export const participantsRelations = relations(
     sentInvitations: many(invitations),
   }),
 );
+
+export const discordUsers = pgTable("discord", {
+  id: serial("id").primaryKey(),
+  participantId: integer("participant_id"),
+  mentorId: integer("mentor_id"),
+  // TODO: da slojim unique posle sled cqloto testvane!
+  discordId: varchar("discord_id"),
+  discordUsername: varchar("discord_username"),
+  accessToken: varchar("access_token"),
+  lastUpdated: timestamp("last_updated").defaultNow().notNull(),
+});
+
+export const discordUsersRelations = relations(discordUsers, ({ one }) => ({
+  particpants: one(particpants, {
+    fields: [discordUsers.participantId],
+    references: [particpants.id],
+  }),
+  mentors: one(mentors, {
+    fields: [discordUsers.mentorId],
+    references: [mentors.id],
+  }),
+}));
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -153,6 +174,8 @@ export const teams = pgTable("teams", {
   mentorId: integer("mentor_id").references(() => mentors.id),
   // TODO: technologies
   projectId: integer("project_id").references(() => projects.id),
+  // FIXME: rename to discordRoleId ??
+  roleId: varchar("role_id"),
   isAlumni: boolean("is_alumni").notNull().default(false),
   semiFinal: integer("semi_final").default(0),
   semiFinalResult: numeric("semi_final_result", { precision: 3, scale: 2 })
