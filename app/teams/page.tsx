@@ -40,7 +40,7 @@ export default async function TeamList() {
         Всички отбори
       </h1>
       <IfHTFeatureOn feature="create-team">
-        {participant && (
+        {participant && !participant.team.id && (
           <Button asChild variant="destructive" className="mt-4">
             <Link href="/teams/new">Създай отбор</Link>
           </Button>
@@ -51,7 +51,7 @@ export default async function TeamList() {
           <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
             Отбори на ученици
           </h1>
-          <div className="inline-grid w-max grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {studentTeams.map((team) => (
               <>
                 <TeamCard team={team} />
@@ -70,7 +70,7 @@ export default async function TeamList() {
           <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
             Отбори на завършили
           </h1>
-          <div className="inline-grid w-max grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {graduateTeams.map((team) => (
               <>
                 <TeamCard team={team} />

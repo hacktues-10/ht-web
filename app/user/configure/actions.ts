@@ -7,6 +7,7 @@ import { z } from "zod";
 import { getHTSession } from "~/app/api/auth/session";
 import { particpants, users } from "~/app/db/schema";
 import { db } from "../../db/index";
+import { updateTechnologies } from "~/app/teams/actions";
 
 const formData = z.object({
   firstName: z.string(),
@@ -192,7 +193,11 @@ export const updateParticipant = zact(formData)(async (formData) => {
           const res = await db
             .update(particpants)
             .set(participantData)
-            .where(eq(particpants.id, participantId));
+            .where(eq(particpants.id, participantId))
+            .returning();
+          if (res[0].teamId) {
+            await updateTechnologies(res[0].teamId);
+          }
           return true;
         }
       } else {

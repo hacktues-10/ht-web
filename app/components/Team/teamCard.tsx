@@ -39,7 +39,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
 
   return (
     <Link href={`/teams/${team.id}`}>
-      <Card className="z-10 m-5 h-max w-max rounded-md bg-gray-300 bg-opacity-20 bg-clip-padding shadow-[0_4px_12px_rgba(8,_112,_184,_0.7)] backdrop-blur-sm backdrop-filter hover:cursor-pointer">
+      <Card className="z-10 m-5 h-max rounded-md bg-gray-300 bg-opacity-20 bg-clip-padding shadow-[0_4px_12px_rgba(8,_112,_184,_0.7)] backdrop-blur-sm backdrop-filter hover:cursor-pointer">
         <CardHeader className="pb-0">
           <CardTitle className="text-3xl">{team.name}</CardTitle>
           <CardDescription className="scroll-m-20 border-b border-gray-100/50 pl-2 leading-7 [&:not(:first-child)]:mt-2">
@@ -65,15 +65,15 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
         </CardContent>
         <CardFooter>
           {techn && techn.length > 0 ? (
-            <div className="inline-grid grid-cols-4 gap-2 p-2">
+            <div className="flex gap-2 p-2 overflow-hidden w-full">
               {techn.map((technology, index) => (
                 <Badge
-                  className=""
-                  style={
-                    {
-                      // backgroundColor: `hsl(4, 100%,40%)`,
-                    }
-                  }
+                  variant="outline"
+                  style={{
+                    backgroundColor: technology?.color,
+                    color: technology?.textColor,
+                  }}
+                  className="text-xs whitespace-nowrap"
                   key={index}
                 >
                   {technology?.name}
