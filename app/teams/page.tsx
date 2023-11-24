@@ -9,20 +9,16 @@ import { Button } from "../components/ui/button";
 
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
-  const participant = await getParticipantFromSession();
   if (!teams.length) {
     return (
       <div>
         Все още няма потвърдени отбори.
-       {participant && !participant.team.id && (
-          <Button asChild variant="destructive" className="mt-4">
-            <Link href="/teams/new">Създай отбор</Link>
-          </Button>
-        )}
+        <Link href="/teams/new" className="text-pink-700 underline">
+          Създай отбор
+        </Link>
       </div>
     );
   }
-
 
   let studentTeams: typeof teams = [];
   let graduateTeams: typeof teams = [];
@@ -35,6 +31,8 @@ export default async function TeamList() {
   });
 
   //   TODO: move elsewhere
+  const participant = await getParticipantFromSession();
+
   return (
     //bg-[url('./assets/background.png')]
     <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
