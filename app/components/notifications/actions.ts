@@ -1,12 +1,14 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { zact } from "zact/server";
-import { z } from "zod";
+import { string, z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { addDiscordRole, removeDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
+  discordUsers,
   invitations,
   joinRequests,
   notifications,
@@ -20,6 +22,8 @@ interface JoinRequest {
   userId: number;
   teamId: string;
 }
+
+const roleId = "1166396007718867054";
 
 // FIXME: should we move this to the teams actions.ts?
 
@@ -38,6 +42,19 @@ export const acceptJoinRequest = async (
 
   if (joinRequest?.userId && joinRequest.teamId) {
     try {
+      const discord = await db
+        .select()
+        .from(discordUsers)
+        .where(eq(discordUsers.participantId, joinRequest.userId));
+      if (!discord[0].discordId || !discord[0].accessToken) {
+        return { success: false };
+      }
+      const res = await addDiscordRole(discord[0].discordId, roleId);
+
+      if (!res.success) {
+        return { success: false };
+      }
+
       await db
         .update(particpants)
         .set({ teamId: joinRequest?.teamId, isCaptain: false })
@@ -49,6 +66,7 @@ export const acceptJoinRequest = async (
 
       await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
       await updateTechnologies(joinRequest?.teamId);
+
       return { success: true };
     } catch (err) {
       console.log(err);
@@ -113,6 +131,20 @@ export const acceptInvitation = zact(
   }
 
   try {
+    const discord = await db
+      .select()
+      .from(discordUsers)
+      .where(eq(discordUsers.participantId, invitation.invitedParticipantId));
+    if (!discord[0].discordId || !discord[0].accessToken) {
+      return { success: false };
+    }
+
+    const res = await addDiscordRole(discord[0].discordId, roleId);
+
+    if (!res.success) {
+      return { success: false };
+    }
+
     await db
       .update(particpants)
       .set({ teamId: invitation.teamId, isCaptain: false })
