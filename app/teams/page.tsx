@@ -9,6 +9,7 @@ import { Button } from "../components/ui/button";
 
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
+  const participant = await getParticipantFromSession();
   if (!teams.length) {
     return (
       <div>
@@ -34,7 +35,6 @@ export default async function TeamList() {
   });
 
   //   TODO: move elsewhere
-  const participant = await getParticipantFromSession();
   return (
     //bg-[url('./assets/background.png')]
     <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
