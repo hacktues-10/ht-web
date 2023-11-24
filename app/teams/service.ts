@@ -4,9 +4,8 @@ import { slugify } from "transliteration";
 
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "../db";
-import { particpants, projects, teams } from "../db/schema";
 import { getParticipantById } from "../participants/service";
-import { discordUsers, particpants, teams } from "../db/schema";
+import { discordUsers, particpants, teams, projects } from "../db/schema";
 
 export async function getConfirmedTeams() {
   return db.query.teams.findMany({
