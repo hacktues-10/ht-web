@@ -2,10 +2,10 @@ import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
-import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "../db";
+import { discordUsers, particpants, teams } from "../db/schema";
 import { getParticipantById } from "../participants/service";
-import { discordUsers, particpants, teams, projects } from "../db/schema";
+import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 
 export async function getConfirmedTeams() {
   return db.query.teams.findMany({
@@ -58,8 +58,8 @@ export async function createTeam(team: {
     .insert(teams)
     .values({
       id: slugify(team.name),
+      discordRoleId: roleId,
       technologies: captain?.technologies || "",
-      roleId: roleId,
       ...team,
     })
     .returning({ id: teams.id });
@@ -71,7 +71,7 @@ export async function createTeam(team: {
     .where(eq(discordUsers.participantId, team.captainId));
   invariant(
     !(discordMember.length < 1 || !discordMember[0].discordId),
-    "Failed to get discord member",
+    "Failed to get discord member"
   );
   await addDiscordRole(discordMember[0].discordId, roleId);
   await db
