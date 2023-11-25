@@ -2,12 +2,42 @@ import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
-import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "../db";
 import { discordUsers, particpants, teams } from "../db/schema";
+import { getParticipantById } from "../participants/service";
+import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 
 export async function getConfirmedTeams() {
-  return db.select().from(teams);
+  return db.query.teams.findMany({
+    with: {
+      members: true,
+      project: true,
+    },
+  });
+  // .select({
+  //   id: teams.id,
+  //   name: teams.name,
+  //   description: teams.description,
+  //   mentorId: teams.mentorId,
+  //   projectId: teams.projectId,
+  //   isAlumni: teams.isAlumni,
+  //   members: {
+  //     particiapntId: particpants.id,
+  //     firstName: particpants.firstName,
+  //     lastName: particpants.lastName,
+  //     grade: particpants.grade,
+  //     parallel: particpants.parallel,
+  //     technologies: particpants.technologies,
+  //   },
+  //   project: {
+  //     id: projects.id,
+  //     name: projects.name,
+  //     technologies: projects.technologies,
+  //   },
+  // })
+  // .from(teams)
+  // .leftJoin(particpants, eq(particpants.teamId, teams.id))
+  // .leftJoin(projects, eq(teams.projectId, projects.id));
 }
 
 export async function getTeamById(id: string) {
@@ -21,14 +51,15 @@ export async function createTeam(team: {
   captainId: number;
   isAlumni: boolean;
 }) {
+  const captain = await getParticipantById(team.captainId);
   const roleId = await createDiscordTeam(slugify(team.name));
-
   // TODO: verify if name is ok
   const results = await db
     .insert(teams)
     .values({
       id: slugify(team.name),
-      roleId: roleId,
+      discordRoleId: roleId,
+      technologies: captain?.technologies || "",
       ...team,
     })
     .returning({ id: teams.id });
@@ -40,7 +71,7 @@ export async function createTeam(team: {
     .where(eq(discordUsers.participantId, team.captainId));
   invariant(
     !(discordMember.length < 1 || !discordMember[0].discordId),
-    "Failed to get discord member",
+    "Failed to get discord member"
   );
   await addDiscordRole(discordMember[0].discordId, roleId);
   await db

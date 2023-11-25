@@ -13,8 +13,10 @@ import {
   joinRequests,
   notifications,
   particpants,
+  teams,
 } from "~/app/db/schema";
 import { getParticipantFromSession } from "~/app/participants/service";
+import { updateTechnologies } from "~/app/teams/actions";
 
 interface JoinRequest {
   id: number;
@@ -22,13 +24,11 @@ interface JoinRequest {
   teamId: string;
 }
 
-const roleId = "1166396007718867054";
-
 // FIXME: should we move this to the teams actions.ts?
 
 // FIXME: use zact
 export const acceptJoinRequest = async (
-  joinRequest: JoinRequest | undefined,
+  joinRequest: JoinRequest | undefined
 ) => {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
@@ -41,6 +41,12 @@ export const acceptJoinRequest = async (
 
   if (joinRequest?.userId && joinRequest.teamId) {
     try {
+      const team = (
+        await db.select().from(teams).where(eq(teams.id, joinRequest.teamId))
+      ).at(0);
+      if (!team?.discordRoleId) {
+        return { success: false, message: "Team does not have a Discord role" };
+      }
       const discord = await db
         .select()
         .from(discordUsers)
@@ -48,7 +54,10 @@ export const acceptJoinRequest = async (
       if (!discord[0].discordId || !discord[0].accessToken) {
         return { success: false };
       }
-      const res = await addDiscordRole(discord[0].discordId, roleId);
+      const res = await addDiscordRole(
+        discord[0].discordId,
+        team?.discordRoleId
+      );
 
       if (!res.success) {
         return { success: false };
@@ -64,6 +73,7 @@ export const acceptJoinRequest = async (
         .where(eq(notifications.referenceId, joinRequest?.id));
 
       await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
+      await updateTechnologies(joinRequest?.teamId);
 
       return { success: true };
     } catch (err) {
@@ -104,7 +114,7 @@ function getInvitation(id: number) {
 export const acceptInvitation = zact(
   z.object({
     invitationId: z.number().int(),
-  }),
+  })
 )(async ({ invitationId }) => {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
@@ -129,6 +139,12 @@ export const acceptInvitation = zact(
   }
 
   try {
+    const team = (
+      await db.select().from(teams).where(eq(teams.id, invitation.teamId))
+    ).at(0);
+    if (!team?.discordRoleId) {
+      return { success: false, message: "Team does not have a Discord role" };
+    }
     const discord = await db
       .select()
       .from(discordUsers)
@@ -137,7 +153,7 @@ export const acceptInvitation = zact(
       return { success: false };
     }
 
-    const res = await addDiscordRole(discord[0].discordId, roleId);
+    const res = await addDiscordRole(discord[0].discordId, team.discordRoleId);
 
     if (!res.success) {
       return { success: false };
@@ -152,6 +168,8 @@ export const acceptInvitation = zact(
       .delete(notifications)
       .where(eq(notifications.referenceId, invitationId));
 
+    await updateTechnologies(invitation.teamId);
+
     await db.delete(invitations).where(eq(invitations.id, invitationId));
     return { success: true };
   } catch (err) {
@@ -163,7 +181,7 @@ export const acceptInvitation = zact(
 export const declineInvitation = zact(
   z.object({
     invitationId: z.number().int(),
-  }),
+  })
 )(async ({ invitationId }) => {
   const particpant = await getParticipantFromSession();
   if (!particpant) {

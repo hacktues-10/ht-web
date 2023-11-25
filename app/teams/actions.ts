@@ -252,7 +252,7 @@ export async function removeTeamMember(memberId: number) {
       .update(particpants)
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.id, memberId));
-    console.log(res);
+    await updateTechnologies(participant.team.id);
     if (res) {
       return { success: true };
     }
@@ -267,6 +267,18 @@ export async function getTeamMembers(teamId: string) {
     .select()
     .from(particpants)
     .where(eq(particpants.teamId, teamId));
-  console.log(res);
   return res;
+}
+
+export async function updateTechnologies(teamId: string) {
+  const members = await getTeamMembers(teamId);
+  const allTechnologies = members.flatMap(
+    (member) => member.technologies?.split(", "),
+  );
+  const uniqueTechnologies = [...new Set(allTechnologies)];
+  const technologiesString = uniqueTechnologies.join(", ");
+  await db
+    .update(teams)
+    .set({ technologies: technologiesString })
+    .where(eq(teams.id, teamId));
 }

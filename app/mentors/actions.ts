@@ -74,9 +74,9 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
       .where(eq(discordUsers.mentorId, mentorId));
 
     const team = await db.select().from(teams).where(eq(teams.id, teamId));
-    if (!team[0].roleId) return { success: false };
+    if (!team[0].discordRoleId) return { success: false };
     if (!res[0].discordId) return { success: false };
-    await addDiscordRole(res[0].discordId, team[0].roleId);
+    await addDiscordRole(res[0].discordId, team[0].discordRoleId);
     await db
       .update(teams)
       .set({ mentorId: mentorId })
@@ -117,7 +117,7 @@ const updateMentor = async (formData: z.infer<typeof formDataSchema>) => {
 export const getMentor = zact(
   z.object({
     email: z.string(),
-  }),
+  })
 )(async ({ email }) => {
   const mentor = await db
     .select()

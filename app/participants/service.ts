@@ -22,6 +22,7 @@ const selectFromParticipants = () =>
       allergies: particpants.allergies,
       tShirtId: particpants.tShirtId,
       isLookingForTeam: particpants.isLookingForTeam,
+      technologies: particpants.technologies,
       team: {
         id: teams.id,
         name: teams.name,
