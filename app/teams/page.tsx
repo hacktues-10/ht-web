@@ -1,28 +1,21 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "~/app/components/ui/tabs";
 import { IfHTFeatureOn } from "../_integrations/components";
 import TeamCard from "../components/Team/teamCard";
+import { Button } from "../components/ui/button";
 import { getParticipantFromSession } from "../participants/service";
 import { getConfirmedTeams } from "./service";
-import { Button } from "../components/ui/button";
 
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
   const participant = await getParticipantFromSession();
-  if (!teams.length) {
-    return (
-      <div>
-        Все още няма потвърдени отбори.
-       {participant && !participant.team.id && (
-          <Button asChild variant="destructive" className="mt-4">
-            <Link href="/teams/new">Създай отбор</Link>
-          </Button>
-        )}
-      </div>
-    );
-  }
-
 
   let studentTeams: typeof teams = [];
   let graduateTeams: typeof teams = [];
@@ -38,9 +31,6 @@ export default async function TeamList() {
   return (
     //bg-[url('./assets/background.png')]
     <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
-      <h1 className="self-center font-mono text-4xl font-semibold italic text-white sm:text-5xl">
-        Всички отбори
-      </h1>
       <IfHTFeatureOn feature="create-team">
         {participant && !participant.team.id && (
           <Button asChild variant="destructive" className="mt-4">
@@ -48,44 +38,63 @@ export default async function TeamList() {
           </Button>
         )}
       </IfHTFeatureOn>
-      {studentTeams.length > 0 && (
-        <>
-          <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
-            Отбори на ученици
-          </h1>
-          <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {studentTeams.map((team) => (
-              <>
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-              </>
-            ))}
+      <Tabs
+        defaultValue={studentTeams.length > 0 ? "students" : "alumni"}
+        className="content-center"
+      >
+        <TabsList className="mx-auto flex w-min justify-center">
+          <TabsTrigger value="students">Ученици</TabsTrigger>
+          <TabsTrigger value="alumni">Завършили</TabsTrigger>
+        </TabsList>
+        <TabsContent value="students">
+          <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
+            <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
+              Отбори на ученици
+            </h1>
+            {studentTeams.length < 1 && (
+              <h2 className="mt-8 self-center font-mono text-2xl font-semibold italic text-white sm:text-3xl">
+                Все още няма потвърдени отбори.
+              </h2>
+            )}
+            <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {studentTeams.map((team) => (
+                <>
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                </>
+              ))}
+            </div>
           </div>
-        </>
-      )}
-      {graduateTeams.length > 0 && (
-        <>
-          <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
-            Отбори на завършили
-          </h1>
-          <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {graduateTeams.map((team) => (
-              <>
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-                <TeamCard team={team} />
-              </>
-            ))}
+        </TabsContent>
+        <TabsContent value="alumni">
+          <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
+            <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
+              Отбори на завършили
+            </h1>
+            {graduateTeams.length < 1 && (
+              <h2 className="mt-8 self-center font-mono text-2xl font-semibold italic text-white sm:text-3xl">
+                Все още няма потвърдени отбори.
+              </h2>
+            )}
+            <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {graduateTeams.map((team) => (
+                <>
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                  <TeamCard team={team} />
+                </>
+              ))}
+            </div>
           </div>
-        </>
-      )}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
