@@ -35,7 +35,6 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   ];
 
   const techn = convertToPaginatedTechnologies(team.technologies || "", 3);
-  //bg-gray-300 bg-opacity-20 bg-clip-padding shadow-[0_4px_12px_rgba(8,_112,_184,_0.7)]
   return (
     <Link href={`/teams/${team.id}`}>
       <div>
