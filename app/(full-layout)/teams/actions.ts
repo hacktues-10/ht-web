@@ -361,7 +361,6 @@ export async function prepareParticipants(
       res.push({ ...user, label: fullName, value: `${user.id}` });
     }
   });
-
   return res;
 }
 
