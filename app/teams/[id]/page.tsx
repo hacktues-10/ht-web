@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { eq } from "drizzle-orm";
 import { TbBrandGithub } from "react-icons/tb";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
@@ -21,6 +20,7 @@ import {
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
+import TeamDetailsComponent from "~/app/components/teamDetailsComponent";
 import {
   Avatar,
   AvatarFallback,
@@ -84,7 +84,7 @@ export default async function TeamDetailPage({
   const isFull = await isTeamFull(team.id);
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <div className="rounded-3xl border-2 bg-slate-900 p-10">
+      <div className="rounded-3xl border-2 bg-slate-900 p-10 pt-5">
         <div className="w-full sm:flex">
           <div className="flex items-center">
             <Button asChild variant="secondary" className="mt-8">
@@ -94,10 +94,14 @@ export default async function TeamDetailPage({
               </Link>
             </Button>
           </div>
+
           <div className="flex flex-grow items-center justify-center">
-            <h1 className="mt-8 font-mono text-4xl font-semibold italic text-white sm:text-5xl">
+            <h1 className="ml-auto mr-auto mt-8 flex font-mono text-4xl font-semibold italic text-white sm:text-5xl">
               {team.name}
             </h1>
+          </div>
+          <div className="mr-0 flex">
+            <TeamDetailsComponent team={team} />
           </div>
         </div>
         <div className="mt-4 inline-grid h-20 w-full grid-cols-5 gap-5 sm:mb-4 sm:mt-10 sm:h-32">
@@ -131,51 +135,47 @@ export default async function TeamDetailPage({
         </div>
       </div>
       <div className="w-full sm:flex">
-        <div className="sm:w-3/5">
+        <div className="mt-10 self-center rounded-3xl border-2 bg-slate-900 p-3 sm:w-3/5">
           <Tabs defaultValue="information">
             {participant?.team.id == team.id && (
-              <div className="m-10 ml-auto mr-auto h-min w-min self-center rounded-3xl border-2 bg-slate-900 p-3">
-                <TabsList>
-                  <TabsTrigger
-                    className="text-md sm:text-lg"
-                    value="information"
-                  >
-                    Информация
-                  </TabsTrigger>
-                  {participant?.team.isCaptain &&
-                    participant?.team.id == team.id && (
-                      <TabsTrigger
-                        className="text-md sm:text-lg"
-                        value="settings"
-                      >
-                        Настройки
-                      </TabsTrigger>
-                    )}
-                </TabsList>
-              </div>
+              <TabsList>
+                <TabsTrigger className="text-md sm:text-lg" value="information">
+                  Информация
+                </TabsTrigger>
+                {participant?.team.isCaptain &&
+                  participant?.team.id == team.id && (
+                    <TabsTrigger
+                      className="text-md sm:text-lg"
+                      value="settings"
+                    >
+                      Настройки
+                    </TabsTrigger>
+                  )}
+              </TabsList>
             )}
 
-            <div className="m-auto ml-auto mr-auto mt-10 rounded-3xl border-2 bg-slate-900 p-10 text-left">
+            <div className="m-auto ml-auto mr-auto mt-5 rounded-3xl border-2 p-10 pb-5 pt-5 text-left">
               <TabsContent value="information">
-                <IfHTFeatureOn feature="update-team-members">
-                  {participant && !participant.team.id && isEligabletoJoin && (
+                {participant && !participant.team.id && isEligabletoJoin && (
+                  <IfHTFeatureOn feature="update-team-members">
                     <AskToJoinButton
                       teamid={team.id}
                       hasAskedToJoinState={hasAskedToJoinState}
                     />
-                  )}
-                </IfHTFeatureOn>
-                {/* <h2 className="w-full text-2xl">Описание на отбора</h2>
-                <h3 className="mt-2 text-xl">{team.description}</h3> */}
+                  </IfHTFeatureOn>
+                )}
                 {project ? (
-                  <div className="mt-2">
+                  <div>
                     <h2 className="mt-4 w-full text-2xl">{project.name}</h2>
                     <h3 className="mt-4 text-xl">{project.description}</h3>
 
                     {project.websiteURL && (
                       <div className="mt-2 flex">
                         <TbBrandGithub size={28} />
-                        <Link className="text-xl" href={project.websiteURL}>
+                        <Link
+                          className="ml-2 text-xl"
+                          href={project.websiteURL}
+                        >
                           {project.websiteURL}
                         </Link>
                       </div>
@@ -197,24 +197,29 @@ export default async function TeamDetailPage({
                   </div>
                 )}
               </TabsContent>
-              <TabsContent value="settings" className="flex">
-                <IfHTFeatureOn feature="update-team-details">
-                  {participant &&
-                    participant.team.isCaptain &&
-                    participant.team.id == team.id && (
-                      <DeleteTeamButton id={team.id} />
-                    )}
-                </IfHTFeatureOn>
+              <TabsContent
+                value="settings"
+                className="w-full items-center justify-center sm:flex"
+              >
                 <IfHTFeatureOn feature="update-team-members">
                   {participant &&
                     participant.team.id === team.id &&
                     participant.team.isCaptain && (
-                      <div className="m-auto">
-                        <h3>Покани участник</h3>
+                      <div className="m-auto justify-center text-center text-xl sm:mt-auto">
+                        <h3 className="mb-3 ">Покани участник</h3>
                         <InviteForm
                           teamId={participant.team.id.toString()}
                           participants={preparedParticipants}
                         />
+                      </div>
+                    )}
+                </IfHTFeatureOn>
+                <IfHTFeatureOn feature="update-team-details">
+                  {participant &&
+                    participant.team.isCaptain &&
+                    participant.team.id == team.id && (
+                      <div className="m-auto mt-5 justify-center text-center">
+                        <DeleteTeamButton id={team.id} />
                       </div>
                     )}
                 </IfHTFeatureOn>

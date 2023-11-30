@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/app/components/ui/dialog";
-import { getTeamById } from "../teams/service";
+import { getTeamById } from "../(full-layout)/teams/service";
 import { Button } from "./ui/button";
 
 export default async function TeamDetailsComponent({
