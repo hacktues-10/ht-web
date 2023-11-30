@@ -265,6 +265,36 @@ export async function removeTeamMember(memberId: number) {
   return { success: false, message: "You are not a team captain" };
 }
 
+export async function makeCaptain(
+  captainId: number | undefined,
+  memberId: number,
+) {
+  try {
+    if (captainId == memberId) {
+      return { success: false };
+    }
+    // await db
+    //   .update(particpants)
+    //   .set({
+    //     isCaptain: false,
+    //   })
+    //   .where(eq(particpants.id, captainId));
+
+    // await db
+    //   .update(particpants)
+    //   .set({
+    //     isCaptain: true,
+    //   })
+    //   .where(eq(particpants.id, memberId));
+
+    // return { success: true };
+    console.log("false in func");
+    return { success: false };
+  } catch (err) {
+    return { success: false };
+  }
+}
+
 // FIXME: do we need this? can we fetch in the server component?
 export async function getTeamMembers(teamId: string) {
   const res = await db

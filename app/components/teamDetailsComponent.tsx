@@ -1,6 +1,5 @@
 import { CgInfo } from "react-icons/cg";
 
-import { Button } from "~/app/components/ui/button";
 import {
   Dialog,
   DialogContent,
