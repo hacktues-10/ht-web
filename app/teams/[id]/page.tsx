@@ -21,6 +21,7 @@ import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
 import TeamDetailsComponent from "~/app/components/teamDetailsComponent";
+import TeamMemberDetailedView from "~/app/components/teamMemberDetailedView";
 import {
   Avatar,
   AvatarFallback,
@@ -48,19 +49,6 @@ export default async function TeamDetailPage({
     notFound();
   }
 
-  const colors = [
-    "bg-red-700",
-    "bg-green-700",
-    "bg-orange-700",
-    "bg-yellow-700",
-    "bg-emerald-700",
-    "bg-cyan-700",
-    "bg-sky-700",
-    "bg-indigo-700",
-    "bg-violet-700",
-    "bg-purple-700",
-  ];
-
   const isEligabletoJoin = isParticipantEligableToJoin(participant, team);
 
   const hasAskedToJoinState = await checkStateJoinRequests({
@@ -84,8 +72,8 @@ export default async function TeamDetailPage({
   const isFull = await isTeamFull(team.id);
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <div className="rounded-3xl border-2 bg-slate-900 p-10 pt-5">
-        <div className="w-full sm:flex">
+      <div className="rounded-3xl border-2 bg-slate-900 p-5 pt-0 sm:p-10 sm:pt-5">
+        <div className="flex w-full">
           <div className="flex items-center">
             <Button asChild variant="secondary" className="mt-8">
               <Link href="/teams">
@@ -94,42 +82,23 @@ export default async function TeamDetailPage({
               </Link>
             </Button>
           </div>
-
-          <div className="flex flex-grow items-center justify-center">
-            <h1 className="ml-auto mr-auto mt-8 flex font-mono text-4xl font-semibold italic text-white sm:text-5xl">
-              {team.name}
-            </h1>
-          </div>
-          <div className="mr-0 flex">
+          <div className="ml-auto mr-0">
             <TeamDetailsComponent team={team} />
           </div>
+        </div>
+        <div className="mt-4 flex flex-grow items-center justify-center sm:mt-1">
+          <h1 className="ml-auto mr-auto mt-0 flex font-mono text-4xl font-semibold italic text-white sm:text-5xl">
+            {team.name}
+          </h1>
         </div>
         <div className="mt-4 inline-grid h-20 w-full grid-cols-5 gap-5 sm:mb-4 sm:mt-10 sm:h-32">
           {teamMembers.map((member) => (
             <div key={member.id}>
-              <div
-                className={`z-32 ml-auto mr-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-32 sm:w-32 ${
-                  colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
-                } text-center`}
-              >
-                <h1 className="p-2 text-3xl sm:text-6xl">
-                  {member.firstName?.charAt(0).toUpperCase()}
-                </h1>
-              </div>
-              {participant?.team.isCaptain &&
-                participant.team.id == team.id &&
-                participant.id != member.id && (
-                  <div className="z-10 ml-auto mr-auto mt-2 flex h-4 w-4 items-center justify-center rounded-full bg-gray-500 opacity-70 sm:h-8 sm:w-8">
-                    <h1
-                      className="p-2 text-lg sm:text-xl"
-                      onClick={() => {
-                        removeTeamMember(member.id);
-                      }}
-                    >
-                      X
-                    </h1>
-                  </div>
-                )}
+              <TeamMemberDetailedView
+                member={member}
+                participant={participant}
+                team={team}
+              />
             </div>
           ))}
         </div>
@@ -138,7 +107,7 @@ export default async function TeamDetailPage({
         <div className="mt-10 self-center rounded-3xl border-2 bg-slate-900 p-3 sm:w-3/5">
           <Tabs defaultValue="information">
             {participant?.team.id == team.id && (
-              <TabsList>
+              <TabsList className="mb-4">
                 <TabsTrigger className="text-md sm:text-lg" value="information">
                   Информация
                 </TabsTrigger>
@@ -154,7 +123,7 @@ export default async function TeamDetailPage({
               </TabsList>
             )}
 
-            <div className="m-auto ml-auto mr-auto mt-5 rounded-3xl border-2 p-10 pb-5 pt-5 text-left">
+            <div className="m-auto ml-auto mr-auto mt-0 rounded-3xl border-2 p-10 pb-5 pt-2 text-left">
               <TabsContent value="information">
                 {participant && !participant.team.id && isEligabletoJoin && (
                   <IfHTFeatureOn feature="update-team-members">
@@ -166,7 +135,7 @@ export default async function TeamDetailPage({
                 )}
                 {project ? (
                   <div>
-                    <h2 className="mt-4 w-full text-2xl">{project.name}</h2>
+                    <h2 className="w-full text-2xl">{project.name}</h2>
                     <h3 className="mt-4 text-xl">{project.description}</h3>
 
                     {project.websiteURL && (

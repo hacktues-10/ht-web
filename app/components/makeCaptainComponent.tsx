@@ -13,8 +13,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "~/app/components/ui/alert-dialog";
+import { getTeamMembers, makeCaptain } from "../(full-layout)/teams/actions";
 import { getParticipantFromSession } from "../participants/service";
-import { getTeamMembers, makeCaptain } from "../teams/actions";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 

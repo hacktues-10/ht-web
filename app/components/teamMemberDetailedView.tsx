@@ -1,8 +1,8 @@
 "use client";
 
+import { getTeamMembers } from "../(full-layout)/teams/actions";
+import { getTeamById } from "../(full-layout)/teams/service";
 import { getParticipantFromSession } from "../participants/service";
-import { getTeamMembers } from "../teams/actions";
-import { getTeamById } from "../teams/service";
 import Crown from "./Crown";
 import MakeCaptainComponent from "./makeCaptainComponent";
 import RemoveMemberComponent from "./RemoveMemberComponent";
