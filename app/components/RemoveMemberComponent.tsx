@@ -11,7 +11,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "~/app/components/ui/alert-dialog";
-import { getTeamMembers, removeTeamMember } from "../teams/actions";
+import {
+  getTeamMembers,
+  removeTeamMember,
+} from "../(full-layout)/teams/actions";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 
