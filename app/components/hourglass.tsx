@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
 
-const Hourglass = ({
+export const Hourglass = ({
   fillAmount,
   ...props
 }: { fillAmount: number } & React.ComponentProps<"svg">) => {
