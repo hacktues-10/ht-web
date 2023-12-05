@@ -28,7 +28,7 @@ export default async function TeamDetailsComponent({
         <DialogHeader>
           <DialogTitle>{team.name}</DialogTitle>
           <DialogDescription className="text-center">
-            {team.description}
+            {team.description ?? "Този отбор няма описание"}
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

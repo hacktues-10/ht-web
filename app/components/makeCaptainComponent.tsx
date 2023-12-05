@@ -54,9 +54,9 @@ export default function MakeCaptainComponent({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Не</AlertDialogCancel>
+          <AlertDialogCancel>Отказ</AlertDialogCancel>
           <AlertDialogAction className="destructive" onClick={handleClick}>
-            Да
+            Направи капитан
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

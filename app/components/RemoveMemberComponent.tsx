@@ -10,18 +10,17 @@ import {
   AlertDialogTrigger,
 } from "~/app/components/ui/alert-dialog";
 import { getTeamMembers, removeTeamMember } from "../teams/actions";
-import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 
 export default function RemoveMemberComponent({
-  title,
   memberToRemove,
+  remove,
 }: {
-  title: string;
   memberToRemove: Exclude<
     Awaited<ReturnType<typeof getTeamMembers>>[number],
     null
   >;
+  remove: boolean;
 }) {
   const { toast } = useToast();
   const handleClick = async () => {
@@ -46,7 +45,11 @@ export default function RemoveMemberComponent({
       </AlertDialogTrigger>
       <AlertDialogContent className="w-4/5 rounded-3xl sm:w-auto">
         <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogTitle>
+            {remove
+              ? "Сигурни ли сте, че искате да премахнете този участник от отбора?"
+              : "Сигурни ли сте, че искате да напуснете този отбор?"}
+          </AlertDialogTitle>
           <AlertDialogDescription>
             Това действие не може да бъде върнато назад.
           </AlertDialogDescription>
@@ -54,7 +57,7 @@ export default function RemoveMemberComponent({
         <AlertDialogFooter>
           <AlertDialogCancel>Отказ</AlertDialogCancel>
           <AlertDialogAction className="destructive" onClick={handleClick}>
-            Напред
+            {remove ? "Премахни" : "Напусни"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
