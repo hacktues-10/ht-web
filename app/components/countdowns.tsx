@@ -115,38 +115,3 @@ export function CountdownTimer({ to }: { to: Date }) {
     </Card>
   );
 }
-
-export function CountdownTimer2({ to }: { to: Date }) {
-  const countdown = useCountdown(to);
-
-  const numberFormat = new Intl.NumberFormat("en", { minimumIntegerDigits: 2 });
-  const formatted = {
-    days: numberFormat.format(Math.ceil(countdown.days)),
-    hours: numberFormat.format(Math.ceil(countdown.hours)),
-    minutes: numberFormat.format(Math.ceil(countdown.minutes)),
-    seconds: numberFormat.format(Math.ceil(countdown.seconds)),
-  };
-
-  return (
-    <Card>
-      <div className="flex items-center justify-center gap-2 px-5 py-3">
-        <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold">{formatted.days}</div>
-          <div className="text-xs font-medium">дена</div>
-        </div>
-        <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold">{formatted.hours}</div>
-          <div className="text-xs font-medium">часа</div>
-        </div>
-        <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold">{formatted.minutes}</div>
-          <div className="text-xs font-medium">минути</div>
-        </div>
-        <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold">{formatted.seconds}</div>
-          <div className="text-xs font-medium">секунди</div>
-        </div>
-      </div>
-    </Card>
-  );
-}
