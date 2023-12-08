@@ -37,6 +37,7 @@ import {
   checkStateJoinRequests,
   getProjectById,
   getTeamMembers,
+  isTeamFull,
   prepareParticipants,
 } from "~/app/teams/actions";
 >>>>>>> 40df39a (fixed mnogo bugove i tn):app/teams/[id]/page.tsx
@@ -77,6 +78,7 @@ export default async function TeamDetailPage({
   // teamMembers.push(teamMembers[0]);
   // teamMembers.push(teamMembers[0]);
   const project = await getProjectById(team.projectId);
+  const isFull = await isTeamFull(team.id);
 
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
@@ -89,16 +91,19 @@ export default async function TeamDetailPage({
                 Назад
               </Link>
             </Button>
-            {participant && !participant.team.id && isEligabletoJoin && (
-              <div className="ml-5">
-                <IfHTFeatureOn feature="update-team-members">
-                  <AskToJoinButton
-                    teamid={team.id}
-                    hasAskedToJoinState={hasAskedToJoinState}
-                  />
-                </IfHTFeatureOn>
-              </div>
-            )}
+            {participant &&
+              !participant.team.id &&
+              isEligabletoJoin &&
+              !isFull && (
+                <div className="ml-5">
+                  <IfHTFeatureOn feature="update-team-members">
+                    <AskToJoinButton
+                      teamid={team.id}
+                      hasAskedToJoinState={hasAskedToJoinState}
+                    />
+                  </IfHTFeatureOn>
+                </div>
+              )}
           </div>
 
           <div className="ml-auto mr-0">
@@ -183,7 +188,8 @@ export default async function TeamDetailPage({
                 <IfHTFeatureOn feature="update-team-members">
                   {participant &&
                     participant.team.id === team.id &&
-                    participant.team.isCaptain && (
+                    participant.team.isCaptain &&
+                    !isFull && (
                       <div className="m-auto justify-center text-center text-xl sm:mt-auto">
                         <h3 className="mb-3 ">Покани участник</h3>
                         <InviteForm

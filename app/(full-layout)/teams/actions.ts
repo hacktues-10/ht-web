@@ -386,3 +386,14 @@ export async function testInsertProject() {
     .set({ projectId: 1 })
     .where(eq(teams.id, "what-the-fuck"));
 }
+
+export async function isTeamFull(teamId: string) {
+  const team = (await db.select().from(teams).where(eq(teams.id, teamId)))[0];
+  if (
+    (team.isAlumni && team.memberCount == 3) ||
+    (!team.isAlumni && team.memberCount == 5)
+  ) {
+    return true;
+  }
+  return false;
+}
