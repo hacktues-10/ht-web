@@ -1,13 +1,15 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Commissioner, Inter } from "next/font/google";
 
 import AuthProvider from "./context/AuthProvider";
 import { GrowthBookServerProvider } from "./context/growthbook/GrowthBookServerProvider";
 import { cn } from "./utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+//Commissioner
+const title = Commissioner({ subsets: ["latin"], variable: "--font-title" });
 
 export const metadata: Metadata = {
   title: "Hack TUES 10",
@@ -24,8 +26,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased dark",
-          inter.variable
+          "dark min-h-screen bg-background font-sans antialiased",
+          inter.variable,
+          title.variable,
         )}
       >
         <AuthProvider>
