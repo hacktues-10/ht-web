@@ -48,8 +48,6 @@ function calculateCountdown(to: Date) {
 export function CountdownTimer({ to }: { to: Date }) {
   const countdown = useCountdown(to);
 
-  console.log(countdown);
-
   const numberFormat = new Intl.NumberFormat("en", { minimumIntegerDigits: 2 });
   const formatted = {
     days: numberFormat.format(countdown.days),
