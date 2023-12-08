@@ -415,3 +415,14 @@ export async function getConfirmedTeamsNumber(isAlumni: boolean) {
 
   return teamsNumberFinal.length;
 }
+
+export async function isTeamFull(teamId: string) {
+  const team = (await db.select().from(teams).where(eq(teams.id, teamId)))[0];
+  if (
+    (team.isAlumni && team.memberCount == 3) ||
+    (!team.isAlumni && team.memberCount == 5)
+  ) {
+    return true;
+  }
+  return false;
+}

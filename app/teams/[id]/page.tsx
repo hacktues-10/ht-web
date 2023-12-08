@@ -204,7 +204,8 @@ export default async function TeamDetailPage({
                 <IfHTFeatureOn feature="update-team-members">
                   {participant &&
                     participant.team.id === team.id &&
-                    participant.team.isCaptain && (
+                    participant.team.isCaptain &&
+                    !isFull && (
                       <div className="m-auto justify-center text-center text-xl sm:mt-auto">
                         <h3 className="mb-3 ">Покани участник</h3>
                         <InviteForm
