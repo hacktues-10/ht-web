@@ -69,11 +69,6 @@ export const acceptJoinRequest = async (
         .where(eq(particpants.id, joinRequest?.userId));
 
       await db
-        .update(teams)
-        .set({ memberCount: team.memberCount + 1 })
-        .where(eq(teams.id, team.id));
-
-      await db
         .delete(notifications)
         .where(eq(notifications.referenceId, joinRequest?.id));
 
@@ -168,11 +163,6 @@ export const acceptInvitation = zact(
       .update(particpants)
       .set({ teamId: invitation.teamId, isCaptain: false })
       .where(eq(particpants.id, particpant.id));
-
-    await db
-      .update(teams)
-      .set({ memberCount: team.memberCount + 1 })
-      .where(eq(teams.id, team.id));
 
     await db
       .delete(notifications)

@@ -7,11 +7,7 @@ import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
 import TeamMember from "~/app/components/TeamMember";
 import { getParticipantFromSession } from "~/app/participants/service";
-import {
-  checkStateJoinRequests,
-  getTeamMembers,
-  isTeamFull,
-} from "~/app/teams/actions";
+import { checkStateJoinRequests, getTeamMembers } from "~/app/teams/actions";
 import { getTeamById } from "../service";
 
 export default async function TeamDetailPage({
