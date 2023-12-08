@@ -102,7 +102,7 @@ export const participantsRelations = relations(
     }),
     invitations: many(invitations),
     sentInvitations: many(invitations),
-  })
+  }),
 );
 
 export const discordUsers = pgTable("discord", {
@@ -177,6 +177,7 @@ export const teams = pgTable("teams", {
   discordRoleId: varchar("role_id"),
   isAlumni: boolean("is_alumni").notNull().default(false),
   semiFinal: integer("semi_final").default(0),
+  memberCount: integer("member_count").default(1).notNull(),
   semiFinalResult: numeric("semi_final_result", { precision: 3, scale: 2 })
     .notNull()
     .default("0.00"),
@@ -219,7 +220,7 @@ export const invitations = pgTable(
   },
   (t) => ({
     unique: unique().on(t.invitedParticipantId, t.teamId),
-  })
+  }),
 );
 
 export const invitationsRelations = relations(invitations, ({ one }) => ({

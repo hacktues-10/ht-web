@@ -28,7 +28,7 @@ interface JoinRequest {
 
 // FIXME: use zact
 export const acceptJoinRequest = async (
-  joinRequest: JoinRequest | undefined
+  joinRequest: JoinRequest | undefined,
 ) => {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
@@ -56,7 +56,7 @@ export const acceptJoinRequest = async (
       }
       const res = await addDiscordRole(
         discord[0].discordId,
-        team?.discordRoleId
+        team?.discordRoleId,
       );
 
       if (!res.success) {
@@ -67,6 +67,11 @@ export const acceptJoinRequest = async (
         .update(particpants)
         .set({ teamId: joinRequest?.teamId, isCaptain: false })
         .where(eq(particpants.id, joinRequest?.userId));
+
+      await db
+        .update(teams)
+        .set({ memberCount: team.memberCount + 1 })
+        .where(eq(teams.id, team.id));
 
       await db
         .delete(notifications)
@@ -114,7 +119,7 @@ function getInvitation(id: number) {
 export const acceptInvitation = zact(
   z.object({
     invitationId: z.number().int(),
-  })
+  }),
 )(async ({ invitationId }) => {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
@@ -165,6 +170,11 @@ export const acceptInvitation = zact(
       .where(eq(particpants.id, particpant.id));
 
     await db
+      .update(teams)
+      .set({ memberCount: team.memberCount + 1 })
+      .where(eq(teams.id, team.id));
+
+    await db
       .delete(notifications)
       .where(eq(notifications.referenceId, invitationId));
 
@@ -181,7 +191,7 @@ export const acceptInvitation = zact(
 export const declineInvitation = zact(
   z.object({
     invitationId: z.number().int(),
-  })
+  }),
 )(async ({ invitationId }) => {
   const particpant = await getParticipantFromSession();
   if (!particpant) {

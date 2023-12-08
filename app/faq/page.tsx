@@ -39,7 +39,7 @@ export default function FAQ() {
               <AccordionContent>
                 Един отбор на текущи ученици може да се състои от 3 до 5
                 участници. Отбор на минали възпитаници на ТУЕС може да се състои
-                от 3ма човека.
+                от 2 до 3 човека.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="4">
@@ -94,8 +94,9 @@ export default function FAQ() {
                 Как ще протече самото събитие?
               </AccordionTrigger>
               <AccordionContent>
-                Може да намериш информацията за програмата на HackTUES X на
-                страницата Програма.
+                Събитието ще се проведе на 13.03.2024 година и ще бъде с
+                продължителност 3 дни. Награждаването е последния ден
+                (16.03.2024).
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="10">
@@ -105,7 +106,7 @@ export default function FAQ() {
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="11">
-              <AccordionTrigger>Ще има ли храна?</AccordionTrigger>
+              <AccordionTrigger>Ще има ли храна? АААААА</AccordionTrigger>
               <AccordionContent>
                 Ще има обяд на 09, 10 и 11.03, както и Food Corner, където всеки
                 може да си вземе каквото желае, както и чай, кафе и вода. Всеки
@@ -144,12 +145,11 @@ export default function FAQ() {
               </AccordionTrigger>
               <AccordionContent>
                 Часовете за работа по проектите на територията на Форум Джон
-                Атанасов в София Тех Парк са ориентировъчни - отборите ще могат
-                да се явят на място най-рано в 09:00 и да напуснат територията
-                на Джон Атанасов София Тех Парк най-късно в 21:00. Всеки отбор
-                ще бъде информиран за часа на представянето на проекта си на
+                Атанасов в София Тех Парк са ориентировъчни. Всеки отбор ще бъде
+                информиран за часа на представянето на проекта си на
                 полуфиналите, като трябва да бъде във Форум Джон Атанасов поне
-                20 минути по-рано.
+                20 минути по-рано. Ще получите повече информация с наближаването
+                на събитието.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="15">
@@ -157,18 +157,18 @@ export default function FAQ() {
                 Как ще се провеждат полуфиналите?
               </AccordionTrigger>
               <AccordionContent>
-                Полуфиналите ще се проведат сутринта на 11.03 - последният ден
+                Полуфиналите ще се проведат сутринта на 16.03 - последният ден
                 на хакатона.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="16">
               <AccordionTrigger>Кога е финалът?</AccordionTrigger>
               <AccordionContent>
-                Финалът ще се проведе следобед на 11.03 - последният ден на
+                Финалът ще се проведе следобед на 16.03 - последният ден на
                 хакатона.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="17">
+            {/* <AccordionItem value="17">
               <AccordionTrigger>
                 Какво ще стане, ако не попълня декларацията за информирано
                 съгласие?
@@ -178,7 +178,7 @@ export default function FAQ() {
                 информирано съгласие, иначе няма да бъде допуснат до участие в
                 хакатона.
               </AccordionContent>
-            </AccordionItem>
+            </AccordionItem> */}
             <AccordionItem value="18">
               <AccordionTrigger>Ще има ли награди?</AccordionTrigger>
               <AccordionContent>ДААААААААААА!</AccordionContent>

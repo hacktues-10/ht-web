@@ -2,10 +2,10 @@ import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
+import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "../db";
 import { discordUsers, particpants, teams } from "../db/schema";
 import { getParticipantById } from "../participants/service";
-import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 
 export async function getConfirmedTeams() {
   return db.query.teams.findMany({
@@ -51,6 +51,15 @@ export async function createTeam(team: {
   captainId: number;
   isAlumni: boolean;
 }) {
+  const teamsNumber = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.isAlumni, team.isAlumni));
+  // const teamsNumberFinal = teamsNumber.map(team => team.memberCount > 1 && team.memberCount < 4)
+  // if (team.isAlumni && teamsNumberFinal.length >= 30) {
+  //   invariant(false, "Отборите са запълнени.");
+  // }
+
   const captain = await getParticipantById(team.captainId);
   const roleId = await createDiscordTeam(slugify(team.name));
   // TODO: verify if name is ok
@@ -60,6 +69,7 @@ export async function createTeam(team: {
       id: slugify(team.name),
       discordRoleId: roleId,
       technologies: captain?.technologies || "",
+      memberCount: 1,
       ...team,
     })
     .returning({ id: teams.id });
@@ -71,7 +81,7 @@ export async function createTeam(team: {
     .where(eq(discordUsers.participantId, team.captainId));
   invariant(
     !(discordMember.length < 1 || !discordMember[0].discordId),
-    "Failed to get discord member"
+    "Failed to get discord member",
   );
   await addDiscordRole(discordMember[0].discordId, roleId);
   await db
