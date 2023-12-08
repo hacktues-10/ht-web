@@ -73,6 +73,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        llpixel: ["var(--font-llpixel)", ...fontFamily.sans],
       },
     },
   },
