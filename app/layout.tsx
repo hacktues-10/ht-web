@@ -2,12 +2,17 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 
 import AuthProvider from "./context/AuthProvider";
 import { GrowthBookServerProvider } from "./context/growthbook/GrowthBookServerProvider";
 import { cn } from "./utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const llpixel = localFont({
+  src: "./assets/llpixel3.ttf",
+  variable: "--font-llpixel",
+});
 
 export const metadata: Metadata = {
   title: "Hack TUES 10",
@@ -24,8 +29,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased dark",
-          inter.variable
+          "dark min-h-screen bg-background font-sans antialiased",
+          inter.variable,
+          llpixel.variable,
         )}
       >
         <AuthProvider>

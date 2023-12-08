@@ -18,14 +18,14 @@ export const Hourglass = ({
   return (
     <svg
       xmlSpace="preserve"
-      className="w-full max-w-2xl"
+      className="w-full max-w-2xl px-5 md:px-0"
       xmlns="http://www.w3.org/2000/svg"
       clipRule="evenodd"
       fillRule="evenodd"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeMiterlimit={1.5}
-      viewBox="0 0 715.52008 1060.58466"
+      viewBox="0 0 715.52008 870"
       {...props}
     >
       <defs>
