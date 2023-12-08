@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { CountdownTimer } from "./components/countdowns";
+import { CountdownTimer, CountdownTimer2 } from "./components/countdowns";
 import { CountdownHourglass } from "./components/hourglass";
 import { Button } from "./components/ui/button";
 
@@ -21,6 +21,7 @@ function CountdownHero() {
         </h1>
         <div className="py-2" />
         <CountdownTimer to={new Date("2024-03-18T03:00:00.000Z")} />
+        <CountdownTimer2 to={new Date("2024-03-18T03:00:00.000Z")} />
         <Button asChild>
           <Link href="/register">Регистрирай се</Link>
         </Button>

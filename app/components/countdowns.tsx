@@ -1,12 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { animated, useSpring, useSpringRef } from "@react-spring/web";
 
 import { Card, CardContent } from "./ui/card";
 
 export function useCountdown(to: Date) {
-  const [countdown, setCountdown] = useState(() => calculateCountdown(to));
-
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    diff: 0,
+  });
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown(calculateCountdown(to));
@@ -45,34 +51,99 @@ function calculateCountdown(to: Date) {
   };
 }
 
-export function CountdownTimer({ to }: { to: Date }) {
+function useCountdownSpring(to: Date) {
   const countdown = useCountdown(to);
+  const [immediate, setImmediate] = useState(false);
+  return useSpring({
+    to: countdown,
+    immediate,
+    onRest: (result, spring) => {
+      spring.stop();
+      if (!immediate) {
+        setImmediate(true);
+      }
+    },
+    config: {
+      clamp: true,
+    },
+  });
+}
+
+export function CountdownTimer({ to }: { to: Date }) {
+  const countdown = useCountdownSpring(to);
 
   const numberFormat = new Intl.NumberFormat("en", { minimumIntegerDigits: 2 });
   const formatted = {
-    days: numberFormat.format(countdown.days),
-    hours: numberFormat.format(countdown.hours),
-    minutes: numberFormat.format(countdown.minutes),
-    seconds: numberFormat.format(countdown.seconds),
+    days: countdown.days.to((days) => numberFormat.format(Math.ceil(days))),
+    hours: countdown.hours.to((hours) => numberFormat.format(Math.ceil(hours))),
+    minutes: countdown.minutes.to((minutes) =>
+      numberFormat.format(Math.ceil(minutes)),
+    ),
+    seconds: countdown.seconds.to((seconds) =>
+      numberFormat.format(Math.ceil(seconds)),
+    ),
   };
 
   return (
     <Card>
       <div className="flex items-center justify-center gap-2 px-5 py-3">
         <div className="flex flex-col items-center">
-          <div className="text-3xl font-bold">{formatted.days}</div>
+          <animated.div className="text-4xl font-bold">
+            {formatted.days}
+          </animated.div>
           <div className="text-xs font-medium">дена</div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-3xl font-bold">{formatted.hours}</div>
+          <animated.div className="text-4xl font-bold">
+            {formatted.hours}
+          </animated.div>
           <div className="text-xs font-medium">часа</div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-3xl font-bold">{formatted.minutes}</div>
+          <animated.div className="text-4xl font-bold">
+            {formatted.minutes}
+          </animated.div>
           <div className="text-xs font-medium">минути</div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-3xl font-bold">{formatted.seconds}</div>
+          <animated.div className="text-4xl font-bold">
+            {formatted.seconds}
+          </animated.div>
+          <div className="text-xs font-medium">секунди</div>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+export function CountdownTimer2({ to }: { to: Date }) {
+  const countdown = useCountdown(to);
+
+  const numberFormat = new Intl.NumberFormat("en", { minimumIntegerDigits: 2 });
+  const formatted = {
+    days: numberFormat.format(Math.ceil(countdown.days)),
+    hours: numberFormat.format(Math.ceil(countdown.hours)),
+    minutes: numberFormat.format(Math.ceil(countdown.minutes)),
+    seconds: numberFormat.format(Math.ceil(countdown.seconds)),
+  };
+
+  return (
+    <Card>
+      <div className="flex items-center justify-center gap-2 px-5 py-3">
+        <div className="flex flex-col items-center">
+          <div className="text-4xl font-bold">{formatted.days}</div>
+          <div className="text-xs font-medium">дена</div>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="text-4xl font-bold">{formatted.hours}</div>
+          <div className="text-xs font-medium">часа</div>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="text-4xl font-bold">{formatted.minutes}</div>
+          <div className="text-xs font-medium">минути</div>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="text-4xl font-bold">{formatted.seconds}</div>
           <div className="text-xs font-medium">секунди</div>
         </div>
       </div>
