@@ -29,13 +29,19 @@ export default async function TeamList() {
 
   const confirmedStudentTeamsNumber = await getConfirmedTeamsNumber(false);
   const confirmedAlumniTeamsNumber = await getConfirmedTeamsNumber(true);
+  let canCreateTeam = false;
+  if (participant?.grade) {
+    canCreateTeam =
+      (confirmedAlumniTeamsNumber < 20 && parseInt(participant.grade) > 12) ||
+      (confirmedStudentTeamsNumber < 20 && parseInt(participant.grade) <= 12);
+  }
 
   //   TODO: move elsewhere
   return (
     //bg-[url('./assets/background.png')]
     <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
       <IfHTFeatureOn feature="create-team">
-        {participant && !participant.team.id && (
+        {participant && !participant.team.id && canCreateTeam && (
           <Button asChild variant="destructive" className="m-4">
             <Link href="/teams/new">Създай отбор</Link>
           </Button>
