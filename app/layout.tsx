@@ -12,9 +12,9 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const title = Commissioner({ subsets: ["latin"], variable: "--font-title" });
 
 export const metadata: Metadata = {
-  title: "Hack TUES 10",
+  title: "Hack TUES X",
   description:
-    "Hack TUES 10 is the most popular hackathon in Bulgaria made for students by students.",
+    "Hack TUES X is the most popular hackathon in Bulgaria made for students by students.",
 };
 
 export default function RootLayout({

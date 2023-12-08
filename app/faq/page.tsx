@@ -16,7 +16,7 @@ export default function FAQ() {
           <Accordion type="single" collapsible>
             <AccordionItem value="1">
               <AccordionTrigger>
-                Как да създам отбор за HackTUES 10?
+                Как да създам отбор за Hack TUES X?
               </AccordionTrigger>
               <AccordionContent>
                 След като си си създал акаунт, отиди в страницата за отбори и
@@ -135,7 +135,7 @@ export default function FAQ() {
               </AccordionTrigger>
               <AccordionContent>
                 За повече информация за критериите за оценка може да видите
-                регламента на HackTUES X на страницата Регламент.
+                регламента на Hack TUES X на страницата Регламент.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="14">

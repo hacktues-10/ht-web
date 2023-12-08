@@ -15,10 +15,10 @@ export default function Regulations() {
             неговото провеждане.
           </p>
           <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-            Какво е HackTUES Х?
+            Какво е Hack TUES Х?
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
-            HackTUES е хакатон (състезание с компютърни проекти), в което
+            Hack TUES е хакатон (състезание с компютърни проекти), в което
             отборите имат по-малко от 3 дни да направят авторски
             софтуерен/хардуерен проект по зададена от организаторите тема,
             използвайки всякакви технологии. Организира се ежегодно от ученици
@@ -120,7 +120,7 @@ export default function Regulations() {
             Тормоз
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
-            Не се толерира тормоз над екипа на HackTUES 9, доброволците и
+            Не се толерира тормоз над екипа на Hack TUES X, доброволците и
             участниците в събитието под каквато и да е форма.
           </p>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-3">
