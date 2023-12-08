@@ -16,7 +16,7 @@ function CountdownHero() {
   return (
     <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col justify-between gap-10 md:max-w-4xl md:flex-row">
       <section className="flex h-full w-full flex-col items-center justify-center gap-4">
-        <h1 className="text-center font-llpixel text-5xl text-accent-foreground md:text-6xl">
+        <h1 className="text-center font-llpixel text-5xl text-accent-foreground md:text-7xl">
           Hack TUES&nbsp;X
         </h1>
         <div className="py-2" />
