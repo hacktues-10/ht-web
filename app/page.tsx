@@ -1,9 +1,9 @@
 import { getHTSession } from "./api/auth/session";
 import { SignInButton, SignOutButton } from "./components/buttons";
-import { Hourglass, Test } from "./components/hourglass";
+import { Hourglass, CountdownHourglass } from "./components/hourglass";
 
 export default async function Home() {
-  return <Test />;
+  return <CountdownHourglass />;
   // return <Hourglass fillAmount={0.5} />;
   // const session = await getHTSession();
   // if (session) {
