@@ -77,16 +77,16 @@ export function CountdownTimer({ to }: { to: Date }) {
   const numberFormat = new Intl.NumberFormat("en", { minimumIntegerDigits: 2 });
   const formatted = {
     days: countdownSpring.days.to((days) =>
-      numberFormat.format(Math.ceil(days))
+      numberFormat.format(Math.ceil(days)),
     ),
     hours: countdownSpring.hours.to((hours) =>
-      numberFormat.format(Math.ceil(hours))
+      numberFormat.format(Math.ceil(hours)),
     ),
     minutes: countdownSpring.minutes.to((minutes) =>
-      numberFormat.format(Math.ceil(minutes))
+      numberFormat.format(Math.ceil(minutes)),
     ),
     seconds: countdownSpring.seconds.to((seconds) =>
-      numberFormat.format(Math.ceil(seconds))
+      numberFormat.format(Math.ceil(seconds)),
     ),
   };
 

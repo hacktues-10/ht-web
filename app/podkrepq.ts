@@ -1,3 +1,10 @@
+import bloombergLogo from "./assets/media/bloomberg.png";
+import bnrLogo from "./assets/media/bnr.png";
+import capitalLogo from "./assets/media/capital.png";
+import devstylerArticleLogo from "./assets/media/devstyler.png";
+import investorLogo from "./assets/media/investor.png";
+import karieribgLogo from "./assets/media/karieribg.png";
+import a1Logo from "./assets/sponsors/alpha/a1.png";
 import appolicaLogo from "./assets/sponsors/alpha/appolica.png";
 import boschLogo from "./assets/sponsors/alpha/bosch.png";
 import dxcLogo from "./assets/sponsors/alpha/dxc.png";
@@ -28,7 +35,6 @@ import ibmLogo from "./assets/sponsors/gamma/ibm.svg";
 import itgixLogo from "./assets/sponsors/gamma/itgix.png";
 import nemetcheckLogo from "./assets/sponsors/gamma/nemetcheck.png";
 import takeawayLogo from "./assets/sponsors/gamma/takeaway.png";
-import a1Logo from "./assets/sponsors/alpha/a1.png";
 import aztuesLogo from "./assets/sponsors/partners/aztues.png";
 import cometLogo from "./assets/sponsors/partners/comet.png";
 import corporateLogo from "./assets/sponsors/partners/corporate.png";
@@ -40,12 +46,6 @@ import multivisiaLogo from "./assets/sponsors/partners/multivisia.png";
 import pureWaterLogo from "./assets/sponsors/partners/pure_water.png";
 import smartcomLogo from "./assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "./assets/sponsors/partners/sofia-tech-park.png";
-import devstylerArticleLogo from "./assets/media/devstyler.png";
-import karieribgLogo from "./assets/media/karieribg.png";
-import bnrLogo from "./assets/media/bnr.png";
-import capitalLogo from "./assets/media/capital.png";
-import investorLogo from "./assets/media/investor.png";
-import bloombergLogo from "./assets/media/bloomberg.png";
 
 const ALPHA_SPONSORS = [
   {

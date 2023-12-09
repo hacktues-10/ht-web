@@ -36,7 +36,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <GrowthBookServerProvider>
-            <main className="flex min-h-screen items-start justify-center p-6">
+            <main className="flex min-h-screen items-start justify-center overflow-x-clip p-6">
               {children}
             </main>
           </GrowthBookServerProvider>

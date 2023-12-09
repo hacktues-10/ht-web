@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+
+import { Badge } from "~/app/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -10,8 +13,6 @@ import {
   CardTitle,
 } from "~/app/components/ui/card";
 import { getConfirmedTeams, getTeamById } from "~/app/teams/service";
-import Link from "next/link";
-import { Badge } from "~/app/components/ui/badge";
 import {
   convertToPaginatedTechnologies,
   convertToTechnology,
@@ -46,8 +47,8 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
             {team.project?.name ?? "Все още няма проект"}
           </CardDescription>
         </CardHeader>
-        <CardContent className="p-0 m-6 mb-0 mt-0 border-b border-gray-100/50">
-          <div className="inline-grid grid-cols-5 gap-5 p-2 mt-2">
+        <CardContent className="m-6 mb-0 mt-0 border-b border-gray-100/50 p-0">
+          <div className="mt-2 inline-grid grid-cols-5 gap-5 p-2">
             {team.members.map((member) => (
               <div key={member.id}>
                 <div
@@ -65,7 +66,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
         </CardContent>
         <CardFooter>
           {techn && techn.length > 0 ? (
-            <div className="flex gap-2 p-2 overflow-hidden w-full">
+            <div className="flex w-full gap-2 overflow-hidden p-2">
               {techn.map((technology, index) => (
                 <Badge
                   variant="outline"
@@ -73,7 +74,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
                     backgroundColor: technology?.color,
                     color: technology?.textColor,
                   }}
-                  className="text-xs whitespace-nowrap"
+                  className="whitespace-nowrap text-xs"
                   key={index}
                 >
                   {technology?.name}

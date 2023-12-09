@@ -28,7 +28,7 @@ interface JoinRequest {
 
 // FIXME: use zact
 export const acceptJoinRequest = async (
-  joinRequest: JoinRequest | undefined
+  joinRequest: JoinRequest | undefined,
 ) => {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
@@ -56,7 +56,7 @@ export const acceptJoinRequest = async (
       }
       const res = await addDiscordRole(
         discord[0].discordId,
-        team?.discordRoleId
+        team?.discordRoleId,
       );
 
       if (!res.success) {
@@ -114,7 +114,7 @@ function getInvitation(id: number) {
 export const acceptInvitation = zact(
   z.object({
     invitationId: z.number().int(),
-  })
+  }),
 )(async ({ invitationId }) => {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
@@ -181,7 +181,7 @@ export const acceptInvitation = zact(
 export const declineInvitation = zact(
   z.object({
     invitationId: z.number().int(),
-  })
+  }),
 )(async ({ invitationId }) => {
   const particpant = await getParticipantFromSession();
   if (!particpant) {

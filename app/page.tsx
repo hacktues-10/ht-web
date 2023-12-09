@@ -1,10 +1,17 @@
+import { PropsWithChildren } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { PropsWithChildren } from "react";
 import { CountdownTimer } from "./components/countdowns";
 import { CountdownHourglass } from "./components/hourglass";
 import { Button } from "./components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./components/ui/card";
 import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
@@ -14,20 +21,13 @@ import {
   PARTNERS,
   Podkrepqsht,
 } from "./podkrepq";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./components/ui/card";
 
 export default async function Home() {
   return (
-    <div className="flex flex-col min-h-fit w-full gap-4">
+    <div className="flex min-h-fit w-full flex-col gap-4">
       <CountdownHero />
-      <section className="relative light flex flex-col gap-14 text-sand-foreground bg-sand pt-28 pb-14 overflow-x-visible">
-        <div className="bg-sand -z-10 absolute top-0 bottom-0 h-full w-[calc(100vw+(100vw-100%)/2)] -left-[calc(100vw-100%)]" />
+      <section className="light relative flex flex-col gap-14 overflow-x-visible bg-sand pb-14 pt-28 text-sand-foreground">
+        <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] bg-sand" />
         <PordkrepqPackage>
           <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
           <PodkrepqPackageScrollableContent podkrepqshti={ALPHA_SPONSORS} />
@@ -45,8 +45,8 @@ export default async function Home() {
           <PodkrepqPackageScrollableContent podkrepqshti={PARTNERS} />
         </PordkrepqPackage>
       </section>
-      <section className="pt-7 flex gap-3 items-center flex-col">
-        <h2 className="scroll-m-20 text-center pt-7 text-5xl font-extrabold tracking-tight first:mt-0">
+      <section className="flex flex-col items-center gap-3 pt-7">
+        <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
           Медиите за нас
         </h2>
         <div className="py-2" />
@@ -60,9 +60,9 @@ export default async function Home() {
 
 function CountdownHero() {
   return (
-    <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col justify-between items-center gap-10 md:max-w-4xl md:flex-row">
+    <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col items-center justify-between gap-10 md:max-w-4xl md:flex-row">
       <section className="flex h-full w-full flex-col items-center justify-center gap-4">
-        <h1 className="text-center text-primary font-llpixel text-5xl md:text-7xl">
+        <h1 className="text-center font-llpixel text-5xl text-primary md:text-7xl">
           Hack TUES&nbsp;X
         </h1>
         <div className="py-2" />
@@ -85,16 +85,16 @@ function PodkrepqPackageScrollableContent({
   podkrepqshti: Podkrepqsht[];
 }) {
   return (
-    <ul className="grid mx-auto max-w-sm grid-cols-1 gap-6 p-2 sm:grid-cols-2 sm:max-w-3xl md:grid-cols-3">
+    <ul className="mx-auto grid max-w-sm grid-cols-1 gap-6 p-2 sm:max-w-3xl sm:grid-cols-2 md:grid-cols-3">
       {podkrepqshti.map((podkrepqsht) => (
         <li key={podkrepqsht.name} title={podkrepqsht.name}>
           <Link
             href={podkrepqsht.url}
-            className="grid place-content-center group rounded-lg flex-1 aspect-video shrink-0 relative bg-white p-4 overflow-clip shadow-md"
+            className="group relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip rounded-lg bg-white p-4 shadow-md"
             target="_blank"
           >
             <Image
-              className="group-hover:scale-110 max-w-full max-h-full transition-transform px-3 py-5 object-contain"
+              className="max-h-full max-w-full object-contain px-3 py-5 transition-transform group-hover:scale-110"
               src={podkrepqsht.logo}
               alt={podkrepqsht.name}
             />
@@ -106,12 +106,12 @@ function PodkrepqPackageScrollableContent({
 }
 
 function PordkrepqPackage({ children }: PropsWithChildren) {
-  return <section className="flex gap-3 flex-col">{children}</section>;
+  return <section className="flex flex-col gap-3">{children}</section>;
 }
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className="scroll-m-20 text-primary text-center pb-2 text-4xl font-extrabold tracking-tight first:mt-0">
+    <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-primary first:mt-0">
       {children}
     </h2>
   );
@@ -126,10 +126,10 @@ function MediaArticleCard({ article }: { article: MediaArticle }) {
 
   return (
     <Link href={article.url} className="block">
-      <Card className="flex flex-col max-w-2xl hover:scale-105 transition-transform sm:flex-row">
-        <Card className="grid place-content-center aspect-video shrink-0 relative p-4 overflow-clip flex-1 sm:w-1/2">
+      <Card className="flex max-w-2xl flex-col transition-transform hover:scale-105 sm:flex-row">
+        <Card className="relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip p-4 sm:w-1/2">
           <Image
-            className="max-w-full max-h-full transition-transform px-3 py-5 object-contain"
+            className="max-h-full max-w-full object-contain px-3 py-5 transition-transform"
             src={article.logo}
             alt={article.name}
           />
@@ -140,8 +140,8 @@ function MediaArticleCard({ article }: { article: MediaArticle }) {
               {article.title}
             </CardTitle>
           </CardHeader>
-          <div className="text-center pb-3 sm:hidden">{"●"}</div>
-          <CardFooter className="text-center justify-center sm:text-left sm:justify-start">
+          <div className="pb-3 text-center sm:hidden">{"●"}</div>
+          <CardFooter className="justify-center text-center sm:justify-start sm:text-left">
             <time dateTime={article.date.toISOString()}>
               {dateFormatter.format(article.date)}
             </time>
