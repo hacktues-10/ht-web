@@ -2,12 +2,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
+import {
+  checkStateJoinRequests,
+  getTeamMembers,
+} from "~/app/(full-layout)/teams/actions";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
 import TeamMember from "~/app/components/TeamMember";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { checkStateJoinRequests, getTeamMembers } from "~/app/teams/actions";
 import { getTeamById } from "../service";
 
 export default async function TeamDetailPage({

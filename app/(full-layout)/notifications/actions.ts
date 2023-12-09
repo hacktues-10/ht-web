@@ -1,9 +1,8 @@
 import { eq, sql } from "drizzle-orm";
 
-import { db } from "../db";
-import { invitations, joinRequests, notifications } from "../db/schema";
-import { getParticipantFromSession } from "../participants/service";
-import { getTeamById } from "../teams/service";
+import { db } from "~/app/db";
+import { invitations, joinRequests, notifications } from "~/app/db/schema";
+import { getParticipantFromSession } from "~/app/participants/service";
 
 export type NotificationList = Exclude<
   Awaited<ReturnType<typeof getNotifications>>,

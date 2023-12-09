@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 
+import { getHTSession } from "~/app/api/auth/session";
 import { db } from "~/app/db";
 import { admins, users } from "~/app/db/schema";
-import { getHTSession } from "../auth/session";
 
 export async function getAdminFromSession() {
   const session = await getHTSession();

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { askToJoinTeam } from "../teams/actions";
+import { askToJoinTeam } from "../(full-layout)/teams/actions";
 
 export default function AskToJoinButton({
   teamid,

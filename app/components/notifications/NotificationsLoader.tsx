@@ -1,5 +1,5 @@
 import { signInRedirect } from "~/app/api/auth/session";
-import { getNotifications } from "../../notifications/actions";
+import { getNotifications } from "../../(full-layout)/notifications/actions";
 import {
   InvitationNotification,
   JoinRequestNotification,
