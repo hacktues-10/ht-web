@@ -137,8 +137,8 @@ const dateFormatter = new Intl.DateTimeFormat("bg", {
 function MediaArticleCard({ article }: { article: MediaArticle }) {
   return (
     <Link href={article.url} className="block" target="_blank">
-      <Card className="flex max-w-2xl flex-col transition-transform hover:scale-105 sm:flex-row">
-        <figure className="relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip border-b bg-card/20 p-4 text-card-foreground shadow-sm backdrop-blur-md sm:w-1/2 sm:border-b-0 sm:border-r">
+      <Card className="flex max-w-2xl flex-col overflow-clip transition-transform hover:scale-105 sm:flex-row">
+        <figure className="relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip border-b bg-card/5 p-4 text-card-foreground shadow-sm backdrop-blur-md sm:w-1/2 sm:border-b-0 sm:border-r">
           <Image
             className="max-h-full max-w-full object-contain px-3 py-5 transition-transform"
             src={article.logo}
