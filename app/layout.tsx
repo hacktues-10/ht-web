@@ -90,15 +90,15 @@ const Footer = () => (
       <p className="text-center text-sm text-gray-500">
         © {new Date().getFullYear()} ТУЕС към ТУ-София. Всички права запазени.
       </p>
-      <Separator className="w-48 md:hidden" />
-      <ul className="flex">
-        {SOCIAL_MEDIA.filter((media) => media.showInFooter).map((media) => (
-          <li key={media.platform}>
-            <MediaIconButton media={media} />
-          </li>
-        ))}
-        {/* IDEAL: show all media on small screens (looks bad) */}
-        {/* {SOCIAL_MEDIA.filter((media) => !media.showInFooter).map(
+    <Separator decorative={true} className="w-48 md:hidden" />
+    <ul className="flex">
+      {SOCIAL_MEDIA.filter((media) => media.showInFooter).map((media) => (
+        <li key={media.platform}>
+          <MediaIconButton media={media} />
+        </li>
+      ))}
+      {/* IDEAL: show all media on small screens (looks bad) */}
+      {/* {SOCIAL_MEDIA.filter((media) => !media.showInFooter).map(
                     (media) => (
                       <li key={media.platform} className="md:hidden">
                         <MediaIconButton media={media} />
