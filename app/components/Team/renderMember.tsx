@@ -1,6 +1,6 @@
 import { TbBrandDiscord } from "react-icons/tb";
 
-import { getUserDiscordName } from "~/app/api/discord/service";
+import { getUserDiscordName } from "~/app/api/discord/actions";
 import {
   Avatar,
   AvatarFallback,
@@ -22,11 +22,11 @@ export default async function RenderMember({
   member: memberType;
   color: string;
 }) {
-  const discrdUserName = await getUserDiscordName(member.id);
+  const discordName = await getUserDiscordName(member.id);
   return (
     <HoverCard>
-      <HoverCardTrigger>
-        <Avatar className="m-auto">
+      <HoverCardTrigger asChild>
+        <Avatar className="m-auto transition-transform duration-300 ease-in-out hover:scale-105">
           <AvatarImage />
           <AvatarFallback className={`${color}`}>
             {member.firstName?.charAt(0).toUpperCase()}
@@ -58,7 +58,7 @@ export default async function RenderMember({
             <div className="flex items-center pt-2">
               <TbBrandDiscord size={32} />
               <span className="m-3 text-xs text-muted-foreground">
-                {discrdUserName ? discrdUserName : "No username available"}
+                {discordName ? discordName : "No username available"}
               </span>
             </div>
           </div>

@@ -73,16 +73,17 @@ export default async function TeamDetailPage({
     participant?.id ?? null,
   );
   let teamMembers = await getTeamMembers(team.id);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
+  teamMembers.push(teamMembers[0]);
+  teamMembers.push(teamMembers[0]);
+  teamMembers.push(teamMembers[0]);
+  teamMembers.push(teamMembers[0]);
+
   const project = await getProjectById(team.projectId);
   const isFull = await isTeamFull(team.id);
 
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <div className="rounded-3xl border-2 bg-slate-900 p-5 pt-0 sm:p-10 sm:pt-5">
+      <div className="h-min rounded-3xl border-2 bg-slate-900 p-5 pt-0 sm:p-10 sm:pt-5">
         <div className="flex w-full">
           <div className="flex items-center">
             <Button asChild variant="secondary" className="mt-8">
@@ -115,7 +116,7 @@ export default async function TeamDetailPage({
             {team.name}
           </h1>
         </div>
-        <div className="mt-4 inline-grid h-min w-full grid-cols-3 items-center justify-center gap-5 sm:mb-4 sm:mt-10 sm:h-32 sm:grid-cols-5">
+        <div className="z-10 mt-4 flex w-full flex-wrap items-center justify-center sm:mb-4 sm:mt-10">
           {teamMembers.map((member) => (
             <TeamMemberDetailedView
               member={member}
@@ -146,7 +147,7 @@ export default async function TeamDetailPage({
               </TabsList>
             )}
 
-            <div className="m-auto ml-auto mr-auto mt-0 rounded-3xl border-2 p-10 pb-5 pt-2 text-left">
+            <div className="ml-1 mr-1 mt-0 rounded-3xl border-2 px-5 pb-5 pt-2 text-left sm:m-auto">
               <TabsContent value="information">
                 {project ? (
                   <div>
@@ -154,25 +155,31 @@ export default async function TeamDetailPage({
                     <h3 className="mt-4 text-xl">{project.description}</h3>
 
                     {project.websiteURL && (
-                      <div className="mt-2 flex">
-                        <TbBrandGithub size={28} />
-                        <Link
-                          className="ml-2 text-xl"
-                          href={project.websiteURL}
-                        >
-                          {project.websiteURL}
-                        </Link>
+                      <div className="mt-2 flex ">
+                        <TbBrandGithub size={26} />
+                        <div className="overflow-x-scroll">
+                          <Link
+                            className="ml-2 text-lg"
+                            href={project.websiteURL}
+                          >
+                            {project.websiteURL}
+                          </Link>
+                        </div>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="flex">
-                    <h3 className="mt-2 text-xl">
+                  <div className="items-center justify-center sm:flex">
+                    <h3 className="mt-2 text-center text-xl">
                       Все още няма създаден проект :(
                     </h3>
                     {participant?.team.id == team.id &&
                       participant.team.isCaptain && (
-                        <Button variant="outline" className="ml-auto" asChild>
+                        <Button
+                          variant="outline"
+                          className="mt-2 sm:ml-auto"
+                          asChild
+                        >
                           <Link href={`/teams/${team.id}/project/new`}>
                             Създай проект
                           </Link>

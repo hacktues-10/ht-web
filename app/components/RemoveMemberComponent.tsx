@@ -1,3 +1,5 @@
+import { X } from "lucide-react";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,6 +12,7 @@ import {
   AlertDialogTrigger,
 } from "~/app/components/ui/alert-dialog";
 import { getTeamMembers, removeTeamMember } from "../teams/actions";
+import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 
 export default function RemoveMemberComponent({
@@ -39,8 +42,8 @@ export default function RemoveMemberComponent({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-gray-500 opacity-70 hover:cursor-pointer hover:bg-gray-400">
-          <h1 className="p-2 text-lg sm:text-xl">X</h1>
+        <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-gray-500 p-2 opacity-70 hover:cursor-pointer hover:bg-gray-400">
+          <X />
         </div>
       </AlertDialogTrigger>
       <AlertDialogContent className="w-4/5 rounded-3xl sm:w-auto">

@@ -374,17 +374,20 @@ const formatNick = (user: any) => {
 };
 
 export async function testInsertProject() {
-  await db.insert(projects).values({
-    name: "test name",
-    description: "test description",
-    technologies: "testtechnologies",
-    websiteURL: "http://localhost:8080",
-  });
+  const res = await db
+    .insert(projects)
+    .values({
+      name: "test name",
+      description: "test description",
+      technologies: "testtechnologies",
+      websiteURL: "http://localhost:8080",
+    })
+    .returning();
 
   await db
     .update(teams)
-    .set({ projectId: 1 })
-    .where(eq(teams.id, "what-the-fuck"));
+    .set({ projectId: res[0].id })
+    .where(eq(teams.id, "443"));
 }
 
 export async function isTeamFull(teamId: string) {

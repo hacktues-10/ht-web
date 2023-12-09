@@ -271,12 +271,3 @@ export const deleteRoleFromMember = async (roleId: string, userId: string) => {
     `Error deleting role ${roleId}: ${deleteRoleResponse.statusText}`,
   );
 };
-
-export const getUserDiscordName = async (id: number) => {
-  const res = await db
-    .select()
-    .from(discordUsers)
-    .where(eq(discordUsers.participantId, id));
-
-  return res.at(0)?.discordUsername || null;
-};

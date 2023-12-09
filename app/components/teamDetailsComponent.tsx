@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "~/app/components/ui/dialog";
 import { getTeamById } from "../teams/service";
+import { Button } from "./ui/button";
 
 export default async function TeamDetailsComponent({
   team,
@@ -18,17 +19,18 @@ export default async function TeamDetailsComponent({
 }) {
   return (
     <Dialog>
-      <DialogTrigger
-        className="mr-0 mt-8 text-4xl hover:cursor-pointer sm:text-5xl"
-        asChild
-      >
-        <CgInfo />
+      <DialogTrigger className="mr-0 mt-8 hover:cursor-pointer" asChild>
+        <Button size={"icon"} className="text-2xl" variant={"ghost"}>
+          <CgInfo />
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[300px] rounded-3xl sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{team.name}</DialogTitle>
           <DialogDescription className="text-center">
-            {team.description ?? "Този отбор няма описание"}
+            {team.description
+              ? `${team.description}`
+              : "Този отбор няма описание"}
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

@@ -29,7 +29,7 @@ export default function TeamMemberDetailedView({
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center align-middle">
+    <div className="mx-3 flex flex-col items-center justify-center align-middle sm:mx-8">
       <div
         className={`z-32 ml-auto mr-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-32 sm:w-32 ${
           colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
@@ -48,7 +48,8 @@ export default function TeamMemberDetailedView({
               <MakeCaptainComponent participant={participant} member={member} />
             </>
           )}
-        {participant?.id == member.id && (
+
+        {participant?.id == member.id && !participant.team.isCaptain && (
           <RemoveMemberComponent memberToRemove={member} remove={false} />
         )}
       </div>
