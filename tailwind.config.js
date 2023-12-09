@@ -55,6 +55,10 @@ module.exports = {
           DEFAULT: "hsl(var(--sand))",
           foreground: "hsl(var(--sand-foreground))",
         },
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          foreground: "hsl(var(--brand-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
