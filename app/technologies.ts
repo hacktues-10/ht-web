@@ -17,7 +17,7 @@ export function convertToPaginatedTechnologies(text: string) {
     const returnTechnologies = selectedTechnologies.slice(0, 3);
     const totalCharCount = returnTechnologies.reduce(
       (acc, technology) => acc + technology.name.length,
-      0
+      0,
     );
     if (totalCharCount > 26) {
       returnTechnologies.pop();

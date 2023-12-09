@@ -6,8 +6,8 @@ import { z } from "zod";
 
 import { getHTSession } from "~/app/api/auth/session";
 import { particpants, users } from "~/app/db/schema";
-import { db } from "../../db/index";
 import { updateTechnologies } from "~/app/teams/actions";
+import { db } from "../../db/index";
 
 const formData = z.object({
   firstName: z.string(),
