@@ -80,7 +80,7 @@ const MediaIconButton = ({ media }: { media: SocialMedia }) => (
 );
 
 const Footer = () => (
-  <footer className="flex flex-col items-center justify-between gap-4 px-6 py-2 md:flex-row">
+  <footer className="flex flex-col items-center justify-between gap-4 px-6 pb-2 pt-6 md:flex-row md:pt-2">
     <Link
       href="/"
       className="text-center font-llpixel text-2xl text-brand md:text-xl"
@@ -97,14 +97,14 @@ const Footer = () => (
           <MediaIconButton media={media} />
         </li>
       ))}
-      {/* IDEAL: show all media on small screens (looks bad) */}
+      {/* IDEA: show all media on small screens (looks bad) */}
       {/* {SOCIAL_MEDIA.filter((media) => !media.showInFooter).map(
-                    (media) => (
-                      <li key={media.platform} className="md:hidden">
-                        <MediaIconButton media={media} />
-                      </li>
-                    ),
-                  )} */}
+            (media) => (
+              <li key={media.platform} className="md:hidden">
+                <MediaIconButton media={media} />
+              </li>
+            ),
+          )} */}
     </ul>
   </footer>
 );
