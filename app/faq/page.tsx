@@ -105,7 +105,7 @@ export default function FAQ() {
                 Лаптопи, разклонители и добро настроение.
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="11">
+            {/* <AccordionItem value="11">
               <AccordionTrigger>Ще има ли храна? АААААА</AccordionTrigger>
               <AccordionContent>
                 Ще има обяд на 09, 10 и 11.03, както и Food Corner, където всеки
@@ -116,7 +116,7 @@ export default function FAQ() {
                 носят шишета за вода, тъй като ще има машини, от които могат да
                 си сипват.
               </AccordionContent>
-            </AccordionItem>
+            </AccordionItem> */}
             <AccordionItem value="12">
               <AccordionTrigger>Как ще общуваме с ментора?</AccordionTrigger>
               <AccordionContent>
