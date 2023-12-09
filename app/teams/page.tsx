@@ -42,7 +42,11 @@ export default async function TeamList() {
     <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
       <IfHTFeatureOn feature="create-team">
         {participant && !participant.team.id && canCreateTeam && (
-          <Button asChild variant="destructive" className="m-4">
+          <Button
+            asChild
+            variant="destructive"
+            className="m-3 xl:absolute xl:right-60 xl:top-5 xl:m-4"
+          >
             <Link href="/teams/new">Създай отбор</Link>
           </Button>
         )}
@@ -51,24 +55,18 @@ export default async function TeamList() {
         defaultValue={studentTeams.length > 0 ? "students" : "alumni"}
         className="content-center"
       >
-        <TabsList className="mx-auto flex w-min justify-center">
+        <TabsList className="mx-auto flex w-min sm:absolute sm:right-5 sm:top-5 sm:m-4">
           <TabsTrigger value="students">Ученици</TabsTrigger>
           <TabsTrigger value="alumni">Завършили</TabsTrigger>
         </TabsList>
         <TabsContent value="students">
           <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
-            <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
+            <h1 className="mt-4 self-center text-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
               Отбори на ученици
             </h1>
-            {studentTeams.length > 1 ? (
-              <h2 className="mt-8 self-center font-mono text-2xl font-semibold italic text-white sm:text-3xl">
-                Потвърдени отбори: {confirmedStudentTeamsNumber}/70
-              </h2>
-            ) : (
-              <h2 className="mt-8 self-center font-mono text-2xl font-semibold italic text-white sm:text-3xl">
-                Все още няма потвърдени отбори.
-              </h2>
-            )}
+            <h2 className="m-4 self-center text-center font-mono text-2xl font-semibold italic tracking-tight  text-white sm:text-3xl">
+              Потвърдени отбори: {confirmedStudentTeamsNumber}/70
+            </h2>
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {studentTeams.map((team) => (
                 <TeamCard team={team} key={team.id} />
@@ -78,18 +76,13 @@ export default async function TeamList() {
         </TabsContent>
         <TabsContent value="alumni">
           <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
-            <h1 className="mt-8 self-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
+            <h1 className="mt-4 self-center text-center font-mono text-3xl font-semibold italic text-white sm:mt-4 sm:text-4xl">
               Отбори на завършили
             </h1>
-            {graduateTeams.length > 1 ? (
-              <h2 className="mt-8 self-center font-mono text-2xl font-semibold italic text-white sm:text-3xl">
-                Потвърдени отбори: {confirmedAlumniTeamsNumber}/20
-              </h2>
-            ) : (
-              <h2 className="mt-8 self-center font-mono text-2xl font-semibold italic text-white sm:text-3xl">
-                Все още няма потвърдени отбори.
-              </h2>
-            )}
+
+            <h2 className="m-4 self-center text-center font-mono text-2xl font-semibold italic tracking-tight  text-white sm:text-3xl">
+              Потвърдени отбори: {confirmedAlumniTeamsNumber}/20
+            </h2>
 
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {graduateTeams.map((team) => (

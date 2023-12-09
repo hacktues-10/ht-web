@@ -170,25 +170,31 @@ export default async function TeamDetailPage({
                     <h3 className="mt-4 text-xl">{project.description}</h3>
 
                     {project.websiteURL && (
-                      <div className="mt-2 flex">
-                        <TbBrandGithub size={28} />
-                        <Link
-                          className="ml-2 text-xl"
-                          href={project.websiteURL}
-                        >
-                          {project.websiteURL}
-                        </Link>
+                      <div className="mt-2 flex ">
+                        <TbBrandGithub size={26} />
+                        <div className="overflow-x-scroll">
+                          <Link
+                            className="ml-2 text-lg"
+                            href={project.websiteURL}
+                          >
+                            {project.websiteURL}
+                          </Link>
+                        </div>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="flex">
-                    <h3 className="mt-2 text-xl">
+                  <div className="items-center justify-center sm:flex">
+                    <h3 className="mt-2 text-center text-xl">
                       Все още няма създаден проект :(
                     </h3>
                     {participant?.team.id == team.id &&
                       participant.team.isCaptain && (
-                        <Button variant="outline" className="ml-auto" asChild>
+                        <Button
+                          variant="outline"
+                          className="mt-2 sm:ml-auto"
+                          asChild
+                        >
                           <Link href={`/teams/${team.id}/project/new`}>
                             Създай проект
                           </Link>

@@ -15,7 +15,6 @@ import {
 } from "~/app/components/ui/alert-dialog";
 import { getTeamMembers, makeCaptain } from "../(full-layout)/teams/actions";
 import { getParticipantFromSession } from "../participants/service";
-import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 
 export default function MakeCaptainComponent({
