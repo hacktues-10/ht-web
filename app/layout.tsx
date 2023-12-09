@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import Link from "next/link";
 
+import { Header } from "./components/header";
 import { Button } from "./components/ui/button";
 import { Card } from "./components/ui/card";
 import { Separator } from "./components/ui/separator";
@@ -47,6 +48,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <GrowthBookServerProvider>
+            <Header />
             <main className="flex min-h-screen items-start justify-center overflow-x-clip p-6">
               {children}
             </main>
