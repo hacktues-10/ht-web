@@ -50,6 +50,7 @@ export default function RootLayout({
             <main className="flex min-h-screen items-start justify-center overflow-x-clip p-6">
               {children}
             </main>
+            <Separator />
             <Footer />
           </GrowthBookServerProvider>
         </AuthProvider>
@@ -79,17 +80,16 @@ const MediaIconButton = ({ media }: { media: SocialMedia }) => (
 );
 
 const Footer = () => (
-  <footer className="grid place-items-center px-3 py-2">
-    <Card className="flex w-full max-w-3xl flex-col items-center justify-between gap-4 px-5 py-3 md:flex-row">
-      <Link
-        href="/"
-        className="text-center font-llpixel text-2xl text-brand md:text-xl"
-      >
-        Hack TUES <span className="text-sand">X</span>
-      </Link>
-      <p className="text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} ТУЕС към ТУ-София. Всички права запазени.
-      </p>
+  <footer className="flex flex-col items-center justify-between gap-4 px-6 py-2 md:flex-row">
+    <Link
+      href="/"
+      className="text-center font-llpixel text-2xl text-brand md:text-xl"
+    >
+      Hack TUES <span className="text-sand">X</span>
+    </Link>
+    <p className="text-center text-sm text-gray-500">
+      © {new Date().getFullYear()} ТУЕС към ТУ-София. Всички права запазени.
+    </p>
     <Separator decorative={true} className="w-48 md:hidden" />
     <ul className="flex">
       {SOCIAL_MEDIA.filter((media) => media.showInFooter).map((media) => (
@@ -105,7 +105,6 @@ const Footer = () => (
                       </li>
                     ),
                   )} */}
-      </ul>
-    </Card>
+    </ul>
   </footer>
 );
