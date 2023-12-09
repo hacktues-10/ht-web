@@ -5,13 +5,7 @@ import Link from "next/link";
 import { CountdownTimer } from "./components/countdowns";
 import { CountdownHourglass } from "./components/hourglass";
 import { Button } from "./components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "./components/ui/card";
 import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
