@@ -52,7 +52,7 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         sand: {
-          DEFAULT: "var(--sand)",
+          DEFAULT: "hsl(var(--sand))",
           foreground: "hsl(var(--sand-foreground))",
         },
       },

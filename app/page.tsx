@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-fit w-full gap-4">
       <CountdownHero />
-      <section className="relative flex flex-col gap-14 text-sand-foreground bg-sand pt-28 pb-14 overflow-x-visible">
+      <section className="relative light flex flex-col gap-14 text-sand-foreground bg-sand pt-28 pb-14 overflow-x-visible">
         <div className="bg-sand -z-10 absolute top-0 bottom-0 h-full w-[calc(100vw+(100vw-100%)/2)] -left-[calc(100vw-100%)]" />
         <PordkrepqPackage>
           <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
@@ -44,7 +44,7 @@ function CountdownHero() {
   return (
     <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col justify-between items-center gap-10 md:max-w-4xl md:flex-row">
       <section className="flex h-full w-full flex-col items-center justify-center gap-4">
-        <h1 className="text-center font-llpixel text-5xl text-accent-foreground md:text-7xl">
+        <h1 className="text-center text-primary font-llpixel text-5xl md:text-7xl">
           Hack TUES&nbsp;X
         </h1>
         <div className="py-2" />
@@ -92,7 +92,7 @@ function PordkrepqPackage({ children }: PropsWithChildren) {
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className="scroll-m-20 text-center pb-2 text-4xl font-extrabold tracking-tight first:mt-0">
+    <h2 className="scroll-m-20 text-primary text-center pb-2 text-4xl font-extrabold tracking-tight first:mt-0">
       {children}
     </h2>
   );
