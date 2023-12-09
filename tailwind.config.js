@@ -74,6 +74,8 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         title: ["var(--font-title)", ...fontFamily.sans],
+        paragraph: ["var(--font-paragraph)", ...fontFamily.sans],
+        htags: ["var(--font-htags)", ...fontFamily.sans],
       },
     },
   },
