@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
+import { db } from "~/app/db";
 import { mentors, teams } from "~/app/db/schema";
-import { db } from "../db";
 
 export const getAllMentors = async () => {
   const allMentors = await db.select().from(mentors);

@@ -4,9 +4,9 @@ import { eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
+import { updateTechnologies } from "~/app/(full-layout)/teams/actions";
 import { getHTSession } from "~/app/api/auth/session";
 import { particpants, users } from "~/app/db/schema";
-import { updateTechnologies } from "~/app/teams/actions";
 import { db } from "../../db/index";
 
 const formData = z.object({

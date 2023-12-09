@@ -8,9 +8,9 @@ import "./MentorCard.css"; // Apply additional styles in a separate CSS file
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { getTeamById } from "~/app/(full-layout)/teams/service";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { getTeamById } from "~/app/teams/service";
-import { checkIfMentorIsTaken } from "../../mentors/services";
+import { checkIfMentorIsTaken } from "../../(full-layout)/mentors/services";
 import ChooseMentor from "./ChooseMentor";
 
 interface MentorInterface {

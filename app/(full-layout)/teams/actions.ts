@@ -4,6 +4,12 @@ import { and, eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import {
+  deleteChannelsRolesCategories,
+  deleteRoleFromMember,
+} from "~/app/api/discord/service";
+import { db } from "~/app/db";
 import {
   discordUsers,
   invitations,
@@ -12,16 +18,10 @@ import {
   particpants,
   teams,
 } from "~/app/db/schema";
-import { getServerSideGrowthBook } from "../_integrations/growthbook";
-import {
-  deleteChannelsRolesCategories,
-  deleteRoleFromMember,
-} from "../api/discord/service";
-import { db } from "../db";
 import {
   getParticipantById,
   getParticipantFromSession,
-} from "../participants/service";
+} from "~/app/participants/service";
 import { getTeamById } from "./service";
 
 export async function deleteMyTeam() {

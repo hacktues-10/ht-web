@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+import {
+  getConfirmedTeams,
+  getTeamById,
+} from "~/app/(full-layout)/teams/service";
 import { Badge } from "~/app/components/ui/badge";
 import {
   Card,
@@ -12,7 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from "~/app/components/ui/card";
-import { getConfirmedTeams, getTeamById } from "~/app/teams/service";
 import {
   convertToPaginatedTechnologies,
   convertToTechnology,

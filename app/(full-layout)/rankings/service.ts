@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 
-import { db } from "../db";
-import { teams } from "../db/schema";
+import { db } from "~/app/db";
+import { teams } from "~/app/db/schema";
 
 // TOMI KAZA CHE SHTE SA 7, TAKA CHE 7 :)))
 const SEMIFINALS_COUNT = 7;

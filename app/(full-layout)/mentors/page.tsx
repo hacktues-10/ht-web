@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
-import { getServerSideGrowthBook } from "../_integrations/growthbook";
-import Mentor from "../components/MentorCard/Mentor";
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import Mentor from "~/app/components/MentorCard/Mentor";
 import { getAllMentors } from "./services";
 
 export default async function Home() {

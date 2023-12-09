@@ -2,10 +2,10 @@ import { PropsWithChildren } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { CountdownTimer } from "./components/countdowns";
-import { CountdownHourglass } from "./components/hourglass";
-import { Button } from "./components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "./components/ui/card";
+import { CountdownTimer } from "../components/countdowns";
+import { CountdownHourglass } from "../components/hourglass";
+import { Button } from "../components/ui/button";
+import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
@@ -14,7 +14,7 @@ import {
   MediaArticle,
   PARTNERS,
   Podkrepqsht,
-} from "./podkrepq";
+} from "../podkrepq";
 
 export default async function Home() {
   return (

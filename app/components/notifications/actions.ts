@@ -5,6 +5,7 @@ import { zact } from "zact/server";
 import { string, z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { updateTechnologies } from "~/app/(full-layout)/teams/actions";
 import { addDiscordRole, removeDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
@@ -16,7 +17,6 @@ import {
   teams,
 } from "~/app/db/schema";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { updateTechnologies } from "~/app/teams/actions";
 
 interface JoinRequest {
   id: number;

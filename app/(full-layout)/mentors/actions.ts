@@ -4,10 +4,10 @@ import { eq } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { addDiscordRole } from "~/app/api/discord/service";
+import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
-import { getServerSideGrowthBook } from "../_integrations/growthbook";
-import { addDiscordRole } from "../api/discord/service";
-import { db } from "../db";
 
 const formDataSchema = z.object({
   firstName: z.string(),

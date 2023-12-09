@@ -1,4 +1,4 @@
-import { teams } from "../db/schema";
+import { teams } from "~/app/db/schema";
 
 type TeamType = typeof teams.$inferSelect;
 

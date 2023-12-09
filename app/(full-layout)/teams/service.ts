@@ -3,9 +3,9 @@ import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
-import { db } from "../db";
-import { discordUsers, particpants, teams } from "../db/schema";
-import { getParticipantById } from "../participants/service";
+import { db } from "~/app/db";
+import { discordUsers, particpants, teams } from "~/app/db/schema";
+import { getParticipantById } from "~/app/participants/service";
 
 export async function getConfirmedTeams() {
   return db.query.teams.findMany({

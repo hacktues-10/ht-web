@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { deleteMyTeam } from "../teams/actions";
+import { deleteMyTeam } from "../(full-layout)/teams/actions";
 
 export default function DeleteTeamButton({ id }: { id: string }) {
   const router = useRouter();
