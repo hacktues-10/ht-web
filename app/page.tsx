@@ -9,9 +9,18 @@ import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
   GAMMA_SPONSORS,
+  MEDIA_ARTICLES,
+  MediaArticle,
   PARTNERS,
   Podkrepqsht,
 } from "./podkrepq";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./components/ui/card";
 
 export default async function Home() {
   return (
@@ -35,6 +44,15 @@ export default async function Home() {
           <PodkrepqTitle>Партньори</PodkrepqTitle>
           <PodkrepqPackageScrollableContent podkrepqshti={PARTNERS} />
         </PordkrepqPackage>
+      </section>
+      <section className="pt-7 flex gap-3 items-center flex-col">
+        <h2 className="scroll-m-20 text-center pt-7 text-5xl font-extrabold tracking-tight first:mt-0">
+          Медиите за нас
+        </h2>
+        <div className="py-2" />
+        {MEDIA_ARTICLES.map((article) => (
+          <MediaArticleCard key={article.title} article={article} />
+        ))}
       </section>
     </div>
   );
@@ -72,7 +90,8 @@ function PodkrepqPackageScrollableContent({
         <li key={podkrepqsht.name} title={podkrepqsht.name}>
           <Link
             href={podkrepqsht.url}
-            className="grid place-content-center group rounded-lg flex-1 aspect-video shrink-0 relative bg-white p-4 overflow-clip shadow-sm"
+            className="grid place-content-center group rounded-lg flex-1 aspect-video shrink-0 relative bg-white p-4 overflow-clip shadow-md"
+            target="_blank"
           >
             <Image
               className="group-hover:scale-110 max-w-full max-h-full transition-transform px-3 py-5 object-contain"
@@ -95,5 +114,40 @@ function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
     <h2 className="scroll-m-20 text-primary text-center pb-2 text-4xl font-extrabold tracking-tight first:mt-0">
       {children}
     </h2>
+  );
+}
+
+function MediaArticleCard({ article }: { article: MediaArticle }) {
+  const dateFormatter = new Intl.DateTimeFormat("bg", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  return (
+    <Link href={article.url} className="block">
+      <Card className="flex flex-col max-w-2xl hover:scale-105 transition-transform sm:flex-row">
+        <Card className="grid place-content-center aspect-video shrink-0 relative p-4 overflow-clip flex-1 sm:w-1/2">
+          <Image
+            className="max-w-full max-h-full transition-transform px-3 py-5 object-contain"
+            src={article.logo}
+            alt={article.name}
+          />
+        </Card>
+        <div className="flex-1">
+          <CardHeader className="pb-3 sm:pb-6">
+            <CardTitle className="text-center sm:text-left">
+              {article.title}
+            </CardTitle>
+          </CardHeader>
+          <div className="text-center pb-3 sm:hidden">{"●"}</div>
+          <CardFooter className="text-center justify-center sm:text-left sm:justify-start">
+            <time dateTime={article.date.toISOString()}>
+              {dateFormatter.format(article.date)}
+            </time>
+          </CardFooter>
+        </div>
+      </Card>
+    </Link>
   );
 }

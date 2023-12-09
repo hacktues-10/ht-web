@@ -5,6 +5,8 @@ import { animated, useSpring, useSpringRef } from "@react-spring/web";
 
 import { Card, CardContent } from "./ui/card";
 
+type Countdown = ReturnType<typeof calculateCountdown>;
+
 export function useCountdown(to: Date) {
   const [countdown, setCountdown] = useState({
     days: 0,
@@ -51,8 +53,7 @@ function calculateCountdown(to: Date) {
   };
 }
 
-function useCountdownSpring(to: Date) {
-  const countdown = useCountdown(to);
+function useCountdownSpring(countdown: Countdown) {
   const [immediate, setImmediate] = useState(false);
   return useSpring({
     to: countdown,
@@ -70,17 +71,22 @@ function useCountdownSpring(to: Date) {
 }
 
 export function CountdownTimer({ to }: { to: Date }) {
-  const countdown = useCountdownSpring(to);
+  const countdown = useCountdown(to);
+  const countdownSpring = useCountdownSpring(countdown);
 
   const numberFormat = new Intl.NumberFormat("en", { minimumIntegerDigits: 2 });
   const formatted = {
-    days: countdown.days.to((days) => numberFormat.format(Math.ceil(days))),
-    hours: countdown.hours.to((hours) => numberFormat.format(Math.ceil(hours))),
-    minutes: countdown.minutes.to((minutes) =>
-      numberFormat.format(Math.ceil(minutes)),
+    days: countdownSpring.days.to((days) =>
+      numberFormat.format(Math.ceil(days))
     ),
-    seconds: countdown.seconds.to((seconds) =>
-      numberFormat.format(Math.ceil(seconds)),
+    hours: countdownSpring.hours.to((hours) =>
+      numberFormat.format(Math.ceil(hours))
+    ),
+    minutes: countdownSpring.minutes.to((minutes) =>
+      numberFormat.format(Math.ceil(minutes))
+    ),
+    seconds: countdownSpring.seconds.to((seconds) =>
+      numberFormat.format(Math.ceil(seconds))
     ),
   };
 
@@ -91,25 +97,33 @@ export function CountdownTimer({ to }: { to: Date }) {
           <animated.div className="text-4xl font-bold">
             {formatted.days}
           </animated.div>
-          <div className="text-xs font-medium">дена</div>
+          <div className="text-xs font-medium">
+            {countdown.days === 1 ? "ден" : "дена"}
+          </div>
         </div>
         <div className="flex flex-col items-center">
           <animated.div className="text-4xl font-bold">
             {formatted.hours}
           </animated.div>
-          <div className="text-xs font-medium">часа</div>
+          <div className="text-xs font-medium">
+            {countdown.hours === 1 ? "час" : "часа"}
+          </div>
         </div>
         <div className="flex flex-col items-center">
           <animated.div className="text-4xl font-bold">
             {formatted.minutes}
           </animated.div>
-          <div className="text-xs font-medium">минути</div>
+          <div className="text-xs font-medium">
+            {countdown.minutes === 1 ? "минута" : "минути"}
+          </div>
         </div>
         <div className="flex flex-col items-center">
           <animated.div className="text-4xl font-bold">
             {formatted.seconds}
           </animated.div>
-          <div className="text-xs font-medium">секунди</div>
+          <div className="text-xs font-medium">
+            {countdown.seconds === 1 ? "секунда" : "секунди"}
+          </div>
         </div>
       </div>
     </Card>
