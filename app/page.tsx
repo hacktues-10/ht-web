@@ -56,8 +56,15 @@ function CountdownHero() {
   return (
     <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col items-center justify-between gap-10 md:max-w-4xl md:flex-row">
       <section className="flex h-full w-full flex-col items-center justify-center gap-4">
-        <h1 className="text-center font-llpixel text-5xl text-destructive md:text-7xl">
-          Hack TUES&nbsp;X
+        <h1 className="relative inline-block bg-gradient-to-br from-[#ce0e3eff] to-[#e3686bff] bg-clip-text text-center font-llpixel text-5xl text-transparent md:text-7xl">
+          <div
+            className="absolute left-1/2 top-1/2 -z-30 h-[300%] min-h-[800px] w-[300%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,#ce0e3e1c,transparent)]"
+            aria-hidden
+          />
+          Hack TUES&nbsp;
+          <span className="bg-[radial-gradient(farthest-corner_at_100%_32%,#ffdea6ff_3%,transparent_45%)] bg-clip-text text-transparent">
+            X
+          </span>
         </h1>
         <div className="py-2" />
         <CountdownTimer to={new Date("2024-03-18T03:00:00.000Z")} />
@@ -65,8 +72,12 @@ function CountdownHero() {
           <Link href="/register">Регистрирай се</Link>
         </Button>
       </section>
-      <aside className="flex w-full flex-col items-center justify-center gap-4">
-        <h1 className="sr-only">Пясъчен часовник</h1>
+      <aside className="relative flex w-full flex-col items-center justify-center gap-4">
+        <h2 className="sr-only">Пясъчен часовник</h2>
+        <div
+          className="absolute left-1/2 top-1/2 -z-30 h-[300%] min-h-[800px] w-[300%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,#ffdfa62f,transparent)]"
+          aria-hidden
+        />
         <CountdownHourglass />
       </aside>
     </div>
