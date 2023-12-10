@@ -102,11 +102,8 @@ function lerpMid(a: number, mid: number, b: number, t: number, tMid: number) {
     : lerp(mid, b, (t - tMid) / (1 - tMid));
 }
 
-export const CountdownHourglass = () => {
-  const fillAmount = useFillAmount(
-    new Date("2023-12-13T03:00:00.000Z"),
-    new Date("2023-12-16T03:00:00.000Z"),
-  );
+export const CountdownHourglass = ({ from, to }: { from: Date; to: Date }) => {
+  const fillAmount = useFillAmount(from, to);
   return <Hourglass fillAmount={fillAmount} />;
 };
 

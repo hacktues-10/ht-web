@@ -6,6 +6,7 @@ import { CountdownTimer } from "../components/countdowns";
 import { CountdownHourglass } from "../components/hourglass";
 import { Button } from "../components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { COUNTDOWN_START, EVENT_START } from "../hackathon";
 import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
@@ -73,7 +74,7 @@ function CountdownHero() {
           </span>
         </h1>
         <div className="py-2" />
-        <CountdownTimer to={new Date("2024-03-18T03:00:00.000Z")} />
+        <CountdownTimer to={EVENT_START} />
         <Button asChild>
           <Link href="/register">Регистрирай се</Link>
         </Button>
@@ -84,7 +85,7 @@ function CountdownHero() {
           className="absolute left-1/2 top-1/2 -z-30 h-[300%] min-h-[800px] w-[300%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,#ffdfa62f,transparent)]"
           aria-hidden
         />
-        <CountdownHourglass />
+        <CountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
       </aside>
     </div>
   );
