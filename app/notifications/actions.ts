@@ -1,12 +1,10 @@
-"use server";
-
-import { and, eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { zact } from "zact/server";
-import { string, z } from "zod";
+import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { updateTechnologies } from "~/app/(full-layout)/teams/actions";
-import { addDiscordRole, removeDiscordRole } from "~/app/api/discord/service";
+import { addDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
   discordUsers,
@@ -17,6 +15,44 @@ import {
   teams,
 } from "~/app/db/schema";
 import { getParticipantFromSession } from "~/app/participants/service";
+
+export type NotificationList = Exclude<
+  Awaited<ReturnType<typeof getNotifications>>,
+  null
+>;
+
+export const getNotifications = async () => {
+  const participant = await getParticipantFromSession();
+  if (!participant) return [];
+
+  const participantNotifications = await db
+    .select({
+      id: notifications.id,
+      type: notifications.type,
+      targetUserId: notifications.targetUserId,
+      joinRequest: {
+        id: joinRequests.id,
+        teamId: joinRequests.teamId,
+        userId: joinRequests.userId,
+      },
+      invitation: {
+        id: invitations.id,
+        teamId: invitations.teamId,
+        senderParticipantId: invitations.senderParticipantId,
+        invitedParticipantId: invitations.invitedParticipantId,
+      },
+      thereIsABugInThisRequestThatWeWillFixLater: sql<true>`true`,
+    })
+    .from(notifications)
+    .where(eq(notifications.targetUserId, participant.id))
+    .leftJoin(joinRequests, eq(notifications.referenceId, joinRequests.id))
+    .leftJoin(invitations, eq(notifications.referenceId, invitations.id));
+
+  return participantNotifications;
+};
+
+// FIXME: why is this here?
+export const handleAcceptedJoinRequest = () => {};
 
 interface JoinRequest {
   id: number;

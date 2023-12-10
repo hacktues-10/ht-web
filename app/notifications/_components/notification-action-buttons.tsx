@@ -5,7 +5,7 @@ import {
   acceptJoinRequest,
   declineInvitation,
   declineJoinRequest,
-} from "./actions";
+} from "../actions";
 
 // import type { joinRequests, invitations } from "~/app/db/schema";
 
