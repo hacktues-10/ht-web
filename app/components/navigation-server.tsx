@@ -80,7 +80,8 @@ export const NAVIGATION_CATEGORIES = [
       },
     ],
   },
-] as const;
+  // XXX: as const type errors, investigate?
+]; // as const;
 
 type Category = (typeof NAVIGATION_CATEGORIES)[number];
 type CategoryId = Category["category"];
