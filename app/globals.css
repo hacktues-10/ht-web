@@ -55,14 +55,14 @@
     --primary: var(--sand);
     --primary-foreground: var(--sand-foreground);
 
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 215 27.9% 16.9%;
     --muted-foreground: 217.9 10.6% 64.9%;
 
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
+    --accent: 0 0% 100%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: var(--brand);
     --destructive-foreground: var(--brand-foreground);
