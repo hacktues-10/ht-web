@@ -36,7 +36,7 @@ const Footer = () => (
     >
       Hack TUES <span className="text-sand">X</span>
     </Link>
-    <p className="text-center text-sm text-gray-500">
+    <p className="text-center text-sm text-muted-foreground">
       © {new Date().getFullYear()} ТУЕС към ТУ-София. Всички права са запазени.
     </p>
     <Separator decorative={true} className="w-48 md:hidden" />
