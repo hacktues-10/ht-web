@@ -32,9 +32,14 @@ export const Header = () => {
       </Link>
       <DesktopNavigation className="hidden md:block" />
       <div className="w-full flex-1" />
-      {headerData && headerData.notifications !== null && (
-        <NotificationsPopover notifications={headerData.notifications} />
-      )}
+      {headerData &&
+        headerData.notifications !== null &&
+        headerData.participant && (
+          <NotificationsPopover
+            notifications={headerData.notifications}
+            participant={headerData.participant}
+          />
+        )}
       <MobileNavigation className="md:hidden" />
     </animated.header>
   );
@@ -44,6 +49,6 @@ export function useHeaderData() {
   return useQuery({
     queryKey: ["header"],
     queryFn: getHeaderData,
-    refetchInterval: 1000 * 60 * 5,
+    refetchInterval: 1000 * 60 * 2,
   });
 }

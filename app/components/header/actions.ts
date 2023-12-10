@@ -12,5 +12,12 @@ export const getHeaderData = async () => {
     notifications: participant
       ? await getNotificationsOfParticipant(participant)
       : null,
+    participant:
+      participant !== null
+        ? {
+            id: participant.id,
+            isLookingForTeam: participant.isLookingForTeam,
+          }
+        : null,
   };
 };

@@ -1,48 +1,50 @@
+"use client";
+
 import invariant from "tiny-invariant";
 
-import { getParticipantFromSession } from "~/app/participants/service";
-import { getParticipantById } from "~/app/user/configure/actions";
 import { HTNotification } from "../service";
 import {
   InvitationActionButtons,
   JoinRequestActionButtons,
 } from "./notification-action-buttons";
 
-export default async function NotificationItem({
+export default function NotificationItem({
   notification,
+  participant,
 }: {
   notification: HTNotification;
+  participant: { id: number; isLookingForTeam: boolean };
 }) {
-  const participant = await getParticipantFromSession();
-  invariant(participant !== null);
-
   switch (notification.type) {
     case "ask_join":
-      return <JoinRequestNotification notification={notification} />;
+      return (
+        <JoinRequestNotification
+          notification={notification}
+          participant={participant}
+        />
+      );
     case "invitation":
-      return participant.isLookingForTeam ? (
-        <InvitationNotification notification={notification} />
-      ) : null;
+      return participant.isLookingForTeam ? null : (
+        <InvitationNotification
+          notification={notification}
+          participant={participant}
+        />
+      );
     default:
       return null;
   }
 }
 
-async function JoinRequestNotification({
+function JoinRequestNotification({
   notification,
+  participant,
 }: {
   notification: HTNotification;
+  participant: { id: number; isLookingForTeam: boolean };
 }) {
-  invariant(
-    notification.type === "ask_join" && notification.joinRequest !== null,
-  );
+  invariant(notification.type === "ask_join");
 
-  const participant = await getParticipantFromSession();
-  const senderParticipant = await getParticipantById(
-    notification.joinRequest.userId,
-  );
-
-  if (notification.targetUserId === participant?.id) {
+  if (notification.targetUserId === participant.id) {
     return (
       <div className="mb-4 rounded-lg border bg-white p-4 shadow-md">
         <div className="mb-2 text-lg font-semibold text-black">
@@ -51,19 +53,22 @@ async function JoinRequestNotification({
         <div className="text-sm text-black">
           <p>
             От:{" "}
-            {senderParticipant?.firstName +
-              (senderParticipant?.lastName
-                ? " " + senderParticipant.lastName
+            {notification.joinRequest.senderParticipant.firstName +
+              (notification.joinRequest.senderParticipant.lastName
+                ? " " + notification.joinRequest.senderParticipant.lastName
                 : "")}
           </p>
           <p>
             Клас:{" "}
-            {senderParticipant?.grade +
-              (senderParticipant?.parallel
-                ? " " + senderParticipant.parallel
+            {notification.joinRequest.senderParticipant.grade +
+              (notification.joinRequest.senderParticipant.parallel
+                ? " " + notification.joinRequest.senderParticipant.parallel
                 : " ")}
           </p>
-          <p>Технологии: {senderParticipant?.technologies}</p>
+          <p>
+            Технологии:{" "}
+            {notification.joinRequest.senderParticipant.technologies}
+          </p>
         </div>
         <div>
           <JoinRequestActionButtons joinRequest={notification.joinRequest} />
@@ -73,18 +78,15 @@ async function JoinRequestNotification({
   }
 }
 
-async function InvitationNotification({
+function InvitationNotification({
   notification,
+  participant,
 }: {
   notification: HTNotification;
+  participant: { id: number };
 }) {
   invariant(
     notification.type === "invitation" && notification.invitation !== null,
-  );
-
-  const participant = await getParticipantFromSession();
-  const senderParticipant = await getParticipantById(
-    notification.invitation.senderParticipantId,
   );
 
   if (notification.targetUserId === participant?.id) {
@@ -94,19 +96,21 @@ async function InvitationNotification({
         <div className="text-sm text-black">
           <p>
             От:{" "}
-            {senderParticipant?.firstName +
-              (senderParticipant?.lastName
-                ? " " + senderParticipant.lastName
+            {notification.invitation.senderParticipant.firstName +
+              (notification.invitation.senderParticipant.lastName
+                ? " " + notification.invitation.senderParticipant.lastName
                 : "")}
           </p>
           <p>
             Клас:{" "}
-            {senderParticipant?.grade +
-              (senderParticipant?.parallel
-                ? " " + senderParticipant.parallel
+            {notification.invitation.senderParticipant.grade +
+              (notification.invitation.senderParticipant.parallel
+                ? " " + notification.invitation.senderParticipant.parallel
                 : " ")}
           </p>
-          <p>Технологии: {senderParticipant?.technologies}</p>
+          <p>
+            Технологии: {notification.invitation.senderParticipant.technologies}
+          </p>
         </div>
         <div>
           <InvitationActionButtons invitation={notification.invitation} />
