@@ -34,7 +34,7 @@ export default function RootLayout({
           llpixel.variable,
         )}
       >
-        <div className="absolute inset-0 -z-50 bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round" />
+        <div className="absolute inset-0 -z-50 bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round [mask-image:linear-gradient(to_bottom,transparent,10%,white,96%,transparent)]" />
         <AuthProvider>
           <GrowthBookServerProvider>{children}</GrowthBookServerProvider>
         </AuthProvider>
