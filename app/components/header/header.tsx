@@ -2,14 +2,17 @@
 
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
+import { useQuery } from "@tanstack/react-query";
 
-import { NotificationsPopover } from "../notifications/_components/notifications-popover";
-import { DesktopNavigation, MobileNavigation } from "./navigation-server";
+import { NotificationsPopover } from "../../notifications/_components/notifications-popover";
+import { DesktopNavigation, MobileNavigation } from "../navigation-server";
+import { getHeaderData } from "./actions";
 
 export const Header = () => {
-  const { scrollY } = useScroll();
-
   const MAX_OPACITY = 0.7;
+
+  const { scrollY } = useScroll();
+  const { data: headerData } = useHeaderData();
 
   return (
     <animated.header
@@ -29,8 +32,18 @@ export const Header = () => {
       </Link>
       <DesktopNavigation className="hidden md:block" />
       <div className="w-full flex-1" />
-      <NotificationsPopover />
+      {headerData && headerData.notifications !== null && (
+        <NotificationsPopover notifications={headerData.notifications} />
+      )}
       <MobileNavigation className="md:hidden" />
     </animated.header>
   );
 };
+
+export function useHeaderData() {
+  return useQuery({
+    queryKey: ["header"],
+    queryFn: getHeaderData,
+    refetchInterval: 1000 * 60 * 5,
+  });
+}

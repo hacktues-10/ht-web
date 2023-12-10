@@ -1,10 +1,15 @@
 import { BellIcon, BellRing } from "lucide-react";
 
 import { Button } from "~/app/components/ui/button";
+import { HTNotification } from "../service";
 
-export const NotificationsPopover = () => (
+export const NotificationsPopover = ({
+  notifications,
+}: {
+  notifications: HTNotification[];
+}) => (
   <Button variant="ghost" size="icon">
-    <NotificationIcon hasNotifications={true} />
+    <NotificationIcon hasNotifications={notifications.length > 0} />
   </Button>
 );
 

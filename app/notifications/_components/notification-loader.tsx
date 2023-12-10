@@ -1,5 +1,5 @@
 import { getNotifications } from "~/app/notifications/actions";
-import Notification from "./notification";
+import NotificationItem from "./notification";
 
 export default async function NotificationLoader() {
   const notifications = await getNotifications();
@@ -8,7 +8,7 @@ export default async function NotificationLoader() {
     <div>
       <h1>Notifications</h1>
       {notifications?.map((notification) => (
-        <Notification key={notification.id} notification={notification} />
+        <NotificationItem key={notification.id} notification={notification} />
       ))}
       <pre>{JSON.stringify(notifications, null, 2)}</pre>
     </div>
