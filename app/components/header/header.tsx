@@ -3,9 +3,18 @@
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
+import { LogOutIcon } from "lucide-react";
 
 import { NotificationsPopover } from "../../notifications/_components/notifications-popover";
+import { SignOutButton } from "../buttons";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
+import { Button } from "../ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 import { getHeaderData } from "./actions";
 
 export const Header = () => {
@@ -40,6 +49,25 @@ export const Header = () => {
             participant={headerData.participant}
           />
         )}
+      {headerData && headerData.avatarName && (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="hidden md:inline-flex"
+                asChild
+              >
+                <SignOutButton>
+                  <LogOutIcon />
+                </SignOutButton>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Изход</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )}
       <MobileNavigation className="md:hidden" />
     </animated.header>
   );
