@@ -11,7 +11,7 @@ import {
 } from "./ui/tooltip";
 
 export const Footer = () => (
-  <footer className="flex flex-col items-center justify-between gap-4 px-6 pb-2 pt-6 md:flex-row md:pt-2">
+  <footer className="flex flex-col items-center justify-between gap-4 bg-background px-6 pb-2 pt-6 md:flex-row md:pt-2">
     <Link
       href="/"
       className="text-center font-llpixel text-2xl text-brand md:text-xl"
