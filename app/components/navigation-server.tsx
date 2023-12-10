@@ -160,7 +160,11 @@ const MobileNavigation = ({ className }: { className: string }) => {
     <MobileNavigationRoot className={className}>
       <nav className="flex flex-col items-center gap-7 text-center text-2xl font-medium">
         {getVisibleLinks(getCategory("root")).map((link) => (
-          <MobileNavLink key={link.label} href={link.url}>
+          <MobileNavLink
+            key={link.label}
+            href={link.url}
+            className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
+          >
             {link.label}
           </MobileNavLink>
         ))}
@@ -168,7 +172,11 @@ const MobileNavigation = ({ className }: { className: string }) => {
           <div key={category.category} className="flex flex-col gap-3">
             <p className="font-extrabold">{category.label}</p>
             {getVisibleLinks(category).map((link) => (
-              <MobileNavLink key={link.label} href={link.url}>
+              <MobileNavLink
+                key={link.label}
+                href={link.url}
+                className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
+              >
                 {link.label}
               </MobileNavLink>
             ))}
