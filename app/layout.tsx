@@ -29,11 +29,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "dark min-h-screen bg-background font-sans antialiased",
+          "dark relative min-h-screen bg-background font-sans antialiased",
           inter.variable,
           llpixel.variable,
         )}
       >
+        <div className="absolute inset-0 -z-50 bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round" />
         <AuthProvider>
           <GrowthBookServerProvider>{children}</GrowthBookServerProvider>
         </AuthProvider>
