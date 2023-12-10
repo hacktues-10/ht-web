@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 
-import { Navigation } from "./navigation-server";
+import { NotificationsPopover } from "../notifications/_components/notifications-popover";
+import { DesktopNavigation, MobileNavigation } from "./navigation-server";
 
 export const Header = () => {
   const { scrollY } = useScroll();
@@ -26,8 +27,10 @@ export const Header = () => {
       >
         Hack TUES <span className="text-sand">X</span>
       </Link>
-      <div className="w-full flex-1 md:hidden"></div>
-      <Navigation />
+      <DesktopNavigation className="hidden md:block" />
+      <div className="w-full flex-1" />
+      <NotificationsPopover />
+      <MobileNavigation className="md:hidden" />
     </animated.header>
   );
 };
