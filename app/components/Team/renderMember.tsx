@@ -12,6 +12,7 @@ import {
   HoverCardTrigger,
 } from "~/app/components/ui/hover-card";
 import { particpants } from "~/app/db/schema";
+import Crown from "../Crown";
 
 type memberType = typeof particpants.$inferSelect;
 
@@ -26,12 +27,19 @@ export default async function RenderMember({
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <Avatar className="m-auto transition-transform duration-300 ease-in-out hover:scale-105">
-          <AvatarImage />
-          <AvatarFallback className={`${color}`}>
-            {member.firstName?.charAt(0).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
+        <div className="transition-transform duration-300 ease-in-out hover:scale-105">
+          {member.isCaptain && (
+            <div className="ml-auto mr-auto h-4 w-8">
+              <Crown />
+            </div>
+          )}
+          <Avatar className="m-auto mt-0">
+            <AvatarImage />
+            <AvatarFallback className={`${color}`}>
+              {member.firstName?.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+        </div>
       </HoverCardTrigger>
       <HoverCardContent className="bg-slate-800">
         <div className="flex justify-between space-x-4">

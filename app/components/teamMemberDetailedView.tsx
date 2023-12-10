@@ -3,6 +3,7 @@
 import { getParticipantFromSession } from "../participants/service";
 import { getTeamMembers } from "../teams/actions";
 import { getTeamById } from "../teams/service";
+import Crown from "./Crown";
 import MakeCaptainComponent from "./makeCaptainComponent";
 import RemoveMemberComponent from "./RemoveMemberComponent";
 
@@ -30,6 +31,11 @@ export default function TeamMemberDetailedView({
 
   return (
     <div className="mx-3 flex flex-col items-center justify-center align-middle sm:mx-8">
+      {member.isCaptain && (
+        <div className="h-4 w-8 sm:h-10 sm:w-20">
+          <Crown />
+        </div>
+      )}
       <div
         className={`z-32 ml-auto mr-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-32 sm:w-32 ${
           colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
@@ -39,7 +45,7 @@ export default function TeamMemberDetailedView({
           {member.firstName?.charAt(0).toUpperCase()}
         </h1>
       </div>
-      <div className="mt-2 flex h-10 space-x-4 sm:h-auto">
+      <div className="mt-2 flex h-auto space-x-4">
         {participant?.team.isCaptain &&
           participant.team.id === team.id &&
           participant.id !== member.id && (
