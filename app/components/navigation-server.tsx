@@ -105,16 +105,7 @@ function getAdditionalCategories() {
   });
 }
 
-export const Navigation = () => {
-  return (
-    <>
-      <DesktopNavigation className="hidden md:block" />
-      <MobileNavigation className="md:hidden" />
-    </>
-  );
-};
-
-const DesktopNavigation = ({ className }: { className: string }) => {
+export const DesktopNavigation = ({ className }: { className: string }) => {
   return (
     <NavigationMenu className={className}>
       <NavigationMenuList>
@@ -155,7 +146,7 @@ const DesktopNavigation = ({ className }: { className: string }) => {
   );
 };
 
-const MobileNavigation = ({ className }: { className: string }) => {
+export const MobileNavigation = ({ className }: { className: string }) => {
   return (
     <MobileNavigationRoot className={className}>
       <nav className="flex flex-col items-center gap-7 text-center text-2xl font-medium">

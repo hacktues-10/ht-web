@@ -59,7 +59,7 @@ interface JoinRequest {
   teamId: string;
 }
 
-export default function JoinRequestActionButtons({
+export function JoinRequestActionButtons({
   joinRequest,
 }: {
   joinRequest: JoinRequest | null;
