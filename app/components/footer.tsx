@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { SOCIAL_MEDIA, SocialMedia } from "../pr";
+import { SOCIAL_MEDIA, SocialMedia } from "~/app/_configs/pr";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import {
