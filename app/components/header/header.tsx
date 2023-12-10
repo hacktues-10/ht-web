@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
-import { LogOutIcon } from "lucide-react";
+import { LogOutIcon, UserCircle2 } from "lucide-react";
 
 import { NotificationsPopover } from "../../notifications/_components/notifications-popover";
 import { SignOutButton } from "../buttons";
@@ -49,6 +49,7 @@ export const Header = () => {
             participant={headerData.participant}
           />
         )}
+      {/* TODO: make this a dropdown of the pfp */}
       {headerData && headerData.avatarName && (
         <TooltipProvider>
           <Tooltip>
@@ -65,6 +66,25 @@ export const Header = () => {
               </Button>
             </TooltipTrigger>
             <TooltipContent>Изход</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      )}
+      {headerData && headerData.avatarName && (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                variant="ghost"
+                className="hidden md:inline-flex"
+                asChild
+              >
+                <Link href="/profile">
+                  <UserCircle2 />
+                </Link>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{headerData.avatarName}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
       )}
