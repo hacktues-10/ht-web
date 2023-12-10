@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 
-import { Navigation } from "./navigation";
-import { Separator } from "./ui/separator";
+import { Navigation } from "./navigation-server";
 
 export const Header = () => {
   const { scrollY } = useScroll();
@@ -27,6 +26,7 @@ export const Header = () => {
       >
         Hack TUES <span className="text-sand">X</span>
       </Link>
+      <div className="w-full flex-1 md:hidden"></div>
       <Navigation />
     </animated.header>
   );

@@ -10,8 +10,10 @@ import {
   navigationMenuTriggerStyle,
 } from "~/app/components/ui/navigation-menu";
 import { cn } from "../utils";
+import { MobileNavigationRoot, MobileNavLink } from "./navigation-client";
+import { Separator } from "./ui/separator";
 
-const NAVIGATION_CATEGORIES = [
+export const NAVIGATION_CATEGORIES = [
   {
     category: "root",
     label: "Начало",
@@ -103,7 +105,12 @@ function getAdditionalCategories() {
 }
 
 export const Navigation = () => {
-  return <DesktopNavigation className="hidden md:block" />;
+  return (
+    <>
+      <DesktopNavigation className="hidden md:block" />
+      <MobileNavigation className="md:hidden" />
+    </>
+  );
 };
 
 const DesktopNavigation = ({ className }: { className: string }) => {
@@ -144,5 +151,29 @@ const DesktopNavigation = ({ className }: { className: string }) => {
         ))}
       </NavigationMenuList>
     </NavigationMenu>
+  );
+};
+
+const MobileNavigation = ({ className }: { className: string }) => {
+  return (
+    <MobileNavigationRoot className={className}>
+      <nav className="flex flex-col items-center gap-7 text-center text-2xl font-medium">
+        {getVisibleLinks(getCategory("root")).map((link) => (
+          <MobileNavLink key={link.label} href={link.url}>
+            {link.label}
+          </MobileNavLink>
+        ))}
+        {getAdditionalCategories().map((category) => (
+          <div key={category.category} className="flex flex-col gap-3">
+            <p className="font-extrabold">{category.label}</p>
+            {getVisibleLinks(category).map((link) => (
+              <MobileNavLink key={link.label} href={link.url}>
+                {link.label}
+              </MobileNavLink>
+            ))}
+          </div>
+        ))}
+      </nav>
+    </MobileNavigationRoot>
   );
 };
