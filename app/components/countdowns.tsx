@@ -39,7 +39,6 @@ function calculateCountdown(to: Date) {
 
   const minutes = Math.floor(diffSeconds / 60) % 60;
   diffSeconds -= minutes * 60;
-  console.log({ minutes });
 
   // shouldnt need % 60 but just in case
   const seconds = Math.floor(diffSeconds) % 60;
