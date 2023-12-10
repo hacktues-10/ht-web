@@ -41,7 +41,7 @@ export default async function RenderMember({
           </Avatar>
         </div>
       </HoverCardTrigger>
-      <HoverCardContent className="bg-slate-800">
+      <HoverCardContent className="">
         <div className="flex justify-between space-x-4">
           <Avatar className="m-auto">
             <AvatarImage />

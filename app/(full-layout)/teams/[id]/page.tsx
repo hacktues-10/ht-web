@@ -83,7 +83,7 @@ export default async function TeamDetailPage({
 
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <div className="h-min rounded-3xl border-2 bg-slate-900 p-5 pt-0 sm:p-10 sm:pt-5">
+      <div className="h-min rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
         <div className="flex w-full">
           <div className="flex items-center">
             <Button asChild variant="secondary" className="mt-8">
@@ -128,7 +128,7 @@ export default async function TeamDetailPage({
         </div>
       </div>
       <div className="w-full sm:flex">
-        <div className="mt-10 self-center rounded-3xl border-2 bg-slate-900 p-3 sm:w-3/5">
+        <div className="mt-10 self-center rounded-3xl border-2 p-3 sm:w-3/5">
           <Tabs defaultValue="information">
             {participant?.team.id == team.id && (
               <TabsList className="mb-4">
@@ -220,7 +220,7 @@ export default async function TeamDetailPage({
           </Tabs>
         </div>
         <div className="sm:w-2/5">
-          <div className="m-10 ml-auto mr-auto flex h-min w-5/6 rounded-3xl border-2 bg-slate-900 p-5 sm:mr-0">
+          <div className="m-10 ml-auto mr-auto flex h-min w-5/6 rounded-3xl border-2 p-5 sm:mr-0">
             {team.mentorId && url ? (
               <>
                 <div>
@@ -246,7 +246,7 @@ export default async function TeamDetailPage({
             )}
           </div>
 
-          <div className="m-10 ml-auto mr-auto h-min w-5/6 overflow-hidden rounded-3xl border-2 bg-slate-900 p-5 sm:mr-0">
+          <div className="m-10 ml-auto mr-auto h-min w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
             <h3 className="text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
               <div className="w-full flex-auto gap-2 p-2">
