@@ -1,11 +1,11 @@
 import invariant from "tiny-invariant";
 
-import { type NotificationList } from "~/app/(full-layout)/notifications/actions";
+import { type NotificationList } from "~/app/notifications/actions";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getParticipantById } from "~/app/user/configure/actions";
 import JoinRequestActionButtons, {
   InvitationActionButtons,
-} from "./NotificationActionButtons";
+} from "./notification-action-buttons";
 
 // Rename the interface to avoid naming conflict
 type NotificationData = NotificationList[number];
@@ -30,7 +30,7 @@ export default async function Notification({
   }
 }
 
-export async function JoinRequestNotification({
+async function JoinRequestNotification({
   notification,
 }: {
   notification: NotificationData;
@@ -75,7 +75,7 @@ export async function JoinRequestNotification({
   }
 }
 
-export async function InvitationNotification({
+async function InvitationNotification({
   notification,
 }: {
   notification: NotificationData;
