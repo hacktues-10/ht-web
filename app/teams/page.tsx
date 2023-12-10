@@ -39,7 +39,7 @@ export default async function TeamList() {
   //   TODO: move elsewhere
   return (
     //bg-[url('./assets/background.png')]
-    <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
+    <div className="justify-centerми flex h-full w-full flex-col items-center">
       <IfHTFeatureOn feature="create-team">
         {participant && !participant.team.id && canCreateTeam && (
           <Button
@@ -60,7 +60,7 @@ export default async function TeamList() {
           <TabsTrigger value="alumni">Завършили</TabsTrigger>
         </TabsList>
         <TabsContent value="students">
-          <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
+          <div className="flex h-full w-full flex-col items-center justify-center">
             <h1 className="mt-4 self-center text-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
               Отбори на ученици
             </h1>
@@ -75,7 +75,7 @@ export default async function TeamList() {
           </div>
         </TabsContent>
         <TabsContent value="alumni">
-          <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
+          <div className="flex h-full w-full flex-col items-center justify-center">
             <h1 className="mt-4 self-center text-center font-mono text-3xl font-semibold italic text-white sm:mt-4 sm:text-4xl">
               Отбори на завършили
             </h1>
