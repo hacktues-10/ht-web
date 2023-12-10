@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { LogOutIcon, UserCircle2 } from "lucide-react";
 
 import { NotificationsPopover } from "../../notifications/_components/notifications-popover";
-import { SignOutButton } from "../buttons";
+import { SignInButton, SignOutButton } from "../buttons";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
 import { Button } from "../ui/button";
 import {
@@ -69,7 +69,7 @@ export const Header = () => {
           </Tooltip>
         </TooltipProvider>
       )}
-      {headerData && headerData.avatarName && (
+      {headerData && headerData.avatarName !== null && (
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -87,6 +87,16 @@ export const Header = () => {
             <TooltipContent>{headerData.avatarName}</TooltipContent>
           </Tooltip>
         </TooltipProvider>
+      )}
+      {headerData && headerData.avatarName === null && (
+        <div className="hidden gap-2 md:flex">
+          <Button variant="secondary" asChild>
+            <SignInButton>Регистрация</SignInButton>
+          </Button>
+          <Button asChild>
+            <SignInButton>Вход</SignInButton>
+          </Button>
+        </div>
       )}
       <MobileNavigation className="md:hidden" />
     </animated.header>

@@ -10,8 +10,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/app/components/ui/navigation-menu";
 import { cn } from "../utils";
-import { MobileNavigationRoot, MobileNavLink } from "./navigation-client";
-import { Separator } from "./ui/separator";
+import { MobileNavLink, MobileNavigationRoot } from "./navigation-client";
 
 export const NAVIGATION_CATEGORIES = [
   {
