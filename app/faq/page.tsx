@@ -8,7 +8,7 @@ import {
 export default function FAQ() {
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <div className="rounded-3xl border-2 bg-slate-900 p-5 pt-0 font-sans sm:p-10 sm:pt-5">
+      <div className="rounded-3xl border-2 p-5 pt-0 font-sans sm:p-10 sm:pt-5">
         <div className="m-5 font-title text-4xl">
           <h1>Често задавани въпроси</h1>
         </div>
