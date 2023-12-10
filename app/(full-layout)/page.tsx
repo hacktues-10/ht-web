@@ -2,11 +2,7 @@ import { PropsWithChildren } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { CountdownTimer } from "../components/countdowns";
-import { CountdownHourglass } from "../components/hourglass";
-import { Button } from "../components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { COUNTDOWN_START, EVENT_START } from "../hackathon";
+import { COUNTDOWN_START, EVENT_START } from "~/app/_configs/hackathon";
 import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
@@ -15,9 +11,13 @@ import {
   MediaArticle,
   PARTNERS,
   Podkrepqsht,
-} from "../podkrepq";
+} from "../_configs/podkrepq";
+import { CountdownTimer } from "../components/countdowns";
+import { CountdownHourglass } from "../components/hourglass";
+import { Button } from "../components/ui/button";
+import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 
-export default async function Home() {
+export default async function LandingPage() {
   return (
     <div className="flex min-h-fit w-full flex-col">
       <CountdownHero />
