@@ -3,23 +3,31 @@
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 
+import { Navigation } from "./navigation";
+import { Separator } from "./ui/separator";
+
 export const Header = () => {
   const { scrollY } = useScroll();
+
+  const MAX_OPACITY = 0.7;
 
   return (
     <animated.header
       style={{
         // @ts-ignore because it works, even though the types don't let me pass variables
         "--header-bg-opacity": scrollY
-          .to([0, 100], [0, 0.5])
-          .to((x) => Math.min(x, 0.5)),
+          .to([0, 100], [0, MAX_OPACITY])
+          .to((x) => Math.min(x, MAX_OPACITY)),
       }}
-      className="sticky top-0 z-50 flex items-center justify-between gap-4 bg-background/[var(--header-bg-opacity)] px-6 py-6 backdrop-blur-md md:py-4"
+      className="sticky top-0 z-50 flex items-center gap-6 bg-background/[var(--header-bg-opacity)] px-6 py-6 backdrop-blur-md md:py-4"
     >
-      <Link href="/" className="text-center font-llpixel text-2xl text-brand">
+      <Link
+        href="/"
+        className="text-center font-llpixel text-2xl text-brand transition-transform hover:scale-105"
+      >
         Hack TUES <span className="text-sand">X</span>
       </Link>
-      <div></div>
+      <Navigation />
     </animated.header>
   );
 };
