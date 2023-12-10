@@ -7,18 +7,8 @@ import {
   declineJoinRequest,
 } from "../actions";
 
-// import type { joinRequests, invitations } from "~/app/db/schema";
-
-// FIXME: infer like this:
-//   type Invitation = typeof invitations.$inferSelect;
-// problem with inference is that we are importing stuff from schema, which is
-// not ideal to do in client code
-
 type Invitation = {
   id: number;
-  teamId: string;
-  invitedParticipantId: number;
-  senderParticipantId: number;
 };
 
 export function InvitationActionButtons({
@@ -31,6 +21,7 @@ export function InvitationActionButtons({
       invitationId: invitation.id,
     });
     if (success) {
+      // FIXME: do not reload, but update the UI
       window.location.reload();
     }
   };
@@ -40,6 +31,7 @@ export function InvitationActionButtons({
       invitationId: invitation.id,
     });
     if (success) {
+      // FIXME: do not reload, but update the UI
       window.location.reload();
     }
   };
@@ -49,10 +41,6 @@ export function InvitationActionButtons({
   );
 }
 
-// FIXME: infer like this:
-//  type JoinRequest = typeof joinRequests.$inferSelect;
-// problem with inference is that we are importing stuff from schema, which is
-// not ideal to do in client code
 interface JoinRequest {
   id: number;
   userId: number;
