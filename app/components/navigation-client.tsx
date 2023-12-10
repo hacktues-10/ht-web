@@ -4,22 +4,16 @@ import { PropsWithChildren, useState } from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { Menu } from "lucide-react";
+import { LogOutIcon, Menu, User2 } from "lucide-react";
 
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "~/app/components/ui/navigation-menu";
 import { cn } from "../utils";
+import { SignInButton, SignOutButton } from "./buttons";
 import { SocialMediaIconRow } from "./footer";
+import { useHeaderData } from "./header/header";
 import { Button } from "./ui/button";
+import { navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { Separator } from "./ui/separator";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 interface MobileLinkProps extends LinkProps {
   onOpenChange?: (open: boolean) => void;
@@ -32,6 +26,7 @@ export const MobileNavigationRoot = ({
   children,
 }: PropsWithChildren<{ className: string }>) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const { data: headerData } = useHeaderData();
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -53,6 +48,47 @@ export const MobileNavigationRoot = ({
         {/* FIXME: ScrollArea doesnt work */}
         <ScrollArea className="h-full flex-1">{children}</ScrollArea>
         <Separator />
+        {headerData && (
+          <div className="flex flex-col gap-1">
+            {headerData.avatarName ? (
+              <>
+                <MobileNavLink
+                  href="/profile"
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "flex w-full justify-evenly gap-2 text-lg",
+                  )}
+                >
+                  <User2 /> Профил
+                </MobileNavLink>
+                <SignOutButton
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "flex w-full justify-evenly gap-2 text-lg text-destructive",
+                  )}
+                >
+                  <LogOutIcon /> Изход
+                </SignOutButton>
+              </>
+            ) : (
+              <>
+                <SignInButton
+                  className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
+                >
+                  Вход
+                </SignInButton>
+                <SignInButton
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "w-full text-lg text-primary",
+                  )}
+                >
+                  Регистрация
+                </SignInButton>
+              </>
+            )}
+          </div>
+        )}
         <SocialMediaIconRow />
       </SheetContent>
     </Sheet>
