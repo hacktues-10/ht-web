@@ -44,7 +44,7 @@ import { cn } from "~/app/utils";
 import { alumniStep2Schema } from "../../schemas";
 import { StepButtons } from "../step-buttonts";
 
-type AlumniStep1Data = z.infer<typeof alumniStep2Schema>;
+type AlumniStep2Data = z.infer<typeof alumniStep2Schema>;
 
 // TODO: add more info about whats in the form in its name
 export const AlumniStep2 = ({
@@ -55,12 +55,12 @@ export const AlumniStep2 = ({
   className,
 }: {
   email: string;
-  initialData: Partial<AlumniStep1Data>;
-  onNext: (data: AlumniStep1Data) => void;
+  initialData: Partial<AlumniStep2Data>;
+  onNext: (data: AlumniStep2Data) => void;
   onPrev: () => void;
   className?: string;
 }) => {
-  const form = useForm<AlumniStep1Data>({
+  const form = useForm<AlumniStep2Data>({
     resolver: zodResolver(alumniStep2Schema),
     defaultValues: initialData,
   });

@@ -84,8 +84,16 @@ export const studentsStep2Schema = z.object({
 });
 
 export const everyoneStep3Schema = z.object({
-  allergies: z.string().optional(),
-  tShirtId: z.number().int().min(1).max(5),
+  allergies: z
+    .string()
+    .min(1, { message: "Прекалено късо описание" })
+    .max(100, { message: "Прекалено дълго описание (100 символа максимум)" })
+    .optional(),
+  // tShirtId: z.number().int().min(1).max(5),
+  tShirtId: z.preprocess(
+    (val) => (typeof val === "string" ? parseInt(val) : val),
+    z.number().int().min(1).max(5),
+  ),
 });
 
 export const everyoneStep4Schema = z.object({
