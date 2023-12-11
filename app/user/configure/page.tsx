@@ -2,13 +2,13 @@ import invariant from "tiny-invariant";
 
 import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import { SignOutButton } from "~/app/components/buttons";
-import MentorFrom from "~/app/components/Forms/mentorForm";
 import {
   getMentorFromSession,
   isWhitelistedMentor,
 } from "~/app/mentors/service";
 import { getParticipantFromSession } from "~/app/participants/service";
-import Form from "../../components/Forms/Form";
+import Form from "./_components/form";
+import MentorFrom from "./_components/mentor-form";
 
 export default async function Home() {
   const session = await getHTSession();
@@ -21,18 +21,5 @@ export default async function Home() {
     <MentorFrom email={session.user.email} />
   ) : (
     <Form email={session.user.email} />
-  );
-}
-
-async function SignedInChip() {
-  const session = await getHTSession();
-
-  return (
-    <div className="mb-4 w-full text-center">
-      <h1 className="text-2xl font-semibold">
-        Signed in as {session?.user?.email}.
-      </h1>
-      <SignOutButton variant="destructive">Sign out</SignOutButton>
-    </div>
   );
 }

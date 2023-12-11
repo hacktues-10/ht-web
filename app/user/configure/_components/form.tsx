@@ -6,11 +6,7 @@ import Select from "react-dropdown-select";
 
 import { parseElsysEmail } from "~/app/_elsys/service";
 import { convertToTechnology, technologies } from "~/app/technologies";
-import {
-  getParticipant,
-  insertParticipant,
-} from "../../user/configure/actions";
-import { convertStringToGrade } from "./isAlumni";
+import { getParticipant, insertParticipant } from "../actions";
 
 interface FromProps {
   email: string | null | undefined;
@@ -155,7 +151,7 @@ const Form: React.FC<FromProps> = ({ email }) => {
       if (email) {
         const a = parseElsysEmail(email);
         if (a) {
-          const converted = convertStringToGrade(a?.grade);
+          const converted = a?.grade as any;
           setFormData((prevData) => ({ ...prevData, grade: converted }));
         }
       }

@@ -6,7 +6,7 @@ import invariant from "tiny-invariant";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
-import { getMentor } from "~/app/mentors/actions";
+import { getMentorByEmail } from "~/app/mentors/service";
 import {
   formatParticipantDiscordNick,
   getParticipantFromSession,
@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
   const user = await response.json();
   const participant = await getParticipantFromSession();
 
-  const mentor = await getMentor({ email: session.user.email });
+  const mentor = await getMentorByEmail(session.user.email);
 
   if (!participant) {
     if (!mentor) redirect(ERROR_URL);
