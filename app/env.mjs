@@ -26,6 +26,12 @@ export const env = createEnv({
     MEMBER_ROLE: z.string(),
     MENTOR_ROLE: z.string(),
 
+    GMAIL_CLIENT_ID: z.string(),
+    GMAIL_REFRESH_TOKEN: z.string(),
+    GMAIL_CLIENT_SECRET: z.string(),
+    GMAIL_REDIRECT_URI: z.string(),
+    GMAIL_ACCESS_TOKEN: z.string(),
+
     // TODO: rename
     HOSTNAME: z.string(),
   },
