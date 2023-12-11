@@ -26,7 +26,6 @@ export default function NotificationItem({
         />
       );
     case "invitation":
-      console.log("VLIZA");
       return participant.isLookingForTeam ? (
         <InvitationNotification
           notification={notification}
@@ -46,7 +45,6 @@ function JoinRequestNotification({
   participant: { id: number; isLookingForTeam: boolean };
 }) {
   invariant(notification.type === "ask_join");
-  console.log("in client component");
 
   if (notification.targetUserId === participant.id) {
     return (
@@ -90,42 +88,12 @@ function InvitationNotification({
   notification: HTNotification;
   participant: { id: number };
 }) {
-  console.log("in client component");
   invariant(
     notification.type === "invitation" && notification.invitation !== null,
   );
 
   if (notification.targetUserId === participant?.id) {
     return (
-      // <Card>
-      //   <div className="flex">
-      //     <div className="m-5 flex  flex-1 items-center overflow-ellipsis">
-      //       <p className="text-xs">
-      //         <strong className="font-semibold">
-      //           {notification.invitation.senderParticipant.firstName +
-      //             (notification.invitation.senderParticipant.lastName
-      //               ? " " + notification.invitation.senderParticipant.lastName
-      //               : "")}
-      //         </strong>{" "}
-      //         от{" "}
-      //         <strong className="font-semibold">
-      //           {notification.invitation.senderParticipant.grade +
-      //             (notification.invitation.senderParticipant.parallel
-      //               ? " " + notification.invitation.senderParticipant.parallel
-      //               : " ")}
-      //         </strong>{" "}
-      //         те кани да си част от отбор{" "}
-      //         <strong className="font-semibold">
-      //           {notification.invitation.teamName}
-      //         </strong>
-      //         .
-      //       </p>
-      //     </div>
-      //     <div className="mb-auto mt-auto">
-      //       <InvitationActionButtons invitation={notification.invitation} />
-      //     </div>
-      //   </div>
-      // </Card>
       <Card>
         <div className="flex">
           <div className="m-5 flex h-8 flex-1 items-center overflow-ellipsis">
@@ -143,7 +111,7 @@ function InvitationNotification({
                     ? " " + notification.invitation.senderParticipant.parallel
                     : " ")}
               </strong>{" "}
-              иска да се присъедини към отбор{" "}
+              ви кани в отбор{" "}
               <strong className="font-semibold">
                 {notification.invitation.teamName}
               </strong>
