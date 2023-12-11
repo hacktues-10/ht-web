@@ -7,6 +7,7 @@ import { z } from "zod";
 import { getHTSession } from "~/app/api/auth/session";
 import { particpants, users } from "~/app/db/schema";
 import { db } from "../../db/index";
+import { updateTechnologies } from "~/app/teams/actions";
 
 const formData = z.object({
   firstName: z.string(),
@@ -135,15 +136,21 @@ export async function getParticipant() {
           .select()
           .from(particpants)
           .where(eq(particpants.id, user[0]?.participantId));
-        return participant;
+        if (participant) {
+          return participant;
+        }
+        return null;
       } else {
         console.error("User not found or participantId missing.");
+        return null;
       }
     } catch (error) {
       console.error("Error while trying to participant:", error);
+      return null;
     }
   } else {
     console.error("Session user email is missing.");
+    return null;
   }
 }
 
@@ -186,7 +193,11 @@ export const updateParticipant = zact(formData)(async (formData) => {
           const res = await db
             .update(particpants)
             .set(participantData)
-            .where(eq(particpants.id, participantId));
+            .where(eq(particpants.id, participantId))
+            .returning();
+          if (res[0].teamId) {
+            await updateTechnologies(res[0].teamId);
+          }
           return true;
         }
       } else {

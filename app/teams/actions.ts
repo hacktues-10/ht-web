@@ -5,6 +5,7 @@ import { zact } from "zact/server";
 import { z } from "zod";
 
 import {
+  discordUsers,
   invitations,
   joinRequests,
   notifications,
@@ -12,6 +13,10 @@ import {
   teams,
 } from "~/app/db/schema";
 import { getServerSideGrowthBook } from "../_integrations/growthbook";
+import {
+  deleteChannelsRolesCategories,
+  deleteRoleFromMember,
+} from "../api/discord/service";
 import { db } from "../db";
 import {
   getParticipantById,
@@ -41,6 +46,8 @@ export async function deleteMyTeam() {
   }
 
   try {
+    await deleteChannelsRolesCategories(participant.team.id);
+
     await db
       .delete(joinRequests)
       .where(eq(joinRequests.teamId, participant.team.id));
@@ -228,12 +235,24 @@ export async function removeTeamMember(memberId: number) {
   if (!member?.team.id) {
     return { success: false, message: "The member is not part of this team" };
   }
+
+  const discordMember = await db
+    .select()
+    .from(discordUsers)
+    .where(eq(discordUsers.participantId, member.id));
+  if (!discordMember[0].discordId)
+    return {
+      success: false,
+      message: "The member does not have discord account",
+    };
+
   if (participant.team.isCaptain && participant.team.id == member.team.id) {
+    await deleteRoleFromMember(member.team.id, discordMember[0].discordId);
     const res = await db
       .update(particpants)
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.id, memberId));
-    console.log(res);
+    await updateTechnologies(participant.team.id);
     if (res) {
       return { success: true };
     }
@@ -248,6 +267,18 @@ export async function getTeamMembers(teamId: string) {
     .select()
     .from(particpants)
     .where(eq(particpants.teamId, teamId));
-  console.log(res);
   return res;
+}
+
+export async function updateTechnologies(teamId: string) {
+  const members = await getTeamMembers(teamId);
+  const allTechnologies = members.flatMap(
+    (member) => member.technologies?.split(", "),
+  );
+  const uniqueTechnologies = [...new Set(allTechnologies)];
+  const technologiesString = uniqueTechnologies.join(", ");
+  await db
+    .update(teams)
+    .set({ technologies: technologiesString })
+    .where(eq(teams.id, teamId));
 }
