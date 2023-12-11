@@ -9,8 +9,8 @@ export default function ConfigureLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <div className="w-full">{children}</div>
+    <div className="flex min-h-screen w-full flex-col items-center justify-center">
+      {children}
     </div>
   );
 }

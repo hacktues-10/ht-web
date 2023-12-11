@@ -5,6 +5,7 @@ import invariant from "tiny-invariant";
 
 import { parseElsysEmail } from "~/app/_elsys/service";
 import { getHTSession } from "~/app/api/auth/session";
+import { Card } from "~/app/components/ui/card";
 import { Participant } from "~/app/participants/service";
 import { convertToTechnology, technologies } from "~/app/technologies";
 import { getParticipant, insertParticipant } from "../actions";
@@ -22,6 +23,8 @@ export const ParticipantForm = async () => {
     <AlumniForm email={session.user.email} />
   ) : (
     // <ParticipantForm />
-    <p className="text-muted">Регистрацията на ученици още не е отворена.</p>
+    <Card className="p-3">
+      <p className="text-muted">Регистрацията на ученици още не е отворена.</p>
+    </Card>
   );
 };

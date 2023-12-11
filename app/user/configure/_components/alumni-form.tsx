@@ -7,9 +7,10 @@ import Select from "react-dropdown-select";
 import { parseElsysEmail } from "~/app/_elsys/service";
 import { convertToTechnology, technologies } from "~/app/technologies";
 import { getParticipant, insertParticipant } from "../actions";
+import { AlumniStep1 } from "./steps/step1";
 
 const AlumniForm = ({ email }: { email: string }) => {
-  return null;
+  return <AlumniStep1 email={email} initialData={{}} onNext={() => {}} />;
 };
 
 export default AlumniForm;

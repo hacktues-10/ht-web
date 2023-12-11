@@ -55,6 +55,8 @@ export const particpants = pgTable("participants", {
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
   isCaptain: boolean("is_captain").notNull().default(false),
   teamId: varchar("team_id").references(() => teams.id),
+  question1Answer: varchar("question1_answer"),
+  question2Answer: varchar("question2_answer"),
 });
 
 export const participantsRelations = relations(
