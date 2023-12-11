@@ -5,7 +5,7 @@ import { animated, useScroll } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { LogOutIcon, UserCircle2 } from "lucide-react";
 
-import { NotificationsPopover } from "../../notifications/_components/notifications-popover";
+import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
 import { SignInButton, SignOutButton } from "../buttons";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
 import { Button } from "../ui/button";
