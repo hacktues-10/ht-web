@@ -14,8 +14,8 @@ import {
 import { getHTSession } from "../../auth/session";
 import { discordRedirectUri } from "../service";
 
-const ERROR_URL = "/";
-const SUCCESS_URL = "/";
+const ERROR_URL = "";
+const SUCCESS_URL = "";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -123,7 +123,7 @@ export async function GET(req: NextRequest) {
         Authorization: "Bot " + env.DISCORD_BOT_ID,
       },
       body: JSON.stringify(inviteParams),
-    },
+    }
   );
 
   if (!inviteRes.ok) {
@@ -131,7 +131,7 @@ export async function GET(req: NextRequest) {
       false,
       `Discord invite failed with status ${
         inviteRes.status
-      } and body ${await inviteRes.text()}`,
+      } and body ${await inviteRes.text()}`
     );
   }
 
