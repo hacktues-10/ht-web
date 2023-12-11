@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from "~/app/components/ui/form";
 import { Input } from "~/app/components/ui/input";
+import { cn } from "~/app/utils";
 import { alumniStep1Schema } from "../../schemas";
 import { StepButtons } from "../step-buttonts";
 
@@ -29,10 +30,13 @@ export const AlumniStep1 = ({
   email,
   initialData,
   onNext,
+  className,
 }: {
   email: string;
   initialData: Partial<AlumniStep1Data>;
   onNext: (data: AlumniStep1Data) => void;
+  onPrev: () => void;
+  className?: string;
 }) => {
   const form = useForm<AlumniStep1Data>({
     resolver: zodResolver(alumniStep1Schema),
@@ -48,7 +52,12 @@ export const AlumniStep1 = ({
     form.formState.dirtyFields.regulationAgreement;
 
   return (
-    <section className="flex w-full max-w-xl flex-col items-center gap-2">
+    <section
+      className={cn(
+        "flex w-full max-w-xl flex-col items-center gap-2",
+        className,
+      )}
+    >
       <h1 className="text-center text-3xl font-extrabold">
         Регистрация на завършил ученик
       </h1>

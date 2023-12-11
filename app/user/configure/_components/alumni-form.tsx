@@ -11,13 +11,16 @@ import { useRouter } from "next/navigation";
 import Select from "react-dropdown-select";
 
 import { parseElsysEmail } from "~/app/_elsys/service";
+import { Separator } from "~/app/components/ui/separator";
 import { convertToTechnology, technologies } from "~/app/technologies";
 import { getParticipant, insertParticipant } from "../actions";
 import { AlumniRegistrationSchema } from "../schemas";
 import { AlumniStep1 } from "./steps/step1";
+import { AlumniStep2 } from "./steps/step2";
 
 const AlumniForm = ({ email }: { email: string }) => {
-  const [formData, update] = useReducer(
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, updateData] = useReducer(
     (
       state: AlumniRegistrationSchema,
       update: Partial<AlumniRegistrationSchema>,
@@ -43,7 +46,49 @@ const AlumniForm = ({ email }: { email: string }) => {
     } satisfies AlumniRegistrationSchema,
   );
 
-  return <AlumniStep1 email={email} initialData={formData} onNext={() => {}} />;
+  function handleNext(stepData: Partial<AlumniRegistrationSchema>) {
+    updateData(stepData);
+    setCurrentStep((prev) => prev + 1);
+  }
+
+  function handlePrev() {
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+  }
+
+  return (
+    <div className="flex h-full flex-col gap-1">
+      <AlumniStep1
+        className={currentStep === 1 ? "" : "hidden"}
+        email={email}
+        initialData={formData}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
+      <AlumniStep2
+        className={currentStep === 2 ? "" : "hidden"}
+        email={email}
+        initialData={formData}
+        onPrev={handlePrev}
+        onNext={handleNext}
+        />
+      <div className="py-5">
+        <Separator />
+      </div>
+      {/* FIXME: hardcoded count */}
+      <p className="text-center text-sm text-muted-foreground">
+        Стъпка {currentStep}/5
+      </p>
+      <p className="text-center text-sm text-muted-foreground">
+        При проблеми се свържете с нас на адрес{" "}
+        <a
+          href="mailto:hacktues@elsys-bg.org"
+          className="font-medium underline underline-offset-4"
+        >
+          hacktues@elsys-bg.org
+        </a>
+      </p>
+    </div>
+  );
 };
 
 export default AlumniForm;

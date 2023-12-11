@@ -44,10 +44,14 @@ export const AlumniStep2 = ({
   email,
   initialData,
   onNext,
+  onPrev,
+  className,
 }: {
   email: string;
   initialData: Partial<AlumniStep1Data>;
   onNext: (data: AlumniStep1Data) => void;
+  onPrev: () => void;
+  className?: string;
 }) => {
   const form = useForm<AlumniStep1Data>({
     resolver: zodResolver(alumniStep2Schema),
@@ -58,7 +62,12 @@ export const AlumniStep2 = ({
     form.formState.dirtyFields.grade && form.formState.dirtyFields.parallel;
 
   return (
-    <section className="flex w-full max-w-xl flex-col items-center gap-2">
+    <section
+      className={cn(
+        "flex w-full max-w-xl flex-col items-center gap-2",
+        className,
+      )}
+    >
       <h2 className="text-center text-2xl font-extrabold">
         Информация за завършил ученик
       </h2>
@@ -121,6 +130,18 @@ export const AlumniStep2 = ({
                   <FormMessage />
                 </FormItem>
               )}
+            />
+            <StepButtons
+              left={
+                <Button variant="secondary" onClick={onPrev} type="button">
+                  Назад
+                </Button>
+              }
+              right={
+                <Button type="submit" disabled={!canSubmit}>
+                  Продължи
+                </Button>
+              }
             />
           </form>
         </Form>
