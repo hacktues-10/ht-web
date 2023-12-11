@@ -7,8 +7,8 @@ import {
   isWhitelistedMentor,
 } from "~/app/mentors/service";
 import { getParticipantFromSession } from "~/app/participants/service";
-import Form from "./_components/form";
-import MentorFrom from "./_components/mentor-form";
+import { MentorFrom } from "./_components/mentor-form";
+import { ParticipantForm } from "./_components/participant-form";
 
 export default async function Home() {
   const session = await getHTSession();
@@ -20,6 +20,6 @@ export default async function Home() {
   return isMentor ? (
     <MentorFrom email={session.user.email} />
   ) : (
-    <Form email={session.user.email} />
+    <ParticipantForm />
   );
 }

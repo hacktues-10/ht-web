@@ -30,7 +30,7 @@ interface FormData {
   fileName: string;
 }
 
-const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
+export const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [showAllergiesInput, setShowAllergiesInput] = useState(false);
@@ -279,5 +279,3 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
     </form>
   );
 };
-
-export default MentorFrom;
