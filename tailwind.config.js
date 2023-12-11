@@ -51,6 +51,14 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        sand: {
+          DEFAULT: "hsl(var(--sand))",
+          foreground: "hsl(var(--sand-foreground))",
+        },
+        brand: {
+          DEFAULT: "hsl(var(--brand))",
+          foreground: "hsl(var(--brand-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -73,6 +81,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        llpixel: ["var(--font-llpixel)", ...fontFamily.sans],
       },
     },
   },

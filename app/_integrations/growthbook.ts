@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { GrowthBook } from "@growthbook/growthbook";
 
-import { HTFeatures } from "../context/growthbook/features";
+import { HTFeatures } from "~/app/_context/growthbook/features";
 import { env } from "../env.mjs";
 
 // FIXME: do we need to use user id:

@@ -1,6 +1,6 @@
 "use client";
 
-import { chooseTeamMentor } from "~/app/mentors/actions";
+import { chooseTeamMentor } from "~/app/(full-layout)/mentors/actions";
 
 export default function ChooseMentor({
   mentorId,

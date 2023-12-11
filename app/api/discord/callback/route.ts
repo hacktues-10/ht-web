@@ -3,10 +3,10 @@ import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
+import { getMentor } from "~/app/(full-layout)/mentors/actions";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
-import { getMentor } from "~/app/mentors/actions";
 import {
   formatParticipantDiscordNick,
   getParticipantFromSession,
@@ -107,8 +107,8 @@ export async function GET(req: NextRequest) {
       ? // FIXME: why is parallel empty string? AND WHY IS GRADE NULLABLE??
         formatParticipantDiscordNick(participant)
       : mentor
-      ? mentor.firstName + " " + mentor.lastName
-      : "",
+        ? mentor.firstName + " " + mentor.lastName
+        : "",
     roles: participant ? [env.MEMBER_ROLE] : mentor ? [env.MENTOR_ROLE] : [],
     mute: false,
     deaf: false,
