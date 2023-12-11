@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 
+import { getMentor } from "~/app/(full-layout)/mentors/actions";
 import { db } from "~/app/db";
-import { discordUsers, particpants, sessions, users } from "~/app/db/schema";
-import { getMentor } from "~/app/mentors/actions";
+import { discordUsers } from "~/app/db/schema";
 import { getParticipantByEmail } from "~/app/participants/service";
 import { getHTSession } from "../auth/session";
 

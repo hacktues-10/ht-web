@@ -2,7 +2,7 @@ import invariant from "tiny-invariant";
 
 import { env } from "~/app/env.mjs";
 
-export const discordRedirectUri = `${env.NEXTAUTH_URL}/api/discord/callback`;
+export const discordRedirectUri = `${env.NEXTAUTH_URL}api/discord/callback`;
 
 export const addDiscordRole = async (userId: string, roleId: string) => {
   const headers = {

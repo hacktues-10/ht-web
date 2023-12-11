@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
     const { isMentorOrParticipant, hasConnectedDiscord } = (
       await response.json()
     ).body;
-    console.log(request.nextUrl.pathname);
+
     if (!hasCallbackUrl(request.nextUrl.pathname)) {
       if (!isMentorOrParticipant) {
         return NextResponse.redirect(
@@ -29,6 +29,7 @@ export async function middleware(request: NextRequest) {
             encodeURIComponent(request.nextUrl.href),
         );
       }
+
       if (!hasConnectedDiscord) {
         return NextResponse.redirect(
           `${env.NEXTAUTH_URL}discord?callbackUrl=` +
