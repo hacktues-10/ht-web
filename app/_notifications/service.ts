@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm";
+import { eq, or, sql } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
 import { db } from "~/app/db";
@@ -56,6 +56,13 @@ export async function getNotificationsOfParticipant(participant: Participant) {
           },
         });
         invariant(senderParticipant, "team should be defined");
+
+        const team = (
+          await db
+            .select({ name: teams.name })
+            .from(teams)
+            .where(eq(teams.id, notification.joinRequest.teamId))
+        ).at(0);
         return {
           id: notification.id,
           type: "ask_join" as const,
@@ -63,6 +70,7 @@ export async function getNotificationsOfParticipant(participant: Participant) {
           joinRequest: {
             id: notification.joinRequest.id,
             teamId: notification.joinRequest.teamId,
+            teamName: team?.name,
             userId: notification.joinRequest.userId,
             senderParticipant,
           },
@@ -83,6 +91,14 @@ export async function getNotificationsOfParticipant(participant: Participant) {
             technologies: true,
           },
         });
+
+        const team = (
+          await db
+            .select({ name: teams.name })
+            .from(teams)
+            .where(eq(teams.id, notification.invitation.teamId))
+        ).at(0);
+
         invariant(senderParticipant, "senderParticipant should be defined");
         return {
           id: notification.id,
@@ -91,6 +107,7 @@ export async function getNotificationsOfParticipant(participant: Participant) {
           invitation: {
             id: notification.invitation.id,
             teamId: notification.invitation.teamId,
+            teamName: team?.name,
             senderParticipant,
           },
         };
