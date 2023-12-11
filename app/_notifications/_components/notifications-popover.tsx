@@ -47,7 +47,7 @@ export const NotificationsPopover = ({
           <TooltipContent>{notifications.length} непрочетени</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <PopoverContent>
+      <PopoverContent className="w-96 sm:ml-auto sm:w-[67%]">
         <div className="flex flex-col gap-2">
           {notifications.length > 0 ? (
             notifications.map((notification) => (
@@ -58,7 +58,7 @@ export const NotificationsPopover = ({
               />
             ))
           ) : (
-            <p className="px-2 py-4 text-center text-xs text-white/80">
+            <p className="w-80 overflow-auto px-2 py-4 text-center text-xs text-white/80 sm:text-left  ">
               Няма непрочетени съобщения
             </p>
           )}

@@ -1,5 +1,8 @@
 "use client";
 
+import { Check, X } from "lucide-react";
+
+import { Button } from "~/app/components/ui/button";
 import {
   acceptInvitation,
   acceptJoinRequest,
@@ -83,19 +86,13 @@ function AcceptDeclineButtons({
   onDecline: () => void;
 }) {
   return (
-    <div>
-      <button
-        className="m-1 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
-        onClick={() => onAccept()}
-      >
-        Accept
-      </button>
-      <button
-        className="m-1 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-        onClick={() => onDecline()}
-      >
-        Decline
-      </button>
+    <div className="mr-3 flex">
+      <Button variant="ghost" onClick={() => onAccept()}>
+        <Check />
+      </Button>
+      <Button variant="ghost" onClick={() => onDecline()}>
+        <X />
+      </Button>
     </div>
   );
 }
