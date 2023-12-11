@@ -30,7 +30,6 @@ export const env = createEnv({
     GMAIL_REFRESH_TOKEN: z.string(),
     GMAIL_CLIENT_SECRET: z.string(),
     GMAIL_REDIRECT_URI: z.string(),
-    GMAIL_ACCESS_TOKEN: z.string(),
 
     // TODO: rename
     HOSTNAME: z.string(),
