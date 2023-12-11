@@ -92,7 +92,7 @@ export const EveryoneStep3 = ({
       </h2>
       <Card className="block w-full p-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onNext)} className="space-y-3">
+          <form onSubmit={form.handleSubmit(onNext)} className="space-y-6">
             <FormField
               control={form.control}
               name="tShirtId"
