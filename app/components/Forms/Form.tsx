@@ -4,12 +4,12 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Select from "react-dropdown-select";
 
+import { parseElsysEmail } from "~/app/_elsys/service";
 import { convertToTechnology, technologies } from "~/app/technologies";
 import {
   getParticipant,
   insertParticipant,
 } from "../../user/configure/actions";
-import { parseElsysEmail } from "~/app/_elsys/service";
 import { convertStringToGrade } from "./isAlumni";
 
 interface FromProps {
@@ -80,7 +80,7 @@ const Form: React.FC<FromProps> = ({ email }) => {
   });
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({

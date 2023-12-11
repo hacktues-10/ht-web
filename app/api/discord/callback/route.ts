@@ -107,8 +107,8 @@ export async function GET(req: NextRequest) {
       ? // FIXME: why is parallel empty string? AND WHY IS GRADE NULLABLE??
         formatParticipantDiscordNick(participant)
       : mentor
-      ? mentor.firstName + " " + mentor.lastName
-      : "",
+        ? mentor.firstName + " " + mentor.lastName
+        : "",
     roles: participant ? [env.MEMBER_ROLE] : mentor ? [env.MENTOR_ROLE] : [],
     mute: false,
     deaf: false,

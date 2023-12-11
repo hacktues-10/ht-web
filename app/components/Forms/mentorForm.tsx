@@ -50,7 +50,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   });
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -60,7 +60,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   };
 
   const handleChangeTextArea = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({

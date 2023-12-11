@@ -118,7 +118,7 @@ const updateMentor = async (formData: z.infer<typeof formDataSchema>) => {
 export const fetchMentor = zact(
   z.object({
     email: z.string(),
-  })
+  }),
 )(async ({ email }) => {
   return getMentorByEmail(email);
 });

@@ -20,6 +20,6 @@ export function signInRedirect(): never {
   return redirect(
     `/api/auth/signin?${new URLSearchParams({
       callbackUrl: invokePath ?? "/",
-    })}`
+    })}`,
   );
 }

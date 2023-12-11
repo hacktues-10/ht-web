@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 
 import { mentors, teams } from "~/app/db/schema";
+import { getHTSession, HTSession } from "../api/auth/session";
 import { db } from "../db";
-import { HTSession, getHTSession } from "../api/auth/session";
 
 export const getAllMentors = async () => {
   const allMentors = await db.select().from(mentors);
