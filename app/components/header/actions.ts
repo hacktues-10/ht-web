@@ -1,6 +1,6 @@
 "use server";
 
-import { getNotificationsOfParticipant } from "~/app/notifications/service";
+import { getNotificationsOfParticipant } from "~/app/_notifications/service";
 import { getParticipantFromSession } from "~/app/participants/service";
 
 export const getHeaderData = async () => {
