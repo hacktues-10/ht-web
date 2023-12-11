@@ -13,45 +13,16 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { db } from ".";
+import {
+  ALUMNI_GRADES,
+  PARALLELS,
+  STUDENT_GRADES,
+} from "../_elsys/grades-parallels";
 
-export const classEnum = pgEnum("class", ["А", "Б", "В", "Г", ""]);
+export const classEnum = pgEnum("class", [...PARALLELS, ""]);
 export const gradeEnum = pgEnum("grade", [
-  "8",
-  "9",
-  "10",
-  "11",
-  "12",
-  "1993",
-  "1994",
-  "1995",
-  "1996",
-  "1997",
-  "1998",
-  "1999",
-  "2000",
-  "2001",
-  "2002",
-  "2003",
-  "2004",
-  "2005",
-  "2006",
-  "2007",
-  "2008",
-  "2009",
-  "2010",
-  "2011",
-  "2012",
-  "2013",
-  "2014",
-  "2015",
-  "2016",
-  "2017",
-  "2018",
-  "2019",
-  "2020",
-  "2021",
-  "2022",
-  "2023",
+  ...STUDENT_GRADES,
+  ...ALUMNI_GRADES,
   "",
 ]);
 export const tShirtSizeEnum = pgEnum("tshirt_size", [
@@ -73,6 +44,7 @@ export const particpants = pgTable("participants", {
   userId: integer("user_id").references(() => users.id),
 
   firstName: varchar("first_name"),
+  middleName: varchar("middle_name"),
   lastName: varchar("last_name"),
   phoneNumber: varchar("phone_number"),
   grade: gradeEnum("grade"),
