@@ -46,6 +46,10 @@ const AlumniForm = ({ email }: { email: string }) => {
     } satisfies AlumniRegistrationSchema,
   );
 
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
   function handleNext(stepData: Partial<AlumniRegistrationSchema>) {
     updateData(stepData);
     setCurrentStep((prev) => prev + 1);
@@ -70,7 +74,7 @@ const AlumniForm = ({ email }: { email: string }) => {
         initialData={formData}
         onPrev={handlePrev}
         onNext={handleNext}
-        />
+      />
       <div className="py-5">
         <Separator />
       </div>

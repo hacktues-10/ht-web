@@ -6,7 +6,7 @@ import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { ALUMNI_GRADES } from "~/app/_elsys/grades-parallels";
+import { ALUMNI_GRADES, PARALLELS } from "~/app/_elsys/grades-parallels";
 import { SignOutButton } from "~/app/components/buttons";
 import { Button, buttonVariants } from "~/app/components/ui/button";
 import { Card, CardContent } from "~/app/components/ui/card";
@@ -33,6 +33,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "~/app/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/app/components/ui/select";
 import { cn } from "~/app/utils";
 import { alumniStep2Schema } from "../../schemas";
 import { StepButtons } from "../step-buttonts";
@@ -101,12 +108,14 @@ export const AlumniStep2 = ({
                         <CommandInput placeholder="Търси випуск..." />
                         <CommandEmpty>Випускът не е намерен.</CommandEmpty>
                         <CommandGroup>
-                          {ALUMNI_GRADES.map((grade) => (
+                          {ALUMNI_GRADES.toReversed().map((grade) => (
                             <CommandItem
                               value={grade}
                               key={grade}
                               onSelect={() => {
-                                form.setValue("grade", grade);
+                                form.setValue("grade", grade, {
+                                  shouldDirty: true,
+                                });
                               }}
                             >
                               <Check
@@ -131,6 +140,35 @@ export const AlumniStep2 = ({
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="parallel"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Паралелка</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Изберете паралелка" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {PARALLELS.map((parallel) => (
+                        <SelectItem key={parallel} value={parallel}>
+                          {parallel}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <StepButtons
               left={
                 <Button variant="secondary" onClick={onPrev} type="button">

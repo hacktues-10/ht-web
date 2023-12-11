@@ -167,6 +167,7 @@ export const AlumniStep1 = ({
                       <Link
                         href="/regulation"
                         className="font-medium underline underline-offset-4"
+                        target="_blank"
                       >
                         регламента на Hack TUES X
                       </Link>
