@@ -3,28 +3,26 @@
 import { forwardRef } from "react";
 import { signIn, signOut } from "next-auth/react";
 
-import { Button, ButtonProps } from "./ui/button";
-
 export const SignInButton = forwardRef<
-  React.ComponentRef<typeof Button>,
-  Exclude<ButtonProps, "onClick">
+  HTMLButtonElement,
+  Exclude<React.ComponentProps<"button">, "onClick">
 >(({ children, ...props }, ref) => {
   return (
-    <Button {...props} ref={ref} onClick={() => void signIn()}>
+    <button {...props} ref={ref} onClick={() => void signIn()}>
       {children}
-    </Button>
+    </button>
   );
 });
 SignInButton.displayName = "SignInButton";
 
 export const SignOutButton = forwardRef<
-  React.ComponentRef<typeof Button>,
-  Exclude<ButtonProps, "onClick">
+  HTMLButtonElement,
+  Exclude<React.ComponentProps<"button">, "onClick">
 >(({ children, ...props }, ref) => {
   return (
-    <Button {...props} ref={ref} onClick={() => void signOut()}>
+    <button {...props} ref={ref} onClick={() => void signOut()}>
       {children}
-    </Button>
+    </button>
   );
 });
 SignOutButton.displayName = "SignOutButton";
