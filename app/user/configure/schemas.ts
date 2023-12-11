@@ -10,17 +10,17 @@ const names2Schema = z.object({
   firstName: z
     .string()
     .min(1, { message: "Името трябва да съдържа поне 1 буква" })
-    .regex(/^[А-Я]/, {
-      message: "Името трябва да започва с главна българска буква",
+    .regex(/^[A-ZА-Я]/, {
+      message: "Името трябва да започва с главна буква",
     })
-    .regex(/^[А-Яа-я]/, { message: "Името трябва да е на кирилица" }),
+    .regex(/^[А-Яа-я\-–]/, { message: "Името трябва да е на кирилица" }),
   lastName: z
     .string()
     .min(1, { message: "Фамилията трябва да съдържа поне 1 буква" })
-    .regex(/^[А-Я]/, {
-      message: "Фамилията трябва да започва с главна българска буква",
+    .regex(/^[A-ZА-Я]/, {
+      message: "Фамилията трябва да започва с главна буква",
     })
-    .regex(/^[А-Яа-я]/, { message: "Фамилията трябва да е на кирилица" }),
+    .regex(/^[А-Яа-я\-–]/, { message: "Фамилията трябва да е на кирилица" }),
 });
 
 const names3Schema = z
@@ -28,10 +28,10 @@ const names3Schema = z
     secondName: z
       .string()
       .min(1, { message: "Презимето трябва да съдържа поне 1 буква" })
-      .regex(/^[А-Я]/, {
-        message: "Презимето трябва да започва с главна българска буква",
+      .regex(/^[A-ZА-Я]/, {
+        message: "Презимето трябва да започва с главна буква",
       })
-      .regex(/^[А-Яа-я]/, { message: "Презимето трябва да е на кирилица" }),
+      .regex(/^[А-Яа-я\-–]/, { message: "Презимето трябва да е на кирилица" }),
   })
   .merge(names2Schema);
 
@@ -45,14 +45,17 @@ const phoneNumberSchema = z.object({
   phoneNumber: z.preprocess(
     (val) =>
       typeof val === "string"
-        ? val.replace(/\s/g, "").replace(/^\+359/, "0")
+        ? val.replace(/^\+359/, "0").replace(/\s/g, "")
         : val,
     z
       .string()
-      .regex(/^\d{10}$/, {
-        message: "Телефонният номер трябва да съдържа точно 10 цифри",
+      .regex(/^\d+$/, {
+        message: "Телефонният номер трябва да съдържа само цифри",
       })
-      .regex(/^08/, { message: "Невалиден телефонен номер" }),
+      .regex(/^08/, { message: "Невалиден мобилен телефонен номер" })
+      .length(10, {
+        message: "Телефонният номер трябва да съдържа точно 10 цифри",
+      }),
   ),
 });
 
@@ -108,7 +111,13 @@ export const alunmiRegistrationSchema = alumniStep1Schema
   .merge(everyoneStep4Schema)
   .merge(alumniStep5Schema);
 
+export type AlumniRegistrationSchema = z.infer<typeof alunmiRegistrationSchema>;
+
 export const studentRegistrationSchema = studentsStep1Schema
   .merge(studentsStep2Schema)
   .merge(everyoneStep3Schema)
   .merge(everyoneStep4Schema);
+
+export type StudentRegistrationSchema = z.infer<
+  typeof studentRegistrationSchema
+>;

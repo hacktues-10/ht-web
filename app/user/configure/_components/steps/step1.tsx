@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LogOutIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -8,6 +9,7 @@ import { z } from "zod";
 import { SignOutButton } from "~/app/components/buttons";
 import { Button, buttonVariants } from "~/app/components/ui/button";
 import { Card, CardContent } from "~/app/components/ui/card";
+import { Checkbox } from "~/app/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -46,14 +48,14 @@ export const AlumniStep1 = ({
     form.formState.dirtyFields.regulationAgreement;
 
   return (
-    <section className="flex flex-col gap-2">
+    <section className="flex w-full max-w-xl flex-col items-center gap-2">
       <h1 className="text-center text-3xl font-extrabold">
-        Регистрация на завършил
+        Регистрация на завършил ученик
       </h1>
       <Step1Header email={email} />
-      <Card className="p-6">
+      <Card className="block w-full p-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onNext)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onNext)} className="space-y-3">
             <FormField
               control={form.control}
               name="firstName"
@@ -107,14 +109,64 @@ export const AlumniStep1 = ({
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Телефонен номер</FormLabel>
+                  <FormLabel>Мобилен телефонен номер</FormLabel>
                   <FormControl>
-                    <Input placeholder="+359" {...field} />
+                    <Input placeholder="08" {...field} />
                   </FormControl>
                   <FormDescription>
                     Ще се използва за връзка с вас.
                   </FormDescription>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="isAlumni"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Аз съм завършил ученик от ТУЕС</FormLabel>
+                    {/* <FormDescription>
+                      You can manage your mobile notifications in the{" "}
+                      <Link href="/examples/forms">mobile settings</Link> page.
+                    </FormDescription> */}
+                  </div>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="regulationAgreement"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>
+                      Запознат/а съм с{" "}
+                      <Link
+                        href="/regulation"
+                        className="font-medium underline underline-offset-4"
+                      >
+                        регламента на Hack TUES X
+                      </Link>
+                    </FormLabel>
+                    {/* <FormDescription>
+                      You can manage your mobile notifications in the{" "}
+                      <Link href="/examples/forms">mobile settings</Link> page.
+                    </FormDescription> */}
+                  </div>
                 </FormItem>
               )}
             />
