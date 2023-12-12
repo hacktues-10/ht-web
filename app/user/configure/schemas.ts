@@ -1,9 +1,12 @@
 import { z } from "zod";
 
 import {
-  ALUMNI_GRADES,
-  PARALLELS,
+  EXTENDED_ALUMNI_GRADES,
+  EXTENDED_ALUMNI_PARALLELS,
+  REGULAR_ALUMNI_GRADES,
+  REGULAR_ALUMNI_PARALLELS,
   STUDENT_GRADES,
+  STUDENT_PARALLELS,
 } from "~/app/_elsys/grades-parallels";
 
 const names2Schema = z.object({
@@ -52,7 +55,7 @@ const phoneNumberSchema = z.object({
       .regex(/^\d+$/, {
         message: "Телефонният номер трябва да съдържа само цифри",
       })
-      .regex(/^08/, { message: "Невалиден мобилен телефонен номер" })
+      .regex(/^0/, { message: "Невалиден мобилен телефонен номер" })
       .length(10, {
         message: "Телефонният номер трябва да съдържа точно 10 цифри",
       }),
@@ -73,14 +76,27 @@ export const studentsStep1Schema = names2Schema.merge(
   regulationAgreementSchema,
 );
 
+// export const alumniStep2Schema = z.object({
+//   grade: z.enum(ALUMNI_GRADES),
+//   parallel: z.enum(ALUMNI_PARALLELS),
+// });
+
 export const alumniStep2Schema = z.object({
-  grade: z.enum(ALUMNI_GRADES),
-  parallel: z.enum(PARALLELS),
+  class: z.union([
+    z.object({
+      grade: z.enum(REGULAR_ALUMNI_GRADES),
+      parallel: z.enum(REGULAR_ALUMNI_PARALLELS),
+    }),
+    z.object({
+      grade: z.enum(EXTENDED_ALUMNI_GRADES),
+      parallel: z.enum(EXTENDED_ALUMNI_PARALLELS),
+    }),
+  ]),
 });
 
 export const studentsStep2Schema = z.object({
   grade: z.enum(STUDENT_GRADES),
-  parallel: z.enum(PARALLELS),
+  parallel: z.enum(STUDENT_PARALLELS),
 });
 
 export const everyoneStep3Schema = z.object({

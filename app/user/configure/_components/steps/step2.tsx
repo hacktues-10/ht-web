@@ -6,7 +6,13 @@ import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { ALUMNI_GRADES, PARALLELS } from "~/app/_elsys/grades-parallels";
+import {
+  ALUMNI_GRADES,
+  ALUMNI_PARALLELS,
+  EXTENDED_ALUMNI_GRADES,
+  EXTENDED_ALUMNI_PARALLELS,
+  REGULAR_ALUMNI_PARALLELS,
+} from "~/app/_elsys/grades-parallels";
 import { SignOutButton } from "~/app/components/buttons";
 import { Button, buttonVariants } from "~/app/components/ui/button";
 import { Card, CardContent } from "~/app/components/ui/card";
@@ -66,7 +72,8 @@ export const AlumniStep2 = ({
   });
 
   const canSubmit =
-    form.formState.dirtyFields.grade && form.formState.dirtyFields.parallel;
+    form.formState.dirtyFields.class?.grade &&
+    form.formState.dirtyFields.class?.parallel;
 
   return (
     <section
@@ -83,7 +90,7 @@ export const AlumniStep2 = ({
           <form onSubmit={form.handleSubmit(onNext)} className="space-y-3">
             <FormField
               control={form.control}
-              name="grade"
+              name="class.grade"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Випуск</FormLabel>
@@ -113,7 +120,7 @@ export const AlumniStep2 = ({
                               value={grade}
                               key={grade}
                               onSelect={() => {
-                                form.setValue("grade", grade, {
+                                form.setValue("class.grade", grade, {
                                   shouldDirty: true,
                                 });
                               }}
@@ -143,7 +150,7 @@ export const AlumniStep2 = ({
 
             <FormField
               control={form.control}
-              name="parallel"
+              name="class.parallel"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Паралелка</FormLabel>
@@ -157,7 +164,12 @@ export const AlumniStep2 = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {PARALLELS.map((parallel) => (
+                      {(EXTENDED_ALUMNI_GRADES.includes(
+                        form.watch("class.grade") as any,
+                      )
+                        ? ALUMNI_PARALLELS
+                        : REGULAR_ALUMNI_PARALLELS
+                      ).map((parallel) => (
                         <SelectItem key={parallel} value={parallel}>
                           {parallel}
                         </SelectItem>

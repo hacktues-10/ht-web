@@ -120,7 +120,7 @@ export const AlumniStep1 = ({
                 <FormItem>
                   <FormLabel>Мобилен телефонен номер</FormLabel>
                   <FormControl>
-                    <Input placeholder="08" {...field} />
+                    <Input placeholder="+359" {...field} />
                   </FormControl>
                   <FormDescription>
                     Ще се използва за връзка с вас.
@@ -163,7 +163,7 @@ export const AlumniStep1 = ({
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>
-                      Запознат/а съм с{" "}
+                      Съгласен/а съм с{" "}
                       <Link
                         href="/regulation"
                         className="font-medium underline underline-offset-4"

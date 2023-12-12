@@ -15,11 +15,16 @@ import {
 import { db } from ".";
 import {
   ALUMNI_GRADES,
-  PARALLELS,
+  ALUMNI_PARALLELS,
   STUDENT_GRADES,
+  STUDENT_PARALLELS,
 } from "../_elsys/grades-parallels";
 
-export const classEnum = pgEnum("class", [...PARALLELS, ""]);
+export const classEnum = pgEnum("class", [
+  ...STUDENT_PARALLELS,
+  ...ALUMNI_PARALLELS,
+  "",
+]);
 export const gradeEnum = pgEnum("grade", [
   ...STUDENT_GRADES,
   ...ALUMNI_GRADES,

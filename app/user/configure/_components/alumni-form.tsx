@@ -36,8 +36,10 @@ const AlumniForm = ({ email }: { email: string }) => {
       phoneNumber: "",
       isAlumni: false,
       regulationAgreement: false,
-      grade: "" as any, // zod does validation on this
-      parallel: "" as any, // ...and this
+      class: {
+        grade: "" as any, // zod does validation on this
+        parallel: "" as any, // ...and this
+      },
       allergies: "",
       tShirtId: -10,
       technologies: "",
@@ -78,6 +80,13 @@ const AlumniForm = ({ email }: { email: string }) => {
       />
       <EveryoneStep3
         className={currentStep === 3 ? "" : "hidden"}
+        email={email}
+        initialData={formData}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
+      <EveryoneStep3
+        className={currentStep === 4 ? "" : "hidden"}
         email={email}
         initialData={formData}
         onPrev={handlePrev}
