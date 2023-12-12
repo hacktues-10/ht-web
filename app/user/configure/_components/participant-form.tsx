@@ -17,7 +17,7 @@ export const ParticipantForm = async () => {
     session?.user?.email,
     "No email in session or no session at all even :(",
   );
-  const isAlumni = parseElsysEmail(session.user.email)?.isAlumni || true;
+  const isAlumni = parseElsysEmail(session.user.email)?.isAlumni ?? true;
 
   return isAlumni ? (
     <AlumniForm email={session.user.email} />
