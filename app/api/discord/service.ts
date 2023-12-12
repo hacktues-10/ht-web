@@ -1,5 +1,8 @@
+import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
+import { db } from "~/app/db";
+import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 
 export const discordRedirectUri = `${env.NEXTAUTH_URL}api/discord/callback`;
@@ -267,4 +270,13 @@ export const deleteRoleFromMember = async (roleId: string, userId: string) => {
     deleteRoleResponse.ok,
     `Error deleting role ${roleId}: ${deleteRoleResponse.statusText}`,
   );
+};
+
+export const getUserDiscordName = async (id: number) => {
+  const res = await db
+    .select()
+    .from(discordUsers)
+    .where(eq(discordUsers.participantId, id));
+
+  return res.at(0)?.discordUsername || null;
 };
