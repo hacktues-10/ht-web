@@ -19,7 +19,7 @@ import { AlumniStep1 } from "./steps/step1";
 import { AlumniStep2 } from "./steps/step2";
 import { EveryoneStep3 } from "./steps/step3";
 
-const AlumniForm = ({ email }: { email: string }) => {
+export const AlumniForm = ({ email }: { email: string }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, updateData] = useReducer(
     (
@@ -111,5 +111,3 @@ const AlumniForm = ({ email }: { email: string }) => {
     </div>
   );
 };
-
-export default AlumniForm;

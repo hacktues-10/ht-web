@@ -194,12 +194,13 @@ export const AlumniStep1 = ({
   );
 };
 
-function Step1Header({ email }: { email: string }) {
+// FIXME: maybe move this to a separate file? (it's used in 2 places)
+export function Step1Header({ email }: { email: string }) {
   return (
     <div className="p-6 text-center">
       <p className="text-muted-foreground">
-        Влезли сте като <span className="font-semibold underline">{email}</span>
-        .
+        Влезли сте с<br />
+        <span className="font-semibold">{email}</span>.
       </p>
       <div className="py-1" />
       <Button asChild variant="destructive" className="gap-2" size="sm">
