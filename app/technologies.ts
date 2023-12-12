@@ -2,13 +2,17 @@ import invariant from "tiny-invariant";
 
 export function convertToTechnology(text: string) {
   const selectedNames = text.split(",");
-  const selectedTechnologies = selectedNames.map((selectedName) => {
-    selectedName = selectedName.trim();
-    const technology = technologies.find((tech) => tech.name === selectedName);
-    if (technology) {
-      return technology;
-    }
-  });
+  const selectedTechnologies = selectedNames
+    .map((selectedName) => {
+      selectedName = selectedName.trim();
+      const technology = technologies.find(
+        (tech) => tech.name === selectedName,
+      );
+      if (technology) {
+        return technology;
+      }
+    })
+    .filter((tech) => tech !== undefined);
   if (selectedTechnologies) return selectedTechnologies;
   return [];
 }
@@ -18,7 +22,7 @@ export function convertToPaginatedTechnologies(text: string) {
   if (selectedTechnologies.length > 3) {
     const returnTechnologies = selectedTechnologies.slice(0, 3);
     const totalCharCount = returnTechnologies.reduce(
-      (acc, technology) => acc + technology.name.length,
+      (acc, technology) => acc + (technology as any).name.length,
       0,
     );
     if (totalCharCount > 26) {

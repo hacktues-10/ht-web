@@ -97,7 +97,6 @@ export default function RenderProfileInfo({
       technText,
       participant.id,
     );
-    console.log(message);
     toast({
       variant: "sand",
       title: message.title,
@@ -196,7 +195,15 @@ export default function RenderProfileInfo({
               </Label>
               <div className="w-96 flex-auto gap-2 self-center rounded-lg border-2 border-slate-600 p-2">
                 <div className="flex flex-wrap justify-center gap-2">
-                  {selectedTechnologiesArray.map((technology, index) => (
+                  {selectedTechnologiesArray.length === 0 && (
+                    <Badge
+                      variant="outline"
+                      className="m-1 whitespace-nowrap text-sm opacity-0"
+                    >
+                      a
+                    </Badge>
+                  )}
+                  {selectedTechnologiesArray.map((technology) => (
                     <Badge
                       onClick={() => handleRemove(technology?.value)}
                       variant="outline"
@@ -205,7 +212,7 @@ export default function RenderProfileInfo({
                         color: technology?.textColor,
                       }}
                       className="m-1 whitespace-nowrap text-sm hover:cursor-pointer"
-                      key={index}
+                      key={technology?.id}
                     >
                       {technology?.name}
                     </Badge>
