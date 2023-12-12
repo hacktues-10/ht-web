@@ -210,6 +210,12 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async createVerificationToken(newVerificationToken) {
+      // HACK: next-auth issues tokens that expire immediately, so we add an
+      //       hour to the expiration date until we figure out why that is (XXX:) (FIXME:)
+      newVerificationToken.expires.setHours(
+        newVerificationToken.expires.getHours() + 1,
+      );
+      console.log({ ExPiReS: newVerificationToken.expires });
       return (
         (
           await client
