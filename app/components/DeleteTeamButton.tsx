@@ -22,7 +22,7 @@ export default function DeleteTeamButton({ id }: { id: string }) {
   }
 
   return (
-    <Button variant="destructive" onClick={deleteTeam}>
+    <Button className="m-auto" variant="destructive" onClick={deleteTeam}>
       Delete Team
     </Button>
   );

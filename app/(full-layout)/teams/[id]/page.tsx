@@ -3,17 +3,19 @@ import { notFound } from "next/navigation";
 import { TbBrandGithub } from "react-icons/tb";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
-<<<<<<< HEAD:app/(full-layout)/teams/[id]/page.tsx
+import { getImageUrl } from "~/app/_integrations/r2";
+import { getMentorById } from "~/app/(full-layout)/mentors/services";
 import {
   checkStateJoinRequests,
+  getProjectById,
   getTeamMembers,
+  prepareParticipants,
+  removeTeamMember,
 } from "~/app/(full-layout)/teams/actions";
-=======
-import { getImageUrl } from "~/app/_integrations/r2";
->>>>>>> dd673b6 (golqma chast ot team id page gotova?):app/teams/[id]/page.tsx
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
+import RenderMember from "~/app/components/Team/renderMember";
 import {
   Avatar,
   AvatarFallback,
@@ -27,19 +29,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "~/app/components/ui/tabs";
-import { getMentorById } from "~/app/mentors/services";
 import { getParticipantFromSession } from "~/app/participants/service";
-<<<<<<< HEAD:app/(full-layout)/teams/[id]/page.tsx
-=======
-import {
-  checkStateJoinRequests,
-  getProjectById,
-  getTeamMembers,
-  prepareParticipants,
-} from "~/app/teams/actions";
 import { convertToPaginatedTechnologies } from "~/app/technologies";
->>>>>>> dd673b6 (golqma chast ot team id page gotova?):app/teams/[id]/page.tsx
-import { getTeamById } from "../service";
+import { getTeamById, isParticipantEligableToJoin } from "../service";
 
 export default async function TeamDetailPage({
   params: { id },
@@ -78,7 +70,10 @@ export default async function TeamDetailPage({
     url = await getImageUrl({ fileName: mentor?.fileName });
   }
 
-  const preparedParticipants = await prepareParticipants(team.id);
+  const preparedParticipants = await prepareParticipants(
+    team,
+    participant?.id ?? null,
+  );
   const teamMembers = await getTeamMembers(team.id);
   const project = await getProjectById(team.projectId);
 
@@ -93,10 +88,18 @@ export default async function TeamDetailPage({
                 Назад
               </Link>
             </Button>
+            <IfHTFeatureOn feature="update-team-members">
+              {participant && !participant.team.id && isEligabletoJoin && (
+                <AskToJoinButton
+                  teamid={team.id}
+                  hasAskedToJoinState={hasAskedToJoinState}
+                />
+              )}
+            </IfHTFeatureOn>
           </div>
           <div className="flex flex-grow items-center justify-center">
-            <h1 className="mt-8 font-mono text-4xl font-semibold text-white sm:text-5xl">
-              Отбор: <span className="italic">{team.name}</span>
+            <h1 className="mt-8 font-mono text-4xl font-semibold italic text-white sm:text-5xl">
+              {team.name}
             </h1>
           </div>
         </div>
@@ -112,6 +115,20 @@ export default async function TeamDetailPage({
                   {member.firstName?.charAt(0).toUpperCase()}
                 </h1>
               </div>
+              {participant?.team.isCaptain &&
+                participant.team.id == team.id &&
+                participant.id != member.id && (
+                  <div className="z-10 ml-auto mr-auto mt-2 flex h-4 w-4 items-center justify-center rounded-full bg-gray-500 opacity-70 sm:h-8 sm:w-8">
+                    <h1
+                      className="p-2 text-lg sm:text-xl"
+                      onClick={() => {
+                        removeTeamMember(member.id);
+                      }}
+                    >
+                      X
+                    </h1>
+                  </div>
+                )}
             </div>
           ))}
         </div>
@@ -156,12 +173,22 @@ export default async function TeamDetailPage({
                     </div>
                   </div>
                 ) : (
-                  <h3 className="mt-2 text-xl">
-                    Все още няма създаден проект :(
-                  </h3>
+                  <div className="flex">
+                    <h3 className="mt-2 text-xl">
+                      Все още няма създаден проект :(
+                    </h3>
+                    {participant?.team.id == team.id &&
+                      participant.team.isCaptain && (
+                        <Button variant="outline" className="ml-auto" asChild>
+                          <Link href={`/teams/${team.id}/project/new`}>
+                            Създай проект
+                          </Link>
+                        </Button>
+                      )}
+                  </div>
                 )}
               </TabsContent>
-              <TabsContent value="settings">
+              <TabsContent value="settings" className="flex">
                 <IfHTFeatureOn feature="update-team-details">
                   {participant &&
                     participant.team.isCaptain &&
@@ -170,19 +197,16 @@ export default async function TeamDetailPage({
                     )}
                 </IfHTFeatureOn>
                 <IfHTFeatureOn feature="update-team-members">
-                  {participant && !participant.team.id && isEligabletoJoin && (
-                    <AskToJoinButton
-                      teamid={team.id}
-                      hasAskedToJoinState={hasAskedToJoinState}
-                    />
-                  )}
                   {participant &&
                     participant.team.id === team.id &&
                     participant.team.isCaptain && (
-                      <InviteForm
-                        teamId={participant.team.id.toString()}
-                        participants={preparedParticipants}
-                      />
+                      <div className="m-auto">
+                        <h3>Покани участник</h3>
+                        <InviteForm
+                          teamId={participant.team.id.toString()}
+                          participants={preparedParticipants}
+                        />
+                      </div>
                     )}
                 </IfHTFeatureOn>
               </TabsContent>
@@ -217,7 +241,7 @@ export default async function TeamDetailPage({
           </div>
 
           <div className="m-10 ml-auto mr-auto h-min w-5/6 overflow-hidden rounded-3xl border-2 bg-slate-900 p-5 sm:mr-0">
-            <h3 className="text-2xl">Технологии: </h3>
+            <h3 className="text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
               <div className="flex w-full gap-2 overflow-hidden p-2">
                 {techn.map((technology, index) => (
@@ -244,15 +268,4 @@ export default async function TeamDetailPage({
       </div>
     </div>
   );
-}
-
-function isParticipantEligableToJoin(
-  participant: Awaited<ReturnType<typeof getParticipantFromSession>>,
-  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>,
-) {
-  if (!participant || !participant.grade) {
-    return false;
-  }
-  const grade = parseInt(participant.grade);
-  return (grade > 12 && team.isAlumni) || (grade < 13 && !team.isAlumni);
 }

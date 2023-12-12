@@ -5,7 +5,10 @@ import { slugify } from "transliteration";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import { discordUsers, particpants, teams } from "~/app/db/schema";
-import { getParticipantById } from "~/app/participants/service";
+import {
+  getParticipantById,
+  getParticipantFromSession,
+} from "~/app/participants/service";
 
 export async function getConfirmedTeams() {
   return db.query.teams.findMany({
@@ -82,4 +85,15 @@ export async function createTeam(team: {
     })
     .where(eq(particpants.userId, team.captainId));
   return insertedTeam;
+}
+
+export function isParticipantEligableToJoin(
+  participant: Awaited<ReturnType<typeof getParticipantFromSession>>,
+  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>,
+) {
+  if (!participant || !participant.grade) {
+    return false;
+  }
+  const grade = parseInt(participant.grade);
+  return (grade > 12 && team.isAlumni) || (grade < 13 && !team.isAlumni);
 }

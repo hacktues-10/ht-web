@@ -52,7 +52,7 @@ export function InviteForm({
   const [value, setValue] = React.useState("");
 
   return (
-    <div className="m-5">
+    <div className="m-auto">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -62,7 +62,7 @@ export function InviteForm({
             className="w-[200px] justify-between"
           >
             {value
-              ? participants.find((participant) => participant.value == value)
+              ? participants?.find((participant) => participant.value == value)
                   ?.label
               : "Избери участник"}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -73,7 +73,7 @@ export function InviteForm({
             <CommandInput placeholder="Намери участник" />
             <CommandEmpty>Участникът не е намерен</CommandEmpty>
             <CommandGroup>
-              {participants.map((participant) => (
+              {participants?.map((participant) => (
                 <CommandItem
                   key={participant.value}
                   value={participant.value}

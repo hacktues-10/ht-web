@@ -23,8 +23,10 @@ import {
   formatParticipantDiscordNick,
   getParticipantById,
   getParticipantFromSession,
+  getParticipantsWithNoTeam,
+  isParticipantStudent,
 } from "~/app/participants/service";
-import { getTeamById } from "./service";
+import { getTeamById, isParticipantEligableToJoin } from "./service";
 
 export async function deleteMyTeam() {
   const gb = await getServerSideGrowthBook();
@@ -294,16 +296,35 @@ export async function getProjectById(projectId: number | null) {
   return null;
 }
 
-export async function prepareParticipants(teamId: string) {
-  const dbResponse = await db
-    .select()
-    .from(particpants)
-    .where(or(ne(particpants.teamId, teamId), isNull(particpants.teamId)));
+export async function prepareParticipants(
+  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>,
+  captainId: number | null,
+) {
+  if (!captainId) {
+    return null;
+  }
 
-  return dbResponse.map((user) => {
+  const res: any[] = [];
+
+  const dbResponse = await getParticipantsWithNoTeam();
+
+  const inv = await db
+    .select()
+    .from(invitations)
+    .where(eq(invitations.senderParticipantId, captainId));
+
+  dbResponse.forEach((user) => {
+    const isInvited = inv.some(
+      (invite) => invite.invitedParticipantId === user.id,
+    );
     const fullName = formatNick(user);
-    return { ...user, label: fullName, value: `${user.id}` };
+
+    if (isParticipantEligableToJoin(user, team) && !isInvited) {
+      res.push({ ...user, label: fullName, value: `${user.id}` });
+    }
   });
+
+  return res;
 }
 
 const formatNick = (user: any) => {
