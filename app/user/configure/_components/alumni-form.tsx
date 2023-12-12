@@ -1,19 +1,8 @@
 "use client";
 
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
-import { useRouter } from "next/navigation";
-import Select from "react-dropdown-select";
+import { useEffect, useReducer, useState } from "react";
 
-import { parseElsysEmail } from "~/app/_elsys/service";
 import { Separator } from "~/app/components/ui/separator";
-import { convertToTechnology, technologies } from "~/app/technologies";
-import { getParticipant, insertParticipant } from "../actions";
 import { AlumniRegistrationSchema } from "../schemas";
 import { AlumniStep1 } from "./steps/step1";
 import { AlumniStep2 } from "./steps/step2";
