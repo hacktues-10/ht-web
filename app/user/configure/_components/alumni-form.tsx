@@ -8,6 +8,7 @@ import { AlumniStep1 } from "./steps/step1";
 import { AlumniStep2 } from "./steps/step2";
 import { EveryoneStep3 } from "./steps/step3";
 import { EveryoneStep4 } from "./steps/step4";
+import { AlumniStep5 } from "./steps/step5";
 
 export const AlumniForm = ({ email }: { email: string }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -33,7 +34,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
       allergies: "",
       tShirtId: -10,
       technologies: "",
-      isLookingForTeam: false,
+      isLookingForTeam: true,
       question1: "",
       question2: "",
     } satisfies AlumniRegistrationSchema,
@@ -53,7 +54,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
   }
 
   return (
-    <div className="flex h-full flex-col gap-1">
+    <div className="space-y-1">
       <AlumniStep1
         className={currentStep === 1 ? "" : "hidden"}
         email={email}
@@ -83,6 +84,14 @@ export const AlumniForm = ({ email }: { email: string }) => {
         onPrev={handlePrev}
         onNext={handleNext}
       />
+      <AlumniStep5
+        className={currentStep >= 5 ? "" : "hidden"}
+        email={email}
+        isAlumni={true}
+        initialData={formData}
+        onPrev={handlePrev}
+        onNext={handleNext}
+      />
       <div className="py-5">
         <Separator />
       </div>
@@ -91,7 +100,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
         Стъпка {currentStep}/5
       </p>
       <p className="text-center text-sm text-muted-foreground">
-        При проблеми се свържете с нас на адрес{" "}
+        При проблеми с регистрацията се свържете с нас на адрес{" "}
         <a
           href="mailto:hacktues@elsys-bg.org"
           className="font-medium underline underline-offset-4"

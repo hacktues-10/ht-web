@@ -48,13 +48,13 @@ import {
 } from "~/app/components/ui/select";
 import { Textarea } from "~/app/components/ui/textarea";
 import { cn } from "~/app/utils";
-import { everyoneStep4Schema } from "../../schemas";
-import { NextStepButton, StepButtons } from "../step-buttonts";
+import { alumniStep5Schema } from "../../schemas";
+import { NextStepButton, PrevStepButton, StepButtons } from "../step-buttonts";
 
-type EveryoneStep4Data = z.infer<typeof everyoneStep4Schema>;
+type AlumniStep5Data = z.infer<typeof alumniStep5Schema>;
 
 // TODO: add more info about whats in the form in its name
-export const EveryoneStep4 = ({
+export const AlumniStep5 = ({
   email,
   initialData,
   onNext,
@@ -63,14 +63,14 @@ export const EveryoneStep4 = ({
   isAlumni,
 }: {
   email: string;
-  initialData: Partial<EveryoneStep4Data>;
-  onNext: (data: EveryoneStep4Data) => void;
+  initialData: Partial<AlumniStep5Data>;
+  onNext: (data: AlumniStep5Data) => void;
   onPrev: () => void;
   className?: string;
   isAlumni: boolean;
 }) => {
-  const form = useForm<EveryoneStep4Data>({
-    resolver: zodResolver(everyoneStep4Schema),
+  const form = useForm<AlumniStep5Data>({
+    resolver: zodResolver(alumniStep5Schema),
     defaultValues: initialData,
   });
 
@@ -89,20 +89,16 @@ export const EveryoneStep4 = ({
           <form onSubmit={form.handleSubmit(onNext)} className="space-y-6">
             <FormField
               control={form.control}
-              name="technologies"
+              name="question1"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Кои технологии владеете?</FormLabel>
+                  <FormLabel>
+                    На каква нетехнологична тема бихте искали да разработвате
+                    проект на хакатон?
+                  </FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder="Технологии"
-                      className="resize-none"
-                      {...field}
-                    />
+                    <Textarea className="resize-none" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Видими от всички потребители.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -110,35 +106,32 @@ export const EveryoneStep4 = ({
 
             <FormField
               control={form.control}
-              name="isLookingForTeam"
+              name="question2"
               render={({ field }) => (
-                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                <FormItem>
+                  <FormLabel>
+                    Коя е любимата ви тема или подтема от всички изминали
+                    издания на{" "}
+                    <span className="font-llpixel font-medium">
+                      Hack&nbsp;TUES
+                    </span>
+                    ?
+                  </FormLabel>
                   <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <Textarea className="resize-none" {...field} />
                   </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel>Търся си отбор</FormLabel>
-                    <FormDescription>
-                      Други участници ще могат да ви канят в своите отбори.
-                    </FormDescription>
-                  </div>
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
             <StepButtons
-              left={
-                <Button variant="secondary" onClick={onPrev} type="button">
-                  Назад
-                </Button>
-              }
+              left={<PrevStepButton onClick={onPrev} />}
               right={
+                // TODO: maybe add a loading state and extract the button to a component
                 <NextStepButton
                   isLoading={form.formState.isSubmitting}
-                  isLastStep={!isAlumni}
+                  isLastStep={true}
                 />
               }
             />

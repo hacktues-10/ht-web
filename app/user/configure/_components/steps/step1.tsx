@@ -22,7 +22,7 @@ import {
 import { Input } from "~/app/components/ui/input";
 import { cn } from "~/app/utils";
 import { alumniStep1Schema } from "../../schemas";
-import { StepButtons } from "../step-buttonts";
+import { NextStepButton, StepButtons } from "../step-buttonts";
 
 type AlumniStep1Data = z.infer<typeof alumniStep1Schema>;
 
@@ -141,7 +141,7 @@ export const AlumniStep1 = ({
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
-                    <FormLabel>Аз съм завършил ученик от ТУЕС</FormLabel>
+                    <FormLabel>Аз съм завършил/а ТУЕС</FormLabel>
                     {/* <FormDescription>
                       You can manage your mobile notifications in the{" "}
                       <Link href="/examples/forms">mobile settings</Link> page.
@@ -182,9 +182,10 @@ export const AlumniStep1 = ({
             />
             <StepButtons
               right={
-                <Button type="submit" disabled={!canSubmit}>
-                  Продължи
-                </Button>
+                <NextStepButton
+                  disabled={!canSubmit}
+                  isLoading={form.formState.isSubmitting}
+                />
               }
             />
           </form>

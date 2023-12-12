@@ -48,7 +48,7 @@ import {
 } from "~/app/components/ui/select";
 import { cn } from "~/app/utils";
 import { alumniStep2Schema } from "../../schemas";
-import { StepButtons } from "../step-buttonts";
+import { NextStepButton, PrevStepButton, StepButtons } from "../step-buttonts";
 
 type AlumniStep2Data = z.infer<typeof alumniStep2Schema>;
 
@@ -83,7 +83,7 @@ export const AlumniStep2 = ({
       )}
     >
       <h2 className="text-center text-2xl font-extrabold">
-        Информация за завършил ученик
+        Информация за завършил ТУЕС-ар
       </h2>
       <Card className="block w-full p-6">
         <Form {...form}>
@@ -182,15 +182,12 @@ export const AlumniStep2 = ({
             />
 
             <StepButtons
-              left={
-                <Button variant="secondary" onClick={onPrev} type="button">
-                  Назад
-                </Button>
-              }
+              left={<PrevStepButton onClick={onPrev} />}
               right={
-                <Button type="submit" disabled={!canSubmit}>
-                  Продължи
-                </Button>
+                <NextStepButton
+                  disabled={!canSubmit}
+                  isLoading={form.formState.isSubmitting}
+                />
               }
             />
           </form>

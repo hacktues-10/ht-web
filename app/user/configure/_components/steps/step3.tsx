@@ -29,7 +29,7 @@ import { Separator } from "~/app/components/ui/separator";
 import { Textarea } from "~/app/components/ui/textarea";
 import { cn } from "~/app/utils";
 import { everyoneStep3Schema } from "../../schemas";
-import { StepButtons } from "../step-buttonts";
+import { NextStepButton, PrevStepButton, StepButtons } from "../step-buttonts";
 
 type EveryoneStep3Data = z.infer<typeof everyoneStep3Schema>;
 
@@ -94,7 +94,7 @@ export const EveryoneStep3 = ({
             onSubmit={form.handleSubmit((data) =>
               onNext({
                 ...data,
-                allergies: willInputAllergies ? data.allergies : "",
+                allergies: willInputAllergies ? data.allergies : undefined,
               }),
             )}
             className="space-y-6"
@@ -177,15 +177,12 @@ export const EveryoneStep3 = ({
             )}
 
             <StepButtons
-              left={
-                <Button variant="secondary" onClick={onPrev} type="button">
-                  Назад
-                </Button>
-              }
+              left={<PrevStepButton onClick={onPrev} />}
               right={
-                <Button type="submit" disabled={!canSubmit}>
-                  Продължи
-                </Button>
+                <NextStepButton
+                  disabled={!canSubmit}
+                  isLoading={form.formState.isSubmitting}
+                />
               }
             />
           </form>

@@ -102,7 +102,8 @@ export const studentsStep2Schema = z.object({
 export const everyoneStep3Schema = z.object({
   allergies: z
     .string()
-    .min(1, { message: "Прекалено късо описание" })
+    // XXX: cannot get this to work because of empty case in the form
+    // .min(1, { message: "Прекалено късо описание" })
     .max(100, { message: "Прекалено дълго описание (100 символа максимум)" })
     .optional(),
   // tShirtId: z.number().int().min(1).max(5),
