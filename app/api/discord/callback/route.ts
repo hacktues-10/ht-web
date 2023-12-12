@@ -11,11 +11,12 @@ import {
   formatParticipantDiscordNick,
   getParticipantFromSession,
 } from "~/app/participants/service";
+import { resolveCallbackUrl } from "~/app/utils";
 import { getHTSession } from "../../auth/session";
 import { discordRedirectUri } from "../service";
 
-const ERROR_URL = "/";
-const SUCCESS_URL = "/";
+const ERROR_URL = "/discord/error";
+const SUCCESS_URL = "/discord";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -135,7 +136,12 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  return redirect(SUCCESS_URL);
+  const untrustedCallbackUrl = req.cookies.get("callbackUrl")?.value;
+  return redirect(
+    untrustedCallbackUrl
+      ? resolveCallbackUrl(untrustedCallbackUrl, req)
+      : SUCCESS_URL,
+  );
 }
 
 async function participantHasDiscordEntry(participantId: number) {

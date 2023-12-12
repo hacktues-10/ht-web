@@ -62,7 +62,6 @@ export const particpants = pgTable("participants", {
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   // TODO: add updatedAt?
-
 });
 
 export const participantsRelations = relations(
