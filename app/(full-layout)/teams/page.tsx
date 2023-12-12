@@ -33,7 +33,7 @@ export default async function TeamList() {
     <div className="flex h-full w-full flex-col items-center justify-center bg-slate-900">
       <IfHTFeatureOn feature="create-team">
         {participant && !participant.team.id && (
-          <Button asChild variant="destructive" className="mt-4">
+          <Button asChild variant="destructive" className="m-4">
             <Link href="/teams/new">Създай отбор</Link>
           </Button>
         )}

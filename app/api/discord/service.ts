@@ -265,7 +265,7 @@ export const deleteRoleFromMember = async (roleId: string, userId: string) => {
       },
     },
   );
-
+  console.log(deleteRoleResponse.statusText);
   invariant(
     deleteRoleResponse.ok,
     `Error deleting role ${roleId}: ${deleteRoleResponse.statusText}`,

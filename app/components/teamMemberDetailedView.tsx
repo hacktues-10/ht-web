@@ -44,10 +44,21 @@ export default function TeamMemberDetailedView({
           participant.team.id === team.id &&
           participant.id !== member.id && (
             <>
-              <RemoveMemberComponent memberToRemove={member} />
+              <RemoveMemberComponent
+                memberToRemove={member}
+                title={
+                  "Сигурни ли сте, че искате да премахнете този участник от отбора?"
+                }
+              />
               <MakeCaptainComponent participant={participant} member={member} />
             </>
           )}
+        {participant?.id == member.id && (
+          <RemoveMemberComponent
+            memberToRemove={member}
+            title={"Сигурни ли сте, че искате да напуснете този отбор?"}
+          />
+        )}
       </div>
     </div>
   );

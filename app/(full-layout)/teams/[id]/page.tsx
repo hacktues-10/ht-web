@@ -31,6 +31,15 @@ import {
   TabsTrigger,
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
+<<<<<<< HEAD:app/(full-layout)/teams/[id]/page.tsx
+=======
+import {
+  checkStateJoinRequests,
+  getProjectById,
+  getTeamMembers,
+  prepareParticipants,
+} from "~/app/teams/actions";
+>>>>>>> 40df39a (fixed mnogo bugove i tn):app/teams/[id]/page.tsx
 import { convertToPaginatedTechnologies } from "~/app/technologies";
 import { getTeamById, isParticipantEligableToJoin } from "../service";
 

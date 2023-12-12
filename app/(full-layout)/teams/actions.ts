@@ -55,6 +55,10 @@ export async function deleteMyTeam() {
     await db
       .delete(joinRequests)
       .where(eq(joinRequests.teamId, participant.team.id));
+
+    await db
+      .delete(invitations)
+      .where(eq(invitations.teamId, participant.team.id));
     // await db.delete(notifications).where(eq(notifications.));
     await db
       .update(particpants)
@@ -226,7 +230,7 @@ export async function removeTeamMember(memberId: number) {
   if (gb.isOff("update-team-members")) {
     return {
       success: false,
-      error:
+      message:
         "Премахването на участници от отбори не е позволено по това време.",
     };
   }
@@ -250,8 +254,14 @@ export async function removeTeamMember(memberId: number) {
       message: "The member does not have discord account",
     };
 
-  if (participant.team.isCaptain && participant.team.id == member.team.id) {
-    await deleteRoleFromMember(member.team.id, discordMember[0].discordId);
+  const team = await getTeamById(member.team.id);
+
+  if (
+    (participant.team.isCaptain || participant.team.id == member.team.id) &&
+    participant.team.id &&
+    team?.discordRoleId
+  ) {
+    await deleteRoleFromMember(team.discordRoleId, discordMember[0].discordId);
     const res = await db
       .update(particpants)
       .set({ teamId: null, isCaptain: false })

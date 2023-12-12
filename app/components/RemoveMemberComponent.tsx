@@ -14,8 +14,10 @@ import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 
 export default function RemoveMemberComponent({
+  title,
   memberToRemove,
 }: {
+  title: string;
   memberToRemove: Exclude<
     Awaited<ReturnType<typeof getTeamMembers>>[number],
     null
@@ -23,13 +25,14 @@ export default function RemoveMemberComponent({
 }) {
   const { toast } = useToast();
   const handleClick = async () => {
-    const { success } = await removeTeamMember(memberToRemove.id);
+    const { success, message } = await removeTeamMember(memberToRemove.id);
     if (success) {
       window.location.reload();
     } else {
       toast({
         title: "Неуспешен опит",
-        description: "Моля опитайте отново след мъничко.",
+        description: `Моля опитайте отново след мъничко. 
+        Error: ${message}`,
       });
     }
   };
@@ -43,9 +46,7 @@ export default function RemoveMemberComponent({
       </AlertDialogTrigger>
       <AlertDialogContent className="w-4/5 rounded-3xl sm:w-auto">
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Сигурни ли сте, че искате да премахнете този участник от отбора?
-          </AlertDialogTitle>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>
             Това действие не може да бъде върнато назад.
           </AlertDialogDescription>
@@ -53,7 +54,7 @@ export default function RemoveMemberComponent({
         <AlertDialogFooter>
           <AlertDialogCancel>Отказ</AlertDialogCancel>
           <AlertDialogAction className="destructive" onClick={handleClick}>
-            Премахни
+            Напред
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
