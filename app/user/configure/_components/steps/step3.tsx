@@ -87,9 +87,7 @@ export const EveryoneStep3 = ({
         className,
       )}
     >
-      <h2 className="text-center text-2xl font-extrabold">
-        Информация за завършил ученик
-      </h2>
+      <h2 className="text-center text-4xl font-extrabold">Вашите подаръци</h2>
       <Card className="block w-full p-6">
         <Form {...form}>
           <form
