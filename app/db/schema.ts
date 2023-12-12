@@ -59,6 +59,10 @@ export const particpants = pgTable("participants", {
   teamId: varchar("team_id").references(() => teams.id),
   question1Answer: varchar("question1_answer"),
   question2Answer: varchar("question2_answer"),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  // TODO: add updatedAt?
+
 });
 
 export const participantsRelations = relations(
