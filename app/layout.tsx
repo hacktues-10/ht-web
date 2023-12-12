@@ -30,6 +30,7 @@ const title = Noto_Sans({
   weight: "600",
   variable: "--font-title",
 });
+
 const llpixel = localFont({
   src: "./assets/llpixel3.ttf",
   variable: "--font-llpixel",
