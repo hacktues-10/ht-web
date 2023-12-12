@@ -20,6 +20,7 @@ import {
   convertToPaginatedTechnologies,
   convertToTechnology,
 } from "~/app/technologies";
+import RenderMember from "./renderMember";
 
 interface TeamCardProps {
   team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;
@@ -54,15 +55,10 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
           <div className="mt-2 inline-grid grid-cols-5 gap-5 p-2">
             {team.members.map((member) => (
               <div key={member.id}>
-                <div
-                  className={`z-20 flex h-10 w-10 items-center justify-center rounded-full ${
-                    colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
-                  } text-center`}
-                >
-                  <h1 className="p-2">
-                    {member.firstName?.charAt(0).toUpperCase()}
-                  </h1>
-                </div>
+                <RenderMember
+                  color={colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]}
+                  member={member}
+                />
               </div>
             ))}
           </div>
