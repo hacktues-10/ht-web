@@ -24,7 +24,9 @@ export const ParticipantForm = async () => {
   ) : (
     // <ParticipantForm />
     <Card className="p-3">
-      <p className="text-muted">Регистрацията на ученици още не е отворена.</p>
+      <p className="text-muted-foreground">
+        Регистрацията на ученици още не е отворена.
+      </p>
     </Card>
   );
 };
