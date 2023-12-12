@@ -43,7 +43,7 @@ export default async function RenderMember({
           </Avatar>
           <div>
             <h4 className="text-md font-semibold">
-              {`${member.firstName} ${member.lastName}`}{" "}
+              {`${member.firstName} ${member.lastName}`}
             </h4>
             <div className="flex items-center">
               <p className="text-xs italic">

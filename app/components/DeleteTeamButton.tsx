@@ -2,7 +2,12 @@
 
 import { useRouter } from "next/navigation";
 
+<<<<<<< HEAD
 import { deleteMyTeam } from "../(full-layout)/teams/actions";
+=======
+import { deleteMyTeam } from "../teams/actions";
+import { Button } from "./ui/button";
+>>>>>>> dd673b6 (golqma chast ot team id page gotova?)
 
 export default function DeleteTeamButton({ id }: { id: string }) {
   const router = useRouter();
@@ -17,8 +22,8 @@ export default function DeleteTeamButton({ id }: { id: string }) {
   }
 
   return (
-    <button className="btn btn-danger" onClick={deleteTeam}>
+    <Button variant="destructive" onClick={deleteTeam}>
       Delete Team
-    </button>
+    </Button>
   );
 }

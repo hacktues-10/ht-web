@@ -16,10 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/app/components/ui/card";
-import {
-  convertToPaginatedTechnologies,
-  convertToTechnology,
-} from "~/app/technologies";
+import { convertToPaginatedTechnologies } from "~/app/technologies";
 import RenderMember from "./renderMember";
 
 interface TeamCardProps {
@@ -40,7 +37,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
     "bg-purple-700",
   ];
 
-  const techn = convertToPaginatedTechnologies(team.technologies || "");
+  const techn = convertToPaginatedTechnologies(team.technologies || "", 3);
 
   return (
     <Link href={`/teams/${team.id}`}>

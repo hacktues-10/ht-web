@@ -1,6 +1,6 @@
 "use server";
 
-import { and, eq } from "drizzle-orm";
+import { and, eq, exists, ilike } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
@@ -16,6 +16,7 @@ import {
   joinRequests,
   notifications,
   particpants,
+  projects,
   teams,
 } from "~/app/db/schema";
 import {
@@ -281,4 +282,27 @@ export async function updateTechnologies(teamId: string) {
     .update(teams)
     .set({ technologies: technologiesString })
     .where(eq(teams.id, teamId));
+}
+
+export async function getProjectById(projectId: number | null) {
+  if (projectId) {
+    return (
+      await db.select().from(projects).where(eq(projects.id, projectId))
+    ).at(0);
+  }
+  return null;
+}
+
+export async function searchParticipants(query: string) {
+  const res: any[] = [];
+  const dbResponse = await db.select().from(particpants);
+
+  dbResponse.forEach((user) => {
+    const fullName = user.firstName + " " + user.lastName;
+    if (fullName.toLowerCase().includes(query.toLowerCase())) {
+      res.push(user);
+    }
+  });
+
+  return res;
 }
