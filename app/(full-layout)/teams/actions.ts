@@ -293,15 +293,20 @@ export async function getProjectById(projectId: number | null) {
   return null;
 }
 
-export async function searchParticipants(query: string) {
+export async function prepareParticipants() {
   const res: any[] = [];
   const dbResponse = await db.select().from(particpants);
 
   dbResponse.forEach((user) => {
-    const fullName = user.firstName + " " + user.lastName;
-    if (fullName.toLowerCase().includes(query.toLowerCase())) {
-      res.push(user);
-    }
+    const fullName =
+      user.firstName?.charAt(0).toUpperCase() ||
+      "" +
+        user.firstName?.slice(1).toLowerCase() +
+        " " +
+        user.lastName?.charAt(0).toUpperCase() ||
+      "" + user.lastName?.slice(1).toLowerCase();
+
+    res.push({ ...user, label: fullName, value: user.id });
   });
 
   return res;
