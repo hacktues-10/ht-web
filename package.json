@@ -17,9 +17,17 @@
     "@growthbook/growthbook": "^0.29.0",
     "@growthbook/growthbook-react": "^0.19.0",
     "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-navigation-menu": "^1.1.4",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "@react-spring/web": "^9.7.3",
     "@t3-oss/env-nextjs": "^0.6.1",
+    "@tanstack/react-query": "^5.13.4",
     "@types/node": "20.4.7",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
@@ -37,6 +45,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dropdown-select": "^4.10.0",
+    "react-icons": "^4.12.0",
     "react-tag-autocomplete": "^7.0.1",
     "server-only": "^0.0.1",
     "tailwind-merge": "^2.0.0",
@@ -56,6 +65,7 @@
     "dotenv": "^16.3.1",
     "drizzle-kit": "^0.19.12",
     "nodemailer": "^6.9.4",
+    "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.4.1"
   }
 }

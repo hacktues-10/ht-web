@@ -2,22 +2,18 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 import { Inter, Noto_Sans, Roboto_Mono, Ubuntu } from "next/font/google";
+import localFont from "next/font/local";
 
-import AuthProvider from "./context/AuthProvider";
-import { GrowthBookServerProvider } from "./context/growthbook/GrowthBookServerProvider";
+import AuthProvider from "~/app/_context/auth-provider";
+import { GrowthBookServerProvider } from "~/app/_context/growthbook/GrowthBookServerProvider";
+import { HTQueryClientProvider } from "./_context/query-client-provider";
 import { cn } from "./utils";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
   variable: "--font-sans",
 });
-//Commissioner
-// const parahraph = Ubuntu({
-//   subsets: ["cyrillic"],
-//   weight: "400",
-//   style: "italic",
-//   variable: "--font-paragraph",
-// });
+
 const parahraph = Noto_Sans({
   subsets: ["cyrillic"],
   weight: "500",
@@ -33,6 +29,10 @@ const title = Noto_Sans({
   subsets: ["latin", "cyrillic"],
   weight: "600",
   variable: "--font-title",
+});
+const llpixel = localFont({
+  src: "./assets/llpixel3.ttf",
+  variable: "--font-llpixel",
 });
 
 export const metadata: Metadata = {
@@ -55,13 +55,13 @@ export default function RootLayout({
           htags.variable,
           title.variable,
           parahraph.variable,
+          llpixel.variable,
         )}
       >
+        <div className="absolute inset-0 -z-50 bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round [mask-image:linear-gradient(to_bottom,transparent,10%,white,96%,transparent)]" />
         <AuthProvider>
           <GrowthBookServerProvider>
-            <main className="flex min-h-screen items-start justify-center p-6">
-              {children}
-            </main>
+            <HTQueryClientProvider>{children}</HTQueryClientProvider>
           </GrowthBookServerProvider>
         </AuthProvider>
       </body>

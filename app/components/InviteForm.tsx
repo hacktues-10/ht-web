@@ -2,7 +2,7 @@
 
 import invariant from "tiny-invariant";
 
-import { inviteToTeam } from "../teams/actions";
+import { inviteToTeam } from "../(full-layout)/teams/actions";
 
 export const InviteForm = ({ teamId }: { teamId: string }) => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
