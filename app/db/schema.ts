@@ -23,13 +23,8 @@ import {
 export const classEnum = pgEnum("class", [
   ...STUDENT_PARALLELS,
   ...ALUMNI_PARALLELS,
-  "",
 ]);
-export const gradeEnum = pgEnum("grade", [
-  ...STUDENT_GRADES,
-  ...ALUMNI_GRADES,
-  "",
-]);
+export const gradeEnum = pgEnum("grade", [...STUDENT_GRADES, ...ALUMNI_GRADES]);
 export const tShirtSizeEnum = pgEnum("tshirt_size", [
   "XS",
   "S",
@@ -45,18 +40,20 @@ export const notificationsTypes = pgEnum("notifications_types", [
 
 // FIXME: typo in word "participants" :/
 export const particpants = pgTable("participants", {
-  id: integer("id").primaryKey(),
+  id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id),
 
-  firstName: varchar("first_name"),
+  firstName: varchar("first_name").notNull(),
   middleName: varchar("middle_name"),
-  lastName: varchar("last_name"),
-  phoneNumber: varchar("phone_number"),
-  grade: gradeEnum("grade"),
-  parallel: classEnum("class"),
+  lastName: varchar("last_name").notNull(),
+  phoneNumber: varchar("phone_number").notNull().unique(),
+  grade: gradeEnum("grade").notNull(),
+  parallel: classEnum("class").notNull(),
   allergies: varchar("allergies").default(""),
-  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial
-  technologies: varchar("technologies").default(""),
+  tShirtId: serial("tshirt_id")
+    .references(() => tShirts.id)
+    .notNull(), // FIXME: shouldnt use serial
+  technologies: varchar("technologies").default("").notNull(),
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
   isCaptain: boolean("is_captain").notNull().default(false),
   teamId: varchar("team_id").references(() => teams.id),
@@ -88,10 +85,9 @@ export const discordUsers = pgTable("discord", {
   id: serial("id").primaryKey(),
   participantId: integer("participant_id"),
   mentorId: integer("mentor_id"),
-  // TODO: da slojim unique posle sled cqloto testvane!
-  discordId: varchar("discord_id"),
-  discordUsername: varchar("discord_username"),
-  accessToken: varchar("access_token"),
+  discordId: varchar("discord_id").notNull().unique(),
+  discordUsername: varchar("discord_username").notNull(),
+  accessToken: varchar("access_token").notNull(),
   lastUpdated: timestamp("last_updated").defaultNow().notNull(),
 });
 
@@ -123,15 +119,15 @@ export const users = pgTable("users", {
 
 export const mentors = pgTable("mentors", {
   id: serial("id").primaryKey(),
-  email: varchar("email"),
-  firstName: varchar("first_name"),
-  lastName: varchar("last_name"),
-  phoneNumber: varchar("phone_number"),
+  email: varchar("email").notNull(),
+  firstName: varchar("first_name").notNull(),
+  lastName: varchar("last_name").notNull(),
+  phoneNumber: varchar("phone_number").notNull(),
   // TODO: availability
-  description: varchar("description"),
+  description: varchar("description").notNull(),
   youtubeURL: varchar("youtube_url"),
   companyName: varchar("company_name"),
-  technologies: varchar("technologies"),
+  technologies: varchar("technologies").notNull(),
   tShirtId: serial("tshirt_id") // FIXME: shouldnt use serial
     .references(() => tShirts.id)
     .notNull(),
@@ -163,6 +159,7 @@ export const teams = pgTable("teams", {
   finalResult: numeric("final_result", { precision: 3, scale: 2 })
     .notNull()
     .default("0.00"),
+  memberCount: integer("member_count").default(1).notNull(),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({
