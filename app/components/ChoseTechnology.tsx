@@ -29,12 +29,14 @@ import { cn } from "../utils";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
+import { useToast } from "./ui/use-toast";
 
 export default function RenderProfileInfo({
   participant,
 }: {
   participant: Awaited<ReturnType<typeof getParticipantFromSession>>;
 }) {
+  const { toast } = useToast();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
   const [allergies, setAllergies] = useState(participant?.allergies ?? "");
@@ -90,142 +92,155 @@ export default function RenderProfileInfo({
     if (!participant?.id) {
       return null;
     }
-    const { success, message } = await updateAllergiesAndTechnologies(
+    const { message } = await updateAllergiesAndTechnologies(
       allergies,
       technText,
       participant.id,
     );
+    console.log(message);
+    toast({
+      variant: "sand",
+      title: message.title,
+      description: message.description,
+    });
   }
 
-  return (
-    <div className="w-auto rounded-3xl bg-sand p-5 text-slate-950 ">
-      <div className="sm:flex">
-        <div className="m-2">
-          <Label htmlFor="firstName">Име</Label>
-          <Input
-            disabled
-            placeholder={participant?.firstName ?? ""}
-            id="firstName"
-          />
-          <Label htmlFor="secondName">Презиме</Label>
-          <Input
-            disabled
-            placeholder={participant?.firstName ?? ""}
-            id="secondName"
-          />
-          <Label htmlFor="lastName">Фамилия</Label>
-          <Input
-            disabled
-            placeholder={participant?.lastName ?? ""}
-            id="lastName"
-          />
-          {participant?.phoneNumber && (
-            <>
-              <Label htmlFor="phoneNumber">Телефонен номер</Label>
-              <Input
-                disabled
-                placeholder={participant.phoneNumber}
-                id="phoneNumber"
-              />
-            </>
-          )}
-        </div>
-        <div className="m-2">
-          {participant?.grade && (
-            <>
-              <Label htmlFor="grade">
-                {parseInt(participant.grade) > 12 ? "Випуск" : "Клас"}
-              </Label>
-              <Input
-                disabled
-                placeholder={participant.grade + " " + participant.parallel}
-                id="grade"
-              />
-            </>
-          )}
+  const colors = [
+    "bg-red-700",
+    "bg-green-700",
+    "bg-orange-700",
+    "bg-yellow-700",
+    "bg-emerald-700",
+    "bg-cyan-700",
+    "bg-sky-700",
+    "bg-indigo-700",
+    "bg-violet-700",
+    "bg-purple-700",
+  ];
 
-          <Label htmlFor="email">Имейл</Label>
-          <Input disabled placeholder={participant?.email ?? ""} id="email" />
-          <div className="mb-3 mt-3">
-            <Label htmlFor="allergies">Алергии</Label>
-            <Textarea
-              placeholder={participant?.allergies ?? ""}
-              id="allergies"
-              className="bg-sand"
-              value={allergies}
-              onChange={setAllergies}
+  return (
+    <div>
+      <div className="rounded-3xl bg-sand p-5 text-slate-950 ">
+        <div
+          className={`mb-5 ml-auto mr-auto mt-5 flex h-14 w-14 items-center justify-center rounded-full sm:h-32 sm:w-32 ${
+            colors[(participant?.firstName?.charCodeAt(0) ?? 0) % 10]
+          } text-center`}
+        >
+          <h1 className="p-2 text-3xl text-white sm:text-6xl">
+            {participant?.firstName?.charAt(0).toUpperCase()}
+          </h1>
+        </div>
+        <div className="sm:flex">
+          <div className="m-2">
+            <Label htmlFor="firstName">Име</Label>
+            <Input
+              disabled
+              placeholder={participant?.firstName ?? ""}
+              id="firstName"
             />
+            <Label htmlFor="secondName">Презиме</Label>
+            <Input
+              disabled
+              placeholder={participant?.firstName ?? ""}
+              id="secondName"
+            />
+            <Label htmlFor="lastName">Фамилия</Label>
+            <Input
+              disabled
+              placeholder={participant?.lastName ?? ""}
+              id="lastName"
+            />
+            {participant?.phoneNumber && (
+              <>
+                <Label htmlFor="phoneNumber">Телефонен номер</Label>
+                <Input
+                  disabled
+                  placeholder={participant.phoneNumber}
+                  id="phoneNumber"
+                />
+              </>
+            )}
+          </div>
+          <div className="m-2">
+            {participant?.grade && (
+              <>
+                <Label htmlFor="grade">
+                  {parseInt(participant.grade) > 12 ? "Випуск" : "Клас"}
+                </Label>
+                <Input
+                  disabled
+                  placeholder={participant.grade + " " + participant.parallel}
+                  id="grade"
+                />
+              </>
+            )}
+
+            <Label htmlFor="email">Имейл</Label>
+            <Input disabled placeholder={participant?.email ?? ""} id="email" />
+            <div className="mb-3 mt-3">
+              <Label htmlFor="allergies">Алергии</Label>
+              <Textarea
+                id="allergies"
+                className="bg-sand"
+                value={allergies}
+                onChange={(event) => setAllergies(event.target.value)}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="ml-auto mr-auto">
-        <Label htmlFor="technologies">Технологии</Label>
-        <div className="w-auto flex-auto gap-2 rounded-lg border-2 border-slate-600 p-2">
-          {selectedTechnologiesArray.map((technology, index) => (
-            <Badge
-              onClick={() => handleRemove(technology?.value)}
-              variant="outline"
-              style={{
-                backgroundColor: technology?.color,
-                color: technology?.textColor,
-              }}
-              className="m-1 whitespace-nowrap text-sm"
-              key={index}
-            >
-              {technology?.name}
-              <X color="" className="hover:cursor-pointer" />
-            </Badge>
-          ))}
-        </div>
-        <div className="mt-2 flex items-center justify-center align-middle">
-          <div className="relative">
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="default"
-                  role="combobox"
-                  aria-expanded={open}
-                  className="w-[200px] justify-between hover:bg-background hover:text-white"
-                >
-                  {value
-                    ? technologies?.find(
-                        (technology) => technology.value == value,
-                      )?.name
-                    : "Избери технология"}
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-[200px] p-0">
-                <Command className="bg-sand ">
-                  <CommandInput
-                    className="placeholder:text-black"
-                    placeholder="Намери технология"
-                  />
-                  <CommandEmpty>Технологията не е намерена</CommandEmpty>
-                  <CommandGroup className="mb-1 max-h-[150px] overflow-y-auto bg-sand">
-                    {technologies?.slice(0, 5).map((technology) => (
-                      <CommandItem
-                        className="border-2 border-transparent text-black hover:border-black"
-                        key={technology.value}
-                        value={technology.value}
-                        onSelect={(currentValue) => {
-                          setValue(currentValue === value ? "" : currentValue);
-                          setOpen(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            value === technology.value
-                              ? "opacity-100"
-                              : "opacity-0",
-                          )}
-                        />
-                        {technology.name}
-                      </CommandItem>
-                    ))}
-                    <div className="overflow-y-auto">
-                      {technologies?.slice(5).map((technology) => (
+        <div className="m-auto">
+          <div className="flex justify-center">
+            <div className="self-center">
+              <Label htmlFor="technologies" className="text-center">
+                Технологии
+              </Label>
+              <div className="w-96 flex-auto gap-2 self-center rounded-lg border-2 border-slate-600 p-2">
+                <div className="flex flex-wrap justify-center gap-2">
+                  {selectedTechnologiesArray.map((technology, index) => (
+                    <Badge
+                      onClick={() => handleRemove(technology?.value)}
+                      variant="outline"
+                      style={{
+                        backgroundColor: technology?.color,
+                        color: technology?.textColor,
+                      }}
+                      className="m-1 whitespace-nowrap text-sm hover:cursor-pointer"
+                      key={index}
+                    >
+                      {technology?.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-2 flex items-center justify-center align-middle">
+            <div className="relative">
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="default"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-[200px] justify-between hover:bg-background hover:text-white"
+                  >
+                    {value
+                      ? technologies?.find(
+                          (technology) => technology.value == value,
+                        )?.name
+                      : "Избери технология"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                  <Command className="bg-sand ">
+                    <CommandInput
+                      className="placeholder:text-black"
+                      placeholder="Намери технология"
+                    />
+                    <CommandEmpty>Технологията не е намерена</CommandEmpty>
+                    <CommandGroup className="mb-1 max-h-[150px] overflow-y-auto bg-sand">
+                      {technologies?.slice(0, 5).map((technology) => (
                         <CommandItem
                           className="border-2 border-transparent text-black hover:border-black"
                           key={technology.value}
@@ -248,33 +263,55 @@ export default function RenderProfileInfo({
                           {technology.name}
                         </CommandItem>
                       ))}
-                    </div>
-                  </CommandGroup>
-                </Command>
-              </PopoverContent>
-            </Popover>
+                      <div className="overflow-y-auto">
+                        {technologies?.slice(5).map((technology) => (
+                          <CommandItem
+                            className="border-2 border-transparent text-black hover:border-black"
+                            key={technology.value}
+                            value={technology.value}
+                            onSelect={(currentValue) => {
+                              setValue(
+                                currentValue === value ? "" : currentValue,
+                              );
+                              setOpen(false);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-4 w-4",
+                                value === technology.value
+                                  ? "opacity-100"
+                                  : "opacity-0",
+                              )}
+                            />
+                            {technology.name}
+                          </CommandItem>
+                        ))}
+                      </div>
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
+            <Button
+              className="ml-3 hover:bg-background hover:text-white"
+              variant="outline"
+              onClick={() => handleSubmit()}
+            >
+              Добави
+            </Button>
           </div>
-          <Button
-            className="ml-3 hover:bg-background hover:text-white"
-            variant="outline"
-            onClick={() => handleSubmit()}
-          >
-            Добави
-          </Button>
-        </div>
-        <div className="mt-3 flex justify-center">
-          <Button
-            variant="destructive"
-            className="self-center"
-            onClick={() => handleSubmitFullData()}
-          >
-            Промени
-          </Button>
+          <div className="mt-3 flex justify-center">
+            <Button
+              variant="destructive"
+              className="self-center"
+              onClick={() => handleSubmitFullData()}
+            >
+              Промени
+            </Button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-/*
-  
-        */
