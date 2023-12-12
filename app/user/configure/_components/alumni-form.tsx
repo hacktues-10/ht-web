@@ -7,6 +7,7 @@ import { AlumniRegistrationSchema } from "../schemas";
 import { AlumniStep1 } from "./steps/step1";
 import { AlumniStep2 } from "./steps/step2";
 import { EveryoneStep3 } from "./steps/step3";
+import { EveryoneStep4 } from "./steps/step4";
 
 export const AlumniForm = ({ email }: { email: string }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -74,9 +75,10 @@ export const AlumniForm = ({ email }: { email: string }) => {
         onPrev={handlePrev}
         onNext={handleNext}
       />
-      <EveryoneStep3
+      <EveryoneStep4
         className={currentStep === 4 ? "" : "hidden"}
         email={email}
+        isAlumni={true}
         initialData={formData}
         onPrev={handlePrev}
         onNext={handleNext}
