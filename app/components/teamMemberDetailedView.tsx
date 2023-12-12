@@ -1,11 +1,10 @@
 "use client";
 
-import { AiTwotoneCrown } from "react-icons/ai";
-
 import { getParticipantFromSession } from "../participants/service";
-import { getTeamMembers, removeTeamMember } from "../teams/actions";
+import { getTeamMembers } from "../teams/actions";
 import { getTeamById } from "../teams/service";
 import MakeCaptainComponent from "./makeCaptainComponent";
+import RemoveMemberComponent from "./RemoveMemberComponent";
 
 export default function TeamMemberDetailedView({
   member,
@@ -40,23 +39,14 @@ export default function TeamMemberDetailedView({
           {member.firstName?.charAt(0).toUpperCase()}
         </h1>
       </div>
-      <div className="mt-2 flex space-x-4">
+      <div className="mt-2 flex h-10 space-x-4 sm:h-auto">
         {participant?.team.isCaptain &&
           participant.team.id === team.id &&
           participant.id !== member.id && (
-            <div
-              className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-gray-500 opacity-70"
-              onClick={() => {
-                removeTeamMember(member.id);
-              }}
-            >
-              <h1 className="p-2 text-lg sm:text-xl">X</h1>
-            </div>
-          )}
-        {participant?.team.isCaptain &&
-          participant.team.id === team.id &&
-          participant.id !== member.id && (
-            <MakeCaptainComponent participant={participant} member={member} />
+            <>
+              <RemoveMemberComponent memberToRemove={member} />
+              <MakeCaptainComponent participant={participant} member={member} />
+            </>
           )}
       </div>
     </div>

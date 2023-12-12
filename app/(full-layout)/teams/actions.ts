@@ -270,26 +270,24 @@ export async function makeCaptain(
   memberId: number,
 ) {
   try {
-    if (captainId == memberId) {
+    if (captainId == memberId || !captainId) {
       return { success: false };
     }
-    // await db
-    //   .update(particpants)
-    //   .set({
-    //     isCaptain: false,
-    //   })
-    //   .where(eq(particpants.id, captainId));
+    await db
+      .update(particpants)
+      .set({
+        isCaptain: false,
+      })
+      .where(eq(particpants.id, captainId));
 
-    // await db
-    //   .update(particpants)
-    //   .set({
-    //     isCaptain: true,
-    //   })
-    //   .where(eq(particpants.id, memberId));
+    await db
+      .update(particpants)
+      .set({
+        isCaptain: true,
+      })
+      .where(eq(particpants.id, memberId));
 
-    // return { success: true };
-    console.log("false in func");
-    return { success: false };
+    return { success: true };
   } catch (err) {
     return { success: false };
   }

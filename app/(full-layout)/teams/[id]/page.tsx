@@ -62,7 +62,11 @@ export default async function TeamDetailPage({
     team,
     participant?.id ?? null,
   );
-  const teamMembers = await getTeamMembers(team.id);
+  let teamMembers = await getTeamMembers(team.id);
+  // teamMembers.push(teamMembers[0]);
+  // teamMembers.push(teamMembers[0]);
+  // teamMembers.push(teamMembers[0]);
+  // teamMembers.push(teamMembers[0]);
   const project = await getProjectById(team.projectId);
 
   return (
@@ -76,7 +80,18 @@ export default async function TeamDetailPage({
                 Назад
               </Link>
             </Button>
+            {participant && !participant.team.id && isEligabletoJoin && (
+              <div className="ml-5">
+                <IfHTFeatureOn feature="update-team-members">
+                  <AskToJoinButton
+                    teamid={team.id}
+                    hasAskedToJoinState={hasAskedToJoinState}
+                  />
+                </IfHTFeatureOn>
+              </div>
+            )}
           </div>
+
           <div className="ml-auto mr-0">
             <TeamDetailsComponent team={team} />
           </div>
@@ -86,15 +101,14 @@ export default async function TeamDetailPage({
             {team.name}
           </h1>
         </div>
-        <div className="mt-4 inline-grid h-20 w-full grid-cols-5 gap-5 sm:mb-4 sm:mt-10 sm:h-32">
+        <div className="mt-4 inline-grid h-min w-full grid-cols-3 items-center justify-center gap-5 sm:mb-4 sm:mt-10 sm:h-32 sm:grid-cols-5">
           {teamMembers.map((member) => (
-            <div key={member.id}>
-              <TeamMemberDetailedView
-                member={member}
-                participant={participant}
-                team={team}
-              />
-            </div>
+            <TeamMemberDetailedView
+              member={member}
+              participant={participant}
+              team={team}
+              key={member.id}
+            />
           ))}
         </div>
       </div>
@@ -120,14 +134,6 @@ export default async function TeamDetailPage({
 
             <div className="m-auto ml-auto mr-auto mt-0 rounded-3xl border-2 p-10 pb-5 pt-2 text-left">
               <TabsContent value="information">
-                {participant && !participant.team.id && isEligabletoJoin && (
-                  <IfHTFeatureOn feature="update-team-members">
-                    <AskToJoinButton
-                      teamid={team.id}
-                      hasAskedToJoinState={hasAskedToJoinState}
-                    />
-                  </IfHTFeatureOn>
-                )}
                 {project ? (
                   <div>
                     <h2 className="w-full text-2xl">{project.name}</h2>
@@ -221,7 +227,7 @@ export default async function TeamDetailPage({
           <div className="m-10 ml-auto mr-auto h-min w-5/6 overflow-hidden rounded-3xl border-2 bg-slate-900 p-5 sm:mr-0">
             <h3 className="text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
-              <div className="flex w-full gap-2 overflow-hidden p-2">
+              <div className="w-full flex-auto gap-2 p-2">
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"
@@ -229,7 +235,7 @@ export default async function TeamDetailPage({
                       backgroundColor: technology?.color,
                       color: technology?.textColor,
                     }}
-                    className="whitespace-nowrap text-base"
+                    className="m-1 whitespace-nowrap text-base"
                     key={index}
                   >
                     {technology?.name}
