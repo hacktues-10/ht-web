@@ -71,6 +71,9 @@ export default async function ProfilePage() {
             id="allergies"
           />
           <Label htmlFor="technologies">Технологии</Label>
+          <TechnologySelectorComponent
+            technologies={participant.technologies}
+          />
         </>
       )}
     </div>
