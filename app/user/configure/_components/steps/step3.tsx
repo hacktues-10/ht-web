@@ -92,7 +92,15 @@ export const EveryoneStep3 = ({
       </h2>
       <Card className="block w-full p-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onNext)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit((data) =>
+              onNext({
+                ...data,
+                allergies: willInputAllergies ? data.allergies : "",
+              }),
+            )}
+            className="space-y-6"
+          >
             <FormField
               control={form.control}
               name="tShirtId"
@@ -139,7 +147,7 @@ export const EveryoneStep3 = ({
                 />
               </FormControl>
               <div className="space-y-1 leading-none">
-                <FormLabel>Алергии или хранителни предпочитания</FormLabel>
+                <FormLabel>Алергии или хранителни ограничения</FormLabel>
                 {/* <FormDescription>
                   You can manage your mobile notifications in the...
                 </FormDescription> */}
@@ -152,7 +160,7 @@ export const EveryoneStep3 = ({
                 name="allergies"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Алергии и хранителни предпочитания</FormLabel>
+                    <FormLabel>Алергии и хранителни ограничения</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Мляко, яйца, ядки..."
