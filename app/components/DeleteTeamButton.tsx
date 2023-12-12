@@ -2,12 +2,19 @@
 
 import { useRouter } from "next/navigation";
 
-<<<<<<< HEAD
-import { deleteMyTeam } from "../(full-layout)/teams/actions";
-=======
-import { deleteMyTeam } from "../teams/actions";
+import { deleteMyTeam } from "~/app/(full-layout)/teams/actions";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "~/app/components/ui/alert-dialog";
 import { Button } from "./ui/button";
->>>>>>> dd673b6 (golqma chast ot team id page gotova?)
 
 export default function DeleteTeamButton({ id }: { id: string }) {
   const router = useRouter();
@@ -22,8 +29,32 @@ export default function DeleteTeamButton({ id }: { id: string }) {
   }
 
   return (
-    <Button className="m-auto" variant="destructive" onClick={deleteTeam}>
-      Delete Team
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger
+        asChild
+        className="ml-auto mr-auto items-center justify-center"
+      >
+        <Button className="" variant="destructive">
+          Изтрий отбора
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>
+            Сигурни ли сте, че искате да изтриете отбора
+          </AlertDialogTitle>
+          <AlertDialogDescription>
+            Това действие не може да бъде върнато назад. Ще изтриете отбора си
+            перманентно.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Отказ</AlertDialogCancel>
+          <AlertDialogAction className="destructive" onClick={deleteTeam}>
+            Изтрий
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
