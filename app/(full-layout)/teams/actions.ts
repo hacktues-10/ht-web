@@ -334,3 +334,17 @@ const formatNick = (user: any) => {
     return `${user.firstName} ${user.lastName} (ТУЕС'${user.grade})`;
   }
 };
+
+export async function testInsertProject() {
+  await db.insert(projects).values({
+    name: "test name",
+    description: "test description",
+    technologies: "testtechnologies",
+    websiteURL: "http://localhost:8080",
+  });
+
+  await db
+    .update(teams)
+    .set({ projectId: 1 })
+    .where(eq(teams.id, "what-the-fuck"));
+}

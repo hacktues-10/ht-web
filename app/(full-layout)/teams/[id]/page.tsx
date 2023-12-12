@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { eq } from "drizzle-orm";
 import { TbBrandGithub } from "react-icons/tb";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
@@ -15,7 +16,6 @@ import {
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
-import RenderMember from "~/app/components/Team/renderMember";
 import {
   Avatar,
   AvatarFallback,
@@ -77,6 +77,8 @@ export default async function TeamDetailPage({
   const teamMembers = await getTeamMembers(team.id);
   const project = await getProjectById(team.projectId);
 
+  console.log(team.id);
+
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
       <div className="rounded-3xl border-2 bg-slate-900 p-10">
@@ -88,14 +90,6 @@ export default async function TeamDetailPage({
                 Назад
               </Link>
             </Button>
-            <IfHTFeatureOn feature="update-team-members">
-              {participant && !participant.team.id && isEligabletoJoin && (
-                <AskToJoinButton
-                  teamid={team.id}
-                  hasAskedToJoinState={hasAskedToJoinState}
-                />
-              )}
-            </IfHTFeatureOn>
           </div>
           <div className="flex flex-grow items-center justify-center">
             <h1 className="mt-8 font-mono text-4xl font-semibold italic text-white sm:text-5xl">
@@ -160,17 +154,29 @@ export default async function TeamDetailPage({
 
             <div className="m-auto ml-auto mr-auto mt-10 rounded-3xl border-2 bg-slate-900 p-10 text-left">
               <TabsContent value="information">
-                <h2 className="w-full text-2xl">Описание на отбора</h2>
-                <h3 className="mt-2 text-xl">{team.description}</h3>
-                <h2 className="mt-6 w-full text-2xl">Проект</h2>
+                <IfHTFeatureOn feature="update-team-members">
+                  {participant && !participant.team.id && isEligabletoJoin && (
+                    <AskToJoinButton
+                      teamid={team.id}
+                      hasAskedToJoinState={hasAskedToJoinState}
+                    />
+                  )}
+                </IfHTFeatureOn>
+                {/* <h2 className="w-full text-2xl">Описание на отбора</h2>
+                <h3 className="mt-2 text-xl">{team.description}</h3> */}
                 {project ? (
                   <div className="mt-2">
-                    <h3>Име на проект: {project.name}</h3>
-                    <h3>Описание на проект: {project.description}</h3>
-                    <div className="flex">
-                      <TbBrandGithub />
-                      <h3>{project.websiteURL}</h3>
-                    </div>
+                    <h2 className="mt-4 w-full text-2xl">{project.name}</h2>
+                    <h3 className="mt-4 text-xl">{project.description}</h3>
+
+                    {project.websiteURL && (
+                      <div className="mt-2 flex">
+                        <TbBrandGithub size={28} />
+                        <Link className="text-xl" href={project.websiteURL}>
+                          {project.websiteURL}
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div className="flex">
