@@ -1,6 +1,6 @@
 "use server";
 
-import { and, eq, exists, ilike } from "drizzle-orm";
+import { and, eq, ilike, isNotNull, isNull, ne, not, or } from "drizzle-orm";
 import { zact } from "zact/server";
 import { z } from "zod";
 
@@ -20,6 +20,7 @@ import {
   teams,
 } from "~/app/db/schema";
 import {
+  formatParticipantDiscordNick,
   getParticipantById,
   getParticipantFromSession,
 } from "~/app/participants/service";
@@ -293,21 +294,22 @@ export async function getProjectById(projectId: number | null) {
   return null;
 }
 
-export async function prepareParticipants() {
-  const res: any[] = [];
-  const dbResponse = await db.select().from(particpants);
+export async function prepareParticipants(teamId: string) {
+  const dbResponse = await db
+    .select()
+    .from(particpants)
+    .where(or(ne(particpants.teamId, teamId), isNull(particpants.teamId)));
 
-  dbResponse.forEach((user) => {
-    const fullName =
-      user.firstName?.charAt(0).toUpperCase() ||
-      "" +
-        user.firstName?.slice(1).toLowerCase() +
-        " " +
-        user.lastName?.charAt(0).toUpperCase() ||
-      "" + user.lastName?.slice(1).toLowerCase();
-
-    res.push({ ...user, label: fullName, value: user.id });
+  return dbResponse.map((user) => {
+    const fullName = formatNick(user);
+    return { ...user, label: fullName, value: `${user.id}` };
   });
-
-  return res;
 }
+
+const formatNick = (user: any) => {
+  if (isParticipantStudent(user)) {
+    return `${user.firstName} ${user.lastName} (${user.grade}${user.parallel})`;
+  } else {
+    return `${user.firstName} ${user.lastName} (ТУЕС'${user.grade})`;
+  }
+};

@@ -35,6 +35,7 @@ import {
   checkStateJoinRequests,
   getProjectById,
   getTeamMembers,
+  prepareParticipants,
 } from "~/app/teams/actions";
 import { convertToPaginatedTechnologies } from "~/app/technologies";
 >>>>>>> dd673b6 (golqma chast ot team id page gotova?):app/teams/[id]/page.tsx
@@ -76,6 +77,8 @@ export default async function TeamDetailPage({
   if (mentor?.fileName) {
     url = await getImageUrl({ fileName: mentor?.fileName });
   }
+
+  const preparedParticipants = await prepareParticipants(team.id);
   const teamMembers = await getTeamMembers(team.id);
   const project = await getProjectById(team.projectId);
 
@@ -176,7 +179,10 @@ export default async function TeamDetailPage({
                   {participant &&
                     participant.team.id === team.id &&
                     participant.team.isCaptain && (
-                      <InviteForm teamId={participant.team.id.toString()} />
+                      <InviteForm
+                        teamId={participant.team.id.toString()}
+                        participants={preparedParticipants}
+                      />
                     )}
                 </IfHTFeatureOn>
               </TabsContent>
