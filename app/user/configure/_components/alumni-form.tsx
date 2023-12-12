@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useReducer, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { Separator } from "~/app/components/ui/separator";
-import { AlumniRegistrationSchema } from "../schemas";
+import { registerAlumni } from "../actions";
+import { AlumniRegistrationSchema, alunmiRegistrationSchema } from "../schemas";
 import { AlumniStep1 } from "./steps/step1";
 import { AlumniStep2 } from "./steps/step2";
 import { EveryoneStep3 } from "./steps/step3";
@@ -11,6 +13,7 @@ import { EveryoneStep4 } from "./steps/step4";
 import { AlumniStep5 } from "./steps/step5";
 
 export const AlumniForm = ({ email }: { email: string }) => {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, updateData] = useReducer(
     (
@@ -40,10 +43,6 @@ export const AlumniForm = ({ email }: { email: string }) => {
     } satisfies AlumniRegistrationSchema,
   );
 
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
-
   function handleNext(stepData: Partial<AlumniRegistrationSchema>) {
     updateData(stepData);
     setCurrentStep((prev) => prev + 1);
@@ -51,6 +50,24 @@ export const AlumniForm = ({ email }: { email: string }) => {
 
   function handlePrev() {
     setCurrentStep((prev) => Math.max(prev - 1, 1));
+  }
+
+  async function handleSubmit(stepData: Partial<AlumniRegistrationSchema>) {
+    updateData(stepData);
+    const updatedData = { ...formData, ...stepData };
+    const response = await registerAlumni(updatedData);
+    try {
+      if (response.success) {
+        alert("Успешно се регистрирахте!");
+        router.refresh();
+      } else {
+        alert(response.error);
+      }
+    } catch (e) {
+      alert(
+        "Възникна грешка при регистрацията. Моля, опитайте отново по-късно. Ако проблемът продължава, свържете се с нас на адрес hacktues@elsys-bg.org.",
+      );
+    }
   }
 
   return (
@@ -90,7 +107,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
         isAlumni={true}
         initialData={formData}
         onPrev={handlePrev}
-        onNext={handleNext}
+        onNext={handleSubmit}
       />
       <div className="py-5">
         <Separator />

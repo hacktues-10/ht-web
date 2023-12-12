@@ -41,7 +41,7 @@ export const NextStepButton = ({
 
 export const PrevStepButton = ({ onClick }: { onClick: () => void }) => {
   return (
-    <Button type="button" variant="secondary">
+    <Button type="button" variant="secondary" onClick={onClick}>
       Назад
     </Button>
   );

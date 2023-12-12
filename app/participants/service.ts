@@ -1,4 +1,4 @@
-import { eq, or, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
 import { getHTSession } from "../api/auth/session";
@@ -51,30 +51,11 @@ export async function getParticipantFromSession() {
   return getParticipantByEmail(session.user.email);
 }
 
-export function isParticipantStudent(
-  participant: Participant,
-): participant is Participant & {
-  parallel: Exclude<Participant["parallel"], null>;
-} {
-  // FIXME: seriously though, why is grade nullable???
-  invariant(participant.grade, "WHY IS GRADE NULLABLE?!");
-  const isStudent = participant.grade.length <= 2;
-  if (isStudent) {
-    invariant(
-      participant.parallel,
-      `Participant ${
-        participant.id
-      } is a student but has no parallel (value is ${JSON.stringify(
-        participant.parallel,
-      )})!`,
-    );
-  }
-  return isStudent;
+export function isParticipantStudent(participant: Participant) {
+  return participant.grade.length <= 2;
 }
 
-export function isParticipantAlumni(
-  participant: Participant,
-): participant is Participant & { parallel: null } {
+export function isParticipantAlumni(participant: Participant) {
   return !isParticipantStudent(participant);
 }
 

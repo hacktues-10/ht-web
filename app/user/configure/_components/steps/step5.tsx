@@ -131,6 +131,7 @@ export const AlumniStep5 = ({
                 // TODO: maybe add a loading state and extract the button to a component
                 <NextStepButton
                   isLoading={form.formState.isSubmitting}
+                  disabled={!form.formState.isValid}
                   isLastStep={true}
                 />
               }
