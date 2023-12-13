@@ -16,13 +16,17 @@ import {
   joinRequests,
   notifications,
   particpants,
+  projects,
   teams,
 } from "~/app/db/schema";
 import {
+  formatParticipantDiscordNick,
   getParticipantById,
   getParticipantFromSession,
+  getParticipantsWithNoTeam,
+  isParticipantStudent,
 } from "~/app/participants/service";
-import { getTeamById } from "./service";
+import { getTeamById, isParticipantEligableToJoin } from "./service";
 
 export async function deleteMyTeam() {
   const gb = await getServerSideGrowthBook();
@@ -51,6 +55,10 @@ export async function deleteMyTeam() {
     await db
       .delete(joinRequests)
       .where(eq(joinRequests.teamId, participant.team.id));
+
+    await db
+      .delete(invitations)
+      .where(eq(invitations.teamId, participant.team.id));
     // await db.delete(notifications).where(eq(notifications.));
     await db
       .update(particpants)
@@ -222,7 +230,7 @@ export async function removeTeamMember(memberId: number) {
   if (gb.isOff("update-team-members")) {
     return {
       success: false,
-      error:
+      message:
         "Премахването на участници от отбори не е позволено по това време.",
     };
   }
@@ -246,8 +254,14 @@ export async function removeTeamMember(memberId: number) {
       message: "The member does not have discord account",
     };
 
-  if (participant.team.isCaptain && participant.team.id == member.team.id) {
-    await deleteRoleFromMember(member.team.id, discordMember[0].discordId);
+  const team = await getTeamById(member.team.id);
+
+  if (
+    (participant.team.isCaptain || participant.team.id == member.team.id) &&
+    participant.team.id &&
+    team?.discordRoleId
+  ) {
+    await deleteRoleFromMember(team.discordRoleId, discordMember[0].discordId);
     const res = await db
       .update(particpants)
       .set({ teamId: null, isCaptain: false })
@@ -259,6 +273,34 @@ export async function removeTeamMember(memberId: number) {
     return { success: false, message: "Failed to remove team member" };
   }
   return { success: false, message: "You are not a team captain" };
+}
+
+export async function makeCaptain(
+  captainId: number | undefined,
+  memberId: number,
+) {
+  try {
+    if (captainId == memberId || !captainId) {
+      return { success: false };
+    }
+    await db
+      .update(particpants)
+      .set({
+        isCaptain: false,
+      })
+      .where(eq(particpants.id, captainId));
+
+    await db
+      .update(particpants)
+      .set({
+        isCaptain: true,
+      })
+      .where(eq(particpants.id, memberId));
+
+    return { success: true };
+  } catch (err) {
+    return { success: false };
+  }
 }
 
 // FIXME: do we need this? can we fetch in the server component?
@@ -281,4 +323,95 @@ export async function updateTechnologies(teamId: string) {
     .update(teams)
     .set({ technologies: technologiesString })
     .where(eq(teams.id, teamId));
+}
+
+export async function getProjectById(projectId: number | null) {
+  if (projectId) {
+    return (
+      await db.select().from(projects).where(eq(projects.id, projectId))
+    ).at(0);
+  }
+  return null;
+}
+
+export async function prepareParticipants(
+  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>,
+  captainId: number | null,
+) {
+  if (!captainId) {
+    return null;
+  }
+
+  const res: any[] = [];
+
+  const dbResponse = await getParticipantsWithNoTeam();
+
+  const inv = await db
+    .select()
+    .from(invitations)
+    .where(eq(invitations.senderParticipantId, captainId));
+
+  dbResponse.forEach((user) => {
+    const isInvited = inv.some(
+      (invite) => invite.invitedParticipantId === user.id,
+    );
+    const fullName = formatNick(user);
+
+    if (isParticipantEligableToJoin(user, team) && !isInvited) {
+      res.push({ ...user, label: fullName, value: `${user.id}` });
+    }
+  });
+  return res;
+}
+
+const formatNick = (user: any) => {
+  if (isParticipantStudent(user)) {
+    return `${user.firstName} ${user.lastName} (${user.grade}${user.parallel})`;
+  } else {
+    return `${user.firstName} ${user.lastName} (ТУЕС'${user.grade})`;
+  }
+};
+
+export async function testInsertProject() {
+  const res = await db
+    .insert(projects)
+    .values({
+      name: "test name",
+      description: "test description",
+      technologies: "testtechnologies",
+      websiteURL: "http://localhost:8080",
+    })
+    .returning();
+
+  await db
+    .update(teams)
+    .set({ projectId: res[0].id })
+    .where(eq(teams.id, "443"));
+}
+
+export async function isTeamFull(teamId: string) {
+  const team = (await db.select().from(teams).where(eq(teams.id, teamId)))[0];
+  if (
+    (team.isAlumni && team.memberCount == 3) ||
+    (!team.isAlumni && team.memberCount == 5)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+export async function getConfirmedTeamsNumber(isAlumni: boolean) {
+  const teamsNumber = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.isAlumni, isAlumni));
+
+  const minMembers = isAlumni ? 2 : 3;
+  const maxMembers = isAlumni ? 3 : 5;
+
+  const teamsNumberFinal = teamsNumber.filter((team) => {
+    return team.memberCount >= minMembers && team.memberCount <= maxMembers;
+  });
+
+  return teamsNumberFinal.length;
 }

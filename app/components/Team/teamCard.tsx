@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import {
@@ -16,10 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "~/app/components/ui/card";
-import {
-  convertToPaginatedTechnologies,
-  convertToTechnology,
-} from "~/app/technologies";
+import { convertToPaginatedTechnologies } from "~/app/technologies";
+import RenderMember from "./renderMember";
 
 interface TeamCardProps {
   team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;
@@ -39,56 +34,53 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
     "bg-purple-700",
   ];
 
-  const techn = convertToPaginatedTechnologies(team.technologies || "");
-
+  const techn = convertToPaginatedTechnologies(team.technologies || "", 3);
   return (
     <Link href={`/teams/${team.id}`}>
-      <Card className="z-10 m-5 h-max rounded-md bg-gray-300 bg-opacity-20 bg-clip-padding shadow-[0_4px_12px_rgba(8,_112,_184,_0.7)] backdrop-blur-sm backdrop-filter hover:cursor-pointer">
-        <CardHeader className="pb-0">
-          <CardTitle className="text-3xl">{team.name}</CardTitle>
-          <CardDescription className="scroll-m-20 border-b border-gray-100/50 pl-2 leading-7 [&:not(:first-child)]:mt-2">
-            {team.project?.name ?? "Все още няма проект"}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="m-6 mb-0 mt-0 border-b border-gray-100/50 p-0">
-          <div className="mt-2 inline-grid grid-cols-5 gap-5 p-2">
-            {team.members.map((member) => (
-              <div key={member.id}>
-                <div
-                  className={`z-20 flex h-10 w-10 items-center justify-center rounded-full ${
-                    colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
-                  } text-center`}
-                >
-                  <h1 className="p-2">
-                    {member.firstName?.charAt(0).toUpperCase()}
-                  </h1>
-                </div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-        <CardFooter>
-          {techn && techn.length > 0 ? (
-            <div className="flex w-full gap-2 overflow-hidden p-2">
-              {techn.map((technology, index) => (
-                <Badge
-                  variant="outline"
-                  style={{
-                    backgroundColor: technology?.color,
-                    color: technology?.textColor,
-                  }}
-                  className="whitespace-nowrap text-xs"
-                  key={index}
-                >
-                  {technology?.name}
-                </Badge>
+      <div>
+        <Card className="z-10 m-5 h-max rounded-3xl backdrop-blur-sm backdrop-filter transition-transform duration-300 ease-in-out hover:scale-105 hover:cursor-pointer">
+          <CardHeader className="pb-0">
+            <CardTitle className="text-3xl">{team.name}</CardTitle>
+            <CardDescription className="scroll-m-20 border-b border-gray-100/50 pl-2 leading-7 [&:not(:first-child)]:mt-2">
+              {team.project?.name ? team.project?.name : ""}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="m-6 mb-0 mt-0 border-b border-gray-100/50 p-0">
+            <div className="mt-2 inline-grid grid-cols-5 gap-5 p-2">
+              {team.members.map((member) => (
+                <RenderMember
+                  color={colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]}
+                  member={member}
+                  key={member.id}
+                />
               ))}
             </div>
-          ) : (
-            <Badge className="scroll-m-20 leading-7">Няма технологии :(</Badge>
-          )}
-        </CardFooter>
-      </Card>
+          </CardContent>
+          <CardFooter>
+            {techn && techn.length > 0 ? (
+              <div className="flex w-full gap-2 overflow-hidden p-2">
+                {techn.map((technology, index) => (
+                  <Badge
+                    variant="outline"
+                    style={{
+                      backgroundColor: technology?.color,
+                      color: technology?.textColor,
+                    }}
+                    className="whitespace-nowrap text-xs transition-transform duration-300 ease-in-out hover:scale-105"
+                    key={index}
+                  >
+                    {technology?.name}
+                  </Badge>
+                ))}
+              </div>
+            ) : (
+              <Badge className="scroll-m-20 leading-7">
+                Няма технологии :(
+              </Badge>
+            )}
+          </CardFooter>
+        </Card>
+      </div>
     </Link>
   );
 };

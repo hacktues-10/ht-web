@@ -17,20 +17,20 @@ export function convertToTechnology(text: string) {
   return [];
 }
 
-export function convertToPaginatedTechnologies(text: string) {
+export function convertToPaginatedTechnologies(text: string, num: number) {
   const selectedTechnologies = convertToTechnology(text);
-  if (selectedTechnologies.length > 3) {
-    const returnTechnologies = selectedTechnologies.slice(0, 3);
+  if (selectedTechnologies.length > num) {
+    const returnTechnologies = selectedTechnologies.slice(0, num);
     const totalCharCount = returnTechnologies.reduce(
       (acc, technology) => acc + (technology as any).name.length,
       0,
     );
-    if (totalCharCount > 26) {
+    if (totalCharCount > num * 9) {
       returnTechnologies.pop();
     }
     returnTechnologies.push({
       id: 93,
-      name: `+${selectedTechnologies.length - 3} more`,
+      name: `+${selectedTechnologies.length - num} more`,
       color: "#696969",
       textColor: "#FFFFFF",
       value: `+${selectedTechnologies.length - 3}`,

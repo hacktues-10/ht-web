@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import invariant from "tiny-invariant";
 
 import { db } from "~/app/db";
 import { mentors, teams } from "~/app/db/schema";
@@ -31,5 +32,16 @@ export async function checkIfMentorIsTaken(mentorId: number) {
     else return false;
   } catch (err) {
     return false;
+  }
+}
+
+export async function getMentorById(mentorId: number | null) {
+  if (mentorId) {
+    const res = (
+      await db.select().from(mentors).where(eq(mentors.id, mentorId))
+    ).at(0);
+    return res;
+  } else {
+    return null;
   }
 }
