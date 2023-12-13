@@ -64,7 +64,7 @@ export const MobileNavigationRoot = ({
                 <SignOutButton
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    "flex w-full justify-evenly gap-2 text-lg text-destructive",
+                    "flex w-full justify-evenly gap-2 text-lg text-destructive hover:text-[#fc3f6e]",
                   )}
                 >
                   <LogOutIcon /> Изход

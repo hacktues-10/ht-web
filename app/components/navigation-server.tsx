@@ -10,7 +10,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/app/components/ui/navigation-menu";
 import { cn } from "../utils";
-import { MobileNavLink, MobileNavigationRoot } from "./navigation-client";
+import { MobileNavigationRoot, MobileNavLink } from "./navigation-client";
 
 export const NAVIGATION_CATEGORIES = [
   {
@@ -51,7 +51,7 @@ export const NAVIGATION_CATEGORIES = [
   },
   {
     category: "about",
-    label: "За събитието",
+    label: "За Hack TUES",
     links: [
       {
         label: "Нашият екип",
