@@ -1,9 +1,9 @@
 "use server";
 
 import { eq } from "drizzle-orm";
-import { zact } from "zact/server";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { zact } from "~/app/_zact/server";
 import { getHTSession } from "~/app/api/auth/session";
 import { particpants, users } from "~/app/db/schema";
 import { db } from "../../db/index";

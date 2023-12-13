@@ -1,10 +1,10 @@
 "use server";
 
 import { eq, sql } from "drizzle-orm";
-import { zact } from "zact/server";
 import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { zact } from "~/app/_zact/server";
 import { updateTechnologies } from "~/app/(full-layout)/teams/actions";
 import { addDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";

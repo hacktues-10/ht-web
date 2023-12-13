@@ -2,9 +2,9 @@
 
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { zact } from "zact/server";
 import { z } from "zod";
 
+import { zact } from "~/app/_zact/server";
 import { env } from "~/app/env.mjs";
 
 const fileSchema = z.object({

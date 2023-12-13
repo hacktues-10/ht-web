@@ -1,9 +1,9 @@
 "use server";
 
-import { zact } from "zact/server";
 import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { zact } from "~/app/_zact/server";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { createTeam } from "../service";
 
