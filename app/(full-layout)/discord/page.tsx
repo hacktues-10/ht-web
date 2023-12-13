@@ -29,7 +29,7 @@ export default async function DiscordPage() {
             Успешно свързахте своя Discord профил!
           </h1>
           <Separator />
-          <p className="text-center text-sm italic leading-7 [&:not(:first-child)]:mt-6">
+          <p className="text-center text-sm leading-7 [&:not(:first-child)]:mt-6">
             Можете да премахнете своя Discord профил от{" "}
             <span className="font-llpixel">Hack&nbsp;TUES&nbsp;X</span>.
           </p>
