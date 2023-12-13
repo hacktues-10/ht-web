@@ -17,6 +17,11 @@ export const getMentorByEmail = async (email: string) => {
   return mentor.at(0) ?? null;
 };
 
+export const getMentorById = async (id: number) => {
+  const mentor = await selectFromMentors().where(eq(mentors.id, id));
+  return mentor.at(0) ?? null;
+};
+
 export const getMentorFromSession = async () => {
   const session = await getHTSession();
   if (!session?.user?.email) return null;
