@@ -22,10 +22,16 @@ const SUCCESS_URL = "/discord";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const session = await getHTSession();
-  if (!session?.user?.email) redirect(ERROR_URL);
+  if (!session?.user?.email) {
+    console.error("no session");
+    redirect(ERROR_URL);
+  }
 
   const code = searchParams.get("code");
-  if (!code) redirect(ERROR_URL);
+  if (!code) {
+    console.error("no code in query, sad");
+    redirect(ERROR_URL);
+  }
 
   const params = new URLSearchParams({
     client_id: env.DISCORD_CLIENT_ID,
@@ -72,7 +78,10 @@ export async function GET(req: NextRequest) {
     mute: false,
     deaf: false,
   };
-  if (!participant && !mentor) redirect(ERROR_URL);
+  if (!participant && !mentor) {
+    console.error("no participant and no mentor");
+    redirect(ERROR_URL);
+  }
   const inviteRes = await fetch(
     `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
     {
@@ -84,8 +93,15 @@ export async function GET(req: NextRequest) {
       body: JSON.stringify(inviteParams),
     },
   );
+  if (!inviteRes.ok) {
+    console.error("inviteRes not ok", await inviteRes.json());
+    redirect(ERROR_URL);
+  }
   if (!participant) {
-    if (!mentor) redirect(ERROR_URL);
+    if (!mentor) {
+      console.error("no mentor and no participant here");
+      redirect(ERROR_URL);
+    }
 
     if (await mentorHasDiscordEntry(mentor.id)) {
       await db
@@ -128,10 +144,6 @@ export async function GET(req: NextRequest) {
         accessToken: data.access_token,
       });
     }
-  }
-
-  if (!inviteRes.ok) {
-    redirect(ERROR_URL);
   }
 
   return redirect(SUCCESS_URL);

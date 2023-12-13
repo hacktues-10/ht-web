@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import { Button } from "~/app/components/ui/button";
+import { DiscordLoadingLink } from "../_components/discord-loading-link";
 
 export default function DiscordErrorPage({}) {
   const searchParams = useSearchParams();
@@ -25,9 +26,7 @@ export default function DiscordErrorPage({}) {
         Моля опитайте отново по-късно. Ако проблемът продължава, моля свържете
         се с нас на адрес hacktues@elsys-bg.org.
       </p>
-      <Button asChild>
-        <Link href={redirectUr}>Опитай отново</Link>
-      </Button>
+      <DiscordLoadingLink href={redirectUr}>Опитай отново</DiscordLoadingLink>
     </div>
   );
 }
