@@ -12,6 +12,7 @@ import {
   PARTNERS,
   Podkrepqsht,
 } from "../_configs/podkrepq";
+import { SignInButton } from "../components/buttons";
 import { CountdownTimer } from "../components/countdowns";
 import { CountdownHourglass } from "../components/hourglass";
 import { Button } from "../components/ui/button";
@@ -76,7 +77,7 @@ function CountdownHero() {
         <div className="py-2" />
         <CountdownTimer to={EVENT_START} />
         <Button asChild>
-          <Link href="/register">Регистрирай се</Link>
+          <SignInButton>Регистрирай се</SignInButton>
         </Button>
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
