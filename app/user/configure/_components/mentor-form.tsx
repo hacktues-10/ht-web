@@ -7,7 +7,7 @@ import Select from "react-dropdown-select";
 import { uploadFile } from "~/app/_integrations/r2";
 import {
   // checkifFileExists,
-  getMentor,
+  fetchMentor,
   insertMentor,
 } from "~/app/(full-layout)/mentors/actions";
 import { convertToTechnology, technologies } from "~/app/technologies";
@@ -30,7 +30,7 @@ interface FormData {
   fileName: string;
 }
 
-const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
+export const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
   const [showAllergiesInput, setShowAllergiesInput] = useState(false);
@@ -108,7 +108,7 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!email) return null;
-      const res = await getMentor({
+      const res = await fetchMentor({
         email,
       });
       return res;
@@ -279,5 +279,3 @@ const MentorFrom: React.FC<MentorFormProps> = ({ email }) => {
     </form>
   );
 };
-
-export default MentorFrom;

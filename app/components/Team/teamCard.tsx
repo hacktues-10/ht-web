@@ -1,9 +1,8 @@
+"use client";
+
 import Link from "next/link";
 
-import {
-  getConfirmedTeams,
-  getTeamById,
-} from "~/app/(full-layout)/teams/service";
+import { getConfirmedTeams } from "~/app/(full-layout)/teams/service";
 import { Badge } from "~/app/components/ui/badge";
 import {
   Card,

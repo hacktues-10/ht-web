@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 
 import { getImageUrl } from "../../_integrations/r2";
@@ -7,10 +7,9 @@ import DisplayTechnologies from "../Technologies/displayTechnologies";
 import "./MentorCard.css"; // Apply additional styles in a separate CSS file
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
-import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { checkIfMentorIsTaken } from "~/app/(full-layout)/mentors/service";
 import { getTeamById } from "~/app/(full-layout)/teams/service";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { checkIfMentorIsTaken } from "../../(full-layout)/mentors/services";
 import ChooseMentor from "./ChooseMentor";
 
 interface MentorInterface {

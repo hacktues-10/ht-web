@@ -1,51 +1,71 @@
-import { getHTSession } from "~/app/api/auth/session";
-import { SignInButton, SignOutButton } from "~/app/components/buttons";
-import MentorFrom from "~/app/components/Forms/mentorForm";
-import Form from "../../components/Forms/Form";
-import { mentorWhitelist } from "./actions";
+import { PropsWithChildren } from "react";
+import { redirect } from "next/navigation";
+import invariant from "tiny-invariant";
 
-export default async function Home() {
+import {
+  getMentorFromSession,
+  isWhitelistedMentor,
+} from "~/app/(full-layout)/mentors/service";
+import { getHTSession, signInRedirect } from "~/app/api/auth/session";
+import { Card, CardContent } from "~/app/components/ui/card";
+import { getParticipantFromSession } from "~/app/participants/service";
+import { MentorFrom } from "./_components/mentor-form";
+import { ParticipantForm } from "./_components/participant-form";
+
+export default async function ConfigFlowPage({
+  searchParams: { callbackUrl },
+}: {
+  searchParams: { callbackUrl?: string };
+}) {
   const session = await getHTSession();
-  if ((await mentorWhitelist(session?.user?.email)) && session) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
-        <div className="mb-4 w-full text-center">
-          <h1 className="text-2xl font-semibold">
-            Signed in as {session?.user?.email}.
-          </h1>
-          <SignOutButton className="mt-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
-            Sign out
-          </SignOutButton>
-        </div>
-        <div className="w-full">
-          <MentorFrom email={session?.user?.email} />
-        </div>
-      </div>
-    );
-  } else if (session) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
-        <div className="mb-4 w-full text-center">
-          <h1 className="text-2xl font-semibold">
-            Signed in as {session?.user?.email}.
-          </h1>
-          <SignOutButton className="mt-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
-            Sign out
-          </SignOutButton>
-        </div>
-        <div className="w-full">
-          <Form email={session?.user?.email} />
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center">
-        <p className="mb-4 text-lg font-semibold">Please sign in</p>
-        <SignInButton className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-          Login
-        </SignInButton>
-      </div>
-    );
+  if (!session) signInRedirect();
+  invariant(session.user?.email, "No email in session");
+
+  const isMentor = isWhitelistedMentor(session);
+
+  return isMentor ? (
+    <IfNotMentor callbackUrl={callbackUrl}>
+      <MentorFrom email={session.user.email} />
+    </IfNotMentor>
+  ) : (
+    <IfNotParticipant callbackUrl={callbackUrl}>
+      <ParticipantForm />
+    </IfNotParticipant>
+  );
+}
+
+async function IfNotMentor({
+  callbackUrl,
+  children,
+}: PropsWithChildren<{
+  callbackUrl?: string;
+}>) {
+  const mentor = await getMentorFromSession();
+  if (mentor) {
+    return initiateDiscordFlow(callbackUrl);
   }
+  return <>{children}</>;
+}
+
+async function IfNotParticipant({
+  callbackUrl,
+  children,
+}: PropsWithChildren<{
+  callbackUrl?: string;
+}>) {
+  const participant = await getParticipantFromSession();
+  if (participant) {
+    return initiateDiscordFlow(callbackUrl);
+  }
+  return <>{children}</>;
+}
+
+function initiateDiscordFlow(callbackUrl?: string) {
+  return redirect(
+    // TODO: make this redirect to /discord?callbackUrl=...
+    "/api/discord?" +
+      new URLSearchParams(
+        callbackUrl ? { callbackUrl } : { callbackUrl: "" },
+      ).toString(),
+  );
 }

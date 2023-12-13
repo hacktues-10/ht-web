@@ -5,10 +5,10 @@ import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
+import { isInMentorWhitelist } from "~/app/(full-layout)/mentors/service";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
-import { mentorWhitelist } from "~/app/user/configure/actions";
 
 const oAuth2Client = new google.auth.OAuth2(
   env.GMAIL_CLIENT_ID,
@@ -53,12 +53,12 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      if (account?.provider !== "email") {
+      if (account?.provider !== "email" || !user.email) {
         return false;
       }
       if (
-        user.email?.endsWith("@elsys-bg.org") ||
-        (await mentorWhitelist(user.email))
+        user.email.endsWith("@elsys-bg.org") ||
+        isInMentorWhitelist(user.email)
       ) {
         return true;
       }

@@ -1,9 +1,8 @@
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
-import invariant from "tiny-invariant";
 
-import { getMentor } from "~/app/(full-layout)/mentors/actions";
+import { getMentorByEmail } from "~/app/(full-layout)/mentors/service";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
@@ -11,6 +10,7 @@ import {
   formatParticipantDiscordNick,
   getParticipantFromSession,
 } from "~/app/participants/service";
+import { resolveCallbackUrl } from "~/app/utils";
 import { getHTSession } from "../../auth/session";
 import { discordRedirectUri } from "../service";
 
@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
   const user = await response.json();
   const participant = await getParticipantFromSession();
 
-  const mentor = await getMentor({ email: session.user.email });
+  const mentor = await getMentorByEmail(session.user.email);
 
   const inviteParams = {
     access_token: data.access_token,
@@ -145,7 +145,13 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  return redirect(SUCCESS_URL);
+  const untrustedCallbackUrl = req.cookies.get("callbackUrl")?.value;
+  // TODO: delete cookie
+  return redirect(
+    untrustedCallbackUrl
+      ? resolveCallbackUrl(untrustedCallbackUrl, req)
+      : SUCCESS_URL,
+  );
 }
 
 async function participantHasDiscordEntry(participantId: number) {

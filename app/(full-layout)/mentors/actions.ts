@@ -1,13 +1,14 @@
 "use server";
 
 import { eq } from "drizzle-orm";
-import { zact } from "zact/server";
 import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { zact } from "~/app/_zact/server";
 import { addDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
+import { getMentorByEmail } from "./service";
 
 const formDataSchema = z.object({
   firstName: z.string(),
@@ -114,25 +115,10 @@ const updateMentor = async (formData: z.infer<typeof formDataSchema>) => {
   return res.at(0) ?? null;
 };
 
-export const getMentor = zact(
+export const fetchMentor = zact(
   z.object({
     email: z.string(),
   }),
 )(async ({ email }) => {
-  const mentor = await db
-    .select()
-    .from(mentors)
-    .where(eq(mentors.email, email));
-  return mentor.at(0) ?? null;
+  return getMentorByEmail(email);
 });
-
-// export const checkifFileExists = async (fileName: string) => {
-//   const file = await db
-//     .select()
-//     .from(mentors)
-//     .where(eq(mentors.fileName, fileName));
-//   if (file.length > 0) {
-//     return true;
-//   }
-//   return false;
-// };

@@ -22,6 +22,7 @@ export function convertToPaginatedTechnologies(text: string, num: number) {
   if (selectedTechnologies.length > num) {
     const returnTechnologies = selectedTechnologies.slice(0, num);
     const totalCharCount = returnTechnologies.reduce(
+      // FIXME: why is this any?
       (acc, technology) => acc + (technology as any).name.length,
       0,
     );

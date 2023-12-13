@@ -13,47 +13,18 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { db } from ".";
+import {
+  ALUMNI_GRADES,
+  ALUMNI_PARALLELS,
+  STUDENT_GRADES,
+  STUDENT_PARALLELS,
+} from "../_elsys/grades-parallels";
 
-export const classEnum = pgEnum("class", ["А", "Б", "В", "Г", ""]);
-export const gradeEnum = pgEnum("grade", [
-  "8",
-  "9",
-  "10",
-  "11",
-  "12",
-  "1993",
-  "1994",
-  "1995",
-  "1996",
-  "1997",
-  "1998",
-  "1999",
-  "2000",
-  "2001",
-  "2002",
-  "2003",
-  "2004",
-  "2005",
-  "2006",
-  "2007",
-  "2008",
-  "2009",
-  "2010",
-  "2011",
-  "2012",
-  "2013",
-  "2014",
-  "2015",
-  "2016",
-  "2017",
-  "2018",
-  "2019",
-  "2020",
-  "2021",
-  "2022",
-  "2023",
-  "",
+export const classEnum = pgEnum("class", [
+  ...STUDENT_PARALLELS,
+  ...ALUMNI_PARALLELS,
 ]);
+export const gradeEnum = pgEnum("grade", [...STUDENT_GRADES, ...ALUMNI_GRADES]);
 export const tShirtSizeEnum = pgEnum("tshirt_size", [
   "XS",
   "S",
@@ -69,20 +40,28 @@ export const notificationsTypes = pgEnum("notifications_types", [
 
 // FIXME: typo in word "participants" :/
 export const particpants = pgTable("participants", {
-  id: integer("id").primaryKey(),
+  id: serial("id").primaryKey(),
   userId: integer("user_id").references(() => users.id),
 
-  firstName: varchar("first_name"),
-  lastName: varchar("last_name"),
-  phoneNumber: varchar("phone_number"),
-  grade: gradeEnum("grade"),
-  parallel: classEnum("class"),
+  firstName: varchar("first_name").notNull(),
+  middleName: varchar("middle_name"),
+  lastName: varchar("last_name").notNull(),
+  phoneNumber: varchar("phone_number").notNull().unique(),
+  grade: gradeEnum("grade").notNull(),
+  parallel: classEnum("class").notNull(),
   allergies: varchar("allergies").default(""),
-  tShirtId: serial("tshirt_id").references(() => tShirts.id), // FIXME: shouldnt use serial
-  technologies: varchar("technologies").default(""),
+  tShirtId: serial("tshirt_id")
+    .references(() => tShirts.id)
+    .notNull(), // FIXME: shouldnt use serial
+  technologies: varchar("technologies").default("").notNull(),
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
   isCaptain: boolean("is_captain").notNull().default(false),
   teamId: varchar("team_id").references(() => teams.id),
+  question1Answer: varchar("question1_answer"),
+  question2Answer: varchar("question2_answer"),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  // TODO: add updatedAt?
 });
 
 export const participantsRelations = relations(
@@ -109,10 +88,9 @@ export const discordUsers = pgTable("discord", {
   id: serial("id").primaryKey(),
   participantId: integer("participant_id"),
   mentorId: integer("mentor_id"),
-  // TODO: da slojim unique posle sled cqloto testvane!
-  discordId: varchar("discord_id"),
-  discordUsername: varchar("discord_username"),
-  accessToken: varchar("access_token"),
+  discordId: varchar("discord_id").notNull().unique(),
+  discordUsername: varchar("discord_username").notNull(),
+  accessToken: varchar("access_token").notNull(),
   lastUpdated: timestamp("last_updated").defaultNow().notNull(),
 });
 
@@ -144,15 +122,15 @@ export const users = pgTable("users", {
 
 export const mentors = pgTable("mentors", {
   id: serial("id").primaryKey(),
-  email: varchar("email"),
-  firstName: varchar("first_name"),
-  lastName: varchar("last_name"),
-  phoneNumber: varchar("phone_number"),
+  email: varchar("email").notNull(),
+  firstName: varchar("first_name").notNull(),
+  lastName: varchar("last_name").notNull(),
+  phoneNumber: varchar("phone_number").notNull(),
   // TODO: availability
-  description: varchar("description"),
+  description: varchar("description").notNull(),
   youtubeURL: varchar("youtube_url"),
   companyName: varchar("company_name"),
-  technologies: varchar("technologies"),
+  technologies: varchar("technologies").notNull(),
   tShirtId: serial("tshirt_id") // FIXME: shouldnt use serial
     .references(() => tShirts.id)
     .notNull(),

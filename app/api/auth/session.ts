@@ -8,14 +8,16 @@ export function getHTSession() {
   return getServerSession(authOptions);
 }
 
-export function signInRedirect() {
+export type HTSession = Exclude<Awaited<ReturnType<typeof getHTSession>>, null>;
+
+export function signInRedirect(): never {
   // TODO: redirect to current page in a better way
   // Next App router doesn't have an API for this yet
   // X-Invoke-Path is not documented, but it works
   // I don't feel good about this
   // https://stackoverflow.com/a/76585119
   const invokePath = headers().get("x-invoke-path");
-  redirect(
+  return redirect(
     `/api/auth/signin?${new URLSearchParams({
       callbackUrl: invokePath ?? "/",
     })}`,

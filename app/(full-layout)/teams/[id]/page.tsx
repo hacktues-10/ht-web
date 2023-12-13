@@ -4,7 +4,7 @@ import { TbBrandGithub } from "react-icons/tb";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getImageUrl } from "~/app/_integrations/r2";
-import { getMentorById } from "~/app/(full-layout)/mentors/services";
+import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
   checkStateJoinRequests,
   getProjectById,
@@ -56,7 +56,7 @@ export default async function TeamDetailPage({
   });
 
   const techn = convertToPaginatedTechnologies(team.technologies || "", 8);
-  const mentor = await getMentorById(team.mentorId);
+  const mentor = team.mentorId ? await getMentorById(team.mentorId) : null;
   let url = null;
   if (mentor?.fileName) {
     url = await getImageUrl({ fileName: mentor?.fileName });

@@ -1,10 +1,10 @@
 "use server";
 
 import { and, eq } from "drizzle-orm";
-import { zact } from "zact/server";
 import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
+import { zact } from "~/app/_zact/server";
 import {
   deleteChannelsRolesCategories,
   deleteRoleFromMember,
