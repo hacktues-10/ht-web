@@ -4,8 +4,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 
-import AuthProvider from "./context/AuthProvider";
-import { GrowthBookServerProvider } from "./context/growthbook/GrowthBookServerProvider";
+import AuthProvider from "~/app/_context/auth-provider";
+import { GrowthBookServerProvider } from "~/app/_context/growthbook/GrowthBookServerProvider";
+import { HTQueryClientProvider } from "./_context/query-client-provider";
 import { cn } from "./utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -36,7 +37,9 @@ export default function RootLayout({
       >
         <div className="absolute inset-0 -z-50 bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round [mask-image:linear-gradient(to_bottom,transparent,10%,white,96%,transparent)]" />
         <AuthProvider>
-          <GrowthBookServerProvider>{children}</GrowthBookServerProvider>
+          <GrowthBookServerProvider>
+            <HTQueryClientProvider>{children}</HTQueryClientProvider>
+          </GrowthBookServerProvider>
         </AuthProvider>
       </body>
     </html>

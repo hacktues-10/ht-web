@@ -2,7 +2,7 @@
 
 import { IfFeatureEnabled } from "@growthbook/growthbook-react";
 
-import { HTFeatures } from "../context/growthbook/features";
+import { HTFeatures } from "~/app/_context/growthbook/features";
 
 export function IfHTFeatureOn(props: {
   feature: keyof HTFeatures;

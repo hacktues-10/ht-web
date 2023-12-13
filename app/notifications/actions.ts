@@ -15,40 +15,12 @@ import {
   teams,
 } from "~/app/db/schema";
 import { getParticipantFromSession } from "~/app/participants/service";
-
-export type NotificationList = Exclude<
-  Awaited<ReturnType<typeof getNotifications>>,
-  null
->;
+import { getNotificationsOfParticipant } from "./service";
 
 export const getNotifications = async () => {
   const participant = await getParticipantFromSession();
   if (!participant) return [];
-
-  const participantNotifications = await db
-    .select({
-      id: notifications.id,
-      type: notifications.type,
-      targetUserId: notifications.targetUserId,
-      joinRequest: {
-        id: joinRequests.id,
-        teamId: joinRequests.teamId,
-        userId: joinRequests.userId,
-      },
-      invitation: {
-        id: invitations.id,
-        teamId: invitations.teamId,
-        senderParticipantId: invitations.senderParticipantId,
-        invitedParticipantId: invitations.invitedParticipantId,
-      },
-      thereIsABugInThisRequestThatWeWillFixLater: sql<true>`true`,
-    })
-    .from(notifications)
-    .where(eq(notifications.targetUserId, participant.id))
-    .leftJoin(joinRequests, eq(notifications.referenceId, joinRequests.id))
-    .leftJoin(invitations, eq(notifications.referenceId, invitations.id));
-
-  return participantNotifications;
+  return getNotificationsOfParticipant(participant);
 };
 
 // FIXME: why is this here?
