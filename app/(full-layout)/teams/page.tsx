@@ -1,7 +1,7 @@
-import { useState } from "react";
 import Link from "next/link";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
+import { getConfirmedTeamsNumber } from "~/app/(full-layout)/teams/actions";
 import TeamCard from "~/app/components/Team/teamCard";
 import { Button } from "~/app/components/ui/button";
 import {
@@ -11,7 +11,6 @@ import {
   TabsTrigger,
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { getConfirmedTeamsNumber } from "./actions";
 import { getConfirmedTeams } from "./service";
 
 export default async function TeamList() {

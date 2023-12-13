@@ -11,8 +11,11 @@ import {
   getTeamMembers,
   isTeamFull,
   prepareParticipants,
-  removeTeamMember,
 } from "~/app/(full-layout)/teams/actions";
+import {
+  getTeamById,
+  isParticipantEligableToJoin,
+} from "~/app/(full-layout)/teams/service";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import DeleteTeamButton from "~/app/components/DeleteTeamButton";
 import { InviteForm } from "~/app/components/InviteForm";
@@ -33,7 +36,6 @@ import {
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToPaginatedTechnologies } from "~/app/technologies";
-import { getTeamById, isParticipantEligableToJoin } from "../service";
 
 export default async function TeamDetailPage({
   params: { id },
@@ -164,7 +166,7 @@ export default async function TeamDetailPage({
                     <h3 className="mt-2 text-center text-xl">
                       Все още няма създаден проект :(
                     </h3>
-                    {participant?.team.id == team.id &&
+                    {/* {participant?.team.id == team.id &&
                       participant.team.isCaptain && (
                         <Button
                           variant="outline"
@@ -175,7 +177,7 @@ export default async function TeamDetailPage({
                             Създай проект
                           </Link>
                         </Button>
-                      )}
+                      )} */}
                   </div>
                 )}
               </TabsContent>

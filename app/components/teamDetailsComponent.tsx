@@ -1,5 +1,6 @@
 import { CgInfo } from "react-icons/cg";
 
+import { getTeamById } from "~/app/(full-layout)/teams/service";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/app/components/ui/dialog";
-import { getTeamById } from "../(full-layout)/teams/service";
 import { Button } from "./ui/button";
 
 export default async function TeamDetailsComponent({
