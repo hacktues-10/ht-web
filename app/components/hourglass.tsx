@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
 
+import { useCountdown } from "./countdowns";
+
 export const Hourglass = ({
   fillAmount,
   ...props
@@ -12,43 +14,6 @@ export const Hourglass = ({
     ellipseRX: lerp(350, 311.99695, fillAmount),
     ellipseRY: lerpMid(252.12402, 410, 320, fillAmount, 0.9),
   });
-
-  const particleShapes = [
-    "M368.93 375.084a1.78 1.78 0 00-.653.264 1.787 1.787 0 00-.773 1.843c1.583 7.86.84 16.475-1.246 24.114-1.11 4.065-2.099 8.026-2.028 12.273.036 2.1.307 4.498 1.555 6.278 1.98 2.813 5.748 2.922 8.451 1.253 3.356-2.064 5.578-6.05 6.594-9.76 3.245-11.842.181-28.438-10.553-35.97a1.78 1.78 0 00-1.347-.295z",
-    "M346.154 383.049a1.78 1.78 0 00-1.72.84c-3.399 5.563-5.141 11.504-6 17.916-.596 4.46-.815 9.016.287 13.42.684 2.738 2.607 6.243 5.146 8.43 2.91 2.503 6.544 3.398 10.2.456a10.62 10.62 0 002.431-2.74c3.43-5.556 1.23-10.529-1.93-15.46-2.104-3.285-4.806-6.644-6.5-10.214-1.497-3.163-2.172-6.502-.496-10.129a1.783 1.783 0 00-.777-2.32 1.78 1.78 0 00-.64-.2z",
-    "M366.32 395.007a7.7 7.7 0 00-.617.014c-1.658.1-3.21 1-4.348 2.826-1.312 2.097-2.092 5.631-1.61 10.51.149 1.519.501 3.437 1.282 4.785.55.945 1.294 1.647 2.221 2.008.91.353 2.04.413 3.428-.147.556-.221 1.144-.534 1.607-.916.646-.531 1.317-1.165 1.809-1.853 2.417-3.381 3.278-8.799 2.076-12.497-.9-2.77-2.83-4.67-5.848-4.73z",
-    "M353.496 384.284c-.457.002-.913.022-1.369.06-2.792.24-5.41.387-7.889 2.36-2.353 1.872-3.68 4.854-3.943 7.931-.264 3.06.534 6.172 2.246 8.301 1.448 1.8 3.312 3.131 5.049 4.565 1.405 1.166 2.733 2.4 3.431 4.253 1.491 3.955.933 8.635 1.518 12.768.268 1.876.625 3.855 1.566 5.527 2.14 3.802 7.003 5.043 10.655 2.565 1.273-.867 2.026-1.865 2.43-2.91.859-2.222.052-4.826-1.42-7.254-2.144-3.538-5.046-6.843-5.399-11.133-.289-3.523.948-7.162 2.385-10.328.877-1.937 2.129-4.128 2.664-6.268.67-2.681.368-5.296-2.225-7.504a10.19 10.19 0 00-2.365-1.502c-1.034-.477-2.132-.802-3.248-1.02a20.796 20.796 0 00-4.086-.411z",
-    "M373.154 386.059c-1.654.024-3.163.817-4.34 2.058-1.583 1.666-2.531 4.144-2.496 6.145.068 3.57 1.188 7.317 3.377 10.166 1.249 1.626 2.708 3.021 4.02 4.515 1.13 1.284 2.154 2.637 2.72 4.381.413 1.263.682 2.715.54 4.049-.104.966-.419 2.079-.475 3.13-.086 1.613.32 3.092 1.793 4.194 1.426 1.066 2.897 1.035 4.252.397 1.494-.703 2.824-2.33 3.48-3.592 2.258-4.33 1.986-9.453.338-13.914-1.28-3.466-3.565-6.331-6.19-8.838-3.915-3.748-4.286-8.846-5.323-11.549a1.774 1.774 0 00-1.696-1.142z",
-  ];
-
-  const [currentParticle, setCurrentParticle] = useState(0);
-  const PARTICLE_FALL_DURATION = 2000;
-  const PARTICLE_REST_DURATION = 3000;
-  function nextParticle() {
-    setCurrentParticle((currentParticle) => (currentParticle + 1) % 5);
-  }
-
-  const particleProps = useSpring({
-    from: {
-      x: 0,
-      y: 0,
-    },
-    to: {
-      x: 0,
-      y: 1000,
-    },
-    config: {
-      duration: PARTICLE_FALL_DURATION,
-    },
-    reset: true,
-    onRest: nextParticle,
-    delay: PARTICLE_REST_DURATION,
-  });
-
-  useEffect(() => {
-    const interval = setInterval(nextParticle, PARTICLE_REST_DURATION);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <svg
@@ -88,7 +53,6 @@ export const Hourglass = ({
           strokeWidth={2.57862}
           strokeLinecap="round"
           strokeLinejoin="round"
-          // clipPath="url(#sandTopClip)"
         >
           <animateMotion
             dur="6s"
@@ -99,19 +63,8 @@ export const Hourglass = ({
             <mpath href="#sandTopMotion" />
           </animateMotion>
         </animated.ellipse>
-
-        {particleShapes.map((shape, i) => (
-          <path
-            key={i}
-            d={shape}
-            id={`particle${i}`}
-            fill="#ffdfa6"
-            strokeWidth={0.356603}
-          />
-        ))}
       </defs>
 
-      <AnimatedUse href={`#particle${currentParticle}`} {...particleProps} />
       <use clipPath="url(#sandTopClip)" href="#sandTop" fill="#ffdfa6" />
       <g>
         <path
@@ -144,21 +97,18 @@ function lerpMid(a: number, mid: number, b: number, t: number, tMid: number) {
     : lerp(mid, b, (t - tMid) / (1 - tMid));
 }
 
-export const Test = () => {
-  const [fillAmount, setFillAmount] = useState(0.5);
-  return (
-    <>
-      <Hourglass fillAmount={fillAmount} />
-      <input
-        type="range"
-        min={0}
-        max={1}
-        step={0.01}
-        value={fillAmount}
-        onChange={(e) => setFillAmount(parseFloat(e.target.value))}
-      />
-    </>
+export const CountdownHourglass = () => {
+  const fillAmount = useFillAmount(
+    new Date("2023-12-13T03:00:00.000Z"),
+    new Date("2023-12-16T03:00:00.000Z"),
   );
+  return <Hourglass fillAmount={fillAmount} />;
 };
 
-const AnimatedUse = animated("use");
+function useFillAmount(startDate: Date, endDate: Date) {
+  const { diff: remaining } = useCountdown(endDate);
+  const total = endDate.getTime() - startDate.getTime();
+  const passed = total - remaining;
+  const fillAmount = passed / total;
+  return Math.max(0, Math.min(1, fillAmount));
+}
