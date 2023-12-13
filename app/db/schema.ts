@@ -297,7 +297,7 @@ export const sessions = pgTable("sessions", {
 });
 
 export const verificationTokens = pgTable("verification_tokens", {
-  identifier: varchar("identifier").primaryKey().notNull(),
+  identifier: varchar("identifier").notNull(),
   token: varchar("token").notNull(),
   expires: date("expires", { mode: "date" }).notNull(),
 });
