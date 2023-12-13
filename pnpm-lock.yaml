@@ -170,7 +170,7 @@ dependencies:
     specifier: ^9.0.1
     version: 9.0.1
   zod:
-    specifier: 3.22.4
+    specifier: ^3.22.4
     version: 3.22.4
   zod-validation-error:
     specifier: ^2.1.0
