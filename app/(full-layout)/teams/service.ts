@@ -53,6 +53,14 @@ export async function createTeam(team: {
 }) {
   const captain = await getParticipantById(team.captainId);
   const roleId = await createDiscordTeam(slugify(team.name));
+  const discordMember = await db
+    .select()
+    .from(discordUsers)
+    .where(eq(discordUsers.participantId, team.captainId));
+  invariant(
+    !(discordMember.length < 1 || !discordMember[0].discordId),
+    "Failed to get discord member",
+  );
   // TODO: verify if name is ok
   const results = await db
     .insert(teams)
@@ -65,14 +73,6 @@ export async function createTeam(team: {
     .returning({ id: teams.id });
   const insertedTeam = results.at(0);
   invariant(insertedTeam, "Failed to create team");
-  const discordMember = await db
-    .select()
-    .from(discordUsers)
-    .where(eq(discordUsers.participantId, team.captainId));
-  invariant(
-    !(discordMember.length < 1 || !discordMember[0].discordId),
-    "Failed to get discord member",
-  );
   await addDiscordRole(discordMember[0].discordId, roleId);
   await db
     .update(particpants)
