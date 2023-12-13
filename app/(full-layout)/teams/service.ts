@@ -96,6 +96,7 @@ export async function createTeam(team: {
     .returning({ id: teams.id });
   const insertedTeam = results.at(0);
   invariant(insertedTeam, "Failed to create team");
+
   await addDiscordRole(discordMember[0].discordId, roleId);
   await db
     .update(particpants)
