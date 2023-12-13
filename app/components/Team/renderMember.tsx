@@ -31,7 +31,6 @@ export default function RenderMember({
       <HoverCardContent>
         <div className="flex justify-between space-x-4">
           <Avatar>
-            <AvatarImage />
             <AvatarFallback>
               {member.firstName?.charAt(0).toUpperCase()}
             </AvatarFallback>
