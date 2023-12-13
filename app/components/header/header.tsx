@@ -106,7 +106,7 @@ export const Header = () => {
 export function useHeaderData() {
   return useQuery({
     queryKey: ["header"],
-    queryFn: getHeaderData,
+    queryFn: () => getHeaderData(),
     refetchInterval: 1000 * 60 * 2,
   });
 }
