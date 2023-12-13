@@ -39,9 +39,11 @@ const names3Schema = z
   .merge(names2Schema);
 
 const regulationAgreementSchema = z.object({
-  regulationAgreement: z.boolean().refine((v) => v, {
-    message: "Трябва да се съгласите с правилника",
-  }),
+  // FIXME: fix
+  // regulationAgreement: z.boolean().refine((v) => v, {
+  //   message: "Трябва да се съгласите с правилника",
+  // }),
+  regulationAgreement: z.literal(true),
 });
 
 const phoneNumberSchema = z.object({
@@ -64,9 +66,11 @@ const phoneNumberSchema = z.object({
 
 export const alumniStep1Schema = z
   .object({
-    isAlumni: z.boolean().refine((v) => v, {
-      message: "Трябва да сте завършили ТУЕС за да се регистрирате",
-    }),
+    // TODO: fix
+    // isAlumni: z.boolean().refine((v) => v, {
+    //   message: "Трябва да сте завършили ТУЕС за да се регистрирате",
+    // }),
+    isAlumni: z.literal(true),
   })
   .merge(names3Schema)
   .merge(regulationAgreementSchema)
