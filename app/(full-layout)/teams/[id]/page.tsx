@@ -23,7 +23,6 @@ export default async function TeamDetailPage({
   if (!team) {
     notFound();
   }
-
   const isEligabletoJoin = isParticipantEligableToJoin(participant, team);
 
   const hasAskedToJoinState = await checkStateJoinRequests({
