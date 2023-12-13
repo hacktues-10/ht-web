@@ -24,6 +24,7 @@ export const env = createEnv({
     S3_UPLOAD_BUCKET: z.string(),
     MEMBER_ROLE: z.string(),
     MENTOR_ROLE: z.string(),
+    ALUMNI_ROLE: z.string(),
 
     GMAIL_CLIENT_ID: z.string(),
     GMAIL_REFRESH_TOKEN: z.string(),

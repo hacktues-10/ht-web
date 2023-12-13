@@ -1,5 +1,8 @@
+import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
+import { db } from "~/app/db";
+import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 
 export const discordRedirectUri = `${env.NEXTAUTH_URL}api/discord/callback`;
@@ -262,7 +265,7 @@ export const deleteRoleFromMember = async (roleId: string, userId: string) => {
       },
     },
   );
-
+  console.log(deleteRoleResponse.statusText);
   invariant(
     deleteRoleResponse.ok,
     `Error deleting role ${roleId}: ${deleteRoleResponse.statusText}`,

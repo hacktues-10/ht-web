@@ -57,7 +57,8 @@ export function JoinRequestActionButtons({
 }) {
   const handleAccept = async () => {
     if (joinRequest) {
-      const { success } = await acceptJoinRequest(joinRequest);
+      const { success, error } = await acceptJoinRequest(joinRequest);
+      console.log(success, error);
       if (success) {
         window.location.reload();
       }

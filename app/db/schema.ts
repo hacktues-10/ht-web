@@ -154,6 +154,7 @@ export const teams = pgTable("teams", {
   projectId: integer("project_id").references(() => projects.id),
   discordRoleId: varchar("role_id"),
   isAlumni: boolean("is_alumni").notNull().default(false),
+  memberCount: integer("member_count").default(1).notNull(),
   semiFinal: integer("semi_final").default(0),
   semiFinalResult: numeric("semi_final_result", { precision: 3, scale: 2 })
     .notNull()

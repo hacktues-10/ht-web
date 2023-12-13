@@ -1,5 +1,4 @@
-import { eq } from "drizzle-orm";
-import invariant from "tiny-invariant";
+import { eq, isNull } from "drizzle-orm";
 
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
@@ -57,6 +56,13 @@ export function isParticipantStudent(participant: Participant) {
 
 export function isParticipantAlumni(participant: Participant) {
   return !isParticipantStudent(participant);
+}
+
+export async function getParticipantsWithNoTeam() {
+  const results = await selectFromParticipants().where(
+    isNull(particpants.teamId),
+  );
+  return results;
 }
 
 export function formatParticipantDiscordNick(participant: Participant) {
