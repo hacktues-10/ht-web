@@ -9,7 +9,6 @@ export const env = createEnv({
       .default("development"),
 
     POSTGRES_URL: z.string().url(),
-    EMAIL_SERVER: z.string().url(),
     EMAIL_FROM: z.string().email(),
 
     DISCORD_BOT_ID: z.string(),
@@ -25,6 +24,11 @@ export const env = createEnv({
     S3_UPLOAD_BUCKET: z.string(),
     MEMBER_ROLE: z.string(),
     MENTOR_ROLE: z.string(),
+
+    GMAIL_CLIENT_ID: z.string(),
+    GMAIL_REFRESH_TOKEN: z.string(),
+    GMAIL_CLIENT_SECRET: z.string(),
+    GMAIL_REDIRECT_URI: z.string(),
 
     // TODO: rename
     HOSTNAME: z.string(),

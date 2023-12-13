@@ -41,6 +41,7 @@
     "drizzle-orm": "^0.28.5",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
+    "googleapis": "^129.0.0",
     "lucide-react": "^0.292.0",
     "next": "13.4.12",
     "next-auth": "^4.22.3",
