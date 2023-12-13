@@ -92,6 +92,9 @@ dependencies:
   react-dropdown-select:
     specifier: ^4.10.0
     version: 4.11.0(@types/react@18.2.18)(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+  react-icons:
+    specifier: ^4.12.0
+    version: 4.12.0(react@18.2.0)
   react-tag-autocomplete:
     specifier: ^7.0.1
     version: 7.1.0(react@18.2.0)
@@ -145,6 +148,9 @@ devDependencies:
   nodemailer:
     specifier: ^6.9.4
     version: 6.9.7
+  prettier:
+    specifier: ^3.1.0
+    version: 3.1.1
   prettier-plugin-tailwindcss:
     specifier: ^0.4.1
     version: 0.4.1(@ianvs/prettier-plugin-sort-imports@4.1.1)(prettier@3.1.1)
@@ -5536,6 +5542,14 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  /react-icons@4.12.0(react@18.2.0):
+    resolution: {integrity: sha512-IBaDuHiShdZqmfc/TwHu6+d6k2ltNCf3AszxNmjJc1KUfXdEeRJOKyNvLmAHaarhzGmTSVygNdyu8/opXv2gaw==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is@16.13.1:

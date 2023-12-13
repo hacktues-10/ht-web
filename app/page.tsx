@@ -62,7 +62,7 @@ function CountdownHero() {
   return (
     <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col items-center justify-between gap-10 md:max-w-4xl md:flex-row">
       <section className="flex h-full w-full flex-col items-center justify-center gap-4">
-        <h1 className="text-center font-llpixel text-5xl text-primary md:text-7xl">
+        <h1 className="text-center font-llpixel text-5xl text-destructive md:text-7xl">
           Hack TUES&nbsp;X
         </h1>
         <div className="py-2" />
@@ -111,7 +111,7 @@ function PordkrepqPackage({ children }: PropsWithChildren) {
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-primary first:mt-0">
+    <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-destructive first:mt-0">
       {children}
     </h2>
   );
@@ -125,7 +125,7 @@ function MediaArticleCard({ article }: { article: MediaArticle }) {
   });
 
   return (
-    <Link href={article.url} className="block">
+    <Link href={article.url} className="block" target="_blank">
       <Card className="flex max-w-2xl flex-col transition-transform hover:scale-105 sm:flex-row">
         <Card className="relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip p-4 sm:w-1/2">
           <Image
