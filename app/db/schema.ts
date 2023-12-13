@@ -163,7 +163,6 @@ export const teams = pgTable("teams", {
   finalResult: numeric("final_result", { precision: 3, scale: 2 })
     .notNull()
     .default("0.00"),
-  memberCount: integer("member_count").default(1).notNull(),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({
