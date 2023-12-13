@@ -3,10 +3,10 @@ import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
+import { getMentor } from "~/app/(full-layout)/mentors/actions";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
-import { getMentorByEmail } from "~/app/mentors/service";
 import {
   formatParticipantDiscordNick,
   getParticipantFromSession,
@@ -15,16 +15,24 @@ import { resolveCallbackUrl } from "~/app/utils";
 import { getHTSession } from "../../auth/session";
 import { discordRedirectUri } from "../service";
 
-const ERROR_URL = "/discord/error";
+const ERROR_URL = `/discord/error?${new URLSearchParams({
+  source: "/discord",
+})}`;
 const SUCCESS_URL = "/discord";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const session = await getHTSession();
-  if (!session?.user?.email) redirect(ERROR_URL);
+  if (!session?.user?.email) {
+    console.error("no session");
+    redirect(ERROR_URL);
+  }
 
   const code = searchParams.get("code");
-  if (!code) redirect(ERROR_URL);
+  if (!code) {
+    console.error("no code in query, sad");
+    redirect(ERROR_URL);
+  }
 
   const params = new URLSearchParams({
     client_id: env.DISCORD_CLIENT_ID,
@@ -42,7 +50,6 @@ export async function GET(req: NextRequest) {
   });
 
   const data = await res.json();
-
   const response = await fetch("https://discord.com/api/v10/users/@me", {
     method: "GET",
     headers: {
@@ -55,8 +62,47 @@ export async function GET(req: NextRequest) {
 
   const mentor = await getMentorByEmail(session.user.email);
 
+  const inviteParams = {
+    access_token: data.access_token,
+    nick: participant
+      ? // FIXME: why is parallel empty string? AND WHY IS GRADE NULLABLE??
+        formatParticipantDiscordNick(participant)
+      : mentor
+        ? mentor.firstName + " " + mentor.lastName
+        : "",
+    roles: participant?.id
+      ? [env.MEMBER_ROLE]
+      : mentor
+        ? [env.MENTOR_ROLE]
+        : [],
+    mute: false,
+    deaf: false,
+  };
+  if (!participant && !mentor) {
+    console.error("no participant and no mentor");
+    redirect(ERROR_URL);
+  }
+  const inviteRes = await fetch(
+    `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bot " + env.DISCORD_BOT_ID,
+      },
+      body: JSON.stringify(inviteParams),
+    },
+  );
+  if (!inviteRes.ok) {
+    console.error("inviteRes not ok", await inviteRes.json());
+    redirect(ERROR_URL);
+  }
   if (!participant) {
-    if (!mentor) redirect(ERROR_URL);
+    if (!mentor) {
+      console.error("no mentor and no participant here");
+      redirect(ERROR_URL);
+    }
+
     if (await mentorHasDiscordEntry(mentor.id)) {
       await db
         .update(discordUsers)
@@ -69,8 +115,6 @@ export async function GET(req: NextRequest) {
         })
         .where(eq(discordUsers.mentorId, mentor.id));
     } else {
-      console.log("Mentor: ", mentor.id);
-      console.log("User: ", user);
       await db.insert(discordUsers).values({
         mentorId: mentor.id,
         discordId: user.id,
@@ -102,41 +146,8 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  const inviteParams = {
-    access_token: data.access_token,
-    nick: participant
-      ? // FIXME: why is parallel empty string? AND WHY IS GRADE NULLABLE??
-        formatParticipantDiscordNick(participant)
-      : mentor
-        ? mentor.firstName + " " + mentor.lastName
-        : "",
-    roles: participant ? [env.MEMBER_ROLE] : mentor ? [env.MENTOR_ROLE] : [],
-    mute: false,
-    deaf: false,
-  };
-
-  const inviteRes = await fetch(
-    `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bot " + env.DISCORD_BOT_ID,
-      },
-      body: JSON.stringify(inviteParams),
-    },
-  );
-
-  if (!inviteRes.ok) {
-    invariant(
-      false,
-      `Discord invite failed with status ${
-        inviteRes.status
-      } and body ${await inviteRes.text()}`,
-    );
-  }
-
   const untrustedCallbackUrl = req.cookies.get("callbackUrl")?.value;
+  // TODO: delete cookie
   return redirect(
     untrustedCallbackUrl
       ? resolveCallbackUrl(untrustedCallbackUrl, req)

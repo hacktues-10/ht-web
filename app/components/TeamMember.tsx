@@ -1,6 +1,6 @@
 "use client";
 
-import { removeTeamMember } from "~/app/teams/actions";
+import { removeTeamMember } from "~/app/(full-layout)/teams/actions";
 import { particpants } from "../db/schema";
 
 type memberType = typeof particpants.$inferSelect;

@@ -9,7 +9,7 @@ import {
   // checkifFileExists,
   fetchMentor,
   insertMentor,
-} from "~/app/mentors/actions";
+} from "~/app/(full-layout)/mentors/actions";
 import { convertToTechnology, technologies } from "~/app/technologies";
 
 interface MentorFormProps {

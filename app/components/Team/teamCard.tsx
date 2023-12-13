@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
+import { getConfirmedTeams } from "~/app/(full-layout)/teams/service";
 import { Badge } from "~/app/components/ui/badge";
 import {
   Card,
@@ -12,11 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/app/components/ui/card";
-import { getConfirmedTeams, getTeamById } from "~/app/teams/service";
-import {
-  convertToPaginatedTechnologies,
-  convertToTechnology,
-} from "~/app/technologies";
+import { convertToPaginatedTechnologies } from "~/app/technologies";
 
 interface TeamCardProps {
   team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;

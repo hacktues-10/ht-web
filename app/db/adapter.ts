@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 
 import {
   accounts,
-  particpants,
   sessions,
   users,
   verificationTokens,
@@ -210,12 +209,12 @@ export function DrizzleAdapter(client: DrizzleClient): Adapter {
     },
 
     async createVerificationToken(newVerificationToken) {
-      // HACK: next-auth issues tokens that expire immediately, so we add an
-      //       hour to the expiration date until we figure out why that is (XXX:) (FIXME:)
+      // HACK: next-auth issues tokens that expire immediately, so we add 24
+      //hours to the expiration date until we figure out why that is (XXX:) (FIXME:)
       newVerificationToken.expires.setHours(
-        newVerificationToken.expires.getHours() + 1,
+        newVerificationToken.expires.getHours() + 24,
       );
-      console.log({ ExPiReS: newVerificationToken.expires });
+
       return (
         (
           await client
