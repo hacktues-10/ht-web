@@ -28,8 +28,8 @@ export const AlumniForm = ({ email }: { email: string }) => {
       secondName: "",
       lastName: "",
       phoneNumber: "",
-      isAlumni: false,
-      regulationAgreement: false,
+      isAlumni: false as any, // zod does validation on this
+      regulationAgreement: false as any, // zod does validation on this
       class: {
         grade: "" as any, // zod does validation on this
         parallel: "" as any, // ...and this
