@@ -56,13 +56,13 @@ export const authOptions = {
       if (account?.provider !== "email" || !user.email) {
         return false;
       }
-      if (
-        user.email.endsWith("@elsys-bg.org") ||
-        isInMentorWhitelist(user.email)
-      ) {
-        return true;
-      }
-      return false;
+      // if (
+      //   user.email.endsWith("@elsys-bg.org") ||
+      //   isInMentorWhitelist(user.email)
+      // ) {
+      return true;
+      // }
+      // return false;
     },
   },
   pages: {
