@@ -49,7 +49,6 @@ export async function GET(req: NextRequest) {
   });
 
   const data = await res.json();
-
   const response = await fetch("https://discord.com/api/v10/users/@me", {
     method: "GET",
     headers: {

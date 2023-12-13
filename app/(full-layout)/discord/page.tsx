@@ -3,6 +3,7 @@ import Link from "next/link";
 import { XIcon } from "lucide-react";
 import { FaDiscord } from "react-icons/fa6";
 
+import { signInRedirect } from "~/app/api/auth/session";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
@@ -25,7 +26,7 @@ export default async function DiscordPage() {
     return hasConnectedDiscord ? (
       <Card className="mt-20 p-5">
         <div className="max-w-lg items-center justify-center text-center">
-          <h1 className="font-htags scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h1 className="scroll-m-20 pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
             Успешно свързахте своя Discord профил!
           </h1>
           <Separator />
@@ -42,7 +43,7 @@ export default async function DiscordPage() {
     ) : (
       <Card className="mt-20 p-5">
         <div className="max-w-lg items-center justify-center text-center">
-          <h2 className="font-htags scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
             Още малко остава!
           </h2>
           <h2 className="text-center text-lg leading-7 [&:not(:first-child)]:mt-6">
@@ -72,4 +73,5 @@ export default async function DiscordPage() {
       </Card>
     );
   }
+  signInRedirect();
 }
