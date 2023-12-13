@@ -9,7 +9,6 @@ export const env = createEnv({
       .default("development"),
 
     POSTGRES_URL: z.string().url(),
-    EMAIL_SERVER: z.string().url(),
     EMAIL_FROM: z.string().email(),
 
     DISCORD_BOT_ID: z.string(),

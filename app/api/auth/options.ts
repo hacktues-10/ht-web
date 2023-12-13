@@ -20,7 +20,7 @@ oAuth2Client.setCredentials({ refresh_token: env.GMAIL_REFRESH_TOKEN });
 
 const authConst = {
   type: "OAuth2",
-  user: "hacktues@elsys-bg.org",
+  user: env.EMAIL_FROM,
   clientId: env.GMAIL_CLIENT_ID,
   clientSecret: env.GMAIL_CLIENT_SECRET,
   refreshToken: env.GMAIL_REFRESH_TOKEN,
