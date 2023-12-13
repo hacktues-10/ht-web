@@ -66,7 +66,7 @@ export default async function RenderMember({
             <div className="flex items-center pt-2">
               <TbBrandDiscord size={32} />
               <span className="m-3 text-xs text-muted-foreground">
-                {discordName ? discordName : "No username available"}
+                {discordName ? discordName : "??"}
               </span>
             </div>
           </div>
