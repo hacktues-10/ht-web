@@ -14,8 +14,10 @@ import {
 import { getHTSession } from "../../auth/session";
 import { discordRedirectUri } from "../service";
 
-const ERROR_URL = "/";
-const SUCCESS_URL = "/";
+const ERROR_URL = `/discord/error?${new URLSearchParams({
+  source: "/discord",
+})}`;
+const SUCCESS_URL = "/discord";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

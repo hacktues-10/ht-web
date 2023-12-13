@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { NextResponse, type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 
@@ -8,8 +9,13 @@ import { env } from "~/app/env.mjs";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getHTSession } from "../../auth/session";
 
+const ERROR_URL = `/discord/error?${new URLSearchParams({
+  source: "/discord/remove",
+})}`;
+
 export async function GET(req: NextRequest) {
   let idToMatch = 0;
+
   const participant = await getParticipantFromSession();
   if (!participant) {
     const session = await getHTSession();
@@ -24,18 +30,18 @@ export async function GET(req: NextRequest) {
   }
   const res = (
     await db
-      .select()
-      .from(discordUsers)
+      .delete(discordUsers)
       .where(
         eq(
           participant ? discordUsers.participantId : discordUsers.mentorId,
           idToMatch,
         ),
       )
+      .returning()
   ).at(0);
 
   if (!res) {
-    return NextResponse.json({ success: false });
+    redirect(ERROR_URL);
   }
 
   const response = await fetch(
@@ -50,8 +56,8 @@ export async function GET(req: NextRequest) {
   );
 
   if (response.ok) {
-    console.log("STANA");
+    redirect("/");
   }
 
-  return NextResponse.json({ response: await response.json() });
+  redirect(ERROR_URL);
 }
