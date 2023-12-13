@@ -38,7 +38,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   return (
     <Link href={`/teams/${team.id}`}>
       <div>
-        <Card className="z-10 m-5 h-max rounded-3xl backdrop-blur-sm backdrop-filter transition-transform duration-300 ease-in-out hover:scale-105 hover:cursor-pointer">
+        <Card className="z-10 m-5 h-max overflow-visible rounded-3xl backdrop-blur-sm backdrop-filter transition-transform duration-300 ease-in-out hover:scale-105 hover:cursor-pointer">
           <CardHeader className="pb-0">
             <CardTitle className="text-3xl">{team.name}</CardTitle>
             <CardDescription className="scroll-m-20 border-b border-gray-100/50 pl-2 leading-7 [&:not(:first-child)]:mt-2">

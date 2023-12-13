@@ -39,23 +39,22 @@ export default async function TeamList() {
   //   TODO: move elsewhere
   return (
     //bg-[url('./assets/background.png')]
-    <div className="justify-centerми flex h-full w-full flex-col items-center">
+    <div className="h-full w-full content-center items-center justify-center">
       <IfHTFeatureOn feature="create-team">
         {participant && !participant.team.id && canCreateTeam && (
-          <Button
-            asChild
-            variant="destructive"
-            className="m-3 xl:absolute xl:right-60 xl:top-5 xl:m-4"
-          >
-            <Link href="/teams/new">Създай отбор</Link>
-          </Button>
+          <div className="flex flex-col items-center justify-center">
+            <Button asChild variant="destructive" className="mx-auto mb-3 mt-3">
+              <Link href="/teams/new">Създай отбор</Link>
+            </Button>
+          </div>
         )}
       </IfHTFeatureOn>
+
       <Tabs
         defaultValue={studentTeams.length > 0 ? "students" : "alumni"}
         className="content-center"
       >
-        <TabsList className="mx-auto flex w-min sm:absolute sm:right-5 sm:top-5 sm:m-4">
+        <TabsList className="mx-auto flex w-min">
           <TabsTrigger value="students">Ученици</TabsTrigger>
           <TabsTrigger value="alumni">Завършили</TabsTrigger>
         </TabsList>
