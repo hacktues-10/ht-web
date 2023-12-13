@@ -1,9 +1,8 @@
 import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
-import invariant from "tiny-invariant";
 
-import { getMentor } from "~/app/(full-layout)/mentors/actions";
+import { getMentorByEmail } from "~/app/(full-layout)/mentors/service";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";

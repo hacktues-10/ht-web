@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 
-import { getMentor } from "~/app/(full-layout)/mentors/actions";
+import { getMentorByEmail } from "~/app/(full-layout)/mentors/service";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { getParticipantByEmail } from "~/app/participants/service";
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     if (user && user.email) {
       const isParticipant = await getParticipantByEmail(user?.email);
-      const isMentor = await getMentor({ email: user.email });
+      const isMentor = await getMentorByEmail(user.email);
       if (isParticipant || isMentor) {
         isMentorOrParticipant = true;
 

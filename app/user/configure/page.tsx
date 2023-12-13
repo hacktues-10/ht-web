@@ -2,12 +2,12 @@ import { PropsWithChildren } from "react";
 import { redirect } from "next/navigation";
 import invariant from "tiny-invariant";
 
-import { getHTSession, signInRedirect } from "~/app/api/auth/session";
-import { Card, CardContent } from "~/app/components/ui/card";
 import {
   getMentorFromSession,
   isWhitelistedMentor,
-} from "~/app/mentors/service";
+} from "~/app/(full-layout)/mentors/service";
+import { getHTSession, signInRedirect } from "~/app/api/auth/session";
+import { Card, CardContent } from "~/app/components/ui/card";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { MentorFrom } from "./_components/mentor-form";
 import { ParticipantForm } from "./_components/participant-form";
