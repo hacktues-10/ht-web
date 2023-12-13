@@ -25,7 +25,7 @@ export default function DiscordErrorPage({}) {
         Моля опитайте отново по-късно. Ако проблемът продължава, моля свържете
         се с нас на адрес hacktues@elsys-bg.org.
       </p>
-      <Button>
+      <Button asChild>
         <Link href={redirectUr}>Опитай отново</Link>
       </Button>
     </div>

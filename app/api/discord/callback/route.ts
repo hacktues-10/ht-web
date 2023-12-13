@@ -56,8 +56,37 @@ export async function GET(req: NextRequest) {
 
   const mentor = await getMentor({ email: session.user.email });
 
+  const inviteParams = {
+    access_token: data.access_token,
+    nick: participant
+      ? // FIXME: why is parallel empty string? AND WHY IS GRADE NULLABLE??
+        formatParticipantDiscordNick(participant)
+      : mentor
+        ? mentor.firstName + " " + mentor.lastName
+        : "",
+    roles: participant?.id
+      ? [env.MEMBER_ROLE]
+      : mentor
+        ? [env.MENTOR_ROLE]
+        : [],
+    mute: false,
+    deaf: false,
+  };
+  if (!participant && !mentor) redirect(ERROR_URL);
+  const inviteRes = await fetch(
+    `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bot " + env.DISCORD_BOT_ID,
+      },
+      body: JSON.stringify(inviteParams),
+    },
+  );
   if (!participant) {
     if (!mentor) redirect(ERROR_URL);
+
     if (await mentorHasDiscordEntry(mentor.id)) {
       await db
         .update(discordUsers)
@@ -70,8 +99,6 @@ export async function GET(req: NextRequest) {
         })
         .where(eq(discordUsers.mentorId, mentor.id));
     } else {
-      console.log("Mentor: ", mentor.id);
-      console.log("User: ", user);
       await db.insert(discordUsers).values({
         mentorId: mentor.id,
         discordId: user.id,
@@ -103,38 +130,8 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  const inviteParams = {
-    access_token: data.access_token,
-    nick: participant
-      ? // FIXME: why is parallel empty string? AND WHY IS GRADE NULLABLE??
-        formatParticipantDiscordNick(participant)
-      : mentor
-        ? mentor.firstName + " " + mentor.lastName
-        : "",
-    roles: participant ? [env.MEMBER_ROLE] : mentor ? [env.MENTOR_ROLE] : [],
-    mute: false,
-    deaf: false,
-  };
-
-  const inviteRes = await fetch(
-    `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bot " + env.DISCORD_BOT_ID,
-      },
-      body: JSON.stringify(inviteParams),
-    },
-  );
-
   if (!inviteRes.ok) {
-    invariant(
-      false,
-      `Discord invite failed with status ${
-        inviteRes.status
-      } and body ${await inviteRes.text()}`,
-    );
+    redirect(ERROR_URL);
   }
 
   return redirect(SUCCESS_URL);

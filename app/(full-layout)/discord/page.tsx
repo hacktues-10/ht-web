@@ -38,7 +38,7 @@ export default async function DiscordPage() {
           Свържете своя Discord профил и станете част от Discord сървъра на Hack
           TUES X.
         </p>
-        <Button>
+        <Button asChild>
           <Link href="/api/discord">Свържи Discord</Link>
         </Button>
       </div>

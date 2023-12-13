@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
   );
 
   if (response.ok) {
-    redirect("/");
+    redirect("/discord");
   }
 
   redirect(ERROR_URL);
