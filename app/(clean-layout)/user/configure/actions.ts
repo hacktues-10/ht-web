@@ -7,6 +7,7 @@ import { zact } from "~/app/_zact/server";
 import { getHTSession } from "~/app/api/auth/session";
 import { db } from "~/app/db";
 import { particpants, users } from "~/app/db/schema";
+import { getParticipantFromSession } from "~/app/participants/service";
 import { alunmiRegistrationSchema } from "./schemas";
 
 export const registerAlumni = zact(alunmiRegistrationSchema)(async (data) => {
@@ -22,13 +23,20 @@ export const registerAlumni = zact(alunmiRegistrationSchema)(async (data) => {
     if (gb.isOff("register-alumni")) {
       return {
         success: false,
-        error: "Регистрацията на завършили не е позволена по това време.",
+        error: "Регистрацията на завършили е затворена.",
       };
     }
 
     const session = await getHTSession();
     if (!session || !session.user?.email) {
       return { success: false, error: "Не си влязъл с имейл" };
+    }
+    const participant = await getParticipantFromSession();
+    if (participant) {
+      return {
+        success: false,
+        error: "Вече сте регистриран/а като участник.",
+      };
     }
 
     const user = (
