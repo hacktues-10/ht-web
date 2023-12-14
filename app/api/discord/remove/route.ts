@@ -7,7 +7,7 @@ import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { getHTSession } from "../../auth/session";
+import { getHTSession, signInRedirect } from "../../auth/session";
 
 const ERROR_URL = `/discord/error?${new URLSearchParams({
   source: "/discord/remove",
@@ -15,10 +15,12 @@ const ERROR_URL = `/discord/error?${new URLSearchParams({
 
 export async function GET(req: NextRequest) {
   let idToMatch = 0;
-
   const participant = await getParticipantFromSession();
   if (!participant) {
     const session = await getHTSession();
+    if (!session) {
+      signInRedirect();
+    }
     if (session && session.user?.email && session?.user) {
       const mentor = await getMentorByEmail(session.user.email);
       if (mentor && mentor.id) {
