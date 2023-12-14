@@ -4,6 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 
+import { updateAllergiesAndTechnologies } from "~/app/_technologies/actions";
 import { Badge } from "~/app/components/ui/badge";
 import { Button } from "~/app/components/ui/button";
 import {
@@ -24,7 +25,6 @@ import {
   convertToTechnology,
   prepareTechnologies,
 } from "../technologies";
-import { updateAllergiesAndTechnologies } from "../user/configure/actions";
 import { cn } from "../utils";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
