@@ -29,7 +29,7 @@ export const registerAlumni = zact(alunmiRegistrationSchema)(async (data) => {
 
     const session = await getHTSession();
     if (!session || !session.user?.email) {
-      return { success: false, error: "Не си влязъл с имейл" };
+      return { success: false, error: "Не сте влезли с имейл" };
     }
     const participant = await getParticipantFromSession();
     if (participant) {
