@@ -1,8 +1,7 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
-import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import { DiscordLoadingLink } from "../_components/discord-loading-link";
 
 export default function DiscordErrorPage({}) {
@@ -14,11 +13,10 @@ export default function DiscordErrorPage({}) {
       ? "/api/discord"
       : source === "/discord/remove"
         ? "/api/discord/remove"
-        : "/";
+        : "/user/configure";
 
-  const session = getHTSession();
-  if (!session) {
-    signInRedirect();
+  if (redirectUr === "/user/configure") {
+    redirect(redirectUr);
   }
 
   return (
