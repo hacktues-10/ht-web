@@ -101,22 +101,23 @@ export const AlumniStep2 = ({
                           variant="outline"
                           role="combobox"
                           className={cn(
-                            "w-[200px] justify-between",
+                            "w-full justify-between",
                             !field.value && "text-muted-foreground",
                           )}
                         >
                           {field.value || "Избери випуск"}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          <ChevronsUpDown className="ml-2 h-4 w-2 shrink-0 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
+                    <PopoverContent className="w-full p-0">
                       <Command>
                         <CommandInput placeholder="Търси випуск..." />
                         <CommandEmpty>Випускът не е намерен.</CommandEmpty>
-                        <CommandGroup>
+                        <CommandGroup className="max-h-[160px] overflow-y-auto">
                           {ALUMNI_GRADES.toReversed().map((grade) => (
                             <CommandItem
+                              className="hover:bg-secondary/10"
                               value={grade}
                               key={grade}
                               onSelect={() => {

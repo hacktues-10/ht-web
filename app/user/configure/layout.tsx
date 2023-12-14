@@ -1,7 +1,4 @@
-import { Suspense } from "react";
-
-import { getHTSession } from "~/app/api/auth/session";
-import { SignOutButton } from "~/app/components/buttons";
+import { Toaster } from "~/app/components/ui/toaster";
 
 export default function ConfigureLayout({
   children,
@@ -11,6 +8,7 @@ export default function ConfigureLayout({
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center">
       {children}
+      <Toaster />
     </div>
   );
 }

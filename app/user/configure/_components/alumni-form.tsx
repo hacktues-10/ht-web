@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Separator } from "~/app/components/ui/separator";
+import { useToast } from "~/app/components/ui/use-toast";
 import { registerAlumni } from "../actions";
 import { AlumniRegistrationSchema, alunmiRegistrationSchema } from "../schemas";
 import { AlumniStep1 } from "./steps/step1";
@@ -14,6 +15,7 @@ import { AlumniStep5 } from "./steps/step5";
 
 export const AlumniForm = ({ email }: { email: string }) => {
   const router = useRouter();
+  const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, updateData] = useReducer(
     (
@@ -58,15 +60,23 @@ export const AlumniForm = ({ email }: { email: string }) => {
     const response = await registerAlumni(updatedData);
     try {
       if (response.success) {
-        alert("Успешно се регистрирахте!");
+        console.log("1");
+        toast({ variant: "sand", title: "Успешно се регистрирахте!" });
         router.refresh();
       } else {
-        alert(response.error);
+        toast({
+          variant: "sand",
+          title: "Възникна грешка",
+          description: response.error,
+        });
       }
     } catch (e) {
-      alert(
-        "Възникна грешка при регистрацията. Моля, опитайте отново по-късно. Ако проблемът продължава, свържете се с нас на адрес hacktues@elsys-bg.org.",
-      );
+      toast({
+        variant: "sand",
+        title: "Възникна грешка при регистрацията",
+        description:
+          "Моля, опитайте отново по-късно. Ако проблемът продължава, свържете се с нас на адрес hacktues@elsys-bg.org.",
+      });
     }
   }
 

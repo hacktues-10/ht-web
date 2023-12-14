@@ -247,7 +247,7 @@ export default function RenderProfileInfo({
                     />
                     <CommandEmpty>Технологията не е намерена</CommandEmpty>
                     <CommandGroup className="mb-1 max-h-[150px] overflow-y-auto bg-sand">
-                      {technologies?.slice(0, 5).map((technology) => (
+                      {technologies?.map((technology) => (
                         <CommandItem
                           className="border-2 border-transparent text-black hover:border-black"
                           key={technology.value}
@@ -270,31 +270,6 @@ export default function RenderProfileInfo({
                           {technology.name}
                         </CommandItem>
                       ))}
-                      <div className="overflow-y-auto">
-                        {technologies?.slice(5).map((technology) => (
-                          <CommandItem
-                            className="border-2 border-transparent text-black hover:border-black"
-                            key={technology.value}
-                            value={technology.value}
-                            onSelect={(currentValue) => {
-                              setValue(
-                                currentValue === value ? "" : currentValue,
-                              );
-                              setOpen(false);
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                "mr-2 h-4 w-4",
-                                value === technology.value
-                                  ? "opacity-100"
-                                  : "opacity-0",
-                              )}
-                            />
-                            {technology.name}
-                          </CommandItem>
-                        ))}
-                      </div>
                     </CommandGroup>
                   </Command>
                 </PopoverContent>
