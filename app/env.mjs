@@ -16,7 +16,6 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: z.string(),
     DISCORD_GUILD_ID: z.string(),
     NEXTAUTH_URL: z.string().url(),
-
     NEXTAUTH_SECRET: z.string(),
     R2_ACCOUNT_ID: z.string(),
     R2_ACCESS_URL: z.string(),
