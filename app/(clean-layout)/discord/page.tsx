@@ -41,16 +41,17 @@ export default async function DiscordPage() {
         </div>
       </Card>
     ) : (
-      <Card className="mt-20 p-5">
+      <Card className="p-5">
         <div className="max-w-lg items-center justify-center text-center">
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 pb-5 font-htags text-3xl font-semibold tracking-tight">
             Още малко остава!
           </h2>
+          <Separator />
           <h2 className="text-center text-lg leading-7 [&:not(:first-child)]:mt-6">
             Свържете своя Discord профил и станете част от Discord сървъра на{" "}
             <span className="font-llpixel">Hack&nbsp;TUES&nbsp;X</span>!
           </h2>
-          <div className="pb-6 pt-12">
+          <div className="relative pb-6 pt-12">
             <DiscordLoadingLink
               href="/api/discord"
               className="bg-blue-500 text-white hover:bg-blue-500/90"
@@ -60,7 +61,7 @@ export default async function DiscordPage() {
               Свържи Discord
             </DiscordLoadingLink>
           </div>
-          <div className="py-6">
+          <div className="py-5">
             <Separator />
           </div>
           <p className="text-sm text-muted-foreground">
