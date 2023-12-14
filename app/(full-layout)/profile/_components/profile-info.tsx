@@ -4,6 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 
+import { updateAllergiesAndTechnologies } from "~/app/_technologies/actions";
 import { Badge } from "~/app/components/ui/badge";
 import { Button } from "~/app/components/ui/button";
 import {
@@ -13,25 +14,24 @@ import {
   CommandInput,
   CommandItem,
 } from "~/app/components/ui/command";
+import { Input } from "~/app/components/ui/input";
+import { Label } from "~/app/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "~/app/components/ui/popover";
-import { getParticipantFromSession } from "../participants/service";
+import { Textarea } from "~/app/components/ui/textarea";
+import { useToast } from "~/app/components/ui/use-toast";
+import { getParticipantFromSession } from "~/app/participants/service";
 import {
   convertTechnologiesToText,
   convertToTechnology,
   prepareTechnologies,
-} from "../technologies";
-import { updateAllergiesAndTechnologies } from "../user/configure/actions";
-import { cn } from "../utils";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
-import { useToast } from "./ui/use-toast";
+} from "~/app/technologies";
+import { cn } from "~/app/utils";
 
-export default function RenderProfileInfo({
+export default function ProfileInfo({
   participant,
 }: {
   participant: Awaited<ReturnType<typeof getParticipantFromSession>>;

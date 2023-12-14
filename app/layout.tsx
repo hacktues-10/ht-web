@@ -51,7 +51,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "dark min-h-screen bg-background font-sans antialiased",
+          "dark relative min-h-screen bg-background font-sans antialiased",
           inter.variable,
           htags.variable,
           title.variable,
@@ -59,7 +59,7 @@ export default function RootLayout({
           llpixel.variable,
         )}
       >
-        <div className="absolute inset-0 -z-50 bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round [mask-image:linear-gradient(to_bottom,transparent,10%,white,96%,transparent)]" />
+        <div className="absolute inset-0 -z-50 h-full bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round [mask-image:linear-gradient(to_bottom,transparent,10%,white,90%,transparent)]" />
         <AuthProvider>
           <GrowthBookServerProvider>
             <HTQueryClientProvider>{children}</HTQueryClientProvider>

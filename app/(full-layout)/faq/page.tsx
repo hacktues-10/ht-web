@@ -4,14 +4,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/app/components/ui/accordion";
+import { Card } from "~/app/components/ui/card";
 
 export default function FAQ() {
   return (
-    <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <div className="rounded-3xl border-2 p-5 pt-0 font-sans sm:p-10 sm:pt-5">
-        <div className="m-5 font-title text-4xl">
-          <h1>Често задавани въпроси</h1>
+    <Card className="h-full w-full max-w-6xl justify-center text-center">
+      <div className="p-5 pt-0 font-sans sm:p-10 sm:pt-5">
+        <div className="m-7 font-title text-4xl">
+          <h1 className="text-center font-extrabold">Често задавани въпроси</h1>
         </div>
+        <div className="py-2" />
         <div className="text-left">
           <Accordion type="single" collapsible>
             <AccordionItem value="1">
@@ -19,8 +21,8 @@ export default function FAQ() {
                 Как да създам отбор за Hack TUES X?
               </AccordionTrigger>
               <AccordionContent>
-                След като си си създал акаунт, отиди в страницата за отбори и
-                кликни “Създай отбор”, ако все още не си в отбор.
+                След като сте си създали акаунт, отидете в страницата за отбори
+                и кликнете „Създай отбор“.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="2">
@@ -29,7 +31,8 @@ export default function FAQ() {
               </AccordionTrigger>
               <AccordionContent>
                 Крайният срок за регистрация на участниците и създаване на отбор
-                е на 18.02.2023г. включително.
+                е на <time dateTime="2023-02-18">18.02.2023 г.</time>{" "}
+                включително.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="3">
@@ -56,10 +59,10 @@ export default function FAQ() {
                 Как мога да се присъединя към отбор?
               </AccordionTrigger>
               <AccordionContent>
-                Има 2 начина да влзеш в отбор. Единият начин е да отидеш на
-                страницата на отбор и да поискаш да бъдеш приет от капитана.
-                Другият начин е капитанът на дадения отбор може да те покани и
-                чак тогава ще получиш нотификация на сайта, че имаш покана за
+                Има 2 начина да влезете в отбор. Единият начин е да отидете на
+                страницата на отбор и да поискате да бъдете приети от капитана.
+                Другият начин е капитанът на дадения отбор може да ви покани и
+                чак тогава ще получите известие на сайта, че имате покана за
                 отбор.
               </AccordionContent>
             </AccordionItem>
@@ -85,8 +88,8 @@ export default function FAQ() {
             <AccordionItem value="8">
               <AccordionTrigger>Мога ли да изтрия отбора си? </AccordionTrigger>
               <AccordionContent>
-                Само ако си капитан чрез “изтрий” бутона на страницата на отбора
-                си.
+                Само ако сте капитан, чрез “Изтрий” бутона на страницата на
+                отбора си.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="9">
@@ -94,9 +97,10 @@ export default function FAQ() {
                 Как ще протече самото събитие?
               </AccordionTrigger>
               <AccordionContent>
-                Събитието ще се проведе на 13.03.2024 година и ще бъде с
-                продължителност 3 дни. Награждаването е последния ден
-                (16.03.2024).
+                Събитието ще се проведе на{" "}
+                <time dateTime="2024-03-13">13.03.2024</time> година и ще бъде с
+                продължителност 3 дни. Награждаването е последния ден (
+                <time dateTime="2024-03-16">16.03.2024</time>).
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="10">
@@ -186,6 +190,6 @@ export default function FAQ() {
           </Accordion>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }

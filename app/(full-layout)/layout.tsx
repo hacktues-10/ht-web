@@ -9,14 +9,14 @@ export default function FullLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex min-h-screen items-start justify-center overflow-x-clip p-6">
+      <main className="flex h-full flex-1 flex-col items-center justify-start overflow-x-clip p-6">
         {children}
       </main>
       <Toaster />
       <Separator />
       <Footer />
-    </>
+    </div>
   );
 }

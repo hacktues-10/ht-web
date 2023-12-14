@@ -1,13 +1,8 @@
-// "use client"
-
-// import { useState, useEffect } from "react";
-import { X } from "lucide-react";
-
-import RenderProfileInfo from "~/app/components/ChoseTechnology";
+import ProfileInfo from "~/app/(full-layout)/profile/_components/profile-info";
 import { getParticipantFromSession } from "~/app/participants/service";
 
 export default async function ProfilePage() {
   const participant = await getParticipantFromSession();
 
-  return participant ? <RenderProfileInfo participant={participant} /> : null;
+  return participant ? <ProfileInfo participant={participant} /> : null;
 }
