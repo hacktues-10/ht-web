@@ -3,6 +3,7 @@ import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 
 import { getMentorByEmail } from "~/app/(full-layout)/mentors/service";
+import { useToast } from "~/app/components/ui/use-toast";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
@@ -11,7 +12,7 @@ import {
   getParticipantFromSession,
 } from "~/app/participants/service";
 import { resolveCallbackUrl } from "~/app/utils";
-import { getHTSession } from "../../auth/session";
+import { getHTSession, signInRedirect } from "../../auth/session";
 import { discordRedirectUri } from "../service";
 
 const ERROR_URL = `/discord/error?${new URLSearchParams({
@@ -24,7 +25,7 @@ export async function GET(req: NextRequest) {
   const session = await getHTSession();
   if (!session?.user?.email) {
     console.error("no session");
-    redirect(ERROR_URL);
+    signInRedirect();
   }
 
   const code = searchParams.get("code");

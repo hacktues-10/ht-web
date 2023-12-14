@@ -3,17 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { env } from "./app/env.mjs";
 
 export async function middleware(request: NextRequest) {
-  if (request.cookies.has("next-auth.session-token")) {
-    const cookieHeader = request.headers.get("cookie");
-    const credentials = cookieHeader ? "include" : "same-origin";
-    const response = await fetch(`${env.NEXTAUTH_URL}api/checkAuthentication`, {
-      credentials,
-      headers: cookieHeader ? { cookie: cookieHeader } : {},
-    });
-    const { isMentorOrParticipant, hasConnectedDiscord } = (
-      await response.json()
-    ).body;
+  const cookieHeader = request.headers.get("cookie");
+  const credentials = cookieHeader ? "include" : "same-origin";
+  const response = await fetch(`${env.NEXTAUTH_URL}api/checkAuthentication`, {
+    credentials,
+    headers: cookieHeader ? { cookie: cookieHeader } : {},
+  });
+  const { isMentorOrParticipant, hasConnectedDiscord, hasSession } = (
+    await response.json()
+  ).body;
 
+  if (hasSession) {
     if (!isMentorOrParticipant) {
       if (request.nextUrl.pathname !== "/user/configure") {
         return NextResponse.redirect(
@@ -30,9 +30,10 @@ export async function middleware(request: NextRequest) {
       }
     }
   }
+
   NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next).*)"],
+  matcher: ["/((?!api|_next|discord/error).*)"],
 };

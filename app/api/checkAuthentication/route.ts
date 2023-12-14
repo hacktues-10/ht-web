@@ -10,38 +10,36 @@ import { getHTSession } from "../auth/session";
 export async function GET(req: NextRequest) {
   let isMentorOrParticipant = false;
   let hasConnectedDiscord = false;
+  let hasSession = false;
 
-  const token = req.cookies.get("next-auth.session-token");
+  const user = (await getHTSession())?.user;
 
-  if (token && token.value) {
-    const user = (await getHTSession())?.user;
+  if (user && user.email) {
+    hasSession = true;
+    const isParticipant = await getParticipantByEmail(user?.email);
+    const isMentor = await getMentorByEmail(user.email);
+    if (isParticipant || isMentor) {
+      isMentorOrParticipant = true;
 
-    if (user && user.email) {
-      const isParticipant = await getParticipantByEmail(user?.email);
-      const isMentor = await getMentorByEmail(user.email);
-      if (isParticipant || isMentor) {
-        isMentorOrParticipant = true;
+      const discordColumn = isParticipant
+        ? discordUsers.participantId
+        : isMentor
+          ? discordUsers.mentorId
+          : undefined;
+      const discordId = isParticipant
+        ? isParticipant.id
+        : isMentor
+          ? isMentor.id
+          : undefined;
 
-        const discordColumn = isParticipant
-          ? discordUsers.participantId
-          : isMentor
-            ? discordUsers.mentorId
-            : undefined;
-        const discordId = isParticipant
-          ? isParticipant.id
-          : isMentor
-            ? isMentor.id
-            : undefined;
+      if (discordColumn && discordId) {
+        const discordResult = await db
+          .select()
+          .from(discordUsers)
+          .where(eq(discordColumn, discordId));
 
-        if (discordColumn && discordId) {
-          const discordResult = await db
-            .select()
-            .from(discordUsers)
-            .where(eq(discordColumn, discordId));
-
-          if (discordResult.length > 0) {
-            hasConnectedDiscord = true;
-          }
+        if (discordResult.length > 0) {
+          hasConnectedDiscord = true;
         }
       }
     }
@@ -50,6 +48,7 @@ export async function GET(req: NextRequest) {
   const responseData = {
     isMentorOrParticipant: isMentorOrParticipant,
     hasConnectedDiscord: hasConnectedDiscord,
+    hasSession: hasSession,
   };
 
   return NextResponse.json(
