@@ -15,6 +15,7 @@ export default function DiscordErrorPage({}) {
         ? "/api/discord/remove"
         : "/user/configure";
 
+  // this must be done bc its client component
   if (redirectUr === "/user/configure") {
     redirect(redirectUr);
   }
