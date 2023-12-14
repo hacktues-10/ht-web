@@ -12,7 +12,6 @@ import {
 } from "~/app/participants/service";
 import { resolveCallbackUrl } from "~/app/utils";
 import { getHTSession } from "../../auth/session";
-import { discordRedirectUri } from "../service";
 
 const ERROR_URL = `/discord/error?${new URLSearchParams({
   source: "/discord",
@@ -20,6 +19,11 @@ const ERROR_URL = `/discord/error?${new URLSearchParams({
 const SUCCESS_URL = "/discord";
 
 export async function GET(req: NextRequest) {
+  const redirect_uri =
+    req.headers.get("host") === "localhost:3000"
+      ? "http://" + (req.headers.get("host") || "") + "/api/discord/callback"
+      : "https://" + (req.headers.get("host") || "") + "/api/discord/callback";
+
   const { searchParams } = new URL(req.url);
   const session = await getHTSession();
   if (!session?.user?.email) {
@@ -38,7 +42,7 @@ export async function GET(req: NextRequest) {
     client_secret: env.DISCORD_CLIENT_SECRET,
     grant_type: "authorization_code",
     code,
-    redirect_uri: discordRedirectUri,
+    redirect_uri: redirect_uri,
   });
   const res = await fetch("https://discord.com/api/v10/oauth2/token", {
     method: "POST",

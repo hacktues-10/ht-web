@@ -1,12 +1,9 @@
-import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 
-export const discordRedirectUri = `${env.VERCEL_ENV === 'production' ? env.DEPLOYMENT_URL : env.NEXTAUTH_URL}api/discord/callback`;
-console.log(discordRedirectUri);
 export const addDiscordRole = async (userId: string, roleId: string) => {
   const headers = {
     Authorization: "Bot " + env.DISCORD_BOT_ID,
