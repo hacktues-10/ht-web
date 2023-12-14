@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 
+import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import { DiscordLoadingLink } from "../_components/discord-loading-link";
 
 export default function DiscordErrorPage({}) {
@@ -13,7 +14,12 @@ export default function DiscordErrorPage({}) {
       ? "/api/discord"
       : source === "/discord/remove"
         ? "/api/discord/remove"
-        : "/api/discord";
+        : "/";
+
+  const session = getHTSession();
+  if (!session) {
+    signInRedirect();
+  }
 
   return (
     <div className="mt-20 max-w-lg items-center justify-center text-center">
