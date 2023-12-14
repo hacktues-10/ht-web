@@ -5,8 +5,8 @@ import { eq } from "drizzle-orm";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { zact } from "~/app/_zact/server";
 import { getHTSession } from "~/app/api/auth/session";
+import { db } from "~/app/db";
 import { particpants, users } from "~/app/db/schema";
-import { db } from "../../db/index";
 import { alunmiRegistrationSchema } from "./schemas";
 
 export const registerAlumni = zact(alunmiRegistrationSchema)(async (data) => {
