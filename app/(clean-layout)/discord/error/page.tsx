@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 import { DiscordLoadingLink } from "../_components/discord-loading-link";
 
@@ -13,7 +13,12 @@ export default function DiscordErrorPage({}) {
       ? "/api/discord"
       : source === "/discord/remove"
         ? "/api/discord/remove"
-        : "/api/discord";
+        : "/user/configure";
+
+  // this must be done bc its client component
+  if (redirectUr === "/user/configure") {
+    redirect(redirectUr);
+  }
 
   return (
     <div className="mt-20 max-w-lg items-center justify-center text-center">

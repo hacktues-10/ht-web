@@ -1,6 +1,6 @@
 import { TbBrandDiscord } from "react-icons/tb";
 
-import { getUserDiscordName } from "~/app/api/discord/actions";
+import { TeamMember } from "~/app/(full-layout)/teams/service";
 import {
   Avatar,
   AvatarFallback,
@@ -11,19 +11,15 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "~/app/components/ui/hover-card";
-import { particpants } from "~/app/db/schema";
 import Crown from "../Crown";
 
-type memberType = typeof particpants.$inferSelect;
-
-export default async function RenderMember({
+export default function RenderMember({
   member,
   color,
 }: {
-  member: memberType;
+  member: TeamMember;
   color: string;
 }) {
-  const discordName = await getUserDiscordName(member.id);
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -63,12 +59,14 @@ export default async function RenderMember({
                   : `Випуск ${member.grade}`}
               </p>
             </div>
-            <div className="flex items-center pt-2">
-              <TbBrandDiscord size={32} />
-              <span className="m-3 text-xs text-muted-foreground">
-                {discordName ? discordName : "??"}
-              </span>
-            </div>
+            {member.discordUser ? (
+              <div className="flex items-center pt-2">
+                <TbBrandDiscord size={32} />
+                <span className="m-3 text-xs text-muted-foreground">
+                  member.discordUser.discordUsername
+                </span>
+              </div>
+            ) : null}
           </div>
         </div>
       </HoverCardContent>
