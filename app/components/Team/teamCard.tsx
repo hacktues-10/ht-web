@@ -34,6 +34,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
   ];
 
   const techn = convertToPaginatedTechnologies(team.technologies || "", 3);
+
   return (
     <Link href={`/teams/${team.id}`}>
       <div>
@@ -55,7 +56,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
               ))}
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="pb-2">
             {techn && techn.length > 0 ? (
               <div className="flex w-full gap-2 overflow-hidden p-2">
                 {techn.map((technology, index) => (
@@ -65,7 +66,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
                       backgroundColor: technology?.color,
                       color: technology?.textColor,
                     }}
-                    className="whitespace-nowrap text-xs transition-transform duration-300 ease-in-out hover:scale-105"
+                    className="mt-2 whitespace-nowrap text-xs transition-transform duration-300 ease-in-out hover:scale-105"
                     key={index}
                   >
                     {technology?.name}
@@ -73,9 +74,11 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
                 ))}
               </div>
             ) : (
-              <Badge className="scroll-m-20 leading-7">
-                Няма технологии :(
-              </Badge>
+              <div className="pb-2 pt-2">
+                <Badge className="scroll-m-20 leading-7">
+                  Няма технологии :(
+                </Badge>
+              </div>
             )}
           </CardFooter>
         </Card>
