@@ -4,14 +4,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/app/components/ui/accordion";
+import { Card } from "~/app/components/ui/card";
 
 export default function FAQ() {
   return (
-    <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <div className="rounded-3xl border-2 p-5 pt-0 font-sans sm:p-10 sm:pt-5">
-        <div className="m-5 font-title text-4xl">
-          <h1>Често задавани въпроси</h1>
+    <Card className="h-full w-full max-w-6xl justify-center text-center">
+      <div className="p-5 pt-0 font-sans sm:p-10 sm:pt-5">
+        <div className="m-7 font-title text-4xl">
+          <h1 className="text-center font-extrabold">Често задавани въпроси</h1>
         </div>
+        <div className="py-2" />
         <div className="text-left">
           <Accordion type="single" collapsible>
             <AccordionItem value="1">
@@ -186,6 +188,6 @@ export default function FAQ() {
           </Accordion>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
