@@ -24,7 +24,10 @@ export const createTeamAction = zact(
   const participant = await getParticipantFromSession();
   if (!participant) {
     // TODO: да извадим съобщенията в отделен файл
-    return { success: false, error: "Not logged in as a participant" } as const;
+    return {
+      success: false,
+      error: "Не сте влезли в своя Hack TUES X акаунт.",
+    } as const;
   }
 
   let isAlumni = false;
@@ -33,7 +36,10 @@ export const createTeamAction = zact(
   }
 
   if (participant.team.id !== null) {
-    return { success: false, error: "Already in a team" } as const;
+    return {
+      success: false,
+      error: "Вече си имате отбор, не ви ли харесва?",
+    } as const;
   }
   const team = await createTeam({
     name: input.name,
@@ -43,3 +49,11 @@ export const createTeamAction = zact(
   });
   return { success: true, team } as const;
 });
+
+export const checkUserCanCreateTeam = async () => {
+  const participant = await getParticipantFromSession();
+  if (!participant || participant.team.id) {
+    return { isEligableToCreateTeam: false };
+  }
+  return { isEligableToCreateTeam: true };
+};

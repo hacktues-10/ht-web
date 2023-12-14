@@ -10,10 +10,21 @@ import {
   getParticipantFromSession,
 } from "~/app/participants/service";
 
+export type Team = Awaited<ReturnType<typeof getConfirmedTeams>>[number];
+export type TeamMember = Team["members"][number];
+
 export async function getConfirmedTeams() {
   return db.query.teams.findMany({
     with: {
-      members: true,
+      members: {
+        with: {
+          discordUser: {
+            columns: {
+              discordUsername: true,
+            },
+          },
+        },
+      },
       project: true,
     },
   });
@@ -104,7 +115,7 @@ export async function createTeam(team: {
       isCaptain: true,
       teamId: insertedTeam.id,
     })
-    .where(eq(particpants.userId, team.captainId));
+    .where(eq(particpants.id, team.captainId));
   return insertedTeam;
 }
 

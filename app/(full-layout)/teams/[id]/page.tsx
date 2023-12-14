@@ -241,9 +241,9 @@ export default async function TeamDetailPage({
           </Card>
 
           <Card className="m-10 ml-auto mr-auto h-min w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
-            <h3 className="text-2xl">Технологии</h3>
+            <h3 className="mb-2 text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
-              <div className="w-full flex-auto gap-2 p-2">
+              <div className="m-2 w-full flex-auto gap-2 p-2">
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"
@@ -259,7 +259,7 @@ export default async function TeamDetailPage({
                 ))}
               </div>
             ) : (
-              <Badge className="scroll-m-20 leading-7">
+              <Badge className="m-2 scroll-m-20 leading-7">
                 Няма технологии :(
               </Badge>
             )}

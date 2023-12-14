@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { getHTSession, signInRedirect } from "~/app/api/auth/session";
+import { Button } from "~/app/components/ui/button";
 import { CreateTeamForm } from "./CreateTeamForm";
 
 export default async function CreateTeamPage() {
@@ -15,5 +17,17 @@ export default async function CreateTeamPage() {
     signInRedirect();
   }
 
-  return <CreateTeamForm />;
+  return (
+    <div className="flex flex-col justify-center">
+      <div className="w-min self-center pb-4">
+        <Button asChild variant="default" className="mt-8 ">
+          <Link href="/teams">
+            {"<- "}
+            Назад
+          </Link>
+        </Button>
+      </div>
+      <CreateTeamForm />
+    </div>
+  );
 }

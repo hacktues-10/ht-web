@@ -81,6 +81,7 @@ export const participantsRelations = relations(
     }),
     invitations: many(invitations),
     sentInvitations: many(invitations),
+    discordUser: one(discordUsers),
   }),
 );
 
