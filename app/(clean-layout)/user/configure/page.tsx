@@ -63,7 +63,7 @@ async function IfNotParticipant({
 function initiateDiscordFlow(callbackUrl?: string) {
   return redirect(
     // TODO: make this redirect to /discord?callbackUrl=...
-    "/api/discord?" +
+    "/discord?" +
       new URLSearchParams(
         callbackUrl ? { callbackUrl } : { callbackUrl: "" },
       ).toString(),
