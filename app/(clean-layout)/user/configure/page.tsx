@@ -53,8 +53,7 @@ async function IfNotParticipant({
 }: PropsWithChildren<{
   callbackUrl?: string;
 }>) {
-  // const participant = await getParticipantFromSession();
-  const participant = false;
+  const participant = await getParticipantFromSession();
   if (participant) {
     return initiateDiscordFlow(callbackUrl);
   }
