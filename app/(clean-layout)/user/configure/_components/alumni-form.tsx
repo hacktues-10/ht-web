@@ -16,7 +16,7 @@ import { AlumniStep5 } from "./steps/step5";
 export const AlumniForm = ({ email }: { email: string }) => {
   const router = useRouter();
   const { toast } = useToast();
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(1);
   const [formData, updateData] = useReducer(
     (
       state: AlumniRegistrationSchema,
@@ -82,13 +82,13 @@ export const AlumniForm = ({ email }: { email: string }) => {
 
   return (
     <div className="space-y-1">
-      {/* <AlumniStep1
+      <AlumniStep1
         className={currentStep === 1 ? "" : "hidden"}
         email={email}
         initialData={formData}
         onPrev={handlePrev}
         onNext={handleNext}
-      /> */}
+      />
       <AlumniStep2
         className={currentStep === 2 ? "" : "hidden"}
         email={email}
