@@ -1,3 +1,5 @@
+import { Toaster } from "~/app/components/ui/toaster";
+
 export default function CleanLayout({
   children,
 }: {
@@ -6,6 +8,7 @@ export default function CleanLayout({
   return (
     <main className="flex min-h-screen items-center justify-center overflow-x-clip p-6">
       {children}
+      <Toaster />
     </main>
   );
 }
