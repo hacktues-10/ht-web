@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
@@ -14,9 +15,8 @@ import {
   REGULAR_ALUMNI_PARALLELS,
 } from "~/app/_elsys/grades-parallels";
 import { SignOutButton } from "~/app/components/buttons";
-import { Button, buttonVariants } from "~/app/components/ui/button";
-import { Card, CardContent } from "~/app/components/ui/card";
-import { Checkbox } from "~/app/components/ui/checkbox";
+import { Button } from "~/app/components/ui/button";
+import { Card } from "~/app/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -33,7 +33,6 @@ import {
   FormLabel,
   FormMessage,
 } from "~/app/components/ui/form";
-import { Input } from "~/app/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -75,6 +74,29 @@ export const AlumniStep2 = ({
     form.formState.dirtyFields.class?.grade &&
     form.formState.dirtyFields.class?.parallel;
 
+  const [popoverWidth, setPopoverWidth] = useState("w-96");
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const updatePopoverWidth = () => {
+      if (buttonRef.current) {
+        const buttonWidth = parseInt(
+          `${buttonRef.current.getBoundingClientRect().width + 10}`,
+        );
+
+        setPopoverWidth(`w-[${buttonWidth}px]`);
+        console.log(`Popover content width: ${buttonWidth}px`);
+      }
+    };
+    const handleResize = () => {
+      updatePopoverWidth();
+    };
+    window.addEventListener("resize", handleResize);
+    updatePopoverWidth();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <section
       className={cn(
@@ -94,23 +116,25 @@ export const AlumniStep2 = ({
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Випуск</FormLabel>
-                  <Popover>
+                  <Popover
+                    onOpenChange={() => {
+                      console.log("open change");
+                    }}
+                  >
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
                           variant="outline"
                           role="combobox"
-                          className={cn(
-                            "w-full justify-between",
-                            !field.value && "text-muted-foreground",
-                          )}
+                          className={cn("w-full justify-between")}
+                          ref={buttonRef} // Set a ref to the Button component
                         >
                           {field.value || "Избери випуск"}
                           <ChevronsUpDown className="ml-2 h-4 w-2 shrink-0 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-full p-0">
+                    <PopoverContent className={`${popoverWidth} p-0`}>
                       <Command>
                         <CommandInput placeholder="Търси випуск..." />
                         <CommandEmpty>Випускът не е намерен.</CommandEmpty>
@@ -124,6 +148,15 @@ export const AlumniStep2 = ({
                                 form.setValue("class.grade", grade, {
                                   shouldDirty: true,
                                 });
+                                const escapeEvent = new KeyboardEvent(
+                                  "keydown",
+                                  {
+                                    key: "Escape",
+                                    bubbles: true,
+                                    cancelable: true,
+                                  },
+                                );
+                                document.dispatchEvent(escapeEvent);
                               }}
                             >
                               <Check
