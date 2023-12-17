@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
@@ -55,12 +56,14 @@ type AlumniStep2Data = z.infer<typeof alumniStep2Schema>;
 // TODO: add more info about whats in the form in its name
 export const AlumniStep2 = ({
   email,
+  defaultValues,
   initialData,
   onNext,
   onPrev,
   className,
 }: {
   email: string;
+  defaultValues: Partial<AlumniStep2Data>;
   initialData: Partial<AlumniStep2Data>;
   onNext: (data: AlumniStep2Data) => void;
   onPrev: () => void;
@@ -71,9 +74,15 @@ export const AlumniStep2 = ({
     defaultValues: initialData,
   });
 
+  useEffect(() => {
+    form.reset(initialData);
+  }, [initialData]);
+
+  console.log(form.watch("class.parallel"));
+
   const canSubmit =
-    form.formState.dirtyFields.class?.grade &&
-    form.formState.dirtyFields.class?.parallel;
+    form.watch("class.grade") != defaultValues.class?.grade &&
+    form.watch("class.parallel") != defaultValues.class?.parallel;
 
   return (
     <section
@@ -154,10 +163,7 @@ export const AlumniStep2 = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Паралелка</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Изберете паралелка" />

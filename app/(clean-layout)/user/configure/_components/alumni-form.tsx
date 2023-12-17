@@ -12,13 +12,32 @@ import { EveryoneStep3 } from "./steps/step3";
 import { EveryoneStep4 } from "./steps/step4";
 import { AlumniStep5 } from "./steps/step5";
 
+const defaultValues = {
+  firstName: "",
+  secondName: "",
+  lastName: "",
+  phoneNumber: "",
+  isAlumni: false as any, // zod does validation on this
+  regulationAgreement: false as any, // zod does validation on this
+  class: {
+    grade: "" as any, // zod does validation on this
+    parallel: "" as any, // ...and this
+  },
+  allergies: "",
+  tShirtId: -10,
+  technologies: "",
+  isLookingForTeam: true,
+  question1: "",
+  question2: "",
+};
+
 export const AlumniForm = ({ email }: { email: string }) => {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, updateData] = useReducer(
     (
-      state: AlumniRegistrationSchema,
-      update: Partial<AlumniRegistrationSchema>,
+      state: AlumniRegistrationSchema, //current state of the form
+      update: Partial<AlumniRegistrationSchema>, //object containing partial updates to the states
     ) => ({
       ...state,
       ...update,
@@ -43,12 +62,55 @@ export const AlumniForm = ({ email }: { email: string }) => {
     } satisfies AlumniRegistrationSchema,
   );
 
+  useEffect(() => {
+    try {
+      const loadedData = alunmiRegistrationSchema
+        .partial()
+        .parse(
+          JSON.parse(localStorage.getItem("alumniRegistrationData") || "{}"),
+        );
+      updateData(loadedData);
+
+      const localStorageCurrentStep =
+        localStorage.getItem("alumniRegistrationDataCurrentStep") ?? "";
+      setCurrentStep(
+        parseInt(JSON.parse(localStorageCurrentStep).currentStep) || 1,
+      );
+    } catch (e) {
+      localStorage.removeItem("alumniRegistrationDataCurrentStep");
+      localStorage.removeItem("alumniRegistrationData");
+    }
+  }, []);
+
   function handleNext(stepData: Partial<AlumniRegistrationSchema>) {
+    const loadedData = alunmiRegistrationSchema
+      .partial()
+      .parse(
+        JSON.parse(localStorage.getItem("alumniRegistrationData") || "{}"),
+      );
+
+    localStorage.setItem(
+      "alumniRegistrationData",
+      JSON.stringify({
+        ...loadedData,
+        ...stepData,
+      }),
+    );
+
+    localStorage.setItem(
+      "alumniRegistrationDataCurrentStep",
+      JSON.stringify({ currentStep: currentStep + 1 }),
+    );
+
     updateData(stepData);
     setCurrentStep((prev) => prev + 1);
   }
 
   function handlePrev() {
+    localStorage.setItem(
+      "alumniRegistrationDataCurrentStep",
+      JSON.stringify({ currentStep: currentStep - 1 }),
+    );
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   }
 
@@ -59,6 +121,8 @@ export const AlumniForm = ({ email }: { email: string }) => {
     try {
       if (response.success) {
         alert("Успешно се регистрирахте!");
+        localStorage.removeItem("alumniRegistrationDataCurrentStep");
+        localStorage.removeItem("alumniRegistrationData");
         router.refresh();
       } else {
         alert(response.error);
@@ -76,12 +140,14 @@ export const AlumniForm = ({ email }: { email: string }) => {
         className={currentStep === 1 ? "" : "hidden"}
         email={email}
         initialData={formData}
+        defaultValues={defaultValues}
         onPrev={handlePrev}
         onNext={handleNext}
       />
       <AlumniStep2
         className={currentStep === 2 ? "" : "hidden"}
         email={email}
+        defaultValues={defaultValues}
         initialData={formData}
         onPrev={handlePrev}
         onNext={handleNext}
@@ -89,6 +155,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
       <EveryoneStep3
         className={currentStep === 3 ? "" : "hidden"}
         email={email}
+        defaultValues={defaultValues}
         initialData={formData}
         onPrev={handlePrev}
         onNext={handleNext}
@@ -97,6 +164,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
         className={currentStep === 4 ? "" : "hidden"}
         email={email}
         isAlumni={true}
+        defaultValues={defaultValues}
         initialData={formData}
         onPrev={handlePrev}
         onNext={handleNext}
@@ -104,6 +172,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
       <AlumniStep5
         className={currentStep >= 5 ? "" : "hidden"}
         email={email}
+        defaultValues={defaultValues}
         isAlumni={true}
         initialData={formData}
         onPrev={handlePrev}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LogOutIcon } from "lucide-react";
@@ -28,12 +29,14 @@ type AlumniStep1Data = z.infer<typeof alumniStep1Schema>;
 
 export const AlumniStep1 = ({
   email,
+  defaultValues,
   initialData,
   onNext,
   className,
 }: {
   email: string;
   initialData: Partial<AlumniStep1Data>;
+  defaultValues: AlumniStep1Data;
   onNext: (data: AlumniStep1Data) => void;
   onPrev: () => void;
   className?: string;
@@ -43,13 +46,19 @@ export const AlumniStep1 = ({
     defaultValues: initialData,
   });
 
+  useEffect(() => {
+    form.reset(initialData);
+  }, [initialData]);
+
   const canSubmit =
-    form.formState.dirtyFields.firstName &&
-    form.formState.dirtyFields.secondName &&
-    form.formState.dirtyFields.lastName &&
-    form.formState.dirtyFields.phoneNumber &&
-    form.formState.dirtyFields.isAlumni &&
-    form.formState.dirtyFields.regulationAgreement;
+    form.watch("isAlumni") != defaultValues.isAlumni &&
+    form.watch("firstName") != defaultValues.firstName &&
+    form.watch("lastName") != defaultValues.lastName &&
+    form.watch("secondName") != defaultValues.secondName &&
+    form.watch("phoneNumber") != defaultValues.phoneNumber &&
+    form.watch("regulationAgreement") != defaultValues.regulationAgreement;
+
+  console.log("formstate?", JSON.stringify(form.formState.dirtyFields));
 
   return (
     <section

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
@@ -57,6 +58,7 @@ type EveryoneStep4Data = z.infer<typeof everyoneStep4Schema>;
 export const EveryoneStep4 = ({
   email,
   initialData,
+  defaultValues,
   onNext,
   onPrev,
   className,
@@ -64,6 +66,7 @@ export const EveryoneStep4 = ({
 }: {
   email: string;
   initialData: Partial<EveryoneStep4Data>;
+  defaultValues: EveryoneStep4Data;
   onNext: (data: EveryoneStep4Data) => void;
   onPrev: () => void;
   className?: string;
@@ -73,6 +76,10 @@ export const EveryoneStep4 = ({
     resolver: zodResolver(everyoneStep4Schema),
     defaultValues: initialData,
   });
+
+  useEffect(() => {
+    form.reset(initialData);
+  }, [initialData]);
 
   return (
     <section

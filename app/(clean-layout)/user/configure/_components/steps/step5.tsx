@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
@@ -57,6 +58,7 @@ type AlumniStep5Data = z.infer<typeof alumniStep5Schema>;
 export const AlumniStep5 = ({
   email,
   initialData,
+  defaultValues,
   onNext,
   onPrev,
   className,
@@ -64,6 +66,7 @@ export const AlumniStep5 = ({
 }: {
   email: string;
   initialData: Partial<AlumniStep5Data>;
+  defaultValues: AlumniStep5Data;
   onNext: (data: AlumniStep5Data) => void;
   onPrev: () => void;
   className?: string;
@@ -73,6 +76,10 @@ export const AlumniStep5 = ({
     resolver: zodResolver(alumniStep5Schema),
     defaultValues: initialData,
   });
+
+  useEffect(() => {
+    form.reset(initialData);
+  }, [initialData]);
 
   return (
     <section
