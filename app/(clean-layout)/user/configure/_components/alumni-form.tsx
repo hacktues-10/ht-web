@@ -29,7 +29,7 @@ const defaultValues = {
   isLookingForTeam: true,
   question1: "",
   question2: "",
-};
+} satisfies AlumniRegistrationSchema;
 
 export const AlumniForm = ({ email }: { email: string }) => {
   const router = useRouter();
