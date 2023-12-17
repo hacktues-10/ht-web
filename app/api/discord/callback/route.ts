@@ -13,7 +13,7 @@ import {
 } from "~/app/participants/service";
 import { resolveCallbackUrl } from "~/app/utils";
 import { getHTSession, signInRedirect } from "../../auth/session";
-import { discordRedirectUri } from "../service";
+import { resolveDiscordRedirectUri } from "../service";
 
 const ERROR_URL = `/discord/error?${new URLSearchParams({
   source: "/discord",
@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
     client_secret: env.DISCORD_CLIENT_SECRET,
     grant_type: "authorization_code",
     code,
-    redirect_uri: discordRedirectUri,
+    redirect_uri: resolveDiscordRedirectUri(req),
   });
   const res = await fetch("https://discord.com/api/v10/oauth2/token", {
     method: "POST",

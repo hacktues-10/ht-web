@@ -87,7 +87,9 @@ export const participantsRelations = relations(
 
 export const discordUsers = pgTable("discord", {
   id: serial("id").primaryKey(),
+  // FIXME: this should be a foreign key, but it should be on the participants table...
   participantId: integer("participant_id"),
+  // FIXME: this should be a foreign key, but it should be on the mentors table...
   mentorId: integer("mentor_id"),
   discordId: varchar("discord_id").notNull().unique(),
   discordUsername: varchar("discord_username").notNull(),

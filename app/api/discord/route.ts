@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { env } from "~/app/env.mjs";
 import { resolveCallbackUrl } from "~/app/utils";
-import { discordRedirectUri } from "./service";
+import { resolveDiscordRedirectUri } from "./service";
 
 export function GET(req: NextRequest) {
   const res = NextResponse.redirect(
@@ -10,7 +10,7 @@ export function GET(req: NextRequest) {
       ["response_type", "code"],
       ["client_id", env.DISCORD_CLIENT_ID],
       ["scope", "identify guilds.join"],
-      ["redirect_uri", discordRedirectUri],
+      ["redirect_uri", resolveDiscordRedirectUri(req)],
       ["prompt", "none"],
     ])}`,
   );
