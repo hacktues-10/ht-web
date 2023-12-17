@@ -40,21 +40,21 @@ export function CreateTeamForm() {
     }
   }
 
-  async function checkUserTeam() {
-    const { isEligableToCreateTeam } = await checkUserCanCreateTeam();
-    if (!isEligableToCreateTeam) {
-      toast({
-        title: "Не можете да създадете отбор",
-        description:
-          "Моля, ако мислите, че има грешка, свържете се с hacktues@elsys-bg.org",
-      });
-      setButtonDisabled(true);
-    } else {
-      setButtonDisabled(false);
-    }
-  }
-
   useEffect(() => {
+    async function checkUserTeam() {
+      const { isEligableToCreateTeam } = await checkUserCanCreateTeam();
+      if (!isEligableToCreateTeam) {
+        toast({
+          title: "Не можете да създадете отбор",
+          description:
+            "Моля, ако мислите, че има грешка, свържете се с hacktues@elsys-bg.org",
+        });
+        setButtonDisabled(true);
+      } else {
+        setButtonDisabled(false);
+      }
+    }
+
     const caller = async () => {
       await checkUserTeam();
     };
