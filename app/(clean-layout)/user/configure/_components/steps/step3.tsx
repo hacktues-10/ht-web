@@ -80,7 +80,6 @@ export const EveryoneStep3 = ({
 
   useEffect(() => {
     form.reset({ ...initialData, tShirtId: initialData.tShirtId });
-    console.log(initialData.tShirtId);
     if (initialData.allergies) {
       setWillInputAllergies(true);
     }

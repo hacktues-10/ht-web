@@ -58,8 +58,6 @@ export const AlumniStep1 = ({
     form.watch("phoneNumber") != defaultValues.phoneNumber &&
     form.watch("regulationAgreement") != defaultValues.regulationAgreement;
 
-  console.log("formstate?", JSON.stringify(form.formState.dirtyFields));
-
   return (
     <section
       className={cn(
