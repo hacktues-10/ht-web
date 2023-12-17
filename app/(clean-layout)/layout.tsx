@@ -1,5 +1,3 @@
-import { Toaster } from "~/app/components/ui/toaster";
-
 export default function CleanLayout({
   children,
 }: {
