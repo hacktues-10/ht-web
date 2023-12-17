@@ -2,6 +2,7 @@
 
 import { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
 
 import { Separator } from "~/app/components/ui/separator";
 import { registerAlumni } from "../actions";
@@ -64,18 +65,24 @@ export const AlumniForm = ({ email }: { email: string }) => {
 
   useEffect(() => {
     try {
+      // TODO: extract into function, so we can reuse it
       const loadedData = alunmiRegistrationSchema
         .partial()
         .parse(
-          JSON.parse(localStorage.getItem("alumniRegistrationData") || "{}"),
+          JSON.parse(localStorage.getItem("alumniRegistrationData") ?? "{}"),
         );
-      updateData(loadedData);
+      const localStorageCurrentStep = z
+        .object({
+          currentStep: z.number(),
+        })
+        .parse(
+          JSON.parse(
+            localStorage.getItem("alumniRegistrationDataCurrentStep") ?? "{}",
+          ),
+        ).currentStep;
 
-      const localStorageCurrentStep =
-        localStorage.getItem("alumniRegistrationDataCurrentStep") ?? "";
-      setCurrentStep(
-        parseInt(JSON.parse(localStorageCurrentStep).currentStep) || 1,
-      );
+      updateData(loadedData);
+      setCurrentStep(localStorageCurrentStep);
     } catch (e) {
       localStorage.removeItem("alumniRegistrationDataCurrentStep");
       localStorage.removeItem("alumniRegistrationData");
