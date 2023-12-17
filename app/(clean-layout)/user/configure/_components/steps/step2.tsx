@@ -63,7 +63,7 @@ export const AlumniStep2 = ({
   className,
 }: {
   email: string;
-  defaultValues: Partial<AlumniStep2Data>;
+  defaultValues: AlumniStep2Data;
   initialData: Partial<AlumniStep2Data>;
   onNext: (data: AlumniStep2Data) => void;
   onPrev: () => void;
@@ -79,8 +79,8 @@ export const AlumniStep2 = ({
   }, [initialData]);
 
   const canSubmit =
-    form.watch("class.grade") != defaultValues.class?.grade &&
-    form.watch("class.parallel") != defaultValues.class?.parallel;
+    form.watch("class.grade") != defaultValues.class.grade &&
+    form.watch("class.parallel") != defaultValues.class.parallel;
 
   return (
     <section
