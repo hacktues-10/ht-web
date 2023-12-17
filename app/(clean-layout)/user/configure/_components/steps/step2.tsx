@@ -122,7 +122,8 @@ export const AlumniStep2 = ({
                         <CommandInput placeholder="Търси випуск..." />
                         <CommandEmpty>Випускът не е намерен.</CommandEmpty>
                         <CommandGroup>
-                          {ALUMNI_GRADES.toReversed().map((grade) => (
+                          {/* FIXME: use `.toReversed()` when NodeJS supports it */}
+                          {[...ALUMNI_GRADES].reverse().map((grade) => (
                             <CommandItem
                               value={grade}
                               key={grade}

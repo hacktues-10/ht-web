@@ -1,30 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { env } from "./app/env.mjs";
+import { CheckAuthenticationResponse } from "./app/api/checkAuthentication/route";
 
 export async function middleware(request: NextRequest) {
+  const baseUrl = request.nextUrl.origin;
   const cookieHeader = request.headers.get("cookie");
   const credentials = cookieHeader ? "include" : "same-origin";
-  const response = await fetch(`${env.NEXTAUTH_URL}api/checkAuthentication`, {
+  const response = await fetch(`${baseUrl}/api/checkAuthentication`, {
     credentials,
     headers: cookieHeader ? { cookie: cookieHeader } : {},
   });
-  const { isMentorOrParticipant, hasConnectedDiscord, hasSession } = (
-    await response.json()
-  ).body;
+  const { isMentorOrParticipant, hasConnectedDiscord, hasSession } =
+    (await response.json()) as CheckAuthenticationResponse;
 
   if (hasSession) {
     if (!isMentorOrParticipant) {
       if (request.nextUrl.pathname !== "/user/configure") {
         return NextResponse.redirect(
-          `${env.NEXTAUTH_URL}user/configure?callbackUrl=` +
+          `${baseUrl}/user/configure?callbackUrl=` +
             encodeURIComponent(request.nextUrl.href),
         );
       }
     } else if (!hasConnectedDiscord) {
       if (request.nextUrl.pathname !== "/discord") {
         return NextResponse.redirect(
-          `${env.NEXTAUTH_URL}discord?callbackUrl=` +
+          `${baseUrl}/discord?callbackUrl=` +
             encodeURIComponent(request.nextUrl.href),
         );
       }
