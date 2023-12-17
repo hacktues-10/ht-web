@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { env } from "./app/env.mjs";
+import { CheckAuthenticationResponse } from "./app/api/checkAuthentication/route";
 
 export async function middleware(request: NextRequest) {
   const baseUrl = request.nextUrl.origin;
@@ -10,9 +10,8 @@ export async function middleware(request: NextRequest) {
     credentials,
     headers: cookieHeader ? { cookie: cookieHeader } : {},
   });
-  const { isMentorOrParticipant, hasConnectedDiscord, hasSession } = (
-    await response.json()
-  ).body;
+  const { isMentorOrParticipant, hasConnectedDiscord, hasSession } =
+    (await response.json()) as CheckAuthenticationResponse;
 
   if (hasSession) {
     if (!isMentorOrParticipant) {
