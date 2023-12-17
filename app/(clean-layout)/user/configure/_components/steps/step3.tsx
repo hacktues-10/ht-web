@@ -83,7 +83,7 @@ export const EveryoneStep3 = ({
     if (initialData.allergies) {
       setWillInputAllergies(true);
     }
-  }, [initialData]);
+  }, [initialData, form]);
 
   const canSubmit =
     form.watch("tShirtId") != defaultValues.tShirtId &&

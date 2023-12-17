@@ -79,7 +79,7 @@ export const EveryoneStep4 = ({
 
   useEffect(() => {
     form.reset(initialData);
-  }, [initialData]);
+  }, [initialData, form]);
 
   return (
     <section

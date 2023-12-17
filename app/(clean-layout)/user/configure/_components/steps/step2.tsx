@@ -76,7 +76,7 @@ export const AlumniStep2 = ({
 
   useEffect(() => {
     form.reset(initialData);
-  }, [initialData]);
+  }, [initialData, form]);
 
   const canSubmit =
     form.watch("class.grade") != defaultValues.class.grade &&

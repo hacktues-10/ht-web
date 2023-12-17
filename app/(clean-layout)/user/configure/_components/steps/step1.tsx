@@ -48,7 +48,7 @@ export const AlumniStep1 = ({
 
   useEffect(() => {
     form.reset(initialData);
-  }, [initialData]);
+  }, [initialData, form]);
 
   const canSubmit =
     form.watch("isAlumni") != defaultValues.isAlumni &&
