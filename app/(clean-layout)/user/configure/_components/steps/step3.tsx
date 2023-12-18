@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LogOutIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -60,12 +60,14 @@ const TSHIRTS = [
 export const EveryoneStep3 = ({
   email,
   initialData,
+  defaultValues,
   onNext,
   onPrev,
   className,
 }: {
   email: string;
   initialData: Partial<EveryoneStep3Data>;
+  defaultValues: EveryoneStep3Data;
   onNext: (data: EveryoneStep3Data) => void;
   onPrev: () => void;
   className?: string;
@@ -76,9 +78,16 @@ export const EveryoneStep3 = ({
     defaultValues: initialData,
   });
 
+  useEffect(() => {
+    form.reset({ ...initialData, tShirtId: initialData.tShirtId });
+    if (initialData.allergies) {
+      setWillInputAllergies(true);
+    }
+  }, [initialData, form]);
+
   const canSubmit =
-    form.formState.dirtyFields.tShirtId &&
-    (!willInputAllergies || form.formState.dirtyFields.allergies);
+    form.watch("tShirtId") != defaultValues.tShirtId &&
+    (!willInputAllergies || form.watch("allergies") != defaultValues.allergies);
 
   return (
     <section
@@ -109,6 +118,7 @@ export const EveryoneStep3 = ({
                     onValueChange={field.onChange}
                     // FIXME: to show placeholder
                     // defaultValue={field.value.toString()}
+                    value={field.value.toString()}
                   >
                     <FormControl>
                       <SelectTrigger>

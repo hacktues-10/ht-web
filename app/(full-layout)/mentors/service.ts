@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 
 import { getHTSession, HTSession } from "~/app/api/auth/session";
 import { db } from "~/app/db";
-import { mentors, teams } from "~/app/db/schema";
+import { discordUsers, mentors, teams } from "~/app/db/schema";
 
 export const getAllMentors = async () => {
   const allMentors = await db.select().from(mentors);
@@ -10,7 +10,32 @@ export const getAllMentors = async () => {
 };
 
 // FIXME: do we even need closure here?
-const selectFromMentors = () => db.select().from(mentors);
+const selectFromMentors = () =>
+  db
+    .select({
+      id: mentors.id,
+      email: mentors.email,
+      firstName: mentors.firstName,
+      lastName: mentors.lastName,
+      phoneNumber: mentors.phoneNumber,
+      description: mentors.description,
+      youtubeURL: mentors.youtubeURL,
+      companyName: mentors.companyName,
+      technologies: mentors.technologies,
+      tShirtId: mentors.tShirtId,
+      allergies: mentors.allergies,
+      fileName: mentors.fileName,
+      team: {
+        id: teams.id,
+        name: teams.name,
+      },
+      discordUser: {
+        discordId: discordUsers.discordId,
+        discordUsername: discordUsers.discordUsername,
+      },
+    })
+    .from(mentors)
+    .leftJoin(discordUsers, eq(mentors.id, discordUsers.mentorId));
 
 export const getMentorByEmail = async (email: string) => {
   const mentor = await selectFromMentors().where(eq(mentors.email, email));

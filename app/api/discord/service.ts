@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
@@ -5,7 +6,8 @@ import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 
-export const discordRedirectUri = `${env.NEXTAUTH_URL}api/discord/callback`;
+export const resolveDiscordRedirectUri = (req: NextRequest) =>
+  `${req.nextUrl.origin}/api/discord/callback`;
 
 export const addDiscordRole = async (userId: string, roleId: string) => {
   const headers = {

@@ -54,6 +54,7 @@ type AlumniStep2Data = z.infer<typeof alumniStep2Schema>;
 // TODO: add more info about whats in the form in its name
 export const AlumniStep2 = ({
   email,
+  defaultValues,
   initialData,
   currentStep,
   onNext,
@@ -61,6 +62,7 @@ export const AlumniStep2 = ({
   className,
 }: {
   email: string;
+  defaultValues: AlumniStep2Data;
   initialData: Partial<AlumniStep2Data>;
   onNext: (data: AlumniStep2Data) => void;
   currentStep: number;
@@ -72,9 +74,14 @@ export const AlumniStep2 = ({
     defaultValues: initialData,
   });
 
-  const canSubmit =
-    form.formState.dirtyFields.class?.grade &&
-    form.formState.dirtyFields.class?.parallel;
+  useEffect(() => {
+    form.reset(initialData);
+  }, [initialData, form]);
+
+  const canSubmit =     
+    form.watch("class.grade") != defaultValues.class.grade &&
+    form.watch("class.parallel") != defaultValues.class.parallel;
+
   const [popoverWidth, setPopoverWidth] = useState(96);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -135,8 +142,9 @@ export const AlumniStep2 = ({
                       <Command>
                         <CommandInput placeholder="Търси випуск..." />
                         <CommandEmpty>Випускът не е намерен.</CommandEmpty>
-                        <CommandGroup className="max-h-[160px] overflow-y-auto">
-                          {ALUMNI_GRADES.toReversed().map((grade) => (
+                        <CommandGroup>
+                          {/* FIXME: use `.toReversed()` when NodeJS supports it */}
+                          {[...ALUMNI_GRADES].reverse().map((grade) => (
                             <CommandItem
                               className="hover:bg-secondary/10"
                               value={grade}
@@ -185,10 +193,7 @@ export const AlumniStep2 = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Паралелка</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Изберете паралелка" />

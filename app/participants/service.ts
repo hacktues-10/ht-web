@@ -2,7 +2,7 @@ import { eq, isNull } from "drizzle-orm";
 
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
-import { particpants, teams, users } from "../db/schema";
+import { discordUsers, particpants, teams, users } from "../db/schema";
 
 export type Participant = Awaited<
   ReturnType<typeof selectFromParticipants>
@@ -27,10 +27,15 @@ const selectFromParticipants = () =>
         name: teams.name,
         isCaptain: particpants.isCaptain,
       },
+      discordUser: {
+        discordId: discordUsers.discordId,
+        discordUsername: discordUsers.discordUsername,
+      },
     })
     .from(particpants)
     .innerJoin(users, eq(particpants.userId, users.id))
-    .leftJoin(teams, eq(particpants.teamId, teams.id));
+    .leftJoin(teams, eq(particpants.teamId, teams.id))
+    .leftJoin(discordUsers, eq(particpants.id, discordUsers.participantId));
 
 export async function getParticipantByEmail(email: string) {
   const results = await selectFromParticipants().where(eq(users.email, email));

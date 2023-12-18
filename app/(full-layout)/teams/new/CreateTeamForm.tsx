@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
 
@@ -40,7 +40,7 @@ export function CreateTeamForm() {
     }
   }
 
-  async function checkUserTeam() {
+  const checkUserTeam = useCallback(async () => {
     const { isEligableToCreateTeam } = await checkUserCanCreateTeam();
     if (!isEligableToCreateTeam) {
       toast({
@@ -52,14 +52,11 @@ export function CreateTeamForm() {
     } else {
       setButtonDisabled(false);
     }
-  }
+  }, [toast]);
 
   useEffect(() => {
-    const caller = async () => {
-      await checkUserTeam();
-    };
-    caller();
-  }, []);
+    checkUserTeam();
+  }, [checkUserTeam]);
 
   return (
     <Card>
