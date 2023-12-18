@@ -78,7 +78,7 @@ export const AlumniStep2 = ({
     form.reset(initialData);
   }, [initialData, form]);
 
-  const canSubmit =     
+  const canSubmit =
     form.watch("class.grade") != defaultValues.class.grade &&
     form.watch("class.parallel") != defaultValues.class.parallel;
 
