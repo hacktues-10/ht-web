@@ -60,7 +60,6 @@ export const AlumniForm = ({ email }: { email: string }) => {
     const response = await registerAlumni(updatedData);
     try {
       if (response.success) {
-        console.log("1");
         toast({ variant: "sand", title: "Успешно се регистрирахте!" });
         router.refresh();
       } else {
@@ -93,6 +92,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
         className={currentStep === 2 ? "" : "hidden"}
         email={email}
         initialData={formData}
+        currentStep={currentStep}
         onPrev={handlePrev}
         onNext={handleNext}
       />

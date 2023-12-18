@@ -55,6 +55,7 @@ type AlumniStep2Data = z.infer<typeof alumniStep2Schema>;
 export const AlumniStep2 = ({
   email,
   initialData,
+  currentStep,
   onNext,
   onPrev,
   className,
@@ -62,6 +63,7 @@ export const AlumniStep2 = ({
   email: string;
   initialData: Partial<AlumniStep2Data>;
   onNext: (data: AlumniStep2Data) => void;
+  currentStep: number;
   onPrev: () => void;
   className?: string;
 }) => {
@@ -73,18 +75,14 @@ export const AlumniStep2 = ({
   const canSubmit =
     form.formState.dirtyFields.class?.grade &&
     form.formState.dirtyFields.class?.parallel;
-
-  const [popoverWidth, setPopoverWidth] = useState("w-96");
+  const [popoverWidth, setPopoverWidth] = useState(96);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     const updatePopoverWidth = () => {
       if (buttonRef.current) {
-        const buttonWidth = parseInt(
-          `${buttonRef.current.getBoundingClientRect().width + 10}`,
-        );
-
-        setPopoverWidth(`w-[${buttonWidth}px]`);
-        console.log(`Popover content width: ${buttonWidth}px`);
+        const buttonWidth = buttonRef.current.getBoundingClientRect().width;
+        setPopoverWidth(buttonWidth);
       }
     };
     const handleResize = () => {
@@ -95,7 +93,7 @@ export const AlumniStep2 = ({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [currentStep]);
 
   return (
     <section
@@ -116,11 +114,7 @@ export const AlumniStep2 = ({
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Випуск</FormLabel>
-                  <Popover
-                    onOpenChange={() => {
-                      console.log("open change");
-                    }}
-                  >
+                  <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
@@ -134,7 +128,10 @@ export const AlumniStep2 = ({
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className={`${popoverWidth} p-0`}>
+                    <PopoverContent
+                      style={{ width: popoverWidth }}
+                      className={"p-0"}
+                    >
                       <Command>
                         <CommandInput placeholder="Търси випуск..." />
                         <CommandEmpty>Випускът не е намерен.</CommandEmpty>
