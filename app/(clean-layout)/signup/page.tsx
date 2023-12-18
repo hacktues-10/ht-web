@@ -6,22 +6,22 @@ import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { SignInForm } from "../_components/signin-form";
 
-export default async function LoginPage() {
+export default async function SignUpPage() {
   const csrfToken = (await getHTCsrfToken()) ?? "";
   return (
     <section className="flex flex-col gap-5">
-      <h1 className="text-center text-3xl font-extrabold">Здравейте отново!</h1>
+      <h1 className="text-center text-3xl font-extrabold">Регистрация</h1>
       <Card className="block w-full p-6">
-        <SignInForm isRegister={false} csrfToken={csrfToken} />
+        <SignInForm isRegister={true} csrfToken={csrfToken} />
       </Card>
       <Separator />
       <p className="text-center">
-        Нямате акаунт?{" "}
+        Вече имате акаунт?{" "}
         <Link
           className="font-medium underline underline-offset-4"
-          href="/signup"
+          href="/login"
         >
-          Регистрирайте се!
+          Влезте!
         </Link>
       </p>
       <p className="text-center text-xl">

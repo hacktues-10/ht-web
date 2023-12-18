@@ -25,7 +25,7 @@ export const SignInForm = (props: {
 
   return (
     <Form {...form}>
-      <form className="space-y-3">
+      <form className="space-y-4">
         <FormField
           control={form.control}
           name="email"
@@ -41,9 +41,7 @@ export const SignInForm = (props: {
         />
         <input type="hidden" name="csrfToken" value={props.csrfToken} />
         <div className="flex flex-row-reverse">
-          <Button type="submit">
-            {props.isRegister ? "Регистрация" : "Вход"}
-          </Button>
+          <Button type="submit">{props.isRegister ? "Напред" : "Вход"}</Button>
         </div>
       </form>
     </Form>
