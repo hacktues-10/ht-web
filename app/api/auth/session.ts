@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import { getCsrfToken } from "next-auth/react";
 import invariant from "tiny-invariant";
 
 import {
@@ -48,4 +49,15 @@ export async function getUserAuthorization() {
     isParticipant: !!participant,
     hasConnectedDiscord: !!mentor?.discordUser || !!participant?.discordUser,
   };
+}
+
+export function getHTCsrfToken() {
+  return getCsrfToken({
+    req: {
+      headers: [...headers()].reduce(
+        (acc, [key, value]) => ({ ...acc, [key]: value }),
+        {},
+      ),
+    },
+  });
 }

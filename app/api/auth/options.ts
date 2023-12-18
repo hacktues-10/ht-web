@@ -5,7 +5,6 @@ import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
-import { isInMentorWhitelist } from "~/app/(full-layout)/mentors/service";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
@@ -25,11 +24,6 @@ const authConst = {
   clientSecret: env.GMAIL_CLIENT_SECRET,
   refreshToken: env.GMAIL_REFRESH_TOKEN,
 };
-
-function printReturn<T>(x: T) {
-  console.log(x);
-  return x;
-}
 
 export const authOptions = {
   providers: [
@@ -66,6 +60,10 @@ export const authOptions = {
     },
   },
   pages: {
+    signIn: "/login",
+    signOut: "/signout",
+    error: "/login/error",
+    verifyRequest: "/verify-email",
     newUser: "/user/configure",
   },
 
