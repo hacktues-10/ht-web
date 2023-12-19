@@ -10,10 +10,6 @@ export default async function SignUpPage() {
     <section className="flex w-full max-w-xs flex-col gap-5">
       <h1 className="text-center text-3xl font-extrabold">Регистрация</h1>
       <Card className="w-full p-6">
-        <p className="text-wrap inline-flex w-full">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
-          dolore?
-        </p>
         <SignInForm isRegister={true} />
       </Card>
       <Separator />
