@@ -1,6 +1,10 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 import { Button } from "~/app/components/ui/button";
 import {
@@ -13,19 +17,31 @@ import {
 } from "~/app/components/ui/form";
 import { Input } from "~/app/components/ui/input";
 
-type SignInSchema = {
-  email: string;
-};
+const signInSchema = z.object({
+  email: z
+    .string({ required_error: "Празен имейл адрес" })
+    .email({ message: "Невалиден имейл адрес" }),
+});
 
-export const SignInForm = (props: {
-  isRegister: boolean;
-  csrfToken: string;
-}) => {
-  const form = useForm<SignInSchema>();
+export const SignInForm = (props: { isRegister: boolean }) => {
+  const form = useForm<z.infer<typeof signInSchema>>({
+    resolver: zodResolver(signInSchema),
+  });
+
+  const searchParams = useSearchParams();
 
   return (
     <Form {...form}>
-      <form className="space-y-4">
+      <form
+        method="post"
+        onSubmit={form.handleSubmit((credentials) =>
+          signIn("email", {
+            ...credentials,
+            callbackUrl: searchParams.get("callbackUrl") ?? undefined,
+          }),
+        )}
+        className="space-y-4"
+      >
         <FormField
           control={form.control}
           name="email"
@@ -39,7 +55,6 @@ export const SignInForm = (props: {
             </FormItem>
           )}
         />
-        <input type="hidden" name="csrfToken" value={props.csrfToken} />
         <div className="flex flex-row-reverse">
           <Button type="submit">{props.isRegister ? "Напред" : "Вход"}</Button>
         </div>

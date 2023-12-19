@@ -1,17 +1,10 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { getCsrfToken } from "next-auth/react";
 import invariant from "tiny-invariant";
 
-import {
-  getMentorByEmail,
-  getMentorFromSession,
-} from "~/app/(full-layout)/mentors/service";
-import {
-  getParticipantByEmail,
-  getParticipantFromSession,
-} from "~/app/participants/service";
+import { getMentorFromSession } from "~/app/(full-layout)/mentors/service";
+import { getParticipantFromSession } from "~/app/participants/service";
 import { authOptions } from "./options";
 
 export async function getHTSession() {
@@ -49,15 +42,4 @@ export async function getUserAuthorization() {
     isParticipant: !!participant,
     hasConnectedDiscord: !!mentor?.discordUser || !!participant?.discordUser,
   };
-}
-
-export function getHTCsrfToken() {
-  return getCsrfToken({
-    req: {
-      headers: [...headers()].reduce(
-        (acc, [key, value]) => ({ ...acc, [key]: value }),
-        {},
-      ),
-    },
-  });
 }

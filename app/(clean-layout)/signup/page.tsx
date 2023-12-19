@@ -1,18 +1,20 @@
 import Link from "next/link";
 
-import { getHTCsrfToken } from "~/app/api/auth/session";
 import { HTXLogoDuotone } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { SignInForm } from "../_components/signin-form";
 
 export default async function SignUpPage() {
-  const csrfToken = (await getHTCsrfToken()) ?? "";
   return (
-    <section className="flex flex-col gap-5">
+    <section className="flex w-full max-w-xs flex-col gap-5">
       <h1 className="text-center text-3xl font-extrabold">Регистрация</h1>
-      <Card className="block w-full p-6">
-        <SignInForm isRegister={true} csrfToken={csrfToken} />
+      <Card className="w-full p-6">
+        <p className="text-wrap inline-flex w-full">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
+          dolore?
+        </p>
+        <SignInForm isRegister={true} />
       </Card>
       <Separator />
       <p className="text-center">
