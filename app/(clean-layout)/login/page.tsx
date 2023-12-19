@@ -7,9 +7,9 @@ import { SignInForm } from "../_components/signin-form";
 
 export default async function LoginPage() {
   return (
-    <section className="flex flex-col gap-5">
+    <section className="flex w-full max-w-sm flex-col gap-5">
       <h1 className="text-center text-3xl font-extrabold">Здравейте отново!</h1>
-      <Card className="block w-full p-6">
+      <Card className="w-full p-6">
         <SignInForm isRegister={false} />
       </Card>
       <Separator />

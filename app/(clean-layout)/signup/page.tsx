@@ -7,7 +7,7 @@ import { SignInForm } from "../_components/signin-form";
 
 export default async function SignUpPage() {
   return (
-    <section className="flex w-full max-w-xs flex-col gap-5">
+    <section className="flex w-full max-w-sm flex-col gap-5">
       <h1 className="text-center text-3xl font-extrabold">Регистрация</h1>
       <Card className="w-full p-6">
         <SignInForm isRegister={true} />
