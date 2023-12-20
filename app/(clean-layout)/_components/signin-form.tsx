@@ -31,15 +31,15 @@ export const SignInForm = (props: { isRegister: boolean }) => {
   });
 
   const searchParams = useSearchParams();
+  const error = searchParams.get("error");
 
   useEffect(() => {
-    const error = searchParams.get("error");
     if (error) {
       form.setError("root", {
         message: signinErrors[error] ?? signinErrors.default,
       });
     }
-  }, [searchParams, form]);
+  }, [error, form]);
 
   return (
     <Form {...form}>
@@ -94,17 +94,17 @@ export const SignInForm = (props: { isRegister: boolean }) => {
 };
 
 const signinErrors: Record<string, string> = {
-  default: "Възникна неочаквана грешка при влизането. Моля, опитайте отново.",
-  Signin: "Моля влезте с различен акаунт.",
-  OAuthSignin: "Моля влезте с различен акаунт.",
-  OAuthCallbackError: "Моля влезте с различен акаунт.",
-  OAuthCreateAccount: "Моля влезте с различен акаунт.",
-  EmailCreateAccount: "Моля влезте с различен акаунт.",
-  Callback: "Моля влезте с различен акаунт.",
+  Default: "Възникна грешка при влизането. Моля, опитайте по-късно.",
+  Signin: "Моля, влезте с различен акаунт.",
+  OAuthSignin: "Моля, влезте с различен акаунт.",
+  OAuthCallbackError: "Моля, влезте с различен акаунт.",
+  OAuthCreateAccount: "Моля, влезте с различен акаунт.",
+  EmailCreateAccount: "Моля, влезте с различен акаунт.",
+  Callback: "Моля, влезте с различен акаунт.",
   OAuthAccountNotLinked:
     "За да потвърдите идентичността си, влезте със същия акаунт, който сте използвали първоначално.",
   EmailSignin:
-    "Грешка при изпращането на имейл за вход. Моля, опитайте отново по-късно.",
+    "Грешка при изпращането на имейл за вход. Моля, опитайте по-късно.",
   CredentialsSignin: "Грешни данни за вход.",
   SessionRequired: "Моля, влезте за да продължите.",
 };
