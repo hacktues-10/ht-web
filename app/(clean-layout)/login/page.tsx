@@ -1,6 +1,10 @@
 import Link from "next/link";
 
 import { HTXLogoDuotone } from "~/app/components/logos";
+import {
+  IfQueryParamNotPresent,
+  IfQueryParamPresent,
+} from "~/app/components/query-params";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { SignInForm } from "../_components/signin-form";
@@ -8,7 +12,11 @@ import { SignInForm } from "../_components/signin-form";
 export default async function LoginPage() {
   return (
     <section className="flex w-full max-w-sm flex-col gap-5">
-      <h1 className="text-center text-3xl font-extrabold">Здравейте отново!</h1>
+      <IfQueryParamNotPresent name="error">
+        <h1 className="text-center text-3xl font-extrabold">
+          Здравейте отново!
+        </h1>
+      </IfQueryParamNotPresent>
       <Card className="w-full p-6">
         <SignInForm isRegister={false} />
       </Card>

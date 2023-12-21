@@ -8,10 +8,13 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
+import { parseElsysEmail } from "~/app/_elsys/service";
 import { Button } from "~/app/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,6 +32,9 @@ export const SignInForm = (props: { isRegister: boolean }) => {
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
   });
+  const canSignInStudents = useHTFeatureIsOn("signin-students");
+  const canRegisterAlumni = useHTFeatureIsOn("register-alumni");
+  const canRegisterStudents = useHTFeatureIsOn("register-students");
 
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
@@ -36,24 +42,36 @@ export const SignInForm = (props: { isRegister: boolean }) => {
   useEffect(() => {
     if (error) {
       form.setError("root", {
-        message: signinErrors[error] ?? signinErrors.default,
+        message: signinErrors[error] ?? signinErrors.Default,
       });
     }
   }, [error, form]);
 
+  const handleSubmit = form.handleSubmit((credentials) => {
+    if (props.isRegister) {
+      const elsysEmail = parseElsysEmail(credentials.email);
+      if (!canRegisterAlumni && (!elsysEmail || elsysEmail.isAlumni)) {
+        return form.setError("email", {
+          message: "Този имейл адрес не е на настоящ ученик",
+        });
+      }
+      // if (!canRegisterStudents && elsysEmail && !elsysEmail.isAlumni) {
+      //   return form.setError("email", {
+      //     message: "Невалиден имейл адрес на завършил ученик",
+      //   });
+      // }
+    }
+
+    // TODO: use redirect: false
+    return signIn("email", {
+      ...credentials,
+      callbackUrl: searchParams.get("callbackUrl") ?? undefined,
+    });
+  });
+
   return (
     <Form {...form}>
-      <form
-        method="post"
-        onSubmit={form.handleSubmit((credentials) =>
-          // TODO: use redirect: false
-          signIn("email", {
-            ...credentials,
-            callbackUrl: searchParams.get("callbackUrl") ?? undefined,
-          }),
-        )}
-        className="space-y-4"
-      >
+      <form method="post" onSubmit={handleSubmit} className="space-y-4">
         {!!form.formState.errors.root && (
           <div className="flex items-center justify-center gap-2 rounded-sm border border-destructive bg-destructive/10 p-3 text-destructive">
             <XOctagon className="h-4 w-4 shrink-0" />
@@ -67,11 +85,30 @@ export const SignInForm = (props: { isRegister: boolean }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Имейл aдрес</FormLabel>
+              <FormLabel>
+                {props.isRegister && !canRegisterAlumni
+                  ? "Ученически имейл"
+                  : "Имейл aдрес"}
+              </FormLabel>
               <FormControl>
-                <Input placeholder="tuesar@gmail.com" {...field} />
+                <Input
+                  placeholder={
+                    canSignInStudents
+                      ? "tuesar.t.tuesarov.2024@elsys-bg.org"
+                      : "tuesar@gmail.com"
+                  }
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
+              {props.isRegister &&
+                !canRegisterAlumni &&
+                canRegisterStudents && (
+                  <FormDescription>
+                    Вашият служебен имейл адрес, който използвате за достъп до
+                    Google Classroom.
+                  </FormDescription>
+                )}
             </FormItem>
           )}
         />
@@ -85,7 +122,7 @@ export const SignInForm = (props: { isRegister: boolean }) => {
                 !form.formState.isValid)
             }
           >
-            {props.isRegister ? "Напред" : "Вход"}
+            {props.isRegister || error ? "Напред" : "Вход"}
           </Button>
         </div>
       </form>
