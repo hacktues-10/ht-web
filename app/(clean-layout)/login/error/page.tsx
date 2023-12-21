@@ -1,6 +1,14 @@
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
+import {
+  ALUMNI_REGISTRATION_START,
+  STUDENTS_REGISTRATION_START,
+} from "~/app/_configs/hackathon";
+import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { SignInButton } from "~/app/components/buttons";
+import { IfDateInFuture, IfDateInPast } from "~/app/components/countdowns";
+import { DateDisplay } from "~/app/components/date-display";
 import { HTXLogoDuotone } from "~/app/components/logos";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
@@ -30,7 +38,7 @@ const errors: Record<
   string,
   {
     status: number;
-    heading: string;
+    heading: React.ReactNode;
     message: React.ReactNode;
   }
 > = {
@@ -90,6 +98,92 @@ const errors: Record<
         <div>
           <Button asChild>
             <SignInButton>Вход</SignInButton>
+          </Button>
+        </div>
+      </>
+    ),
+  },
+  StudentsDisabled: {
+    status: 403,
+    heading: (
+      <>
+        <IfDateInFuture date={STUDENTS_REGISTRATION_START}>
+          Регистрацията на ученици още не е отворена!
+        </IfDateInFuture>
+        <IfDateInPast date={STUDENTS_REGISTRATION_START}>
+          Регистрацията на ученици вече е затворена.
+        </IfDateInPast>
+      </>
+    ),
+    message: (
+      <>
+        <p>Имейлът, който въведохте, е на настоящ ученик.</p>
+        <IfDateInFuture date={STUDENTS_REGISTRATION_START}>
+          <p>
+            Регистрацията на ученици отваря на
+            <br />
+            <strong>
+              <DateDisplay date={STUDENTS_REGISTRATION_START} showHour />
+            </strong>
+            <br />
+            Oчакваме ви тогава!
+          </p>
+        </IfDateInFuture>
+        <IfDateInPast date={STUDENTS_REGISTRATION_START}>
+          <p>За съжаление, регистрацията на ученици вече е затворена.</p>
+        </IfDateInPast>
+        <div>
+          <Button variant="secondary" asChild>
+            <Link href="/">
+              <ArrowLeft className="mr-1 h-4 w-4" /> Kъм началната страница
+            </Link>
+          </Button>
+        </div>
+      </>
+    ),
+  },
+  AlumniDisabled: {
+    status: 403,
+    heading: (
+      <>
+        <IfDateInFuture date={ALUMNI_REGISTRATION_START}>
+          Регистрацията на завършили още не е отворена!
+        </IfDateInFuture>
+        <IfDateInPast date={ALUMNI_REGISTRATION_START}>
+          Регистрацията на завършили вече е затворена.
+        </IfDateInPast>
+      </>
+    ),
+    message: (
+      <>
+        <IfDateInFuture date={ALUMNI_REGISTRATION_START}>
+          <p>
+            Регистрацията на завършили възпитаници на ТУЕС отваря на
+            <br />
+            <strong>
+              <DateDisplay date={ALUMNI_REGISTRATION_START} showHour />
+            </strong>
+            <br />
+            Oчакваме ви тогава!
+          </p>
+        </IfDateInFuture>
+        <IfDateInPast date={ALUMNI_REGISTRATION_START}>
+          <p>За съжаление, регистрацията на завършили вече е затворена.</p>
+        </IfDateInPast>
+        <IfHTFeatureOn feature="register-students">
+          <p>
+            Aко сте настоящ ученик, моля{" "}
+            <Link className="underline" href="/login">
+              влезте с ученическия си имейл
+            </Link>{" "}
+            за да се регистрирате.
+          </p>
+        </IfHTFeatureOn>
+        <div>
+          <Button variant="secondary" asChild>
+            <Link href="/">
+              <ArrowLeft className="mr-1 h-4 w-4" /> Kъм началната страница
+            </Link>
           </Button>
         </div>
       </>

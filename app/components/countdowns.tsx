@@ -1,20 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { animated, useSpring, useSpringRef } from "@react-spring/web";
 
 import { Card, CardContent } from "./ui/card";
 
 type Countdown = ReturnType<typeof calculateCountdown>;
 
-export function useCountdown(to: Date) {
-  const [countdown, setCountdown] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    diff: 0,
-  });
+export function useCountdown(to: Date, options?: { ssr: boolean }) {
+  const [countdown, setCountdown] = useState(() =>
+    options?.ssr
+      ? calculateCountdown(to)
+      : {
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          diff: 0,
+        },
+  );
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown(calculateCountdown(to));
@@ -128,3 +132,19 @@ export function CountdownTimer({ to }: { to: Date }) {
     </Card>
   );
 }
+
+export const IfDateInFuture = ({
+  date,
+  children,
+}: PropsWithChildren<{ date: Date }>) => {
+  const countdown = useCountdown(date, { ssr: true });
+  return countdown.diff > 0 ? <>{children}</> : null;
+};
+
+export const IfDateInPast = ({
+  date,
+  children,
+}: PropsWithChildren<{ date: Date }>) => {
+  const countdown = useCountdown(date, { ssr: true });
+  return countdown.diff <= 0 ? <>{children}</> : null;
+};

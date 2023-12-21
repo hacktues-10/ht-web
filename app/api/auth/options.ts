@@ -5,6 +5,8 @@ import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
+import { parseElsysEmail } from "~/app/_elsys/service";
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
@@ -50,13 +52,15 @@ export const authOptions = {
       if (account?.provider !== "email" || !user.email) {
         return false;
       }
-      // if (
-      //   user.email.endsWith("@elsys-bg.org") ||
-      //   isInMentorWhitelist(user.email)
-      // ) {
+      const isAlumni = parseElsysEmail(user.email)?.isAlumni ?? true;
+      const gb = await getServerSideGrowthBook();
+      if (isAlumni && gb.isOff("signin-alumni")) {
+        return "/login/error?error=AlumniDisabled";
+      }
+      if (!isAlumni && gb.isOff("signin-students")) {
+        return "/login/error?error=StudentsDisabled";
+      }
       return true;
-      // }
-      // return false;
     },
   },
   pages: {

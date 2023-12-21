@@ -8,4 +8,8 @@ export type HTFeatures = {
   "choose-mentor": boolean;
 
   "register-alumni": boolean;
+  "register-students": boolean;
+
+  "signin-alumni": boolean;
+  "signin-students": boolean;
 };
