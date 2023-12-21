@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { HTXLogoDuotone } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
@@ -13,15 +14,17 @@ export default async function SignUpPage() {
         <SignInForm isRegister={true} />
       </Card>
       <Separator />
-      <p className="text-center">
-        Вече имате акаунт?{" "}
-        <Link
-          className="font-medium underline underline-offset-4"
-          href="/login"
-        >
-          Влезте!
-        </Link>
-      </p>
+      <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
+        <p className="text-center">
+          Вече имате акаунт?{" "}
+          <Link
+            className="font-medium underline underline-offset-4"
+            href="/login"
+          >
+            Влезте!
+          </Link>
+        </p>
+      </IfAnyHTFeatureOn>
       <p className="text-center text-xl">
         <Link href="/">
           <HTXLogoDuotone />

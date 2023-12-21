@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { HTXLogoDuotone } from "~/app/components/logos";
 import {
   IfQueryParamNotPresent,
@@ -21,15 +22,17 @@ export default async function LoginPage() {
         <SignInForm isRegister={false} />
       </Card>
       <Separator />
-      <p className="text-center">
-        Нямате акаунт?{" "}
-        <Link
-          className="font-medium underline underline-offset-4"
-          href="/signup"
-        >
-          Регистрирайте се!
-        </Link>
-      </p>
+      <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+        <p className="text-center">
+          Нямате акаунт?{" "}
+          <Link
+            className="font-medium underline underline-offset-4"
+            href="/signup"
+          >
+            Регистрирайте се!
+          </Link>
+        </p>
+      </IfAnyHTFeatureOn>
       <p className="text-center text-xl">
         <Link href="/">
           <HTXLogoDuotone />

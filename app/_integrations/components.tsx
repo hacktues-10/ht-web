@@ -1,6 +1,6 @@
 "use client";
 
-import { IfFeatureEnabled } from "@growthbook/growthbook-react";
+import { IfFeatureEnabled, useGrowthBook } from "@growthbook/growthbook-react";
 
 import { HTFeatures } from "~/app/_context/growthbook/features";
 
@@ -13,4 +13,13 @@ export function IfHTFeatureOn(props: {
       {props.children}
     </IfFeatureEnabled>
   );
+}
+
+export function IfAnyHTFeatureOn(props: {
+  outOf: (keyof HTFeatures)[];
+  children: React.ReactNode;
+}) {
+  const gb = useGrowthBook();
+  const enabled = props.outOf.some((f) => gb?.evalFeature(f)?.on);
+  return enabled && <>{props.children}</>;
 }
