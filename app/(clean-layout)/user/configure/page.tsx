@@ -7,7 +7,6 @@ import {
   isWhitelistedMentor,
 } from "~/app/(full-layout)/mentors/service";
 import { getHTSession, signInRedirect } from "~/app/api/auth/session";
-import { Card, CardContent } from "~/app/components/ui/card";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { MentorFrom } from "./_components/mentor-form";
 import { ParticipantForm } from "./_components/participant-form";
@@ -62,7 +61,6 @@ async function IfNotParticipant({
 
 function initiateDiscordFlow(callbackUrl?: string) {
   return redirect(
-    // TODO: make this redirect to /discord?callbackUrl=...
     "/discord?" +
       new URLSearchParams(
         callbackUrl ? { callbackUrl } : { callbackUrl: "" },
