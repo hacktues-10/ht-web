@@ -80,7 +80,7 @@ const errors: Record<
         <h1>Не е позволено влизането с този имейл адрес.</h1>
         <div>
           <Button asChild>
-            <SignInButton>Вход с друг имейл</SignInButton>
+            <Link href="/login">Вход с друг имейл</Link>
           </Button>
         </div>
       </>
@@ -97,7 +97,7 @@ const errors: Record<
         </div>
         <div>
           <Button asChild>
-            <SignInButton>Вход</SignInButton>
+            <Link href="/login">Вход</Link>
           </Button>
         </div>
       </>
