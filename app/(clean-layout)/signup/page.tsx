@@ -4,13 +4,15 @@ import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { HTXLogoDuotone } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
+import { RegistrationCountdownOverlay } from "../_components/countdown-overlay";
 import { SignInForm } from "../_components/signin-form";
 
 export default async function SignUpPage() {
   return (
     <section className="flex w-full max-w-sm flex-col gap-5">
       <h1 className="text-center text-3xl font-extrabold">Регистрация</h1>
-      <Card className="w-full p-6">
+      <Card className="relative w-full p-6">
+        <RegistrationCountdownOverlay />
         <SignInForm isRegister={true} />
       </Card>
       <Separator />

@@ -32,12 +32,16 @@ export const SignInForm = (props: { isRegister: boolean }) => {
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
   });
+  const canSignInAlumni = useHTFeatureIsOn("signin-alumni");
   const canSignInStudents = useHTFeatureIsOn("signin-students");
   const canRegisterAlumni = useHTFeatureIsOn("register-alumni");
   const canRegisterStudents = useHTFeatureIsOn("register-students");
 
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
+
+  const shouldBeInactive =
+    props.isRegister && !canSignInAlumni && !canSignInStudents;
 
   useEffect(() => {
     if (error) {
@@ -83,6 +87,7 @@ export const SignInForm = (props: { isRegister: boolean }) => {
         <FormField
           control={form.control}
           name="email"
+          disabled={shouldBeInactive}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -115,11 +120,14 @@ export const SignInForm = (props: { isRegister: boolean }) => {
         <div className="flex flex-row-reverse">
           <Button
             type="submit"
+            className="flex-1 sm:flex-initial"
+            variant={!shouldBeInactive ? "default" : "secondary"}
             disabled={
               form.formState.isSubmitting ||
               (form.formState.isSubmitted &&
                 !form.formState.isSubmitSuccessful &&
-                !form.formState.isValid)
+                !form.formState.isValid) ||
+              shouldBeInactive
             }
           >
             {props.isRegister || error ? "Напред" : "Вход"}
