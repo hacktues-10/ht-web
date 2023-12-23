@@ -5,8 +5,7 @@ import {
   ALUMNI_REGISTRATION_START,
   STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
-import { IfHTFeatureOn } from "~/app/_integrations/components";
-import { SignInButton } from "~/app/components/buttons";
+import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import { IfDateInFuture, IfDateInPast } from "~/app/components/countdowns";
 import { DateDisplay } from "~/app/components/date-display";
 import { HTXLogoDuotone } from "~/app/components/logos";
@@ -107,31 +106,44 @@ const errors: Record<
     status: 403,
     heading: (
       <>
-        <IfDateInFuture date={STUDENTS_REGISTRATION_START}>
-          Регистрацията на ученици още не е отворена!
-        </IfDateInFuture>
-        <IfDateInPast date={STUDENTS_REGISTRATION_START}>
-          Регистрацията на ученици вече е затворена.
-        </IfDateInPast>
+        <IfHTFeatureOff feature="register-students">
+          <IfDateInFuture date={STUDENTS_REGISTRATION_START}>
+            Регистрацията на ученици още не е отворена!
+          </IfDateInFuture>
+          <IfDateInPast date={STUDENTS_REGISTRATION_START}>
+            Регистрацията на ученици вече е затворена.
+          </IfDateInPast>
+        </IfHTFeatureOff>
+        <IfHTFeatureOn feature="register-students">
+          Влизането с ученически имейл е забранено.
+        </IfHTFeatureOn>
       </>
     ),
     message: (
       <>
         <p>Имейлът, който въведохте, е на настоящ ученик.</p>
-        <IfDateInFuture date={STUDENTS_REGISTRATION_START}>
+        <IfHTFeatureOff feature="register-students">
+          <IfDateInFuture date={STUDENTS_REGISTRATION_START}>
+            <p>
+              Регистрацията на ученици отваря на
+              <br />
+              <strong>
+                <DateDisplay date={STUDENTS_REGISTRATION_START} showHour />
+              </strong>
+              <br />
+              Oчакваме ви тогава!
+            </p>
+          </IfDateInFuture>
+          <IfDateInPast date={STUDENTS_REGISTRATION_START}>
+            <p>За съжаление, регистрацията на ученици вече е затворена.</p>
+          </IfDateInPast>
+        </IfHTFeatureOff>
+        <IfHTFeatureOn feature="register-students">
           <p>
-            Регистрацията на ученици отваря на
-            <br />
-            <strong>
-              <DateDisplay date={STUDENTS_REGISTRATION_START} showHour />
-            </strong>
-            <br />
-            Oчакваме ви тогава!
+            Влизането на ученици е временно забранено. Моля, върнете се
+            по-късно.
           </p>
-        </IfDateInFuture>
-        <IfDateInPast date={STUDENTS_REGISTRATION_START}>
-          <p>За съжаление, регистрацията на ученици вече е затворена.</p>
-        </IfDateInPast>
+        </IfHTFeatureOn>
         <div>
           <Button variant="secondary" asChild>
             <Link href="/">
@@ -146,37 +158,50 @@ const errors: Record<
     status: 403,
     heading: (
       <>
-        <IfDateInFuture date={ALUMNI_REGISTRATION_START}>
-          Регистрацията на завършили още не е отворена!
-        </IfDateInFuture>
-        <IfDateInPast date={ALUMNI_REGISTRATION_START}>
-          Регистрацията на завършили вече е затворена.
-        </IfDateInPast>
+        <IfHTFeatureOff feature="register-alumni">
+          <IfDateInFuture date={ALUMNI_REGISTRATION_START}>
+            Регистрацията на завършили още не е отворена!
+          </IfDateInFuture>
+          <IfDateInPast date={ALUMNI_REGISTRATION_START}>
+            Регистрацията на завършили вече е затворена.
+          </IfDateInPast>
+        </IfHTFeatureOff>
+        <IfHTFeatureOn feature="register-alumni">
+          Влизането на завършили е забранено.
+        </IfHTFeatureOn>
       </>
     ),
     message: (
       <>
-        <IfDateInFuture date={ALUMNI_REGISTRATION_START}>
+        <IfHTFeatureOff feature="register-alumni">
+          <IfDateInFuture date={ALUMNI_REGISTRATION_START}>
+            <p>
+              Регистрацията на завършили възпитаници на ТУЕС отваря на
+              <br />
+              <strong>
+                <DateDisplay date={ALUMNI_REGISTRATION_START} showHour />
+              </strong>
+              <br />
+              Oчакваме ви тогава!
+            </p>
+          </IfDateInFuture>
+          <IfDateInPast date={ALUMNI_REGISTRATION_START}>
+            <p>За съжаление, регистрацията на завършили вече е затворена.</p>
+          </IfDateInPast>
+          <IfHTFeatureOn feature="register-students">
+            <p>
+              Aко сте настоящ ученик, моля{" "}
+              <Link className="underline" href="/login">
+                влезте с ученическия си имейл
+              </Link>{" "}
+              за да се регистрирате.
+            </p>
+          </IfHTFeatureOn>
+        </IfHTFeatureOff>
+        <IfHTFeatureOn feature="register-alumni">
           <p>
-            Регистрацията на завършили възпитаници на ТУЕС отваря на
-            <br />
-            <strong>
-              <DateDisplay date={ALUMNI_REGISTRATION_START} showHour />
-            </strong>
-            <br />
-            Oчакваме ви тогава!
-          </p>
-        </IfDateInFuture>
-        <IfDateInPast date={ALUMNI_REGISTRATION_START}>
-          <p>За съжаление, регистрацията на завършили вече е затворена.</p>
-        </IfDateInPast>
-        <IfHTFeatureOn feature="register-students">
-          <p>
-            Aко сте настоящ ученик, моля{" "}
-            <Link className="underline" href="/login">
-              влезте с ученическия си имейл
-            </Link>{" "}
-            за да се регистрирате.
+            Влизането на завършили е временно забранено. Моля, върнете се
+            по-късно.
           </p>
         </IfHTFeatureOn>
         <div>

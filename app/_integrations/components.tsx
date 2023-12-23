@@ -15,6 +15,14 @@ export function IfHTFeatureOn(props: {
   );
 }
 
+export function IfHTFeatureOff(props: {
+  feature: keyof HTFeatures;
+  children: React.ReactNode;
+}) {
+  const gb = useGrowthBook();
+  return gb?.isOff(props.feature) && <>{props.children}</>;
+}
+
 export function IfAnyHTFeatureOn(props: {
   outOf: (keyof HTFeatures)[];
   children: React.ReactNode;
