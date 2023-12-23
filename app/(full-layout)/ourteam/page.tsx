@@ -4,7 +4,7 @@ import { organizators } from "./organizators";
 export default function OurTeam() {
   return (
     <div className="w-full ">
-      <h1 className="mt-10 text-center font-htags text-3xl font-extrabold">
+      <h1 className="mt-5 text-center font-htags text-3xl font-extrabold">
         Екипът на Hack TUES X
       </h1>
       {Object.entries(organizators).map(([groupName, group], index) => (
