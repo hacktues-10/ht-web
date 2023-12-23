@@ -1,32 +1,29 @@
-import Link from "next/link";
-
+import OrganizatorDetailed from "~/app/(full-layout)/ourteam/components/organizatorDetailed";
 import { organizators } from "./organizators";
 
-export default function ourTeam() {
+export default function OurTeam() {
   return (
-    <div className="flex w-full flex-wrap gap-5">
-      {organizators.map((member) => {
-        return (
-          <div
-            key={member.name}
-            className="h-auto rounded-xl border-2 border-gray-500 p-2"
-            style={{ backgroundImage: member.photo }}
-          >
-            <p className="font-sans text-xl leading-7">{member.name}</p>
-            <p className="font-sans leading-7">{member.role}</p>
-            <Link
-              href={`https://www.instagram.com/${
-                member.Instagram.startsWith("@")
-                  ? member.Instagram.slice(1)
-                  : member.Instagram
-              }`}
-              className="hover:underline"
-            >
-              {member.Instagram}
-            </Link>
-          </div>
-        );
-      })}
+    <div className="w-full ">
+      <h1 className="mt-10 text-center font-htags text-3xl font-extrabold">
+        Екипът на Hack TUES X
+      </h1>
+      {Object.entries(organizators).map(([groupName, group], index) => (
+        <div
+          className="z-1 mx-auto w-full justify-center rounded-xl text-center"
+          key={index}
+        >
+          <h1 className="mt-10 font-htags text-2xl font-extrabold">
+            {groupName}
+          </h1>
+          {group.map((member, memberIndex) => (
+            <OrganizatorDetailed
+              key={memberIndex}
+              member={member}
+              index={memberIndex + 1}
+            />
+          ))}
+        </div>
+      ))}
     </div>
   );
 }
