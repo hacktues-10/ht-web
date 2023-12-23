@@ -56,7 +56,7 @@ export function CountdownTimerDisplay({ countdown }: { countdown: Countdown }) {
             {formatted.days}
           </animated.div>
           <div className="text-xs font-medium">
-            {countdown.days === 1 ? "ден" : "дена"}
+            {countdown.days === 1 ? "ден" : "дни"}
           </div>
         </div>
         <div className="flex flex-col items-center">
