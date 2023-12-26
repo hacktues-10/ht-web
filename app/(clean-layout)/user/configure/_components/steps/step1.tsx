@@ -56,7 +56,9 @@ export const AlumniStep1 = ({
     form.watch("lastName") != defaultValues.lastName &&
     form.watch("secondName") != defaultValues.secondName &&
     form.watch("phoneNumber") != defaultValues.phoneNumber &&
-    form.watch("regulationAgreement") != defaultValues.regulationAgreement;
+    form.watch("regulationAgreement") != defaultValues.regulationAgreement &&
+    form.watch("personalDataConsent") != defaultValues.personalDataConsent &&
+    form.watch("publicDataConsent") != defaultValues.publicDataConsent;
 
   return (
     <section
@@ -187,6 +189,53 @@ export const AlumniStep1 = ({
                 </FormItem>
               )}
             />
+            <div className="space-y-3 rounded-md border p-4">
+              <FormField
+                control={form.control}
+                name="personalDataConsent"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>
+                        Съгласен/а съм името ми, телефонът ми и логистичната ми
+                        информация да се съхранява и обработва само и единствено
+                        от организационния екип на Hack TUES X
+                      </FormLabel>
+                      {/* <FormDescription>
+                      You can manage your mobile notifications in the{" "}
+                      <Link href="/examples/forms">mobile settings</Link> page.
+                    </FormDescription> */}
+                    </div>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="publicDataConsent"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>
+                        Съгласен/а съм името и фамилията ми да бъдат публикувани
+                        на сайта и социалните мрежи на Hack TUES X.
+                      </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </div>
             <StepButtons
               right={
                 <NextStepButton
