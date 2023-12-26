@@ -14,7 +14,6 @@ export default function FullLayout({
       <main className="flex h-full flex-1 flex-col items-center justify-start overflow-x-clip p-6">
         {children}
       </main>
-      <Toaster />
       <Separator />
       <Footer />
     </div>

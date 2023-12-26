@@ -1,56 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { animated, useSpring, useSpringRef } from "@react-spring/web";
+import { PropsWithChildren, useState } from "react";
+import { animated, useSpring } from "@react-spring/web";
 
-import { Card, CardContent } from "./ui/card";
-
-type Countdown = ReturnType<typeof calculateCountdown>;
-
-export function useCountdown(to: Date) {
-  const [countdown, setCountdown] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    diff: 0,
-  });
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown(calculateCountdown(to));
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [to]);
-
-  return countdown;
-}
-
-function calculateCountdown(to: Date) {
-  const now = new Date();
-  const diff = Math.max(to.getTime() - now.getTime(), 0);
-
-  let diffSeconds = diff / 1000;
-  const days = Math.floor(diffSeconds / (60 * 60 * 24));
-  diffSeconds -= days * 60 * 60 * 24;
-
-  const hours = Math.floor(diffSeconds / (60 * 60)) % 24;
-  diffSeconds -= hours * 60 * 60;
-
-  const minutes = Math.floor(diffSeconds / 60) % 60;
-  diffSeconds -= minutes * 60;
-
-  // shouldnt need % 60 but just in case
-  const seconds = Math.floor(diffSeconds) % 60;
-
-  return {
-    days,
-    hours,
-    minutes,
-    seconds,
-    diff,
-  };
-}
+import { Card } from "../ui/card";
+import { Countdown, useCountdown } from "./hooks";
 
 function useCountdownSpring(countdown: Countdown) {
   const [immediate, setImmediate] = useState(false);
@@ -71,9 +25,14 @@ function useCountdownSpring(countdown: Countdown) {
 
 export function CountdownTimer({ to }: { to: Date }) {
   const countdown = useCountdown(to);
+  return <CountdownTimerDisplay countdown={countdown} />;
+}
+
+const numberFormat = new Intl.NumberFormat("en", { minimumIntegerDigits: 2 });
+
+export function CountdownTimerDisplay({ countdown }: { countdown: Countdown }) {
   const countdownSpring = useCountdownSpring(countdown);
 
-  const numberFormat = new Intl.NumberFormat("en", { minimumIntegerDigits: 2 });
   const formatted = {
     days: countdownSpring.days.to((days) =>
       numberFormat.format(Math.ceil(days)),
@@ -97,7 +56,7 @@ export function CountdownTimer({ to }: { to: Date }) {
             {formatted.days}
           </animated.div>
           <div className="text-xs font-medium">
-            {countdown.days === 1 ? "ден" : "дена"}
+            {countdown.days === 1 ? "ден" : "дни"}
           </div>
         </div>
         <div className="flex flex-col items-center">
@@ -128,3 +87,19 @@ export function CountdownTimer({ to }: { to: Date }) {
     </Card>
   );
 }
+
+export const IfDateInFuture = ({
+  date,
+  children,
+}: PropsWithChildren<{ date: Date }>) => {
+  const countdown = useCountdown(date, { ssr: true });
+  return countdown.diff > 0 ? <>{children}</> : null;
+};
+
+export const IfDateInPast = ({
+  date,
+  children,
+}: PropsWithChildren<{ date: Date }>) => {
+  const countdown = useCountdown(date, { ssr: true });
+  return countdown.diff <= 0 ? <>{children}</> : null;
+};

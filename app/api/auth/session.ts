@@ -3,14 +3,8 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import invariant from "tiny-invariant";
 
-import {
-  getMentorByEmail,
-  getMentorFromSession,
-} from "~/app/(full-layout)/mentors/service";
-import {
-  getParticipantByEmail,
-  getParticipantFromSession,
-} from "~/app/participants/service";
+import { getMentorFromSession } from "~/app/(full-layout)/mentors/service";
+import { getParticipantFromSession } from "~/app/participants/service";
 import { authOptions } from "./options";
 
 export async function getHTSession() {

@@ -68,7 +68,7 @@
     --destructive-foreground: var(--brand-foreground);
 
     --brand: 345 98% 53%; /* originally 345 87% 43% */
-    --brand-foreground: 220.9 39.3% 11%;
+    --brand-foreground: 0 0% 100%;
 
     --input: 215 27.9% 16.9%;
     --ring: 216 12.2% 83.9%;
