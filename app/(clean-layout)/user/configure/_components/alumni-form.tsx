@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import { Separator } from "~/app/components/ui/separator";
+import { useToast } from "~/app/components/ui/use-toast";
 import { registerAlumni } from "../actions";
 import { AlumniRegistrationSchema, alunmiRegistrationSchema } from "../schemas";
 import { AlumniStep1 } from "./steps/step1";
@@ -18,8 +19,10 @@ const defaultValues = {
   secondName: "",
   lastName: "",
   phoneNumber: "",
-  isAlumni: false as any, // zod does validation on this
-  regulationAgreement: false as any, // zod does validation on this
+  isAlumni: false,
+  regulationAgreement: false,
+  publicDataConsent: false,
+  personalDataConsent: false,
   class: {
     grade: "" as any, // zod does validation on this
     parallel: "" as any, // ...and this
@@ -34,33 +37,17 @@ const defaultValues = {
 
 export const AlumniForm = ({ email }: { email: string }) => {
   const router = useRouter();
+  const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, updateData] = useReducer(
     (
-      state: AlumniRegistrationSchema, //current state of the form
-      update: Partial<AlumniRegistrationSchema>, //object containing partial updates to the states
+      state: AlumniRegistrationSchema,
+      update: Partial<AlumniRegistrationSchema>,
     ) => ({
       ...state,
       ...update,
     }),
-    {
-      firstName: "",
-      secondName: "",
-      lastName: "",
-      phoneNumber: "",
-      isAlumni: false as any, // zod does validation on this
-      regulationAgreement: false as any, // zod does validation on this
-      class: {
-        grade: "" as any, // zod does validation on this
-        parallel: "" as any, // ...and this
-      },
-      allergies: "",
-      tShirtId: -10,
-      technologies: "",
-      isLookingForTeam: true,
-      question1: "",
-      question2: "",
-    } satisfies AlumniRegistrationSchema,
+    { ...defaultValues },
   );
 
   useEffect(() => {
@@ -127,17 +114,24 @@ export const AlumniForm = ({ email }: { email: string }) => {
     const response = await registerAlumni(updatedData);
     try {
       if (response.success) {
-        alert("Успешно се регистрирахте!");
+        toast({ variant: "sand", title: "Успешно се регистрирахте!" });
         localStorage.removeItem("alumniRegistrationDataCurrentStep");
         localStorage.removeItem("alumniRegistrationData");
         router.refresh();
       } else {
-        alert(response.error);
+        toast({
+          variant: "sand",
+          title: "Възникна грешка",
+          description: response.error,
+        });
       }
     } catch (e) {
-      alert(
-        "Възникна грешка при регистрацията. Моля, опитайте отново по-късно. Ако проблемът продължава, свържете се с нас на адрес hacktues@elsys-bg.org.",
-      );
+      toast({
+        variant: "sand",
+        title: "Възникна грешка при регистрацията",
+        description:
+          "Моля, опитайте отново по-късно. Ако проблемът продължава, свържете се с нас на адрес hacktues@elsys-bg.org.",
+      });
     }
   }
 
@@ -156,6 +150,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
         email={email}
         defaultValues={defaultValues}
         initialData={formData}
+        currentStep={currentStep}
         onPrev={handlePrev}
         onNext={handleNext}
       />

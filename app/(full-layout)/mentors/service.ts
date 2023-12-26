@@ -35,7 +35,8 @@ const selectFromMentors = () =>
       },
     })
     .from(mentors)
-    .leftJoin(discordUsers, eq(mentors.id, discordUsers.mentorId));
+    .leftJoin(discordUsers, eq(mentors.id, discordUsers.mentorId))
+    .leftJoin(teams, eq(mentors.id, teams.mentorId));
 
 export const getMentorByEmail = async (email: string) => {
   const mentor = await selectFromMentors().where(eq(mentors.email, email));
