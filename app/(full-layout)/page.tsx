@@ -76,9 +76,9 @@ function CountdownHero() {
         </h1>
         <div className="py-2" />
         <CountdownTimer to={EVENT_START} />
-        <Button asChild>
-          <SignInButton>Регистрирай се</SignInButton>
-        </Button>
+        <Link href="/signup">
+          <Button size="lg">Регистрирайте се!</Button>
+        </Link>
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>

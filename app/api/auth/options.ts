@@ -5,6 +5,8 @@ import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
+import { parseElsysEmail } from "~/app/_elsys/service";
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
@@ -24,11 +26,6 @@ const authConst = {
   clientSecret: env.GMAIL_CLIENT_SECRET,
   refreshToken: env.GMAIL_REFRESH_TOKEN,
 };
-
-function printReturn<T>(x: T) {
-  console.log(x);
-  return x;
-}
 
 export const authOptions = {
   providers: [
@@ -55,16 +52,22 @@ export const authOptions = {
       if (account?.provider !== "email" || !user.email) {
         return false;
       }
-      // if (
-      //   user.email.endsWith("@elsys-bg.org") ||
-      //   isInMentorWhitelist(user.email)
-      // ) {
+      const isAlumni = parseElsysEmail(user.email)?.isAlumni ?? true;
+      const gb = await getServerSideGrowthBook();
+      if (isAlumni && gb.isOff("signin-alumni")) {
+        return "/login/error?error=AlumniDisabled";
+      }
+      if (!isAlumni && gb.isOff("signin-students")) {
+        return "/login/error?error=StudentsDisabled";
+      }
       return true;
-      // }
-      // return false;
     },
   },
   pages: {
+    signIn: "/login",
+    signOut: "/signout",
+    error: "/login/error",
+    verifyRequest: "/confirm-email",
     newUser: "/user/configure",
   },
 
