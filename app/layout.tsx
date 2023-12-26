@@ -7,6 +7,7 @@ import localFont from "next/font/local";
 import AuthProvider from "~/app/_context/auth-provider";
 import { GrowthBookServerProvider } from "~/app/_context/growthbook/GrowthBookServerProvider";
 import { HTQueryClientProvider } from "./_context/query-client-provider";
+import { Toaster } from "./components/ui/toaster";
 import { cn } from "./utils";
 
 const inter = Inter({
@@ -63,6 +64,7 @@ export default function RootLayout({
         <AuthProvider>
           <GrowthBookServerProvider>
             <HTQueryClientProvider>{children}</HTQueryClientProvider>
+            <Toaster />
           </GrowthBookServerProvider>
         </AuthProvider>
       </body>
