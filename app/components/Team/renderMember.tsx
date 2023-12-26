@@ -37,7 +37,7 @@ export default function RenderMember({
           </Avatar>
         </div>
       </HoverCardTrigger>
-      <HoverCardContent className="">
+      <HoverCardContent>
         <div className="flex justify-between space-x-4">
           <Avatar className="m-auto">
             <AvatarImage />
@@ -63,7 +63,7 @@ export default function RenderMember({
               <div className="flex items-center pt-2">
                 <TbBrandDiscord size={32} />
                 <span className="m-3 text-xs text-muted-foreground">
-                  member.discordUser.discordUsername
+                  {member.discordUser.discordUsername}
                 </span>
               </div>
             ) : null}
