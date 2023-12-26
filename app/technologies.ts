@@ -89,10 +89,10 @@ export const technologies = [
   { id: 6, name: "C#", color: "#178600", textColor: "#FFFFFF", value: "c#" },
   {
     id: 7,
-    name: "Ruby",
+    name: "Ruby1",
     color: "#CC342D",
     textColor: "#FFFFFF",
-    value: "ruby",
+    value: "ruby1",
   },
   { id: 8, name: "PHP", color: "#8993BE", textColor: "#000000", value: "php" },
   {

@@ -13,13 +13,6 @@ import { alunmiRegistrationSchema } from "./schemas";
 export const registerAlumni = zact(alunmiRegistrationSchema)(async (data) => {
   try {
     const gb = await getServerSideGrowthBook();
-    console.log({
-      isOff: gb.isOff("register-alumni"),
-      isOn: gb.isOn("register-alumni"),
-      feature1: gb.getFeatureValue("register-alumni", false),
-      feature2: gb.getFeatureValue("register-alumni", true),
-      features: gb.getFeatures(),
-    });
     if (gb.isOff("register-alumni")) {
       return {
         success: false,

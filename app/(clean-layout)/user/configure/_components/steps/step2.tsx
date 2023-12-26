@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
@@ -14,9 +15,8 @@ import {
   REGULAR_ALUMNI_PARALLELS,
 } from "~/app/_elsys/grades-parallels";
 import { SignOutButton } from "~/app/components/buttons";
-import { Button, buttonVariants } from "~/app/components/ui/button";
-import { Card, CardContent } from "~/app/components/ui/card";
-import { Checkbox } from "~/app/components/ui/checkbox";
+import { Button } from "~/app/components/ui/button";
+import { Card } from "~/app/components/ui/card";
 import {
   Command,
   CommandEmpty,
@@ -33,7 +33,6 @@ import {
   FormLabel,
   FormMessage,
 } from "~/app/components/ui/form";
-import { Input } from "~/app/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -55,14 +54,18 @@ type AlumniStep2Data = z.infer<typeof alumniStep2Schema>;
 // TODO: add more info about whats in the form in its name
 export const AlumniStep2 = ({
   email,
+  defaultValues,
   initialData,
+  currentStep,
   onNext,
   onPrev,
   className,
 }: {
   email: string;
+  defaultValues: AlumniStep2Data;
   initialData: Partial<AlumniStep2Data>;
   onNext: (data: AlumniStep2Data) => void;
+  currentStep: number;
   onPrev: () => void;
   className?: string;
 }) => {
@@ -71,9 +74,33 @@ export const AlumniStep2 = ({
     defaultValues: initialData,
   });
 
+  useEffect(() => {
+    form.reset(initialData);
+  }, [initialData, form]);
+
   const canSubmit =
-    form.formState.dirtyFields.class?.grade &&
-    form.formState.dirtyFields.class?.parallel;
+    form.watch("class.grade") != defaultValues.class.grade &&
+    form.watch("class.parallel") != defaultValues.class.parallel;
+
+  const [popoverWidth, setPopoverWidth] = useState(96);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const updatePopoverWidth = () => {
+      if (buttonRef.current) {
+        const buttonWidth = buttonRef.current.getBoundingClientRect().width;
+        setPopoverWidth(buttonWidth);
+      }
+    };
+    const handleResize = () => {
+      updatePopoverWidth();
+    };
+    window.addEventListener("resize", handleResize);
+    updatePopoverWidth();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [currentStep]);
 
   return (
     <section
@@ -100,29 +127,41 @@ export const AlumniStep2 = ({
                         <Button
                           variant="outline"
                           role="combobox"
-                          className={cn(
-                            "w-[200px] justify-between",
-                            !field.value && "text-muted-foreground",
-                          )}
+                          className={cn("w-full justify-between")}
+                          ref={buttonRef} // Set a ref to the Button component
                         >
                           {field.value || "Избери випуск"}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          <ChevronsUpDown className="ml-2 h-4 w-2 shrink-0 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
+                    <PopoverContent
+                      style={{ width: popoverWidth }}
+                      className={"p-0"}
+                    >
                       <Command>
                         <CommandInput placeholder="Търси випуск..." />
                         <CommandEmpty>Випускът не е намерен.</CommandEmpty>
                         <CommandGroup>
-                          {ALUMNI_GRADES.toReversed().map((grade) => (
+                          {/* FIXME: use `.toReversed()` when NodeJS supports it */}
+                          {[...ALUMNI_GRADES].reverse().map((grade) => (
                             <CommandItem
+                              className="hover:bg-secondary/10"
                               value={grade}
                               key={grade}
                               onSelect={() => {
                                 form.setValue("class.grade", grade, {
                                   shouldDirty: true,
                                 });
+                                const escapeEvent = new KeyboardEvent(
+                                  "keydown",
+                                  {
+                                    key: "Escape",
+                                    bubbles: true,
+                                    cancelable: true,
+                                  },
+                                );
+                                document.dispatchEvent(escapeEvent);
                               }}
                             >
                               <Check
@@ -154,10 +193,7 @@ export const AlumniStep2 = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Паралелка</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Изберете паралелка" />

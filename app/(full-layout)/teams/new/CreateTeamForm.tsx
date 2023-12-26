@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
 
@@ -40,26 +40,23 @@ export function CreateTeamForm() {
     }
   }
 
-  useEffect(() => {
-    async function checkUserTeam() {
-      const { isEligableToCreateTeam } = await checkUserCanCreateTeam();
-      if (!isEligableToCreateTeam) {
-        toast({
-          title: "Не можете да създадете отбор",
-          description:
-            "Моля, ако мислите, че има грешка, свържете се с hacktues@elsys-bg.org",
-        });
-        setButtonDisabled(true);
-      } else {
-        setButtonDisabled(false);
-      }
+  const checkUserTeam = useCallback(async () => {
+    const { isEligableToCreateTeam } = await checkUserCanCreateTeam();
+    if (!isEligableToCreateTeam) {
+      toast({
+        title: "Не можете да създадете отбор",
+        description:
+          "Моля, ако мислите, че има грешка, свържете се с hacktues@elsys-bg.org",
+      });
+      setButtonDisabled(true);
+    } else {
+      setButtonDisabled(false);
     }
+  }, [toast]);
 
-    const caller = async () => {
-      await checkUserTeam();
-    };
-    caller();
-  }, []);
+  useEffect(() => {
+    checkUserTeam();
+  }, [checkUserTeam]);
 
   return (
     <Card>

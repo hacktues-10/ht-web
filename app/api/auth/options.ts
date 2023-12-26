@@ -5,7 +5,8 @@ import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
-import { isInMentorWhitelist } from "~/app/(full-layout)/mentors/service";
+import { parseElsysEmail } from "~/app/_elsys/service";
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
@@ -25,11 +26,6 @@ const authConst = {
   clientSecret: env.GMAIL_CLIENT_SECRET,
   refreshToken: env.GMAIL_REFRESH_TOKEN,
 };
-
-function printReturn<T>(x: T) {
-  console.log(x);
-  return x;
-}
 
 export const authOptions = {
   providers: [
@@ -56,16 +52,22 @@ export const authOptions = {
       if (account?.provider !== "email" || !user.email) {
         return false;
       }
-      // if (
-      //   user.email.endsWith("@elsys-bg.org") ||
-      //   isInMentorWhitelist(user.email)
-      // ) {
+      const isAlumni = parseElsysEmail(user.email)?.isAlumni ?? true;
+      const gb = await getServerSideGrowthBook();
+      if (isAlumni && gb.isOff("signin-alumni")) {
+        return "/login/error?error=AlumniDisabled";
+      }
+      if (!isAlumni && gb.isOff("signin-students")) {
+        return "/login/error?error=StudentsDisabled";
+      }
       return true;
-      // }
-      // return false;
     },
   },
   pages: {
+    signIn: "/login",
+    signOut: "/signout",
+    error: "/login/error",
+    verifyRequest: "/confirm-email",
     newUser: "/user/configure",
   },
 
@@ -133,15 +135,29 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
 `;
 }
 
+function text(params: { url: string; identifier: string; theme: Theme }) {
+  const { url, identifier } = params;
+
+  return `Влезте в Hack TUES X.
+
+За да продължите, моля посетете следния адрес:
+${url}
+
+Получавате това писмо, защото някой е въвел вашия адрес (${identifier}) в сайта
+на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. Можете
+да се свържете с нас като отговорите на този имейл или пишете на:
+
+hacktues@elsys-bg.org
+`;
+}
+
 async function sendEmail(
   identifier: string,
   provider: EmailConfig,
   url: string,
   theme: Theme,
 ) {
-  const accessToken = await oAuth2Client.getAccessToken();
-  let token = await accessToken.token;
-
+  const { token: accessToken } = await oAuth2Client.getAccessToken();
   const transport = createTransport({
     // @ts-ignore
     service: "gmail",
@@ -149,14 +165,20 @@ async function sendEmail(
       rejectUnauthorized: false,
     },
     auth: {
-      ...authConst,
-      accessToken: token,
+      type: "OAuth2",
+      user: env.EMAIL_FROM,
+      clientId: env.GMAIL_CLIENT_ID,
+      clientSecret: env.GMAIL_CLIENT_SECRET,
+      accessToken,
+      refreshToken: env.GMAIL_REFRESH_TOKEN,
     },
   });
+
   return await transport.sendMail({
     to: identifier,
     from: "Hack TUES X",
     subject: `Влизане в Hack TUES X`,
     html: html({ url, identifier, theme }),
+    text: text({ url, identifier, theme }),
   });
 }

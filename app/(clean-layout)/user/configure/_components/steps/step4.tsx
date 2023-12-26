@@ -1,29 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import {
-  ALUMNI_GRADES,
-  ALUMNI_PARALLELS,
-  EXTENDED_ALUMNI_GRADES,
-  EXTENDED_ALUMNI_PARALLELS,
-  REGULAR_ALUMNI_PARALLELS,
-} from "~/app/_elsys/grades-parallels";
 import { SignOutButton } from "~/app/components/buttons";
+import TechnologiesTab from "~/app/components/Technologies/technologiesContainer";
 import { Button, buttonVariants } from "~/app/components/ui/button";
 import { Card, CardContent } from "~/app/components/ui/card";
 import { Checkbox } from "~/app/components/ui/checkbox";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "~/app/components/ui/command";
 import {
   Form,
   FormControl,
@@ -33,20 +21,10 @@ import {
   FormLabel,
   FormMessage,
 } from "~/app/components/ui/form";
-import { Input } from "~/app/components/ui/input";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/app/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/app/components/ui/select";
-import { Textarea } from "~/app/components/ui/textarea";
+  convertTechnologiesToText,
+  convertToTechnology,
+} from "~/app/technologies";
 import { cn } from "~/app/utils";
 import { everyoneStep4Schema } from "../../schemas";
 import { NextStepButton, StepButtons } from "../step-buttonts";
@@ -57,6 +35,7 @@ type EveryoneStep4Data = z.infer<typeof everyoneStep4Schema>;
 export const EveryoneStep4 = ({
   email,
   initialData,
+  defaultValues,
   onNext,
   onPrev,
   className,
@@ -64,6 +43,7 @@ export const EveryoneStep4 = ({
 }: {
   email: string;
   initialData: Partial<EveryoneStep4Data>;
+  defaultValues: EveryoneStep4Data;
   onNext: (data: EveryoneStep4Data) => void;
   onPrev: () => void;
   className?: string;
@@ -73,6 +53,22 @@ export const EveryoneStep4 = ({
     resolver: zodResolver(everyoneStep4Schema),
     defaultValues: initialData,
   });
+
+  const [technologies, setTechnolgoies] = useState(
+    convertToTechnology(initialData.technologies ?? ""),
+  );
+
+  useEffect(() => {
+    form.setValue("technologies", convertTechnologiesToText(technologies));
+  }, [technologies, form]);
+
+  useEffect(() => {
+    setTechnolgoies(convertToTechnology(initialData.technologies ?? ""));
+  }, [initialData]);
+
+  useEffect(() => {
+    form.reset(initialData);
+  }, [initialData, form]);
 
   return (
     <section
@@ -87,27 +83,14 @@ export const EveryoneStep4 = ({
       <Card className="block w-full p-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onNext)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="technologies"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Кои технологии владеете?</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Технологии"
-                      className="resize-none"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Видими от всички потребители.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+            <FormLabel>Кои технологии владеете?</FormLabel>
+            <TechnologiesTab
+              badgeBorderColor="white"
+              inputClassName=""
+              technologiesFromParent={technologies}
+              setTechnolgoies={setTechnolgoies}
+            ></TechnologiesTab>
+            <FormDescription>Видими от всички потребители.</FormDescription>
             <FormField
               control={form.control}
               name="isLookingForTeam"

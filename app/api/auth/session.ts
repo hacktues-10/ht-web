@@ -1,11 +1,18 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import invariant from "tiny-invariant";
 
+import { getMentorFromSession } from "~/app/(full-layout)/mentors/service";
+import { getParticipantFromSession } from "~/app/participants/service";
 import { authOptions } from "./options";
 
-export function getHTSession() {
-  return getServerSession(authOptions);
+export async function getHTSession() {
+  const session = await getServerSession(authOptions);
+  if (!session) return null;
+  invariant(session.user !== undefined, "User is missing from session");
+  invariant(session.user.email, "Email is missing from session");
+  return session;
 }
 
 export type HTSession = Exclude<Awaited<ReturnType<typeof getHTSession>>, null>;
@@ -22,4 +29,17 @@ export function signInRedirect(): never {
       callbackUrl: invokePath ?? "/",
     })}`,
   );
+}
+
+export async function getUserAuthorization() {
+  const session = await getHTSession();
+  const mentor = await getMentorFromSession();
+  const participant = await getParticipantFromSession();
+
+  return {
+    hasSession: !!session,
+    isMentor: !!mentor,
+    isParticipant: !!participant,
+    hasConnectedDiscord: !!mentor?.discordUser || !!participant?.discordUser,
+  };
 }

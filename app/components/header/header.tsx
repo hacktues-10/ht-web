@@ -5,6 +5,7 @@ import { animated, useScroll } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { LogOutIcon, UserCircle2 } from "lucide-react";
 
+import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
 import { SignInButton, SignOutButton } from "../buttons";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
@@ -90,12 +91,20 @@ export const Header = () => {
       )}
       {headerData && headerData.avatarName === null && (
         <div className="hidden gap-2 md:flex">
-          <Button variant="secondary" asChild>
-            <SignInButton>Регистрация</SignInButton>
-          </Button>
-          <Button asChild>
-            <SignInButton>Вход</SignInButton>
-          </Button>
+          <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+            <Button variant="secondary" asChild>
+              <Link href="/signup">Регистрация</Link>
+            </Button>
+          </IfAnyHTFeatureOn>
+          <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
+            <Button asChild>
+              <SignInButton>
+                <Link href="/login" className="pointer-events-none">
+                  Вход
+                </Link>
+              </SignInButton>
+            </Button>
+          </IfAnyHTFeatureOn>
         </div>
       )}
       <MobileNavigation className="md:hidden" />
