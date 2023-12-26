@@ -12,6 +12,8 @@ type NewIsSelected = {
 const TechnologiesTab = ({
   technologiesFromParent,
   setTechnolgoies,
+  inputClassName,
+  badgeBorderColor,
 }: {
   technologiesFromParent: ReturnType<typeof convertToTechnology>;
   setTechnolgoies: Dispatch<
@@ -28,6 +30,8 @@ const TechnologiesTab = ({
       )[]
     >
   >;
+  inputClassName: string;
+  badgeBorderColor: string;
 }) => {
   const [isSelected, setIsSelected] = useState<NewIsSelected>({});
   const [filterValue, setFilterValue] = useState("");
@@ -72,12 +76,12 @@ const TechnologiesTab = ({
     return a.name.localeCompare(b.name);
   });
   return (
-    <div>
+    <div className="w-full">
       <Input
         value={filterValue}
         onChange={(event) => setFilterValue(event.target.value)}
         placeholder="Потърси технология"
-        className="mb-4"
+        className={`mb-4 ${inputClassName}`}
       />
       <div className="h-[320px] overflow-scroll">
         {TECHNOLOGIES.filter((technology) =>
@@ -95,7 +99,7 @@ const TechnologiesTab = ({
               opacity: isSelected[technology?.name ?? ""] ? 1 : 0.7,
               outline: !isSelected[technology?.name ?? ""]
                 ? "none"
-                : `2px solid white`,
+                : `2px solid ${badgeBorderColor}`,
               cursor: "pointer",
             }}
             onClick={() => handleOnChange(technology?.name ?? "?")}

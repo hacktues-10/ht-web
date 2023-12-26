@@ -85,6 +85,8 @@ export const EveryoneStep4 = ({
           <form onSubmit={form.handleSubmit(onNext)} className="space-y-6">
             <FormLabel>Кои технологии владеете?</FormLabel>
             <TechnologiesTab
+              badgeBorderColor="white"
+              inputClassName=""
               technologiesFromParent={technologies}
               setTechnolgoies={setTechnolgoies}
             ></TechnologiesTab>

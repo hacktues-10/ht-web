@@ -2,34 +2,18 @@
 
 import * as React from "react";
 import { useState } from "react";
-import { Check, ChevronsUpDown, X } from "lucide-react";
 
 import { updateAllergiesAndTechnologies } from "~/app/_technologies/actions";
-import { Badge } from "~/app/components/ui/badge";
 import { Button } from "~/app/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "~/app/components/ui/command";
 import { Input } from "~/app/components/ui/input";
 import { Label } from "~/app/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/app/components/ui/popover";
 import { Textarea } from "~/app/components/ui/textarea";
 import { useToast } from "~/app/components/ui/use-toast";
 import { getParticipantFromSession } from "~/app/participants/service";
 import {
   convertTechnologiesToText,
   convertToTechnology,
-  prepareTechnologies,
 } from "~/app/technologies";
-import { cn } from "~/app/utils";
 import TechnologiesTab from "../../../components/Technologies/technologiesContainer";
 
 export default function ProfileInfo({
@@ -38,12 +22,7 @@ export default function ProfileInfo({
   participant: Awaited<ReturnType<typeof getParticipantFromSession>>;
 }) {
   const { toast } = useToast();
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
   const [allergies, setAllergies] = useState(participant?.allergies ?? "");
-  const [technologies, setTechnologies] = useState(
-    prepareTechnologies(participant?.technologies ?? ""),
-  );
 
   const [selectedTechnologiesArray, setSelectedTechnologies] = useState(
     convertToTechnology(participant?.technologies ?? ""),
@@ -149,9 +128,11 @@ export default function ProfileInfo({
             </div>
           </div>
         </div>
-        <div className="m-auto">
-          <div className="flex  justify-center">
+        <div className="m-4">
+          <div className="flex justify-center">
             <TechnologiesTab
+              badgeBorderColor="black"
+              inputClassName="bg-sand text-black"
               technologiesFromParent={selectedTechnologiesArray}
               setTechnolgoies={setSelectedTechnologies}
             />
