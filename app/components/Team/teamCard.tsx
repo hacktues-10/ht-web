@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 
+import "./animations.css";
+
+import { useEffect, useState } from "react";
+
 import { getConfirmedTeams } from "~/app/(full-layout)/teams/service";
 import { Badge } from "~/app/components/ui/badge";
 import {
@@ -17,9 +21,10 @@ import RenderMember from "./renderMember";
 
 interface TeamCardProps {
   team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;
+  index: number;
 }
 
-const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
+const TeamCard: React.FC<TeamCardProps> = ({ team, index }) => {
   const colors = [
     "bg-red-700",
     "bg-green-700",
@@ -33,12 +38,28 @@ const TeamCard: React.FC<TeamCardProps> = ({ team }) => {
     "bg-purple-700",
   ];
 
-  const techn = convertToPaginatedTechnologies(team.technologies || "", 3);
+  const [isVisible, setIsVisible] = useState(false);
+  const delay = index * 100;
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const techn = convertToPaginatedTechnologies(team.technologies || "", 3);
   return (
     <Link href={`/teams/${team.id}`}>
-      <div>
-        <Card className="z-10 m-5 h-max overflow-visible rounded-3xl backdrop-blur-sm backdrop-filter transition-transform duration-300 ease-in-out hover:scale-105 hover:cursor-pointer">
+      <div
+        className="fadeInComponent"
+        style={{
+          animationDelay: `${delay}ms`,
+          opacity: isVisible ? 1 : 0,
+        }}
+      >
+        <Card className="m-5 h-max max-w-[455px] overflow-visible rounded-3xl backdrop-blur-sm backdrop-filter transition-transform duration-300 ease-in-out hover:scale-105 hover:cursor-pointer">
           <CardHeader className="pb-0">
             <CardTitle className="text-3xl">{team.name}</CardTitle>
             <CardDescription className="scroll-m-20 border-b border-gray-100/50 pl-2 leading-7 [&:not(:first-child)]:mt-2">

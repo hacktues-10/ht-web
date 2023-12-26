@@ -39,7 +39,7 @@ export default async function TeamList() {
   //   TODO: move elsewhere
   return (
     //bg-[url('./assets/background.png')]
-    <div className="h-full w-full content-center items-center justify-center">
+    <div className="h-full w-full max-w-[1920px] content-center items-center justify-center">
       <IfHTFeatureOn feature="create-team">
         {participant && !participant.team.id && canCreateTeam && (
           <div className="flex flex-col items-center justify-center">
@@ -67,8 +67,8 @@ export default async function TeamList() {
               Потвърдени отбори: {confirmedStudentTeamsNumber}/70
             </h2>
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {studentTeams.map((team) => (
-                <TeamCard team={team} key={team.id} />
+              {studentTeams.map((team, index) => (
+                <TeamCard team={team} index={index} key={team.id} />
               ))}
             </div>
           </div>
@@ -84,8 +84,8 @@ export default async function TeamList() {
             </h2>
 
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {graduateTeams.map((team) => (
-                <TeamCard team={team} key={team.id} />
+              {graduateTeams.map((team, index) => (
+                <TeamCard team={team} index={index} key={team.id} />
               ))}
             </div>
           </div>

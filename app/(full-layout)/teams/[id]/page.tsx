@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TbBrandGithub } from "react-icons/tb";
 
+import "~/app/components/Team/animations.css";
+
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getImageUrl } from "~/app/_integrations/r2";
 import { getMentorById } from "~/app/(full-layout)/mentors/service";
@@ -77,7 +79,7 @@ export default async function TeamDetailPage({
 
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <Card className="h-min rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
+      <Card className="fadeIn h-min rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
         <div className="flex w-full">
           <div className="flex items-center">
             <Button asChild variant="secondary" className="mt-8">
@@ -122,7 +124,7 @@ export default async function TeamDetailPage({
         </div>
       </Card>
       <div className="w-full  sm:flex">
-        <Card className="mt-10 self-center rounded-3xl border-2 p-3 sm:w-3/5">
+        <Card className="fadeInComponent mt-10 self-center rounded-3xl border-2 p-3 sm:w-3/5">
           <Tabs defaultValue="information">
             {participant?.team.id == team.id && (
               <TabsList className="mb-4">
@@ -214,7 +216,7 @@ export default async function TeamDetailPage({
           </Tabs>
         </Card>
         <div className="sm:w-2/5">
-          <Card className="m-10 ml-auto mr-auto flex h-min w-5/6 rounded-3xl border-2 p-5 sm:mr-0">
+          <Card className="fadeInComponent m-10 ml-auto mr-auto flex h-min w-5/6 rounded-3xl border-2 p-5 sm:mr-0">
             {team.mentorId && url ? (
               <>
                 <div>
@@ -240,7 +242,7 @@ export default async function TeamDetailPage({
             )}
           </Card>
 
-          <Card className="m-10 ml-auto mr-auto h-min w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
+          <Card className="fadeInComponent m-10 ml-auto mr-auto h-min w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
             <h3 className="mb-2 text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
               <div className="m-2 w-full flex-auto gap-2 p-2">
