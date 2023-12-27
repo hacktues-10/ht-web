@@ -95,38 +95,6 @@ function CountdownHero() {
   );
 }
 
-{
-  /* function PodkrepqPackageScrollableContent({
-  podkrepqshti,
-}: {
-  podkrepqshti: Podkrepqsht[];
-}) {
-  return (
-    <ul className="mx-auto grid max-w-sm grid-cols-1 gap-6 p-2 sm:max-w-3xl sm:grid-cols-2 md:grid-cols-3">
-      {podkrepqshti.map((podkrepqsht) => (
-        <li key={podkrepqsht.name} title={podkrepqsht.name}>
-          <Link
-            href={podkrepqsht.url}
-            className="group relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip rounded-lg bg-white p-4 shadow-md"
-            target="_blank"
-          >
-            <Image
-              className="max-h-full max-w-full object-contain px-3 py-5 transition-transform group-hover:scale-110"
-              src={podkrepqsht.logo}
-              alt={podkrepqsht.name}
-            />
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function PordkrepqPackage({ children }: PropsWithChildren) {
-  return <section className="flex flex-col gap-3">{children}</section>;
-} */
-}
-
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
     <h2 className="mb-10 scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-destructive first:mt-0">
