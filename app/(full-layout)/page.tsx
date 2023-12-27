@@ -15,6 +15,7 @@ import {
 import { SignInButton } from "../components/buttons";
 import { CountdownTimer } from "../components/countdowns";
 import { CountdownHourglass } from "../components/hourglass";
+import PodkrepqAutomationComponent from "../components/podkrepqAutoDisplay";
 import { Button } from "../components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 
@@ -22,27 +23,29 @@ export default async function LandingPage() {
   return (
     <div className="flex min-h-fit w-full flex-col">
       <CountdownHero />
-      <section className="light relative flex flex-col gap-14 overflow-x-visible bg-sand pb-14 pt-28 text-sand-foreground">
-        <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] bg-sand" />
-        <PordkrepqPackage>
-          <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
-          <PodkrepqPackageScrollableContent podkrepqshti={ALPHA_SPONSORS} />
-        </PordkrepqPackage>
-        <PordkrepqPackage>
-          <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
-          <PodkrepqPackageScrollableContent podkrepqshti={BETA_SPONSORS} />
-        </PordkrepqPackage>
-        <PordkrepqPackage>
-          <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
-          <PodkrepqPackageScrollableContent podkrepqshti={GAMMA_SPONSORS} />
-        </PordkrepqPackage>
-        <PordkrepqPackage>
-          <PodkrepqTitle>Партньори</PodkrepqTitle>
-          <PodkrepqPackageScrollableContent podkrepqshti={PARTNERS} />
-        </PordkrepqPackage>
+      <section className="light relative flex flex-col gap-14 overflow-x-visible pb-14 pt-28 text-sand-foreground">
+        <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]" />
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="mb-52">
+            <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
+            <PodkrepqAutomationComponent podkrepqshti={ALPHA_SPONSORS} />
+          </div>
+          <div className="mb-52">
+            <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
+            <PodkrepqAutomationComponent podkrepqshti={BETA_SPONSORS} />
+          </div>
+          <div className="mb-52">
+            <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
+            <PodkrepqAutomationComponent podkrepqshti={GAMMA_SPONSORS} />
+          </div>
+          <div className="">
+            <PodkrepqTitle>Партньори</PodkrepqTitle>
+            <PodkrepqAutomationComponent podkrepqshti={PARTNERS} />
+          </div>
+        </div>
         <div className="py-9" />
       </section>
-      <section className="relative flex flex-col items-center gap-3 pt-7">
+      {/* <section className="relative flex flex-col items-center gap-3 pt-7">
         <div
           className="absolute -top-3 left-1/2 -z-30 h-[34px] min-h-[800px] w-[300%] -translate-x-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_0%,hsl(var(--sand)/0.15),transparent)]"
           aria-hidden
@@ -54,7 +57,7 @@ export default async function LandingPage() {
         {MEDIA_ARTICLES.map((article) => (
           <MediaArticleCard key={article.title} article={article} />
         ))}
-      </section>
+      </section> */}
       <div className="pb-4"></div>
     </div>
   );
@@ -92,7 +95,8 @@ function CountdownHero() {
   );
 }
 
-function PodkrepqPackageScrollableContent({
+{
+  /* function PodkrepqPackageScrollableContent({
   podkrepqshti,
 }: {
   podkrepqshti: Podkrepqsht[];
@@ -120,11 +124,12 @@ function PodkrepqPackageScrollableContent({
 
 function PordkrepqPackage({ children }: PropsWithChildren) {
   return <section className="flex flex-col gap-3">{children}</section>;
+} */
 }
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-destructive first:mt-0">
+    <h2 className="mb-10 scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-destructive first:mt-0">
       {children}
     </h2>
   );

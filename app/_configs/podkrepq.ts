@@ -1,102 +1,58 @@
+//Alpha sponsors
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
 import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
+//Partners
 import a1Logo from "../assets/sponsors/alpha/a1.png";
-import appolicaLogo from "../assets/sponsors/alpha/appolica.png";
-import boschLogo from "../assets/sponsors/alpha/bosch.png";
-import dxcLogo from "../assets/sponsors/alpha/dxc.png";
-import excitelLogo from "../assets/sponsors/alpha/excitel.png";
-import experianLogo from "../assets/sponsors/alpha/experian.png";
-import m2mLogo from "../assets/sponsors/alpha/m2m.png";
+import boschECSLogo from "../assets/sponsors/alpha/bosch-engineering-center-sofia.png";
+import codbexLogo from "../assets/sponsors/alpha/codbex.png";
+//import dxcLogo from "../assets/sponsors/alpha/dxc.png";
+import elevenVenturesLogo from "../assets/sponsors/alpha/eleven-ventures.png";
 import sapLogo from "../assets/sponsors/alpha/sap.png";
-import stamsoftLogo from "../assets/sponsors/alpha/stamsoft.png";
-import tbsLogo from "../assets/sponsors/alpha/tbs.png";
-import telebidLogo from "../assets/sponsors/alpha/telebid.png";
+//import tbsLogo from "../assets/sponsors/alpha/tbs.png";
 import trading212Logo from "../assets/sponsors/alpha/trading212.png";
-import accediaLogo from "../assets/sponsors/beta/accedia.svg";
-import amusnetLogo from "../assets/sponsors/beta/amusnet.png";
-import chaosLogo from "../assets/sponsors/beta/chaos.jpg";
-import dreamixLogo from "../assets/sponsors/beta/dreamix.png";
-import limechainLogo from "../assets/sponsors/beta/limechain.png";
-import mentormateLogo from "../assets/sponsors/beta/mentormate.svg";
-import mmLogo from "../assets/sponsors/beta/mm.png";
-import neterraLogo from "../assets/sponsors/beta/neterra.png";
-import paysafeLogo from "../assets/sponsors/beta/paysafe.png";
-import progressLogo from "../assets/sponsors/beta/progress.png";
-import sirmaLogo from "../assets/sponsors/beta/sirma.png";
+//Beta sponsors
+import devrixLogo from "../assets/sponsors/beta/devrix.png";
+import itGixLogo from "../assets/sponsors/beta/itGix.png";
+import stamsoftLogo from "../assets/sponsors/beta/stamsoft.png";
 import strypesLogo from "../assets/sponsors/beta/strypes.png";
-import yettelLogo from "../assets/sponsors/beta/yettel.png";
-import asteaLogo from "../assets/sponsors/gamma/astea.png";
-import devrixLogo from "../assets/sponsors/gamma/devrix.png";
-import ibmLogo from "../assets/sponsors/gamma/ibm.svg";
-import itgixLogo from "../assets/sponsors/gamma/itgix.png";
-import nemetcheckLogo from "../assets/sponsors/gamma/nemetcheck.png";
-import takeawayLogo from "../assets/sponsors/gamma/takeaway.png";
+import telebidProLogo from "../assets/sponsors/beta/telebidPro.png";
+import tumbaSolutionsLogo from "../assets/sponsors/beta/tumba-solutions.png";
+//Gamma sponsors
+import progressLogo from "../assets/sponsors/gamma/progress.png";
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import cometLogo from "../assets/sponsors/partners/comet.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import devstylerLogo from "../assets/sponsors/partners/devstyler.png";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
 import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
-import harmonicaLogo from "../assets/sponsors/partners/harmonica.png";
-import multivisiaLogo from "../assets/sponsors/partners/multivisia.png";
 import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
 
 const ALPHA_SPONSORS = [
   {
-    name: "Appolica",
-    logo: appolicaLogo,
-    url: "https://www.appolica.com/",
+    name: "Bosch Engineering Center Sofia",
+    logo: boschECSLogo,
+    url: "https://www.bosch.bg/",
   },
   {
-    name: "Bosch Digital",
-    logo: boschLogo,
-    url: "https://www.bosch-digital.com/",
+    name: "codbex",
+    logo: codbexLogo,
+    url: "https://www.codbex.com/",
   },
   {
-    name: "DXC",
-    logo: dxcLogo,
-    url: "https://dxc.com/",
+    name: "Eleven Ventures",
+    logo: elevenVenturesLogo,
+    url: "https://www.11.vc/",
   },
   {
-    name: "Excitel Technology",
-    logo: excitelLogo,
-    url: "https://excitel.tech/",
-  },
-  {
-    name: "Experian",
-    logo: experianLogo,
-    url: "https://www.experian.com/",
-  },
-  {
-    name: "M2M Services",
-    logo: m2mLogo,
-    url: "https://m2mservices.com/",
-  },
-  {
-    name: "SAP",
+    name: "SAP Labs България",
     logo: sapLogo,
-    url: "https://www.sap.com/",
-  },
-  {
-    name: "StamSoft",
-    logo: stamsoftLogo,
-    url: "https://www.stamsoft.com/",
-  },
-  {
-    name: "TBS",
-    logo: tbsLogo,
-    url: "https://www.tbs.tech/",
-  },
-  {
-    name: "Telebid Pro",
-    logo: telebidLogo,
-    url: "https://telebid-pro.com/careers/",
+    url: "https://www.sap.com/bulgaria/",
   },
   {
     name: "Trading 212",
@@ -107,102 +63,62 @@ const ALPHA_SPONSORS = [
 
 const BETA_SPONSORS = [
   {
-    name: "accedia",
-    logo: accediaLogo,
-    url: "https://accedia.com/",
+    name: "Devrix",
+    logo: devrixLogo,
+    url: "https://devrix.com/",
   },
   {
-    name: "Amusnet",
-    logo: amusnetLogo,
-    url: "https://www.amusnet.com/",
+    name: "ITGix",
+    logo: itGixLogo,
+    url: "https://itgix.com/",
   },
   {
-    name: "Chaos",
-    logo: chaosLogo,
-    url: "https://www.chaos.com/",
+    name: "Stam Soft",
+    logo: stamsoftLogo,
+    url: "https://www.stamsoft.com/",
   },
   {
-    name: "Dreamix",
-    logo: dreamixLogo,
-    url: "https://dreamix.bg/",
+    name: "Strypes Group",
+    logo: strypesLogo,
+    url: "https://strypes.eu/",
   },
   {
-    name: "Limechain",
-    logo: limechainLogo,
-    url: "https://limechain.tech/",
+    name: "Telebid Pro",
+    logo: telebidProLogo,
+    url: "https://telebid-pro.com/",
   },
   {
-    name: "MentorMate",
-    logo: mentormateLogo,
-    url: "https://www.mentormate.com/",
+    name: "Tumba Solutions",
+    logo: tumbaSolutionsLogo,
+    url: "https://www.tumba.solutions/",
   },
-  {
-    name: "mm",
-    logo: mmLogo,
-    url: "https://www.mm-sol.com/",
-  },
-  {
-    name: "Neterra",
-    logo: neterraLogo,
-    url: "https://neterra.net/bg",
-  },
-  {
-    name: "PaySafe",
-    logo: paysafeLogo,
-    url: "https://www.paysafe.com/",
-  },
+];
+
+const GAMMA_SPONSORS = [
   {
     name: "Progress",
     logo: progressLogo,
     url: "https://www.progress.com/",
   },
   {
-    name: "Sirma",
-    logo: sirmaLogo,
-    url: "https://sirma.bg/",
+    name: "Progress1",
+    logo: progressLogo,
+    url: "https://www.progress.com/",
   },
   {
-    name: "Strypes",
-    logo: strypesLogo,
-    url: "https://www.strypes.eu/",
+    name: "Progress2",
+    logo: progressLogo,
+    url: "https://www.progress.com/",
   },
   {
-    name: "Yettel",
-    logo: yettelLogo,
-    url: "https://yettel.bg/",
-  },
-];
-
-const GAMMA_SPONSORS = [
-  {
-    name: "Astea",
-    logo: asteaLogo,
-    url: "https://asteasolutions.com",
+    name: "Progress3",
+    logo: progressLogo,
+    url: "https://www.progress.com/",
   },
   {
-    name: "Devrix",
-    logo: devrixLogo,
-    url: "https://devrix.com/",
-  },
-  {
-    name: "IBM",
-    logo: ibmLogo,
-    url: "https://www.ibm.com/",
-  },
-  {
-    name: "itgix",
-    logo: itgixLogo,
-    url: "https://itgix.com/",
-  },
-  {
-    name: "Nemetcheck",
-    logo: nemetcheckLogo,
-    url: " https://www.nemetschek.bg/",
-  },
-  {
-    name: "Takeaway",
-    logo: takeawayLogo,
-    url: "https://www.takeaway.com/",
+    name: "Progress4",
+    logo: progressLogo,
+    url: "https://www.progress.com/",
   },
 ];
 
@@ -241,16 +157,6 @@ const PARTNERS = [
     name: "Green Cherry Cafe",
     logo: greenCherryLogo,
     url: "https://bg-bg.facebook.com/greencherrycafe/",
-  },
-  {
-    name: "Harmonica",
-    logo: harmonicaLogo,
-    url: "https://harmonica.bg",
-  },
-  {
-    name: "Multivisia",
-    logo: multivisiaLogo,
-    url: "https://www.multivisia.com",
   },
   {
     name: "Pure Water",
