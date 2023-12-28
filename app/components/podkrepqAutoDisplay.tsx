@@ -32,12 +32,12 @@ export default function PodkrepqAutomationComponent({
   // w-2/3 sm:w-1/2 md:w-1/3 lg:w-1/4
 
   return (
-    <ul className="relative mx-auto w-64 sm:w-72 md:w-80 lg:w-[60%]">
-      <div className="pb-[50%] pt-[10%] ">
+    <ul className="relative mx-auto w-64 sm:w-72 md:w-80 ">
+      <div className="pb-[50%] pt-[20%] ">
         {podkrepqshti.map((podkrepqsht, index) => (
           <li
             key={podkrepqsht.name}
-            className="absolute my-4 [perspective:800px] "
+            className="absolute inset-0 my-4 [perspective:800px] "
             title={podkrepqsht.name}
           >
             <Link
