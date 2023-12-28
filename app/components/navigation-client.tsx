@@ -50,55 +50,57 @@ export const MobileNavigationRoot = ({
         {/* FIXME: ScrollArea doesnt work */}
         <ScrollArea className="h-full flex-1">{children}</ScrollArea>
         <Separator />
-        {headerData && (
-          <div className="flex flex-col gap-1">
-            {headerData.avatarName ? (
-              <>
-                <MobileNavLink
-                  href="/profile"
+        {headerData && headerData.avatarName ? (
+          <MobileActionButtons>
+            <MobileNavLink
+              href="/profile"
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "flex w-full justify-evenly gap-2 text-lg",
+              )}
+            >
+              <User2 /> Профил
+            </MobileNavLink>
+            <SignOutButton
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "flex w-full justify-evenly gap-2 text-lg text-destructive hover:text-[#fc3f6e]",
+              )}
+            >
+              <LogOutIcon /> Изход
+            </SignOutButton>
+          </MobileActionButtons>
+        ) : (
+          <IfAnyHTFeatureOn
+            outOf={[
+              "signin-alumni",
+              "signin-students",
+              "register-alumni",
+              "register-students",
+            ]}
+          >
+            <MobileActionButtons>
+              <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
+                <SignInButton
+                  className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
+                >
+                  Вход
+                </SignInButton>
+              </IfAnyHTFeatureOn>
+              <IfAnyHTFeatureOn
+                outOf={["register-alumni", "register-students"]}
+              >
+                <SignInButton
                   className={cn(
                     navigationMenuTriggerStyle(),
-                    "flex w-full justify-evenly gap-2 text-lg",
+                    "w-full text-lg text-primary",
                   )}
                 >
-                  <User2 /> Профил
-                </MobileNavLink>
-                <SignOutButton
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "flex w-full justify-evenly gap-2 text-lg text-destructive hover:text-[#fc3f6e]",
-                  )}
-                >
-                  <LogOutIcon /> Изход
-                </SignOutButton>
-              </>
-            ) : (
-              <>
-                <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
-                  <SignInButton
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      "w-full text-lg",
-                    )}
-                  >
-                    Вход
-                  </SignInButton>
-                </IfAnyHTFeatureOn>
-                <IfAnyHTFeatureOn
-                  outOf={["register-alumni", "register-students"]}
-                >
-                  <SignInButton
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      "w-full text-lg text-primary",
-                    )}
-                  >
-                    Регистрация
-                  </SignInButton>
-                </IfAnyHTFeatureOn>
-              </>
-            )}
-          </div>
+                  Регистрация
+                </SignInButton>
+              </IfAnyHTFeatureOn>
+            </MobileActionButtons>
+          </IfAnyHTFeatureOn>
         )}
         <SocialMediaIconRow />
       </SheetContent>
@@ -128,3 +130,7 @@ export function MobileNavLink({
     </Link>
   );
 }
+
+const MobileActionButtons = ({ children }: PropsWithChildren) => (
+  <div className="flex flex-col gap-1">{children}</div>
+);
