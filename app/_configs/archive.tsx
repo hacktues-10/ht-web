@@ -1,4 +1,5 @@
 import { HTLogo } from "../components/logos";
+import { JUNE, MARCH, OCTOBER } from "../utils";
 
 export const HACKATHONS = [
   {
@@ -9,6 +10,10 @@ export const HACKATHONS = [
         Hack <span className="text-[#09c0de]">TUES</span>
       </HTLogo>
     ),
+    startDate: new Date(2015, JUNE, 26),
+    endDate: new Date(2015, JUNE, 29),
+    location: "ТУЕС",
+    format: "присъствен",
     winners: [
       {
         place: "first",
@@ -114,6 +119,10 @@ export const HACKATHONS = [
         Hack <span className="text-[#09c0de]">TUES</span> 2
       </HTLogo>
     ),
+    startDate: new Date(2015, OCTOBER, 9),
+    endDate: new Date(2015, OCTOBER, 11),
+    location: "ТУЕС",
+    format: "присъствен",
     winners: [
       {
         place: "first",
@@ -227,6 +236,10 @@ export const HACKATHONS = [
         <span className="text-[#b2006e]">3</span>
       </HTLogo>
     ),
+    startDate: new Date(2017, MARCH, 24),
+    endDate: new Date(2017, MARCH, 26),
+    location: "ТУЕС",
+    format: "присъствен",
     winners: [
       {
         place: "first",
@@ -366,6 +379,9 @@ export const HACKATHONS = [
         Hack <sup>30x</sup>TUES
       </HTLogo>
     ),
+    startDate: new Date(2018, MARCH, 15),
+    endDate: new Date(2018, MARCH, 18),
+    location: "София Тех Парк",
     winners: [
       {
         place: "first",
@@ -379,7 +395,7 @@ export const HACKATHONS = [
         name: "COCOBE",
         project: {
           description:
-            "Приложение за резюмиране на текст, използващо невронни мрежи и машинно самообучение",
+            "приложение за резюмиране на текст, използващо невронни мрежи и машинно самообучение",
         },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/h30xt-1.jpg",
@@ -397,7 +413,7 @@ export const HACKATHONS = [
         name: "Old and Bald",
         project: {
           description:
-            "Приложение, базирано на машинно самообучение, за чатбот на историческа тема, което предлага резюме на текстове по дадена тема, спрямо интересите на ползвателите",
+            "приложение, базирано на машинно самообучение, за чатбот на историческа тема, което предлага резюме на текстове по дадена тема, спрямо интересите на ползвателите",
         },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/h30xt-2.jpg",
@@ -551,6 +567,10 @@ export const HACKATHONS = [
         </span>
       </HTLogo>
     ),
+    startDate: new Date(2019, MARCH, 15),
+    endDate: new Date(2019, MARCH, 17),
+    location: "София Тех Парк",
+    format: "присъствен",
     winners: [
       {
         place: "first",
@@ -559,7 +579,7 @@ export const HACKATHONS = [
         project: {
           name: "VoiceCV",
           description:
-            "Вградено устройство (в шапка или очила) с камера и изкуствен интелект в помощ на незрящите хора - играе ролята на личен асистент, който информира с глас за околните обекти чрез снимки в близка и далечна перспектива",
+            "вградено устройство (в шапка или очила) с камера и изкуствен интелект в помощ на незрящите хора - играе ролята на личен асистент, който информира с глас за околните обекти чрез снимки в близка и далечна перспектива",
         },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/ht365-1.jpg",
@@ -683,6 +703,10 @@ export const HACKATHONS = [
         Hack <span className="text-[#fdad20]">TUES</span> 6
       </HTLogo>
     ),
+    startDate: new Date(2020, OCTOBER, 1),
+    endDate: new Date(2020, OCTOBER, 10),
+    location: "София Тех Парк",
+    format: "хибриден",
     winners: [
       {
         place: "first",
@@ -698,7 +722,7 @@ export const HACKATHONS = [
         project: {
           name: "DRUN",
           description:
-            "Автоматизирана система за доставка на пратки с дронове.",
+            "автоматизирана система за доставка на пратки с дронове.",
         },
         image: "/Archive/ht6-1.jpg",
       },
@@ -836,6 +860,10 @@ export const HACKATHONS = [
         <span className="text-[#105231]">GG</span>
       </HTLogo>
     ),
+    startDate: new Date(2021, MARCH, 11),
+    endDate: new Date(2021, MARCH, 14),
+    location: null,
+    format: "онлайн",
     winners: [
       {
         place: "first",
@@ -849,7 +877,7 @@ export const HACKATHONS = [
         project: {
           name: "CyclePath",
           description:
-            "Recommendation engine за маршрути за велосипедисти на база на фактори като замърсяване на въздуха, оценяване от други и дистанция до крайната точка. Изработва се с Graph DB, NestJS и React.",
+            "recommendation engine за маршрути за велосипедисти на база на фактори като замърсяване на въздуха, оценяване от други и дистанция до крайната точка. Изработва се с Graph DB, NestJS и React.",
         },
         image: "/Archive/ht7-1.jpg",
       },
@@ -865,7 +893,7 @@ export const HACKATHONS = [
         project: {
           name: "Verda",
           description:
-            "Verda is a chatbot that helps you understand and react appropiately to the the problems which surround us. How can Verda help us? The amount of precious resources that our planet provides us are declining daily - and all of that is our own fault. Deforestation, biodiversity loss and plastic pollution are only a small portion of the global disaster. Living our lives without complying to the nature's laws is not doing us any good and we have to find a way to change this. Thus, our idea - Verda. A chatbot, which gives you information about matured problems and alternative solutions to them",
+            "a chatbot that helps you understand and react appropiately to the the problems which surround us. How can Verda help us? The amount of precious resources that our planet provides us are declining daily - and all of that is our own fault. Deforestation, biodiversity loss and plastic pollution are only a small portion of the global disaster. Living our lives without complying to the nature's laws is not doing us any good and we have to find a way to change this. Thus, our idea - Verda. A chatbot, which gives you information about matured problems and alternative solutions to them",
         },
         image: "/Archive/ht7-2.jpg",
       },
@@ -912,6 +940,10 @@ export const HACKATHONS = [
     id: "hacktues-infinity",
     name: "Hack TUES Infinity",
     logo: <HTLogo className="text-[#f7b7d3]">Hack TUES ∞</HTLogo>,
+    startDate: new Date(2022, MARCH, 10),
+    endDate: new Date(2022, MARCH, 13),
+    location: null,
+    format: "онлайн",
     winners: [
       {
         place: "first",
@@ -990,6 +1022,10 @@ export const HACKATHONS = [
         <span className="text-[#29838e]">S</span>
       </HTLogo>
     ),
+    startDate: new Date(2023, MARCH, 8),
+    endDate: new Date(2023, MARCH, 11),
+    location: "София Тех Парк",
+    format: "присъствен",
     winners: [
       {
         place: "first",
