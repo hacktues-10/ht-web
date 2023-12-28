@@ -63,7 +63,7 @@ export const HACKATHONS = [
       teams: 18,
       awardedTeams: 6,
     },
-    theme: "Автоматизация и подобряване на учебния процес",
+    theme: "Автоматизиране и подобряване на учебния процес в ТУЕС",
     specialPrizes: [
       {
         team: "P2W",
@@ -173,7 +173,7 @@ export const HACKATHONS = [
       teams: 18,
       awardedTeams: 7,
     },
-    theme: "Environmental and social development",
+    theme: "Подпомагaне опазването на околната среда и социални каузи",
     specialPrizes: [
       {
         team: "For Code Sake",
@@ -298,7 +298,7 @@ export const HACKATHONS = [
       teams: 31,
       awardedTeams: 8,
     },
-    theme: "Art && Creativity",
+    theme: "Art && Creativity", // XXX: или Art&&Creativity?
     specialPrizes: [
       {
         team: "Pu6ki",
@@ -382,6 +382,7 @@ export const HACKATHONS = [
     startDate: new Date(2018, MARCH, 15),
     endDate: new Date(2018, MARCH, 18),
     location: "София Тех Парк",
+    format: "присъствен",
     winners: [
       {
         place: "first",
@@ -438,8 +439,7 @@ export const HACKATHONS = [
       teams: 45,
       awardedTeams: 11,
     },
-    theme:
-      "Бизнес, училище, университет“ - 3-те необходими елементи за успешно ИТ образование;\n„Digital past“ – за възраждане на историята и интереса към миналото с помощта на технологиите;\n„30xТУЕС“ – за проекти за честване на юбилея на училището",
+    theme: "Old School/New Technologies",
     specialPrizes: [
       {
         team: "Mamutite222",
@@ -629,6 +629,7 @@ export const HACKATHONS = [
       teams: 43,
       awardedTeams: 10,
     },
+    theme: "Полза на ежедневната работа на бизнеса и живота на хората",
     specialPrizes: [
       {
         team: "Телефона в сака",
@@ -767,6 +768,7 @@ export const HACKATHONS = [
       teams: 29,
       awardedTeams: 15,
     },
+    theme: "Smart City",
     description: (
       <>
         <p>
@@ -919,6 +921,7 @@ export const HACKATHONS = [
       teams: 43,
       awardedTeams: 30,
     },
+    theme: "Develop for the environment",
     description: (
       <>
         <p>
@@ -1000,6 +1003,7 @@ export const HACKATHONS = [
       teams: 50,
       awardedTeams: 20,
     },
+    theme: "Space for everybody",
     description: (
       <>
         <p>
@@ -1083,6 +1087,7 @@ export const HACKATHONS = [
       teams: 63,
       awardedTeams: 20,
     },
+    theme: "Security",
     description: (
       <>
         <p>
@@ -1096,3 +1101,10 @@ export const HACKATHONS = [
     ),
   },
 ];
+
+export type Hackathon = (typeof HACKATHONS)[number];
+type HackathonPrettified = {
+  [K in keyof Hackathon]: Hackathon[K];
+};
+
+type Temp = (typeof HACKATHONS)[1]["format"];
