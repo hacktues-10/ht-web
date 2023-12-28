@@ -1,6 +1,14 @@
+import { HTLogo } from "../components/logos";
+
 export const HACKATHONS = [
   {
     id: "hacktues",
+    name: "Hack TUES",
+    logo: (
+      <HTLogo>
+        Hack <span className="text-[#09c0de]">TUES</span>
+      </HTLogo>
+    ),
     winners: [
       {
         place: "first",
@@ -100,6 +108,12 @@ export const HACKATHONS = [
   },
   {
     id: "hacktues-2",
+    name: "Hack TUES 2",
+    logo: (
+      <HTLogo>
+        Hack <span className="text-[#09c0de]">TUES</span> 2
+      </HTLogo>
+    ),
     winners: [
       {
         place: "first",
@@ -206,6 +220,13 @@ export const HACKATHONS = [
   },
   {
     id: "hacktues-3",
+    name: "Hack TUES 3",
+    logo: (
+      <HTLogo>
+        Hack <span className="text-[#09c0de]">TUES</span>{" "}
+        <span className="text-[#b2006e]">3</span>
+      </HTLogo>
+    ),
     winners: [
       {
         place: "first",
@@ -339,6 +360,12 @@ export const HACKATHONS = [
   },
   {
     id: "hacktues-30x",
+    name: "Hack 30xTUES",
+    logo: (
+      <HTLogo className="text-[#00ffe4ff]">
+        Hack <sup>30x</sup>TUES
+      </HTLogo>
+    ),
     winners: [
       {
         place: "first",
@@ -515,6 +542,15 @@ export const HACKATHONS = [
   },
   {
     id: "hacktues-365",
+    name: "Hack TUES 365",
+    logo: (
+      <HTLogo>
+        <span className="text-[#d6c6ad]">Hack</span>{" "}
+        <span className="text-[#99d02b]">
+          TUES<sup>^365</sup>
+        </span>
+      </HTLogo>
+    ),
     winners: [
       {
         place: "first",
@@ -641,6 +677,12 @@ export const HACKATHONS = [
   },
   {
     id: "hacktues-6",
+    name: "Hack TUES 6",
+    logo: (
+      <HTLogo>
+        Hack <span className="text-[#fdad20]">TUES</span> 6
+      </HTLogo>
+    ),
     winners: [
       {
         place: "first",
@@ -787,6 +829,13 @@ export const HACKATHONS = [
   },
   {
     id: "hacktues-gg",
+    name: "Hack TUES GG",
+    logo: (
+      <HTLogo>
+        <span className="text-[#009d60]">Hack TUES</span>{" "}
+        <span className="text-[#105231]">GG</span>
+      </HTLogo>
+    ),
     winners: [
       {
         place: "first",
@@ -861,6 +910,8 @@ export const HACKATHONS = [
   },
   {
     id: "hacktues-infinity",
+    name: "Hack TUES Infinity",
+    logo: <HTLogo className="text-[#f7b7d3]">Hack TUES ∞</HTLogo>,
     winners: [
       {
         place: "first",
@@ -931,15 +982,23 @@ export const HACKATHONS = [
   },
   {
     id: "hacktues-security",
+    name: "Hack TUES S",
+    logo: (
+      <HTLogo>
+        <span className="text-[#29838e]">Hack</span>{" "}
+        <span className="text-[#a01824]">TUES</span>{" "}
+        <span className="text-[#29838e]">S</span>
+      </HTLogo>
+    ),
     winners: [
       {
         place: "first",
         participants: [
-          "Виолета Кабаджова",
-          "Захари Момчилов",
-          "Кристиян Стоименов",
-          "Мартин Вайер",
-          "Стоян Тинчев",
+          "Данаил Йорданов",
+          "Християн Радев",
+          "Калоян Георгиев",
+          "Искрен Александров",
+          "Лъчезар Топалов",
         ],
         name: "4090",
         project: {
@@ -952,10 +1011,10 @@ export const HACKATHONS = [
       {
         place: "second",
         participants: [
-          "Николай Лазаров",
-          "Християн Радев",
-          "Йосиф Хамед",
-          "Йоан Джелегарски",
+          "Божидар Павлов",
+          "Калоян Миладинов",
+          "Никола Сачков",
+          "Денис Мирчев",
         ],
         name: "False Positive", // winner pov
         project: {
@@ -968,11 +1027,11 @@ export const HACKATHONS = [
       {
         place: "third",
         participants: [
-          "Йоан Иванов",
-          "Живко Нушев",
-          "Димитър Димитров",
-          "Георги Фиданов",
-          "Радослав Филипов",
+          "Никола Керезов",
+          "Крум Стефанов",
+          "Симеон Ангелов",
+          "Кристиян Богданов",
+          "Алеко Георгиев",
         ],
         name: "Баладжинатор",
         project: {
