@@ -11,6 +11,7 @@ import { cn } from "../utils";
 import { SignInButton, SignOutButton } from "./buttons";
 import { SocialMediaIconRow } from "./footer";
 import { useHeaderData } from "./header/header";
+import { HTLogo } from "./logos";
 import { Button } from "./ui/button";
 import { navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { Separator } from "./ui/separator";
@@ -42,9 +43,9 @@ export const MobileNavigationRoot = ({
       <SheetContent className="flex flex-col items-center gap-10 py-8">
         <MobileNavLink
           href="/"
-          className="font-llpixel text-3xl text-sand transition-transform hover:scale-105"
+          className="text-3xl transition-transform hover:scale-105"
         >
-          Hack TUES X
+          <HTLogo className="text-sand">Hack TUES X</HTLogo>
         </MobileNavLink>
         {/* FIXME: ScrollArea doesnt work */}
         <ScrollArea className="h-full flex-1">{children}</ScrollArea>
