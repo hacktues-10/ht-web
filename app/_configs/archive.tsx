@@ -652,7 +652,7 @@ export const HACKATHONS = [
           "Мирослав Мирчев",
         ],
 
-        name: "Fanton",
+        name: "FAnton",
         project: {
           name: "DRUN",
           description:
@@ -697,7 +697,7 @@ export const HACKATHONS = [
       },
     ],
     stats: {
-      allParticipants: 125,
+      participants: 125,
       teams: 29,
       awardedTeams: 15,
     },
@@ -782,6 +782,80 @@ export const HACKATHONS = [
           </p>
           <footer>- доц. д-р инж. Стела Стефанова, директор на ТУЕС</footer>
         </blockquote>
+      </>
+    ),
+  },
+  {
+    id: "hacktues-gg",
+    winners: [
+      {
+        place: "first",
+        participants: [
+          "Виктор Горчилов",
+          "Валентин Спасов",
+          "Самуил Георгиев",
+          "Антон Янчев",
+        ],
+        name: "Holdinga",
+        project: {
+          name: "CyclePath",
+          description:
+            "Recommendation engine за маршрути за велосипедисти на база на фактори като замърсяване на въздуха, оценяване от други и дистанция до крайната точка. Изработва се с Graph DB, NestJS и React.",
+        },
+        image: "/Archive/ht7-1.jpg",
+      },
+      {
+        place: "second",
+        participants: [
+          "Александър Найденов",
+          "Стефан Босев",
+          "Стоян Тинчев",
+          "Кристиян Стоименов",
+        ],
+        name: "Мечо пух",
+        project: {
+          name: "Verda",
+          description:
+            "Verda is a chatbot that helps you understand and react appropiately to the the problems which surround us. How can Verda help us? The amount of precious resources that our planet provides us are declining daily - and all of that is our own fault. Deforestation, biodiversity loss and plastic pollution are only a small portion of the global disaster. Living our lives without complying to the nature's laws is not doing us any good and we have to find a way to change this. Thus, our idea - Verda. A chatbot, which gives you information about matured problems and alternative solutions to them",
+        },
+        image: "/Archive/ht7-2.jpg",
+      },
+      {
+        place: "third",
+        participants: [
+          "Ангел Стоянов",
+          "Лилия Любенова",
+          "Евгени Атанасов",
+          "Денис Захариев",
+        ],
+        name: "Dynamics",
+        project: {
+          name: "GRobot",
+          description:
+            "робот, който се придвижва и на базата на изкуствен интелект, разпознава отпадъци и ги събира. GRobot разполага с камера, която е свързана към микрокомпютър, който стриймва видео към сървър. YOLO v4 определя вида на боклука от стрийма, след което роботизирана щипка го взима и го поставя в тялото на робота - контейнер.",
+        },
+        image: "/Archive/ht7-3.jpg",
+      },
+    ],
+    stats: {
+      participants: 193,
+      teams: 43,
+      awardedTeams: 30,
+    },
+    description: (
+      <>
+        <p>
+          За първи път училищния хакатон се проведе изцяло онлайн през 2021 г.
+          със седмото си издание - Hack TUES GG. Както винаги 43-те отбора имаха
+          малко над 48 ч. да направят своите проекти по темата на хакатона -
+          “Develop for the environment”, свързана със зелените технологии и
+          опазването на околната среда. Подтемите бяха Code red - свързана с
+          борбата с глобалното затопляне и вредните емисии, Deep in the blue -
+          свързана с опазването на водите от замърсяване, Browny soil - свързана
+          с опазване на почвите от замърсяване, Pallete Nature - цели
+          популяризирането на рециклирането, втората употреба и предпазването на
+          биоразнообразието.
+        </p>
       </>
     ),
   },
