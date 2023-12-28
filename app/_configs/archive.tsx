@@ -381,7 +381,7 @@ export const HACKATHONS = [
     ),
     startDate: new Date(2018, MARCH, 15),
     endDate: new Date(2018, MARCH, 18),
-    location: "София Тех Парк",
+    location: "ТУЕС",
     format: "присъствен",
     winners: [
       {
@@ -569,7 +569,7 @@ export const HACKATHONS = [
     ),
     startDate: new Date(2019, MARCH, 15),
     endDate: new Date(2019, MARCH, 17),
-    location: "София Тех Парк",
+    location: "ТУЕС",
     format: "присъствен",
     winners: [
       {
