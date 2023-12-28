@@ -6,8 +6,10 @@ export const HACKATHONS = [
         place: "first",
         participants: ["Телерик Арсов", "Антонио Милев", "Мартин Дацев"],
         name: "Go6o",
-        project:
-          "система за автоматизирана оценка на тестове, на основата на технология за разпознаване на изображения,",
+        project: {
+          description:
+            "система за автоматизирана оценка на тестове, на основата на технология за разпознаване на изображения,",
+        },
         image: "https://hacktues.pythonanywhere.com/static/frontend/ht-1.jpg",
         extraSpecialPrizes:
           "възможност за двуседмична практика в „Nemetschek България“, безплатно обучение за първия модул Fundamentals на „SoftUni“ и специалната награда на „ChaosGroup“",
@@ -22,7 +24,7 @@ export const HACKATHONS = [
           "Ясен Алексиев",
         ],
         name: "R&T",
-        project: "Визуализация на код с блок-схеми",
+        project: { description: "Визуализация на код с блок-схеми" },
         image: "https://hacktues.pythonanywhere.com/static/frontend/ht-2.jpg",
         extraSpecialPrizes: "„MusalaSoft“ и „StandByte“",
       },
@@ -36,7 +38,10 @@ export const HACKATHONS = [
           "Кристиан Томов",
         ],
         name: "Coding Masters",
-        project: "Система за обмен на информация и знания между учениците",
+        project: {
+          description:
+            "Система за обмен на информация и знания между учениците",
+        },
         image: "https://hacktues.pythonanywhere.com/static/frontend/ht-3.jpg",
       },
     ],
@@ -49,17 +54,21 @@ export const HACKATHONS = [
     specialPrizes: [
       {
         team: "P2W",
-        project: "забавна електронна игра с образователни въпроси",
+        project: {
+          description: "забавна електронна игра с образователни въпроси",
+        },
         prize: "награда за оригинална идея",
       },
       {
         team: "TANKK Crew",
-        project: "онлайн компилатор и система за проверка на задачи",
+        project: {
+          description: "онлайн компилатор и система за проверка на задачи",
+        },
         prize: "награда за най-добро представяне и награда от „HackBulgaria“",
       },
       {
         team: "Няма значение",
-        project: "електронен дневник",
+        project: { description: "електронен дневник" },
         prize: "специална награда от „Nemetschek България“",
       },
     ],
@@ -102,7 +111,9 @@ export const HACKATHONS = [
           "Димитър Кацаров",
         ],
         name: "ASDF Unicorns",
-        project: "Образователна игра за опазване на околната среда",
+        project: {
+          description: "Образователна игра за опазване на околната среда",
+        },
       },
       {
         place: "second",
@@ -113,8 +124,10 @@ export const HACKATHONS = [
           "Лъчезар Младенов",
         ],
         name: "Walking Chaos",
-        project:
-          "Уебсайт за продажба и обмен на продукти от рециклирани материали",
+        project: {
+          description:
+            "Уебсайт за продажба и обмен на продукти от рециклирани материали",
+        },
       },
       {
         place: "third",
@@ -127,7 +140,9 @@ export const HACKATHONS = [
           "Теодор Добрев",
         ],
         name: "The Tanks",
-        project: "Приложение за лекари и медицински работници",
+        project: {
+          description: "Приложение за лекари и медицински работници",
+        },
       },
     ],
     stats: {
@@ -139,20 +154,26 @@ export const HACKATHONS = [
     specialPrizes: [
       {
         team: "For Code Sake",
-        project:
-          "приложение за синхронизирано изпълнение на песни от няколко мобилни телефона",
+        project: {
+          description:
+            "приложение за синхронизирано изпълнение на песни от няколко мобилни телефона",
+        },
         prize:
           "специална награда за най-добра презентация и награда на „Chaos Group“",
       },
       {
         team: "Fanatic",
-        project:
-          "приложение, което би улеснило електронното гласуване чрез разчитане на лични карти и онлайн справка в база данни от избиратели",
+        project: {
+          description:
+            "приложение, което би улеснило електронното гласуване чрез разчитане на лични карти и онлайн справка в база данни от избиратели",
+        },
         prize: "специалната награда на Microsoft",
       },
       {
         team: "Alfa",
-        project: "уебсайт с информация за различни заболявания",
+        project: {
+          description: "уебсайт с информация за различни заболявания",
+        },
         prize: "наградата на „MusalaSoft“",
       },
     ],
@@ -196,8 +217,11 @@ export const HACKATHONS = [
           "Алекс Стефанов",
         ],
         name: "Зор",
-        project:
-          "Artsteler: 2D Platformer с puzzle game елементи (забавна игра, създадена за Android)",
+        project: {
+          name: "Artsteler",
+          description:
+            "2D Platformer с puzzle game елементи (забавна игра, създадена за Android)",
+        },
         image: "https://hacktues.pythonanywhere.com/static/frontend/ht3-1.jpg",
         extraSpecialPrizes:
           "възможност да довършат проекта си с екип на „TelebidPro“, индивидуална сума за закупуване на хардуер и възможност за безплатно обучение в един семестър в „SoftUni“",
@@ -211,7 +235,10 @@ export const HACKATHONS = [
           "Мартин Дацев",
         ],
         name: "To6o",
-        project: "Micromanipulator: симулация на генетичен алгоритъм",
+        project: {
+          name: "Micromanipulator",
+          description: "симулация на генетичен алгоритъм",
+        },
         image: "https://hacktues.pythonanywhere.com/static/frontend/ht3-2.jpg",
       },
       {
@@ -224,8 +251,11 @@ export const HACKATHONS = [
           "Александър Стоичков",
         ],
         name: "Top8",
-        project:
-          "Image Marker: уеб приложение за създаване и редактиране на изображения, което работи на всякакви платформи",
+        project: {
+          name: "Image Marker",
+          description:
+            "уеб приложение за създаване и редактиране на изображения, което работи на всякакви платформи",
+        },
         image: "https://hacktues.pythonanywhere.com/static/frontend/ht3-3.jpg",
       },
     ],
@@ -238,30 +268,44 @@ export const HACKATHONS = [
     specialPrizes: [
       {
         team: "Pu6ki",
-        project: "Tarina: уеб приложение за споделено създаване на истории",
+        project: {
+          name: "Tarina",
+          description: "уеб приложение за споделено създаване на истории",
+        },
         prize:
           "специална награда на „TelebidPro“ и възможност за финализиране на проекта",
       },
       {
         team: "Костенурки Нинджа",
-        project: "Project FUN: уебсайт за състезания с рисуване",
+        project: {
+          name: "Project FUN",
+          description: "уебсайт за състезания с рисуване",
+        },
         prize: "възможност от „VMware“ за финализиране на проекта",
       },
       {
         team: "Geko Snek",
-        project: "Мотика Motors: робот с 4 колела и самостоятелно управление",
+        project: {
+          name: "Мотика Motors",
+          description: "робот с 4 колела и самостоятелно управление",
+        },
         prize: "специална награда от „VMware“",
       },
       {
         team: "To_si_e_za_nas",
-        project:
-          "Visual Delight: социална мрежа за споделяне на креативни идеи",
+        project: {
+          name: "Visual Delight",
+          description: "социална мрежа за споделяне на креативни идеи",
+        },
         prize: "специална награда от „VMware“",
       },
       {
         team: "Programartists",
-        project:
-          "Made2Make: робот, който рисува аналогови и цифрови схеми и платки по зададена картинка",
+        project: {
+          name: "Made2Make",
+          description:
+            "робот, който рисува аналогови и цифрови схеми и платки по зададена картинка",
+        },
         prize: "специалната награда на „SAP“",
       },
     ],
@@ -306,8 +350,10 @@ export const HACKATHONS = [
           "Петър Милев",
         ],
         name: "COCOBE",
-        project:
-          "Приложение за резюмиране на текст, използващо невронни мрежи и машинно самообучение",
+        project: {
+          description:
+            "Приложение за резюмиране на текст, използващо невронни мрежи и машинно самообучение",
+        },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/h30xt-1.jpg",
         extraSpecialPrizes:
@@ -322,8 +368,10 @@ export const HACKATHONS = [
           "Самуил Георгиев",
         ],
         name: "Old and Bald",
-        project:
-          "Приложение, базирано на машинно самообучение, за чатбот на историческа тема, което предлага резюме на текстове по дадена тема, спрямо интересите на ползвателите",
+        project: {
+          description:
+            "Приложение, базирано на машинно самообучение, за чатбот на историческа тема, което предлага резюме на текстове по дадена тема, спрямо интересите на ползвателите",
+        },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/h30xt-2.jpg",
       },
@@ -337,7 +385,7 @@ export const HACKATHONS = [
           "Стефан Стефанов",
         ],
         name: "IDK",
-        project: "Игрална конзола",
+        project: { description: "Игрална конзола" },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/h30xt-3.jpg",
       },
@@ -352,7 +400,9 @@ export const HACKATHONS = [
     specialPrizes: [
       {
         team: "Mamutite222",
-        project: "игра, вдъхновена от битката в Дюнкерк",
+        project: {
+          description: "игра, вдъхновена от битката в Дюнкерк",
+        },
         prize: "отличени от развойния център на „SAP“ в София",
         participants: [
           "Георги Стефанов",
@@ -363,7 +413,7 @@ export const HACKATHONS = [
       },
       {
         team: "Autardia",
-        project: "игра на пайтън тип space invadors",
+        project: { description: "игра на пайтън тип space invadors" },
         prize: "награда на Софтуерния университет",
         participants: [
           "Кристиян Стоименов",
@@ -375,13 +425,15 @@ export const HACKATHONS = [
       },
       {
         team: "Ime",
-        project: "игра в терминал",
+        project: { description: "игра в терминал" },
         prize: "отличени от „Немечек България“ за систематичен подход",
         participants: ["Николай Станишев", "Иван Милев", "Иво Тодоров"],
       },
       {
         team: "Why not",
-        project: "проект с вградени микрокомпютърни системи",
+        project: {
+          description: "проект с вградени микрокомпютърни системи",
+        },
         prize: "награда от „Статсофт“",
         participants: [
           "Кристиян Стоименов",
@@ -393,7 +445,7 @@ export const HACKATHONS = [
       },
       {
         team: "Project Hogwarts",
-        project: "текстов редактор",
+        project: { description: "текстов редактор" },
         prize: "отличен от „Cloud Balkan“",
         participants: [
           "Александър Стоичков",
@@ -405,7 +457,9 @@ export const HACKATHONS = [
       },
       {
         team: "Programming Zygotes",
-        project: "редактор, разчитащ текст от снимка",
+        project: {
+          description: "редактор, разчитащ текст от снимка",
+        },
         prize: "отличен от „Cloud Balkan“",
         participants: [
           "Милен Илиев",
@@ -466,8 +520,11 @@ export const HACKATHONS = [
         place: "first",
         participants: ["Виктор Велев", "Петър Герасимов", "Теодор Станишев"],
         name: "Elsyser",
-        project:
-          "VoiceCV: Вградено устройство (в шапка или очила) с камера и изкуствен интелект в помощ на незрящите хора - играе ролята на личен асистент, който информира с глас за околните обекти чрез снимки в близка и далечна перспектива",
+        project: {
+          name: "VoiceCV",
+          description:
+            "Вградено устройство (в шапка или очила) с камера и изкуствен интелект в помощ на незрящите хора - играе ролята на личен асистент, който информира с глас за околните обекти чрез снимки в близка и далечна перспектива",
+        },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/ht365-1.jpg",
         extraSpecialPrizes:
@@ -482,8 +539,11 @@ export const HACKATHONS = [
           "Телерик Арсов",
         ],
         name: "Какводой",
-        project:
-          "GeoSolver: приложение за решаване на геометрични задачи, което сканира условието и генерира електронен чертеж и решение на задачата",
+        project: {
+          name: "GeoSolver",
+          description:
+            "приложение за решаване на геометрични задачи, което сканира условието и генерира електронен чертеж и решение на задачата",
+        },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/ht365-2.jpg",
         extraSpecialPrizes: "специална награда от „Data Science Society“",
@@ -498,8 +558,11 @@ export const HACKATHONS = [
           "Георги Любенов",
         ],
         name: "Babba4e",
-        project:
-          "Product Chain: система за проверка на автентичността на продукти чрез сканиране на уникален QR код на всеки продукт, който дава информация за пътя на продукта, използваща блокчейн технология, за да предпази потребителите от фалшиви стоки на пазара",
+        project: {
+          name: "Product Chain",
+          description:
+            "система за проверка на автентичността на продукти чрез сканиране на уникален QR код на всеки продукт, който дава информация за пътя на продукта, използваща блокчейн технология, за да предпази потребителите от фалшиви стоки на пазара",
+        },
         image:
           "https://hacktues.pythonanywhere.com/static/frontend/ht365-3.jpg",
         extraSpecialPrizes: "специална награда от „TelebidPro“",
@@ -513,8 +576,11 @@ export const HACKATHONS = [
     specialPrizes: [
       {
         team: "Телефона в сака",
-        project:
-          "S.P.A.S. (Smart Personal Assistant System): система за отдалечено управление на устройства в дома или офиса през мобилен телефон",
+        project: {
+          name: "S.P.A.S. (Smart Personal Assistant System)",
+          description:
+            "система за отдалечено управление на устройства в дома или офиса през мобилен телефон",
+        },
         prize:
           "специална награда за проект с вградена микрокомпютърна технология от „Комет Електроникс“",
         participants: [
@@ -587,8 +653,11 @@ export const HACKATHONS = [
         ],
 
         name: "Fanton",
-        project:
-          "DRUN: Автоматизирана система за доставка на пратки с дронове.",
+        project: {
+          name: "DRUN",
+          description:
+            "Автоматизирана система за доставка на пратки с дронове.",
+        },
         image: "/Archive/ht6-1.jpg",
       },
       {
@@ -602,8 +671,11 @@ export const HACKATHONS = [
         ],
 
         name: "789",
-        project:
-          "Пейо: преработено радио на около 60 години, така че да използва нови технологии",
+        project: {
+          name: "Пейо",
+          description:
+            "преработено радио на около 60 години, така че да използва нови технологии",
+        },
         image: "/Archive/ht6-2.jpg",
       },
       {
@@ -616,8 +688,11 @@ export const HACKATHONS = [
         ],
 
         name: "Нишки",
-        project:
-          "NotInfo: браузър разширение за Chrome, коeто следи дали съдържание, което човек чете не е пропаганда.",
+        project: {
+          name: "NotInfo",
+          description:
+            "браузър разширение за Chrome, коeто следи дали съдържание, което човек чете не е пропаганда.",
+        },
         image: "/Archive/ht6-3.jpg",
       },
     ],
