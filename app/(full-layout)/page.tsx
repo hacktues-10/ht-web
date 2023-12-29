@@ -64,18 +64,12 @@ export default async function LandingPage() {
           <p className="scroll-m-20 text-center font-lazydog text-2xl tracking-tight first:mt-0 sm:text-3xl">
             В началото всичко бе пусто. <br />И тогава се появи...
           </p>
-          <Button
-            asChild
-            variant="secondary"
-            size="icon"
-            className="rounded-full motion-safe:animate-bounce"
-          >
-            <Link href="#the-beginning">
-              <ChevronDown className="h-6 w-6" />
-            </Link>
-          </Button>
+          <ChevronDownLink
+            href="#the-beginning"
+            className="motion-safe:animate-bounce motion-safe:scroll-smooth"
+          />
         </section>
-        {HACKATHONS.map((hackathon) => (
+        {HACKATHONS.map((hackathon, i, hackathons) => (
           <ArchiveSection key={hackathon.name} {...hackathon}>
             <div className="flex flex-col">
               <p className="text-xl font-light uppercase text-primary">Тема</p>
@@ -105,6 +99,11 @@ export default async function LandingPage() {
                 </Link>
               </Button>
             </ArchiveActionButtons>
+            {hackathons.at(i + 1) && (
+              <div className="grid w-full place-items-center">
+                <ChevronDownLink href={`#${hackathons.at(i + 1)!.id}`} />
+              </div>
+            )}
           </ArchiveSection>
         ))}
         <ArchiveSection font={null} className="gap-10 sm:gap-9">
@@ -342,20 +341,25 @@ function ArchiveContainer({ children }: PropsWithChildren) {
 
 function ArchiveSection({
   children,
+  id,
   logo,
   font,
   themeStyle,
   colorClasses,
   className,
 }: PropsWithChildren<
-  Pick<Partial<Hackathon>, "logo" | "font" | "themeStyle" | "colorClasses"> & {
+  Pick<
+    Partial<Hackathon>,
+    "id" | "logo" | "font" | "themeStyle" | "colorClasses"
+  > & {
     className?: string;
   }
 >) {
   return (
     <section
+      id={id ? id : undefined}
       className={cn(
-        "relative flex flex-col gap-5 py-10 text-foreground sm:gap-7 sm:py-16",
+        "relative flex flex-col justify-center gap-5 py-20 text-foreground sm:gap-7 sm:py-16",
         className,
       )}
       style={{
@@ -459,4 +463,25 @@ function fiveDaysAfter(date: Date) {
   const fiveDays = 5 * 24 * 60 * 60 * 1000;
   const oneDay = 24 * 60 * 60 * 1000;
   return new Date(date.getTime() + fiveDays - oneDay);
+}
+
+function ChevronDownLink({
+  href,
+  className,
+}: {
+  href: string;
+  className?: string;
+}) {
+  return (
+    <Button
+      asChild
+      variant="secondary"
+      size="icon"
+      className={cn("rounded-full", className)}
+    >
+      <Link href={href}>
+        <ChevronDown className="h-6 w-6" />
+      </Link>
+    </Button>
+  );
 }
