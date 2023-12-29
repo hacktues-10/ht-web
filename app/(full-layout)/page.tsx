@@ -5,6 +5,7 @@ import {
   ArrowRight,
   Award,
   Calendar,
+  ChevronDown,
   Globe,
   LucideIcon,
   MapPin,
@@ -58,11 +59,21 @@ export default async function LandingPage() {
         </PordkrepqPackage>
         <div className="py-9" />
       </section> */}
-      <ArchiveRoot>
-        <section className="grid place-items-center gap-3">
-          <p className="scroll-m-20 py-16 text-center font-lazydog text-2xl tracking-tight first:mt-0 sm:text-3xl">
+      <ArchiveContainer>
+        <section className="grid place-items-center gap-9 py-12">
+          <p className="scroll-m-20 text-center font-lazydog text-2xl tracking-tight first:mt-0 sm:text-3xl">
             В началото всичко бе пусто. <br />И тогава се появи...
           </p>
+          <Button
+            asChild
+            variant="secondary"
+            size="icon"
+            className="rounded-full motion-safe:animate-bounce"
+          >
+            <Link href="#the-beginning">
+              <ChevronDown className="h-6 w-6" />
+            </Link>
+          </Button>
         </section>
         {HACKATHONS.map((hackathon) => (
           <ArchiveSection key={hackathon.name} {...hackathon}>
@@ -93,7 +104,7 @@ export default async function LandingPage() {
             </ArchiveActionButtons>
           </ArchiveSection>
         ))}
-        <ArchiveSection font={null} className="gap-7 sm:gap-9">
+        <ArchiveSection font={null} className="gap-10 sm:gap-9">
           <div className="flex flex-col gap-1">
             <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
               <HTXLogoDuotone />
@@ -102,50 +113,52 @@ export default async function LandingPage() {
               „Десетото юбилейно издание на емблематичния за ТУЕС хакатон“
             </p>
           </div>
-          <ArchiveLocation
+          {/* <ArchiveLocation
             startDate={EVENT_START}
             endDate={EVENT_END}
             location="София Тех Парк"
             format="присъствен"
-          />
-          <div className="flex flex-col gap-2">
-            <h3 className="text-3xl font-bold">
+          /> */}
+          <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
+            <h3 className="text-2xl font-bold md:text-3xl">
               Веднъж ТУЕС-ар, винаги ТУЕС-ар!
             </h3>
             <p className="text-lg">
-              За първи път в историята на Hack TUES могат да участват завършили
-              ученици.
+              За първи път в историята на Hack TUES могат да участват{" "}
+              <span className="font-bold text-destructive">
+                завършили ученици
+              </span>{" "}
+              в отделна категория от настоящите ученици.
             </p>
-            <ArchiveStatsCard className="md:grid-cols-2">
-              <p className="col-span-2 pb-3 text-center text-2xl font-semibold">
-                Но местата са ограничени!
-              </p>
-              <ArchiveStatsItem value={80} label="отбора на ученици" />
-              <ArchiveStatsItem value={10} label="отбора на завършили" />
-              <p className="text-md col-span-2 text-center font-light">
-                Регистрацията <em className="italic">затваря окончателно</em> на{" "}
-                <DateDisplay date={ALUMNI_REGISTRATION_START} /> за завършили и
-                на <DateDisplay date={STUDENTS_REGISTRATION_START} /> за
-                ученици, или{" "}
-                <strong className="font-extrabold">
-                  до изчерпване на местата
-                </strong>
-                .
-              </p>
-            </ArchiveStatsCard>{" "}
-          </div>
+          </Card>
+          <ArchiveStatsCard className="md:grid-cols-2">
+            <p className="col-span-2 pb-3 text-center text-2xl font-semibold">
+              Но местата са ограничени!
+            </p>
+            <ArchiveStatsItem value={80} label="отбора на ученици" />
+            <ArchiveStatsItem value={10} label="отбора на завършили" />
+            <p className="col-span-2 text-center text-lg font-light">
+              Регистрацията <em className="italic">затваря окончателно</em> на{" "}
+              <DateDisplay date={ALUMNI_REGISTRATION_START} /> за завършили и на{" "}
+              <DateDisplay date={STUDENTS_REGISTRATION_START} /> за ученици, или{" "}
+              <strong className="font-extrabold">
+                до изчерпване на местата
+              </strong>
+              .
+            </p>
+          </ArchiveStatsCard>
           <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
-            <div className="flex flex-col items-center justify-center gap-4 text-center">
+            <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
               <h3 className="text-2xl font-bold md:text-3xl">
                 Не пропускайте възможността да участвате!
               </h3>
               <Link href="/signup">
                 <Button size="lg">Регистрирайте се!</Button>
               </Link>
-            </div>
+            </Card>
           </IfAnyHTFeatureOn>
         </ArchiveSection>
-      </ArchiveRoot>
+      </ArchiveContainer>
       <section className="relative flex flex-col items-center gap-3 pt-7">
         {/* TODO: put it on mitko's thing */}
         {/* <div
@@ -160,15 +173,17 @@ export default async function LandingPage() {
           <MediaArticleCard key={article.title} article={article} />
         ))}
       </section>
-      <section className="relative flex flex-col items-center gap-3 pt-7">
-        <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
-          Какво чакате?
-        </h2>
-        <div className="py-2" />
-        <Link href="/signup">
-          <Button size="lg">Регистрирайте се!</Button>
-        </Link>
-      </section>
+      <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+        <section className="relative flex flex-col items-center gap-3 pb-16 pt-24">
+          <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
+            Какво чакате?
+          </h2>
+          <div className="py-2" />
+          <Link href="/signup">
+            <Button size="lg">Регистрирайте се сега!</Button>
+          </Link>
+        </section>
+      </IfAnyHTFeatureOn>
       <div className="pb-4"></div>
     </div>
   );
@@ -224,6 +239,7 @@ function CountdownHero() {
             <DateRangeDisplay startDate={EVENT_START} endDate={EVENT_END} />
           </IconParagraph>
           <IconParagraph icon={MapPin}>София Тех Парк</IconParagraph>
+          <IconParagraph icon={Award}>10 ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
         </div>
 
         <CountdownTimer to={EVENT_START} />
@@ -313,9 +329,9 @@ function MediaArticleCard({ article }: { article: MediaArticle }) {
   );
 }
 
-function ArchiveRoot({ children }: PropsWithChildren) {
+function ArchiveContainer({ children }: PropsWithChildren) {
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col sm:ps-14">
+    <div id="the-beginning" className="mx-auto flex w-full max-w-4xl flex-col">
       {children}
     </div>
   );
@@ -395,16 +411,14 @@ function ArchiveStatsCard({
   className,
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className="py-6">
-      <Card
-        className={cn(
-          "flex w-full flex-col items-center justify-center gap-2 p-5 md:grid md:grid-cols-3",
-          className,
-        )}
-      >
-        {children}
-      </Card>
-    </div>
+    <Card
+      className={cn(
+        "flex w-full flex-col items-center justify-center gap-2 p-5 md:grid md:grid-cols-3",
+        className,
+      )}
+    >
+      {children}
+    </Card>
   );
 }
 
@@ -423,7 +437,7 @@ function ArchiveStats({
 
 function ArchiveStatsItem({ value, label }: { value: number; label: string }) {
   return (
-    <Card className="flex h-full w-full max-w-xs flex-1 flex-col items-center justify-around gap-2 p-4 text-center">
+    <Card className="flex h-full w-full flex-1 flex-col items-center justify-around gap-2 p-4 text-center">
       <p className="text-4xl font-extrabold">{value}</p>
       <p className="text-sm">{label}</p>
     </Card>
