@@ -77,9 +77,12 @@ export default async function LandingPage() {
         </section>
         {HACKATHONS.map((hackathon) => (
           <ArchiveSection key={hackathon.name} {...hackathon}>
-            <h3 className="scroll-m-20 pb-2 text-2xl font-extrabold tracking-tight first:mt-0 sm:text-3xl">
-              {hackathon.theme}
-            </h3>
+            <div className="flex flex-col">
+              <p className="text-xl font-light uppercase text-primary">Тема</p>
+              <h3 className="scroll-m-20 pb-2 text-2xl font-extrabold tracking-tight first:mt-0 sm:text-3xl">
+                {hackathon.theme}
+              </h3>
+            </div>
             <ArchiveLocation {...hackathon} />
             <ArchiveStats stats={hackathon.stats} />
             <ArchiveActionButtons>
