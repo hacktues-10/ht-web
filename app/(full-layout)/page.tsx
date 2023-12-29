@@ -20,6 +20,7 @@ import { CountdownTimer } from "../components/countdowns";
 import { CountdownHourglass } from "../components/hourglass";
 import { Button } from "../components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { cn } from "../utils";
 
 export default async function LandingPage() {
   return (
@@ -92,6 +93,21 @@ export default async function LandingPage() {
   );
 }
 
+function PageBackdrop({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) {
+  return (
+    <div
+      className={cn(
+        "absolute inset-y-0 left-1/2 -z-30 w-[300%] -translate-x-1/2 ",
+        className,
+      )}
+      aria-hidden
+    />
+  );
+}
+
 function CountdownHero() {
   return (
     <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col items-center justify-between gap-10 md:max-w-4xl md:flex-row">
@@ -101,6 +117,7 @@ function CountdownHero() {
             className="absolute left-1/2 top-1/2 -z-30 h-[300%] min-h-[800px] w-[300%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,#ce0e3e1c,transparent)]"
             aria-hidden
           />
+          <PageBackdrop className="top-1/2 h-[300%] min-h-[800px] -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,#ce0e3e1c,transparent)]" />
           Hack TUES&nbsp;
           <span className="bg-[radial-gradient(farthest-corner_at_100%_50%,#ffdea6a3_3%,transparent_45%)] bg-clip-text text-transparent">
             X
@@ -210,15 +227,19 @@ function ArchiveSection({
   logo,
   font,
   themeStyle,
-}: PropsWithChildren<Pick<Hackathon, "logo" | "font" | "themeStyle">>) {
+  colorClasses,
+}: PropsWithChildren<
+  Pick<Hackathon, "logo" | "font" | "themeStyle" | "colorClasses">
+>) {
   return (
     <section
-      className="flex flex-col gap-5 py-10"
+      className="relative flex flex-col gap-5 py-10 text-foreground"
       style={{
         ...(font ? font : {}),
         ...themeStyle,
       }}
     >
+      <PageBackdrop className={cn(colorClasses, "inset-y-0 h-full min-h-0")} />
       <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
         {logo}
       </h2>

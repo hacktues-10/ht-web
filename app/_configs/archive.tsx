@@ -145,6 +145,7 @@ export const HACKATHONS = [
       "--card": "var(--primary)",
       "--card-foreground": "0 0% 100%",
     },
+    colorClasses: "bg-gradient-to-b from-transparent to-brand/30",
   },
   {
     id: "hacktues-2",
@@ -273,6 +274,7 @@ export const HACKATHONS = [
       "--card": "var(--primary)",
       "--card-foreground": "0 0% 100%",
     },
+    colorClasses: "bg-gradient-to-b from-transparent to-brand/30",
   },
   {
     id: "hacktues-3",
@@ -420,15 +422,16 @@ export const HACKATHONS = [
     websiteArchiveUrl: null,
     font: null,
     themeStyle: {
-      "--background": "var(--brand)",
+      "--background": "289 68% 11%",
       "--foreground": "0 0% 100%",
       "--primary": "var(--brand)",
       "--primary-foreground": "var(--brand-foreground)",
       "--brand": "188 92% 45%",
       "--brand-foreground": "var(--sand-foreground)",
-      "--card": "var(--primary)",
+      "--card": "323 100% 75%",
       "--card-foreground": "0 0% 100%",
     },
+    colorClasses: "bg-background",
   },
   {
     id: "hacktues-30x",
@@ -626,6 +629,7 @@ export const HACKATHONS = [
       "--card": "var(--brand)",
       "--card-foreground": "0 0% 100%",
     },
+    colorClasses: "bg-background",
   },
   {
     id: "hacktues-365",
@@ -778,6 +782,7 @@ export const HACKATHONS = [
       "--card": "80 66% 69%",
       "--card-foreground": "0 0% 100%",
     },
+    colorClasses: "bg-background",
   },
   {
     id: "hacktues-6",
@@ -948,6 +953,7 @@ export const HACKATHONS = [
       "--card-foreground": "0 0% 100%",
       "--radius": "2rem",
     },
+    colorClasses: "bg-gradient-to-b from-background to-[#ce402c]",
   },
   {
     id: "hacktues-gg",
@@ -1038,14 +1044,18 @@ export const HACKATHONS = [
     font: rubik.style,
     themeStyle: {
       "--background": "43 64% 92%",
-      "--foreground": "220 26% 14%",
+      "--foreground": "150 67% 19%",
       "--primary": "var(--brand)",
       "--primary-foreground": "var(--brand-foreground)",
       "--brand": "157 100% 31%",
       "--brand-foreground": "0 0% 100%",
-      "--card": "157 100% 61%",
-      "--card-foreground": "0 0% 100%",
+      "--card": "var(--brand)",
+      "--card-foreground": "var(--foreground)",
+      "--secondary": "var(--brand)",
+      "--secondary-foreground": "var(--foreground)",
+      "--ring": "var(--brand)",
     },
+    colorClasses: "bg-background",
   },
   {
     id: "hacktues-infinity",
@@ -1135,6 +1145,7 @@ export const HACKATHONS = [
       "--card": "var(--brand)",
       "--card-foreground": "0 0% 100%",
     },
+    colorClasses: "bg-background text-foreground",
   },
   {
     id: "hacktues-security",
@@ -1223,21 +1234,18 @@ export const HACKATHONS = [
     websiteArchiveUrl: null,
     font: montserrat.style,
     themeStyle: {
-      "--background": "355 74% 36%",
+      "--background": "359 83% 16%",
       "--foreground": "0 0% 100%",
       "--primary": "var(--brand)",
       "--primary-foreground": "var(--brand-foreground)",
       "--brand": "187 55% 36%",
       "--brand-foreground": "0 0% 100%",
-      "--card": "var(--background)",
+      "--card": "355 74% 36%",
       "--card-foreground": "0 0% 100%",
     },
+    colorClasses:
+      "bg-gradient-to-b from-background/50 via-background via-75% to-card/60",
   },
 ] as const;
 
 export type Hackathon = (typeof HACKATHONS)[number];
-type HackathonPrettified = {
-  [K in keyof Hackathon]: Hackathon[K];
-};
-
-type Temp = (typeof HACKATHONS)[number]["font"];
