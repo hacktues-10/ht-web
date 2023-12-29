@@ -134,6 +134,8 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    aztuesArticleUrl:
+      "https://aztues.bg/%d0%bf%d1%8a%d1%80%d0%b2%d0%b8-%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d1%85%d0%b0%d0%ba%d0%b0%d1%82%d0%be%d0%bd-%d0%b2-%d1%82%d1%83%d0%b5%d1%81/",
     font: null,
     themeStyle: {
       "--background": "var(--brand)",
@@ -263,6 +265,8 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    aztuesArticleUrl:
+      "https://aztues.bg/%d0%b2%d1%82%d0%be%d1%80%d0%b8-%d1%83%d1%87%d0%b5%d0%bd%d0%b8%d1%87%d0%b5%d1%81%d0%ba%d0%b8-%d1%85%d0%b0%d0%ba%d0%b0%d1%82%d0%be%d0%bd-%d0%b2-%d1%82%d1%83%d0%b5%d1%81/",
     font: null,
     themeStyle: {
       "--background": "var(--brand)",
@@ -420,6 +424,8 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    aztuesArticleUrl:
+      "https://aztues.bg/hack-tues-3-%d0%bf%d0%b5%d1%82%d0%b8%d0%bc%d0%b0%d1%82%d0%b0-%d0%bc%d1%83%d1%81%d0%ba%d0%b5%d1%82%d0%b0%d1%80%d0%b8/",
     font: null,
     themeStyle: {
       "--background": "289 68% 11%",
@@ -618,6 +624,8 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    aztuesArticleUrl:
+      "https://aztues.bg/hack-30xtues-%d0%b3%d0%be%d0%b4%d0%b8%d1%88%d0%bd%d0%b8%d0%bd%d0%b0%d1%82%d0%b0/",
     font: null,
     themeStyle: {
       "--background": "var(--brand-foreground)",
@@ -771,6 +779,8 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    aztuesArticleUrl:
+      "https://aztues.bg/hack-tues-365-%d0%be%d0%b1%d0%b5%d0%b4%d0%b8%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5%d1%82%d0%be-%d0%bf%d1%80%d0%b0%d0%b2%d0%b8-%d1%81%d0%b8%d0%bb%d0%b0%d1%82%d0%b0/",
     font: null,
     themeStyle: {
       "--background": "var(--brand-foreground)",
@@ -941,6 +951,8 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: "https://6.hacktues.bg/",
+    aztuesArticleUrl:
+      "https://aztues.bg/hack-tues-6-%d1%8f%d0%b4%d1%80%d0%b5%d0%bd%d0%b8%d1%82%d0%b5-%d0%be%d1%80%d0%b3%d0%b0%d0%bd%d0%b8%d0%b7%d0%b0%d1%82%d0%be%d1%80%d0%b8-%d0%bd%d0%b0-%d0%be%d0%bd%d0%bb%d0%b0%d0%b9%d0%bd-%d1%81%d1%8a/",
     font: roboto.style,
     themeStyle: {
       "--background": "254 28% 17%",
@@ -1041,6 +1053,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: "https://gg.hacktues.bg/",
+    aztuesArticleUrl: "https://aztues.bg/aztues-hack-tues-hacktuesgg/",
     font: rubik.style,
     themeStyle: {
       "--background": "43 64% 92%",
@@ -1134,6 +1147,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: "https://infinity.hacktues.bg/",
+    aztuesArticleUrl: "https://aztues.bg/hack-tues-infinity/",
     font: comfortaa.style,
     themeStyle: {
       "--background": "261 57% 21%",
@@ -1232,6 +1246,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    aztuesArticleUrl: "https://aztues.bg/hack-tues-s/",
     font: montserrat.style,
     themeStyle: {
       "--background": "359 83% 16%",

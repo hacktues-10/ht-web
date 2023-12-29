@@ -84,7 +84,9 @@ export default async function LandingPage() {
                 </Button>
               )}
               <Button asChild className="h-full w-full max-w-xs gap-2 sm:w-fit">
-                <Link href={`/archive/${hackathon.id}`}>
+                {/* TODO: add back when we add archive pages */}
+                {/* <Link href={`/archive/${hackathon.id}`}> */}
+                <Link href={hackathon.aztuesArticleUrl} target="_blank">
                   Още за {hackathon.name} <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
