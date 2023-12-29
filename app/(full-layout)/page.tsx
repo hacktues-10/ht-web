@@ -25,7 +25,7 @@ export default async function LandingPage() {
       <CountdownHero />
       <section className="light relative flex flex-col gap-14 overflow-x-visible pb-14 pt-28 text-sand-foreground">
         <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]" />
-        <div className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 place-items-center ">
           <div className="mb-52">
             <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
             <PodkrepqAutomationComponent podkrepqshti={ALPHA_SPONSORS} />
@@ -38,15 +38,14 @@ export default async function LandingPage() {
             <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
             <PodkrepqAutomationComponent podkrepqshti={GAMMA_SPONSORS} />
           </div>
-          <div className="mb-52 place-self-center">
+          <div className="mb-20 place-self-center">
             <PodkrepqTitle>Партньори</PodkrepqTitle>
             <PodkrepqAutomationComponent podkrepqshti={PARTNERS} />
           </div>
         </div>
-
         <div className="py-9" />
       </section>
-      {/* <section className="relative flex flex-col items-center gap-3 pt-7">
+      <section className="relative flex flex-col items-center gap-3 pt-7">
         <div
           className="absolute -top-3 left-1/2 -z-30 h-[34px] min-h-[800px] w-[300%] -translate-x-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_0%,hsl(var(--sand)/0.15),transparent)]"
           aria-hidden
@@ -58,7 +57,7 @@ export default async function LandingPage() {
         {MEDIA_ARTICLES.map((article) => (
           <MediaArticleCard key={article.title} article={article} />
         ))}
-      </section> */}
+      </section>
       <div className="pb-4"></div>
     </div>
   );
@@ -98,7 +97,7 @@ function CountdownHero() {
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className="mb-20 scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
+    <h2 className=" scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
       {children}
     </h2>
   );
