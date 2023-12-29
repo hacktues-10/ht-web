@@ -38,7 +38,7 @@ export default function OrganizatorDetailed({
 
   return (
     <Card
-      className="fadeIn z-2 m-4 mx-auto w-[200px] rounded-xl  border-2 transition-transform duration-300 ease-in-out hover:scale-105 sm:flex sm:h-[440px] md:w-[700px] lg:w-[960px]"
+      className="fadeIn z-2 m-8 mx-auto w-[350px] rounded-xl  border-2 transition-transform duration-300 ease-in-out hover:scale-105 sm:flex sm:h-[440px] md:w-[700px] lg:w-[960px]"
       style={{
         animationDelay: `${delay}ms`,
         opacity: isVisibleImg ? 1 : 0,
