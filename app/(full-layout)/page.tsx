@@ -47,7 +47,11 @@ export default async function LandingPage() {
       </section> */}
       <ArchiveRoot>
         {HACKATHONS.map((hackathon) => (
-          <ArchiveSection key={hackathon.name} logo={hackathon.logo}>
+          <ArchiveSection
+            key={hackathon.name}
+            logo={hackathon.logo}
+            font={hackathon.font}
+          >
             <h3 className="scroll-m-20 pb-2 text-2xl font-extrabold tracking-tight first:mt-0 sm:text-3xl">
               {hackathon.theme}
             </h3>
@@ -209,9 +213,15 @@ function ArchiveRoot({ children }: PropsWithChildren) {
 function ArchiveSection({
   children,
   logo,
-}: PropsWithChildren<Pick<Hackathon, "logo">>) {
+  font,
+}: PropsWithChildren<Pick<Hackathon, "logo" | "font">>) {
   return (
-    <section className="flex flex-col gap-5 py-10">
+    <section
+      className="flex flex-col gap-5 py-10"
+      style={{
+        ...(font ? font : {}),
+      }}
+    >
       <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
         {logo}
       </h2>
@@ -253,7 +263,7 @@ function ArchiveStats({
 }: PropsWithChildren<Pick<Hackathon, "stats">>) {
   return (
     <div className="py-6">
-      <Card className="flex w-full flex-col items-center justify-center gap-2 p-5 md:flex-row">
+      <Card className="flex w-full flex-col items-center justify-center gap-2 p-5 md:grid md:grid-cols-3">
         <ArchiveStatsItem value={stats.participants} label="участници" />
         <ArchiveStatsItem value={stats.teams} label="отбора" />
         <ArchiveStatsItem
@@ -267,9 +277,9 @@ function ArchiveStats({
 
 function ArchiveStatsItem({ value, label }: { value: number; label: string }) {
   return (
-    <Card className="flex w-full max-w-xs flex-1 flex-col items-center justify-center gap-2 p-4 text-center">
+    <Card className="flex h-full w-full max-w-xs flex-1 flex-col items-center justify-around gap-2 p-4 text-center">
       <p className="text-4xl font-extrabold">{value}</p>
-      <p>{label}</p>
+      <p className="text-sm">{label}</p>
     </Card>
   );
 }

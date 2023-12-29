@@ -1,3 +1,4 @@
+import { Comfortaa, Montserrat, Roboto, Rubik } from "next/font/google";
 import localFont from "next/font/local";
 
 import { HTLogo } from "../components/logos";
@@ -5,6 +6,22 @@ import { JUNE, MARCH, OCTOBER } from "../utils";
 
 const htSecurityFont = localFont({
   src: "../assets/htsecurity.ttf",
+});
+
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
+  subsets: ["cyrillic", "latin"],
+});
+const rubik = Rubik({
+  subsets: ["cyrillic", "latin"],
+});
+const comfortaa = Comfortaa({
+  weight: ["400", "500", "700"],
+  subsets: ["cyrillic", "latin"],
+});
+const montserrat = Montserrat({
+  weight: ["400", "500", "700"],
+  subsets: ["cyrillic", "latin"],
 });
 
 export const HACKATHONS = [
@@ -117,6 +134,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    font: null,
   },
   {
     id: "hacktues-2",
@@ -234,6 +252,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    font: null,
   },
   {
     id: "hacktues-3",
@@ -379,6 +398,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    font: null,
   },
   {
     id: "hacktues-30x",
@@ -565,6 +585,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    font: null,
   },
   {
     id: "hacktues-365",
@@ -706,6 +727,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    font: null,
   },
   {
     id: "hacktues-6",
@@ -864,6 +886,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: "https://6.hacktues.bg/",
+    font: roboto.style,
   },
   {
     id: "hacktues-gg",
@@ -951,6 +974,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: "https://gg.hacktues.bg/",
+    font: rubik.style,
   },
   {
     id: "hacktues-infinity",
@@ -1029,6 +1053,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: "https://infinity.hacktues.bg/",
+    font: comfortaa.style,
   },
   {
     id: "hacktues-security",
@@ -1115,6 +1140,7 @@ export const HACKATHONS = [
       </>
     ),
     websiteArchiveUrl: null,
+    font: montserrat.style,
   },
 ] as const;
 
@@ -1123,4 +1149,4 @@ type HackathonPrettified = {
   [K in keyof Hackathon]: Hackathon[K];
 };
 
-type Temp = (typeof HACKATHONS)[1]["format"];
+type Temp = (typeof HACKATHONS)[number]["font"];
