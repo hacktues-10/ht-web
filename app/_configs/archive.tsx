@@ -774,7 +774,7 @@ export const HACKATHONS = [
     font: null,
     themeStyle: {
       "--background": "var(--brand-foreground)",
-      "--foreground": "var(--brand)",
+      "--foreground": "37 33% 86%",
       "--primary": "var(--brand)",
       "--primary-foreground": "var(--brand-foreground)",
       "--brand": "80 66% 49%",

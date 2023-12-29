@@ -1,26 +1,37 @@
-import React, { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calendar, Globe, MapPin, Users } from "lucide-react";
-import invariant from "tiny-invariant";
-
-import { COUNTDOWN_START, EVENT_START } from "~/app/_configs/hackathon";
-import { Hackathon, HACKATHONS } from "../_configs/archive";
 import {
-  ALPHA_SPONSORS,
-  BETA_SPONSORS,
-  GAMMA_SPONSORS,
-  MEDIA_ARTICLES,
-  MediaArticle,
-  PARTNERS,
-  Podkrepqsht,
-} from "../_configs/podkrepq";
-import { SignInButton } from "../components/buttons";
+  ArrowRight,
+  Award,
+  Calendar,
+  Globe,
+  LucideIcon,
+  MapPin,
+  Users,
+  Wifi,
+} from "lucide-react";
+
+import {
+  ALUMNI_REGISTRATION_START,
+  COUNTDOWN_START,
+  EVENT_END,
+  EVENT_START,
+  STUDENTS_REGISTRATION_START,
+} from "~/app/_configs/hackathon";
+import { Hackathon, HACKATHONS } from "../_configs/archive";
+import { MediaArticle, Podkrepqsht } from "../_configs/podkrepq";
+import {
+  IfAllHTFeaturesOff,
+  IfAnyHTFeatureOn,
+  IfHTFeatureOn,
+} from "../_integrations/components";
 import { CountdownTimer } from "../components/countdowns";
 import { CountdownHourglass } from "../components/hourglass";
+import { HTXLogoDuotone } from "../components/logos";
 import { Button } from "../components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
-import { cn } from "../utils";
+import { cn, FEBRUARY, JANUARY } from "../utils";
 
 export default async function LandingPage() {
   return (
@@ -47,6 +58,11 @@ export default async function LandingPage() {
         <div className="py-9" />
       </section> */}
       <ArchiveRoot>
+        <section className="grid place-items-center gap-3">
+          <p className="scroll-m-20 py-16 text-center font-lazydog text-2xl tracking-tight first:mt-0 sm:text-3xl">
+            В началото всичко бе пусто. <br />И тогава се появи...
+          </p>
+        </section>
         {HACKATHONS.map((hackathon) => (
           <ArchiveSection key={hackathon.name} {...hackathon}>
             <h3 className="scroll-m-20 pb-2 text-2xl font-extrabold tracking-tight first:mt-0 sm:text-3xl">
@@ -59,14 +75,14 @@ export default async function LandingPage() {
                 <Button
                   asChild
                   variant="secondary"
-                  className="h-full gap-2 backdrop-blur-md"
+                  className="h-full w-full max-w-xs gap-2 backdrop-blur-md sm:w-fit"
                 >
                   <Link href={hackathon.websiteArchiveUrl} target="_blank">
                     <Globe className="h-4 w-4" /> Уебсайт
                   </Link>
                 </Button>
               )}
-              <Button asChild className="h-full gap-2">
+              <Button asChild className="h-full w-full max-w-xs gap-2 sm:w-fit">
                 <Link href={`/archive/${hackathon.id}`}>
                   Още за {hackathon.name} <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -74,6 +90,64 @@ export default async function LandingPage() {
             </ArchiveActionButtons>
           </ArchiveSection>
         ))}
+        <ArchiveSection font={null} className="gap-7 sm:gap-9">
+          <div className="flex flex-col gap-1">
+            <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
+              <HTXLogoDuotone />
+            </h2>
+            <p className="scroll-m-20 pb-2 font-lazydog text-xl font-extrabold italic tracking-tight first:mt-0">
+              „Десетото юбилейно издание на емблематичния за ТУЕС хакатон!“
+            </p>
+          </div>
+          <ArchiveLocation
+            startDate={EVENT_START}
+            endDate={EVENT_END}
+            location="София Тех Парк"
+            format="присъствен"
+          />
+          <div className="flex flex-col gap-2">
+            <h3 className="text-3xl font-bold">
+              Веднъж ТУЕС-ар, винаги ТУЕС-ар!
+            </h3>
+            <p className="text-lg">
+              За първи път в историята на Hack TUES могат да участват завършили
+              ученици.
+              <ArchiveStatsCard className="md:grid-cols-2">
+                <p className="col-span-2 pb-3 text-center text-2xl font-semibold">
+                  Но местата са ограничени!
+                </p>
+                <ArchiveStatsItem value={80} label="отбора на ученици" />
+                <ArchiveStatsItem value={10} label="отбора на завършили" />
+                <p className="text-md col-span-2 text-center font-light">
+                  Регистрацията <em className="italic">затваря окончателно</em>{" "}
+                  на{" "}
+                  {dateFormatter.format(
+                    fiveDaysAfter(ALUMNI_REGISTRATION_START),
+                  )}{" "}
+                  за завършили и на{" "}
+                  {dateFormatter.format(
+                    fiveDaysAfter(STUDENTS_REGISTRATION_START),
+                  )}{" "}
+                  за ученици, или{" "}
+                  <strong className="font-extrabold">
+                    до изчерпване на местата
+                  </strong>
+                  .
+                </p>
+              </ArchiveStatsCard>{" "}
+            </p>
+          </div>
+          <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+            <div className="flex flex-col items-center justify-center gap-4 text-center">
+              <h3 className="text-2xl font-bold md:text-3xl">
+                Не пропускайте възможността да участвате!
+              </h3>
+              <Link href="/signup">
+                <Button size="lg">Регистрирайте се!</Button>
+              </Link>
+            </div>
+          </IfAnyHTFeatureOn>
+        </ArchiveSection>
       </ArchiveRoot>
       {/* <section className="relative flex flex-col items-center gap-3 pt-7">
         <div
@@ -108,9 +182,18 @@ function PageBackdrop({
   );
 }
 
+function AnniversaryBadge() {
+  return (
+    <div className="flex items-center justify-center gap-2">
+      <Award />
+      <p className="text-center font-bold">Десето юбилейно издание</p>
+    </div>
+  );
+}
+
 function CountdownHero() {
   return (
-    <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col items-center justify-between gap-10 md:max-w-4xl md:flex-row">
+    <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col items-center justify-between gap-10 md:max-w-5xl md:flex-row">
       <section className="flex h-full w-full flex-col items-center justify-center gap-4">
         <h1 className="relative inline-block bg-gradient-to-br from-[#ce0e3eff] to-[#e3686bff] bg-clip-text text-center font-llpixel text-5xl text-transparent md:text-7xl">
           <div
@@ -123,7 +206,17 @@ function CountdownHero() {
             X
           </span>
         </h1>
-        <div className="py-2" />
+        <p className="lg:text-md text-center font-lazydog text-xs">
+          Eмблематичният за ТУЕС хакатон се&nbsp;завръща!
+        </p>
+
+        <div className="flex flex-col gap-1 text-sm font-semibold">
+          <IconParagraph icon={Calendar}>
+            {dateFormatter.formatRange(EVENT_START, EVENT_END)}
+          </IconParagraph>
+          <IconParagraph icon={MapPin}>София Тех Парк</IconParagraph>
+        </div>
+
         <CountdownTimer to={EVENT_START} />
         <Link href="/signup">
           <Button size="lg">Регистрирайте се!</Button>
@@ -216,7 +309,7 @@ function MediaArticleCard({ article }: { article: MediaArticle }) {
 
 function ArchiveRoot({ children }: PropsWithChildren) {
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col gap-10 sm:ps-14">
+    <div className="mx-auto flex w-full max-w-2xl flex-col sm:ps-14">
       {children}
     </div>
   );
@@ -228,23 +321,46 @@ function ArchiveSection({
   font,
   themeStyle,
   colorClasses,
+  className,
 }: PropsWithChildren<
-  Pick<Hackathon, "logo" | "font" | "themeStyle" | "colorClasses">
+  Pick<Partial<Hackathon>, "logo" | "font" | "themeStyle" | "colorClasses"> & {
+    className?: string;
+  }
 >) {
   return (
     <section
-      className="relative flex flex-col gap-5 py-10 text-foreground"
+      className={cn(
+        "relative flex flex-col gap-5 py-10 text-foreground sm:gap-7 sm:py-16",
+        className,
+      )}
       style={{
         ...(font ? font : {}),
         ...themeStyle,
       }}
     >
-      <PageBackdrop className={cn(colorClasses, "inset-y-0 h-full min-h-0")} />
-      <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
-        {logo}
-      </h2>
+      {!!colorClasses && (
+        <PageBackdrop
+          className={cn(colorClasses, "inset-y-0 h-full min-h-0")}
+        />
+      )}
+      {!!logo && (
+        <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
+          {logo}
+        </h2>
+      )}
       {children}
     </section>
+  );
+}
+
+function IconParagraph({
+  children,
+  icon: Icon,
+}: PropsWithChildren<{ icon: LucideIcon }>) {
+  return (
+    <p className="flex items-center gap-2">
+      <Icon className="h-4 w-4" /> {children}
+    </p>
   );
 }
 
@@ -254,23 +370,34 @@ function ArchiveLocation({
   location,
   format,
 }: Pick<Hackathon, "startDate" | "endDate" | "location" | "format">) {
-  const FormatIcon = format === "онлайн" ? Globe : Users;
+  const FormatIcon = format === "онлайн" ? Wifi : Users;
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex gap-4">
-        <p className="flex items-center gap-2">
-          <Calendar className="h-4 w-4" />{" "}
-          {dateFormatter.formatRange(startDate, endDate)}{" "}
-        </p>
-        {location ? (
-          <p className="flex items-center gap-2">
-            <MapPin className="h-4 w-4" /> {location}
-          </p>
-        ) : null}
-      </div>
-      <p className="flex items-center gap-2">
-        <FormatIcon className="h-4 w-4" /> {format} формат
-      </p>
+    <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:gap-4">
+      <IconParagraph icon={Calendar}>
+        {dateFormatter.formatRange(startDate, endDate)}
+      </IconParagraph>
+      {location ? (
+        <IconParagraph icon={MapPin}>{location}</IconParagraph>
+      ) : null}
+      <IconParagraph icon={FormatIcon}>{format} формат</IconParagraph>
+    </div>
+  );
+}
+
+function ArchiveStatsCard({
+  children,
+  className,
+}: PropsWithChildren<{ className?: string }>) {
+  return (
+    <div className="py-6">
+      <Card
+        className={cn(
+          "flex w-full flex-col items-center justify-center gap-2 p-5 md:grid md:grid-cols-3",
+          className,
+        )}
+      >
+        {children}
+      </Card>
     </div>
   );
 }
@@ -280,16 +407,11 @@ function ArchiveStats({
   stats,
 }: PropsWithChildren<Pick<Hackathon, "stats">>) {
   return (
-    <div className="py-6">
-      <Card className="flex w-full flex-col items-center justify-center gap-2 p-5 md:grid md:grid-cols-3">
-        <ArchiveStatsItem value={stats.participants} label="участници" />
-        <ArchiveStatsItem value={stats.teams} label="отбора" />
-        <ArchiveStatsItem
-          value={stats.awardedTeams}
-          label="наградени проекта"
-        />
-      </Card>
-    </div>
+    <ArchiveStatsCard>
+      <ArchiveStatsItem value={stats.participants} label="участници" />
+      <ArchiveStatsItem value={stats.teams} label="отбора" />
+      <ArchiveStatsItem value={stats.awardedTeams} label="наградени проекта" />
+    </ArchiveStatsCard>
   );
 }
 
@@ -303,5 +425,15 @@ function ArchiveStatsItem({ value, label }: { value: number; label: string }) {
 }
 
 function ArchiveActionButtons({ children }: PropsWithChildren) {
-  return <div className="flex items-center justify-end gap-3">{children}</div>;
+  return (
+    <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+      {children}
+    </div>
+  );
+}
+
+function fiveDaysAfter(date: Date) {
+  const fiveDays = 5 * 24 * 60 * 60 * 1000;
+  const oneDay = 24 * 60 * 60 * 1000;
+  return new Date(date.getTime() + fiveDays - oneDay);
 }

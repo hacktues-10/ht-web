@@ -37,6 +37,11 @@ const llpixel = localFont({
   variable: "--font-llpixel",
 });
 
+const lazydog = localFont({
+  src: "./assets/lazydog.woff2",
+  variable: "--font-lazydog",
+});
+
 export const metadata: Metadata = {
   title: "Hack TUES X",
   description:
@@ -58,6 +63,7 @@ export default function RootLayout({
           title.variable,
           parahraph.variable,
           llpixel.variable,
+          lazydog.variable,
         )}
       >
         <div className="absolute inset-0 -z-50 h-full bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round [mask-image:linear-gradient(to_bottom,transparent,10%,white,90%,transparent)]" />
