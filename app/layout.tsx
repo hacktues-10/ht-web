@@ -33,7 +33,7 @@ const title = Noto_Sans({
 });
 
 const llpixel = localFont({
-  src: "./assets/llpixel3.ttf",
+  src: "./assets/htpixel.ttf",
   variable: "--font-llpixel",
 });
 
