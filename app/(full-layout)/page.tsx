@@ -47,24 +47,19 @@ export default async function LandingPage() {
       </section> */}
       <ArchiveRoot>
         {HACKATHONS.map((hackathon) => (
-          <ArchiveSection
-            key={hackathon.name}
-            logo={hackathon.logo}
-            font={hackathon.font}
-          >
+          <ArchiveSection key={hackathon.name} {...hackathon}>
             <h3 className="scroll-m-20 pb-2 text-2xl font-extrabold tracking-tight first:mt-0 sm:text-3xl">
               {hackathon.theme}
             </h3>
-            <ArchiveLocation
-              startDate={hackathon.startDate}
-              endDate={hackathon.endDate}
-              location={hackathon.location}
-              format={hackathon.format}
-            />
+            <ArchiveLocation {...hackathon} />
             <ArchiveStats stats={hackathon.stats} />
             <ArchiveActionButtons>
               {!!hackathon.websiteArchiveUrl && (
-                <Button asChild variant="secondary" className="h-full gap-2">
+                <Button
+                  asChild
+                  variant="secondary"
+                  className="h-full gap-2 backdrop-blur-md"
+                >
                   <Link href={hackathon.websiteArchiveUrl} target="_blank">
                     <Globe className="h-4 w-4" /> Уебсайт
                   </Link>
@@ -214,12 +209,14 @@ function ArchiveSection({
   children,
   logo,
   font,
-}: PropsWithChildren<Pick<Hackathon, "logo" | "font">>) {
+  themeStyle,
+}: PropsWithChildren<Pick<Hackathon, "logo" | "font" | "themeStyle">>) {
   return (
     <section
       className="flex flex-col gap-5 py-10"
       style={{
         ...(font ? font : {}),
+        ...themeStyle,
       }}
     >
       <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
@@ -240,7 +237,7 @@ function ArchiveLocation({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-4">
-        <p className="flex items-center gap-3">
+        <p className="flex items-center gap-2">
           <Calendar className="h-4 w-4" />{" "}
           {dateFormatter.formatRange(startDate, endDate)}{" "}
         </p>
