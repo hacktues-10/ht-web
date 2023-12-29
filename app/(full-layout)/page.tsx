@@ -282,25 +282,30 @@ function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
 function MediaArticleCard({ article }: { article: MediaArticle }) {
   return (
     <Link href={article.url} className="block" target="_blank">
-      <Card className="flex max-w-2xl flex-col overflow-clip transition-transform hover:scale-105 sm:flex-row">
-        <figure className="relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip border-b bg-card/5 p-4 text-card-foreground shadow-sm backdrop-blur-md sm:w-1/2 sm:border-b-0 sm:border-r">
-          <Image
-            className="max-h-full max-w-full object-contain px-3 py-5 transition-transform"
-            src={article.logo}
-            alt={article.name}
-          />
-        </figure>
-        <div className="flex-1">
-          <CardHeader className="pb-3 sm:pb-6">
-            <CardTitle className="text-center sm:text-left">
-              {article.title}
-            </CardTitle>
-          </CardHeader>
-          <div className="pb-3 text-center sm:hidden">{"●"}</div>
-          <CardFooter className="justify-center text-center sm:justify-start sm:text-left">
-            <DateDisplay date={article.date} />
-          </CardFooter>
-        </div>
+      <Card
+        asChild
+        className="flex max-w-2xl flex-col overflow-clip transition-transform hover:scale-105 sm:flex-row"
+      >
+        <article>
+          <figure className="relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip border-b bg-card/5 p-4 text-card-foreground shadow-sm backdrop-blur-md sm:w-1/2 sm:border-b-0 sm:border-r">
+            <Image
+              className="max-h-full max-w-full object-contain px-3 py-5 transition-transform"
+              src={article.logo}
+              alt={article.name}
+            />
+          </figure>
+          <div className="flex-1">
+            <CardHeader className="pb-3 sm:pb-6">
+              <CardTitle className="text-center sm:text-left">
+                {article.title}
+              </CardTitle>
+            </CardHeader>
+            <div className="pb-3 text-center sm:hidden">{"●"}</div>
+            <CardFooter className="justify-center text-center sm:justify-start sm:text-left">
+              <DateDisplay date={article.date} />
+            </CardFooter>
+          </div>
+        </article>
       </Card>
     </Link>
   );

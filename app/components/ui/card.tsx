@@ -8,7 +8,7 @@ const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { asChild?: boolean }
 >(({ className, asChild, ...props }, ref) => {
-  const Comp = asChild ? Slot : "article";
+  const Comp = asChild ? Slot : "div";
   return (
     <Comp
       ref={ref}
