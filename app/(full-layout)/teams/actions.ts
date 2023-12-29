@@ -1,6 +1,7 @@
 "use server";
 
 import { and, eq } from "drizzle-orm";
+import invariant from "tiny-invariant";
 import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
@@ -26,7 +27,11 @@ import {
   getParticipantsWithNoTeam,
   isParticipantStudent,
 } from "~/app/participants/service";
-import { getTeamById, isParticipantEligableToJoin } from "./service";
+import {
+  checkIfTeamEligableToJoin,
+  getTeamById,
+  isParticipantEligableToJoin,
+} from "./service";
 
 export async function deleteMyTeam() {
   const gb = await getServerSideGrowthBook();
@@ -86,6 +91,20 @@ export async function askToJoinTeam(teamIdToJoin: string) {
     };
   }
 
+  const team = await getTeamById(teamIdToJoin);
+
+  if (!team) {
+    return { success: false, error: "Няма такъв отбор" };
+  }
+
+  const minMembers = team.isAlumni ? 2 : 3;
+  const maxMembers = team.isAlumni ? 3 : 5;
+
+  if (team.memberCount < minMembers || team.memberCount > maxMembers) {
+    const res = await checkIfTeamEligableToJoin(team.isAlumni);
+    invariant(res, "Отборите са запълнени.");
+  }
+
   const participant = await getParticipantFromSession();
   if (!participant) {
     return { success: false, error: "Не си влязъл като участник" };
@@ -102,8 +121,6 @@ export async function askToJoinTeam(teamIdToJoin: string) {
         teamId: teamIdToJoin,
       })
       .returning();
-
-    console.log(res[0]);
 
     const captain = await db
       .select()
@@ -146,11 +163,24 @@ export const inviteToTeam = zact(
   if (!participant) {
     return { success: false, error: "Не си влязъл като участник" };
   }
+
+  if (!team) {
+    return { success: false, error: "Няма такъв отбор" };
+  }
+
   if (!participant.team.isCaptain || participant.team.id != teamId) {
     return {
       success: false,
       error: "Само капитана на този отбор може да кани участници",
     };
+  }
+
+  const minMembers = team.isAlumni ? 2 : 3;
+  const maxMembers = team.isAlumni ? 3 : 5;
+
+  if (team.memberCount < minMembers || team.memberCount > maxMembers) {
+    const res = await checkIfTeamEligableToJoin(team.isAlumni);
+    invariant(res, "Отборите са запълнени.");
   }
 
   const invitedParticipant = await getParticipantById(invitedParticipantId);
@@ -372,21 +402,32 @@ const formatNick = (user: any) => {
   }
 };
 
-export async function testInsertProject() {
-  const res = await db
-    .insert(projects)
-    .values({
-      name: "test name",
-      description: "test description",
-      technologies: "testtechnologies",
-      websiteURL: "http://localhost:8080",
-    })
-    .returning();
+export async function createProject(project: {
+  teamId: string;
+  name: string;
+  description: string;
+  websiteURL: string;
+}) {
+  try {
+    const res = await db
+      .insert(projects)
+      .values({
+        name: project.name,
+        description: project.description,
+        technologies: "",
+        websiteURL: project.websiteURL,
+      })
+      .returning();
 
-  await db
-    .update(teams)
-    .set({ projectId: res[0].id })
-    .where(eq(teams.id, "443"));
+    await db
+      .update(teams)
+      .set({ projectId: res[0].id })
+      .where(eq(teams.id, project.teamId));
+
+    return { success: true, message: "Успешно създадохте проекта" };
+  } catch (e) {
+    return { success: false, message: "Опа, нещо се обърка" };
+  }
 }
 
 export async function isTeamFull(teamId: string) {

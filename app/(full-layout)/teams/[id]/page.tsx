@@ -169,7 +169,7 @@ export default async function TeamDetailPage({
                     <h3 className="mt-2 text-center text-xl">
                       Все още няма създаден проект :(
                     </h3>
-                    {/* {participant?.team.id == team.id &&
+                    {participant?.team.id == team.id &&
                       participant.team.isCaptain && (
                         <Button
                           variant="outline"
@@ -180,7 +180,7 @@ export default async function TeamDetailPage({
                             Създай проект
                           </Link>
                         </Button>
-                      )} */}
+                      )}
                   </div>
                 )}
               </TabsContent>

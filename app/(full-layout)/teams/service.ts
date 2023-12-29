@@ -65,24 +65,8 @@ export async function createTeam(team: {
   captainId: number;
   isAlumni: boolean;
 }) {
-  const teamsNumber = await db
-    .select()
-    .from(teams)
-    .where(eq(teams.isAlumni, team.isAlumni));
-
-  const minMembers = team.isAlumni ? 2 : 3;
-  const maxMembers = team.isAlumni ? 3 : 5;
-
-  const teamsNumberFinal = teamsNumber.filter((team) => {
-    return team.memberCount >= minMembers && team.memberCount <= maxMembers;
-  });
-
-  if (
-    (team.isAlumni && teamsNumberFinal.length >= 20) ||
-    (teamsNumberFinal.length >= 70 && !team.isAlumni)
-  ) {
-    invariant(false, "Отборите са запълнени.");
-  }
+  const res = await checkIfTeamEligableToJoin(team.isAlumni);
+  invariant(res, "Отборите са запълнени.");
 
   const captain = await getParticipantById(team.captainId);
   const roleId = await createDiscordTeam(slugify(team.name));
@@ -117,6 +101,29 @@ export async function createTeam(team: {
     })
     .where(eq(particpants.id, team.captainId));
   return insertedTeam;
+}
+
+export async function checkIfTeamEligableToJoin(isAlumni: boolean) {
+  const teamsNumber = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.isAlumni, isAlumni));
+
+  const minMembers = isAlumni ? 2 : 3;
+  const maxMembers = isAlumni ? 3 : 5;
+
+  const teamsNumberFinal = teamsNumber.filter((team) => {
+    return team.memberCount >= minMembers && team.memberCount <= maxMembers;
+  });
+
+  if (
+    (isAlumni && teamsNumberFinal.length >= 20) ||
+    (teamsNumberFinal.length >= 70 && !isAlumni)
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 export function isParticipantEligableToJoin(
