@@ -1,13 +1,19 @@
+import localFont from "next/font/local";
+
 import { HTLogo } from "../components/logos";
 import { JUNE, MARCH, OCTOBER } from "../utils";
+
+const htSecurityFont = localFont({
+  src: "../assets/htsecurity.ttf",
+});
 
 export const HACKATHONS = [
   {
     id: "hacktues",
     name: "Hack TUES",
     logo: (
-      <HTLogo>
-        Hack <span className="text-[#09c0de]">TUES</span>
+      <HTLogo className="text-white">
+        Hack <span className="text-[#446576ff]">TUES</span>
       </HTLogo>
     ),
     startDate: new Date(2015, JUNE, 26),
@@ -110,13 +116,14 @@ export const HACKATHONS = [
         </blockquote>
       </>
     ),
+    websiteArchiveUrl: null,
   },
   {
     id: "hacktues-2",
     name: "Hack TUES 2",
     logo: (
-      <HTLogo>
-        Hack <span className="text-[#09c0de]">TUES</span> 2
+      <HTLogo className="text-white">
+        Hack <span className="text-[#446576ff]">TUES</span> 2
       </HTLogo>
     ),
     startDate: new Date(2015, OCTOBER, 9),
@@ -226,12 +233,13 @@ export const HACKATHONS = [
         </blockquote>
       </>
     ),
+    websiteArchiveUrl: null,
   },
   {
     id: "hacktues-3",
     name: "Hack TUES 3",
     logo: (
-      <HTLogo>
+      <HTLogo className="text-white">
         Hack <span className="text-[#09c0de]">TUES</span>{" "}
         <span className="text-[#b2006e]">3</span>
       </HTLogo>
@@ -370,6 +378,7 @@ export const HACKATHONS = [
         </p>
       </>
     ),
+    websiteArchiveUrl: null,
   },
   {
     id: "hacktues-30x",
@@ -555,13 +564,14 @@ export const HACKATHONS = [
         </p>
       </>
     ),
+    websiteArchiveUrl: null,
   },
   {
     id: "hacktues-365",
     name: "Hack TUES 365",
     logo: (
-      <HTLogo>
-        <span className="text-[#d6c6ad]">Hack</span>{" "}
+      <HTLogo className="text-[#d6c6ad]">
+        Hack{" "}
         <span className="text-[#99d02b]">
           TUES<sup>^365</sup>
         </span>
@@ -695,12 +705,13 @@ export const HACKATHONS = [
         </p>
       </>
     ),
+    websiteArchiveUrl: null,
   },
   {
     id: "hacktues-6",
     name: "Hack TUES 6",
     logo: (
-      <HTLogo>
+      <HTLogo className="text-white">
         Hack <span className="text-[#fdad20]">TUES</span> 6
       </HTLogo>
     ),
@@ -852,6 +863,7 @@ export const HACKATHONS = [
         </blockquote>
       </>
     ),
+    websiteArchiveUrl: "https://6.hacktues.bg/",
   },
   {
     id: "hacktues-gg",
@@ -938,6 +950,7 @@ export const HACKATHONS = [
         </p>
       </>
     ),
+    websiteArchiveUrl: "https://gg.hacktues.bg/",
   },
   {
     id: "hacktues-infinity",
@@ -1015,15 +1028,17 @@ export const HACKATHONS = [
         </p>
       </>
     ),
+    websiteArchiveUrl: "https://infinity.hacktues.bg/",
   },
   {
     id: "hacktues-security",
     name: "Hack TUES S",
     logo: (
-      <HTLogo>
-        <span className="text-[#29838e]">Hack</span>{" "}
-        <span className="text-[#a01824]">TUES</span>{" "}
-        <span className="text-[#29838e]">S</span>
+      <HTLogo className="text-[#29838e]">
+        <span className="text-[#a01824]">Hack</span> TUES{" "}
+        <span className="text-[#a01824]" style={htSecurityFont.style}>
+          S
+        </span>
       </HTLogo>
     ),
     startDate: new Date(2023, MARCH, 8),
@@ -1099,8 +1114,9 @@ export const HACKATHONS = [
         </p>
       </>
     ),
+    websiteArchiveUrl: null,
   },
-];
+] as const;
 
 export type Hackathon = (typeof HACKATHONS)[number];
 type HackathonPrettified = {

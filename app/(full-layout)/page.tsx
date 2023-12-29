@@ -1,8 +1,11 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren, ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, Calendar, Globe, MapPin, Users } from "lucide-react";
+import invariant from "tiny-invariant";
 
 import { COUNTDOWN_START, EVENT_START } from "~/app/_configs/hackathon";
+import { Hackathon, HACKATHONS } from "../_configs/archive";
 import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
@@ -22,7 +25,7 @@ export default async function LandingPage() {
   return (
     <div className="flex min-h-fit w-full flex-col">
       <CountdownHero />
-      <section className="light relative flex flex-col gap-14 overflow-x-visible bg-sand pb-14 pt-28 text-sand-foreground">
+      {/* <section className="light relative flex flex-col gap-14 overflow-x-visible bg-sand pb-14 pt-28 text-sand-foreground">
         <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] bg-sand" />
         <PordkrepqPackage>
           <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
@@ -41,8 +44,38 @@ export default async function LandingPage() {
           <PodkrepqPackageScrollableContent podkrepqshti={PARTNERS} />
         </PordkrepqPackage>
         <div className="py-9" />
-      </section>
-      <section className="relative flex flex-col items-center gap-3 pt-7">
+      </section> */}
+      <ArchiveRoot>
+        {HACKATHONS.map((hackathon) => (
+          <ArchiveSection key={hackathon.name} logo={hackathon.logo}>
+            <h3 className="scroll-m-20 pb-2 text-2xl font-extrabold tracking-tight first:mt-0 sm:text-3xl">
+              {hackathon.theme}
+            </h3>
+            <ArchiveLocation
+              startDate={hackathon.startDate}
+              endDate={hackathon.endDate}
+              location={hackathon.location}
+              format={hackathon.format}
+            />
+            <ArchiveStats stats={hackathon.stats} />
+            <ArchiveActionButtons>
+              {!!hackathon.websiteArchiveUrl && (
+                <Button asChild variant="secondary" className="h-full gap-2">
+                  <Link href={hackathon.websiteArchiveUrl} target="_blank">
+                    <Globe className="h-4 w-4" /> Уебсайт
+                  </Link>
+                </Button>
+              )}
+              <Button asChild className="h-full gap-2">
+                <Link href={`/archive/${hackathon.id}`}>
+                  Още за {hackathon.name} <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </ArchiveActionButtons>
+          </ArchiveSection>
+        ))}
+      </ArchiveRoot>
+      {/* <section className="relative flex flex-col items-center gap-3 pt-7">
         <div
           className="absolute -top-3 left-1/2 -z-30 h-[34px] min-h-[800px] w-[300%] -translate-x-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_0%,hsl(var(--sand)/0.15),transparent)]"
           aria-hidden
@@ -54,7 +87,7 @@ export default async function LandingPage() {
         {MEDIA_ARTICLES.map((article) => (
           <MediaArticleCard key={article.title} article={article} />
         ))}
-      </section>
+      </section> */}
       <div className="pb-4"></div>
     </div>
   );
@@ -163,4 +196,84 @@ function MediaArticleCard({ article }: { article: MediaArticle }) {
       </Card>
     </Link>
   );
+}
+
+function ArchiveRoot({ children }: PropsWithChildren) {
+  return (
+    <div className="mx-auto flex w-full max-w-2xl flex-col gap-10 sm:ps-14">
+      {children}
+    </div>
+  );
+}
+
+function ArchiveSection({
+  children,
+  logo,
+}: PropsWithChildren<Pick<Hackathon, "logo">>) {
+  return (
+    <section className="flex flex-col gap-5 py-10">
+      <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
+        {logo}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+function ArchiveLocation({
+  startDate,
+  endDate,
+  location,
+  format,
+}: Pick<Hackathon, "startDate" | "endDate" | "location" | "format">) {
+  const FormatIcon = format === "онлайн" ? Globe : Users;
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex gap-4">
+        <p className="flex items-center gap-3">
+          <Calendar className="h-4 w-4" />{" "}
+          {dateFormatter.formatRange(startDate, endDate)}{" "}
+        </p>
+        {location ? (
+          <p className="flex items-center gap-2">
+            <MapPin className="h-4 w-4" /> {location}
+          </p>
+        ) : null}
+      </div>
+      <p className="flex items-center gap-2">
+        <FormatIcon className="h-4 w-4" /> {format} формат
+      </p>
+    </div>
+  );
+}
+
+function ArchiveStats({
+  children,
+  stats,
+}: PropsWithChildren<Pick<Hackathon, "stats">>) {
+  return (
+    <div className="py-6">
+      <Card className="flex w-full flex-col items-center justify-center gap-2 p-5 md:flex-row">
+        <ArchiveStatsItem value={stats.participants} label="участници" />
+        <ArchiveStatsItem value={stats.teams} label="отбора" />
+        <ArchiveStatsItem
+          value={stats.awardedTeams}
+          label="наградени проекта"
+        />
+      </Card>
+    </div>
+  );
+}
+
+function ArchiveStatsItem({ value, label }: { value: number; label: string }) {
+  return (
+    <Card className="flex w-full max-w-xs flex-1 flex-col items-center justify-center gap-2 p-4 text-center">
+      <p className="text-4xl font-extrabold">{value}</p>
+      <p>{label}</p>
+    </Card>
+  );
+}
+
+function ArchiveActionButtons({ children }: PropsWithChildren) {
+  return <div className="flex items-center justify-end gap-3">{children}</div>;
 }
