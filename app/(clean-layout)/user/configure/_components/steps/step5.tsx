@@ -15,6 +15,7 @@ import {
   REGULAR_ALUMNI_PARALLELS,
 } from "~/app/_elsys/grades-parallels";
 import { SignOutButton } from "~/app/components/buttons";
+import { HTLogo } from "~/app/components/logos";
 import { Button, buttonVariants } from "~/app/components/ui/button";
 import { Card, CardContent } from "~/app/components/ui/card";
 import { Checkbox } from "~/app/components/ui/checkbox";
@@ -119,10 +120,7 @@ export const AlumniStep5 = ({
                   <FormLabel>
                     Коя е любимата ви тема или подтема от всички изминали
                     издания на{" "}
-                    <span className="font-llpixel font-medium">
-                      Hack&nbsp;TUES
-                    </span>
-                    ?
+                    <HTLogo className="text-inherit">Hack&nbsp;TUES</HTLogo>?
                   </FormLabel>
                   <FormControl>
                     <Textarea className="resize-none" {...field} />

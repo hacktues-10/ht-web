@@ -2,6 +2,7 @@ import { XIcon } from "lucide-react";
 import { FaDiscord } from "react-icons/fa6";
 
 import { getUserAuthorization, signInRedirect } from "~/app/api/auth/session";
+import { HTLogo } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { DiscordLoadingLink } from "./_components/discord-loading-link";
@@ -19,7 +20,7 @@ export default async function DiscordPage() {
         <Separator />
         <p className="text-center text-sm leading-7 [&:not(:first-child)]:mt-6">
           Можете да премахнете своя Discord профил от{" "}
-          <span className="font-llpixel">Hack&nbsp;TUES&nbsp;X</span>.
+          <HTLogo className="text-inherit">Hack&nbsp;TUES&nbsp;X</HTLogo>.
         </p>
         <div className="py-2" />
         <DiscordLoadingLink href="/api/discord/remove" variant="destructive">
@@ -36,7 +37,7 @@ export default async function DiscordPage() {
         <Separator />
         <h2 className="text-center text-lg leading-7 [&:not(:first-child)]:mt-6">
           Свържете своя Discord профил и станете част от Discord сървъра на{" "}
-          <span className="font-llpixel">Hack&nbsp;TUES&nbsp;X</span>!
+          <HTLogo className="text-inherit">Hack&nbsp;TUES&nbsp;X</HTLogo>!
         </h2>
         <div className="relative pb-6 pt-12">
           <DiscordLoadingLink
@@ -54,7 +55,7 @@ export default async function DiscordPage() {
         <p className="text-sm text-muted-foreground">
           През Discord ще се осъществява комуникацията с вашия отбор. Ако нямате
           регистрация в Discord, е необходимо да се регистрирате за да участвате
-          в <span className="font-llpixel">Hack&nbsp;TUES&nbsp;X</span>.
+          в <HTLogo className="text-inherit">Hack&nbsp;TUES&nbsp;X</HTLogo>.
         </p>
       </div>
     </Card>
