@@ -131,18 +131,20 @@ export const AlumniStep2 = ({
                           ref={buttonRef} // Set a ref to the Button component
                         >
                           {field.value || "Избери випуск"}
-                          <ChevronsUpDown className="ml-2 h-4 w-2 shrink-0 opacity-50" />
+                          <ChevronsUpDown className="ml-2 h-24 w-2 shrink-0 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
                     <PopoverContent
-                      style={{ width: popoverWidth }}
+                      style={{
+                        width: popoverWidth,
+                      }}
                       className={"p-0"}
                     >
                       <Command>
                         <CommandInput placeholder="Търси випуск..." />
                         <CommandEmpty>Випускът не е намерен.</CommandEmpty>
-                        <CommandGroup>
+                        <CommandGroup className="h-[200px] overflow-scroll">
                           {/* FIXME: use `.toReversed()` when NodeJS supports it */}
                           {[...ALUMNI_GRADES].reverse().map((grade) => (
                             <CommandItem

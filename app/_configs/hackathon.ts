@@ -8,3 +8,6 @@ export const ALUMNI_REGISTRATION_START = new Date(
 export const STUDENTS_REGISTRATION_START = new Date(
   "Jan 29 2024 20:00:00 GMT+0200",
 );
+
+export const MAX_TEAMS_STUDENTS = 70;
+export const MAX_TEAMS_ALUMNI = 20;

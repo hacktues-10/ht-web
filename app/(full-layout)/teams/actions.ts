@@ -1,6 +1,9 @@
 "use server";
 
+import { error } from "console";
+
 import { and, eq } from "drizzle-orm";
+import invariant from "tiny-invariant";
 import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
@@ -26,7 +29,11 @@ import {
   getParticipantsWithNoTeam,
   isParticipantStudent,
 } from "~/app/participants/service";
-import { getTeamById, isParticipantEligableToJoin } from "./service";
+import {
+  checkIfTeamEligableToJoin,
+  getTeamById,
+  isParticipantEligableToJoin,
+} from "./service";
 
 export async function deleteMyTeam() {
   const gb = await getServerSideGrowthBook();
@@ -65,10 +72,13 @@ export async function deleteMyTeam() {
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.teamId, participant.team.id));
 
-    await db
+    await db.delete(projects).where(eq(projects.teamId, participant.team.id));
+
+    const team = await db
       .delete(teams)
       .where(eq(teams.id, participant?.team.id))
       .returning();
+
     return { success: true };
   } catch (e) {
     console.log(e);
@@ -84,6 +94,20 @@ export async function askToJoinTeam(teamIdToJoin: string) {
       success: false,
       error: "Присъединяването към отбори не е позволено по това време.",
     };
+  }
+
+  const team = await getTeamById(teamIdToJoin);
+
+  if (!team) {
+    return { success: false, error: "Няма такъв отбор" };
+  }
+
+  const minMembers = team.isAlumni ? 2 : 3;
+  const maxMembers = team.isAlumni ? 3 : 5;
+
+  if (team.memberCount < minMembers || team.memberCount > maxMembers) {
+    const res = await checkIfTeamEligableToJoin(team.isAlumni);
+    if (!res) return { success: false, error: "Отборите са запълнени." };
   }
 
   const participant = await getParticipantFromSession();
@@ -102,8 +126,6 @@ export async function askToJoinTeam(teamIdToJoin: string) {
         teamId: teamIdToJoin,
       })
       .returning();
-
-    console.log(res[0]);
 
     const captain = await db
       .select()
@@ -146,11 +168,24 @@ export const inviteToTeam = zact(
   if (!participant) {
     return { success: false, error: "Не си влязъл като участник" };
   }
+
+  if (!team) {
+    return { success: false, error: "Няма такъв отбор" };
+  }
+
   if (!participant.team.isCaptain || participant.team.id != teamId) {
     return {
       success: false,
       error: "Само капитана на този отбор може да кани участници",
     };
+  }
+
+  const minMembers = team.isAlumni ? 2 : 3;
+  const maxMembers = team.isAlumni ? 3 : 5;
+
+  if (team.memberCount < minMembers || team.memberCount > maxMembers) {
+    const res = await checkIfTeamEligableToJoin(team.isAlumni);
+    if (!res) return { success: false, error: "Отборите са запълнени." };
   }
 
   const invitedParticipant = await getParticipantById(invitedParticipantId);
@@ -325,10 +360,10 @@ export async function updateTechnologies(teamId: string) {
     .where(eq(teams.id, teamId));
 }
 
-export async function getProjectById(projectId: number | null) {
-  if (projectId) {
+export async function getProjectByTeamId(teamId: string) {
+  if (teamId) {
     return (
-      await db.select().from(projects).where(eq(projects.id, projectId))
+      await db.select().from(projects).where(eq(projects.teamId, teamId))
     ).at(0);
   }
   return null;
@@ -372,21 +407,25 @@ const formatNick = (user: any) => {
   }
 };
 
-export async function testInsertProject() {
-  const res = await db
-    .insert(projects)
-    .values({
-      name: "test name",
-      description: "test description",
-      technologies: "testtechnologies",
-      websiteURL: "http://localhost:8080",
-    })
-    .returning();
+export async function createProject(project: {
+  teamId: string;
+  name: string;
+  description: string;
+  websiteURL: string;
+}) {
+  try {
+    await db.insert(projects).values({
+      name: project.name,
+      description: project.description,
+      technologies: "",
+      websiteURL: project.websiteURL,
+      teamId: project.teamId,
+    });
 
-  await db
-    .update(teams)
-    .set({ projectId: res[0].id })
-    .where(eq(teams.id, "443"));
+    return { success: true, message: "Успешно създадохте проекта" };
+  } catch (e) {
+    return { success: false, message: "Опа, нещо се обърка" };
+  }
 }
 
 export async function isTeamFull(teamId: string) {
