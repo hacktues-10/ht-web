@@ -33,6 +33,7 @@ import { CountdownTimer } from "../components/countdowns";
 import { DateDisplay, DateRangeDisplay } from "../components/date-display";
 import { CountdownHourglass } from "../components/hourglass";
 import { HTLogo, HTXLogoDuotone } from "../components/logos";
+import { PageBackdrop } from "../components/page-backdrop";
 import { Button } from "../components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 import { cn } from "../utils";
@@ -192,23 +193,6 @@ export default async function LandingPage() {
         </section>
       </IfAnyHTFeatureOn>
       <div className="pb-4"></div>
-    </div>
-  );
-}
-
-export function PageBackdrop({
-  children,
-  className,
-}: PropsWithChildren<{ className?: string }>) {
-  return (
-    <div
-      className={cn(
-        "absolute inset-y-0 left-1/2 -z-30 w-[300%] -translate-x-1/2 ",
-        className,
-      )}
-      aria-hidden
-    >
-      {children}
     </div>
   );
 }

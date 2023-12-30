@@ -1,6 +1,6 @@
 import Image, { ImageProps } from "next/image";
 
-import { PageBackdrop } from "~/app/(full-layout)/page";
+import { PageBackdrop } from "~/app/components/page-backdrop";
 import leaves from "./leaves.webp";
 import smartcity from "./smartcity.png";
 import { HT1Book, HT1Line1, HT1Line2, HT1Line3 } from "./svgs/ht1";
