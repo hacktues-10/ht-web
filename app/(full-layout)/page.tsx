@@ -126,11 +126,9 @@ export default async function LandingPage() {
               Веднъж ТУЕС-ар, винаги ТУЕС-ар!
             </h3>
             <p className="text-lg">
-              За първи път в историята на Hack TUES могат да участват{" "}
-              <span className="font-bold text-destructive">
-                завършили ученици
-              </span>{" "}
-              в отделна категория от настоящите ученици.
+              За първи път в историята на Hack TUES могат да участват и{" "}
+              <span className="font-bold text-primary">завършили ученици</span>{" "}
+              в отделно от настоящите ученици.
             </p>
           </Card>
           <ArchiveStatsCard className="md:grid-cols-2">
@@ -141,8 +139,10 @@ export default async function LandingPage() {
             <ArchiveStatsItem value={10} label="отбора на завършили" />
             <p className="col-span-2 text-center text-lg font-light">
               Регистрацията <em className="italic">затваря окончателно</em> на{" "}
-              <DateDisplay date={ALUMNI_REGISTRATION_START} /> за завършили и на{" "}
-              <DateDisplay date={STUDENTS_REGISTRATION_START} /> за ученици, или{" "}
+              <DateDisplay date={fiveDaysAfter(ALUMNI_REGISTRATION_START)} /> за
+              завършили и на{" "}
+              <DateDisplay date={fiveDaysAfter(STUDENTS_REGISTRATION_START)} />{" "}
+              за ученици, или{" "}
               <strong className="font-extrabold">
                 до изчерпване на местата
               </strong>
@@ -357,9 +357,9 @@ function ArchiveSection({
 >) {
   return (
     <section
-      id={id ? id : undefined}
+      id={id}
       className={cn(
-        "relative flex flex-col justify-center gap-5 py-20 text-foreground sm:gap-7 sm:py-16",
+        "relative flex flex-col justify-center gap-5 py-28 text-foreground sm:gap-7 sm:py-16",
         className,
       )}
       style={{
@@ -477,7 +477,7 @@ function ChevronDownLink({
       asChild
       variant="secondary"
       size="icon"
-      className={cn("rounded-full", className)}
+      className={cn("rounded-full border backdrop-blur-md", className)}
     >
       <Link href={href}>
         <ChevronDown className="h-6 w-6" />
