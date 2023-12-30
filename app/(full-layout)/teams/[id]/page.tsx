@@ -9,7 +9,7 @@ import { getImageUrl } from "~/app/_integrations/r2";
 import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
   checkStateJoinRequests,
-  getProjectById,
+  getProjectByTeamId,
   getTeamMembers,
   isTeamFull,
   prepareParticipants,
@@ -74,7 +74,7 @@ export default async function TeamDetailPage({
   // teamMembers.push(teamMembers[0]);
   // teamMembers.push(teamMembers[0]);
 
-  const project = await getProjectById(team.projectId);
+  const project = await getProjectByTeamId(team.id);
   const isFull = await isTeamFull(team.id);
 
   return (
@@ -169,17 +169,20 @@ export default async function TeamDetailPage({
                     <h3 className="mt-2 text-center text-xl">
                       Все още няма създаден проект :(
                     </h3>
+
                     {participant?.team.id == team.id &&
                       participant.team.isCaptain && (
-                        <Button
-                          variant="outline"
-                          className="mt-2 sm:ml-auto"
-                          asChild
-                        >
-                          <Link href={`/teams/${team.id}/project/new`}>
-                            Създай проект
-                          </Link>
-                        </Button>
+                        <IfHTFeatureOn feature="create-project">
+                          <Button
+                            variant="outline"
+                            className="mt-2 sm:ml-auto"
+                            asChild
+                          >
+                            <Link href={`/teams/${team.id}/project/new`}>
+                              Създай проект
+                            </Link>
+                          </Button>
+                        </IfHTFeatureOn>
                       )}
                   </div>
                 )}

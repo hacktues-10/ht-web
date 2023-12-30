@@ -20,7 +20,7 @@ export default async function CreateTeamPage() {
   return (
     <div className="flex flex-col justify-center">
       <div className="w-min self-center pb-4">
-        <Button asChild variant="default" className="mt-8 ">
+        <Button asChild variant="secondary" className="mt-8 ">
           <Link href="/teams">
             {"<- "}
             Назад

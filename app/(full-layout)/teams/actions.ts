@@ -70,10 +70,13 @@ export async function deleteMyTeam() {
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.teamId, participant.team.id));
 
-    await db
+    await db.delete(projects).where(eq(projects.teamId, participant.team.id));
+
+    const team = await db
       .delete(teams)
       .where(eq(teams.id, participant?.team.id))
       .returning();
+
     return { success: true };
   } catch (e) {
     console.log(e);
@@ -355,10 +358,10 @@ export async function updateTechnologies(teamId: string) {
     .where(eq(teams.id, teamId));
 }
 
-export async function getProjectById(projectId: number | null) {
-  if (projectId) {
+export async function getProjectByTeamId(teamId: string) {
+  if (teamId) {
     return (
-      await db.select().from(projects).where(eq(projects.id, projectId))
+      await db.select().from(projects).where(eq(projects.teamId, teamId))
     ).at(0);
   }
   return null;
@@ -409,20 +412,13 @@ export async function createProject(project: {
   websiteURL: string;
 }) {
   try {
-    const res = await db
-      .insert(projects)
-      .values({
-        name: project.name,
-        description: project.description,
-        technologies: "",
-        websiteURL: project.websiteURL,
-      })
-      .returning();
-
-    await db
-      .update(teams)
-      .set({ projectId: res[0].id })
-      .where(eq(teams.id, project.teamId));
+    await db.insert(projects).values({
+      name: project.name,
+      description: project.description,
+      technologies: "",
+      websiteURL: project.websiteURL,
+      teamId: project.teamId,
+    });
 
     return { success: true, message: "Успешно създадохте проекта" };
   } catch (e) {

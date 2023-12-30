@@ -16,7 +16,6 @@ import { getConfirmedTeams } from "./service";
 export default async function TeamList() {
   const teams = await getConfirmedTeams();
   const participant = await getParticipantFromSession();
-
   let studentTeams: typeof teams = [];
   let graduateTeams: typeof teams = [];
   teams.map((te) => {

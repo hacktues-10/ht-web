@@ -154,7 +154,6 @@ export const teams = pgTable("teams", {
   description: varchar("description").notNull(),
   mentorId: integer("mentor_id").references(() => mentors.id),
   technologies: varchar("technologies").default("").notNull(),
-  projectId: integer("project_id").references(() => projects.id),
   discordRoleId: varchar("role_id"),
   isAlumni: boolean("is_alumni").notNull().default(false),
   memberCount: integer("member_count").default(1).notNull(),
@@ -174,8 +173,8 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
     references: [mentors.id],
   }),
   project: one(projects, {
-    fields: [teams.projectId],
-    references: [projects.id],
+    fields: [teams.id],
+    references: [projects.teamId],
   }),
   invitations: many(invitations),
   joinRequests: many(joinRequests),
@@ -240,8 +239,17 @@ export const projects = pgTable("projects", {
   description: varchar("description").notNull(),
   technologies: varchar("technologies").notNull(),
   websiteURL: varchar("website_url").notNull(),
-  // TODO: technologies
+  teamId: varchar("team_id")
+    .notNull()
+    .references(() => teams.id),
 });
+
+export const projectsRelations = relations(projects, ({ one }) => ({
+  team: one(teams, {
+    fields: [projects.teamId],
+    references: [teams.id],
+  }),
+}));
 
 export const tShirts = pgTable("tshirts", {
   id: serial("id").primaryKey(),
