@@ -10,6 +10,7 @@ import {
   HT6Background,
   HT7Background,
   HT8Background,
+  HT9Background,
 } from "../components/archive/backgrounds";
 import { HTLogo } from "../components/logos";
 import { JUNE, MARCH, OCTOBER } from "../utils";
@@ -1278,7 +1279,7 @@ export const HACKATHONS = [
     },
     colorClasses:
       "bg-gradient-to-b from-background/50 via-background via-75% to-card/60",
-    background: HT1Background,
+    background: HT9Background,
   },
 ] as const;
 
