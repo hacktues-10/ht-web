@@ -35,6 +35,10 @@ const montserrat = Montserrat({
   subsets: ["cyrillic", "latin"],
 });
 
+export function getHackathonById(id: string) {
+  return HACKATHONS.find((h) => h.id === id);
+}
+
 export const HACKATHONS = [
   {
     id: "hacktues",
