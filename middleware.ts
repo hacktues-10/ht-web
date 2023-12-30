@@ -3,8 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { CheckAuthenticationResponse } from "./app/api/checkAuthentication/route";
 
 export async function middleware(request: NextRequest) {
-  // const baseUrl = request.nextUrl.origin;
-  const baseUrl = "http://127.0.0.1:3000";
+  const baseUrl = request.nextUrl.origin;
   const cookieHeader = request.headers.get("cookie");
   const credentials = cookieHeader ? "include" : "same-origin";
   const response = await fetch(`${baseUrl}/api/checkAuthentication`, {
