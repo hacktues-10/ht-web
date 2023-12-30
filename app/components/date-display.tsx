@@ -21,3 +21,15 @@ export const DateDisplay = ({
     {showHour ? " в " + timeFormatter.format(date) : ""}
   </time>
 );
+
+export const DateRangeDisplay = ({
+  startDate,
+  endDate,
+}: {
+  startDate: Date;
+  endDate: Date;
+}) => (
+  <time dateTime={startDate.toISOString() + "/" + endDate.toISOString()}>
+    {dateFormatter.formatRange(startDate, endDate)}
+  </time>
+);

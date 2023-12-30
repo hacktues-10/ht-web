@@ -85,6 +85,7 @@ module.exports = {
         paragraph: ["var(--font-paragraph)", ...fontFamily.sans],
         htags: ["var(--font-htags)", ...fontFamily.sans],
         llpixel: ["var(--font-llpixel)", ...fontFamily.sans],
+        lazydog: ["var(--font-lazydog)", ...fontFamily.sans],
       },
     },
   },

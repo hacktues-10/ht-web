@@ -72,7 +72,9 @@ export async function GET(req: NextRequest) {
           ? mentor.firstName + " " + mentor.lastName
           : "",
       roles: participant?.id
-        ? [env.MEMBER_ROLE]
+        ? parseInt(participant.grade) > 12
+          ? [env.ALUMNI_ROLE]
+          : [env.MEMBER_ROLE]
         : mentor
           ? [env.MENTOR_ROLE]
           : [],

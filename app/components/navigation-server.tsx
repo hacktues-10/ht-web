@@ -108,15 +108,6 @@ export const DesktopNavigation = ({ className }: { className: string }) => {
   return (
     <NavigationMenu className={className}>
       <NavigationMenuList>
-        {getVisibleLinks(getCategory("root")).map((link) => (
-          <NavigationMenuItem key={link.label}>
-            <Link href={link.url} legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                {link.label}
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        ))}
         {getAdditionalCategories().map((category) => (
           <NavigationMenuItem key={category.category}>
             <NavigationMenuTrigger>{category.label}</NavigationMenuTrigger>
@@ -138,6 +129,15 @@ export const DesktopNavigation = ({ className }: { className: string }) => {
                 ))}
               </ul>
             </NavigationMenuContent>
+          </NavigationMenuItem>
+        ))}
+        {getVisibleLinks(getCategory("root")).map((link) => (
+          <NavigationMenuItem key={link.label}>
+            <Link href={link.url} legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                {link.label}
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
