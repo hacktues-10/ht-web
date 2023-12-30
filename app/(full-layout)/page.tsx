@@ -7,6 +7,7 @@ import {
   Calendar,
   ChevronDown,
   Globe,
+  LinkIcon,
   LucideIcon,
   MapPin,
   Users,
@@ -20,6 +21,7 @@ import {
   EVENT_START,
   STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
+import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
 import {
   MEDIA_ARTICLES,
@@ -30,7 +32,7 @@ import { IfAnyHTFeatureOn } from "../_integrations/components";
 import { CountdownTimer } from "../components/countdowns";
 import { DateDisplay, DateRangeDisplay } from "../components/date-display";
 import { CountdownHourglass } from "../components/hourglass";
-import { HTXLogoDuotone } from "../components/logos";
+import { HTLogo, HTXLogoDuotone } from "../components/logos";
 import { Button } from "../components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
 import { cn } from "../utils";
@@ -99,14 +101,16 @@ export default async function LandingPage() {
                 </Link>
               </Button>
             </ArchiveActionButtons>
-            {hackathons.at(i + 1) && (
-              <div className="grid w-full place-items-center">
+            <div className="grid w-full place-items-center">
+              {hackathons.at(i + 1) ? (
                 <ChevronDownLink href={`#${hackathons.at(i + 1)!.id}`} />
-              </div>
-            )}
+              ) : (
+                <ChevronDownLink href="#hacktues-x" />
+              )}
+            </div>
           </ArchiveSection>
         ))}
-        <ArchiveSection font={null} className="gap-10 sm:gap-9">
+        <ArchiveSection id="hacktues-x" className="gap-10 sm:gap-9">
           <div className="flex flex-col gap-1">
             <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
               <HTXLogoDuotone />
@@ -122,7 +126,7 @@ export default async function LandingPage() {
             format="присъствен"
           /> */}
           <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
-            <h3 className="text-2xl font-bold md:text-3xl">
+            <h3 className="pb-3 text-2xl font-bold md:text-3xl">
               Веднъж ТУЕС-ар, винаги ТУЕС-ар!
             </h3>
             <p className="text-lg">
@@ -132,7 +136,7 @@ export default async function LandingPage() {
             </p>
           </Card>
           <ArchiveStatsCard className="md:grid-cols-2">
-            <p className="col-span-2 pb-3 text-center text-2xl font-semibold">
+            <p className="col-span-2 pb-3 text-center text-2xl font-semibold md:text-3xl">
               Но местата са ограничени!
             </p>
             <ArchiveStatsItem value={80} label="отбора на ученици" />
@@ -151,7 +155,7 @@ export default async function LandingPage() {
           </ArchiveStatsCard>
           <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
             <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
-              <h3 className="text-2xl font-bold md:text-3xl">
+              <h3 className="pb-3 text-2xl font-bold md:text-3xl">
                 Не пропускайте възможността да участвате!
               </h3>
               <Link href="/signup">
@@ -161,12 +165,13 @@ export default async function LandingPage() {
           </IfAnyHTFeatureOn>
         </ArchiveSection>
       </ArchiveContainer>
+      <UnescoSection />
       <section className="relative flex flex-col items-center gap-3 pt-7">
         {/* TODO: put it on mitko's thing */}
-        {/* <div
+        <div
           className="absolute -top-3 left-1/2 -z-30 h-[34px] min-h-[800px] w-[300%] -translate-x-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_0%,hsl(var(--sand)/0.15),transparent)]"
           aria-hidden
-        /> */}
+        />
         <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
           Медиите за нас
         </h2>
@@ -456,6 +461,52 @@ function ArchiveActionButtons({ children }: PropsWithChildren) {
     <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
       {children}
     </div>
+  );
+}
+
+function UnescoSection() {
+  const UNESCO_URL =
+    "https://unevoc.unesco.org/home/Promising+Practices+in+TVET/lang=en/id=6662";
+  return (
+    <section className="light relative grid place-items-center gap-14 overflow-x-visible bg-sand pb-14 pt-28 text-sand-foreground">
+      <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] bg-sand" />
+      <div className="flex max-w-5xl flex-col-reverse items-center justify-center gap-8 sm:flex-row">
+        <div className="flex-3 grid h-full w-full place-items-center">
+          <Link href={UNESCO_URL} target="_blank">
+            <Image
+              src={ht8Image}
+              alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
+              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all hover:scale-105 hover:shadow-lg"
+            />
+          </Link>
+        </div>
+        <div className="flex w-full flex-col gap-1">
+          <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-destructive first:mt-0">
+            <HTLogo className="font-extrabold">Hack TUES</HTLogo> в ЮНЕСКО
+          </h2>
+          <p className="text-md scroll-m-20 pb-2 font-semibold tracking-tight first:mt-0">
+            Емблематичният за ТУЕС към ТУ – София хакатон, организиран от
+            ученици за ученици,{" "}
+            <HTLogo className="font-semibold text-inherit">
+              Hack&nbsp;TUES
+            </HTLogo>
+            , намери своето място сред иновативните и обещаващи практики на
+            ЮНЕСКО за Техническо и професионално образование и обучение. Това
+            прави{" "}
+            <HTLogo className="font-semibold text-inherit">
+              Hack&nbsp;TUES
+            </HTLogo>{" "}
+            единствената образователна практика в България, която е включена в
+            тази глобална инициатива.
+          </p>
+          <Button asChild variant="destructive">
+            <Link href={UNESCO_URL} target="_blank">
+              <LinkIcon className="mr-2 h-4 w-4" /> Прочетете повече
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
 
