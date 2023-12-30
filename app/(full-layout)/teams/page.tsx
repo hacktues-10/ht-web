@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { MAX_TEAMS_ALUMNI, MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getConfirmedTeamsNumber } from "~/app/(full-layout)/teams/actions";
 import TeamCard from "~/app/components/Team/teamCard";
@@ -31,8 +32,10 @@ export default async function TeamList() {
   let canCreateTeam = false;
   if (participant?.grade) {
     canCreateTeam =
-      (confirmedAlumniTeamsNumber < 20 && parseInt(participant.grade) > 12) ||
-      (confirmedStudentTeamsNumber < 20 && parseInt(participant.grade) <= 12);
+      (confirmedAlumniTeamsNumber < MAX_TEAMS_ALUMNI &&
+        parseInt(participant.grade) > 12) ||
+      (confirmedStudentTeamsNumber < MAX_TEAMS_STUDENTS &&
+        parseInt(participant.grade) <= 12);
   }
 
   //   TODO: move elsewhere
@@ -63,7 +66,8 @@ export default async function TeamList() {
               Отбори на ученици
             </h1>
             <h2 className="m-4 self-center text-center font-mono text-2xl font-semibold italic tracking-tight  text-white sm:text-3xl">
-              Потвърдени отбори: {confirmedStudentTeamsNumber}/70
+              Потвърдени отбори: {confirmedStudentTeamsNumber}/
+              {MAX_TEAMS_STUDENTS}
             </h2>
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {studentTeams.map((team, index) => (
@@ -79,7 +83,7 @@ export default async function TeamList() {
             </h1>
 
             <h2 className="m-4 self-center text-center font-mono text-2xl font-semibold italic tracking-tight  text-white sm:text-3xl">
-              Потвърдени отбори: {confirmedAlumniTeamsNumber}/20
+              Потвърдени отбори: {confirmedAlumniTeamsNumber}/{MAX_TEAMS_ALUMNI}
             </h2>
 
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

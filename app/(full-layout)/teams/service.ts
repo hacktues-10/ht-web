@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
+import { MAX_TEAMS_ALUMNI, MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import { discordUsers, particpants, teams } from "~/app/db/schema";
@@ -117,8 +118,8 @@ export async function checkIfTeamEligableToJoin(isAlumni: boolean) {
   });
 
   if (
-    (isAlumni && teamsNumberFinal.length >= 20) ||
-    (teamsNumberFinal.length >= 70 && !isAlumni)
+    (isAlumni && teamsNumberFinal.length >= MAX_TEAMS_ALUMNI) ||
+    (teamsNumberFinal.length >= MAX_TEAMS_STUDENTS && !isAlumni)
   ) {
     return false;
   }

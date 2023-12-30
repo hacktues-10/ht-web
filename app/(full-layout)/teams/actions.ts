@@ -1,5 +1,7 @@
 "use server";
 
+import { error } from "console";
+
 import { and, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -105,7 +107,7 @@ export async function askToJoinTeam(teamIdToJoin: string) {
 
   if (team.memberCount < minMembers || team.memberCount > maxMembers) {
     const res = await checkIfTeamEligableToJoin(team.isAlumni);
-    invariant(res, "Отборите са запълнени.");
+    if (!res) return { success: false, error: "Отборите са запълнени." };
   }
 
   const participant = await getParticipantFromSession();
@@ -183,7 +185,7 @@ export const inviteToTeam = zact(
 
   if (team.memberCount < minMembers || team.memberCount > maxMembers) {
     const res = await checkIfTeamEligableToJoin(team.isAlumni);
-    invariant(res, "Отборите са запълнени.");
+    if (!res) return { success: false, error: "Отборите са запълнени." };
   }
 
   const invitedParticipant = await getParticipantById(invitedParticipantId);
