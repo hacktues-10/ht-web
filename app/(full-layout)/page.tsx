@@ -46,28 +46,7 @@ export default async function LandingPage() {
   return (
     <div className="flex min-h-fit w-full flex-col">
       <CountdownHero />
-      <section className="light relative flex flex-col gap-14 overflow-x-visible pb-14 pt-28 text-sand-foreground">
-        <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]" />
-        <div className="grid grid-cols-1 place-items-center ">
-          <div className="mb-52">
-            <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={ALPHA_SPONSORS} />
-          </div>
-          <div className="mb-52">
-            <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={BETA_SPONSORS} />
-          </div>
-          <div className="mb-52">
-            <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={GAMMA_SPONSORS} />
-          </div>
-          <div className="mb-20 place-self-center">
-            <PodkrepqTitle>Партньори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={PARTNERS} />
-          </div>
-        </div>
-        <div className="py-9" />
-      </section>
+
       <ArchiveContainer>
         <section className="grid place-items-center gap-9 py-12">
           <p className="scroll-m-20 text-center font-lazydog text-2xl tracking-tight first:mt-0 sm:text-3xl">
@@ -172,6 +151,28 @@ export default async function LandingPage() {
           </IfAnyHTFeatureOn>
         </ArchiveSection>
       </ArchiveContainer>
+      <section className="light relative flex flex-col gap-14 overflow-x-visible pb-14 pt-28 text-sand-foreground">
+        <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]" />
+        <div className="grid grid-cols-1 place-items-center ">
+          <div className="mb-52">
+            <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
+            <PodkrepqAutomationComponent podkrepqshti={ALPHA_SPONSORS} />
+          </div>
+          <div className="mb-52">
+            <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
+            <PodkrepqAutomationComponent podkrepqshti={BETA_SPONSORS} />
+          </div>
+          <div className="mb-52">
+            <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
+            <PodkrepqAutomationComponent podkrepqshti={GAMMA_SPONSORS} />
+          </div>
+          <div className="mb-20 place-self-center">
+            <PodkrepqTitle>Партньори</PodkrepqTitle>
+            <PodkrepqAutomationComponent podkrepqshti={PARTNERS} />
+          </div>
+        </div>
+        <div className="py-9" />
+      </section>
       <UnescoSection />
       <section className="relative flex flex-col items-center gap-3 pt-7">
         {/* TODO: put it on mitko's thing */}
