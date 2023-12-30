@@ -1,6 +1,16 @@
 import { Comfortaa, Montserrat, Roboto, Rubik } from "next/font/google";
 import localFont from "next/font/local";
 
+import {
+  HT1Background,
+  HT2Background,
+  HT3Background,
+  HT4Background,
+  HT5Background,
+  HT6Background,
+  HT7Background,
+  HT8Background,
+} from "../components/archive/backgrounds";
 import { HTLogo } from "../components/logos";
 import { JUNE, MARCH, OCTOBER } from "../utils";
 
@@ -148,6 +158,7 @@ export const HACKATHONS = [
       "--card-foreground": "0 0% 100%",
     },
     colorClasses: "bg-gradient-to-b from-transparent to-brand/30",
+    background: HT1Background,
   },
   {
     id: "hacktues-2",
@@ -279,6 +290,7 @@ export const HACKATHONS = [
       "--card-foreground": "0 0% 100%",
     },
     colorClasses: "bg-gradient-to-b from-transparent to-brand/30",
+    background: HT2Background,
   },
   {
     id: "hacktues-3",
@@ -438,6 +450,7 @@ export const HACKATHONS = [
       "--card-foreground": "0 0% 100%",
     },
     colorClasses: "bg-background",
+    background: HT3Background,
   },
   {
     id: "hacktues-30x",
@@ -638,6 +651,7 @@ export const HACKATHONS = [
       "--card-foreground": "0 0% 100%",
     },
     colorClasses: "bg-background",
+    background: HT4Background,
   },
   {
     id: "hacktues-365",
@@ -793,6 +807,7 @@ export const HACKATHONS = [
       "--card-foreground": "0 0% 100%",
     },
     colorClasses: "bg-background",
+    background: HT5Background,
   },
   {
     id: "hacktues-6",
@@ -966,6 +981,7 @@ export const HACKATHONS = [
       "--radius": "2rem",
     },
     colorClasses: "bg-gradient-to-b from-background to-[#ce402c]",
+    background: HT6Background,
   },
   {
     id: "hacktues-gg",
@@ -1069,6 +1085,7 @@ export const HACKATHONS = [
       "--ring": "var(--brand)",
     },
     colorClasses: "bg-background",
+    background: HT7Background,
   },
   {
     id: "hacktues-infinity",
@@ -1160,6 +1177,7 @@ export const HACKATHONS = [
       "--card-foreground": "0 0% 100%",
     },
     colorClasses: "bg-background text-foreground",
+    background: HT8Background,
   },
   {
     id: "hacktues-security",
@@ -1260,6 +1278,7 @@ export const HACKATHONS = [
     },
     colorClasses:
       "bg-gradient-to-b from-background/50 via-background via-75% to-card/60",
+    background: HT1Background,
   },
 ] as const;
 

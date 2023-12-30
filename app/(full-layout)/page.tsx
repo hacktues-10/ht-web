@@ -110,7 +110,7 @@ export default async function LandingPage() {
             </div>
           </ArchiveSection>
         ))}
-        <ArchiveSection id="hacktues-x" className="gap-10 sm:gap-9">
+        <ArchiveSection id={"hacktues-x" as any} className="gap-10 sm:gap-9">
           <div className="flex flex-col gap-1">
             <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
               <HTXLogoDuotone />
@@ -196,7 +196,7 @@ export default async function LandingPage() {
   );
 }
 
-function PageBackdrop({
+export function PageBackdrop({
   children,
   className,
 }: PropsWithChildren<{ className?: string }>) {
@@ -207,7 +207,9 @@ function PageBackdrop({
         className,
       )}
       aria-hidden
-    />
+    >
+      {children}
+    </div>
   );
 }
 
@@ -352,10 +354,11 @@ function ArchiveSection({
   themeStyle,
   colorClasses,
   className,
+  background: Background,
 }: PropsWithChildren<
   Pick<
     Partial<Hackathon>,
-    "id" | "logo" | "font" | "themeStyle" | "colorClasses"
+    "id" | "logo" | "font" | "themeStyle" | "colorClasses" | "background"
   > & {
     className?: string;
   }
@@ -377,6 +380,7 @@ function ArchiveSection({
           className={cn(colorClasses, "inset-y-0 h-full min-h-0")}
         />
       )}
+      {!!Background && <Background />}
       {!!logo && (
         <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
           {logo}
