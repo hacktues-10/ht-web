@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { SOCIAL_MEDIA, SocialMedia } from "~/app/_configs/pr";
+import { HTXLogoDuotone } from "./logos";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import {
@@ -12,11 +13,8 @@ import {
 
 export const Footer = () => (
   <footer className="flex flex-col items-center justify-between gap-4 bg-background px-6 pb-2 pt-6 md:flex-row md:pt-2">
-    <Link
-      href="/"
-      className="text-center font-llpixel text-2xl text-brand md:text-xl"
-    >
-      Hack TUES <span className="text-sand">X</span>
+    <Link href="/" className="text-center text-2xl md:text-xl">
+      <HTXLogoDuotone />
     </Link>
     <p className="text-center text-sm text-muted-foreground">
       © {new Date().getFullYear()} ТУЕС към ТУ-София. Всички права са запазени.
