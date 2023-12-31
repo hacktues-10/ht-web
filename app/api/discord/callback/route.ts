@@ -3,6 +3,7 @@ import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 
 import { getMentorByEmail } from "~/app/(full-layout)/mentors/service";
+import { useToast } from "~/app/components/ui/use-toast";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
@@ -41,20 +42,17 @@ export async function GET(req: NextRequest) {
       code,
       redirect_uri: resolveDiscordRedirectUri(req),
     });
-
     const res = await fetch("https://discord.com/api/v10/oauth2/token", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      cache: "no-cache",
       body: params.toString(),
     });
 
     const data = await res.json();
     const response = await fetch("https://discord.com/api/v10/users/@me", {
       method: "GET",
-      cache: "no-cache",
       headers: {
         Authorization: `Bearer ${data.access_token}`,
       },
@@ -91,8 +89,6 @@ export async function GET(req: NextRequest) {
       `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
       {
         method: "PUT",
-        cache: "no-cache",
-
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bot " + env.DISCORD_BOT_ID,
