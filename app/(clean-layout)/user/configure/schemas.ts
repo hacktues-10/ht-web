@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import {
+  ALUMNI_PARALLELS,
   EXTENDED_ALUMNI_GRADES,
-  EXTENDED_ALUMNI_PARALLELS,
   REGULAR_ALUMNI_GRADES,
   REGULAR_ALUMNI_PARALLELS,
   STUDENT_GRADES,
@@ -93,7 +93,7 @@ export const alumniStep2Schema = z.object({
     }),
     z.object({
       grade: z.enum(EXTENDED_ALUMNI_GRADES),
-      parallel: z.enum(EXTENDED_ALUMNI_PARALLELS),
+      parallel: z.enum(ALUMNI_PARALLELS),
     }),
   ]),
 });
