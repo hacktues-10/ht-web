@@ -14,10 +14,14 @@ import { resolveCallbackUrl } from "~/app/utils";
 import { getHTSession, signInRedirect } from "../../auth/session";
 import { resolveDiscordRedirectUri } from "../service";
 
-const ERROR_URL = `/discord/error?${new URLSearchParams({
-  source: "/discord",
-})}`;
+const ERROR_URL = "/discord/error";
 const SUCCESS_URL = "/discord";
+
+const generateErrorUrl = (code?: number) =>
+  `${ERROR_URL}?${new URLSearchParams({
+    source: "/discord",
+    ...(code ? { q: code?.toString(36) } : {}), // NOTE: intentinally obscure the error parameter name
+  })}`;
 
 export const dynamic = "force-dynamic";
 
@@ -33,7 +37,7 @@ export async function GET(req: NextRequest) {
     const code = searchParams.get("code");
     if (!code) {
       console.error("no code in query, sad");
-      redirect(ERROR_URL);
+      redirect(generateErrorUrl(1000));
     }
 
     const params = new URLSearchParams({
@@ -51,6 +55,11 @@ export async function GET(req: NextRequest) {
       body: params.toString(),
     });
 
+    if (!res.ok) {
+      console.error("res not ok", await res.json());
+      redirect(generateErrorUrl(5000));
+    }
+
     const data = await res.json();
     const response = await fetch("https://discord.com/api/v10/users/@me", {
       method: "GET",
@@ -58,6 +67,11 @@ export async function GET(req: NextRequest) {
         Authorization: `Bearer ${data.access_token}`,
       },
     });
+
+    if (!response.ok) {
+      console.error("response not ok", await response.json());
+      redirect(generateErrorUrl(6000));
+    }
 
     const user = await response.json();
     const participant = await getParticipantFromSession();
@@ -84,7 +98,6 @@ export async function GET(req: NextRequest) {
     };
     if (!participant && !mentor) {
       console.error("no participant and no mentor");
-      redirect(ERROR_URL);
     }
     const inviteRes = await fetch(
       `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/members/${user.id}`,
@@ -99,12 +112,12 @@ export async function GET(req: NextRequest) {
     );
     if (!inviteRes.ok) {
       console.error("inviteRes not ok", await inviteRes.json());
-      redirect(ERROR_URL);
+      redirect(generateErrorUrl(2000));
     }
     if (!participant) {
       if (!mentor) {
         console.error("no mentor and no participant here");
-        redirect(ERROR_URL);
+        redirect(generateErrorUrl(3000));
       }
 
       if (await mentorHasDiscordEntry(mentor.id)) {
@@ -150,7 +163,22 @@ export async function GET(req: NextRequest) {
       }
     }
   } catch (error) {
-    redirect(ERROR_URL);
+    // HACK: prevent Next.js redirects and other stuff from triggering this
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "digest" in error &&
+      typeof error.digest === "string" &&
+      error.digest.toLowerCase().includes("next")
+    ) {
+      throw error;
+    }
+
+    console.error("error", error);
+    if (error instanceof Error) {
+      console.error(error.stack);
+    }
+    redirect(generateErrorUrl(4000));
   }
 
   const untrustedCallbackUrl = req.cookies.get("callbackUrl")?.value;
