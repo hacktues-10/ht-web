@@ -3,7 +3,6 @@ import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 
 import { getMentorByEmail } from "~/app/(full-layout)/mentors/service";
-import { useToast } from "~/app/components/ui/use-toast";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
@@ -19,6 +18,8 @@ const ERROR_URL = `/discord/error?${new URLSearchParams({
   source: "/discord",
 })}`;
 const SUCCESS_URL = "/discord";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   try {
