@@ -20,7 +20,7 @@ const SUCCESS_URL = "/discord";
 const generateErrorUrl = (code?: number) =>
   `${ERROR_URL}?${new URLSearchParams({
     source: "/discord",
-    ...(code ? { q: code?.toString(36) } : {}), // NOTE: intentinally obscure the error parameter name
+    ...(code ? { q: code?.toString(36), t: Date.now().toString(36) } : {}), // NOTE: intentinally obscure the error parameter name
   })}`;
 
 export const dynamic = "force-dynamic";
