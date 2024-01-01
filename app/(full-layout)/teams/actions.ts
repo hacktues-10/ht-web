@@ -438,19 +438,3 @@ export async function isTeamFull(teamId: string) {
   }
   return false;
 }
-
-export async function getConfirmedTeamsNumber(isAlumni: boolean) {
-  const teamsNumber = await db
-    .select()
-    .from(teams)
-    .where(eq(teams.isAlumni, isAlumni));
-
-  const minMembers = isAlumni ? 2 : 3;
-  const maxMembers = isAlumni ? 3 : 5;
-
-  const teamsNumberFinal = teamsNumber.filter((team) => {
-    return team.memberCount >= minMembers && team.memberCount <= maxMembers;
-  });
-
-  return teamsNumberFinal.length;
-}

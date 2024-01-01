@@ -2,7 +2,14 @@ import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
-import { MAX_TEAMS_ALUMNI, MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
+import {
+  MAX_TEAM_MEMBERS_ALUMNI,
+  MAX_TEAM_MEMBERS_STUDENTS,
+  MAX_TEAMS_ALUMNI,
+  MAX_TEAMS_STUDENTS,
+  MIN_TEAM_MEMBERS_ALUMNI,
+  MIN_TEAM_MEMBERS_STUDENTS,
+} from "~/app/_configs/hackathon";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import { discordUsers, particpants, teams } from "~/app/db/schema";
@@ -112,4 +119,14 @@ export function isParticipantEligableToJoin(
   }
   const grade = parseInt(participant.grade);
   return (grade > 12 && team.isAlumni) || (grade < 13 && !team.isAlumni);
+}
+
+export function isTeamConfirmed(team: Team) {
+  const minMembers = team.isAlumni
+    ? MIN_TEAM_MEMBERS_ALUMNI
+    : MIN_TEAM_MEMBERS_STUDENTS;
+  const maxMembers = team.isAlumni
+    ? MAX_TEAM_MEMBERS_ALUMNI
+    : MAX_TEAM_MEMBERS_STUDENTS;
+  return team.memberCount >= minMembers && team.memberCount <= maxMembers;
 }
