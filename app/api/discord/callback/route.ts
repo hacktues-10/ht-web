@@ -9,6 +9,7 @@ import { env } from "~/app/env.mjs";
 import {
   formatParticipantDiscordNick,
   getParticipantFromSession,
+  Participant,
 } from "~/app/participants/service";
 import { resolveCallbackUrl } from "~/app/utils";
 import { getHTSession, signInRedirect } from "../../auth/session";
@@ -80,21 +81,8 @@ export async function GET(req: NextRequest) {
 
     const inviteParams = {
       access_token: data.access_token,
-      nick: participant
-        ? // FIXME: why is parallel empty string? AND WHY IS GRADE NULLABLE??
-          formatParticipantDiscordNick(participant)
-        : mentor
-          ? mentor.firstName + " " + mentor.lastName
-          : "",
-      roles: participant?.id
-        ? parseInt(participant.grade) > 12
-          ? [env.ALUMNI_ROLE]
-          : [env.MEMBER_ROLE]
-        : mentor
-          ? [env.MENTOR_ROLE]
-          : [],
-      mute: false,
-      deaf: false,
+      nick: nickOfUser(participant, mentor),
+      roles: uniqueRolesOfUser(participant, mentor),
     };
     if (!participant && !mentor) {
       console.error("no participant and no mentor");
@@ -213,4 +201,34 @@ async function mentorHasDiscordEntry(mentorId: number) {
   } catch (err) {
     return false;
   }
+}
+
+function nickOfUser(
+  participant: Participant | null,
+  mentor: { firstName: string; lastName: string } | null,
+) {
+  if (participant) {
+    return formatParticipantDiscordNick(participant);
+  }
+  if (mentor) {
+    return mentor.firstName + " " + mentor.lastName;
+  }
+  return "";
+}
+
+function uniqueRolesOfUser(
+  participant: Participant | null,
+  mentor: { firstName: string; lastName: string } | null,
+) {
+  if (participant) {
+    const grade = parseInt(participant.grade);
+    if (grade > 12) {
+      return [env.ALUMNI_ROLE];
+    }
+    return [env.MEMBER_ROLE];
+  }
+  if (mentor) {
+    return [env.MENTOR_ROLE];
+  }
+  return [];
 }
