@@ -11,10 +11,10 @@ import {
   getParticipantFromSession,
 } from "~/app/participants/service";
 
-export type Team = Awaited<ReturnType<typeof getConfirmedTeams>>[number];
+export type Team = Awaited<ReturnType<typeof getAllTeams>>[number];
 export type TeamMember = Team["members"][number];
 
-export async function getConfirmedTeams() {
+export async function getAllTeams() {
   return db.query.teams.findMany({
     with: {
       members: {
@@ -29,30 +29,6 @@ export async function getConfirmedTeams() {
       project: true,
     },
   });
-  // .select({
-  //   id: teams.id,
-  //   name: teams.name,
-  //   description: teams.description,
-  //   mentorId: teams.mentorId,
-  //   projectId: teams.projectId,
-  //   isAlumni: teams.isAlumni,
-  //   members: {
-  //     particiapntId: particpants.id,
-  //     firstName: particpants.firstName,
-  //     lastName: particpants.lastName,
-  //     grade: particpants.grade,
-  //     parallel: particpants.parallel,
-  //     technologies: particpants.technologies,
-  //   },
-  //   project: {
-  //     id: projects.id,
-  //     name: projects.name,
-  //     technologies: projects.technologies,
-  //   },
-  // })
-  // .from(teams)
-  // .leftJoin(particpants, eq(particpants.teamId, teams.id))
-  // .leftJoin(projects, eq(teams.projectId, projects.id));
 }
 
 export async function getTeamById(id: string) {

@@ -12,13 +12,13 @@ import {
   TabsTrigger,
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { getConfirmedTeams } from "./service";
+import { getAllTeams } from "./service";
 
 export default async function TeamList() {
-  const teams = await getConfirmedTeams();
+  const teams = await getAllTeams();
   const participant = await getParticipantFromSession();
-  let studentTeams: typeof teams = [];
-  let graduateTeams: typeof teams = [];
+  const studentTeams: typeof teams = [];
+  const graduateTeams: typeof teams = [];
   teams.map((te) => {
     if (te.isAlumni) {
       graduateTeams.push(te);

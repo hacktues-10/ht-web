@@ -6,7 +6,7 @@ import "./animations.css";
 
 import { useEffect, useState } from "react";
 
-import { getConfirmedTeams } from "~/app/(full-layout)/teams/service";
+import { Team } from "~/app/(full-layout)/teams/service";
 import { Badge } from "~/app/components/ui/badge";
 import {
   Card,
@@ -20,7 +20,7 @@ import { convertToPaginatedTechnologies } from "~/app/technologies";
 import RenderMember from "./renderMember";
 
 interface TeamCardProps {
-  team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;
+  team: Team;
   index: number;
 }
 
