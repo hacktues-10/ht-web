@@ -144,9 +144,9 @@ export default async function LandingPage() {
               <h3 className="pb-3 text-2xl font-bold md:text-3xl">
                 Не пропускайте възможността да участвате!
               </h3>
-              <Link href="/signup">
-                <Button size="lg">Регистрирайте се!</Button>
-              </Link>
+              <Button asChild size="lg">
+                <Link href="/signup">Регистрирайте се!</Link>
+              </Button>
             </Card>
           </IfAnyHTFeatureOn>
         </ArchiveSection>
@@ -194,9 +194,9 @@ export default async function LandingPage() {
             Какво чакате?
           </h2>
           <div className="py-2" />
-          <Link href="/signup">
-            <Button size="lg">Регистрирайте се сега!</Button>
-          </Link>
+          <Button size="lg">
+            <Link href="/signup">Регистрирайте се сега!</Link>
+          </Button>
         </section>
       </IfAnyHTFeatureOn>
       <div className="pb-4"></div>
@@ -243,9 +243,10 @@ function CountdownHero() {
         </div>
 
         <CountdownTimer to={EVENT_START} />
-        <Link href="/signup">
-          <Button size="lg">Регистрирайте се!</Button>
-        </Link>
+
+        <Button asChild size="lg">
+          <Link href="/signup">Регистрирайте се!</Link>
+        </Button>
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>
