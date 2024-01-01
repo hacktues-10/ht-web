@@ -21,14 +21,14 @@ export default function PodkrepqAutomationComponent({
     prevIndex === 0 ? podkrepqshti.length - 1 : prevIndex - 1;
   const nextNextIndex = nextIndex < podkrepqshti.length - 1 ? nextIndex + 1 : 0;
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setLiveIndex((prevIndex) =>
-        prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
-      );
-    }, 5000);
-    return () => clearInterval(intervalId);
-  }, [liveIndex]);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setLiveIndex((prevIndex) =>
+  //       prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
+  //     );
+  //   }, 5000);
+  //   return () => clearInterval(intervalId);
+  // }, [liveIndex]);
 
   return (
     <div className="flex flex-wrap align-middle">
@@ -125,14 +125,14 @@ function PodkrepqLogo({
         className={cn(
           "group z-0 grid aspect-video place-content-center overflow-clip rounded-lg bg-white p-4 opacity-0 shadow-md transition-all duration-700",
           index === prevIndex &&
-            "z-10 opacity-50 [transform:rotateX(45deg)_translateY(-130%)]",
+            "z-10 opacity-50 [transform:rotateX(45deg)_translateY(-130%)] hover:opacity-75",
           index === liveIndex && "z-50 opacity-100",
           index === nextIndex &&
-            "z-10 opacity-50 [transform:rotateX(-45deg)_translateY(130%)]",
+            "z-10 opacity-50 [transform:rotateX(-45deg)_translateY(130%)] hover:opacity-75",
           index === nextNextIndex &&
-            "opacity-0 [transform:rotateX(-90deg)_translateY(160%)]",
+            "pointer-events-none opacity-0 [transform:translateY(110%)_rotateX(-90deg)_translateY(100%)]",
           index === prevPrevIndex &&
-            "opacity-0 [transform:rotateX(90deg)_translateY(-160%)]",
+            "pointer-events-none opacity-0 [transform:translateY(-110%)_rotateX(90deg)_translateY(-100%)]",
         )}
         target="_blank"
       >
