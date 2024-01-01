@@ -1,3 +1,4 @@
+import { revalidateTag, unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
@@ -17,26 +18,34 @@ import {
   getParticipantById,
   getParticipantFromSession,
 } from "~/app/participants/service";
+import { MINUTE } from "~/app/utils";
 
 export type Team = Awaited<ReturnType<typeof getAllTeams>>[number];
 export type TeamMember = Team["members"][number];
 
-export async function getAllTeams() {
-  return db.query.teams.findMany({
-    with: {
-      members: {
-        with: {
-          discordUser: {
-            columns: {
-              discordUsername: true,
+export const getAllTeams = unstable_cache(
+  async () => {
+    return db.query.teams.findMany({
+      with: {
+        members: {
+          with: {
+            discordUser: {
+              columns: {
+                discordUsername: true,
+              },
             },
           },
         },
+        project: true,
       },
-      project: true,
-    },
-  });
-}
+    });
+  },
+  ["all-teams"],
+  {
+    revalidate: 5 * MINUTE,
+    tags: ["teams"],
+  },
+);
 
 export async function getTeamById(id: string) {
   const results = await db.select().from(teams).where(eq(teams.id, id));
@@ -84,6 +93,7 @@ export async function createTeam(team: {
       teamId: insertedTeam.id,
     })
     .where(eq(particpants.id, team.captainId));
+  revalidateTag("teams");
   return insertedTeam;
 }
 
