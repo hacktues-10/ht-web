@@ -5,14 +5,10 @@ import capitalLogo from "../assets/media/capital.png";
 import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
-//Gamma sponsors
-
-//Partners
-import a1Logo from "../assets/sponsors/alpha/a1.png";
 //Media
 
 //Alpha sponsors
-import appolicaLogo from "../assets/sponsors/alpha/appolica.png";
+import appolicaLogo from "../assets/sponsors/alpha/appolica.png"
 import boschECSLogo from "../assets/sponsors/alpha/bosch-engineering-center-sofia.png";
 import codbexLogo from "../assets/sponsors/alpha/codbex.png";
 //import dxcLogo from "../assets/sponsors/alpha/dxc.png";
@@ -24,17 +20,23 @@ import trading212Logo from "../assets/sponsors/alpha/trading212.png";
 
 //Beta sponsors
 import devrixLogo from "../assets/sponsors/beta/devrix.png";
-import experianLogo from "../assets/sponsors/beta/experian.png";
+import experianLogo from "../assets/sponsors/beta/experian.png"
 import itGixLogo from "../assets/sponsors/beta/itGix.png";
 import stamsoftLogo from "../assets/sponsors/beta/stamsoft.png";
 import strypesLogo from "../assets/sponsors/beta/strypes.png";
 import telebidProLogo from "../assets/sponsors/beta/telebidPro.png";
 import tumbaSolutionsLogo from "../assets/sponsors/beta/tumba-solutions.png";
-import asteaSolutionsLogo from "../assets/sponsors/gamma/astea-solutions.png";
 //Beta sponsors
 
 //Gamma sponsors
+import accediaLogo from "../assets/sponsors/gamma/accedia.png"
+import asteaSolutionsLogo from "../assets/sponsors/gamma/astea-solutions.png"
+import ocadoTechnologyLogo from "../assets/sponsors/gamma/ocado-technology.png"
 import progressLogo from "../assets/sponsors/gamma/progress.png";
+//Gamma sponsors
+
+//Partners
+import a1Logo from "../assets/sponsors/alpha/a1.png";
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import cometLogo from "../assets/sponsors/partners/comet.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
@@ -44,9 +46,6 @@ import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
 import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
-
-//Partners
-
 //Partners
 
 const ALPHA_SPONSORS = [
@@ -56,7 +55,9 @@ const ALPHA_SPONSORS = [
     url: "https://www.appolica.com/",
     description:
       "Запознайте се с Appolica – наш алфа спонсор и стартъп студио от София, което превръща идеи в реалност! 💡 От основаването си в София през 2015 г., компанията е движеща сила зад множество успешни стартъпи. С опит в повече от 30 страни и портфолио от успешни проекти в различни индустрии, Appolica е символ на иновативно мислене. 🚀 Присъединявайки се към Hack TUES X, Appolica носи своята страст и експертиза в света на иновациите. 🎉",
-    supportedEditions: ["hacktues-security"],
+    supportedEditions: [
+      "hacktues-security",
+    ],
   },
   {
     name: "Bosch Engineering Center Sofia",
@@ -185,6 +186,43 @@ const BETA_SPONSORS = [
 
 const GAMMA_SPONSORS = [
   {
+    name: "Accedia",
+    logo: accediaLogo,
+    url: "https://accedia.com/",
+    description:
+      "Accedia e българска технологична компания, предоставяща консултантски услуги и разработка на софтуер и цялостни IT решения. Основана през 2012, за изминалите 10 години компанията става пример за устойчив растеж и е оценена от многобройни клиенти, служители и отличия.  Над 250 човека са обединени около мисията да надскачат очаквания със своите технологични знания и професионално отношение, с това, че виждат промяната като възможност, и с това, че са постоянно ориентирани към учене и израстване. Не на последно място, умението на хората да се забавляват ги прави толкова сплотени и превръща Аксидиа в един от най-желаните работодатели.",
+    supportedEditions: [
+      "hacktues-security",
+      "hacktues-30x",
+    ],
+  },
+  {
+    name: "Astea Solutions",
+    logo: asteaSolutionsLogo,
+    url: "https://asteasolutions.com",
+    description:
+      "AsteaSolutions - експерти в разработката на софтуер и технологични решения! 🌐 Техният успех се дължи на задружен екип от 🔝 астейци, които обединяват умения и сили за иновации в различни индустрии и сфери. 💼 Споделят знание и инвестират в образование, защото вярват в младите умове! 🎓💡 🤩 Искате да научите повече? Посетете 👉🏻 http://asteasolutions.com 🚀",
+    supportedEditions: [
+      "hacktues-security",
+      "hacktues-infinity",
+      "hacktues-gg",
+      "hacktues-6",
+      "hacktues-365",
+      "hacktues-30x",
+      "hacktues-3",
+    ],
+  },
+  {
+    name: "Ocado Technology",
+    logo: ocadoTechnologyLogo,
+    url: "https://careers.ocadogroup.com/locations/europe/development-centre-sofia",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [
+      "hacktues-infinity",
+    ],
+  },
+  {
     name: "Progress",
     logo: progressLogo,
     url: "https://www.progress.com/",
@@ -196,61 +234,6 @@ const GAMMA_SPONSORS = [
     ],
     description:
       "Като доверен доставчик на най-добрите продукти за разработка, внедряване и управление на високоефективни приложения, Progress помага на клиентите си да създават приложенията и дигиталните преживявания, от които се нуждаят, да ги внедряват където и както искат и да ги управляват с високо ниво на сигурност. Стотици хиляди компании, сред които 1700 софтуерни компании и 3,5 милиона разработчици, зависят от Progress, за да постигат целите си с увереност.",
-  },
-  {
-    name: "Progress1",
-    logo: progressLogo,
-    url: "https://www.progress.com/",
-    supportedEditions: [
-      "hacktues-security",
-      "hacktues-infinity",
-      "hacktues-6",
-      "hacktues-365",
-    ],
-    description:
-      "Като доверен доставчик на най-добрите продукти за разработка, внедряване и управление на високоефективни приложения, Progress помага на клиентите си да създават приложенията и дигиталните преживявания, от които се нуждаят, да ги внедряват където и както искат и да ги управляват с високо ниво на сигурност. Стотици хиляди компании, сред които 1700 софтуерни компании и 3,5 милиона разработчици, зависят от Progress, за да постигат целите си с увереност.",
-  },
-  {
-    name: "Progress2",
-    logo: progressLogo,
-    url: "https://www.progress.com/",
-    supportedEditions: [
-      "hacktues-security",
-      "hacktues-infinity",
-      "hacktues-6",
-      "hacktues-365",
-    ],
-    description:
-      "Като доверен доставчик на най-добрите продукти за разработка, внедряване и управление на високоефективни приложения, Progress помага на клиентите си да създават приложенията и дигиталните преживявания, от които се нуждаят, да ги внедряват където и както искат и да ги управляват с високо ниво на сигурност. Стотици хиляди компании, сред които 1700 софтуерни компании и 3,5 милиона разработчици, зависят от Progress, за да постигат целите си с увереност.",
-  },
-  {
-    name: "Progress3",
-    logo: progressLogo,
-    url: "https://www.progress.com/",
-    supportedEditions: [
-      "hacktues-security",
-      "hacktues-infinity",
-      "hacktues-6",
-      "hacktues-365",
-    ],
-    description:
-      "Като доверен доставчик на най-добрите продукти за разработка, внедряване и управление на високоефективни приложения, Progress помага на клиентите си да създават приложенията и дигиталните преживявания, от които се нуждаят, да ги внедряват където и както искат и да ги управляват с високо ниво на сигурност. Стотици хиляди компании, сред които 1700 софтуерни компании и 3,5 милиона разработчици, зависят от Progress, за да постигат целите си с увереност.",
-  },
-  {
-    name: "Astea Solutions",
-    logo: asteaSolutionsLogo,
-    url: "https://asteasolutions.com",
-    description:
-      "🚀 @AsteaSolutions - експерти в разработката на софтуер и технологични решения! 🌐 Техният успех се дължи на задружен екип от 🔝 астейци, които обединяват умения и сили за иновации в различни индустрии и сфери. 💼 Споделят знание и инвестират в образование, защото вярват в младите умове! 🎓💡 🤩 Искате да научите повече? Посетете 👉🏻 http://asteasolutions.com 🚀",
-    supportedEditions: [
-      "hacktues-security",
-      "hacktues-infinity",
-      "hacktues-gg",
-      "hacktues-6",
-      "hacktues-365",
-      "hacktues-30x",
-      "hacktues-3",
-    ],
   },
 ];
 
@@ -283,13 +266,13 @@ const PARTNERS = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   },
-  // {
-  //   name: "Comet Electronics",
-  //   logo: cometLogo,
-  //   url: "https://comet.bg/",
-  //   description:
-  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  // },
+  {
+    name: "Comet Electronics",
+    logo: cometLogo,
+    url: "https://comet.bg/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  },
   {
     name: "Corporate Gifts",
     logo: corporateLogo,
