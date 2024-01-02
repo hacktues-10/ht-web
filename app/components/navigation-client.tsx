@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
@@ -43,17 +43,29 @@ export const MobileNavigationRoot = ({
       <SheetContent className="flex flex-col items-center gap-10 py-8">
         <MobileNavLink
           href="/"
+          onOpenChange={setIsSheetOpen}
           className="text-3xl transition-transform hover:scale-105"
         >
           <HTLogo className="text-sand">Hack TUES X</HTLogo>
         </MobileNavLink>
         {/* FIXME: ScrollArea doesnt work */}
-        <ScrollArea className="h-full flex-1">{children}</ScrollArea>
+        <ScrollArea className="h-full flex-1">
+          {/* HACK: because the children are rendered by the server and they need to access the state setter,
+                    we're passing it by context. Don't know if good idea, but it works (i think...) */}
+          <SheetContext.Provider
+            value={{
+              onOpenChange: setIsSheetOpen,
+            }}
+          >
+            {children}
+          </SheetContext.Provider>
+        </ScrollArea>
         <Separator />
         {headerData && headerData.avatarName ? (
           <MobileActionButtons>
             <MobileNavLink
               href="/profile"
+              onOpenChange={setIsSheetOpen}
               className={cn(
                 navigationMenuTriggerStyle(),
                 "flex w-full justify-evenly gap-2 text-lg",
@@ -108,7 +120,7 @@ export const MobileNavigationRoot = ({
   );
 };
 
-export function MobileNavLink({
+function MobileNavLink({
   href,
   onOpenChange,
   className,
@@ -134,3 +146,16 @@ export function MobileNavLink({
 const MobileActionButtons = ({ children }: PropsWithChildren) => (
   <div className="flex flex-col gap-1">{children}</div>
 );
+
+type SheetContext = {
+  onOpenChange: (open: boolean) => void;
+};
+
+const SheetContext = React.createContext<SheetContext | null>(null);
+
+export const MobileNavLinkServer = (
+  props: Exclude<MobileLinkProps, "onOpenChange">,
+) => {
+  const sheetContext = React.useContext(SheetContext);
+  return <MobileNavLink {...props} onOpenChange={sheetContext?.onOpenChange} />;
+};
