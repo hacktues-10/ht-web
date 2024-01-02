@@ -16,10 +16,9 @@ export default function PodkrepqAutomationComponent({
 }) {
   const [liveIndex, setLiveIndex] = useState(0);
   const nextIndex = liveIndex < podkrepqshti.length - 1 ? liveIndex + 1 : 0;
-  const perviousIndex =
-    liveIndex === 0 ? podkrepqshti.length - 1 : liveIndex - 1;
-  const perPerviousIndex =
-    perviousIndex === 0 ? podkrepqshti.length - 1 : perviousIndex - 1;
+  const prevIndex = liveIndex === 0 ? podkrepqshti.length - 1 : liveIndex - 1;
+  const prevPervIndex =
+    prevIndex === 0 ? podkrepqshti.length - 1 : prevIndex - 1;
   const nextNextIndex = nextIndex < podkrepqshti.length - 1 ? nextIndex + 1 : 0;
 
   useEffect(() => {
@@ -29,48 +28,24 @@ export default function PodkrepqAutomationComponent({
       );
     }, 5000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [liveIndex]);
 
   return (
     <div className="flex flex-wrap align-middle">
       <ul className="relative mx-auto mt-20 w-64 sm:w-72 md:w-80 lg:w-96">
         <div className="pb-[50%] pt-[20%] ">
           {podkrepqshti.map((podkrepqsht, index) => (
-            <li
+            <PodkrepqLogo
               key={podkrepqsht.name}
-              className="absolute inset-0 my-4 [perspective:800px] "
-              title={podkrepqsht.name}
-            >
-              <Link
-                href={podkrepqsht.url}
-                className={cn(
-                  "group z-0 grid aspect-video place-content-center overflow-clip rounded-lg bg-white p-4 opacity-0 shadow-md transition-all duration-700",
-                  index === perviousIndex &&
-                    "z-10 opacity-50 [transform:rotateX(45deg)_translateY(-130%)]",
-                  index === liveIndex && "z-50 opacity-100",
-                  index === nextIndex &&
-                    "z-10 opacity-50 [transform:rotateX(-45deg)_translateY(130%)]",
-                  index === nextNextIndex &&
-                    "opacity-0 [transform:rotateX(-90deg)_translateY(160%)]",
-                  index === perPerviousIndex &&
-                    "opacity-0 [transform:rotateX(90deg)_translateY(-160%)]",
-                )}
-                target="_blank"
-              >
-                <Image
-                  className={cn(
-                    "max-h-full max-w-full object-contain px-3 py-5",
-                    index === perviousIndex && "z-10",
-                    index === liveIndex && "z-50",
-                    index === nextIndex && "z-10 ",
-                    index === nextNextIndex && "z-0",
-                    index === perPerviousIndex && "z-0",
-                  )}
-                  src={podkrepqsht.logo}
-                  alt={podkrepqsht.name}
-                />
-              </Link>
-            </li>
+              podkrepqsht={podkrepqsht}
+              index={index}
+              prevIndex={prevIndex}
+              liveIndex={liveIndex}
+              nextIndex={nextIndex}
+              nextNextIndex={nextNextIndex}
+              prevPrevIndex={prevPervIndex}
+              onClick={() => setLiveIndex(index)}
+            />
           ))}
         </div>
       </ul>
@@ -107,5 +82,73 @@ export default function PodkrepqAutomationComponent({
         </Card>
       </div>
     </div>
+  );
+}
+
+function PodkrepqLogo({
+  podkrepqsht,
+  index,
+  prevIndex,
+  liveIndex,
+  nextIndex,
+  nextNextIndex,
+  prevPrevIndex,
+  onClick,
+}: {
+  podkrepqsht: Podkrepqsht;
+  index: number;
+  prevIndex: number;
+  liveIndex: number;
+  nextIndex: number;
+  nextNextIndex: number;
+  prevPrevIndex: number;
+  onClick: () => void;
+}) {
+  return (
+    <li
+      className={cn(
+        "absolute inset-0 my-4 [perspective:800px]",
+        index === liveIndex && "z-10",
+      )}
+      title={podkrepqsht.name}
+    >
+      <Link
+        href={podkrepqsht.url}
+        onClick={
+          [prevIndex, nextIndex].includes(index)
+            ? (e) => {
+                e.preventDefault();
+                onClick();
+              }
+            : undefined
+        }
+        className={cn(
+          "group z-0 grid aspect-video place-content-center overflow-clip rounded-lg bg-white p-4 opacity-0 shadow-md transition-all duration-700",
+          index === prevIndex &&
+            "z-10 opacity-50 [transform:rotateX(45deg)_translateY(-130%)] hover:opacity-75",
+          index === liveIndex && "z-50 opacity-100",
+          index === nextIndex &&
+            "z-10 opacity-50 [transform:rotateX(-45deg)_translateY(130%)] hover:opacity-75",
+          index === nextNextIndex &&
+            "pointer-events-none opacity-0 [transform:translateY(110%)_rotateX(-90deg)_translateY(100%)]",
+          index === prevPrevIndex &&
+            "pointer-events-none opacity-0 [transform:translateY(-110%)_rotateX(90deg)_translateY(-100%)]",
+        )}
+        target="_blank"
+      >
+        <Image
+          className={cn(
+            "max-h-full max-w-full object-contain px-3 py-5",
+            index === prevIndex && "z-10",
+            index === liveIndex && "z-50",
+            index === nextIndex && "z-10 ",
+            index === nextNextIndex && "z-0",
+            index === prevPrevIndex && "z-0",
+          )}
+          src={podkrepqsht.logo}
+          alt={podkrepqsht.name}
+        />
+      </Link>
+    </li>
   );
 }
