@@ -47,6 +47,8 @@ import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
 
 //Partners
 
+//Partners
+
 const ALPHA_SPONSORS = [
   {
     name: "Appolica",
@@ -238,7 +240,7 @@ const GAMMA_SPONSORS = [
     name: "Astea Solutions",
     logo: asteaSolutionsLogo,
     url: "https://asteasolutions.com",
-    descrption:
+    description:
       "🚀 @AsteaSolutions - експерти в разработката на софтуер и технологични решения! 🌐 Техният успех се дължи на задружен екип от 🔝 астейци, които обединяват умения и сили за иновации в различни индустрии и сфери. 💼 Споделят знание и инвестират в образование, защото вярват в младите умове! 🎓💡 🤩 Искате да научите повече? Посетете 👉🏻 http://asteasolutions.com 🚀",
     supportedEditions: [
       "hacktues-security",
