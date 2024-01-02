@@ -21,14 +21,14 @@ export default function PodkrepqAutomationComponent({
     prevIndex === 0 ? podkrepqshti.length - 1 : prevIndex - 1;
   const nextNextIndex = nextIndex < podkrepqshti.length - 1 ? nextIndex + 1 : 0;
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setLiveIndex((prevIndex) =>
-  //       prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
-  //     );
-  //   }, 5000);
-  //   return () => clearInterval(intervalId);
-  // }, [liveIndex]);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setLiveIndex((prevIndex) =>
+        prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
+      );
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [liveIndex]);
 
   return (
     <div className="flex flex-wrap align-middle">
