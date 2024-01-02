@@ -1,12 +1,18 @@
-//Alpha sponsors
+//Media
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
 import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
+//Gamma sponsors
+
 //Partners
 import a1Logo from "../assets/sponsors/alpha/a1.png";
+//Media
+
+//Alpha sponsors
+import appolicaLogo from "../assets/sponsors/alpha/appolica.png";
 import boschECSLogo from "../assets/sponsors/alpha/bosch-engineering-center-sofia.png";
 import codbexLogo from "../assets/sponsors/alpha/codbex.png";
 //import dxcLogo from "../assets/sponsors/alpha/dxc.png";
@@ -14,13 +20,19 @@ import elevenVenturesLogo from "../assets/sponsors/alpha/eleven-ventures.png";
 import sapLogo from "../assets/sponsors/alpha/sap.png";
 //import tbsLogo from "../assets/sponsors/alpha/tbs.png";
 import trading212Logo from "../assets/sponsors/alpha/trading212.png";
+//Alpha sponsors
+
 //Beta sponsors
 import devrixLogo from "../assets/sponsors/beta/devrix.png";
+import experianLogo from "../assets/sponsors/beta/experian.png";
 import itGixLogo from "../assets/sponsors/beta/itGix.png";
 import stamsoftLogo from "../assets/sponsors/beta/stamsoft.png";
 import strypesLogo from "../assets/sponsors/beta/strypes.png";
 import telebidProLogo from "../assets/sponsors/beta/telebidPro.png";
 import tumbaSolutionsLogo from "../assets/sponsors/beta/tumba-solutions.png";
+import asteaSolutionsLogo from "../assets/sponsors/gamma/astea-solutions.png";
+//Beta sponsors
+
 //Gamma sponsors
 import progressLogo from "../assets/sponsors/gamma/progress.png";
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
@@ -33,7 +45,17 @@ import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
 
+//Partners
+
 const ALPHA_SPONSORS = [
+  {
+    name: "Appolica",
+    logo: appolicaLogo,
+    url: "https://www.appolica.com/",
+    description:
+      "Запознайте се с Appolica – наш алфа спонсор и стартъп студио от София, което превръща идеи в реалност! 💡 От основаването си в София през 2015 г., компанията е движеща сила зад множество успешни стартъпи. С опит в повече от 30 страни и портфолио от успешни проекти в различни индустрии, Appolica е символ на иновативно мислене. 🚀 Присъединявайки се към Hack TUES X, Appolica носи своята страст и експертиза в света на иновациите. 🎉",
+    supportedEditions: ["hacktues-security"],
+  },
   {
     name: "Bosch Engineering Center Sofia",
     logo: boschECSLogo,
@@ -96,6 +118,19 @@ const BETA_SPONSORS = [
     ],
     description:
       "DevriX е една от Топ 20 WordPress Development агенции в света, която подпомага развитието на платформата. Компанията работи по enterprise проекти с над 200М месечен трафик, технологични стартъпи, електронни магазини и други, предоставяйки стабилна платформа за развитие на бизнесите им. Компанията работи по Retainer модел, който позволява на клиентите изцяло да доверят техническите си процеси на доказани WordPress и бизнес експерти. Услугите на DevriX комбинират back-end и front-end разработка с поддръжка на WordPress, DevOps, UX, AdOps, дигитален маркетинг, уеб дизайн и управление на проекти.",
+  },
+  {
+    name: "Experian България",
+    logo: experianLogo,
+    url: "https://www.experian.bg/",
+    description:
+      " Ние сме Experian – глобален технологичен лидер в предоставянето на информация и аналитични услуги. Превръщаме информацията в ценни данни и създаваме софтуерни продукти, с които целим да направим бизнеса на нашите клиенти по-успешен, а животът на потребителите – по-добър. В основата на нашия успех стоят иновациите и талантливият ни екип от 21 700 души в 30 държави в света, посветени на мисията да осигурят по-добро финансово здраве и възможности за потребителите, като им помагат да разбират, управляват и защитават своите лични финанси и данни.",
+    supportedEditions: [
+      "hacktues-security",
+      "hacktues-infinity",
+      "hacktues-gg",
+      "hacktues-6",
+    ],
   },
   {
     name: "ITGix",
@@ -200,17 +235,20 @@ const GAMMA_SPONSORS = [
       "Като доверен доставчик на най-добрите продукти за разработка, внедряване и управление на високоефективни приложения, Progress помага на клиентите си да създават приложенията и дигиталните преживявания, от които се нуждаят, да ги внедряват където и както искат и да ги управляват с високо ниво на сигурност. Стотици хиляди компании, сред които 1700 софтуерни компании и 3,5 милиона разработчици, зависят от Progress, за да постигат целите си с увереност.",
   },
   {
-    name: "Progress4",
-    logo: progressLogo,
-    url: "https://www.progress.com/",
+    name: "Astea Solutions",
+    logo: asteaSolutionsLogo,
+    url: "https://asteasolutions.com",
+    descrption:
+      "🚀 @AsteaSolutions - експерти в разработката на софтуер и технологични решения! 🌐 Техният успех се дължи на задружен екип от 🔝 астейци, които обединяват умения и сили за иновации в различни индустрии и сфери. 💼 Споделят знание и инвестират в образование, защото вярват в младите умове! 🎓💡 🤩 Искате да научите повече? Посетете 👉🏻 http://asteasolutions.com 🚀",
     supportedEditions: [
       "hacktues-security",
       "hacktues-infinity",
+      "hacktues-gg",
       "hacktues-6",
       "hacktues-365",
+      "hacktues-30x",
+      "hacktues-3",
     ],
-    description:
-      "Като доверен доставчик на най-добрите продукти за разработка, внедряване и управление на високоефективни приложения, Progress помага на клиентите си да създават приложенията и дигиталните преживявания, от които се нуждаят, да ги внедряват където и както искат и да ги управляват с високо ниво на сигурност. Стотици хиляди компании, сред които 1700 софтуерни компании и 3,5 милиона разработчици, зависят от Progress, за да постигат целите си с увереност.",
   },
 ];
 
@@ -243,13 +281,13 @@ const PARTNERS = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   },
-  {
-    name: "Comet Electronics",
-    logo: cometLogo,
-    url: "https://comet.bg/",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
+  // {
+  //   name: "Comet Electronics",
+  //   logo: cometLogo,
+  //   url: "https://comet.bg/",
+  //   description:
+  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  // },
   {
     name: "Corporate Gifts",
     logo: corporateLogo,

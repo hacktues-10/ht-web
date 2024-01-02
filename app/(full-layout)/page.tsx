@@ -19,6 +19,8 @@ import {
   COUNTDOWN_START,
   EVENT_END,
   EVENT_START,
+  MAX_TEAMS_ALUMNI,
+  MAX_TEAMS_STUDENTS,
   STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
@@ -27,8 +29,6 @@ import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
   GAMMA_SPONSORS,
-  MEDIA_ARTICLES,
-  MediaArticle,
   PARTNERS,
 } from "../_configs/podkrepq";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
@@ -39,7 +39,7 @@ import { HTLogo, HTXLogoDuotone } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
 import PodkrepqAutomationComponent from "../components/podkrepqAutoDisplay";
 import { Button } from "../components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { Card } from "../components/ui/card";
 import { cn } from "../utils";
 
 export default async function LandingPage() {
@@ -113,20 +113,27 @@ export default async function LandingPage() {
           /> */}
           <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
             <h3 className="pb-3 text-2xl font-bold md:text-3xl">
-              Веднъж ТУЕС-ар, винаги ТУЕС-ар!
+              Веднъж ТУЕС-ар, завинаги ТУЕС-ар!
             </h3>
             <p className="text-lg">
-              За първи път в историята на Hack TUES могат да участват и{" "}
-              <span className="font-bold text-primary">завършили ученици</span>{" "}
-              в отделно от настоящите ученици.
+              Десетото юбилейно издание на Hack TUES дава възможност за участие
+              на{" "}
+              <span className="font-bold text-primary">завършили туесари</span>{" "}
+              от всички випуски на ТУЕС!
             </p>
           </Card>
           <ArchiveStatsCard className="md:grid-cols-2">
             <p className="col-span-2 pb-3 text-center text-2xl font-semibold md:text-3xl">
-              Но местата са ограничени!
+              Местата са ограничени!
             </p>
-            <ArchiveStatsItem value={80} label="отбора на ученици" />
-            <ArchiveStatsItem value={10} label="отбора на завършили" />
+            <ArchiveStatsItem
+              value={MAX_TEAMS_STUDENTS}
+              label="отбора на ученици"
+            />
+            <ArchiveStatsItem
+              value={MAX_TEAMS_ALUMNI}
+              label="отбора на завършили"
+            />
             <p className="col-span-2 text-center text-lg font-light">
               Регистрацията <em className="italic">затваря окончателно</em> на{" "}
               <DateDisplay date={fiveDaysAfter(ALUMNI_REGISTRATION_START)} /> за
@@ -151,6 +158,8 @@ export default async function LandingPage() {
           </IfAnyHTFeatureOn>
         </ArchiveSection>
       </ArchiveContainer>
+      <UnescoSection />
+
       <section className="light relative flex flex-col gap-14 overflow-x-visible pb-14 pt-28 text-sand-foreground">
         <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]" />
         <div className="grid grid-cols-1 place-items-center ">
@@ -171,23 +180,8 @@ export default async function LandingPage() {
             <PodkrepqAutomationComponent podkrepqshti={PARTNERS} />
           </div>
         </div>
-        <div className="py-9" />
       </section>
-      <UnescoSection />
-      <section className="relative flex flex-col items-center gap-3 pt-7">
-        {/* TODO: put it on mitko's thing */}
-        <div
-          className="absolute -top-3 left-1/2 -z-30 h-[34px] min-h-[800px] w-[300%] -translate-x-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_0%,hsl(var(--sand)/0.15),transparent)]"
-          aria-hidden
-        />
-        <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
-          Медиите за нас
-        </h2>
-        <div className="py-2" />
-        {MEDIA_ARTICLES.map((article) => (
-          <MediaArticleCard key={article.title} article={article} />
-        ))}
-      </section>
+
       <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
         <section className="relative flex flex-col items-center gap-3 pb-16 pt-24">
           <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
@@ -264,38 +258,6 @@ function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
     <h2 className=" scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
       {children}
     </h2>
-  );
-}
-
-function MediaArticleCard({ article }: { article: MediaArticle }) {
-  return (
-    <Link href={article.url} className="block" target="_blank">
-      <Card
-        asChild
-        className="flex max-w-2xl flex-col overflow-clip transition-transform hover:scale-105 sm:flex-row"
-      >
-        <article>
-          <figure className="relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip border-b bg-card/5 p-4 text-card-foreground shadow-sm backdrop-blur-md sm:w-1/2 sm:border-b-0 sm:border-r">
-            <Image
-              className="max-h-full max-w-full object-contain px-3 py-5 transition-transform"
-              src={article.logo}
-              alt={article.name}
-            />
-          </figure>
-          <div className="flex-1">
-            <CardHeader className="pb-3 sm:pb-6">
-              <CardTitle className="text-center sm:text-left">
-                {article.title}
-              </CardTitle>
-            </CardHeader>
-            <div className="pb-3 text-center sm:hidden">{"●"}</div>
-            <CardFooter className="justify-center text-center sm:justify-start sm:text-left">
-              <DateDisplay date={article.date} />
-            </CardFooter>
-          </div>
-        </article>
-      </Card>
-    </Link>
   );
 }
 

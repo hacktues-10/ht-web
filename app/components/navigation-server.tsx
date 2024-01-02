@@ -47,6 +47,12 @@ export const NAVIGATION_CATEGORIES = [
         isVisible: false,
         isNew: false,
       },
+      {
+        label: "Медиите за нас",
+        url: "/media-coverage",
+        isVisible: true,
+        isNew: false,
+      },
     ],
   },
   {
