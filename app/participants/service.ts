@@ -1,4 +1,5 @@
 import { eq, isNull } from "drizzle-orm";
+import invariant from "tiny-invariant";
 
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
@@ -71,10 +72,42 @@ export async function getParticipantsWithNoTeam() {
   return results;
 }
 
-export function formatParticipantDiscordNick(participant: Participant) {
+function formatParticipantQualifier(participant: Participant) {
   if (isParticipantStudent(participant)) {
-    return `${participant.firstName} ${participant.lastName} (${participant.grade}${participant.parallel})`;
+    return `(${participant.grade}${participant.parallel})`;
   } else {
-    return `${participant.firstName} ${participant.lastName} (ТУЕС'${participant.grade})`;
+    return `(ТУЕС'${participant.grade})`;
   }
+}
+
+const DISCORD_NICK_MAX_LENGTH = 32;
+
+export function formatParticipantDiscordNick(participant: Participant) {
+  const qualifier = formatParticipantQualifier(participant);
+  let nick = `${participant.firstName} ${participant.lastName} ${qualifier}`;
+
+  if (nick.length > DISCORD_NICK_MAX_LENGTH) {
+    const lastNameInitial = participant.lastName.at(0)
+      ? ` ${participant.lastName.at(0)}.`
+      : "";
+    nick = `${participant.firstName}${lastNameInitial} ${qualifier}`;
+  }
+
+  if (nick.length > DISCORD_NICK_MAX_LENGTH) {
+    nick = `${participant.firstName} ${qualifier}`;
+  }
+
+  if (nick.length > DISCORD_NICK_MAX_LENGTH) {
+    const afterNickname = ` ${qualifier}`;
+    nick =
+      nick.slice(0, DISCORD_NICK_MAX_LENGTH - afterNickname.length) +
+      afterNickname;
+  }
+
+  invariant(
+    nick.length <= DISCORD_NICK_MAX_LENGTH,
+    "bug in discord nick algorithm",
+  );
+
+  return nick;
 }
