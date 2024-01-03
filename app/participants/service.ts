@@ -13,6 +13,7 @@ const selectFromParticipants = () =>
     .select({
       id: particpants.id,
       firstName: particpants.firstName,
+      middleName: particpants.middleName,
       lastName: particpants.lastName,
       email: users.email,
       phoneNumber: particpants.phoneNumber,
