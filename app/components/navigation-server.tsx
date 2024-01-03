@@ -48,8 +48,8 @@ export const NAVIGATION_CATEGORIES = [
         isNew: false,
       },
       {
-        label: "Медиите за нас",
-        url: "/media-coverage",
+        label: "С подкрепата на",
+        url: "/podkrepa",
         isVisible: true,
         isNew: false,
       },
@@ -81,6 +81,12 @@ export const NAVIGATION_CATEGORIES = [
         label: "Архив",
         url: "/archive",
         isVisible: false,
+        isNew: false,
+      },
+      {
+        label: "С подкрепата на",
+        url: "/podkrepa",
+        isVisible: true,
         isNew: false,
       },
     ],
