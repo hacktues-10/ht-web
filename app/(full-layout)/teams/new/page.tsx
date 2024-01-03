@@ -6,6 +6,8 @@ import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import { Button } from "~/app/components/ui/button";
 import { CreateTeamForm } from "./CreateTeamForm";
 
+export const dynamic = "force-dynamic";
+
 export default async function CreateTeamPage() {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("create-team")) {
