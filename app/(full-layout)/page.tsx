@@ -25,19 +25,12 @@ import {
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
-import {
-  ALPHA_SPONSORS,
-  BETA_SPONSORS,
-  GAMMA_SPONSORS,
-  PARTNERS,
-} from "../_configs/podkrepq";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
 import { CountdownTimer } from "../components/countdowns";
 import { DateDisplay, DateRangeDisplay } from "../components/date-display";
 import { CountdownHourglass } from "../components/hourglass";
 import { HTLogo, HTXLogoDuotone } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
-import PodkrepqAutomationComponent from "../components/podkrepqAutoDisplay";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
 import { cn } from "../utils";
@@ -46,7 +39,7 @@ export default async function LandingPage() {
   return (
     <div className="flex min-h-fit w-full flex-col">
       <CountdownHero />
-
+      <UnescoSection />
       <ArchiveContainer>
         <section className="grid place-items-center gap-9 py-12">
           <p className="scroll-m-20 text-center font-lazydog text-2xl tracking-tight first:mt-0 sm:text-3xl">
@@ -158,29 +151,6 @@ export default async function LandingPage() {
           </IfAnyHTFeatureOn>
         </ArchiveSection>
       </ArchiveContainer>
-      <UnescoSection />
-
-      <section className="light relative flex flex-col gap-14 overflow-x-visible pb-14 pt-28 text-sand-foreground">
-        <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]" />
-        <div className="grid grid-cols-1 place-items-center ">
-          <div className="mb-52">
-            <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={ALPHA_SPONSORS} />
-          </div>
-          <div className="mb-52">
-            <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={BETA_SPONSORS} />
-          </div>
-          <div className="mb-52">
-            <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={GAMMA_SPONSORS} />
-          </div>
-          <div className="mb-20 place-self-center">
-            <PodkrepqTitle>Партньори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={PARTNERS} />
-          </div>
-        </div>
-      </section>
 
       <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
         <section className="relative flex flex-col items-center gap-3 pb-16 pt-24">
@@ -250,14 +220,6 @@ function CountdownHero() {
         <CountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
       </aside>
     </div>
-  );
-}
-
-function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
-  return (
-    <h2 className=" scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
-      {children}
-    </h2>
   );
 }
 
