@@ -51,6 +51,12 @@ export const createTeamAction = zact(
 });
 
 export const checkUserCanCreateTeam = async () => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("create-team")) {
+    return {
+      isEligableToCreateTeam: false,
+    };
+  }
   const participant = await getParticipantFromSession();
   if (!participant || participant.team.id) {
     return { isEligableToCreateTeam: false };
