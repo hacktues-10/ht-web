@@ -81,7 +81,7 @@ export default function ProfileInfo({
             <Label htmlFor="secondName">Презиме</Label>
             <Input
               disabled
-              placeholder={participant?.firstName ?? ""}
+              placeholder={participant?.middleName ?? ""}
               id="secondName"
             />
             <Label htmlFor="lastName">Фамилия</Label>
