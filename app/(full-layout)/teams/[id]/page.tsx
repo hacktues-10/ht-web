@@ -82,7 +82,11 @@ export default async function TeamDetailPage({
       <Card className="fadeIn h-min rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
         <div className="flex w-full">
           <div className="flex items-center">
-            <Button asChild variant="secondary" className="mt-8">
+            <Button
+              asChild
+              variant="secondary"
+              className="mt-8 backdrop-blur-md"
+            >
               <Link href="/teams">
                 {"<- "}
                 Назад

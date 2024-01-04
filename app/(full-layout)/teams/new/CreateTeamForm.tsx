@@ -1,9 +1,17 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import invariant from "tiny-invariant";
 
+import {
+  IfAnyHTFeatureOn,
+  IfHTFeatureOff,
+  IfHTFeatureOn,
+} from "~/app/_integrations/components";
+import { OverlayContainer } from "~/app/(clean-layout)/_components/countdown-overlay";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
 import { Input } from "~/app/components/ui/input";
@@ -14,7 +22,8 @@ import { checkUserCanCreateTeam, createTeamAction } from "./actions";
 export function CreateTeamForm() {
   const router = useRouter();
   const { toast } = useToast();
-  const [isButtonDisabled, setButtonDisabled] = useState(true);
+  const canCreateTeam = useFeatureIsOn("create-team");
+  const [isEligible, setIsEligible] = useState(true);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -42,26 +51,36 @@ export function CreateTeamForm() {
 
   const checkUserTeam = useCallback(async () => {
     const { isEligableToCreateTeam } = await checkUserCanCreateTeam();
-    if (!isEligableToCreateTeam) {
+    if (!isEligableToCreateTeam && isEligible) {
       toast({
         title: "Не можете да създадете отбор",
-        description:
-          "Моля, ако мислите, че има грешка, свържете се с hacktues@elsys-bg.org",
+        description: canCreateTeam ? (
+          <>
+            Моля, ако мислите, че има грешка, свържете се с нас на адрес{" "}
+            <Link className="underline" href="mailto:hacktues@elsys-bg.org">
+              hacktues@elsys-bg.org
+            </Link>
+          </>
+        ) : (
+          <>Създаването на отбори е затворено в момента.</>
+        ),
       });
-      setButtonDisabled(true);
+      setIsEligible(false);
     } else {
-      setButtonDisabled(false);
+      setIsEligible(true);
     }
-  }, [toast]);
+  }, [toast, canCreateTeam]);
 
   useEffect(() => {
     checkUserTeam();
   }, [checkUserTeam]);
 
+  const isDisabled = !canCreateTeam || !isEligible;
+
   return (
     <Card>
       <form
-        className="mx-auto flex max-w-md flex-col gap-2 rounded-l p-4 shadow-md"
+        className="relative mx-auto flex max-w-md flex-col gap-2 rounded-l p-4 shadow-md"
         onSubmit={handleSubmit}
       >
         <h1 className="py-3 text-center text-3xl font-bold">
@@ -73,19 +92,39 @@ export function CreateTeamForm() {
           placeholder="Име на отбора"
           className="mb-2 w-full"
           required
+          disabled={isDisabled}
         />
         <Textarea
           name="description"
           placeholder="Описание на отбора"
           className="mb-2 w-full "
+          disabled={isDisabled}
         />
         <Button
           type="submit"
-          disabled={isButtonDisabled}
-          className="w-auto rounded"
+          disabled={isDisabled}
+          className="-z-1 w-auto"
+          variant={!isDisabled ? "default" : "secondary"}
         >
           Създай отбор
         </Button>
+        <IfHTFeatureOff feature="create-team">
+          <OverlayContainer className="bg-background/90">
+            <div className="flex flex-col gap-4 p-6">
+              <p className="text-center text-xl font-bold">
+                Създаването на отбори е затворено в момента
+              </p>
+              <IfHTFeatureOn feature="update-team-members">
+                <p className="text-center">
+                  Все още можете да се присъедините към съществуващ отбор.
+                </p>
+                <Button variant="secondary" asChild>
+                  <Link href="/teams">Разгледайте отборите!</Link>
+                </Button>
+              </IfHTFeatureOn>
+            </div>
+          </OverlayContainer>
+        </IfHTFeatureOff>
       </form>
     </Card>
   );
