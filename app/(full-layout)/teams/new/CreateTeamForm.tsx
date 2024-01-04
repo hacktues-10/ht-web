@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import invariant from "tiny-invariant";
 
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
@@ -20,7 +21,7 @@ export function CreateTeamForm() {
   const { toast } = useToast();
   const canCreateTeam = useHTFeatureIsOn("create-team");
   const [isEligible, setIsEligible] = useState(true);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -31,19 +32,27 @@ export function CreateTeamForm() {
     const name = formData.get("name");
     const description = formData.get("description");
 
-    if (!name || name.length > 30 || name.toString().toLocaleLowerCase().replaceAll(" ", "") == "falsepositive" || description && description.length > 255 || typeof name !== "string" || typeof description !== "string") {
+    if (
+      !name ||
+      name.length > 30 ||
+      name.toString().toLocaleLowerCase().replaceAll(" ", "") ==
+        "falsepositive" ||
+      (description && description.length > 255) ||
+      typeof name !== "string" ||
+      typeof description !== "string"
+    ) {
       toast({
         title: "Невалидни данни",
-        description: "Името или описанието на отбора ви са невалидни."
-      })
+        description: "Името или описанието на отбора ви са невалидни.",
+      });
       return;
     }
-    setIsLoading(true)
+    setIsLoading(true);
 
     toast({
       title: "Отборът се създава...",
-      description: "Съли създава портала към вашата вселена..."
-    })
+      description: "Съли създава портала към вашата вселена...",
+    });
 
     const res = await createTeamAction({ name, description });
     if (res.success) {
