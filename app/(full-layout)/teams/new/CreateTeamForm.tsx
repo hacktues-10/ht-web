@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import invariant from "tiny-invariant";
 
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
