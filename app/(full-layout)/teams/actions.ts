@@ -413,6 +413,13 @@ export async function createProject(project: {
   description: string;
   websiteURL: string;
 }) {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("create-project")) {
+    return {
+      success: false,
+      message: "Създаването на проекти не е позволено по това време.",
+    };
+  }
   try {
     await db.insert(projects).values({
       name: project.name,
