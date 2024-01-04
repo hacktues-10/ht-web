@@ -3,14 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useFeatureIsOn } from "@growthbook/growthbook-react";
 import invariant from "tiny-invariant";
 
-import {
-  IfAnyHTFeatureOn,
-  IfHTFeatureOff,
-  IfHTFeatureOn,
-} from "~/app/_integrations/components";
+import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
+import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import { OverlayContainer } from "~/app/(clean-layout)/_components/countdown-overlay";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
@@ -22,7 +18,7 @@ import { checkUserCanCreateTeam, createTeamAction } from "./actions";
 export function CreateTeamForm() {
   const router = useRouter();
   const { toast } = useToast();
-  const canCreateTeam = useFeatureIsOn("create-team");
+  const canCreateTeam = useHTFeatureIsOn("create-team");
   const [isEligible, setIsEligible] = useState(true);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -109,23 +105,37 @@ export function CreateTeamForm() {
           Създай отбор
         </Button>
         <IfHTFeatureOff feature="create-team">
-          <OverlayContainer className="bg-background/90">
-            <div className="flex flex-col gap-4 p-6">
-              <p className="text-center text-xl font-bold">
-                Създаването на отбори е затворено в момента
+          <FeatureDisabledOverlay>
+            <FeatureDisabledHeading>
+              Създаването на отбори е затворено
+            </FeatureDisabledHeading>
+            <IfHTFeatureOn feature="update-team-members">
+              <p className="text-center">
+                Все още можете да се присъедините към съществуващ отбор.
               </p>
-              <IfHTFeatureOn feature="update-team-members">
-                <p className="text-center">
-                  Все още можете да се присъедините към съществуващ отбор.
-                </p>
-                <Button variant="secondary" asChild>
-                  <Link href="/teams">Разгледайте отборите!</Link>
-                </Button>
-              </IfHTFeatureOn>
-            </div>
-          </OverlayContainer>
+              <Button variant="secondary" asChild>
+                <Link href="/teams">Разгледайте отборите!</Link>
+              </Button>
+            </IfHTFeatureOn>
+          </FeatureDisabledOverlay>
         </IfHTFeatureOff>
       </form>
     </Card>
   );
 }
+
+export const FeatureDisabledOverlay = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => (
+  <OverlayContainer className="bg-background/90">
+    <div className="flex flex-col gap-4 p-6">{children}</div>
+  </OverlayContainer>
+);
+
+export const FeatureDisabledHeading = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => <h1 className="text-center text-2xl font-bold">{children}</h1>;
