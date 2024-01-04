@@ -28,7 +28,7 @@ export default function PodkrepqAutomationComponent({
       );
     }, 5000);
     return () => clearInterval(intervalId);
-  }, [liveIndex]);
+  }, [liveIndex, podkrepqshti.length]);
 
   return (
     <div className="flex flex-wrap align-middle">

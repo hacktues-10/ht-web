@@ -47,7 +47,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team, index }) => {
     }, delay);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [delay]);
 
   const techn = convertToPaginatedTechnologies(team.technologies || "", 3);
   return (
