@@ -11,3 +11,9 @@ export const STUDENTS_REGISTRATION_START = new Date(
 
 export const MAX_TEAMS_STUDENTS = 70;
 export const MAX_TEAMS_ALUMNI = 20;
+
+export const MIN_TEAM_MEMBERS_STUDENTS = 3;
+export const MAX_TEAM_MEMBERS_STUDENTS = 5;
+
+export const MIN_TEAM_MEMBERS_ALUMNI = 2;
+export const MAX_TEAM_MEMBERS_ALUMNI = 3;

@@ -1,8 +1,16 @@
+import { revalidateTag, unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
-import { MAX_TEAMS_ALUMNI, MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
+import {
+  MAX_TEAM_MEMBERS_ALUMNI,
+  MAX_TEAM_MEMBERS_STUDENTS,
+  MAX_TEAMS_ALUMNI,
+  MAX_TEAMS_STUDENTS,
+  MIN_TEAM_MEMBERS_ALUMNI,
+  MIN_TEAM_MEMBERS_STUDENTS,
+} from "~/app/_configs/hackathon";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import { discordUsers, particpants, teams } from "~/app/db/schema";
@@ -10,50 +18,34 @@ import {
   getParticipantById,
   getParticipantFromSession,
 } from "~/app/participants/service";
+import { MINUTE } from "~/app/utils";
 
-export type Team = Awaited<ReturnType<typeof getConfirmedTeams>>[number];
+export type Team = Awaited<ReturnType<typeof getAllTeams>>[number];
 export type TeamMember = Team["members"][number];
 
-export async function getConfirmedTeams() {
-  return db.query.teams.findMany({
-    with: {
-      members: {
-        with: {
-          discordUser: {
-            columns: {
-              discordUsername: true,
+export const getAllTeams = unstable_cache(
+  async () => {
+    return db.query.teams.findMany({
+      with: {
+        members: {
+          with: {
+            discordUser: {
+              columns: {
+                discordUsername: true,
+              },
             },
           },
         },
+        project: true,
       },
-      project: true,
-    },
-  });
-  // .select({
-  //   id: teams.id,
-  //   name: teams.name,
-  //   description: teams.description,
-  //   mentorId: teams.mentorId,
-  //   projectId: teams.projectId,
-  //   isAlumni: teams.isAlumni,
-  //   members: {
-  //     particiapntId: particpants.id,
-  //     firstName: particpants.firstName,
-  //     lastName: particpants.lastName,
-  //     grade: particpants.grade,
-  //     parallel: particpants.parallel,
-  //     technologies: particpants.technologies,
-  //   },
-  //   project: {
-  //     id: projects.id,
-  //     name: projects.name,
-  //     technologies: projects.technologies,
-  //   },
-  // })
-  // .from(teams)
-  // .leftJoin(particpants, eq(particpants.teamId, teams.id))
-  // .leftJoin(projects, eq(teams.projectId, projects.id));
-}
+    });
+  },
+  ["all-teams"],
+  {
+    revalidate: 5 * MINUTE,
+    tags: ["teams"],
+  },
+);
 
 export async function getTeamById(id: string) {
   const results = await db.select().from(teams).where(eq(teams.id, id));
@@ -101,6 +93,7 @@ export async function createTeam(team: {
       teamId: insertedTeam.id,
     })
     .where(eq(particpants.id, team.captainId));
+  revalidateTag("teams");
   return insertedTeam;
 }
 
@@ -136,4 +129,14 @@ export function isParticipantEligableToJoin(
   }
   const grade = parseInt(participant.grade);
   return (grade > 12 && team.isAlumni) || (grade < 13 && !team.isAlumni);
+}
+
+export function isTeamConfirmed(team: Team) {
+  const minMembers = team.isAlumni
+    ? MIN_TEAM_MEMBERS_ALUMNI
+    : MIN_TEAM_MEMBERS_STUDENTS;
+  const maxMembers = team.isAlumni
+    ? MAX_TEAM_MEMBERS_ALUMNI
+    : MAX_TEAM_MEMBERS_STUDENTS;
+  return team.memberCount >= minMembers && team.memberCount <= maxMembers;
 }
