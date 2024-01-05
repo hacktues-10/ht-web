@@ -70,7 +70,7 @@ export const AlumniStep1 = ({
       <h1 className="text-center text-3xl font-extrabold">
         Регистрация на завършил ученик
       </h1>
-      <Step1Header email={email} />
+      <LoggedInAsChip email={email} />
       <Card className="block w-full p-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onNext)} className="space-y-3">
@@ -252,7 +252,7 @@ export const AlumniStep1 = ({
 };
 
 // FIXME: maybe move this to a separate file? (it's used in 2 places)
-export function Step1Header({ email }: { email: string }) {
+export function LoggedInAsChip({ email }: { email: string }) {
   return (
     <div className="p-6 text-center">
       <p className="text-muted-foreground">
