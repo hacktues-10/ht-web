@@ -206,7 +206,7 @@ function CountdownHero() {
             <DateRangeDisplay startDate={EVENT_START} endDate={EVENT_END} />
           </IconParagraph>
           <IconParagraph icon={MapPin}>София Тех Парк</IconParagraph>
-          <IconParagraph icon={Award}>10 ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
+          <IconParagraph icon={Award}>10-ТО ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
         </div>
 
         <CountdownTimer to={EVENT_START} />
