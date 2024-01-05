@@ -3,8 +3,9 @@
 import * as React from "react";
 import { useState } from "react";
 
-import { updateAllergiesAndTechnologies } from "~/app/_technologies/actions";
+import { updateAllergiesTechnologiesAndIsLookingForTeam } from "~/app/_technologies/actions";
 import { Button } from "~/app/components/ui/button";
+import { Checkbox } from "~/app/components/ui/checkbox";
 import { Input } from "~/app/components/ui/input";
 import { Label } from "~/app/components/ui/label";
 import { Textarea } from "~/app/components/ui/textarea";
@@ -23,7 +24,9 @@ export default function ProfileInfo({
 }) {
   const { toast } = useToast();
   const [allergies, setAllergies] = useState(participant?.allergies ?? "");
-
+  const [isLookingForTeam, setIsLookingForTeam] = useState(
+    participant?.isLookingForTeam ?? false,
+  );
   const [selectedTechnologiesArray, setSelectedTechnologies] = useState(
     convertToTechnology(participant?.technologies ?? ""),
   );
@@ -33,9 +36,10 @@ export default function ProfileInfo({
     if (!participant?.id) {
       return null;
     }
-    const { message } = await updateAllergiesAndTechnologies(
+    const { message } = await updateAllergiesTechnologiesAndIsLookingForTeam(
       allergies,
       technText,
+      isLookingForTeam,
       participant.id,
     );
     toast({
@@ -136,6 +140,17 @@ export default function ProfileInfo({
               technologiesFromParent={selectedTechnologiesArray}
               setTechnolgoies={setSelectedTechnologies}
             />
+          </div>
+          <div className="m-4 flex rounded-lg border border-black p-3">
+            <Checkbox
+              className="border-black"
+              checked={isLookingForTeam}
+              onCheckedChange={() => setIsLookingForTeam(!isLookingForTeam)}
+            />
+            <div className="space-y-1 pl-4 leading-none">
+              <h2>Търся си отбор</h2>
+              <h3>Други участници ще могат да ви канят в своите отбори.</h3>
+            </div>
           </div>
           <div className="mt-3 flex justify-center">
             <Button
