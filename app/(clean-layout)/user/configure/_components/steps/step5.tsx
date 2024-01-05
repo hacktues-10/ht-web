@@ -80,7 +80,7 @@ export const AlumniStep5 = ({
 
   useEffect(() => {
     form.reset(initialData);
-  }, [initialData]);
+  }, [initialData, form]);
 
   return (
     <section
