@@ -55,7 +55,7 @@ export default function PodkrepqAutomationComponent({
             {podkrepqshti[liveIndex].name}
           </CardTitle>
           <CardContent className="p-5 text-white">
-            <div className="max-h-[200px] overflow-y-scroll ">
+            <div className="max-h-[200px]">
               <p>
                 {podkrepqshti[liveIndex].description?.substring(0, 270)}
                 ...&emsp;
