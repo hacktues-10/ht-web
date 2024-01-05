@@ -1,46 +1,21 @@
-import Link from "next/link";
-
-import { getHTSession } from "~/app/api/auth/session";
-import { SignOutButton } from "~/app/components/buttons";
-import { Button } from "~/app/components/ui/button";
+import { LoggedInAsChip } from "~/app/(clean-layout)/user/configure/_components/steps/step1";
+import { signInRedirect } from "~/app/api/auth/session";
+import { Card } from "~/app/components/ui/card";
 import { getParticipantFromSession } from "~/app/participants/service";
 
 export default async function SignOut() {
   const participant = await getParticipantFromSession();
-  const session = await getHTSession();
+  if (!participant) {
+    signInRedirect();
+  }
   return (
     <section className="mt-32 flex w-full max-w-sm flex-col gap-5">
-      {participant ? (
-        <>
-          <h1 className="text-center text-3xl font-semibold">
-            Излез от своя акаунт
-          </h1>
-          <h2 className="text-center text-xl font-semibold">
-            Влезли сте като: {session?.user?.email}
-          </h2>
-          <Button variant={"destructive"} asChild>
-            <SignOutButton>Излез</SignOutButton>
-          </Button>
-        </>
-      ) : (
-        <>
-          <h1 className="text-center text-3xl font-semibold">
-            Не сте влезли в своя акаунт.
-          </h1>
-          <h2 className="text-center text-xl font-semibold ">
-            Ако имате съществуващ акаунт, можете да влезе или да се
-            регистрирате, ако нямате такава.
-          </h2>
-          <div className="flex flex-wrap justify-center">
-            <Button className="m-2" asChild>
-              <Link href="/login">Вход</Link>
-            </Button>
-            <Button className="m-2" asChild>
-              <Link href="/signup">Регистрирай се</Link>
-            </Button>
-          </div>
-        </>
-      )}
+      <h1 className="text-center text-3xl font-extrabold">
+        Излезте от своя акаунт
+      </h1>
+      <Card className="p-3">
+        <LoggedInAsChip email={participant.email} />
+      </Card>
     </section>
   );
 }
