@@ -180,5 +180,13 @@ async function sendEmail(
     subject: `Влизане в Hack TUES X`,
     html: html({ url, identifier, theme }),
     text: text({ url, identifier, theme }),
+    references: generateReferences(),
   });
+}
+
+function generateReferences() {
+  const uniqueId =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+  return `<${uniqueId}@elsys-bg.org>`;
 }
