@@ -98,7 +98,10 @@ export async function GET(req: NextRequest) {
       },
     );
     if (!inviteRes.ok) {
-      console.error("inviteRes not ok", await inviteRes.json());
+      console.error(
+        "inviteRes not ok",
+        JSON.stringify(await inviteRes.json(), null, 2),
+      );
       redirect(ERROR_URL);
     }
     if (!participant) {
