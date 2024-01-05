@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { SOCIAL_MEDIA, SocialMedia } from "~/app/_configs/pr";
+import { IfHTFeatureOn } from "../_integrations/components";
 import { HTXLogoDuotone } from "./logos";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
@@ -26,19 +27,13 @@ export const Footer = () => (
 
 export const SocialMediaIconRow = () => (
   <ul className="flex">
-    {SOCIAL_MEDIA.filter((media) => media.showInFooter).map((media) => (
-      <li key={media.platform}>
-        <SocialMediaIconButton media={media} />
-      </li>
+    {SOCIAL_MEDIA.map((media) => (
+      <IfHTFeatureOn feature={media.feature} key={media.platform}>
+        <li>
+          <SocialMediaIconButton media={media} />
+        </li>
+      </IfHTFeatureOn>
     ))}
-    {/* IDEA: show all media on small screens (looks bad) */}
-    {/* {SOCIAL_MEDIA.filter((media) => !media.showInFooter).map(
-            (media) => (
-              <li key={media.platform} className="md:hidden">
-                <MediaIconButton media={media} />
-              </li>
-            ),
-          )} */}
   </ul>
 );
 
