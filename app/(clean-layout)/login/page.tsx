@@ -15,7 +15,7 @@ import { SignInForm } from "../_components/signin-form";
 export default async function LoginPage() {
   const session = await getHTSession();
   if (session) {
-    redirect("/signup");
+    redirect("/signout");
   }
 
   return (

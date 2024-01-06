@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { getHTSession } from "~/app/api/auth/session";
@@ -11,21 +12,7 @@ import { SignInForm } from "../_components/signin-form";
 export default async function SignUpPage() {
   const session = await getHTSession();
   if (session) {
-    return (
-      <section className="flex w-full max-w-sm flex-col gap-5">
-        <h1 className="text-center text-3xl font-extrabold">
-          Вече сте влезли в акаунта си!
-        </h1>
-        <h2 className="text-center text-xl font-semibold">
-          Върнете се към началната страница
-        </h2>
-        <p className="text-center text-xl">
-          <Link href="/">
-            <HTLogo>Начална страница</HTLogo>
-          </Link>
-        </p>
-      </section>
-    );
+    redirect("/signout");
   }
   return (
     <section className="flex w-full max-w-sm flex-col gap-5">
