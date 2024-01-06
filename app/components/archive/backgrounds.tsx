@@ -72,13 +72,13 @@ export const HT4Background = () => (
 
 export const HT5Background = () => (
   <>
-    <HT5Wifi className="absolute right-16 top-4 -z-20 h-28 opacity-80" />
+    <HT5Wifi className="absolute right-0 top-4 -z-20 h-20 opacity-80 sm:right-16 sm:h-28" />
     <HT5Bug className="absolute -right-7 top-36 -z-20 h-28 opacity-80" />
-    <HT5Robot className="absolute bottom-0 left-[10%] -z-20 h-28 opacity-80" />
+    <HT5Robot className="absolute bottom-0 left-0 -z-20 h-28 opacity-80 sm:left-[10%]" />
     <HT5Cogwheel className="absolute -right-14 bottom-48 -z-20 h-28 opacity-80" />
     <HT5Laptop className="absolute bottom-20 right-0 -z-20 h-28 opacity-80" />
-    <HT5Logs className="absolute bottom-8 right-44 -z-20 h-28 opacity-80" />
-    <HT5Lang className="absolute bottom-2 right-[80px] -z-20 h-28 scale-90 opacity-80" />
+    <HT5Logs className="absolute bottom-10 right-44 -z-20 h-14 opacity-80 sm:bottom-8 sm:h-28" />
+    <HT5Lang className="absolute bottom-2 right-[80px] -z-20 h-20 scale-90 opacity-80 sm:h-28" />
   </>
 );
 
@@ -123,8 +123,8 @@ export const HT8Background = () => (
 export const HT9Background = () => (
   <>
     <HT9Lock className="absolute right-0 top-1/4 -z-20 h-24" />
-    <HT9Curve1 className="absolute -left-40 bottom-0 -z-20 h-96" />
+    <HT9Curve1 className="absolute -left-40 bottom-0 -z-20 h-96 sm:hidden" />
     <HT9Curve2 className="absolute right-0 top-0 -z-20 h-28" />
-    <HT9Curve3 className="absolute -right-32 bottom-0 -z-20 h-80" />
+    <HT9Curve3 className="absolute -right-32 bottom-0 -z-20 h-80 sm:hidden" />
   </>
 );
