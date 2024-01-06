@@ -73,7 +73,7 @@ const TechnologiesTab = ({
   }, [technologiesFromParent]);
 
   const TECHNOLOGIES = technologies.sort((a, b) => {
-    return a.name.localeCompare(b.name);
+    return a.id - b.id;
   });
   return (
     <div className="w-full">
