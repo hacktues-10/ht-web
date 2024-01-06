@@ -364,7 +364,7 @@ function UnescoSection() {
     <section className="light relative grid place-items-center gap-14 overflow-x-visible bg-sand pb-14 pt-28 text-sand-foreground">
       <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] bg-sand" />
       <div className="flex max-w-5xl flex-col-reverse items-center justify-center gap-8 sm:flex-row">
-        <div className="flex-3 grid h-full w-full place-items-center">
+        <div className="flex-3 flex w-full items-center justify-center">
           <Link href={UNESCO_URL} target="_blank">
             <Image
               src={ht8Image}
