@@ -271,7 +271,7 @@ function ArchiveSection({
       )}
       {!!Background && <Background />}
       {!!logo && (
-        <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
+        <h2 className="inline-flex w-full scroll-m-20 pb-2 text-4xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
           {logo}
         </h2>
       )}
