@@ -17,7 +17,7 @@ import {
 import { SignOutButton } from "~/app/components/buttons";
 import { HTLogo } from "~/app/components/logos";
 import { Button, buttonVariants } from "~/app/components/ui/button";
-import { Card, CardContent } from "~/app/components/ui/card";
+import { Card, CardDescription } from "~/app/components/ui/card";
 import { Checkbox } from "~/app/components/ui/checkbox";
 import {
   Command,
@@ -93,6 +93,10 @@ export const AlumniStep5 = ({
         Персонализирайте профила си!
       </h2>
       <Card className="block w-full p-6">
+        <CardDescription className="mb-5 text-center">
+          За да направим Hack TUES X едно незабравимо преживяване за всички,
+          имаме нужда да разберем малко повече за теб.
+        </CardDescription>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onNext)} className="space-y-6">
             <FormField
@@ -101,8 +105,7 @@ export const AlumniStep5 = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    На каква нетехнологична тема бихте искали да разработвате
-                    проект на хакатон?
+                    Какви са вашите хобита и интереси извън ИТ сферата?
                   </FormLabel>
                   <FormControl>
                     <Textarea className="resize-none" {...field} />
