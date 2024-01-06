@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-import { SUBTOPICS } from "~/app/_configs/hackathon";
 import {
   EXTENDED_ALUMNI_GRADES,
   EXTENDED_ALUMNI_PARALLELS,
@@ -128,7 +127,7 @@ export const alumniStep5Schema = z.object({
     .string()
     .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })
     .max(300, { message: "Отговорът трябва да съдържа най-много 100 символа" }),
-  question2: z.any(),
+  question2: z.string(),
 });
 
 export const alunmiRegistrationSchema = alumniStep1Schema

@@ -7,7 +7,7 @@ import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { SUBTOPICS } from "~/app/_configs/hackathon";
+import { SUBTHEMES } from "~/app/_configs/hackathon";
 import { SignOutButton } from "~/app/components/buttons";
 import { HTLogo } from "~/app/components/logos";
 import { Button, buttonVariants } from "~/app/components/ui/button";
@@ -159,9 +159,9 @@ export const AlumniStep5 = ({
                         <CommandEmpty>Теманата не е намерена.</CommandEmpty>
                         <CommandGroup className="h-[200px] overflow-scroll">
                           {/* FIXME: use `.toReversed()` when NodeJS supports it */}
-                          {SUBTOPICS.map((subtopic) => {
+                          {SUBTHEMES.map((subTheme) => {
                             const [name, description] =
-                              Object.entries(subtopic)[0];
+                              Object.entries(subTheme)[0];
                             return (
                               <HoverCard key={name}>
                                 <HoverCardTrigger>
