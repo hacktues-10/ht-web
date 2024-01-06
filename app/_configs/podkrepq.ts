@@ -5,10 +5,6 @@ import capitalLogo from "../assets/media/capital.png";
 import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
-//Gamma sponsors
-
-//Partners
-import a1Logo from "../assets/sponsors/alpha/a1.png";
 //Media
 
 //Alpha sponsors
@@ -35,8 +31,12 @@ import tumbaSolutionsLogo from "../assets/sponsors/beta/tumba-solutions.png";
 //Gamma sponsors
 import accediaLogo from "../assets/sponsors/gamma/accedia.png";
 import asteaSolutionsLogo from "../assets/sponsors/gamma/astea-solutions.png";
+import globalFoundriesLogo from "../assets/sponsors/gamma/globalfoundries.png"
 import ocadoTechnologyLogo from "../assets/sponsors/gamma/ocado-technology.png";
 import progressLogo from "../assets/sponsors/gamma/progress.png";
+
+//Partners
+import a1Logo from "../assets/sponsors/alpha/a1.png";
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import cometLogo from "../assets/sponsors/partners/comet.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
@@ -46,7 +46,6 @@ import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
 import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
-
 //Partners
 
 const ALPHA_SPONSORS = [
@@ -207,6 +206,14 @@ const GAMMA_SPONSORS = [
       "hacktues-30x",
       "hacktues-3",
     ],
+  },
+  {
+    name: "GlobalFoundries Bulgaria",
+    logo: globalFoundriesLogo,
+    url: "https://gf.com/",
+    description:
+      "GlobalFoundries: Българските инженери, които реализират иновации на глобално ниво в дизайна и производството на микрочипове. GlobalFoundries Bulgaria e локалният офис на една от водещите (топ 3) компании в света за производство на микрочипове и играе ключова роля в местната технологична сцена. Компанията намира, обучава и развива инженери чрез своята успешна стажантска програма. Като водещ производител на микрочипове, компанията не само създава технически специалисти в областта на микроелектрониката, но и допринася активно за местната екосистема инвестирайки в партньорства с техническите университети и гимназии в страната.",
+    supportedEditions: []
   },
   {
     name: "Ocado Technology",
