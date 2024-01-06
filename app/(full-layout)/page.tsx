@@ -128,11 +128,14 @@ export default async function LandingPage() {
               label="отбора на завършили"
             />
             <p className="col-span-2 text-center text-lg font-light">
-              Регистрацията <em className="italic">затваря окончателно</em> на{" "}
-              <DateDisplay date={fiveDaysAfter(ALUMNI_REGISTRATION_START)} /> за
-              завършили и на{" "}
-              <DateDisplay date={fiveDaysAfter(STUDENTS_REGISTRATION_START)} />{" "}
-              за ученици, или{" "}
+              Регистрацията за завършили{" "}
+              <em className="italic">ще бъде отворена</em> от{" "}
+              <DateDisplay date={ALUMNI_REGISTRATION_START} /> до{" "}
+              <DateDisplay date={fiveDaysAfter(ALUMNI_REGISTRATION_START)} />, а
+              за ученици <em className="italic">от</em>{" "}
+              <DateDisplay date={STUDENTS_REGISTRATION_START} /> до{" "}
+              <DateDisplay date={fiveDaysAfter(STUDENTS_REGISTRATION_START)} />,
+              или{" "}
               <strong className="font-extrabold">
                 до изчерпване на местата
               </strong>
@@ -203,7 +206,7 @@ function CountdownHero() {
             <DateRangeDisplay startDate={EVENT_START} endDate={EVENT_END} />
           </IconParagraph>
           <IconParagraph icon={MapPin}>София Тех Парк</IconParagraph>
-          <IconParagraph icon={Award}>10 ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
+          <IconParagraph icon={Award}>10-ТО ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
         </div>
 
         <CountdownTimer to={EVENT_START} />
