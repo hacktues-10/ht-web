@@ -65,8 +65,8 @@ export const HT3Background = () => (
 
 export const HT4Background = () => (
   <>
-    <HT4Layout1 className="absolute -left-10 bottom-0 -z-20 h-[350px] opacity-80" />
-    <HT4Layout2 className="absolute -right-10 bottom-0 -z-20 h-[95%] opacity-80" />
+    <HT4Layout1 className="absolute -left-10 bottom-0 -z-20 h-[450px] opacity-80" />
+    <HT4Layout2 className="absolute bottom-0 right-[500px] -z-20 h-[95%] opacity-80 sm:-right-[540px]" />
   </>
 );
 
