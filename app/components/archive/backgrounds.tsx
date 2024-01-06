@@ -123,8 +123,8 @@ export const HT8Background = () => (
 export const HT9Background = () => (
   <>
     <HT9Lock className="absolute right-0 top-1/4 -z-20 h-24" />
-    <HT9Curve1 className="absolute -left-40 bottom-0 -z-20 h-96" />
+    <HT9Curve1 className="absolute -left-40 bottom-0 -z-20 h-96 sm:hidden" />
     <HT9Curve2 className="absolute right-0 top-0 -z-20 h-28" />
-    <HT9Curve3 className="absolute -right-32 bottom-0 -z-20 h-80" />
+    <HT9Curve3 className="absolute -right-32 bottom-0 -z-20 h-80 sm:hidden" />
   </>
 );
