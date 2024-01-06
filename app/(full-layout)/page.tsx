@@ -342,7 +342,7 @@ function ArchiveStats({
 
 function ArchiveStatsItem({ value, label }: { value: number; label: string }) {
   return (
-    <Card className="flex h-full w-full flex-1 flex-col items-center justify-around gap-2 p-4 text-center">
+    <Card className="flex w-full flex-1 flex-col items-center justify-around gap-2 p-4 text-center">
       <p className="text-4xl font-extrabold">{value}</p>
       <p className="text-sm">{label}</p>
     </Card>
