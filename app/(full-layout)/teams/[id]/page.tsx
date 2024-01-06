@@ -204,20 +204,25 @@ export default async function TeamDetailPage({
                         />
                       </div>
                     )}
-                </IfHTFeatureOn>
-              </TabsContent>
-              <TabsContent
-                value="settings"
-                className="w-full items-center justify-center"
-              >
-                <IfHTFeatureOn feature="update-team-details">
-                  {participant &&
-                    participant.team.isCaptain &&
-                    participant.team.id == team.id && (
-                      <div className="m-auto mt-5 justify-center text-center">
-                        <DeleteTeamButton id={team.id} />
-                      </div>
-                    )}
+                  <IfHTFeatureOn feature="update-team-details">
+                    {participant &&
+                      participant.team.isCaptain &&
+                      participant.team.id == team.id && (
+                        <div className="mt-5">
+                          <h3 className="m-auto text-center text-2xl sm:ml-4 sm:text-left">
+                            Опасна зона
+                          </h3>
+                          <div className="m-auto rounded-3xl border-2 border-destructive p-2 text-center sm:flex sm:p-3">
+                            <h4 className="p-2 pt-0 text-lg sm:pt-2 sm:text-left ">
+                              Изтрийте своя отбор
+                            </h4>
+                            <div className="sm:ml-auto sm:self-end">
+                              <DeleteTeamButton id={team.id} />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                  </IfHTFeatureOn>
                 </IfHTFeatureOn>
               </TabsContent>
             </div>

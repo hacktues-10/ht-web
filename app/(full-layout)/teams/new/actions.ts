@@ -41,13 +41,17 @@ export const createTeamAction = zact(
       error: "Вече си имате отбор, не ви ли харесва?",
     } as const;
   }
-  const team = await createTeam({
-    name: input.name,
-    description: input.description,
-    captainId: participant.id,
-    isAlumni: isAlumni,
-  });
-  return { success: true, team } as const;
+  try {
+    const team = await createTeam({
+      name: input.name,
+      description: input.description,
+      captainId: participant.id,
+      isAlumni: isAlumni,
+    });
+    return { success: true, team } as const;
+  } catch {
+    return { success: false, error: "Вече има отбор с това име" };
+  }
 });
 
 export const checkUserCanCreateTeam = async () => {

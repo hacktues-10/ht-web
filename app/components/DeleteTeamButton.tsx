@@ -41,11 +41,11 @@ export default function DeleteTeamButton({ id }: { id: string }) {
       <AlertDialogContent className="w-4/5 rounded-3xl sm:w-auto">
         <AlertDialogHeader>
           <AlertDialogTitle>
-            Сигурни ли сте, че искате да изтриете отбора
+            Сигурни ли сте, че искате да изтриете отбора?
           </AlertDialogTitle>
           <AlertDialogDescription>
             Това действие не може да бъде върнато назад. Ще изтриете отбора си
-            перманентно.
+            завинаги.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
