@@ -26,7 +26,7 @@ export default function DeleteTeamButton({ id }: { id: string }) {
   async function deleteTeam() {
     toast({
       title: "Вашият отбор се изтрива...",
-      description: "Съли е процес на затварянето на портала към вашата вселена...",
+      description: "Съли в е процес на затварянето на портала към вашата вселена...",
     })
     setIsLoading(true)
 
