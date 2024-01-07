@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import invariant from "tiny-invariant";
 
@@ -7,7 +8,12 @@ import { getParticipantFromSession } from "~/app/participants/service";
 import { BackToTeamsButton } from "../../../new/page";
 import CreateProjectFrom from "./CreateProjectForm";
 
-export default async function newProject() {
+export const metadata: Metadata = {
+  title: "Създай проект",
+  description: "Създай проект към твоя отбор за Hack TUES X",
+};
+
+export default async function NewProjectPage() {
   const participant = await getParticipantFromSession();
 
   if (!participant || !participant.team.id || !participant.team.isCaptain) {
