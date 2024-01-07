@@ -27,7 +27,7 @@ import {
 } from "~/app/technologies";
 import { cn } from "~/app/utils";
 import { everyoneStep4Schema } from "../../schemas";
-import { NextStepButton, StepButtons } from "../step-buttonts";
+import { NextStepButton, PrevStepButton, StepButtons } from "../step-buttonts";
 
 type EveryoneStep4Data = z.infer<typeof everyoneStep4Schema>;
 
@@ -113,11 +113,7 @@ export const EveryoneStep4 = ({
             />
 
             <StepButtons
-              left={
-                <Button variant="secondary" onClick={onPrev} type="button">
-                  Назад
-                </Button>
-              }
+              left={<PrevStepButton onClick={onPrev} />}
               right={
                 <NextStepButton
                   isLoading={form.formState.isSubmitting}

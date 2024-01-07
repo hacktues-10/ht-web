@@ -9,6 +9,7 @@ import {
 import { IfAllHTFeaturesOff } from "~/app/_integrations/components";
 import { CountdownTimerDisplay } from "~/app/components/countdowns";
 import { useCountdown } from "~/app/components/countdowns/hooks";
+import { cn } from "~/app/utils";
 
 export const RegistrationCountdownOverlay = () => {
   const studentsCountdown = useCountdown(STUDENTS_REGISTRATION_START);
@@ -24,12 +25,26 @@ export const RegistrationCountdownOverlay = () => {
 
   return firstFutureCountdown !== null ? (
     <IfAllHTFeaturesOff outOf={["signin-alumni", "signin-students"]}>
-      <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/5 text-card-foreground backdrop-blur-lg">
+      <OverlayContainer>
         <div className="flex flex-col gap-3 text-center text-white">
           <p className="text-xl font-bold">Регистрацията отваря след</p>
           <CountdownTimerDisplay countdown={firstFutureCountdown} />
         </div>
-      </div>
+      </OverlayContainer>
     </IfAllHTFeaturesOff>
   ) : null;
 };
+
+export const OverlayContainer = ({
+  children,
+  className,
+}: React.PropsWithChildren<{ className?: string }>) => (
+  <div
+    className={cn(
+      "absolute inset-0 z-50 flex items-center justify-center bg-background/5 text-card-foreground backdrop-blur-lg",
+      className,
+    )}
+  >
+    {children}
+  </div>
+);
