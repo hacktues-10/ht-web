@@ -29,6 +29,7 @@ import {
   getParticipantFromSession,
   getParticipantsWithNoTeam,
   isParticipantStudent,
+  hasInvitationFromTeam,
 } from "~/app/participants/service";
 import {
   checkIfTeamEligableToJoin,
@@ -158,6 +159,14 @@ export const inviteToTeam = zact(
     teamId: z.string(),
   }),
 )(async ({ invitedParticipantId, teamId }) => {
+  const hasInvitation = await hasInvitationFromTeam(invitedParticipantId, teamId);
+  if (hasInvitation) {
+    return {
+      success: false,
+      error: "Този участник вече е поканен."
+    }
+  }
+
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
     return {
@@ -404,9 +413,14 @@ export async function prepareParticipants(
     const fullName = formatNick(user);
 
     if (isParticipantEligableToJoin(user, team) && !isInvited) {
-      res.push({ ...user, label: fullName, value: `${user.id}` });
+      res.push({
+        ...user,
+        label: fullName,
+        value: `${fullName.toLowerCase()}`,
+      });
     }
   });
+
   const result = res.map((user) => {
     return {
       label: user.label,
