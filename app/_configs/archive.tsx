@@ -257,11 +257,6 @@ export const HACKATHONS = [
         prize: "наградата на „MusalaSoft“",
       },
     ],
-    subTopics: [
-      {
-        "Подпомагaне опазването на околната среда и социални каузи": "",
-      },
-    ],
     description: (
       <>
         <p>Вторият Hack TUES се проведе през есента на 2015 г.</p>
