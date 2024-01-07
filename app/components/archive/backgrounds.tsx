@@ -46,7 +46,7 @@ export const HT1Background = () => (
 
 export const HT2Background = () => (
   <>
-    <HT2Bulb className="absolute bottom-20 left-2 -z-20 h-28 translate-x-20 opacity-80 sm:left-16" />
+    <HT2Bulb className="absolute bottom-20 left-24 -z-20 h-28 translate-x-20 opacity-80 sm:left-16" />
     <HT2Interlinked className="top-15 absolute -right-36 -z-20 h-28 opacity-80" />
     <HT2Recycle className="absolute right-2 top-5 -z-20 h-28 opacity-80 sm:right-16" />
     <HT2Line1 className="absolute -right-1/4 top-0 -z-20 h-72 translate-x-52 opacity-80 sm:right-9" />
@@ -58,7 +58,7 @@ export const HT2Background = () => (
 export const HT3Background = () => (
   <>
     <HT3Line1 className="absolute left-0 top-1/3 -z-20 -translate-x-[320px] opacity-70" />
-    <HT3Line2 className="absolute right-0 top-0 -z-20 translate-x-[240px] translate-y-10 scale-75 sm:translate-x-[400px] sm:scale-[60%] md:-translate-y-60" />
+    <HT3Line2 className="absolute right-0 top-0 -z-20 -translate-y-9 translate-x-[240px] -rotate-[16deg] sm:translate-x-[400px] sm:scale-[60%] md:-translate-y-60" />
     <HT3Line3 className="absolute -bottom-12 left-0 -z-20 -translate-y-[48px] scale-75 sm:-left-60 sm:-translate-y-[28px]" />
   </>
 );

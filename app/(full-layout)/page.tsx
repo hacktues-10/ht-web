@@ -258,7 +258,7 @@ function CountdownHero() {
 
 function ArchiveContainer({ children }: PropsWithChildren) {
   return (
-    <div id="the-beginning" className="mx-auto flex w-full max-w-4xl flex-col">
+    <div id="the-beginning" className="mx-auto flex w-full max-w-5xl flex-col">
       {children}
     </div>
   );
