@@ -306,6 +306,12 @@ export async function removeTeamMember(memberId: number) {
       .where(eq(particpants.id, memberId));
     await updateTechnologies(participant.team.id);
     revalidateTag("teams");
+    await db
+      .update(teams)
+      .set({ memberCount: team.memberCount - 1 })
+      .where(eq(teams.id, team.id));
+    revalidateTag("teams");
+
     if (res) {
       return { success: true };
     }
@@ -406,10 +412,6 @@ export async function prepareParticipants(
       });
     }
   });
-<<<<<<< HEAD
-
-=======
->>>>>>> 7f24686 (raboti kys)
   const result = res.map((user) => {
     return {
       label: user.label,
@@ -422,10 +424,6 @@ export async function prepareParticipants(
       technologies: user.technologies,
     };
   });
-<<<<<<< HEAD
-=======
-
->>>>>>> 7f24686 (raboti kys)
   return result;
 }
 
