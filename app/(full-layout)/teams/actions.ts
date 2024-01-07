@@ -399,10 +399,27 @@ export async function prepareParticipants(
     const fullName = formatNick(user);
 
     if (isParticipantEligableToJoin(user, team) && !isInvited) {
-      res.push({ ...user, label: fullName, value: `${user.id}` });
+      res.push({
+        ...user,
+        label: fullName,
+        value: `${fullName.toLowerCase()}`,
+      });
     }
   });
-  return res;
+
+  const result = res.map((user) => {
+    return {
+      label: user.label,
+      value: user.value,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      grade: user.grade,
+      parallel: user.parallel,
+      technologies: user.technologies,
+    };
+  });
+  return result;
 }
 
 const formatNick = (user: any) => {
