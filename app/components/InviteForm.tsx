@@ -22,6 +22,7 @@ import {
   inviteToTeam,
   prepareParticipants,
 } from "../(full-layout)/teams/actions";
+import { ScrollArea } from "./ui/scroll-area";
 import { toast } from "./ui/use-toast";
 
 export function InviteForm({
@@ -31,9 +32,7 @@ export function InviteForm({
   teamId: string;
   participants: Awaited<ReturnType<typeof prepareParticipants>>;
 }) {
-  console.log(participants);
   async function handleSubmit() {
-    console.log("inviteToTeam");
     const participantId = parseInt(value, 10);
     invariant(!isNaN(participantId), "Participant ID must be a number");
     const { success, error } = await inviteToTeam({
@@ -41,7 +40,6 @@ export function InviteForm({
       teamId,
     });
 
-    console.log(success, error);
     if (!success) {
       throw new Error("Failed to invite participant to team :(");
     }
@@ -80,24 +78,28 @@ export function InviteForm({
             <CommandInput placeholder="Намери участник" />
             <CommandEmpty>Участникът не е намерен</CommandEmpty>
             <CommandGroup>
-              {participants?.map((participant) => (
-                <CommandItem
-                  key={participant.value}
-                  value={participant.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === participant.value ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                  {participant.label}
-                </CommandItem>
-              ))}
+              <ScrollArea className="h-[240px]">
+                {participants?.map((participant) => (
+                  <CommandItem
+                    key={participant.value}
+                    value={participant.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === participant.value
+                          ? "opacity-100"
+                          : "opacity-0",
+                      )}
+                    />
+                    {participant.label}
+                  </CommandItem>
+                ))}
+              </ScrollArea>
             </CommandGroup>
           </Command>
         </PopoverContent>

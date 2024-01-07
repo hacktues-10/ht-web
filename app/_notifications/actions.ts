@@ -190,9 +190,9 @@ export const acceptInvitation = zact(
       .where(eq(notifications.referenceId, invitationId));
 
     await updateTechnologies(invitation.teamId);
+    revalidateTag("teams");
 
     await db.delete(invitations).where(eq(invitations.id, invitationId));
-    revalidateTag("teams");
 
     return { success: true };
   } catch (err) {

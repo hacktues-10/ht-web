@@ -305,8 +305,8 @@ export async function removeTeamMember(memberId: number) {
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.id, memberId));
     await updateTechnologies(participant.team.id);
+    revalidateTag("teams");
     if (res) {
-      revalidateTag("teams");
       return { success: true };
     }
     return { success: false, message: "Failed to remove team member" };
@@ -402,7 +402,20 @@ export async function prepareParticipants(
       res.push({ ...user, label: fullName, value: `${user.id}` });
     }
   });
-  return res;
+  const result = res.map((user) => {
+    return {
+      label: user.label,
+      value: user.value,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      grade: user.grade,
+      parallel: user.parallel,
+      technologies: user.technologies,
+    };
+  });
+
+  return result;
 }
 
 const formatNick = (user: any) => {
