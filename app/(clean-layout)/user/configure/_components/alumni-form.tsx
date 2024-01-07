@@ -176,6 +176,7 @@ export const AlumniForm = ({ email }: { email: string }) => {
         email={email}
         defaultValues={defaultValues}
         isAlumni={true}
+        currentStep={currentStep}
         initialData={formData}
         onPrev={handlePrev}
         onNext={handleSubmit}
