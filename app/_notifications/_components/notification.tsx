@@ -48,7 +48,7 @@ function JoinRequestNotification({
 
   if (notification.targetUserId === participant.id) {
     return (
-      <Card>
+      <Card className="w-full p-3">
         <div className="flex">
           <div className="m-5 flex h-8 flex-1 items-center overflow-ellipsis">
             <p className="text-sm">
@@ -94,7 +94,7 @@ function InvitationNotification({
 
   if (notification.targetUserId === participant?.id) {
     return (
-      <Card>
+      <Card className="w-full p-3">
         <div className="flex">
           <div className="m-5 flex h-8 flex-1 items-center overflow-ellipsis">
             <p className="text-sm">
