@@ -305,7 +305,12 @@ export async function removeTeamMember(memberId: number) {
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.id, memberId));
     await updateTechnologies(participant.team.id);
+    await db
+      .update(teams)
+      .set({ memberCount: team.memberCount - 1 })
+      .where(eq(teams.id, team.id));
     revalidateTag("teams");
+
     if (res) {
       return { success: true };
     }
