@@ -6,7 +6,7 @@ export function SadGrisho(props: React.ComponentProps<"svg">) {
       fillRule="evenodd"
       clipRule="evenodd"
       strokeMiterlimit={10}
-      className="w-full h-full"
+      className="h-full w-full"
       {...props}
     >
       <g transform="matrix(.85238 0 0 .84434 -685.792 -250.74)">

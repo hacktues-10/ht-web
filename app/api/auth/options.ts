@@ -127,7 +127,7 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Получавате това писмо, защото някой е въвел вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. Можете да се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
+        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. Можете да се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
       </td>
     </tr>
   </table>
@@ -143,7 +143,7 @@ function text(params: { url: string; identifier: string; theme: Theme }) {
 За да продължите, моля посетете следния адрес:
 ${url}
 
-Получавате това писмо, защото някой е въвел вашия адрес (${identifier}) в сайта
+Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта
 на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. Можете
 да се свържете с нас като отговорите на този имейл или пишете на:
 
@@ -176,9 +176,20 @@ async function sendEmail(
 
   return await transport.sendMail({
     to: identifier,
-    from: "Hack TUES X",
+    from: {
+      name: "Hack TUES X",
+      address: env.EMAIL_FROM,
+    },
     subject: `Влизане в Hack TUES X`,
     html: html({ url, identifier, theme }),
     text: text({ url, identifier, theme }),
+    references: generateReferences(),
   });
+}
+
+function generateReferences() {
+  const uniqueId =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+  return `<${uniqueId}@elsys-bg.org>`;
 }

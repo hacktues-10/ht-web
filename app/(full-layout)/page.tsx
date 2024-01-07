@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -19,36 +19,29 @@ import {
   COUNTDOWN_START,
   EVENT_END,
   EVENT_START,
+  MAX_TEAMS_ALUMNI,
+  MAX_TEAMS_STUDENTS,
   STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
-import {
-  ALPHA_SPONSORS,
-  BETA_SPONSORS,
-  GAMMA_SPONSORS,
-  MEDIA_ARTICLES,
-  MediaArticle,
-  PARTNERS,
-} from "../_configs/podkrepq";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
 import { CountdownTimer } from "../components/countdowns";
 import { DateDisplay, DateRangeDisplay } from "../components/date-display";
 import { CountdownHourglass } from "../components/hourglass";
 import { HTLogo, HTXLogoDuotone } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
-import PodkrepqAutomationComponent from "../components/podkrepqAutoDisplay";
 import { Button } from "../components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "../components/ui/card";
+import { Card } from "../components/ui/card";
 import { cn } from "../utils";
 
 export default async function LandingPage() {
   return (
     <div className="flex min-h-fit w-full flex-col">
       <CountdownHero />
-
+      <UnescoSection />
       <ArchiveContainer>
-        <section className="grid place-items-center gap-9 py-12">
+        <section className="grid place-items-center gap-9 pb-12 pt-28">
           <p className="scroll-m-20 text-center font-lazydog text-2xl tracking-tight first:mt-0 sm:text-3xl">
             В началото всичко бе пусто. <br />И тогава се появи...
           </p>
@@ -113,90 +106,59 @@ export default async function LandingPage() {
           /> */}
           <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
             <h3 className="pb-3 text-2xl font-bold md:text-3xl">
-              Веднъж ТУЕС-ар, винаги ТУЕС-ар!
+              Веднъж ТУЕС-ар, завинаги ТУЕС-ар!
             </h3>
             <p className="text-lg">
-              За първи път в историята на Hack TUES могат да участват и{" "}
-              <span className="font-bold text-primary">завършили ученици</span>{" "}
-              в отделно от настоящите ученици.
+              Десетото юбилейно издание на Hack TUES дава възможност за участие
+              на{" "}
+              <span className="font-bold text-primary">завършили туесари</span>{" "}
+              от всички випуски на ТУЕС!
             </p>
           </Card>
           <ArchiveStatsCard className="md:grid-cols-2">
             <p className="col-span-2 pb-3 text-center text-2xl font-semibold md:text-3xl">
-              Но местата са ограничени!
+              Местата са ограничени!
             </p>
-            <ArchiveStatsItem value={80} label="отбора на ученици" />
-            <ArchiveStatsItem value={10} label="отбора на завършили" />
+            <ArchiveStatsItem
+              value={MAX_TEAMS_STUDENTS}
+              label="отбора на ученици"
+            />
+            <ArchiveStatsItem
+              value={MAX_TEAMS_ALUMNI}
+              label="отбора на завършили"
+            />
             <p className="col-span-2 text-center text-lg font-light">
-              Регистрацията <em className="italic">затваря окончателно</em> на{" "}
-              <DateDisplay date={fiveDaysAfter(ALUMNI_REGISTRATION_START)} /> за
-              завършили и на{" "}
-              <DateDisplay date={fiveDaysAfter(STUDENTS_REGISTRATION_START)} />{" "}
-              за ученици, или{" "}
+              Регистрацията на завършили ще бъде отворена от{" "}
+              <DateDisplay date={ALUMNI_REGISTRATION_START} /> до{" "}
+              <DateDisplay date={fiveDaysAfter(ALUMNI_REGISTRATION_START)} />{" "}
+              или{" "}
               <strong className="font-extrabold">
                 до изчерпване на местата
-              </strong>
-              .
+              </strong>, 
+              а на ученици - ще ви разкрием скоро! 
             </p>
           </ArchiveStatsCard>
-          <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+          {/* <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
             <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
               <h3 className="pb-3 text-2xl font-bold md:text-3xl">
                 Не пропускайте възможността да участвате!
               </h3>
-              <Link href="/signup">
-                <Button size="lg">Регистрирайте се!</Button>
-              </Link>
+              <Button asChild size="lg">
+                <Link href="/signup">Регистрирайте се!</Link>
+              </Button>
             </Card>
-          </IfAnyHTFeatureOn>
+          </IfAnyHTFeatureOn> */}
         </ArchiveSection>
       </ArchiveContainer>
-      <section className="light relative flex flex-col gap-14 overflow-x-visible pb-14 pt-28 text-sand-foreground">
-        <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]" />
-        <div className="grid grid-cols-1 place-items-center ">
-          <div className="mb-52">
-            <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={ALPHA_SPONSORS} />
-          </div>
-          <div className="mb-52">
-            <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={BETA_SPONSORS} />
-          </div>
-          <div className="mb-52">
-            <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={GAMMA_SPONSORS} />
-          </div>
-          <div className="mb-20 place-self-center">
-            <PodkrepqTitle>Партньори</PodkrepqTitle>
-            <PodkrepqAutomationComponent podkrepqshti={PARTNERS} />
-          </div>
-        </div>
-        <div className="py-9" />
-      </section>
-      <UnescoSection />
-      <section className="relative flex flex-col items-center gap-3 pt-7">
-        {/* TODO: put it on mitko's thing */}
-        <div
-          className="absolute -top-3 left-1/2 -z-30 h-[34px] min-h-[800px] w-[300%] -translate-x-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_0%,hsl(var(--sand)/0.15),transparent)]"
-          aria-hidden
-        />
-        <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
-          Медиите за нас
-        </h2>
-        <div className="py-2" />
-        {MEDIA_ARTICLES.map((article) => (
-          <MediaArticleCard key={article.title} article={article} />
-        ))}
-      </section>
       <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
-        <section className="relative flex flex-col items-center gap-3 pb-16 pt-24">
+        <section className="relative flex flex-col items-center gap-3 pb-16 pt-5">
           <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
             Какво чакате?
           </h2>
           <div className="py-2" />
-          <Link href="/signup">
-            <Button size="lg">Регистрирайте се сега!</Button>
-          </Link>
+          <Button size="lg">
+            <Link href="/signup">Регистрирайте се сега!</Link>
+          </Button>
         </section>
       </IfAnyHTFeatureOn>
       <div className="pb-4"></div>
@@ -239,13 +201,44 @@ function CountdownHero() {
             <DateRangeDisplay startDate={EVENT_START} endDate={EVENT_END} />
           </IconParagraph>
           <IconParagraph icon={MapPin}>София Тех Парк</IconParagraph>
-          <IconParagraph icon={Award}>10 ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
+          <IconParagraph icon={Award}>10-ТО ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
+          {/* <IconParagraph icon={Landmark}>
+            Българската практика от ЮНЕСКО{" "}
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="h-auto p-1"
+                >
+                  <Link href="#unesco">
+                    {" "}
+                    <Info className="h-3 w-3 scale-125" />
+                  </Link>
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80 space-y-2 text-center">
+                <p>
+                  През 2023 г. Hack TUES, намери своето място сред иновативните
+                  и обещаващи практики на ЮНЕСКО за Техническо и професионално
+                  образование и обучение.
+                </p>
+                <Button asChild>
+                  <Link href="#unesco">
+                    Прочетете повече <ArrowDown className="ml-1 h-4 w-4" />
+                  </Link>
+                </Button>
+              </HoverCardContent>
+            </HoverCard>
+          </IconParagraph> */}
         </div>
 
         <CountdownTimer to={EVENT_START} />
-        <Link href="/signup">
-          <Button size="lg">Регистрирайте се!</Button>
-        </Link>
+
+        <Button asChild size="lg">
+          <Link href="/signup">Регистрирайте се!</Link>
+        </Button>
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>
@@ -259,49 +252,9 @@ function CountdownHero() {
   );
 }
 
-function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
-  return (
-    <h2 className=" scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
-      {children}
-    </h2>
-  );
-}
-
-function MediaArticleCard({ article }: { article: MediaArticle }) {
-  return (
-    <Link href={article.url} className="block" target="_blank">
-      <Card
-        asChild
-        className="flex max-w-2xl flex-col overflow-clip transition-transform hover:scale-105 sm:flex-row"
-      >
-        <article>
-          <figure className="relative grid aspect-video flex-1 shrink-0 place-content-center overflow-clip border-b bg-card/5 p-4 text-card-foreground shadow-sm backdrop-blur-md sm:w-1/2 sm:border-b-0 sm:border-r">
-            <Image
-              className="max-h-full max-w-full object-contain px-3 py-5 transition-transform"
-              src={article.logo}
-              alt={article.name}
-            />
-          </figure>
-          <div className="flex-1">
-            <CardHeader className="pb-3 sm:pb-6">
-              <CardTitle className="text-center sm:text-left">
-                {article.title}
-              </CardTitle>
-            </CardHeader>
-            <div className="pb-3 text-center sm:hidden">{"●"}</div>
-            <CardFooter className="justify-center text-center sm:justify-start sm:text-left">
-              <DateDisplay date={article.date} />
-            </CardFooter>
-          </div>
-        </article>
-      </Card>
-    </Link>
-  );
-}
-
 function ArchiveContainer({ children }: PropsWithChildren) {
   return (
-    <div id="the-beginning" className="mx-auto flex w-full max-w-4xl flex-col">
+    <div id="the-beginning" className="mx-auto flex w-full max-w-5xl flex-col">
       {children}
     </div>
   );
@@ -343,7 +296,7 @@ function ArchiveSection({
       )}
       {!!Background && <Background />}
       {!!logo && (
-        <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
+        <h2 className="inline-flex w-full scroll-m-20 pb-2 text-4xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
           {logo}
         </h2>
       )}
@@ -414,7 +367,7 @@ function ArchiveStats({
 
 function ArchiveStatsItem({ value, label }: { value: number; label: string }) {
   return (
-    <Card className="flex h-full w-full flex-1 flex-col items-center justify-around gap-2 p-4 text-center">
+    <Card className="flex w-full flex-1 flex-col items-center justify-around gap-2 p-4 text-center">
       <p className="text-4xl font-extrabold">{value}</p>
       <p className="text-sm">{label}</p>
     </Card>
@@ -433,15 +386,21 @@ function UnescoSection() {
   const UNESCO_URL =
     "https://unevoc.unesco.org/home/Promising+Practices+in+TVET/lang=en/id=6662";
   return (
-    <section className="light relative grid place-items-center gap-14 overflow-x-visible bg-sand pb-14 pt-28 text-sand-foreground">
-      <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] bg-sand" />
+    <section
+      id="unesco"
+      className="light relative grid place-items-center gap-14 overflow-x-visible pb-48 pt-28 text-sand-foreground"
+    >
+      <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]">
+        <SandMask className="absolute inset-0 h-full w-full fill-sand" />
+      </div>
+      {/* <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] [clip-path:url(#sandMaskBg)]" /> */}
       <div className="flex max-w-5xl flex-col-reverse items-center justify-center gap-8 sm:flex-row">
-        <div className="flex-3 grid h-full w-full place-items-center">
+        <div className="flex-3 flex w-full items-center justify-center">
           <Link href={UNESCO_URL} target="_blank">
             <Image
               src={ht8Image}
               alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
-              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all hover:scale-105 hover:shadow-lg"
+              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all hover:scale-105 hover:shadow-xl"
             />
           </Link>
         </div>
@@ -472,6 +431,30 @@ function UnescoSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function SandMask(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={2}
+      viewBox="0 0 1714 700"
+      preserveAspectRatio="none"
+      {...props}
+    >
+      {/* <defs> */}
+      {/* <clipPath id="sandMaskBg"> */}
+      <path
+        d="M1737.85 23.892v612.101s-27.61-18.834-62.12-7.343c-46.35 15.435-66.7-28.67-140.76-6.541-50.66 15.14-35.46 132.699-138.8 2.007-12.36-15.635-45-40.734-63.89-18.243-20.91 24.89-48.86 57.072-75.02 31.305-55.91-55.074-176.67-19.114-268.809 4.688-55.5 14.337-163.031 86.781-194.606 36.78-9.175-14.528-55.523 2.036-65.483 1.312-17.577-1.279-14.124-27.319-70.019-35.415-58.102-8.416-116.217 56.073-189.851 21.229-54.739-25.903-119.177 1.522-158.732-30.166-30.217-24.206-37.535 24.144-51.418 40.332-17.949 20.932-35.654 25.208-53.054 8.537-97.035-92.967-227.541-48.482-227.541-48.482V23.892S85.608 84.02 216.913 52.825c52.021-12.359 177.089-64.293 323.175-25.412 179.38 47.742 570.712 39.273 789.542 10.944 257.19-33.293 386.47 14.794 408.22-14.465z"
+        // transform="matrix(.9738 0 0 .99898 21.67 .024)"
+      />
+      {/* </clipPath> */}
+      {/* </defs> */}
+    </svg>
   );
 }
 

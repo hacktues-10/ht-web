@@ -35,11 +35,11 @@ export default function AskToJoinButton({
     <div className="mt-8">
       {hasAsked === true ? (
         <Button disabled variant="secondary">
-          <h1>Ask to join</h1>
+          <h1>Заявка за влизане</h1>
         </Button>
       ) : (
         <Button variant="secondary" onClick={() => handleAskToJoin()}>
-          <h1>Ask to join</h1>
+          <h1>Заявка за влизане</h1>
         </Button>
       )}
     </div>

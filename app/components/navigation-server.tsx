@@ -10,7 +10,7 @@ import {
   navigationMenuTriggerStyle,
 } from "~/app/components/ui/navigation-menu";
 import { cn } from "../utils";
-import { MobileNavigationRoot, MobileNavLink } from "./navigation-client";
+import { MobileNavigationRoot, MobileNavLinkServer } from "./navigation-client";
 
 export const NAVIGATION_CATEGORIES = [
   {
@@ -47,6 +47,12 @@ export const NAVIGATION_CATEGORIES = [
         isVisible: false,
         isNew: false,
       },
+      {
+        label: "С подкрепата на",
+        url: "/partners",
+        isVisible: true,
+        isNew: false,
+      },
     ],
   },
   {
@@ -75,6 +81,12 @@ export const NAVIGATION_CATEGORIES = [
         label: "Архив",
         url: "/archive",
         isVisible: false,
+        isNew: false,
+      },
+      {
+        label: "Спонсори § Партньори",
+        url: "/partners",
+        isVisible: true,
         isNew: false,
       },
     ],
@@ -119,7 +131,7 @@ export const DesktopNavigation = ({ className }: { className: string }) => {
                       <NavigationMenuLink
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "w-full text-center",
+                          "h-auto w-full p-3 text-center",
                         )}
                       >
                         {link.label}
@@ -150,25 +162,25 @@ export const MobileNavigation = ({ className }: { className: string }) => {
     <MobileNavigationRoot className={className}>
       <nav className="flex flex-col items-center gap-7 text-center text-2xl font-medium">
         {getVisibleLinks(getCategory("root")).map((link) => (
-          <MobileNavLink
+          <MobileNavLinkServer
             key={link.label}
             href={link.url}
             className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
           >
             {link.label}
-          </MobileNavLink>
+          </MobileNavLinkServer>
         ))}
         {getAdditionalCategories().map((category) => (
           <div key={category.category} className="flex flex-col gap-3">
             <p className="font-extrabold">{category.label}</p>
             {getVisibleLinks(category).map((link) => (
-              <MobileNavLink
+              <MobileNavLinkServer
                 key={link.label}
                 href={link.url}
                 className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
               >
                 {link.label}
-              </MobileNavLink>
+              </MobileNavLinkServer>
             ))}
           </div>
         ))}

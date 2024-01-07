@@ -6,7 +6,7 @@ import "./animations.css";
 
 import { useEffect, useState } from "react";
 
-import { getConfirmedTeams } from "~/app/(full-layout)/teams/service";
+import { Team } from "~/app/(full-layout)/teams/service";
 import { Badge } from "~/app/components/ui/badge";
 import {
   Card,
@@ -20,7 +20,7 @@ import { convertToPaginatedTechnologies } from "~/app/technologies";
 import RenderMember from "./renderMember";
 
 interface TeamCardProps {
-  team: Exclude<Awaited<ReturnType<typeof getConfirmedTeams>>[number], null>;
+  team: Team;
   index: number;
 }
 
@@ -47,7 +47,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team, index }) => {
     }, delay);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [delay]);
 
   const techn = convertToPaginatedTechnologies(team.technologies || "", 3);
   return (
@@ -79,7 +79,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team, index }) => {
           </CardContent>
           <CardFooter className="pb-2">
             {techn && techn.length > 0 ? (
-              <div className="flex w-full gap-2 overflow-hidden p-2">
+              <div className="flex w-full gap-2 overflow-hidden p-2 [mask-image:linear-gradient(to_right,white,90%,transparent)] xl:[mask-image:none]">
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"

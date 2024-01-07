@@ -6,17 +6,17 @@ export default function Regulations() {
   return (
     <Card className="h-full w-full max-w-6xl justify-center text-center ">
       <div className="p-5 pt-0 font-sans sm:p-10 sm:pt-5">
-        <div className="m-5 font-title text-4xl font-semibold">
+        <div className="m-5 text-4xl font-extrabold">
           <h1>Регламент</h1>
         </div>
-        <div className="p-5 text-left font-paragraph">
+        <div className="p-5 text-left">
           <p className="mb-6 text-center text-lg italic leading-7 [&:not(:first-child)]:mt-6">
             Скъпи съученици, поздравяваме Ви за решението да се включите в
             предизвикателството, което предлага училищният хакатон. Тук ще
             намерите цялата информация, необходима за участие в хакатона и
             неговото провеждане.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Какво е Hack TUES Х?
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
@@ -26,7 +26,7 @@ export default function Regulations() {
             използвайки всякакви технологии. Организира се ежегодно от ученици
             (най-често в 11-ти клас) от ТУЕС.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Как да участвате?
           </h2>
           <h3 className="mt-2 scroll-m-20 text-2xl tracking-tight">
@@ -34,8 +34,8 @@ export default function Regulations() {
           </h3>
           <p className="mb-3 leading-7 [&:not(:first-child)]:mt-6">
             &emsp;&emsp;• Ако сте ученик от 8 до 12 клас в ТУЕС, можете да се
-            регистрирате за участие на страницата за регистрация след като тя
-            бъде отворена на 02.02.2024 година.
+            регистрирате за участие на страницата за регистрация, след като тя
+            бъде отворена. 
           </p>
           <p className="mb-3 leading-7 [&:not(:first-child)]:mt-3">
             &emsp;&emsp;• Ако сте бивш възпитаник на ТУЕС, можете да се
@@ -43,13 +43,13 @@ export default function Regulations() {
             <Link href="/api/auth/signin" className="text-cyan-500 underline">
               тук
             </Link>
-            . Крайният срок за регистрация на завършили ученици е 01.02.2024
-            година.
+            . Крайният срок за регистрация на завършили ученици е 12.01.2024
+            година или до изчерпване на отборите.
           </p>
           <p className="mb-8 leading-7 [&:not(:first-child)]:mt-3">
             &emsp;&emsp;• Регистрацията става чрез имейл адрес. След това ще
-            трябва да попълни нужната информация и да влезе в Discord сървъра.
-            Влизането в Discord сървъра на събитието е задължително.
+            трябва да попълните нужната информация и да влезете в Discord
+            сървъра. Влизането в Discord сървъра на събитието е задължително.
           </p>
           <h3 className="mt-2 scroll-m-20 text-2xl tracking-tight">
             &nbsp;&nbsp;&nbsp;&nbsp;Създаване и потвърждаване на отбор.
@@ -60,14 +60,15 @@ export default function Regulations() {
             попълване на името и информация на отбора ще имате възможност да
             поканите своите съотборници. Броят на участници в един отбор на
             завършили възпитаници може да бъде между 2 и 3, а на текущи ученици
-            на ТУЕС е между 3 и 5. Всеки отбор, който има нужният брой отборници
+            на ТУЕС е между 3 и 5. Всеки отбор, който има нужният брой участници
             се приема за потвърден.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Ментори
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
-            &emsp;• Всеки отбор разполага с един ментор, който е част от отбора.
+            &emsp;• Всеки ученически отбор разполага с един ментор, който е част
+            от отбора.
           </p>
           <p className="leading-7 [&:not(:first-child)]:mt-3">
             &emsp;• В случай, че Вашият ментор не може да помогне с проблем,
@@ -85,7 +86,7 @@ export default function Regulations() {
             &emsp;• Целта на менторите е да Ви напътстват по време на работните
             дни.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Отговорност
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
@@ -98,15 +99,15 @@ export default function Regulations() {
             &emsp;Организаторите не носят отговорност за Вашата комуникация със
             съотборниците Ви по време на хакатона.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
-            Дискфалификация
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
+            Дисквалификация
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
             &emsp;• Ако даден проект не е авторски, съответният отбор може да
             бъде дисквалифициран.
           </p>
           <p className="leading-7 [&:not(:first-child)]:mt-3">
-            &emsp;• Организаторите на събитието може да дисквалифицират
+            &emsp;• Организаторите на събитието могат да дисквалифицират
             участник, ако поведението на участника е непристойно или пречи на
             провеждането на хакатона.
           </p>
@@ -119,7 +120,7 @@ export default function Regulations() {
             &emsp;• Отбор, който не изпълнява инструкциите на организаторите,
             може да бъде дисквалифициран.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Тормоз
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
@@ -131,7 +132,7 @@ export default function Regulations() {
             подложен на тормоз или имате някакви други проблеми, моля свържете
             се с член от екипа на хакатона незабавно.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Политика за бисквитки и поверителност
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
@@ -140,7 +141,7 @@ export default function Regulations() {
             cookies), или просто бисквитки. С използването на сайта Вие се
             съгласявате с това.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Какво представляват бисквитките?
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
@@ -152,7 +153,7 @@ export default function Regulations() {
             страница към друга, което ни помага да Ви предоставяме съдържание,
             което смятаме, че ще бъде полезно и интересно за Вас.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Лични данни от бисквитките
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
