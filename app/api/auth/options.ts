@@ -176,7 +176,10 @@ async function sendEmail(
 
   return await transport.sendMail({
     to: identifier,
-    from: "Hack TUES X",
+    from: {
+      name: "Hack TUES X",
+      address: env.EMAIL_FROM,
+    },
     subject: `Влизане в Hack TUES X`,
     html: html({ url, identifier, theme }),
     text: text({ url, identifier, theme }),

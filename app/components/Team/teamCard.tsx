@@ -79,7 +79,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team, index }) => {
           </CardContent>
           <CardFooter className="pb-2">
             {techn && techn.length > 0 ? (
-              <div className="flex w-full gap-2 overflow-hidden p-2">
+              <div className="flex w-full gap-2 overflow-hidden p-2 [mask-image:linear-gradient(to_right,white,90%,transparent)] xl:[mask-image:none]">
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"

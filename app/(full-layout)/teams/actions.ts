@@ -2,6 +2,7 @@
 
 import { error } from "console";
 
+import { revalidateTag } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -78,6 +79,8 @@ export async function deleteMyTeam() {
       .delete(teams)
       .where(eq(teams.id, participant?.team.id))
       .returning();
+
+    revalidateTag("teams");
 
     return { success: true };
   } catch (e) {
@@ -303,6 +306,7 @@ export async function removeTeamMember(memberId: number) {
       .where(eq(particpants.id, memberId));
     await updateTechnologies(participant.team.id);
     if (res) {
+      revalidateTag("teams");
       return { success: true };
     }
     return { success: false, message: "Failed to remove team member" };
@@ -332,6 +336,7 @@ export async function makeCaptain(
       })
       .where(eq(particpants.id, memberId));
 
+    revalidateTag("teams");
     return { success: true };
   } catch (err) {
     return { success: false };
@@ -358,6 +363,7 @@ export async function updateTechnologies(teamId: string) {
     .update(teams)
     .set({ technologies: technologiesString })
     .where(eq(teams.id, teamId));
+  revalidateTag("teams");
 }
 
 export async function getProjectByTeamId(teamId: string) {
@@ -413,6 +419,13 @@ export async function createProject(project: {
   description: string;
   websiteURL: string;
 }) {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("create-project")) {
+    return {
+      success: false,
+      message: "Създаването на проекти не е позволено по това време.",
+    };
+  }
   try {
     await db.insert(projects).values({
       name: project.name,

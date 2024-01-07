@@ -18,16 +18,13 @@ const TechnologiesTab = ({
   technologiesFromParent: ReturnType<typeof convertToTechnology>;
   setTechnolgoies: Dispatch<
     SetStateAction<
-      (
-        | {
-            id: number;
-            name: string;
-            color: string;
-            textColor: string;
-            value: string;
-          }
-        | undefined
-      )[]
+      {
+        id: number;
+        name: string;
+        color: string;
+        textColor: string;
+        value: string;
+      }[]
     >
   >;
   inputClassName: string;
@@ -73,7 +70,7 @@ const TechnologiesTab = ({
   }, [technologiesFromParent]);
 
   const TECHNOLOGIES = technologies.sort((a, b) => {
-    return a.name.localeCompare(b.name);
+    return a.id - b.id;
   });
   return (
     <div className="w-full">

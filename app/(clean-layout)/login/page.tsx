@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
+import { getHTSession } from "~/app/api/auth/session";
 import { HTXLogoDuotone } from "~/app/components/logos";
 import {
   IfQueryParamNotPresent,
@@ -11,6 +13,11 @@ import { Separator } from "~/app/components/ui/separator";
 import { SignInForm } from "../_components/signin-form";
 
 export default async function LoginPage() {
+  const session = await getHTSession();
+  if (session) {
+    redirect("/signout");
+  }
+
   return (
     <section className="flex w-full max-w-sm flex-col gap-5">
       <IfQueryParamNotPresent name="error">

@@ -1,4 +1,3 @@
-
 export function HT6Sun(props: React.ComponentProps<"svg">) {
   return (
     <svg

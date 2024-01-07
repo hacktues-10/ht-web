@@ -31,6 +31,7 @@ import {
 import { Badge } from "~/app/components/ui/badge";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
+import { ScrollArea } from "~/app/components/ui/scroll-area";
 import {
   Tabs,
   TabsContent,
@@ -38,7 +39,7 @@ import {
   TabsTrigger,
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { convertToPaginatedTechnologies } from "~/app/technologies";
+import { convertToTechnology } from "~/app/technologies";
 
 export default async function TeamDetailPage({
   params: { id },
@@ -57,13 +58,12 @@ export default async function TeamDetailPage({
     targetTeamId: team.id,
   });
 
-  const techn = convertToPaginatedTechnologies(team.technologies || "", 8);
+  const techn = convertToTechnology(team.technologies || "");
   const mentor = team.mentorId ? await getMentorById(team.mentorId) : null;
   let url = null;
   if (mentor?.fileName) {
     url = await getImageUrl({ fileName: mentor?.fileName });
   }
-
   const preparedParticipants = await prepareParticipants(
     team,
     participant?.id ?? null,
@@ -82,7 +82,11 @@ export default async function TeamDetailPage({
       <Card className="fadeIn h-min rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
         <div className="flex w-full">
           <div className="flex items-center">
-            <Button asChild variant="secondary" className="mt-8">
+            <Button
+              asChild
+              variant="secondary"
+              className="mt-8 backdrop-blur-md"
+            >
               <Link href="/teams">
                 {"<- "}
                 Назад
@@ -245,10 +249,10 @@ export default async function TeamDetailPage({
             )}
           </Card>
 
-          <Card className="fadeInComponent m-10 ml-auto mr-auto h-min w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
+          <Card className="fadeInComponent m-10 ml-auto mr-auto w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
             <h3 className="mb-2 text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
-              <div className="m-2 w-full flex-auto gap-2 p-2">
+              <ScrollArea className="m-2 h-[200px] w-full flex-auto gap-2 p-2">
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"
@@ -262,7 +266,7 @@ export default async function TeamDetailPage({
                     {technology?.name}
                   </Badge>
                 ))}
-              </div>
+              </ScrollArea>
             ) : (
               <Badge className="m-2 scroll-m-20 leading-7">
                 Няма технологии :(
