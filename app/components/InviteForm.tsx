@@ -66,7 +66,7 @@ export function InviteForm({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[200px] justify-between"
+            className="w-[200px] justify-between overflow-clip"
           >
             {value
               ? participants?.find((participant) => participant.value == value)
