@@ -154,7 +154,7 @@ function PodkrepqLogo({
           "group z-0 grid aspect-video place-content-center overflow-clip rounded-lg bg-white p-4 opacity-0 shadow-md transition-all duration-700",
           index === prevIndex &&
             "z-10 opacity-50 [transform:rotateX(45deg)_translateY(-130%)] hover:opacity-75",
-          index === liveIndex && "z-50 opacity-100",
+          index === liveIndex && "z-50 opacity-100 hover:scale-[112.5%]",
           index === nextIndex &&
             "z-10 opacity-50 [transform:rotateX(-45deg)_translateY(130%)] hover:opacity-75",
           index === nextNextIndex &&
