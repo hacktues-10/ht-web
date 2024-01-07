@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SOCIAL_MEDIA, SocialMedia } from "~/app/_configs/pr";
 import { IfHTFeatureOn } from "../_integrations/components";
 import { HTXLogoDuotone } from "./logos";
+import { SleepySully } from "./logos/sleepy-sully";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import {
@@ -13,7 +14,8 @@ import {
 } from "./ui/tooltip";
 
 export const Footer = () => (
-  <footer className="flex flex-col items-center justify-between gap-4 bg-background px-6 pb-2 pt-6 md:flex-row md:pt-2">
+  <footer className="relative flex flex-col items-center justify-between gap-4 bg-background px-6 pb-2 pt-6 md:flex-row md:pt-2">
+    <SleepySully className="0 absolute right-10 top-0 h-32 -translate-y-full overflow-visible" />
     <Link href="/" className="text-center text-2xl md:text-xl">
       <HTXLogoDuotone />
     </Link>

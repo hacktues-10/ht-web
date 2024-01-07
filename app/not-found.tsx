@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import FullLayout from "./(full-layout)/layout";
-import { SadGrisho } from "./components/sad-grisho";
+import { SadGrisho } from "./components/logos/sad-grisho";
 import { Button } from "./components/ui/button";
 
 export default function NotFoundPage() {
