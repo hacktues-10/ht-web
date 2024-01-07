@@ -6,7 +6,7 @@ export default function Regulations() {
   return (
     <Card className="h-full w-full max-w-6xl justify-center text-center ">
       <div className="p-5 pt-0 font-sans sm:p-10 sm:pt-5">
-        <div className="m-5 text-4xl font-semibold">
+        <div className="m-5 text-4xl font-extrabold">
           <h1>Регламент</h1>
         </div>
         <div className="p-5 text-left">
@@ -16,7 +16,7 @@ export default function Regulations() {
             намерите цялата информация, необходима за участие в хакатона и
             неговото провеждане.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Какво е Hack TUES Х?
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
@@ -26,7 +26,7 @@ export default function Regulations() {
             използвайки всякакви технологии. Организира се ежегодно от ученици
             (най-често в 11-ти клас) от ТУЕС.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Как да участвате?
           </h2>
           <h3 className="mt-2 scroll-m-20 text-2xl tracking-tight">
@@ -63,7 +63,7 @@ export default function Regulations() {
             на ТУЕС е между 3 и 5. Всеки отбор, който има нужният брой участници
             се приема за потвърден.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Ментори
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
@@ -86,7 +86,7 @@ export default function Regulations() {
             &emsp;• Целта на менторите е да Ви напътстват по време на работните
             дни.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Отговорност
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
@@ -99,7 +99,7 @@ export default function Regulations() {
             &emsp;Организаторите не носят отговорност за Вашата комуникация със
             съотборниците Ви по време на хакатона.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Дисквалификация
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
@@ -120,7 +120,7 @@ export default function Regulations() {
             &emsp;• Отбор, който не изпълнява инструкциите на организаторите,
             може да бъде дисквалифициран.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Тормоз
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
@@ -132,7 +132,7 @@ export default function Regulations() {
             подложен на тормоз или имате някакви други проблеми, моля свържете
             се с член от екипа на хакатона незабавно.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Политика за бисквитки и поверителност
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
@@ -141,7 +141,7 @@ export default function Regulations() {
             cookies), или просто бисквитки. С използването на сайта Вие се
             съгласявате с това.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Какво представляват бисквитките?
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
@@ -153,7 +153,7 @@ export default function Regulations() {
             страница към друга, което ни помага да Ви предоставяме съдържание,
             което смятаме, че ще бъде полезно и интересно за Вас.
           </p>
-          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+          <h2 className="scroll-m-20 border-b pb-2 text-3xl font-bold tracking-tight first:mt-0">
             Лични данни от бисквитките
           </h2>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-6">
