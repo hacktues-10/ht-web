@@ -35,7 +35,7 @@ export function convertToPaginatedTechnologies(text: string, num: number) {
     }
     returnTechnologies.push({
       id: 93,
-      name: `+${selectedTechnologies.length - num} още`,
+      name: `+още ${selectedTechnologies.length - num}`,
       color: "#696969",
       textColor: "#FFFFFF",
       value: `+${selectedTechnologies.length - 3}`,
