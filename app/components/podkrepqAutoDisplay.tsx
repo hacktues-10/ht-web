@@ -56,16 +56,25 @@ export default function PodkrepqAutomationComponent({
           </CardTitle>
           <CardContent className="p-5 text-white">
             <div className="max-h-[200px]">
-              <p>
-                {podkrepqshti[liveIndex].description?.substring(0, 270)}
-                ...&emsp;
-                <Link
-                  className="font-semibold italic text-white"
-                  href={podkrepqshti[liveIndex].url}
-                >
-                  Научи повече
-                </Link>
-              </p>
+              {shouldShowDescription(podkrepqshti[liveIndex].description) ? (
+                <p>
+                  {podkrepqshti[liveIndex].description?.substring(0, 270)}
+                  ...&emsp;
+                  <PodkrepqReadMore
+                    url={podkrepqshti[liveIndex].url}
+                    description={podkrepqshti[liveIndex].description}
+                  />
+                </p>
+              ) : (
+                <div className="flex h-[150px] flex-col items-center justify-center gap-1">
+                  <p className="text-xl font-bold">
+                    Благодарим на {podkrepqshti[liveIndex].name} за подкрепата!
+                  </p>
+                  <p>
+                    <PodkrepqReadMore url={podkrepqshti[liveIndex].url} />
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex flex-wrap justify-center align-middle">
               {podkrepqshti[liveIndex].supportedEditions?.map((h) => {
@@ -83,6 +92,25 @@ export default function PodkrepqAutomationComponent({
       </div>
     </div>
   );
+}
+
+function shouldShowDescription(description?: string) {
+  return description && !description.toLowerCase().includes("lorem ipsum");
+}
+
+function PodkrepqReadMore({
+  description,
+  url,
+}: {
+  description?: string;
+  url: string;
+}) {
+  const link = (
+    <Link className="font-semibold italic text-white" href={url}>
+      Научи повече
+    </Link>
+  );
+  return link;
 }
 
 function PodkrepqLogo({
