@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -8,6 +9,11 @@ import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { RegistrationCountdownOverlay } from "../_components/countdown-overlay";
 import { SignInForm } from "../_components/signin-form";
+
+export const metadata: Metadata = {
+  title: "Регистрация",
+  description: "Регистирайте се за участие в Hack TUES X",
+};
 
 export default async function SignUpPage() {
   const session = await getHTSession();
