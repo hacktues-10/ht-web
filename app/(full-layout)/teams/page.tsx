@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 import { MAX_TEAMS_ALUMNI, MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
-import { IfHTFeatureOn } from "~/app/_integrations/components";
+import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
+import { ComingSoonPage } from "~/app/components/coming-soon/coming-soon-page";
 import TeamCard from "~/app/components/Team/teamCard";
 import { Button } from "~/app/components/ui/button";
 import {
@@ -19,7 +20,20 @@ export const metadata: Metadata = {
   description: "Отборите, които са се записали за Hack TUES X",
 };
 
-export default async function TeamList() {
+export default function TeamListPage() {
+  return (
+    <>
+      <IfHTFeatureOn feature="show-teams">
+        <TeamList />
+      </IfHTFeatureOn>
+      <IfHTFeatureOff feature="show-teams">
+        <ComingSoonPage />
+      </IfHTFeatureOff>
+    </>
+  );
+}
+
+export async function TeamList() {
   const teams = await getAllTeams();
   const participant = await getParticipantFromSession();
   const studentTeams = teams.filter((team) => !team.isAlumni);
