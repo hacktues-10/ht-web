@@ -22,6 +22,7 @@ import {
   inviteToTeam,
   prepareParticipants,
 } from "../(full-layout)/teams/actions";
+import { getParticipantIdByValue } from "../participants/actions";
 import { ScrollArea } from "./ui/scroll-area";
 import { toast } from "./ui/use-toast";
 
@@ -32,10 +33,11 @@ export function InviteForm({
   teamId: string;
   participants: Awaited<ReturnType<typeof prepareParticipants>>;
 }) {
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   async function handleSubmit() {
-    const participantId = parseInt(value, 10);
+    const participantId = getParticipantIdByValue(value, participants);
 
     if (isNaN(participantId)) {
       toast({
@@ -50,6 +52,7 @@ export function InviteForm({
       invitedParticipantId: participantId,
       teamId,
     });
+
 
     if (error === "Този участник вече е поканен.") {
       toast({

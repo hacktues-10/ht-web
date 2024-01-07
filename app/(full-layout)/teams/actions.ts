@@ -413,9 +413,14 @@ export async function prepareParticipants(
     const fullName = formatNick(user);
 
     if (isParticipantEligableToJoin(user, team) && !isInvited) {
-      res.push({ ...user, label: fullName, value: `${user.id}` });
+      res.push({
+        ...user,
+        label: fullName,
+        value: `${fullName.toLowerCase()}`,
+      });
     }
   });
+
   const result = res.map((user) => {
     return {
       label: user.label,
