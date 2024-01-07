@@ -1,4 +1,5 @@
 import { AdminOrNotFound } from "../components/server";
+import TableData from "../components/TableData";
 import { getParticipantsAdmin } from "./service";
 
 export default async function AdminParticipantList() {
@@ -8,7 +9,7 @@ export default async function AdminParticipantList() {
     <>
       <AdminOrNotFound />
       <h1 className="text-xl font-bold">Участници</h1>
-      <pre>{JSON.stringify(participants, null, 2)}</pre>
+      <TableData data={participants} />
     </>
   );
 }

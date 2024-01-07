@@ -1,4 +1,5 @@
 import { AdminOrNotFound } from "../components/server";
+import TableData from "../components/TableData";
 import { getTeamsAdmin } from "./service";
 
 export default async function AdminTeamList() {
@@ -8,7 +9,7 @@ export default async function AdminTeamList() {
     <>
       <AdminOrNotFound />
       <h1 className="text-xl font-bold">Отбори</h1>
-      <pre>{JSON.stringify(teams, null, 2)}</pre>
+      <TableData data={teams} />
     </>
   );
 }

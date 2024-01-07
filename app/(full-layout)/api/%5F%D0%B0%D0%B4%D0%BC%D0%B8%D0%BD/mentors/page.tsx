@@ -1,4 +1,5 @@
 import { AdminOrNotFound } from "../components/server";
+import TableData from "../components/TableData";
 import { getMentorsAdmin } from "./service";
 
 export default async function AdminMentorList() {
@@ -8,7 +9,7 @@ export default async function AdminMentorList() {
     <>
       <AdminOrNotFound />
       <h1 className="text-xl font-bold">Ментори</h1>
-      <pre>{JSON.stringify(mentors, null, 2)}</pre>
+      <TableData data={mentors} />
     </>
   );
 }

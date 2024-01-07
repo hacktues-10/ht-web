@@ -7,5 +7,11 @@ export async function getParticipantsAdmin() {
   if (!admin) {
     return [];
   }
-  return db.select().from(particpants);
+
+  const participants = await db.select().from(particpants);
+
+  return participants.map((participant) => ({
+    ...participant,
+    createdAt: participant.createdAt.toISOString(),
+  }));
 }
