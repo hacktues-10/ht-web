@@ -29,14 +29,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hacktues.bg/"),
   title: {
     default:
-      "Hack TUES X – Единственият хакатон в България, организиран от ученици за ученици!",
+      "Hack TUES X – Единственият хакатон в България, организиран от ученици за ученици",
     template: "%s | Hack TUES X",
   },
   description: "Hack TUES",
   openGraph: {
     title: "Hack TUES X",
     description:
-      "Единственият хакатон в България, организиран от ученици за ученици!",
+      "Единственият хакатон в България, организиран от ученици за ученици. ⌛",
     url: "https://hacktues.bg",
     siteName: "Hack TUES X",
     locale: "bg_BG",
