@@ -23,6 +23,7 @@ import {
   prepareParticipants,
 } from "../(full-layout)/teams/actions";
 import { getParticipantIdByValue } from "../participants/actions";
+import { ScrollArea } from "./ui/scroll-area";
 import { toast } from "./ui/use-toast";
 
 export function InviteForm({
@@ -32,15 +33,34 @@ export function InviteForm({
   teamId: string;
   participants: Awaited<ReturnType<typeof prepareParticipants>>;
 }) {
+
+  const [isLoading, setIsLoading] = React.useState(false);
+
   async function handleSubmit() {
     const participantId = getParticipantIdByValue(value, participants);
-    invariant(!isNaN(participantId), "Participant ID must be a number");
+
+    if (isNaN(participantId)) {
+      toast({
+        title: "Моля изберете участник, който да поканите.",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
     const { success, error } = await inviteToTeam({
       invitedParticipantId: participantId,
       teamId,
     });
 
-    if (!success) {
+
+    if (error === "Този участник вече е поканен.") {
+      toast({
+        title: "Вече сте поканили този участник",
+        description: "",
+      });
+    } else if (!success) {
+      //TODO: Maybe not use an if statement
       throw new Error("Failed to invite participant to team :(");
     }
     if (success) {
@@ -51,6 +71,7 @@ export function InviteForm({
       setValue("");
       setOpen(false);
     }
+    setIsLoading(false);
   }
 
   const [open, setOpen] = React.useState(false);
@@ -78,29 +99,38 @@ export function InviteForm({
             <CommandInput placeholder="Намери участник" />
             <CommandEmpty>Участникът не е намерен</CommandEmpty>
             <CommandGroup>
-              {participants?.map((participant) => (
-                <CommandItem
-                  key={participant.value}
-                  value={participant.value}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === participant.value ? "opacity-100" : "opacity-0",
-                    )}
-                  />
-                  {participant.label}
-                </CommandItem>
-              ))}
+              <ScrollArea className="h-[240px]">
+                {participants?.map((participant) => (
+                  <CommandItem
+                    key={participant.value}
+                    value={participant.value}
+                    onSelect={(currentValue) => {
+                      setValue(currentValue === value ? "" : currentValue);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === participant.value
+                          ? "opacity-100"
+                          : "opacity-0",
+                      )}
+                    />
+                    {participant.label}
+                  </CommandItem>
+                ))}
+              </ScrollArea>
             </CommandGroup>
           </Command>
         </PopoverContent>
       </Popover>
-      <Button className="ml-3" variant="outline" onClick={() => handleSubmit()}>
+      <Button
+        className="ml-3"
+        variant="outline"
+        disabled={isLoading}
+        onClick={() => handleSubmit()}
+      >
         Покани
       </Button>
     </div>

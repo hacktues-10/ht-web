@@ -29,6 +29,7 @@ import {
   getParticipantFromSession,
   getParticipantsWithNoTeam,
   isParticipantStudent,
+  hasInvitationFromTeam,
 } from "~/app/participants/service";
 import {
   checkIfTeamEligableToJoin,
@@ -158,6 +159,14 @@ export const inviteToTeam = zact(
     teamId: z.string(),
   }),
 )(async ({ invitedParticipantId, teamId }) => {
+  const hasInvitation = await hasInvitationFromTeam(invitedParticipantId, teamId);
+  if (hasInvitation) {
+    return {
+      success: false,
+      error: "Този участник вече е поканен."
+    }
+  }
+
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
     return {
@@ -305,8 +314,13 @@ export async function removeTeamMember(memberId: number) {
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.id, memberId));
     await updateTechnologies(participant.team.id);
+    await db
+      .update(teams)
+      .set({ memberCount: team.memberCount - 1 })
+      .where(eq(teams.id, team.id));
+    revalidateTag("teams");
+
     if (res) {
-      revalidateTag("teams");
       return { success: true };
     }
     return { success: false, message: "Failed to remove team member" };
@@ -419,6 +433,7 @@ export async function prepareParticipants(
       technologies: user.technologies,
     };
   });
+
   return result;
 }
 

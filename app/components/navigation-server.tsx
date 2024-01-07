@@ -124,7 +124,7 @@ export const DesktopNavigation = ({ className }: { className: string }) => {
           <NavigationMenuItem key={category.category}>
             <NavigationMenuTrigger>{category.label}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="flex w-32 flex-col gap-1">
+              <ul className="flex w-36 flex-col gap-1">
                 {getVisibleLinks(category).map((link) => (
                   <li key={link.label} className="w-full">
                     <Link href={link.url} legacyBehavior passHref>

@@ -26,6 +26,7 @@ import {
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
+import { IfHTSession, IfNotHTSession } from "../api/auth/server-components";
 import { CountdownTimer } from "../components/countdowns";
 import { DateDisplay, DateRangeDisplay } from "../components/date-display";
 import { CountdownHourglass } from "../components/hourglass";
@@ -129,13 +130,16 @@ export default async function LandingPage() {
             />
             <p className="col-span-2 text-center text-lg font-light">
               Регистрацията на завършили ще бъде отворена от{" "}
-              <DateDisplay date={ALUMNI_REGISTRATION_START} /> до{" "}
-              <DateDisplay date={fiveDaysAfter(ALUMNI_REGISTRATION_START)} />{" "}
+              <DateDisplay date={ALUMNI_REGISTRATION_START} showHour /> до{" "}
+              <DateDisplay
+                date={fiveDaysAfter(ALUMNI_REGISTRATION_START)}
+                showHour
+              />{" "}
               или{" "}
               <strong className="font-extrabold">
                 до изчерпване на местата
-              </strong>, 
-              а на ученици - ще ви разкрием скоро! 
+              </strong>
+              , а на ученици - ще ви разкрием скоро!
             </p>
           </ArchiveStatsCard>
           {/* <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
@@ -150,17 +154,20 @@ export default async function LandingPage() {
           </IfAnyHTFeatureOn> */}
         </ArchiveSection>
       </ArchiveContainer>
-      <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
-        <section className="relative flex flex-col items-center gap-3 pb-16 pt-5">
-          <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
-            Какво чакате?
-          </h2>
-          <div className="py-2" />
-          <Button size="lg">
-            <Link href="/signup">Регистрирайте се сега!</Link>
-          </Button>
-        </section>
-      </IfAnyHTFeatureOn>
+      <IfNotHTSession>
+        <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+          <section className="relative flex flex-col items-center gap-3 pb-16 pt-5">
+            <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
+              Какво чакате?
+            </h2>
+            <div className="py-2" />
+
+            <Button size="lg">
+              <Link href="/signup">Регистрирайте се сега!</Link>
+            </Button>
+          </section>
+        </IfAnyHTFeatureOn>
+      </IfNotHTSession>
       <div className="pb-4"></div>
     </div>
   );
@@ -235,10 +242,17 @@ function CountdownHero() {
         </div>
 
         <CountdownTimer to={EVENT_START} />
-
-        <Button asChild size="lg">
-          <Link href="/signup">Регистрирайте се!</Link>
-        </Button>
+        <IfNotHTSession>
+          <Button asChild size="lg">
+            <Link href="/signup">Регистрирайте се!</Link>
+          </Button>
+        </IfNotHTSession>
+        <IfHTSession>
+          <Button asChild size="lg">
+            <Link href="/teams">Разгледайте отборите</Link>
+          </Button>
+        </IfHTSession>
+        
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>
