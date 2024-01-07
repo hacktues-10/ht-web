@@ -32,9 +32,7 @@ export function InviteForm({
   teamId: string;
   participants: Awaited<ReturnType<typeof prepareParticipants>>;
 }) {
-  console.log(participants);
   async function handleSubmit() {
-    console.log("inviteToTeam");
     const participantId = parseInt(value, 10);
     invariant(!isNaN(participantId), "Participant ID must be a number");
     const { success, error } = await inviteToTeam({
@@ -42,7 +40,6 @@ export function InviteForm({
       teamId,
     });
 
-    console.log(success, error);
     if (!success) {
       throw new Error("Failed to invite participant to team :(");
     }
