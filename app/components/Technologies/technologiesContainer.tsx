@@ -18,16 +18,13 @@ const TechnologiesTab = ({
   technologiesFromParent: ReturnType<typeof convertToTechnology>;
   setTechnolgoies: Dispatch<
     SetStateAction<
-      (
-        | {
-            id: number;
-            name: string;
-            color: string;
-            textColor: string;
-            value: string;
-          }
-        | undefined
-      )[]
+      {
+        id: number;
+        name: string;
+        color: string;
+        textColor: string;
+        value: string;
+      }[]
     >
   >;
   inputClassName: string;

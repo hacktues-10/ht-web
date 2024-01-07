@@ -1,5 +1,3 @@
-import invariant from "tiny-invariant";
-
 export function convertToTechnology(text: string) {
   const selectedNames = text.split(",");
   const selectedTechnologies = selectedNames
@@ -12,8 +10,14 @@ export function convertToTechnology(text: string) {
         return technology;
       }
     })
-    .filter((tech) => tech !== undefined);
-  if (selectedTechnologies) return selectedTechnologies;
+    .filter(
+      (tech): tech is Exclude<typeof tech, undefined> => tech !== undefined,
+    );
+
+  selectedTechnologies.sort((a, b) => {
+    return a.id - b.id;
+  });
+  if (selectedTechnologies.length) return selectedTechnologies;
   return [];
 }
 
@@ -31,7 +35,7 @@ export function convertToPaginatedTechnologies(text: string, num: number) {
     }
     returnTechnologies.push({
       id: 93,
-      name: `+${selectedTechnologies.length - num} Още`,
+      name: `+още ${selectedTechnologies.length - num}`,
       color: "#696969",
       textColor: "#FFFFFF",
       value: `+${selectedTechnologies.length - 3}`,
