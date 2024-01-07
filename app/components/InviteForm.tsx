@@ -22,6 +22,7 @@ import {
   inviteToTeam,
   prepareParticipants,
 } from "../(full-layout)/teams/actions";
+import { getParticipantIdByValue } from "../participants/actions";
 import { toast } from "./ui/use-toast";
 
 export function InviteForm({
@@ -31,17 +32,14 @@ export function InviteForm({
   teamId: string;
   participants: Awaited<ReturnType<typeof prepareParticipants>>;
 }) {
-  console.log(participants);
   async function handleSubmit() {
-    console.log("inviteToTeam");
-    const participantId = parseInt(value, 10);
+    const participantId = getParticipantIdByValue(value, participants);
     invariant(!isNaN(participantId), "Participant ID must be a number");
     const { success, error } = await inviteToTeam({
       invitedParticipantId: participantId,
       teamId,
     });
 
-    console.log(success, error);
     if (!success) {
       throw new Error("Failed to invite participant to team :(");
     }
