@@ -33,7 +33,7 @@ export default function TeamListPage() {
   );
 }
 
-export async function TeamList() {
+async function TeamList() {
   const teams = await getAllTeams();
   const participant = await getParticipantFromSession();
   const studentTeams = teams.filter((team) => !team.isAlumni);
