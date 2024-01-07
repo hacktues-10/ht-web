@@ -153,6 +153,7 @@ export async function GET(req: NextRequest) {
       }
     }
   } catch (error) {
+    console.error("error", error);
     redirect(ERROR_URL);
   }
 
