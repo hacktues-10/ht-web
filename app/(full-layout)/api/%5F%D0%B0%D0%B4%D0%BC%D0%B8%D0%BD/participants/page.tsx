@@ -9,6 +9,7 @@ export default async function AdminParticipantList() {
     <>
       <AdminOrNotFound />
       <h1 className="text-xl font-bold">Участници</h1>
+      <DisqualifyParticipant participants={participants} />
       <TableData data={participants} />
     </>
   );
