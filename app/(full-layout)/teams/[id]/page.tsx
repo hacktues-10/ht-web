@@ -41,11 +41,24 @@ import {
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 
+type TeamDetailPageProps = {
+  params: { id: string };
+};
+
+export async function generateMetadata({ params }: TeamDetailPageProps) {
+  const team = await getTeamById(params.id);
+  if (!team) {
+    notFound();
+  }
+  return {
+    title: team.name,
+    description: team.description,
+  };
+}
+
 export default async function TeamDetailPage({
   params: { id },
-}: {
-  params: { id: string };
-}) {
+}: TeamDetailPageProps) {
   const participant = await getParticipantFromSession();
   const team = await getTeamById(id);
   if (!team) {
