@@ -151,7 +151,7 @@ export default function ProfileInfo({
               className="self-center"
               onClick={() => handleSubmitFullData()}
             >
-              Промени
+              Запази
             </Button>
           </div>
         </div>
