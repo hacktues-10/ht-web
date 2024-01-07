@@ -3,7 +3,8 @@ import invariant from "tiny-invariant";
 
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
-import { discordUsers, particpants, teams, users } from "../db/schema";
+import { discordUsers, invitations, particpants, teams, users } from "../db/schema";
+import { Team } from "../(full-layout)/teams/service";
 
 export type Participant = Awaited<
   ReturnType<typeof selectFromParticipants>
@@ -55,6 +56,22 @@ export async function getParticipantFromSession() {
     return null;
   }
   return getParticipantByEmail(session.user.email);
+}
+
+export async function getInvitationsForParticipant(participantId: any) {
+  return db.select({id: invitations.id, teamId: invitations.teamId, invitedId: invitations.invitedParticipantId}).from(particpants).leftJoin(
+    invitations, eq(invitations.invitedParticipantId, participantId)
+  )
+}
+
+export async function hasInvitationFromTeam(participantId: any, teamId: any) {
+  const invitations = await getInvitationsForParticipant(participantId)
+  for (const invite of invitations) {
+    if (invite.teamId === teamId) {
+      return true
+    }
+  }
+  return false
 }
 
 export function isParticipantStudent(participant: Participant) {
