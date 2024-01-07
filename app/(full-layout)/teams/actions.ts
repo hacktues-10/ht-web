@@ -321,7 +321,6 @@ export async function removeTeamMember(memberId: number) {
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.id, memberId));
     await updateTechnologies(member.team.id);
-    revalidateTag("teams");
     await db
       .update(teams)
       .set({ memberCount: team.memberCount - 1 })
@@ -334,7 +333,6 @@ export async function removeTeamMember(memberId: number) {
     revalidateTag("teams");
 
     if (res) {
-      revalidateTag("teams");
       return { success: true };
     }
     return { success: false, message: "Failed to remove team member" };

@@ -193,7 +193,6 @@ export const acceptInvitation = zact(
     revalidateTag("teams");
 
     await db.delete(invitations).where(eq(invitations.id, invitationId));
-    revalidateTag("teams");
 
     return { success: true };
   } catch (err) {
