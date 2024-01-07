@@ -392,7 +392,7 @@ function UnescoSection() {
   return (
     <section
       id="unesco"
-      className="light relative grid place-items-center gap-14 overflow-x-visible pb-32 pt-28 text-sand-foreground"
+      className="light relative grid place-items-center gap-14 overflow-x-visible pb-48 pt-28 text-sand-foreground"
     >
       <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]">
         <SandMask className="absolute inset-0 h-full w-full fill-sand" />
