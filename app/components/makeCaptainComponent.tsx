@@ -40,7 +40,7 @@ export default function MakeCaptainComponent({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 p-2 opacity-70 hover:cursor-pointer hover:bg-teal-500">
+        <div className="z-10 m-1 flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 p-2 opacity-70 hover:cursor-pointer hover:bg-teal-500 sm:m-2">
           <Crown />
         </div>
       </AlertDialogTrigger>
