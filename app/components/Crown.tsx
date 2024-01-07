@@ -1,6 +1,7 @@
-export default function Crown() {
+export default function Crown(props: React.ComponentProps<"svg">) {
   return (
     <svg
+      {...props}
       xmlns="http://www.w3.org/2000/svg"
       fillRule="evenodd"
       strokeLinecap="round"
