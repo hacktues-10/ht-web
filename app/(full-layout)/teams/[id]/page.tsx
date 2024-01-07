@@ -107,8 +107,8 @@ export default async function TeamDetailPage({
             <TeamDetailsComponent team={team} />
           </div>
         </div>
-        <div className="mt-4 flex flex-grow items-center justify-center sm:mt-1">
-          <h1 className="ml-auto mr-auto mt-0 flex font-mono text-4xl font-semibold italic text-white sm:text-5xl">
+        <div className="mt-4 flex flex-grow items-center justify-center pt-3 sm:mt-1">
+          <h1 className="ml-auto mr-auto mt-0 flex text-4xl font-semibold text-white sm:text-5xl">
             {team.name}
           </h1>
         </div>
