@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { XIcon } from "lucide-react";
 import { FaDiscord } from "react-icons/fa6";
 
@@ -6,6 +7,11 @@ import { HTLogo } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { DiscordLoadingLink } from "./_components/discord-loading-link";
+
+export const metadata: Metadata = {
+  title: "Discord Профил",
+  description: "Свържете своя Discord профил с Hack TUES X",
+};
 
 export default async function DiscordPage() {
   const { hasSession, hasConnectedDiscord } = await getUserAuthorization();

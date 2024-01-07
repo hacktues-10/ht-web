@@ -1,10 +1,16 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import Mentor from "~/app/components/MentorCard/Mentor";
 import { getAllMentors } from "./service";
 
-export default async function Home() {
+export const metadata: Metadata = {
+  title: "Ментори",
+  description: "Менторите на Hack TUES X",
+};
+
+export default async function MentorsPage() {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("show-mentors")) {
     notFound();

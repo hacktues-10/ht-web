@@ -26,9 +26,41 @@ const lazydog = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Hack TUES X",
-  description:
-    "Hack TUES X is the most popular hackathon in Bulgaria made for students by students.",
+  metadataBase: new URL("https://hacktues.bg/"),
+  title: {
+    default:
+      "Hack TUES X – Единственият хакатон в България, организиран от ученици за ученици",
+    template: "%s | Hack TUES X",
+  },
+  description: "Hack TUES",
+  openGraph: {
+    title: "Hack TUES X",
+    description:
+      "Единственият хакатон в България, организиран от ученици за ученици. ⌛",
+    url: "https://hacktues.bg",
+    siteName: "Hack TUES X",
+    locale: "bg_BG",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  twitter: {
+    title: "Hack TUES X",
+    card: "summary_large_image",
+  },
+  // verification: {
+  //   google: '...',
+  //   yandex: '...',
+  // },
 };
 
 export default function RootLayout({
