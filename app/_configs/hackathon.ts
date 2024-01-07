@@ -21,8 +21,16 @@ export const MIN_TEAM_MEMBERS_ALUMNI = 2;
 export const MAX_TEAM_MEMBERS_ALUMNI = 3;
 
 export const SUBTHEMES = [...HACKATHONS].reverse().flatMap((hackathon) => {
-  return hackathon.subTopics.map((theme) => {
+  const mainTheme = {
+    [`${hackathon.theme} - ${hackathon.name}`]: "",
+  };
+
+  if (hackathon.subThemes.length === 0) return [mainTheme];
+
+  const subThemes = hackathon.subThemes.map((theme) => {
     const [name, description] = Object.entries(theme)[0];
     return { [`${name} - ${hackathon.name}`]: description };
   });
+
+  return [mainTheme, ...subThemes];
 });
