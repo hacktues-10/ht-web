@@ -55,19 +55,6 @@ export const getMentorFromSession = async () => {
   return getMentorByEmail(session.user.email);
 };
 
-export async function chooseTeamMentor(mentorId: number, teamId: string) {
-  try {
-    await db
-      .update(teams)
-      .set({ mentorId: mentorId })
-      .where(eq(teams.id, teamId));
-    return { success: true };
-  } catch (err) {
-    console.log(err);
-    return { success: false };
-  }
-}
-
 export async function checkIfMentorIsTaken(mentorId: number) {
   try {
     const res = await db

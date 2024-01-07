@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { eq, sql } from "drizzle-orm";
 import { z } from "zod";
 
@@ -89,7 +90,7 @@ export const acceptJoinRequest = async (
 
       await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
       await updateTechnologies(joinRequest?.teamId);
-
+      revalidateTag("teams");
       return { success: true };
     } catch (err) {
       console.log(err);
@@ -191,6 +192,8 @@ export const acceptInvitation = zact(
     await updateTechnologies(invitation.teamId);
 
     await db.delete(invitations).where(eq(invitations.id, invitationId));
+    revalidateTag("teams");
+
     return { success: true };
   } catch (err) {
     console.log(err);
