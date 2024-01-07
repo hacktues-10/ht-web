@@ -129,13 +129,16 @@ export default async function LandingPage() {
             />
             <p className="col-span-2 text-center text-lg font-light">
               Регистрацията на завършили ще бъде отворена от{" "}
-              <DateDisplay date={ALUMNI_REGISTRATION_START} /> до{" "}
-              <DateDisplay date={fiveDaysAfter(ALUMNI_REGISTRATION_START)} />{" "}
+              <DateDisplay date={ALUMNI_REGISTRATION_START} showHour /> до{" "}
+              <DateDisplay
+                date={fiveDaysAfter(ALUMNI_REGISTRATION_START)}
+                showHour
+              />{" "}
               или{" "}
               <strong className="font-extrabold">
                 до изчерпване на местата
-              </strong>, 
-              а на ученици - ще ви разкрием скоро! 
+              </strong>
+              , а на ученици - ще ви разкрием скоро!
             </p>
           </ArchiveStatsCard>
           {/* <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
