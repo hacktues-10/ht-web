@@ -15,7 +15,6 @@ import {
   getTeamMembers,
   removeTeamMember,
 } from "../(full-layout)/teams/actions";
-import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 
 export default function RemoveMemberComponent({
@@ -45,7 +44,7 @@ export default function RemoveMemberComponent({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <div className="z-10 flex h-8 w-8 items-center justify-center rounded-full bg-gray-500 p-2 opacity-70 hover:cursor-pointer hover:bg-gray-400">
+        <div className="z-10 m-2 flex h-8 w-8 items-center justify-center rounded-full bg-red-600 p-2 opacity-70 hover:cursor-pointer hover:bg-red-700">
           <X />
         </div>
       </AlertDialogTrigger>
