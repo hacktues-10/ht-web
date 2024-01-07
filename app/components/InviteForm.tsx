@@ -33,15 +33,33 @@ export function InviteForm({
   teamId: string;
   participants: Awaited<ReturnType<typeof prepareParticipants>>;
 }) {
+  const [isLoading, setIsLoading] = React.useState(false);
+
   async function handleSubmit() {
     const participantId = getParticipantIdByValue(value, participants);
     invariant(!isNaN(participantId), "Participant ID must be a number");
+
+    if (isNaN(participantId)) {
+      toast({
+        title: "Моля изберете участник, който да поканите.",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
     const { success, error } = await inviteToTeam({
       invitedParticipantId: participantId,
       teamId,
     });
 
-    if (!success) {
+    if (error === "Този участник вече е поканен.") {
+      toast({
+        title: "Вече сте поканили този участник",
+        description: "",
+      });
+    } else if (!success) {
+      //TODO: Maybe not use an if statement
       throw new Error("Failed to invite participant to team :(");
     }
     if (success) {
@@ -52,6 +70,7 @@ export function InviteForm({
       setValue("");
       setOpen(false);
     }
+    setIsLoading(false);
   }
 
   const [open, setOpen] = React.useState(false);
@@ -105,7 +124,12 @@ export function InviteForm({
           </Command>
         </PopoverContent>
       </Popover>
-      <Button className="ml-3" variant="outline" onClick={() => handleSubmit()}>
+      <Button
+        className="ml-3"
+        variant="outline"
+        disabled={isLoading}
+        onClick={() => handleSubmit()}
+      >
         Покани
       </Button>
     </div>
