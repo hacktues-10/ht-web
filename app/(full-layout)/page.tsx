@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -41,7 +41,7 @@ export default async function LandingPage() {
       <CountdownHero />
       <UnescoSection />
       <ArchiveContainer>
-        <section className="grid place-items-center gap-9 py-12">
+        <section className="grid place-items-center gap-9 pb-12 pt-28">
           <p className="scroll-m-20 text-center font-lazydog text-2xl tracking-tight first:mt-0 sm:text-3xl">
             В началото всичко бе пусто. <br />И тогава се появи...
           </p>
@@ -142,7 +142,7 @@ export default async function LandingPage() {
               .
             </p>
           </ArchiveStatsCard>
-          <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+          {/* <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
             <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
               <h3 className="pb-3 text-2xl font-bold md:text-3xl">
                 Не пропускайте възможността да участвате!
@@ -151,12 +151,11 @@ export default async function LandingPage() {
                 <Link href="/signup">Регистрирайте се!</Link>
               </Button>
             </Card>
-          </IfAnyHTFeatureOn>
+          </IfAnyHTFeatureOn> */}
         </ArchiveSection>
       </ArchiveContainer>
-
       <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
-        <section className="relative flex flex-col items-center gap-3 pb-16 pt-24">
+        <section className="relative flex flex-col items-center gap-3 pb-16 pt-5">
           <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
             Какво чакате?
           </h2>
@@ -207,6 +206,36 @@ function CountdownHero() {
           </IconParagraph>
           <IconParagraph icon={MapPin}>София Тех Парк</IconParagraph>
           <IconParagraph icon={Award}>10-ТО ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
+          {/* <IconParagraph icon={Landmark}>
+            Българската практика от ЮНЕСКО{" "}
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button
+                  asChild
+                  variant="ghost"
+                  size="sm"
+                  className="h-auto p-1"
+                >
+                  <Link href="#unesco">
+                    {" "}
+                    <Info className="h-3 w-3 scale-125" />
+                  </Link>
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-80 space-y-2 text-center">
+                <p>
+                  През 2023 г. Hack TUES, намери своето място сред иновативните
+                  и обещаващи практики на ЮНЕСКО за Техническо и професионално
+                  образование и обучение.
+                </p>
+                <Button asChild>
+                  <Link href="#unesco">
+                    Прочетете повече <ArrowDown className="ml-1 h-4 w-4" />
+                  </Link>
+                </Button>
+              </HoverCardContent>
+            </HoverCard>
+          </IconParagraph> */}
         </div>
 
         <CountdownTimer to={EVENT_START} />
@@ -361,15 +390,21 @@ function UnescoSection() {
   const UNESCO_URL =
     "https://unevoc.unesco.org/home/Promising+Practices+in+TVET/lang=en/id=6662";
   return (
-    <section className="light relative grid place-items-center gap-14 overflow-x-visible bg-sand pb-14 pt-28 text-sand-foreground">
-      <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] bg-sand" />
+    <section
+      id="unesco"
+      className="light relative grid place-items-center gap-14 overflow-x-visible pb-32 pt-28 text-sand-foreground"
+    >
+      <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]">
+        <SandMask className="absolute inset-0 h-full w-full fill-sand" />
+      </div>
+      {/* <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] [clip-path:url(#sandMaskBg)]" /> */}
       <div className="flex max-w-5xl flex-col-reverse items-center justify-center gap-8 sm:flex-row">
         <div className="flex-3 flex w-full items-center justify-center">
           <Link href={UNESCO_URL} target="_blank">
             <Image
               src={ht8Image}
               alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
-              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all hover:scale-105 hover:shadow-lg"
+              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all hover:scale-105 hover:shadow-xl"
             />
           </Link>
         </div>
@@ -400,6 +435,30 @@ function UnescoSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function SandMask(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={2}
+      viewBox="0 0 1714 700"
+      preserveAspectRatio="none"
+      {...props}
+    >
+      {/* <defs> */}
+      {/* <clipPath id="sandMaskBg"> */}
+      <path
+        d="M1737.85 23.892v612.101s-27.61-18.834-62.12-7.343c-46.35 15.435-66.7-28.67-140.76-6.541-50.66 15.14-35.46 132.699-138.8 2.007-12.36-15.635-45-40.734-63.89-18.243-20.91 24.89-48.86 57.072-75.02 31.305-55.91-55.074-176.67-19.114-268.809 4.688-55.5 14.337-163.031 86.781-194.606 36.78-9.175-14.528-55.523 2.036-65.483 1.312-17.577-1.279-14.124-27.319-70.019-35.415-58.102-8.416-116.217 56.073-189.851 21.229-54.739-25.903-119.177 1.522-158.732-30.166-30.217-24.206-37.535 24.144-51.418 40.332-17.949 20.932-35.654 25.208-53.054 8.537-97.035-92.967-227.541-48.482-227.541-48.482V23.892S85.608 84.02 216.913 52.825c52.021-12.359 177.089-64.293 323.175-25.412 179.38 47.742 570.712 39.273 789.542 10.944 257.19-33.293 386.47 14.794 408.22-14.465z"
+        // transform="matrix(.9738 0 0 .99898 21.67 .024)"
+      />
+      {/* </clipPath> */}
+      {/* </defs> */}
+    </svg>
   );
 }
 
