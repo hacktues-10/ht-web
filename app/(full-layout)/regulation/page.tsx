@@ -1,6 +1,12 @@
+import { Metadata } from "next";
 import Link from "next/link";
 
 import { Card } from "~/app/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Регламент",
+  description: "Регламентът на Hack TUES X",
+};
 
 export default function Regulations() {
   return (

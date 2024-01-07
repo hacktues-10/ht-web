@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,6 +19,12 @@ import {
   CardHeader,
   CardTitle,
 } from "~/app/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Спонсори и партньори",
+  description:
+    "Компании, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+};
 
 export default function Podkrepq() {
   return (

@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 
 import { MAX_TEAMS_ALUMNI, MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
@@ -12,6 +13,11 @@ import {
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getAllTeams, isTeamConfirmed } from "./service";
+
+export const metadata: Metadata = {
+  title: "Отбори",
+  description: "Отборите, които са се записали за Hack TUES X",
+};
 
 export default async function TeamList() {
   const teams = await getAllTeams();

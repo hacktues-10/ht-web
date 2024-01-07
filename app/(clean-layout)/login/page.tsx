@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -9,6 +10,11 @@ import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { SignInForm } from "../_components/signin-form";
+
+export const metadata: Metadata = {
+  title: "Вход",
+  description: "Вход във вашия профил в Hack TUES X",
+};
 
 export default async function LoginPage() {
   const session = await getHTSession();

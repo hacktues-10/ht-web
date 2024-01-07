@@ -1,6 +1,13 @@
+import { Metadata } from "next";
+
 import { LoggedInAsChip } from "~/app/(clean-layout)/user/configure/_components/steps/step1";
 import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import { Card } from "~/app/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Изход",
+  description: "Излезте от своя акаунт",
+};
 
 export default async function SignOut() {
   const session = await getHTSession();
