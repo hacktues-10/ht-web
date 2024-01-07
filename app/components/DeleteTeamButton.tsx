@@ -15,20 +15,21 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "~/app/components/ui/alert-dialog";
-import { Button } from "./ui/button";
 import { useToast } from "~/app/components/ui/use-toast";
+import { Button } from "./ui/button";
 
 export default function DeleteTeamButton({ id }: { id: string }) {
   const router = useRouter();
   const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   async function deleteTeam() {
     toast({
       title: "Вашият отбор се изтрива...",
-      description: "Съли в е процес на затварянето на портала към вашата вселена...",
-    })
-    setIsLoading(true)
+      description:
+        "Съли в е процес на затварянето на портала към вашата вселена...",
+    });
+    setIsLoading(true);
 
     const res = await deleteMyTeam();
     if (res?.success) {
