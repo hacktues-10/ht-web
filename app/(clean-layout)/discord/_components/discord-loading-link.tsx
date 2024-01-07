@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, useState } from "react";
+import { useState } from "react";
 
 import { Button, ButtonProps } from "~/app/components/ui/button";
 

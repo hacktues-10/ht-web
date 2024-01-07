@@ -127,11 +127,11 @@ export const AlumniStep2 = ({
                         <Button
                           variant="outline"
                           role="combobox"
-                          className={cn("w-full justify-between")}
+                          className={cn("w-full justify-between px-3")}
                           ref={buttonRef} // Set a ref to the Button component
                         >
                           {field.value || "Избери випуск"}
-                          <ChevronsUpDown className="ml-2 h-24 w-2 shrink-0 opacity-50" />
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
