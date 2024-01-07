@@ -18,7 +18,7 @@ export const Hourglass = ({
   return (
     <svg
       xmlSpace="preserve"
-      className="w-full max-w-2xl px-5 md:px-0"
+      className="-z-50 w-full max-w-2xl overflow-visible px-5 md:px-0"
       xmlns="http://www.w3.org/2000/svg"
       clipRule="evenodd"
       fillRule="evenodd"
@@ -64,6 +64,31 @@ export const Hourglass = ({
           </animateMotion>
         </animated.ellipse>
       </defs>
+
+      {fillAmount < 0.9 && (
+        <g
+          clipRule="evenodd"
+          fill="none"
+          fillOpacity={1}
+          fillRule="evenodd"
+          stroke="#ffdfa6"
+          strokeWidth="25.3638px"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit={1.5}
+          strokeOpacity={1}
+          className="-z-50 animate-in fade-in"
+        >
+          <path
+            transform="translate(-295 200)"
+            d="M638.111 63.705s19.314 59.745 11.879 177.731c-2.988 47.397-23.502 148.812-26.188 238.18-2.88 95.85 14.28 167.108 14.28 167.108"
+          />
+          <path
+            transform="translate(-295 200)"
+            d="M635.293 634.1s19.314 59.744 11.878 177.73c-2.987 47.398-23.501 148.812-26.187 238.18-2.881 95.85 14.28 167.108 14.28 167.108"
+          />
+        </g>
+      )}
 
       <use
         clipPath="url(#sandTopClip)"

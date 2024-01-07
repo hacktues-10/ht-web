@@ -10,7 +10,7 @@ export default function FAQ() {
   return (
     <Card className="h-full w-full max-w-6xl justify-center text-center">
       <div className="p-5 pt-0 font-sans sm:p-10 sm:pt-5">
-        <div className="m-7 font-title text-4xl">
+        <div className="m-7 text-4xl">
           <h1 className="text-center font-extrabold">Често задавани въпроси</h1>
         </div>
         <div className="py-2" />

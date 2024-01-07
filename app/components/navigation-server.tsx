@@ -49,7 +49,7 @@ export const NAVIGATION_CATEGORIES = [
       },
       {
         label: "С подкрепата на",
-        url: "/podkrepa",
+        url: "/partners",
         isVisible: true,
         isNew: false,
       },
@@ -84,8 +84,8 @@ export const NAVIGATION_CATEGORIES = [
         isNew: false,
       },
       {
-        label: "С подкрепата на",
-        url: "/podkrepa",
+        label: "Спонсори § Партньори",
+        url: "/partners",
         isVisible: true,
         isNew: false,
       },
@@ -131,7 +131,7 @@ export const DesktopNavigation = ({ className }: { className: string }) => {
                       <NavigationMenuLink
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "w-full text-center",
+                          "h-auto w-full p-3 text-center",
                         )}
                       >
                         {link.label}
