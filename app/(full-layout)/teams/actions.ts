@@ -334,6 +334,7 @@ export async function removeTeamMember(memberId: number) {
     revalidateTag("teams");
 
     if (res) {
+      revalidateTag("teams");
       return { success: true };
     }
     return { success: false, message: "Failed to remove team member" };
