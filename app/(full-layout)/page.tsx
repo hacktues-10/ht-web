@@ -26,7 +26,7 @@ import {
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
-import { IfNotHTSession } from "../api/auth/components";
+import { IfHTSession, IfNotHTSession } from "../api/auth/server-components";
 import { CountdownTimer } from "../components/countdowns";
 import { DateDisplay, DateRangeDisplay } from "../components/date-display";
 import { CountdownHourglass } from "../components/hourglass";
@@ -247,6 +247,12 @@ function CountdownHero() {
             <Link href="/signup">Регистрирайте се!</Link>
           </Button>
         </IfNotHTSession>
+        <IfHTSession>
+          <Button asChild size="lg">
+            <Link href="/teams">Разгледайте отборите</Link>
+          </Button>
+        </IfHTSession>
+        
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>
