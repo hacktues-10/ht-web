@@ -2,6 +2,7 @@
 
 import { error } from "console";
 
+import { revalidateTag } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -78,6 +79,8 @@ export async function deleteMyTeam() {
       .delete(teams)
       .where(eq(teams.id, participant?.team.id))
       .returning();
+
+    revalidateTag("teams");
 
     return { success: true };
   } catch (e) {
@@ -306,6 +309,7 @@ export async function removeTeamMember(memberId: number) {
       .update(teams)
       .set({ memberCount: team.memberCount - 1 })
       .where(eq(teams.id, team.id));
+    revalidateTag("teams");
 
     if (res) {
       return { success: true };
@@ -337,6 +341,7 @@ export async function makeCaptain(
       })
       .where(eq(particpants.id, memberId));
 
+    revalidateTag("teams");
     return { success: true };
   } catch (err) {
     return { success: false };
@@ -363,6 +368,7 @@ export async function updateTechnologies(teamId: string) {
     .update(teams)
     .set({ technologies: technologiesString })
     .where(eq(teams.id, teamId));
+  revalidateTag("teams");
 }
 
 export async function getProjectByTeamId(teamId: string) {
@@ -401,7 +407,20 @@ export async function prepareParticipants(
       res.push({ ...user, label: fullName, value: `${user.id}` });
     }
   });
-  return res;
+  const result = res.map((user) => {
+    return {
+      label: user.label,
+      value: user.value,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      grade: user.grade,
+      parallel: user.parallel,
+      technologies: user.technologies,
+    };
+  });
+
+  return result;
 }
 
 const formatNick = (user: any) => {

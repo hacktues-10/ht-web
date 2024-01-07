@@ -39,7 +39,7 @@ export default async function TeamList() {
       <IfHTFeatureOn feature="create-team">
         {participant && !participant.team.id && canCreateTeam && (
           <div className="flex flex-col items-center justify-center">
-            <Button asChild variant="destructive" className="mx-auto mb-3 mt-3">
+            <Button asChild size="lg" className="mx-auto mb-3 mt-3">
               <Link href="/teams/new">Създай отбор</Link>
             </Button>
           </div>
@@ -56,10 +56,10 @@ export default async function TeamList() {
         </TabsList>
         <TabsContent value="students">
           <div className="flex h-full w-full flex-col items-center justify-center">
-            <h1 className="mt-4 self-center text-center font-mono text-3xl font-semibold italic text-white sm:text-4xl">
+            <h1 className="mt-4 self-center text-center text-3xl font-semibold text-white sm:text-4xl">
               Отбори на ученици
             </h1>
-            <h2 className="m-4 self-center text-center font-mono text-2xl font-semibold italic tracking-tight  text-white sm:text-3xl">
+            <h2 className="m-4 self-center text-center text-2xl font-semibold tracking-tight  text-white sm:text-3xl">
               Потвърдени отбори: {confirmedStudentTeamsNumber}/
               {MAX_TEAMS_STUDENTS}
             </h2>
@@ -72,11 +72,11 @@ export default async function TeamList() {
         </TabsContent>
         <TabsContent value="alumni">
           <div className="flex h-full w-full flex-col items-center justify-center">
-            <h1 className="mt-4 self-center text-center font-mono text-3xl font-semibold italic text-white sm:mt-4 sm:text-4xl">
+            <h1 className="mt-4 self-center text-center text-3xl font-semibold text-white sm:mt-4 sm:text-4xl">
               Отбори на завършили
             </h1>
 
-            <h2 className="m-4 self-center text-center font-mono text-2xl font-semibold italic tracking-tight  text-white sm:text-3xl">
+            <h2 className="m-4 self-center text-center text-2xl font-semibold tracking-tight  text-white sm:text-3xl">
               Потвърдени отбори: {confirmedAlumniTeamsNumber}/{MAX_TEAMS_ALUMNI}
             </h2>
 

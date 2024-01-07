@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 
@@ -82,6 +83,7 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
       .update(teams)
       .set({ mentorId: mentorId })
       .where(eq(teams.id, teamId));
+    revalidateTag("teams");
     return { success: true };
   } catch (err) {
     console.log(err);

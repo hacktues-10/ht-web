@@ -46,7 +46,7 @@ export const HT1Background = () => (
 
 export const HT2Background = () => (
   <>
-    <HT2Bulb className="absolute bottom-20 left-2 -z-20 h-28 translate-x-20 opacity-80 sm:left-16" />
+    <HT2Bulb className="absolute bottom-20 left-24 -z-20 h-28 translate-x-20 opacity-80 sm:left-16" />
     <HT2Interlinked className="top-15 absolute -right-36 -z-20 h-28 opacity-80" />
     <HT2Recycle className="absolute right-2 top-5 -z-20 h-28 opacity-80 sm:right-16" />
     <HT2Line1 className="absolute -right-1/4 top-0 -z-20 h-72 translate-x-52 opacity-80 sm:right-9" />
@@ -58,27 +58,27 @@ export const HT2Background = () => (
 export const HT3Background = () => (
   <>
     <HT3Line1 className="absolute left-0 top-1/3 -z-20 -translate-x-[320px] opacity-70" />
-    <HT3Line2 className="absolute right-0 top-0 -z-20 translate-x-[240px] translate-y-10 scale-75 sm:translate-x-[400px] sm:scale-[60%] md:-translate-y-60" />
+    <HT3Line2 className="absolute right-0 top-0 -z-20 -translate-y-9 translate-x-[240px] -rotate-[16deg] sm:translate-x-[400px] sm:scale-[60%] md:-translate-y-60" />
     <HT3Line3 className="absolute -bottom-12 left-0 -z-20 -translate-y-[48px] scale-75 sm:-left-60 sm:-translate-y-[28px]" />
   </>
 );
 
 export const HT4Background = () => (
   <>
-    <HT4Layout1 className="absolute -left-10 bottom-0 -z-20 h-[350px] opacity-80" />
-    <HT4Layout2 className="absolute -right-10 bottom-0 -z-20 h-[95%] opacity-80" />
+    <HT4Layout1 className="absolute -left-10 bottom-0 -z-20 h-[450px] opacity-80" />
+    <HT4Layout2 className="absolute bottom-0 right-[500px] -z-20 h-[95%] opacity-80 sm:-right-[540px]" />
   </>
 );
 
 export const HT5Background = () => (
   <>
-    <HT5Wifi className="absolute right-16 top-4 -z-20 h-28 opacity-80" />
+    <HT5Wifi className="absolute right-0 top-4 -z-20 h-20 opacity-80 sm:right-16 sm:h-28" />
     <HT5Bug className="absolute -right-7 top-36 -z-20 h-28 opacity-80" />
-    <HT5Robot className="absolute bottom-0 left-[10%] -z-20 h-28 opacity-80" />
+    <HT5Robot className="absolute bottom-0 left-0 -z-20 h-28 opacity-80 sm:left-[10%]" />
     <HT5Cogwheel className="absolute -right-14 bottom-48 -z-20 h-28 opacity-80" />
     <HT5Laptop className="absolute bottom-20 right-0 -z-20 h-28 opacity-80" />
-    <HT5Logs className="absolute bottom-8 right-44 -z-20 h-28 opacity-80" />
-    <HT5Lang className="absolute bottom-2 right-[80px] -z-20 h-28 scale-90 opacity-80" />
+    <HT5Logs className="absolute bottom-10 right-44 -z-20 h-14 opacity-80 sm:bottom-8 sm:h-28" />
+    <HT5Lang className="absolute bottom-2 right-[80px] -z-20 h-20 scale-90 opacity-80 sm:h-28" />
   </>
 );
 

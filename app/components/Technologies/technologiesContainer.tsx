@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import invariant from "tiny-invariant";
 
 import { Input } from "~/app/components/ui/input";
@@ -18,16 +18,13 @@ const TechnologiesTab = ({
   technologiesFromParent: ReturnType<typeof convertToTechnology>;
   setTechnolgoies: Dispatch<
     SetStateAction<
-      (
-        | {
-            id: number;
-            name: string;
-            color: string;
-            textColor: string;
-            value: string;
-          }
-        | undefined
-      )[]
+      {
+        id: number;
+        name: string;
+        color: string;
+        textColor: string;
+        value: string;
+      }[]
     >
   >;
   inputClassName: string;
@@ -72,39 +69,52 @@ const TechnologiesTab = ({
     setIsSelected(newIsSelected);
   }, [technologiesFromParent]);
 
-  const TECHNOLOGIES = technologies.sort((a, b) => {
-    return a.id - b.id;
-  });
+  const filteredTechnologies = useMemo(
+    () =>
+      technologies
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .filter((technology) =>
+          technology.name
+            .toLowerCase()
+            .includes(filterValue.trim().toLowerCase()),
+        ),
+    [filterValue],
+  );
+
   return (
     <div className="w-full">
       <Input
         value={filterValue}
         onChange={(event) => setFilterValue(event.target.value)}
-        placeholder="Потърси технология"
+        placeholder="Потърси технология..."
         className={`mb-4 ${inputClassName}`}
       />
-      <div className="h-[320px] overflow-scroll">
-        {TECHNOLOGIES.filter((technology) =>
-          technology.name
-            .toLowerCase()
-            .includes(filterValue.trim().toLowerCase()),
-        ).map((technology) => (
-          <SelectableTechnology
-            key={technology?.name}
-            name={technology?.name ?? "?"}
-            selected={isSelected[technology?.name ?? "?"]}
-            style={{
-              backgroundColor: technology?.color,
-              color: technology?.textColor,
-              opacity: isSelected[technology?.name ?? ""] ? 1 : 0.7,
-              outline: !isSelected[technology?.name ?? ""]
-                ? "none"
-                : `2px solid ${badgeBorderColor}`,
-              cursor: "pointer",
-            }}
-            onClick={() => handleOnChange(technology?.name ?? "?")}
-          />
-        ))}
+      <div className="h-[320px] overflow-scroll pb-[20px] [mask-image:linear-gradient(to_bottom,#fff,calc(100%-10px),transparent)]">
+        {filteredTechnologies.length > 0 ? (
+          filteredTechnologies.map((technology) => (
+            <SelectableTechnology
+              key={technology?.name}
+              name={technology?.name ?? "?"}
+              selected={isSelected[technology?.name ?? "?"]}
+              style={{
+                backgroundColor: technology?.color,
+                color: technology?.textColor,
+                opacity: isSelected[technology?.name ?? ""] ? 1 : 0.7,
+                outline: !isSelected[technology?.name ?? ""]
+                  ? "none"
+                  : `2px solid ${badgeBorderColor}`,
+                cursor: "pointer",
+              }}
+              onClick={() => handleOnChange(technology?.name ?? "?")}
+            />
+          ))
+        ) : (
+          <div className="grid h-full place-content-center">
+            <p className="h-full text-center text-muted-foreground">
+              Няма намерени технологии.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

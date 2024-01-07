@@ -134,7 +134,7 @@ export default function ProfileInfo({
           <div className="m-4 flex rounded-lg bg-background p-3 text-foreground">
             <Checkbox
               id="isLookingForTeam"
-              className="border-black"
+              // className="border-black"
               checked={isLookingForTeam}
               onCheckedChange={() => setIsLookingForTeam(!isLookingForTeam)}
             />
@@ -151,7 +151,7 @@ export default function ProfileInfo({
               className="self-center"
               onClick={() => handleSubmitFullData()}
             >
-              Промени
+              Запази
             </Button>
           </div>
         </div>

@@ -99,7 +99,11 @@ export const Header = () => {
           <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
             <Button asChild>
               <SignInButton>
-                <Link href="/login" className="pointer-events-none">
+                <Link
+                  href="/login"
+                  tabIndex={-1}
+                  className="pointer-events-none"
+                >
                   Вход
                 </Link>
               </SignInButton>

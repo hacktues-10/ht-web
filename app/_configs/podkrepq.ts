@@ -5,13 +5,15 @@ import capitalLogo from "../assets/media/capital.png";
 import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
+//Partners
+import a1Logo from "../assets/sponsors/alpha/a1.png";
 //Media
 
 //Alpha sponsors
 import appolicaLogo from "../assets/sponsors/alpha/appolica.png";
 import boschECSLogo from "../assets/sponsors/alpha/bosch-engineering-center-sofia.png";
 import codbexLogo from "../assets/sponsors/alpha/codbex.png";
-//import dxcLogo from "../assets/sponsors/alpha/dxc.png";
+import dxcLogo from "../assets/sponsors/alpha/dxc.png";
 import elevenVenturesLogo from "../assets/sponsors/alpha/eleven-ventures.png";
 import sapLogo from "../assets/sponsors/alpha/sap.png";
 //import tbsLogo from "../assets/sponsors/alpha/tbs.png";
@@ -31,12 +33,9 @@ import tumbaSolutionsLogo from "../assets/sponsors/beta/tumba-solutions.png";
 //Gamma sponsors
 import accediaLogo from "../assets/sponsors/gamma/accedia.png";
 import asteaSolutionsLogo from "../assets/sponsors/gamma/astea-solutions.png";
-import globalFoundriesLogo from "../assets/sponsors/gamma/globalfoundries.png"
+import globalFoundriesLogo from "../assets/sponsors/gamma/globalfoundries.png";
 import ocadoTechnologyLogo from "../assets/sponsors/gamma/ocado-technology.png";
 import progressLogo from "../assets/sponsors/gamma/progress.png";
-
-//Partners
-import a1Logo from "../assets/sponsors/alpha/a1.png";
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import cometLogo from "../assets/sponsors/partners/comet.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
@@ -46,6 +45,7 @@ import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
 import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
+
 //Partners
 
 const ALPHA_SPONSORS = [
@@ -55,7 +55,7 @@ const ALPHA_SPONSORS = [
     url: "https://www.appolica.com/",
     description:
       "Запознайте се с Appolica – наш алфа спонсор и стартъп студио от София, което превръща идеи в реалност! От основаването си в София през 2015 г., компанията е движеща сила зад множество успешни стартъпи. С опит в повече от 30 страни и портфолио от успешни проекти в различни индустрии, Appolica е символ на иновативно мислене. Присъединявайки се към Hack TUES X, Appolica носи своята страст и експертиза в света на иновациите.",
-    supportedEditions: ["hacktues-security"],
+    supportedEditions: ["hacktues-security", "hacktues-infinity"],
   },
   {
     name: "Bosch Engineering Center Sofia",
@@ -70,6 +70,16 @@ const ALPHA_SPONSORS = [
     url: "https://www.codbex.com/",
     description:
       "Кодбекс е иновативна и динамична технологична компания, която е специализирана в предоставянето на софтуерни решения на бизнеси в различни индустрии. Ние от Кодбекс предлагаме уникална платформа за проектиране и разработване на индустриални решения, базирани на технологии с отворен код, пригодени да посрещнат развиващите се нужди на съвременния бизнес. Нашите водещи предложения включват усъвършенствани системи за управление на бази данни, надеждни инструменти за интегриране на бизнес процеси и персонализирани софтуерни решения, проектирани да подобрят производителността на бизнеса. Ние от Кодбекс поставяме удовлетвореността на нашите клиенти на първо място - нашият екип се състои от квалифицирани професионалисти и експерти, с поглед към иновациите, които използват най-новите технологии и методологии, за да доставят решения, които надхвърлят очакванията. Стремежът ни е  да бъдем доверен партньор за компании, които искат да използват пълния потенциал на своите активи и да стимулират устойчив успех в една все по-конкурентна дигитална среда.",
+  },
+  {
+    name: "DXC Technology Bulgaria",
+    logo: dxcLogo,
+    url: "https://dxc.com/bg/en",
+    description:
+      "DXC Technology е глобален лидер в предоставянето на цялостни IT решения. Мисията ни е да използваме силата на технологиите, за да изградим по-добро бъдеще за нашите клиенти, колеги, общности и околна среда. Имаме повече от 130 000 служители в над 70 страни, а в България сме сред най-големите работодатели с повече от 4000 колеги, работещи от различни части на страната. Тук е представено цялото IT портфолио на компанията - техническа поддръжка, анализ на големи масиви от данни, облачни технологии, разработване на системи за автономни автомобили, мрежи, киберсигурност, разработване на приложения и софтуери с Java, .Net, C++ и много други. Това, в което сме сред най-добрите, е да помагаме на бизнеси и правителства по целия свят да трансформират дейността си и да извлекат максимална добавена стойност от новите технологии.",
+    supportedEditions: [
+      "hacktues-security"
+    ],
   },
   {
     name: "Eleven Ventures",
@@ -183,14 +193,14 @@ const BETA_SPONSORS = [
 ];
 
 const GAMMA_SPONSORS = [
-  {
+  /*{
     name: "Accedia",
     logo: accediaLogo,
     url: "https://accedia.com/",
     description:
       "Accedia e българска технологична компания, предоставяща консултантски услуги и разработка на софтуер и цялостни IT решения. Основана през 2012, за изминалите 10 години компанията става пример за устойчив растеж и е оценена от многобройни клиенти, служители и отличия.  Над 250 човека са обединени около мисията да надскачат очаквания със своите технологични знания и професионално отношение, с това, че виждат промяната като възможност, и с това, че са постоянно ориентирани към учене и израстване. Не на последно място, умението на хората да се забавляват ги прави толкова сплотени и превръща Аксидиа в един от най-желаните работодатели.",
     supportedEditions: ["hacktues-security", "hacktues-30x"],
-  },
+  },*/
   {
     name: "Astea Solutions",
     logo: asteaSolutionsLogo,
@@ -205,6 +215,7 @@ const GAMMA_SPONSORS = [
       "hacktues-365",
       "hacktues-30x",
       "hacktues-3",
+      "hacktues-2",
     ],
   },
   {
@@ -213,14 +224,14 @@ const GAMMA_SPONSORS = [
     url: "https://gf.com/",
     description:
       "GlobalFoundries: Българските инженери, които реализират иновации на глобално ниво в дизайна и производството на микрочипове. GlobalFoundries Bulgaria e локалният офис на една от водещите (топ 3) компании в света за производство на микрочипове и играе ключова роля в местната технологична сцена. Компанията намира, обучава и развива инженери чрез своята успешна стажантска програма. Като водещ производител на микрочипове, компанията не само създава технически специалисти в областта на микроелектрониката, но и допринася активно за местната екосистема инвестирайки в партньорства с техническите университети и гимназии в страната.",
-    supportedEditions: []
+    supportedEditions: [],
   },
   {
     name: "Ocado Technology",
     logo: ocadoTechnologyLogo,
-    url: "https://www.ocadogroup.com/about-us",
+    url: "https://www.ocadogroup.com/",
     description:
-      " Системите и решенията от световна класа на Ocado Technology в областта на автоматизацията, роботиката, изкуствения интелект, машинното обучение, симулацията и големите данни са в основата на онлайн операциите на търговци на хранителни стоки по целия свят. Ocado Smart Platform (OSP) е уникална платформа за електронна търговия и логистика, която дава възможност за устойчива, мащабна и изгодна онлайн доставка на хранителни продукти. Технологиите на компанията задвижват Ocado.com и Morrisons.com, Voila.ca и хранителни стоки на Monoprix.fr, Sobeys, Casino. Скоро ще стоят и зад още онлайн търговски марки в целия свят: от Европа и Северна Америка, до Австралия и Азия. Ocado Technology продължава да създава иновации всеки ден, използвайки своите уникални технологии, компетенции, IP и ноу-хау за трансформиране на онлайн търговията с хранителни стоки и не само.",
+      "Системите и решенията от световна класа на Ocado Technology в областта на автоматизацията, роботиката, изкуствения интелект, машинното обучение, симулацията и големите данни са в основата на онлайн операциите на търговци на хранителни стоки по целия свят. Ocado Smart Platform (OSP) е уникална платформа за електронна търговия и логистика, която дава възможност за устойчива, мащабна и изгодна онлайн доставка на хранителни продукти. Технологиите на компанията задвижват Ocado.com и Morrisons.com, Voila.ca и хранителни стоки на Monoprix.fr, Sobeys, Casino. Скоро ще стоят и зад още онлайн търговски марки в целия свят: от Европа и Северна Америка, до Австралия и Азия. Ocado Technology продължава да създава иновации всеки ден, използвайки своите уникални технологии, компетенции, IP и ноу-хау за трансформиране на онлайн търговията с хранителни стоки и не само.",
     supportedEditions: ["hacktues-infinity"],
   },
   {
@@ -252,7 +263,7 @@ const PARTNERS = [
       "А1 е водещ доставчик на дигитални услуги и телекомуникационни решения в България. Част сме от A1 Group, която оперира в 7 държави в Централна и Източна Европа, и América Móvil – един от най-големите доставчици на безжични услуги в света. А1 България е най-големият системен интегратор и най-голямата ICT компания в страната, както и лидер на пазара на телекомуникационни услуги по приходи, според класацията Digitalk 101. Ние сме компания, която си поставя високи цели и не се бои да ги изпълни. Работим в международен екип и споделяме наученото с всички компании в A1 Group. В екипа ни работят повече от 3600 професионалисти в различни направления. Разполагаме със сертификата Great Place To Work, който ни определя като един от най-добрите работодатели в Европа. Грижим се за своите служители, като в наше лице те виждат стабилна и бързоразвиваща се компания, която им предоставя възможности за развитие.",
   },
   {
-    name: "AZTUES",
+    name: "АЗТУЕС",
     logo: aztuesLogo,
     url: "https://aztues.bg/",
     supportedEditions: [
@@ -263,6 +274,8 @@ const PARTNERS = [
       "hacktues-365",
       "hacktues-30x",
       "hacktues-3",
+      "hacktues-2",
+      "hacktues",
     ],
     description:
       'Асоциацията на завършилите ТУЕС е неправителствена организация, която има за цел да обедини и подпомага общността от завършили и настоящи ученици в Технологично училище "Електронни Системи" към ТУ - София (ТУЕС), преподаватели и приятели на училището. Учредена е през декември 2014 и работи активно от средата на 2015, като вече наброява над 1,000 членове и се е превърнала в двигател на редица събития и инициативи, ключови за ТУЕС общността.',
@@ -280,6 +293,7 @@ const PARTNERS = [
     url: "https://corporategifts.bg",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: ["hacktues-security"],
   },
   {
     name: "Dominos",
@@ -287,6 +301,13 @@ const PARTNERS = [
     url: "https://dominos.bg",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [
+      "hacktues-security",
+      "hacktues-infinity",
+      "hacktues-gg",
+      "hacktues-6",
+      "hacktues-365",
+    ],
   },
   {
     name: "Smartcom",
@@ -294,6 +315,15 @@ const PARTNERS = [
     url: "https://smartcom.bg/",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [
+      "hacktues-security",
+      "hacktues-infinity",
+      "hacktues-gg",
+      "hacktues-6",
+      "hacktues-365",
+      "hacktues-30x",
+      "hacktues-3",
+    ],
   },
   {
     name: "Sofia Tech Park",
@@ -301,6 +331,15 @@ const PARTNERS = [
     url: "https://sofiatech.bg/",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+
+    supportedEditions: [
+      "hacktues-security",
+      "hacktues-infinity",
+      "hacktues-gg",
+      "hacktues-6",
+      "hacktues-365",
+      "hacktues-30x",
+    ],
   },
 ];
 

@@ -15,23 +15,6 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const parahraph = Noto_Sans({
-  subsets: ["cyrillic"],
-  weight: "500",
-  style: "normal",
-  variable: "--font-paragraph",
-});
-const htags = Roboto_Mono({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-htags",
-});
-
-const title = Noto_Sans({
-  subsets: ["latin", "cyrillic"],
-  weight: "600",
-  variable: "--font-title",
-});
-
 const llpixel = localFont({
   src: "./assets/htpixel.ttf",
   variable: "--font-llpixel",
@@ -59,9 +42,6 @@ export default function RootLayout({
         className={cn(
           "dark relative min-h-screen bg-background font-sans antialiased",
           inter.variable,
-          htags.variable,
-          title.variable,
-          parahraph.variable,
           llpixel.variable,
           lazydog.variable,
         )}
