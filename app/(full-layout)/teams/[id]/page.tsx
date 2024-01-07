@@ -56,9 +56,7 @@ const colors = [
 
 export default async function TeamDetailPage({
   params: { id },
-}: {
-  params: { id: string };
-}) {
+}: TeamDetailPageProps) {
   const participant = await getParticipantFromSession();
   const team = await getTeamById(id);
   if (!team) {

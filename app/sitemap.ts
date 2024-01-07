@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-import { NAVIGATION_CATEGORIES } from "./components/navigation-server";
+import { NAVIGATION_CATEGORIES } from "./_configs/navigation-categories";
 
 export default function sitemap() {
   return NAVIGATION_CATEGORIES.flatMap((category) =>
