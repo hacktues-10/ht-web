@@ -252,7 +252,6 @@ function CountdownHero() {
             <Link href="/teams">Разгледайте отборите</Link>
           </Button>
         </IfHTSession>
-        
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>
