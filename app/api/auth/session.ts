@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import invariant from "tiny-invariant";
 
+import { getAdminFromSession } from "~/app/(full-layout)/api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import { getMentorFromSession } from "~/app/(full-layout)/mentors/service";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { authOptions } from "./options";
@@ -35,11 +36,12 @@ export async function getUserAuthorization() {
   const session = await getHTSession();
   const mentor = await getMentorFromSession();
   const participant = await getParticipantFromSession();
-
+  const admin = await getAdminFromSession();
   return {
     hasSession: !!session,
     isMentor: !!mentor,
     isParticipant: !!participant,
     hasConnectedDiscord: !!mentor?.discordUser || !!participant?.discordUser,
+    isAdmin: !!admin,
   };
 }

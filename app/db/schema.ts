@@ -312,16 +312,16 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
 export const admins = pgTable("admins", {
   userId: integer("user_id")
     .notNull()
-    .references(() => particpants.id)
+    .references(() => users.id)
     .primaryKey(),
   firstName: varchar("first_name").notNull(),
   lastName: varchar("last_name").notNull(),
 });
 
 export const adminsRelations = relations(admins, ({ one }) => ({
-  user: one(particpants, {
+  user: one(users, {
     fields: [admins.userId],
-    references: [particpants.id],
+    references: [users.id],
   }),
 }));
 
