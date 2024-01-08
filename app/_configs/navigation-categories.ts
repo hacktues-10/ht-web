@@ -34,7 +34,7 @@ export const NAVIGATION_CATEGORIES = [
         isNew: false,
       },
       {
-        label: "С подкрепата на",
+        label: "С подкрепата на...",
         url: "/partners",
         isVisible: true,
         isNew: false,
