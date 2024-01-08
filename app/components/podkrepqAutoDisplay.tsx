@@ -31,7 +31,7 @@ export default function PodkrepqAutomationComponent({
   }, [liveIndex, podkrepqshti.length]);
 
   return (
-    <div className="flex flex-wrap align-middle">
+    <div className="flex items-center flex-wrap align-middle justify-center">
       <ul className="relative mx-auto mt-20 w-64 sm:w-72 md:w-80 lg:w-96">
         <div className="pb-[50%] pt-[20%] ">
           {podkrepqshti.map((podkrepqsht, index) => (
@@ -56,16 +56,25 @@ export default function PodkrepqAutomationComponent({
           </CardTitle>
           <CardContent className="p-5 text-white">
             <div className="max-h-[200px]">
-              <p>
-                {podkrepqshti[liveIndex].description?.substring(0, 270)}
-                ...&emsp;
-                <Link
-                  className="font-semibold italic text-white"
-                  href={podkrepqshti[liveIndex].url}
-                >
-                  Научи повече
-                </Link>
-              </p>
+              {shouldShowDescription(podkrepqshti[liveIndex].description) ? (
+                <p>
+                  {podkrepqshti[liveIndex].description?.substring(0, 270)}
+                  ...&emsp;
+                  <PodkrepqReadMore
+                    url={podkrepqshti[liveIndex].url}
+                    description={podkrepqshti[liveIndex].description}
+                  />
+                </p>
+              ) : (
+                <div className="flex h-[150px] flex-col items-center justify-center gap-1">
+                  <p className="text-xl font-bold">
+                    Благодарим на {podkrepqshti[liveIndex].name} за подкрепата!
+                  </p>
+                  <p>
+                    <PodkrepqReadMore url={podkrepqshti[liveIndex].url} />
+                  </p>
+                </div>
+              )}
             </div>
             <div className="flex flex-wrap justify-center align-middle">
               {podkrepqshti[liveIndex].supportedEditions?.map((h) => {
@@ -83,6 +92,25 @@ export default function PodkrepqAutomationComponent({
       </div>
     </div>
   );
+}
+
+function shouldShowDescription(description?: string) {
+  return description && !description.toLowerCase().includes("lorem ipsum");
+}
+
+function PodkrepqReadMore({
+  description,
+  url,
+}: {
+  description?: string;
+  url: string;
+}) {
+  const link = (
+    <Link className="font-semibold italic text-white" href={url}>
+      Научи повече
+    </Link>
+  );
+  return link;
 }
 
 function PodkrepqLogo({
@@ -126,7 +154,7 @@ function PodkrepqLogo({
           "group z-0 grid aspect-video place-content-center overflow-clip rounded-lg bg-white p-4 opacity-0 shadow-md transition-all duration-700",
           index === prevIndex &&
             "z-10 opacity-50 [transform:rotateX(45deg)_translateY(-130%)] hover:opacity-75",
-          index === liveIndex && "z-50 opacity-100",
+          index === liveIndex && "z-50 opacity-100 hover:scale-[112.5%]",
           index === nextIndex &&
             "z-10 opacity-50 [transform:rotateX(-45deg)_translateY(130%)] hover:opacity-75",
           index === nextNextIndex &&
@@ -138,7 +166,7 @@ function PodkrepqLogo({
       >
         <Image
           className={cn(
-            "max-h-full max-w-full object-contain px-3 py-5",
+            "max-w-[14.2rem] max-h-[8rem] sm:max-w-[16rem] sm:max-h-[9rem] md:max-w-[17.7rem] md:max-h-[10rem] lg:max-w-[21.3rem] lg:max-h-[12rem] object-contain px-3 py-5",
             index === prevIndex && "z-10",
             index === liveIndex && "z-50",
             index === nextIndex && "z-10 ",

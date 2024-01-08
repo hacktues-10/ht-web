@@ -10,8 +10,11 @@ async function checkAuthentication() {
   const authorization = await getUserAuthorization();
   return {
     isMentorOrParticipant:
-      authorization.isMentor || authorization.isParticipant,
-    hasConnectedDiscord: authorization.hasConnectedDiscord,
+      authorization.isAdmin ||
+      authorization.isMentor ||
+      authorization.isParticipant,
+    hasConnectedDiscord:
+      authorization.isAdmin || authorization.hasConnectedDiscord,
     hasSession: authorization.hasSession,
   };
 }

@@ -95,7 +95,8 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     color: ${color.buttonText};
     text-decoration: none;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 18px 36px;
+    font-size: 26px;
     display: inline-block;
     font-weight: bold;
     background: #b01c32;
@@ -107,15 +108,15 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     style="background: ${color.mainBackground}; max-width: 600px; margin: auto; border-radius: 10px;">
     <tr>
       <td align="center"
-        style="padding: 10px 0px; font-size: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
+        style="padding: 10px 0px; font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
         Влезте в <strong>Hack TUES X</strong>
       </td>
     </tr>
     <tr>
-      <td align="center" style="padding: 20px 0;">
+      <td align="center" style="padding: 10px 0;">
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="center" style="border-radius: 5px;">
+            <td align="center" style="border-radius: 5px; padding:5px;">
               <a href="${url}" target="_blank" style="${buttonStyle}">
                 Влез
               </a>
@@ -127,7 +128,7 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. Можете да се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
+        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
       </td>
     </tr>
   </table>
@@ -144,9 +145,8 @@ function text(params: { url: string; identifier: string; theme: Theme }) {
 ${url}
 
 Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта
-на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. Можете
-да се свържете с нас като отговорите на този имейл или пишете на:
-
+на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение.
+При нужда се свържете с нас като отговорите на този имейл или пишете на:
 hacktues@elsys-bg.org
 `;
 }
@@ -176,7 +176,10 @@ async function sendEmail(
 
   return await transport.sendMail({
     to: identifier,
-    from: "Hack TUES X",
+    from: {
+      name: "Hack TUES X",
+      address: env.EMAIL_FROM,
+    },
     subject: `Влизане в Hack TUES X`,
     html: html({ url, identifier, theme }),
     text: text({ url, identifier, theme }),

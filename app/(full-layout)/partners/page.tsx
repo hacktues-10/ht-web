@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,6 +19,12 @@ import {
   CardHeader,
   CardTitle,
 } from "~/app/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Спонсори и партньори",
+  description:
+    "Компании, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+};
 
 export default function Podkrepq() {
   return (
@@ -56,7 +63,7 @@ function SponsorsAndPartners() {
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className=" scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
+    <h2 className=" scroll-m-20 pb-2 text-center text-5xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
       {children}
     </h2>
   );
@@ -65,11 +72,10 @@ function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
 function MediaCoverage() {
   return (
     <section className="relative flex flex-col items-center gap-3 pt-7">
-      {/* TODO: put it on mitko's thing */}
-      <div
+      {/* <div
         className="absolute -top-3 left-1/2 -z-30 h-[34px] min-h-[800px] w-[300%] -translate-x-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_0%,hsl(var(--sand)/0.15),transparent)]"
         aria-hidden
-      />
+      /> */}
       <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
         Медиите за нас
       </h2>

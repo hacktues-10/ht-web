@@ -1,9 +1,16 @@
-import { eq, isNull } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
+import { Team } from "../(full-layout)/teams/service";
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
-import { discordUsers, particpants, teams, users } from "../db/schema";
+import {
+  discordUsers,
+  invitations,
+  particpants,
+  teams,
+  users,
+} from "../db/schema";
 
 export type Participant = Awaited<
   ReturnType<typeof selectFromParticipants>
@@ -23,6 +30,7 @@ const selectFromParticipants = () =>
       allergies: particpants.allergies,
       tShirtId: particpants.tShirtId,
       isLookingForTeam: particpants.isLookingForTeam,
+      isDisqualified: particpants.isDisqualified,
       technologies: particpants.technologies,
       team: {
         id: teams.id,
@@ -57,6 +65,27 @@ export async function getParticipantFromSession() {
   return getParticipantByEmail(session.user.email);
 }
 
+export async function getInvitationsForParticipant(participantId: any) {
+  return db
+    .select({
+      id: invitations.id,
+      teamId: invitations.teamId,
+      invitedId: invitations.invitedParticipantId,
+    })
+    .from(particpants)
+    .leftJoin(invitations, eq(invitations.invitedParticipantId, participantId));
+}
+
+export async function hasInvitationFromTeam(participantId: any, teamId: any) {
+  const invitations = await getInvitationsForParticipant(participantId);
+  for (const invite of invitations) {
+    if (invite.teamId === teamId) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export function isParticipantStudent(participant: Participant) {
   return participant.grade.length <= 2;
 }
@@ -65,7 +94,13 @@ export function isParticipantAlumni(participant: Participant) {
   return !isParticipantStudent(participant);
 }
 
-export async function getParticipantsWithNoTeam() {
+export async function getParticipantsWithNoTeam(Invite: boolean = false) {
+  if (Invite) {
+    const results = await selectFromParticipants().where(
+      and(isNull(particpants.teamId), eq(particpants.isLookingForTeam, true)),
+    );
+    return results;
+  }
   const results = await selectFromParticipants().where(
     isNull(particpants.teamId),
   );

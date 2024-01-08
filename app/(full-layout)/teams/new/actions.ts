@@ -9,7 +9,13 @@ import { createTeam } from "../service";
 
 export const createTeamAction = zact(
   z.object({
-    name: z.string(),
+    name: z
+      .string()
+      .trim()
+      .max(30)
+      .refine(
+        (v) => v.toLocaleLowerCase().replaceAll(" ", "") !== "falsepositive",
+      ),
     description: z.string(),
   }),
 )(async (input) => {
@@ -56,7 +62,7 @@ export const createTeamAction = zact(
 
 export const checkUserCanCreateTeam = async () => {
   const participant = await getParticipantFromSession();
-  if (!participant || participant.team.id) {
+  if (!participant || participant.team.id || participant.isDisqualified) {
     return { isEligableToCreateTeam: false };
   }
   return { isEligableToCreateTeam: true };

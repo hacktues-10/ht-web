@@ -24,12 +24,12 @@ export default function RenderMember({
     <HoverCard>
       <HoverCardTrigger asChild>
         <div className="transition-transform duration-300 ease-in-out hover:scale-105">
-          {member.isCaptain && (
-            <div className="ml-auto mr-auto h-4 w-8">
-              <Crown />
-            </div>
-          )}
-          <Avatar className="m-auto mt-0">
+          <Avatar className="relative m-auto  mt-0 overflow-visible">
+            {member.isCaptain && (
+              <div className="absolute inset-0 z-50 flex -translate-y-[60%] items-center justify-center">
+                <Crown className="h-4 w-8" />
+              </div>
+            )}
             <AvatarImage />
             <AvatarFallback className={`${color}`}>
               {member.firstName?.charAt(0).toUpperCase()}

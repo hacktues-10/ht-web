@@ -1,4 +1,5 @@
 import { PropsWithChildren } from "react";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import invariant from "tiny-invariant";
 
@@ -10,6 +11,11 @@ import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { MentorFrom } from "./_components/mentor-form";
 import { ParticipantForm } from "./_components/participant-form";
+
+export const metadata: Metadata = {
+  title: "Регистрация",
+  description: "Регистрирайте се за участие в Hack TUES X",
+};
 
 export default async function ConfigFlowPage({
   searchParams: { callbackUrl },

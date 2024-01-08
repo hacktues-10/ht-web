@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -12,6 +13,11 @@ import { HTXLogoDuotone } from "~/app/components/logos";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
+
+export const metadata: Metadata = {
+  title: "Възникна грешка при влизането",
+  description: "Възникна грешка при влизането ви в Hack TUES X",
+};
 
 export default function LoginErrorPage({
   searchParams: { error },
