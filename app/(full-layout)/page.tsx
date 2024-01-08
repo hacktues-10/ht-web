@@ -113,7 +113,7 @@ export default async function LandingPage() {
               Десетото юбилейно издание на Hack TUES дава възможност за участие
               на{" "}
               <span className="font-bold text-primary">завършили туесари</span>{" "}
-              от всички випуски на ТУЕС!
+              от всички випуски на ТУЕС в отбори от двама или трима!
             </p>
           </Card>
           <ArchiveStatsCard className="md:grid-cols-2">
