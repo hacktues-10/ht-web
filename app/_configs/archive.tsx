@@ -1404,7 +1404,7 @@ export const HACKATHONS = [
         </p>
       </>
     ),
-    websiteArchiveUrl: null,
+    websiteArchiveUrl: "https://security.hacktues.bg/",
     aztuesArticleUrl: "https://aztues.bg/hack-tues-s/",
     font: montserrat.style,
     themeStyle: {
