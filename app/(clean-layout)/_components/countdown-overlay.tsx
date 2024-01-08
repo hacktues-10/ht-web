@@ -41,7 +41,7 @@ export const OverlayContainer = ({
 }: React.PropsWithChildren<{ className?: string }>) => (
   <div
     className={cn(
-      "absolute inset-0 z-50 flex items-center justify-center bg-background/5 text-card-foreground backdrop-blur-lg",
+      "absolute inset-0 z-50 flex items-center justify-center bg-background/90 text-card-foreground backdrop-blur-lg",
       className,
     )}
   >
