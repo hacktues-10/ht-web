@@ -111,6 +111,9 @@ export const AlumniForm = ({ email }: { email: string }) => {
   async function handleSubmit(stepData: Partial<AlumniRegistrationSchema>) {
     updateData(stepData);
     const updatedData = { ...formData, ...stepData };
+    toast({
+      title: "Регистрира се профил на завършил...",
+    });
     const response = await registerAlumni(updatedData);
     try {
       if (response.success) {
