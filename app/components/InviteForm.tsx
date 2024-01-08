@@ -37,7 +37,6 @@ export function InviteForm({
 
   async function handleSubmit() {
     const participantId = getParticipantIdByValue(value, participants);
-    invariant(!isNaN(participantId), "Participant ID must be a number");
 
     if (isNaN(participantId)) {
       toast({

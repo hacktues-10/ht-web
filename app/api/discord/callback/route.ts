@@ -83,6 +83,8 @@ export async function GET(req: NextRequest) {
       access_token: data.access_token,
       nick: nickOfUser(participant, mentor),
       roles: uniqueRolesOfUser(participant, mentor),
+      mute: false,
+      deaf: false,
     };
     if (!participant && !mentor) {
       console.error("no participant and no mentor");
@@ -99,7 +101,10 @@ export async function GET(req: NextRequest) {
       },
     );
     if (!inviteRes.ok) {
-      console.error("inviteRes not ok", await inviteRes.json());
+      console.error(
+        "inviteRes not ok",
+        JSON.stringify(await inviteRes.json(), null, 2),
+      );
       redirect(generateErrorUrl(2000));
     }
     if (!participant) {

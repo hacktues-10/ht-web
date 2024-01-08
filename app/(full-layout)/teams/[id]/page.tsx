@@ -41,6 +41,20 @@ import {
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 
+type TeamDetailPageProps = {
+  params: { id: string };
+};
+
+export async function generateMetadata({ params }: TeamDetailPageProps) {
+  const team = await getTeamById(params.id);
+  if (!team) {
+    notFound();
+  }
+  return {
+    title: team.name,
+    description: team.description,
+  };
+}
 const colors = [
   "bg-red-700",
   "bg-green-700",
