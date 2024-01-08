@@ -41,11 +41,36 @@ import {
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 
+type TeamDetailPageProps = {
+  params: { id: string };
+};
+
+export async function generateMetadata({ params }: TeamDetailPageProps) {
+  const team = await getTeamById(params.id);
+  if (!team) {
+    notFound();
+  }
+  return {
+    title: team.name,
+    description: team.description,
+  };
+}
+const colors = [
+  "bg-red-700",
+  "bg-green-700",
+  "bg-orange-700",
+  "bg-yellow-700",
+  "bg-emerald-700",
+  "bg-cyan-700",
+  "bg-sky-700",
+  "bg-indigo-700",
+  "bg-violet-700",
+  "bg-purple-700",
+];
+
 export default async function TeamDetailPage({
   params: { id },
-}: {
-  params: { id: string };
-}) {
+}: TeamDetailPageProps) {
   const participant = await getParticipantFromSession();
   const team = await getTeamById(id);
   if (!team) {
@@ -111,7 +136,7 @@ export default async function TeamDetailPage({
             <TeamDetailsComponent team={team} />
           </div>
         </div>
-        <div className="mt-4 flex flex-grow items-center justify-center pt-3 sm:mt-1">
+        <div className="mt-2 flex flex-grow items-center justify-center pt-3 sm:mt-1">
           <h1 className="ml-auto mr-auto mt-0 flex text-4xl font-semibold text-white sm:text-5xl">
             {team.name}
           </h1>
@@ -223,36 +248,64 @@ export default async function TeamDetailPage({
           </Tabs>
         </Card>
         <div className="sm:w-2/5">
-          <Card className="fadeInComponent m-10 ml-auto mr-auto flex h-min w-5/6 rounded-3xl border-2 p-5 sm:mr-0">
-            {team.mentorId && url ? (
-              <>
-                <div>
-                  <Avatar>
-                    <AvatarImage src={url}></AvatarImage>
-                    <AvatarFallback>?</AvatarFallback>
-                  </Avatar>
+          <Card className="fadeInComponent m-10 ml-auto mr-auto  h-min w-5/6 rounded-3xl border-2 p-5 sm:mr-0">
+            {teamMembers.length &&
+              teamMembers.map((member) => (
+                <div
+                  key={member.id}
+                  className="m-2 flex rounded-2xl border-2 p-2"
+                >
+                  <div
+                    className={`z-30 mb-auto mt-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
+                      colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
+                    } text-center`}
+                  >
+                    <h1 className="p-2 text-sm">
+                      {member.firstName?.charAt(0).toUpperCase()}
+                    </h1>
+                  </div>
+                  <h2 className="m-auto ml-4 text-left text-lg">
+                    {member.firstName} {member.lastName}
+                  </h2>
                 </div>
-                <h2 className="m-auto text-lg">
-                  {mentor?.firstName} {mentor?.lastName}
-                </h2>
-              </>
-            ) : (
-              <>
+              ))}
+            {team.mentorId && url ? (
+              <div
+                key={mentor?.id}
+                className="m-2 flex rounded-2xl border-2 p-2"
+              >
                 <div>
                   <Avatar>
                     <AvatarImage></AvatarImage>
                     <AvatarFallback>?</AvatarFallback>
                   </Avatar>
                 </div>
-                <h2 className="m-auto text-lg">Все още няма ментор</h2>
-              </>
+                <h2 className="m-auto ml-4 text-left text-lg">
+                  {mentor?.firstName} {mentor?.lastName}
+                </h2>
+              </div>
+            ) : (
+              <div
+                key={mentor?.id}
+                className="m-2 flex rounded-2xl border-2 p-2"
+              >
+                <div>
+                  <Avatar>
+                    <AvatarImage></AvatarImage>
+                    <AvatarFallback>?</AvatarFallback>
+                  </Avatar>
+                </div>
+                <h2 className="m-auto ml-4 text-left text-lg">
+                  Все още няма ментор
+                </h2>
+              </div>
             )}
           </Card>
 
           <Card className="fadeInComponent m-10 ml-auto mr-auto w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
             <h3 className="mb-2 text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
-              <ScrollArea className="m-2 h-[200px] w-full flex-auto gap-2 p-2">
+              <ScrollArea className="m-2 h-min max-h-[200px] w-full flex-auto gap-2 p-2">
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"

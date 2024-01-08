@@ -113,7 +113,7 @@ export default async function LandingPage() {
               Десетото юбилейно издание на Hack TUES дава възможност за участие
               на{" "}
               <span className="font-bold text-primary">завършили туесари</span>{" "}
-              от всички випуски на ТУЕС!
+              от всички випуски на ТУЕС в отбори от двама или трима!
             </p>
           </Card>
           <ArchiveStatsCard className="md:grid-cols-2">
@@ -252,7 +252,6 @@ function CountdownHero() {
             <Link href="/teams">Разгледайте отборите</Link>
           </Button>
         </IfHTSession>
-        
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>
@@ -414,7 +413,7 @@ function UnescoSection() {
             <Image
               src={ht8Image}
               alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
-              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all hover:scale-105 hover:shadow-xl"
+              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl"
             />
           </Link>
         </div>

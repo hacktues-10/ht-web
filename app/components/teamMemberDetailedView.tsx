@@ -3,6 +3,7 @@
 import { getTeamMembers } from "../(full-layout)/teams/actions";
 import { getTeamById } from "../(full-layout)/teams/service";
 import { getParticipantFromSession } from "../participants/service";
+import { cn } from "../utils";
 import Crown from "./Crown";
 import MakeCaptainComponent from "./makeCaptainComponent";
 import RemoveMemberComponent from "./RemoveMemberComponent";
@@ -31,34 +32,38 @@ export default function TeamMemberDetailedView({
 
   return (
     <div className="mx-3 flex flex-col items-center justify-center align-middle sm:mx-8">
-      {member.isCaptain && (
-        <div className="h-4 w-8 sm:h-10 sm:w-20">
-          <Crown />
-        </div>
-      )}
       <div
-        className={`z-32 ml-auto mr-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-32 sm:w-32 ${
-          colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
-        } text-center`}
+        className={cn(
+          `z-32 relative ml-auto mr-auto flex h-14 w-14 items-center justify-center rounded-full sm:h-32 sm:w-32 ${
+            colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]
+          } text-center`,
+        )}
       >
+        {member.isCaptain && (
+          <div className="absolute inset-0 flex -translate-y-[60%]  items-center justify-center">
+            <Crown className=" h-4 w-8 sm:h-10 sm:w-20" />
+          </div>
+        )}
+
         <h1 className="p-2 text-3xl sm:text-6xl">
           {member.firstName?.charAt(0).toUpperCase()}
         </h1>
       </div>
-      <div className="mt-2 flex h-auto space-x-4">
-        {participant?.team.isCaptain &&
-          participant.team.id === team.id &&
-          participant.id !== member.id && (
-            <>
-              <RemoveMemberComponent memberToRemove={member} remove={true} />
-              <MakeCaptainComponent participant={participant} member={member} />
-            </>
-          )}
-
-        {participant?.id == member.id && !participant.team.isCaptain && (
+      {participant?.id == member.id && !participant.team.isCaptain && (
+        <div className="flex items-center justify-center">
           <RemoveMemberComponent memberToRemove={member} remove={false} />
-        )}
-      </div>
+        </div>
+      )}
+      {participant?.team.isCaptain &&
+      participant.team.id === team.id &&
+      participant.id !== member.id ? (
+        <div className="flex items-center justify-center">
+          <RemoveMemberComponent memberToRemove={member} remove={true} />
+          <MakeCaptainComponent participant={participant} member={member} />
+        </div>
+      ) : (
+        member?.isCaptain && <div className="m-1 h-10 w-8" />
+      )}
     </div>
   );
 }

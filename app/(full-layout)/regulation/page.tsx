@@ -1,6 +1,12 @@
+import { Metadata } from "next";
 import Link from "next/link";
 
 import { Card } from "~/app/components/ui/card";
+
+export const metadata: Metadata = {
+  title: "Регламент",
+  description: "Регламентът на Hack TUES X",
+};
 
 export default function Regulations() {
   return (
@@ -38,9 +44,9 @@ export default function Regulations() {
             бъде отворена.
           </p>
           <p className="mb-3 leading-7 [&:not(:first-child)]:mt-3">
-            &emsp;&emsp;• Ако сте бивш възпитаник на ТУЕС, можете да се
+            &emsp;&emsp;• Ако сте завършил възпитаник на ТУЕС, можете да се
             регистрирате още сега от{" "}
-            <Link href="/api/auth/signin" className="text-cyan-500 underline">
+            <Link href="/signup" className="text-cyan-500 underline">
               тук
             </Link>
             . Крайният срок за регистрация на завършили ученици е 12.01.2024
