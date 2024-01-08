@@ -153,7 +153,7 @@ export default async function TeamDetailPage({
         </div>
       </Card>
       <div className="w-full  sm:flex">
-        <Card className="fadeInComponent mt-10 self-center rounded-3xl border-2 p-3 sm:w-3/5">
+        <Card className="fadeInComponent m-10 ml-auto mr-auto h-full rounded-3xl border-2 p-3 sm:m-10 sm:ml-0 sm:w-3/5">
           <Tabs defaultValue="information">
             {participant?.team.id == team.id && (
               <TabsList className="mb-4">
@@ -195,7 +195,7 @@ export default async function TeamDetailPage({
                   </div>
                 ) : (
                   <div className="items-center justify-center sm:flex">
-                    <h3 className="mt-2 text-center text-xl">
+                    <h3 className="mt-2 text-center text-lg">
                       Все още няма създаден проект :(
                     </h3>
 
@@ -218,7 +218,7 @@ export default async function TeamDetailPage({
               </TabsContent>
               <TabsContent
                 value="settings"
-                className="w-full items-center justify-center sm:flex"
+                className="w-full items-center justify-center"
               >
                 <IfHTFeatureOn feature="update-team-members">
                   {participant &&
@@ -233,15 +233,25 @@ export default async function TeamDetailPage({
                         />
                       </div>
                     )}
-                </IfHTFeatureOn>
-                <IfHTFeatureOn feature="update-team-details">
-                  {participant &&
-                    participant.team.isCaptain &&
-                    participant.team.id == team.id && (
-                      <div className="m-auto mt-5 justify-center text-center">
-                        <DeleteTeamButton id={team.id} />
-                      </div>
-                    )}
+                  <IfHTFeatureOn feature="update-team-details">
+                    {participant &&
+                      participant.team.isCaptain &&
+                      participant.team.id == team.id && (
+                        <div className="mt-5">
+                          <h3 className="m-auto text-center text-2xl sm:ml-4 sm:text-left">
+                            Опасна зона
+                          </h3>
+                          <div className="m-auto rounded-3xl border-2 border-destructive p-2 text-center sm:flex sm:p-3">
+                            <h4 className="p-2 pt-0 text-lg sm:pt-2 sm:text-left ">
+                              Изтрийте своя отбор
+                            </h4>
+                            <div className="sm:ml-auto sm:self-end">
+                              <DeleteTeamButton id={team.id} />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                  </IfHTFeatureOn>
                 </IfHTFeatureOn>
               </TabsContent>
             </div>

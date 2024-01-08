@@ -54,7 +54,7 @@ export function CreateTeamForm() {
     });
 
     const res = await createTeamAction({ name, description });
-    if (res.success) {
+    if (res.success && res.team) {
       router.push(`/teams/${res.team.id}`);
     } else {
       toast({

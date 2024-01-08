@@ -55,12 +55,8 @@ export const createTeamAction = zact(
       isAlumni: isAlumni,
     });
     return { success: true, team } as const;
-  } catch (e) {
-    return {
-      success: false,
-      error:
-        "Възнинкна грешка, ако смятате, че нещо не е наред, свържете се с нас!",
-    } as const;
+  } catch {
+    return { success: false, error: "Вече има отбор с това име" };
   }
 });
 
