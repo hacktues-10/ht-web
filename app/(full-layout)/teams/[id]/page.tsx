@@ -279,7 +279,7 @@ export default async function TeamDetailPage({
                   </h2>
                 </div>
               ))}
-            {team.mentorId && url ? (
+            {team.mentorId && url && !team.isAlumni ? (
               <div
                 key={mentor?.id}
                 className="m-2 flex rounded-2xl border-2 p-2"
