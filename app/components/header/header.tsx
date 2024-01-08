@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
-import { LogOutIcon, UserCircle2 } from "lucide-react";
+import { LogOutIcon, User } from "lucide-react";
 
 import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
@@ -12,10 +12,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/app/components/ui/dropdown-menu";
-import { IfTEAM } from "../../(full-layout)/teams/components";
 import { SignInButton, SignOutButton } from "../buttons";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
 import { Button } from "../ui/button";
@@ -25,6 +23,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "~/app/components/ui/avatar";
 import { getHeaderData } from "./actions";
 
 export const Header = () => {
@@ -63,53 +66,56 @@ export const Header = () => {
         )}
       {headerData && headerData.avatarName !== null && (
         <DropdownMenu>
-          <DropdownMenuTrigger className="mr-20">
+          <DropdownMenuTrigger className="hidden sm:block">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="hidden md:inline-flex"
+                    className="hidden rounded-full outline-0 ring-0 md:inline-flex focus:bg-white/0"
                     asChild
                   >
-                    <UserCircle2 />
+                    <Avatar>
+                      <AvatarImage />
+                      <AvatarFallback>{headerData.avatarName.at(0) ?? <User />}</AvatarFallback>
+                    </Avatar>
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>{headerData.avatarName}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel className="items-center text-center justify-center p-4">
-              Здравей, {headerData.avatarName}
+          <DropdownMenuContent className="md:max-w-[12rem] items-center">
+            <DropdownMenuLabel className="text-center text-wrap text-ellipsis justify-center py-3">
+              Здравейте, {headerData.avatarName}
             </DropdownMenuLabel>
-            <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10 md:inline-flex">
-              <Link href="/profile" className="w-full py-5 text-center">
-                Профил
+            <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
+              <Link href="/profile" className="w-full text-center py-3">
+                Моят Профил
               </Link>
             </DropdownMenuItem>
-            {headerData.participant?.team && (
-              <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10 md:inline-flex">
-                <Link href="/teams/myteam" className="w-full py-5 text-center">
+            {headerData.participant && headerData.participant.team != null && (
+              <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
+                <Link href="/teams/myteam" className="w-full text-center py-3">
                   Моят отбор
                 </Link>
               </DropdownMenuItem>
             )}
-            <DropdownMenuItem className="w-full py-4 items-center justify-center hover:bg-white/10 md:inline-flex">
+            <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      size="icon"
+                      size="default"
                       variant="ghost"
-                      className="hidden md:inline-flex"
+                      className="w-full h-full py-2 px-0 hidden md:inline-flex focus:bg-current/10 hover:bg-current/10"
                       asChild
                     >
                       <SignOutButton>
-                        <div className="flex px-20">
+                        <div className="flex focus:bg-current hover:bg-current/10">
                         <LogOutIcon className="scale-90 content-center"/>
-                        <p className="ml-2 content-center">Изход</p>
+                        <p className="ml-2 content-center text-destructive focus:bg-current/10 hover:bg-current/10">Изход</p>
                         </div>
                       </SignOutButton>
                     </Button>

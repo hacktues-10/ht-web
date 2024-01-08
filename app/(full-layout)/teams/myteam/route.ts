@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
 
     if (!participant || !participant.team.id)
     {
-        redirect("/")
+        redirect("/teams/")
     }
 
     redirect(`/teams/${participant.team.id}`)

@@ -41,7 +41,10 @@ export function InviteForm({
     });
 
     if (!success) {
-      throw new Error("Failed to invite participant to team :(");
+      toast({
+        title: "Грешка при опита за покана",
+        description: "Може би този човек не иска да бъде обезпокояван?",
+      });
     }
     if (success) {
       toast({
