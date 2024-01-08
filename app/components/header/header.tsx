@@ -3,10 +3,17 @@
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
-import { LogOutIcon, UserCircle2 } from "lucide-react";
+import { LogOutIcon, User } from "lucide-react";
 
 import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "~/app/components/ui/dropdown-menu";
 import { SignInButton, SignOutButton } from "../buttons";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
 import { Button } from "../ui/button";
@@ -16,6 +23,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "~/app/components/ui/avatar";
 import { getHeaderData } from "./actions";
 
 export const Header = () => {
@@ -23,6 +35,8 @@ export const Header = () => {
 
   const { scrollY } = useScroll();
   const { data: headerData } = useHeaderData();
+
+  headerData?.participant;
 
   return (
     <animated.header
@@ -50,45 +64,70 @@ export const Header = () => {
             participant={headerData.participant}
           />
         )}
-      {/* TODO: make this a dropdown of the pfp */}
-      {headerData && headerData.avatarName && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="hidden md:inline-flex"
-                asChild
-              >
-                <SignOutButton>
-                  <LogOutIcon />
-                </SignOutButton>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Изход</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )}
       {headerData && headerData.avatarName !== null && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="hidden md:inline-flex"
-                asChild
-              >
-                <Link href="/profile">
-                  <UserCircle2 />
+        <DropdownMenu>
+          <DropdownMenuTrigger className="hidden sm:block">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="hidden rounded-full outline-0 ring-0 md:inline-flex focus:bg-white/0"
+                    asChild
+                  >
+                    <Avatar>
+                      <AvatarImage />
+                      <AvatarFallback>{headerData.avatarName.at(0) ?? <User />}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>{headerData.avatarName}</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="md:max-w-[12rem] items-center">
+            <DropdownMenuLabel className="text-center text-wrap text-ellipsis justify-center py-3">
+              Здравейте, {headerData.avatarName}
+            </DropdownMenuLabel>
+            <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
+              <Link href="/profile" className="w-full text-center py-3">
+                Моят Профил
+              </Link>
+            </DropdownMenuItem>
+            {headerData.participant && headerData.participant.team != null && (
+              <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
+                <Link href="/teams/myteam" className="w-full text-center py-3">
+                  Моят отбор
                 </Link>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>{headerData.avatarName}</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+              </DropdownMenuItem>
+            )}
+            <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size="default"
+                      variant="ghost"
+                      className="w-full h-full py-2 px-0 hidden md:inline-flex focus:bg-current/10 hover:bg-current/10"
+                      asChild
+                    >
+                      <SignOutButton>
+                        <div className="flex focus:bg-current hover:bg-current/10">
+                        <LogOutIcon className="scale-90 content-center"/>
+                        <p className="ml-2 content-center text-destructive focus:bg-current/10 hover:bg-current/10">Изход</p>
+                        </div>
+                      </SignOutButton>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Изход</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       )}
+
       {headerData && headerData.avatarName === null && (
         <div className="hidden gap-2 md:flex">
           <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>

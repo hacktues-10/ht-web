@@ -38,7 +38,7 @@ export default async function LoginPage() {
         size="sm"
         className="hover:backdrop-blur-md"
       >
-        <Link href="/">{"<-"} Обратно към началото</Link>
+        <Link href="/">{"<-"} Обратно в началото</Link>
       </Button>
       <Separator />
       <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>

@@ -20,6 +20,7 @@ export const getHeaderData = async () => {
         ? {
             id: participant.id,
             isLookingForTeam: participant.isLookingForTeam,
+            team: participant.team.id
           }
         : null,
   };

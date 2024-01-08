@@ -59,7 +59,10 @@ export function InviteForm({
       });
     } else if (!success) {
       //TODO: Maybe not use an if statement
-      throw new Error("Failed to invite participant to team :(");
+      toast({
+        title: "Грешка при опита за покана",
+        description: "Може би този човек не иска да бъде обезпокояван?",
+      });
     }
     if (success) {
       toast({
