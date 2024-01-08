@@ -36,6 +36,7 @@ export default function TableData({ data }: { data: Array<object> }) {
             {columns.map((column) => (
               //@ts-ignore
               <TableCell key={column} className="max-w-[60px]">
+                {/* @ts-ignore */}
                 <ScrollArea className="max-h-[60px]">{item[column]}</ScrollArea>
               </TableCell>
             ))}
