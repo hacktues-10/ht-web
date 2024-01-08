@@ -128,7 +128,7 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Получавате това писмо, защото някой е въвел вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение.
+        Получавате това писмо, защото някой е въвел вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
       </td>
     </tr>
   </table>
@@ -145,7 +145,10 @@ function text(params: { url: string; identifier: string; theme: Theme }) {
 ${url}
 
 Получавате това писмо, защото някой е въвел вашия адрес (${identifier}) в сайта
-на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение.`;
+на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение.
+При нужда се свържете с нас като отговорите на този имейл или пишете на:
+hacktues@elsys-bg.org
+`;
 }
 
 async function sendEmail(
