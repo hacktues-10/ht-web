@@ -277,67 +277,74 @@ export const checkStateJoinRequests = zact(
 
 // FIXME: use zact
 export async function removeTeamMember(memberId: number) {
-  const gb = await getServerSideGrowthBook();
-  if (gb.isOff("update-team-members")) {
-    return {
-      success: false,
-      message:
-        "Премахването на участници от отбори не е позволено по това време.",
-    };
-  }
-
-  const participant = await getParticipantFromSession();
-  const admin = await getAdminFromSession();
-  if (!participant?.id && !admin) {
-    return { success: false, message: "Unauthenticated" };
-  }
-  const member = await getParticipantById(memberId);
-  if (!member?.team.id) {
-    return { success: false, message: "The member is not part of this team" };
-  }
-
-  const discordMember = await db
-    .select()
-    .from(discordUsers)
-    .where(eq(discordUsers.participantId, member.id));
-  if (!discordMember[0].discordId)
-    return {
-      success: false,
-      message: "The member does not have discord account",
-    };
-
-  const team = await getTeamById(member.team.id);
-
-  if (
-    ((participant?.team.isCaptain &&
-      participant?.team.id == member.team.id &&
-      participant.team.id) ||
-      admin?.userId) &&
-    team?.discordRoleId
-  ) {
-    await deleteRoleFromMember(team.discordRoleId, discordMember[0].discordId);
-    const res = await db
-      .update(particpants)
-      .set({ teamId: null, isCaptain: false })
-      .where(eq(particpants.id, memberId));
-    await updateTechnologies(member.team.id);
-    await db
-      .update(teams)
-      .set({ memberCount: team.memberCount - 1 })
-      .where(eq(teams.id, team.id));
-
-    if (team.memberCount - 1 == 0) {
-      await deleteChannelsRolesCategories(team.id);
-      await db.delete(teams).where(eq(teams.id, team.id));
+  try {
+    const gb = await getServerSideGrowthBook();
+    if (gb.isOff("update-team-members")) {
+      return {
+        success: false,
+        message:
+          "Премахването на участници от отбори не е позволено по това време.",
+      };
     }
-    revalidateTag("teams");
 
-    if (res) {
-      return { success: true };
+    const participant = await getParticipantFromSession();
+    const admin = await getAdminFromSession();
+    if (!participant?.id && !admin) {
+      return { success: false, message: "Unauthenticated" };
     }
-    return { success: false, message: "Failed to remove team member" };
+    const member = await getParticipantById(memberId);
+    if (!member?.team.id) {
+      return { success: false, message: "The member is not part of this team" };
+    }
+
+    const discordMember = await db
+      .select()
+      .from(discordUsers)
+      .where(eq(discordUsers.participantId, member.id));
+    if (!discordMember[0].discordId)
+      return {
+        success: false,
+        message: "The member does not have discord account",
+      };
+
+    const team = await getTeamById(member.team.id);
+
+    if (
+      ((participant?.team.isCaptain &&
+        participant?.team.id == member.team.id &&
+        participant.team.id) ||
+        admin?.userId) &&
+      team?.discordRoleId
+    ) {
+      await deleteRoleFromMember(
+        team.discordRoleId,
+        discordMember[0].discordId,
+      );
+      const res = await db
+        .update(particpants)
+        .set({ teamId: null, isCaptain: false })
+        .where(eq(particpants.id, memberId));
+      await updateTechnologies(member.team.id);
+      await db
+        .update(teams)
+        .set({ memberCount: team.memberCount - 1 })
+        .where(eq(teams.id, team.id));
+
+      if (team.memberCount - 1 == 0) {
+        await deleteChannelsRolesCategories(team.id);
+        await db.delete(teams).where(eq(teams.id, team.id));
+      }
+      revalidateTag("teams");
+
+      if (res) {
+        return { success: true };
+      }
+      return { success: false, message: "Failed to remove team member" };
+    }
+    return { success: false, message: "You are not a team captain" };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "" };
   }
-  return { success: false, message: "You are not a team captain" };
 }
 
 export async function makeCaptain(

@@ -32,6 +32,8 @@ export async function getParticipantsAdmin() {
 }
 
 export async function disqualifyParticipantById(id: number) {
+  console.log("id", id);
+
   const admin = await getAdminFromSession();
   if (!admin) {
     return { success: false, message: "not admin" };
@@ -52,7 +54,7 @@ export async function disqualifyParticipantById(id: number) {
       .where(eq(invitations.invitedParticipantId, id));
     await db.delete(joinRequests).where(eq(joinRequests.userId, id));
 
-    //removing the member from the team and setting isLookingForTeam to false
+    // //removing the member from the team and setting isLookingForTeam to false
     removeTeamMember(participant.id);
 
     await db
@@ -61,7 +63,7 @@ export async function disqualifyParticipantById(id: number) {
       .where(eq(particpants.id, id));
 
     //banning the member from discord
-    const res = await banMember(id);
+    const res = await banMember(id, admin);
     if (!res) {
       return { success: false, message: "error in discord ban" };
     }
@@ -75,7 +77,10 @@ export async function disqualifyParticipantById(id: number) {
   }
 }
 
-async function banMember(id: number) {
+async function banMember(
+  id: number,
+  admin: Awaited<ReturnType<typeof getAdminFromSession>>,
+) {
   const discordInfo = (
     await db
       .select()
@@ -89,23 +94,28 @@ async function banMember(id: number) {
 
   try {
     //ban member in discord
+    console.log(discordInfo);
     const response = await fetch(
       `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/bans/${discordInfo?.discordId}`,
       {
         method: "PUT",
         headers: {
           Authorization: `Bot ${env.DISCORD_BOT_ID}`,
+          "Content-Type": "application/json",
         },
+
         body: JSON.stringify({
           delete_message_days: 1,
-          reason: "Disqualified from the hackathon",
         }),
       },
     );
 
+    console.log(response);
+
     if (response.status === 204) {
       return true;
     }
+    console.log(response);
   } catch (e) {
     console.error(JSON.stringify(e));
     return false;
