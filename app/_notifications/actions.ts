@@ -6,7 +6,10 @@ import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { zact } from "~/app/_zact/server";
-import { updateTechnologies } from "~/app/(full-layout)/teams/actions";
+import {
+  removeTeamMember,
+  updateTechnologies,
+} from "~/app/(full-layout)/teams/actions";
 import { addDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
@@ -17,7 +20,10 @@ import {
   particpants,
   teams,
 } from "~/app/db/schema";
-import { getParticipantFromSession } from "~/app/participants/service";
+import {
+  getParticipantById,
+  getParticipantFromSession,
+} from "~/app/participants/service";
 import { getNotificationsOfParticipant } from "./service";
 
 export const getNotifications = async () => {
@@ -65,6 +71,16 @@ export const acceptJoinRequest = async (
       if (!discord[0].discordId || !discord[0].accessToken) {
         return { success: false };
       }
+
+      const partic = await getParticipantById(joinRequest.userId);
+
+      if (partic?.team.id) {
+        return {
+          success: false,
+          message: "Вече си в отбор, този не ти ли харесва",
+        };
+      }
+
       const res = await addDiscordRole(
         discord[0].discordId,
         team?.discordRoleId,
@@ -87,7 +103,6 @@ export const acceptJoinRequest = async (
       await db
         .delete(notifications)
         .where(eq(notifications.referenceId, joinRequest?.id));
-
       await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
       await updateTechnologies(joinRequest?.teamId);
       revalidateTag("teams");
@@ -146,7 +161,10 @@ export const acceptInvitation = zact(
     return { success: false };
   }
   if (particpant.team.id) {
-    return { success: false };
+    return {
+      success: false,
+      message: "Вече си в отбор, този не ти ли харесва",
+    };
   }
 
   const invitation = await getInvitation(invitationId);
