@@ -72,7 +72,7 @@ const TechnologiesTab = ({
   const filteredTechnologies = useMemo(
     () =>
       technologies
-        .sort((a, b) => a.name.localeCompare(b.name))
+        .sort((a, b) => a.id - b.id)
         .filter((technology) =>
           technology.name
             .toLowerCase()
