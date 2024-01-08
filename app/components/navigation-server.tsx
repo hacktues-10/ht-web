@@ -9,90 +9,9 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "~/app/components/ui/navigation-menu";
+import { NAVIGATION_CATEGORIES } from "../_configs/navigation-categories";
 import { cn } from "../utils";
 import { MobileNavigationRoot, MobileNavLinkServer } from "./navigation-client";
-
-export const NAVIGATION_CATEGORIES = [
-  {
-    category: "root",
-    label: "Начало",
-    links: [
-      {
-        label: "Програма",
-        url: "/schedule",
-        isVisible: false,
-        isNew: false,
-      },
-      {
-        label: "Отбори",
-        url: "/teams",
-        isVisible: true,
-        isNew: false,
-      },
-      {
-        label: "Ментори",
-        url: "/mentors",
-        isVisible: false,
-        isNew: false,
-      },
-      {
-        label: "Теми",
-        url: "/themes",
-        isVisible: false,
-        isNew: false,
-      },
-      {
-        label: "Класация",
-        url: "/rankings",
-        isVisible: false,
-        isNew: false,
-      },
-      {
-        label: "С подкрепата на",
-        url: "/podkrepa",
-        isVisible: true,
-        isNew: false,
-      },
-    ],
-  },
-  {
-    category: "about",
-    label: "За Hack TUES",
-    links: [
-      {
-        label: "Нашият екип",
-        url: "/ourteam",
-        isVisible: true,
-        isNew: false,
-      },
-      {
-        label: "Регламент",
-        url: "/regulation",
-        isVisible: true,
-        isNew: false,
-      },
-      {
-        label: "ЧЗВ",
-        url: "/faq",
-        isVisible: true,
-        isNew: false,
-      },
-      {
-        label: "Архив",
-        url: "/archive",
-        isVisible: false,
-        isNew: false,
-      },
-      {
-        label: "С подкрепата на",
-        url: "/podkrepa",
-        isVisible: true,
-        isNew: false,
-      },
-    ],
-  },
-  // XXX: as const type errors, investigate?
-]; // as const;
 
 type Category = (typeof NAVIGATION_CATEGORIES)[number];
 type CategoryId = Category["category"];
@@ -124,14 +43,14 @@ export const DesktopNavigation = ({ className }: { className: string }) => {
           <NavigationMenuItem key={category.category}>
             <NavigationMenuTrigger>{category.label}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="flex w-32 flex-col gap-1">
+              <ul className="flex w-36 flex-col gap-1">
                 {getVisibleLinks(category).map((link) => (
                   <li key={link.label} className="w-full">
                     <Link href={link.url} legacyBehavior passHref>
                       <NavigationMenuLink
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "w-full text-center",
+                          "h-auto w-full p-3 text-center",
                         )}
                       >
                         {link.label}

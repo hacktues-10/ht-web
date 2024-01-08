@@ -2,6 +2,7 @@
 
 import { error } from "console";
 
+import { revalidateTag } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { z } from "zod";
@@ -28,6 +29,7 @@ import {
   getParticipantFromSession,
   getParticipantsWithNoTeam,
   isParticipantStudent,
+  hasInvitationFromTeam,
 } from "~/app/participants/service";
 import {
   checkIfTeamEligableToJoin,
@@ -78,6 +80,8 @@ export async function deleteMyTeam() {
       .delete(teams)
       .where(eq(teams.id, participant?.team.id))
       .returning();
+
+    revalidateTag("teams");
 
     return { success: true };
   } catch (e) {
@@ -155,6 +159,14 @@ export const inviteToTeam = zact(
     teamId: z.string(),
   }),
 )(async ({ invitedParticipantId, teamId }) => {
+  const hasInvitation = await hasInvitationFromTeam(invitedParticipantId, teamId);
+  if (hasInvitation) {
+    return {
+      success: false,
+      error: "Този участник вече е поканен."
+    }
+  }
+
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
     return {
@@ -302,6 +314,12 @@ export async function removeTeamMember(memberId: number) {
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.id, memberId));
     await updateTechnologies(participant.team.id);
+    await db
+      .update(teams)
+      .set({ memberCount: team.memberCount - 1 })
+      .where(eq(teams.id, team.id));
+    revalidateTag("teams");
+
     if (res) {
       return { success: true };
     }
@@ -332,6 +350,7 @@ export async function makeCaptain(
       })
       .where(eq(particpants.id, memberId));
 
+    revalidateTag("teams");
     return { success: true };
   } catch (err) {
     return { success: false };
@@ -358,6 +377,7 @@ export async function updateTechnologies(teamId: string) {
     .update(teams)
     .set({ technologies: technologiesString })
     .where(eq(teams.id, teamId));
+  revalidateTag("teams");
 }
 
 export async function getProjectByTeamId(teamId: string) {
@@ -393,10 +413,28 @@ export async function prepareParticipants(
     const fullName = formatNick(user);
 
     if (isParticipantEligableToJoin(user, team) && !isInvited) {
-      res.push({ ...user, label: fullName, value: `${user.id}` });
+      res.push({
+        ...user,
+        label: fullName,
+        value: `${fullName.toLowerCase()}`,
+      });
     }
   });
-  return res;
+
+  const result = res.map((user) => {
+    return {
+      label: user.label,
+      value: user.value,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      grade: user.grade,
+      parallel: user.parallel,
+      technologies: user.technologies,
+    };
+  });
+
+  return result;
 }
 
 const formatNick = (user: any) => {
@@ -413,6 +451,13 @@ export async function createProject(project: {
   description: string;
   websiteURL: string;
 }) {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("create-project")) {
+    return {
+      success: false,
+      message: "Създаването на проекти не е позволено по това време.",
+    };
+  }
   try {
     await db.insert(projects).values({
       name: project.name,

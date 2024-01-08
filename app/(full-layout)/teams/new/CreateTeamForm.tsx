@@ -1,9 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import invariant from "tiny-invariant";
 
+import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
+import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
+import { OverlayContainer } from "~/app/(clean-layout)/_components/countdown-overlay";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
 import { Input } from "~/app/components/ui/input";
@@ -14,7 +18,9 @@ import { checkUserCanCreateTeam, createTeamAction } from "./actions";
 export function CreateTeamForm() {
   const router = useRouter();
   const { toast } = useToast();
-  const [isButtonDisabled, setButtonDisabled] = useState(true);
+  const canCreateTeam = useHTFeatureIsOn("create-team");
+  const [isEligible, setIsEligible] = useState(true);
+  const [isLoading, setIsLoading] = useState(false)
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,9 +31,19 @@ export function CreateTeamForm() {
     const name = formData.get("name");
     const description = formData.get("description");
 
-    if (!name || typeof name !== "string" || typeof description !== "string") {
+    if (!name || name.length > 30 || name.toString().toLocaleLowerCase().replaceAll(" ", "") == "falsepositive" || description && description.length > 255 || typeof name !== "string" || typeof description !== "string") {
+      toast({
+        title: "Невалидни данни",
+        description: "Името или описанието на отбора ви са невалидни."
+      })
       return;
     }
+    setIsLoading(true)
+
+    toast({
+      title: "Отборът се създава...",
+      description: "Съли създава портала към вашата вселена..."
+    })
 
     const res = await createTeamAction({ name, description });
     if (res.success) {
@@ -42,26 +58,36 @@ export function CreateTeamForm() {
 
   const checkUserTeam = useCallback(async () => {
     const { isEligableToCreateTeam } = await checkUserCanCreateTeam();
-    if (!isEligableToCreateTeam) {
+    if (!isEligableToCreateTeam && isEligible) {
       toast({
         title: "Не можете да създадете отбор",
-        description:
-          "Моля, ако мислите, че има грешка, свържете се с hacktues@elsys-bg.org",
+        description: canCreateTeam ? (
+          <>
+            Моля, ако мислите, че има грешка, свържете се с нас на адрес{" "}
+            <Link className="underline" href="mailto:hacktues@elsys-bg.org">
+              hacktues@elsys-bg.org
+            </Link>
+          </>
+        ) : (
+          <>Създаването на отбори е затворено в момента.</>
+        ),
       });
-      setButtonDisabled(true);
+      setIsEligible(false);
     } else {
-      setButtonDisabled(false);
+      setIsEligible(true);
     }
-  }, [toast]);
+  }, [toast, canCreateTeam]);
 
   useEffect(() => {
     checkUserTeam();
   }, [checkUserTeam]);
 
+  const isDisabled = !canCreateTeam || !isEligible || isLoading;
+
   return (
     <Card>
       <form
-        className="mx-auto flex max-w-md flex-col gap-2 rounded-l p-4 shadow-md"
+        className="relative mx-auto flex max-w-md flex-col gap-2 rounded-l p-4 shadow-md"
         onSubmit={handleSubmit}
       >
         <h1 className="py-3 text-center text-3xl font-bold">
@@ -73,20 +99,54 @@ export function CreateTeamForm() {
           placeholder="Име на отбора"
           className="mb-2 w-full"
           required
+          disabled={isDisabled}
         />
         <Textarea
           name="description"
           placeholder="Описание на отбора"
           className="mb-2 w-full "
+          disabled={isDisabled}
         />
         <Button
           type="submit"
-          disabled={isButtonDisabled}
-          className="w-auto rounded"
+          disabled={isDisabled}
+          className="-z-1 w-auto"
+          variant={!isDisabled ? "default" : "secondary"}
         >
           Създай отбор
         </Button>
+        <IfHTFeatureOff feature="create-team">
+          <FeatureDisabledOverlay>
+            <FeatureDisabledHeading>
+              Създаването на отбори е затворено
+            </FeatureDisabledHeading>
+            <IfHTFeatureOn feature="update-team-members">
+              <p className="text-center">
+                Все още можете да се присъедините към съществуващ отбор.
+              </p>
+              <Button variant="secondary" asChild>
+                <Link href="/teams">Разгледайте отборите!</Link>
+              </Button>
+            </IfHTFeatureOn>
+          </FeatureDisabledOverlay>
+        </IfHTFeatureOff>
       </form>
     </Card>
   );
 }
+
+export const FeatureDisabledOverlay = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => (
+  <OverlayContainer className="bg-background/90">
+    <div className="flex flex-col gap-4 p-6">{children}</div>
+  </OverlayContainer>
+);
+
+export const FeatureDisabledHeading = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => <h1 className="text-center text-2xl font-bold">{children}</h1>;

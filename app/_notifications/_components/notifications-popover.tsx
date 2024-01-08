@@ -47,7 +47,7 @@ export const NotificationsPopover = ({
           <TooltipContent>{notifications.length} непрочетени</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <PopoverContent className="w-96 sm:ml-auto sm:w-[67%]">
+      <PopoverContent isHeader={true} className="sm:ml-auto">
         <div className="flex flex-col gap-2">
           {notifications.length > 0 ? (
             notifications.map((notification) => (

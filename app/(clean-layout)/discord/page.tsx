@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { XIcon } from "lucide-react";
 import { FaDiscord } from "react-icons/fa6";
 
@@ -7,6 +8,11 @@ import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { DiscordLoadingLink } from "./_components/discord-loading-link";
 
+export const metadata: Metadata = {
+  title: "Discord Профил",
+  description: "Свържете своя Discord профил с Hack TUES X",
+};
+
 export default async function DiscordPage() {
   const { hasSession, hasConnectedDiscord } = await getUserAuthorization();
   if (!hasSession) signInRedirect();
@@ -14,7 +20,7 @@ export default async function DiscordPage() {
   return hasConnectedDiscord ? (
     <Card className="mt-20 p-5">
       <div className="max-w-lg items-center justify-center text-center">
-        <h1 className="scroll-m-20 pb-2 font-htags text-3xl font-semibold tracking-tight first:mt-0">
+        <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
           Успешно свързахте своя Discord профил!
         </h1>
         <Separator />
@@ -31,7 +37,7 @@ export default async function DiscordPage() {
   ) : (
     <Card className="p-5">
       <div className="max-w-lg items-center justify-center text-center">
-        <h2 className="scroll-m-20 pb-5 font-htags text-3xl font-semibold tracking-tight">
+        <h2 className="scroll-m-20 pb-5 text-3xl font-semibold tracking-tight">
           Още малко остава!
         </h2>
         <Separator />

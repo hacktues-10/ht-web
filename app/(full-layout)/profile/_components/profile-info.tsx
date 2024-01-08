@@ -10,7 +10,10 @@ import { Input } from "~/app/components/ui/input";
 import { Label } from "~/app/components/ui/label";
 import { Textarea } from "~/app/components/ui/textarea";
 import { useToast } from "~/app/components/ui/use-toast";
-import { getParticipantFromSession } from "~/app/participants/service";
+import {
+  getParticipantFromSession,
+  Participant,
+} from "~/app/participants/service";
 import {
   convertTechnologiesToText,
   convertToTechnology,
@@ -20,22 +23,19 @@ import TechnologiesTab from "../../../components/Technologies/technologiesContai
 export default function ProfileInfo({
   participant,
 }: {
-  participant: Awaited<ReturnType<typeof getParticipantFromSession>>;
+  participant: Participant;
 }) {
   const { toast } = useToast();
-  const [allergies, setAllergies] = useState(participant?.allergies ?? "");
+  const [allergies, setAllergies] = useState(participant.allergies ?? "");
   const [isLookingForTeam, setIsLookingForTeam] = useState(
-    participant?.isLookingForTeam ?? false,
+    participant.isLookingForTeam,
   );
   const [selectedTechnologiesArray, setSelectedTechnologies] = useState(
-    convertToTechnology(participant?.technologies ?? ""),
+    convertToTechnology(participant.technologies),
   );
 
   async function handleSubmitFullData() {
     const technText = convertTechnologiesToText(selectedTechnologiesArray);
-    if (!participant?.id) {
-      return null;
-    }
     const { message } = await updateAllergiesTechnologiesAndIsLookingForTeam(
       allergies,
       technText,
@@ -67,11 +67,11 @@ export default function ProfileInfo({
       <div className="rounded-3xl bg-sand p-5 text-slate-950 md:w-[500px] ">
         <div
           className={`mb-5 ml-auto mr-auto mt-5 flex h-14 w-14 items-center justify-center rounded-full sm:h-32 sm:w-32 ${
-            colors[(participant?.firstName?.charCodeAt(0) ?? 0) % 10]
+            colors[(participant.firstName.charCodeAt(0) ?? 0) % 10]
           } text-center`}
         >
           <h1 className="p-2 text-3xl text-white sm:text-6xl">
-            {participant?.firstName?.charAt(0).toUpperCase()}
+            {participant.firstName.charAt(0).toUpperCase()}
           </h1>
         </div>
         <div className="sm:flex">
@@ -79,48 +79,38 @@ export default function ProfileInfo({
             <Label htmlFor="firstName">Име</Label>
             <Input
               disabled
-              placeholder={participant?.firstName ?? ""}
+              placeholder={participant.firstName}
               id="firstName"
             />
             <Label htmlFor="secondName">Презиме</Label>
             <Input
               disabled
-              placeholder={participant?.middleName ?? ""}
+              placeholder={participant.middleName ?? ""}
               id="secondName"
             />
             <Label htmlFor="lastName">Фамилия</Label>
+            <Input disabled placeholder={participant.lastName} id="lastName" />
+
+            <Label htmlFor="phoneNumber">Телефонен номер</Label>
             <Input
               disabled
-              placeholder={participant?.lastName ?? ""}
-              id="lastName"
+              placeholder={participant.phoneNumber}
+              id="phoneNumber"
             />
-            {participant?.phoneNumber && (
-              <>
-                <Label htmlFor="phoneNumber">Телефонен номер</Label>
-                <Input
-                  disabled
-                  placeholder={participant.phoneNumber}
-                  id="phoneNumber"
-                />
-              </>
-            )}
           </div>
+
           <div className="m-2">
-            {participant?.grade && (
-              <>
-                <Label htmlFor="grade">
-                  {parseInt(participant.grade) > 12 ? "Випуск" : "Клас"}
-                </Label>
-                <Input
-                  disabled
-                  placeholder={participant.grade + " " + participant.parallel}
-                  id="grade"
-                />
-              </>
-            )}
+            <Label htmlFor="grade">
+              {parseInt(participant.grade) > 12 ? "Випуск" : "Клас"}
+            </Label>
+            <Input
+              disabled
+              placeholder={participant.grade + " " + participant.parallel}
+              id="grade"
+            />
 
             <Label htmlFor="email">Имейл</Label>
-            <Input disabled placeholder={participant?.email ?? ""} id="email" />
+            <Input disabled placeholder={participant.email} id="email" />
             <div className="mb-3 mt-3">
               <Label htmlFor="allergies">Алергии</Label>
               <Textarea
@@ -133,23 +123,26 @@ export default function ProfileInfo({
           </div>
         </div>
         <div className="m-4">
-          <div className="flex justify-center">
+          <div className="bg flex justify-center rounded-lg bg-background p-1 text-foreground">
             <TechnologiesTab
-              badgeBorderColor="black"
-              inputClassName="bg-sand text-black"
+              badgeBorderColor="white"
+              inputClassName=""
               technologiesFromParent={selectedTechnologiesArray}
               setTechnolgoies={setSelectedTechnologies}
             />
           </div>
-          <div className="m-4 flex rounded-lg border border-black p-3">
+          <div className="m-4 flex rounded-lg bg-background p-3 text-foreground">
             <Checkbox
-              className="border-black"
+              id="isLookingForTeam"
+              // className="border-black"
               checked={isLookingForTeam}
               onCheckedChange={() => setIsLookingForTeam(!isLookingForTeam)}
             />
             <div className="space-y-1 pl-4 leading-none">
-              <h2>Търся си отбор</h2>
-              <h3>Други участници ще могат да ви канят в своите отбори.</h3>
+              <label htmlFor="isLookingForTeam">Търся си отбор</label>
+              <p className="text-sm text-muted-foreground">
+                Други участници ще могат да ви канят в своите отбори.
+              </p>
             </div>
           </div>
           <div className="mt-3 flex justify-center">
@@ -158,7 +151,7 @@ export default function ProfileInfo({
               className="self-center"
               onClick={() => handleSubmitFullData()}
             >
-              Промени
+              Запази
             </Button>
           </div>
         </div>

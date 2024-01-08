@@ -26,11 +26,12 @@ export const classEnum = pgEnum("class", [
 ]);
 export const gradeEnum = pgEnum("grade", [...STUDENT_GRADES, ...ALUMNI_GRADES]);
 export const tShirtSizeEnum = pgEnum("tshirt_size", [
-  "XS",
+  "XS", // XXX: should be impossible to select
   "S",
   "M",
   "L",
   "XL",
+  "XXL",
 ]);
 
 export const notificationsTypes = pgEnum("notifications_types", [

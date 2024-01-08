@@ -39,8 +39,9 @@ const TeamCard: React.FC<TeamCardProps> = ({ team, index }) => {
   ];
 
   const [isVisible, setIsVisible] = useState(false);
-  const delay = index * 100;
+  // const delay = index * 100;
 
+  const delay = 1 * 100;
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -67,7 +68,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team, index }) => {
             </CardDescription>
           </CardHeader>
           <CardContent className="m-6 mb-0 mt-0 border-b border-gray-100/50 p-0">
-            <div className="mt-2 inline-grid grid-cols-5 gap-5 p-2">
+            <div className="mt-2 inline-grid grid-cols-5 gap-5 overflow-visible p-2">
               {team.members.map((member) => (
                 <RenderMember
                   color={colors[(member.firstName?.charCodeAt(0) ?? 0) % 10]}
@@ -79,7 +80,7 @@ const TeamCard: React.FC<TeamCardProps> = ({ team, index }) => {
           </CardContent>
           <CardFooter className="pb-2">
             {techn && techn.length > 0 ? (
-              <div className="flex w-full gap-2 overflow-hidden p-2">
+              <div className="flex w-full gap-2 overflow-hidden p-2 [mask-image:linear-gradient(to_right,white,90%,transparent)] xl:[mask-image:none]">
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"
