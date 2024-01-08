@@ -11,7 +11,7 @@ export function ComingSoonPage() {
         Очаквайте скоро!
       </h1>
       <p className="text-2xl font-semibold">
-        Порталът към тази страница тепърва предстои да се отвори.
+        Порталът към тази страница скоро ще се отвори.
       </p>
       <Button
         asChild
