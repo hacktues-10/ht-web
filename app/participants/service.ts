@@ -1,6 +1,7 @@
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, gt, isNull, lt, sql } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
+import { getAdminFromSession } from "../(full-layout)/api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import { Team } from "../(full-layout)/teams/service";
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
@@ -41,6 +42,7 @@ const selectFromParticipants = () =>
         discordId: discordUsers.discordId,
         discordUsername: discordUsers.discordUsername,
       },
+      createdAt: particpants.createdAt,
     })
     .from(particpants)
     .innerJoin(users, eq(particpants.userId, users.id))
@@ -145,4 +147,98 @@ export function formatParticipantDiscordNick(participant: Participant) {
   );
 
   return nick;
+}
+
+export async function getAlumniParticipants() {
+  const admin = getAdminFromSession();
+  if (!admin) {
+    return [];
+  }
+
+  const res = await db
+    .select({
+      id: particpants.id,
+      firstName: particpants.firstName,
+      middleName: particpants.middleName,
+      lastName: particpants.lastName,
+      email: users.email,
+      discordUser: discordUsers.discordUsername,
+      phoneNumber: particpants.phoneNumber,
+      grade: particpants.grade,
+      parallel: particpants.parallel,
+      isLookingForTeam: particpants.isLookingForTeam,
+      teamId: teams.id,
+      isCaptain: particpants.isCaptain,
+      isDisqualified: particpants.isDisqualified,
+      createdAt: particpants.createdAt,
+    })
+    .from(particpants)
+    .where(gt(sql<number>`${particpants.grade}::text::int`, 12))
+    .innerJoin(users, eq(particpants.userId, users.id))
+    .leftJoin(teams, eq(particpants.teamId, teams.id))
+    .leftJoin(discordUsers, eq(particpants.id, discordUsers.participantId));
+
+  return res.map((participant) => {
+    return {
+      ...participant,
+      isCaptain: participant.isCaptain ? "Yes" : "No",
+      isLookingForTeam: participant.isLookingForTeam ? "Yes" : "No",
+      isDisqualified: participant.isDisqualified ? "Yes" : "No",
+      createdAt: participant.createdAt.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+    };
+  });
+}
+
+export async function getStudentParticipants() {
+  const admin = getAdminFromSession();
+  if (!admin) {
+    return [];
+  }
+
+  const res = await db
+    .select({
+      id: particpants.id,
+      firstName: particpants.firstName,
+      middleName: particpants.middleName,
+      lastName: particpants.lastName,
+      email: users.email,
+      discordUser: discordUsers.discordUsername,
+      phoneNumber: particpants.phoneNumber,
+      grade: particpants.grade,
+      parallel: particpants.parallel,
+      isLookingForTeam: particpants.isLookingForTeam,
+      teamId: teams.id,
+      isCaptain: particpants.isCaptain,
+      isDisqualified: particpants.isDisqualified,
+      createdAt: particpants.createdAt,
+    })
+    .from(particpants)
+    .where(lt(sql<number>`${particpants.grade}::text::int`, 13))
+    .innerJoin(users, eq(particpants.userId, users.id))
+    .leftJoin(teams, eq(particpants.teamId, teams.id))
+    .leftJoin(discordUsers, eq(particpants.id, discordUsers.participantId));
+
+  return res.map((participant) => {
+    return {
+      ...participant,
+      isCaptain: participant.isCaptain ? "Yes" : "No",
+      isLookingForTeam: participant.isLookingForTeam ? "Yes" : "No",
+      isDisqualified: participant.isDisqualified ? "Yes" : "No",
+      createdAt: participant.createdAt.toLocaleString("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        hour12: true,
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
+    };
+  });
 }
