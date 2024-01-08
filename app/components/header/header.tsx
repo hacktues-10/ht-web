@@ -8,6 +8,11 @@ import { LogOutIcon, User } from "lucide-react";
 import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
 import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "~/app/components/ui/avatar";
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -23,11 +28,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "~/app/components/ui/avatar";
 import { getHeaderData } from "./actions";
 
 export const Header = () => {
@@ -73,12 +73,14 @@ export const Header = () => {
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="hidden rounded-full outline-0 ring-0 md:inline-flex focus:bg-white/0"
+                    className="hidden rounded-full outline-0 ring-0 focus:bg-white/0 md:inline-flex"
                     asChild
                   >
                     <Avatar>
                       <AvatarImage />
-                      <AvatarFallback>{headerData.avatarName.at(0) ?? <User />}</AvatarFallback>
+                      <AvatarFallback>
+                        {headerData.avatarName.at(0) ?? <User />}
+                      </AvatarFallback>
                     </Avatar>
                   </Button>
                 </TooltipTrigger>
@@ -86,18 +88,18 @@ export const Header = () => {
               </Tooltip>
             </TooltipProvider>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="md:max-w-[12rem] items-center">
-            <DropdownMenuLabel className="text-center text-wrap text-ellipsis justify-center py-3">
+          <DropdownMenuContent className="items-center md:max-w-[12rem]">
+            <DropdownMenuLabel className="text-wrap justify-center text-ellipsis py-3 text-center">
               Здравейте, {headerData.avatarName}
             </DropdownMenuLabel>
             <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
-              <Link href="/profile" className="w-full text-center py-3">
+              <Link href="/profile" className="w-full py-3 text-center">
                 Моят Профил
               </Link>
             </DropdownMenuItem>
             {headerData.participant && headerData.participant.team != null && (
               <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
-                <Link href="/teams/myteam" className="w-full text-center py-3">
+                <Link href="/teams/myteam" className="w-full py-3 text-center">
                   Моят отбор
                 </Link>
               </DropdownMenuItem>
@@ -109,13 +111,15 @@ export const Header = () => {
                     <Button
                       size="default"
                       variant="ghost"
-                      className="w-full h-full py-2 px-0 hidden md:inline-flex focus:bg-current/10 hover:bg-current/10"
+                      className="focus:bg-current/10 hover:bg-current/10 hidden h-full w-full px-0 py-2 md:inline-flex"
                       asChild
                     >
                       <SignOutButton>
-                        <div className="flex focus:bg-current hover:bg-current/10">
-                        <LogOutIcon className="scale-90 content-center"/>
-                        <p className="ml-2 content-center text-destructive focus:bg-current/10 hover:bg-current/10">Изход</p>
+                        <div className="hover:bg-current/10 flex items-center focus:bg-current">
+                          <LogOutIcon className="scale-90 text-center text-destructive" />
+                          <p className="focus:bg-current/10 hover:bg-current/10 ml-2 text-center text-destructive">
+                            Изход
+                          </p>
                         </div>
                       </SignOutButton>
                     </Button>
