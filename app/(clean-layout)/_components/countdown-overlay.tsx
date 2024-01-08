@@ -25,7 +25,7 @@ export const RegistrationCountdownOverlay = () => {
 
   return firstFutureCountdown !== null ? (
     <IfAllHTFeaturesOff outOf={["signin-alumni", "signin-students"]}>
-      <OverlayContainer>
+      <OverlayContainer className="bg-background/90">
         <div className="flex flex-col gap-3 text-center text-white">
           <p className="text-xl font-bold">Регистрацията отваря след</p>
           <CountdownTimerDisplay countdown={firstFutureCountdown} />
@@ -41,7 +41,7 @@ export const OverlayContainer = ({
 }: React.PropsWithChildren<{ className?: string }>) => (
   <div
     className={cn(
-      "absolute inset-0 z-50 flex items-center justify-center bg-background/90 text-card-foreground backdrop-blur-lg",
+      "absolute inset-0 z-50 flex items-center justify-center bg-background/5 text-card-foreground backdrop-blur-lg",
       className,
     )}
   >
