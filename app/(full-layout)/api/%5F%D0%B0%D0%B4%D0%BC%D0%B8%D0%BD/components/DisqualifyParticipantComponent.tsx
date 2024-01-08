@@ -22,6 +22,7 @@ import { getParticipantIdByValue } from "~/app/participants/actions";
 import { cn } from "~/app/utils";
 import { disqualifyParticipantById } from "../participants/service";
 
+//@ts-ignore
 export default function DisqualifyParticipantComponent({ participants }) {
   const { toast } = useToast();
   const handleClick = async () => {
