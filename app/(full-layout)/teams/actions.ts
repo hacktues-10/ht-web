@@ -28,9 +28,10 @@ import {
   getParticipantById,
   getParticipantFromSession,
   getParticipantsWithNoTeam,
-  isParticipantStudent,
   hasInvitationFromTeam,
+  isParticipantStudent,
 } from "~/app/participants/service";
+import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import {
   checkIfTeamEligableToJoin,
   getTeamById,
@@ -159,12 +160,15 @@ export const inviteToTeam = zact(
     teamId: z.string(),
   }),
 )(async ({ invitedParticipantId, teamId }) => {
-  const hasInvitation = await hasInvitationFromTeam(invitedParticipantId, teamId);
+  const hasInvitation = await hasInvitationFromTeam(
+    invitedParticipantId,
+    teamId,
+  );
   if (hasInvitation) {
     return {
       success: false,
-      error: "Този участник вече е поканен."
-    }
+      error: "Този участник вече е поканен.",
+    };
   }
 
   const gb = await getServerSideGrowthBook();
@@ -283,7 +287,8 @@ export async function removeTeamMember(memberId: number) {
   }
 
   const participant = await getParticipantFromSession();
-  if (!participant?.id) {
+  const admin = await getAdminFromSession();
+  if (!participant?.id && !admin) {
     return { success: false, message: "Unauthenticated" };
   }
   const member = await getParticipantById(memberId);
@@ -304,8 +309,10 @@ export async function removeTeamMember(memberId: number) {
   const team = await getTeamById(member.team.id);
 
   if (
-    (participant.team.isCaptain || participant.team.id == member.team.id) &&
-    participant.team.id &&
+    ((participant?.team.isCaptain &&
+      participant?.team.id == member.team.id &&
+      participant.team.id) ||
+      admin?.userId) &&
     team?.discordRoleId
   ) {
     await deleteRoleFromMember(team.discordRoleId, discordMember[0].discordId);
@@ -313,12 +320,17 @@ export async function removeTeamMember(memberId: number) {
       .update(particpants)
       .set({ teamId: null, isCaptain: false })
       .where(eq(particpants.id, memberId));
-    await updateTechnologies(participant.team.id);
+    await updateTechnologies(member.team.id);
     revalidateTag("teams");
     await db
       .update(teams)
       .set({ memberCount: team.memberCount - 1 })
       .where(eq(teams.id, team.id));
+
+    if (team.memberCount - 1 == 0) {
+      await deleteChannelsRolesCategories(team.id);
+      await db.delete(teams).where(eq(teams.id, team.id));
+    }
     revalidateTag("teams");
 
     if (res) {
@@ -400,7 +412,7 @@ export async function prepareParticipants(
 
   const res: any[] = [];
 
-  const dbResponse = await getParticipantsWithNoTeam();
+  const dbResponse = await getParticipantsWithNoTeam(true);
 
   const inv = await db
     .select()

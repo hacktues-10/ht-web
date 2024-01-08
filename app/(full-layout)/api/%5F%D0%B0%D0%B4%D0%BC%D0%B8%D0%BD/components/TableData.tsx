@@ -1,5 +1,6 @@
 import React from "react";
 
+import { ScrollArea } from "~/app/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -23,7 +24,7 @@ export default function TableData({ data }: { data: Array<object> }) {
       <TableHeader>
         <TableRow>
           {columns.map((column) => (
-            <TableHead className="w-[100px]" key={column}>
+            <TableHead className="w-[30px] overflow-scroll" key={column}>
               {column}
             </TableHead>
           ))}
@@ -34,7 +35,9 @@ export default function TableData({ data }: { data: Array<object> }) {
           <TableRow key={index}>
             {columns.map((column) => (
               //@ts-ignore
-              <TableCell key={column}>{item[column]}</TableCell>
+              <TableCell key={column} className="max-w-[60px]">
+                <ScrollArea className="max-h-[60px]">{item[column]}</ScrollArea>
+              </TableCell>
             ))}
           </TableRow>
         ))}

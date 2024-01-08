@@ -54,6 +54,7 @@ export const particpants = pgTable("participants", {
   tShirtId: serial("tshirt_id")
     .references(() => tShirts.id)
     .notNull(), // FIXME: shouldnt use serial
+  isDisqualified: boolean("is_disqualified").notNull().default(false),
   technologies: varchar("technologies").default("").notNull(),
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
   isCaptain: boolean("is_captain").notNull().default(false),
