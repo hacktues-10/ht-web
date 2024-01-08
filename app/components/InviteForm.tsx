@@ -33,7 +33,6 @@ export function InviteForm({
   teamId: string;
   participants: Awaited<ReturnType<typeof prepareParticipants>>;
 }) {
-
   const [isLoading, setIsLoading] = React.useState(false);
 
   async function handleSubmit() {
@@ -52,7 +51,6 @@ export function InviteForm({
       invitedParticipantId: participantId,
       teamId,
     });
-
 
     if (error === "Този участник вече е поканен.") {
       toast({

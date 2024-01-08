@@ -28,9 +28,10 @@ import {
   getParticipantById,
   getParticipantFromSession,
   getParticipantsWithNoTeam,
-  isParticipantStudent,
   hasInvitationFromTeam,
+  isParticipantStudent,
 } from "~/app/participants/service";
+import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import {
   checkIfTeamEligableToJoin,
   getTeamById,
@@ -159,12 +160,15 @@ export const inviteToTeam = zact(
     teamId: z.string(),
   }),
 )(async ({ invitedParticipantId, teamId }) => {
-  const hasInvitation = await hasInvitationFromTeam(invitedParticipantId, teamId);
+  const hasInvitation = await hasInvitationFromTeam(
+    invitedParticipantId,
+    teamId,
+  );
   if (hasInvitation) {
     return {
       success: false,
-      error: "Този участник вече е поканен."
-    }
+      error: "Този участник вече е поканен.",
+    };
   }
 
   const gb = await getServerSideGrowthBook();
@@ -273,59 +277,74 @@ export const checkStateJoinRequests = zact(
 
 // FIXME: use zact
 export async function removeTeamMember(memberId: number) {
-  const gb = await getServerSideGrowthBook();
-  if (gb.isOff("update-team-members")) {
-    return {
-      success: false,
-      message:
-        "Премахването на участници от отбори не е позволено по това време.",
-    };
-  }
-
-  const participant = await getParticipantFromSession();
-  if (!participant?.id) {
-    return { success: false, message: "Unauthenticated" };
-  }
-  const member = await getParticipantById(memberId);
-  if (!member?.team.id) {
-    return { success: false, message: "The member is not part of this team" };
-  }
-
-  const discordMember = await db
-    .select()
-    .from(discordUsers)
-    .where(eq(discordUsers.participantId, member.id));
-  if (!discordMember[0].discordId)
-    return {
-      success: false,
-      message: "The member does not have discord account",
-    };
-
-  const team = await getTeamById(member.team.id);
-
-  if (
-    (participant.team.isCaptain || participant.team.id == member.team.id) &&
-    participant.team.id &&
-    team?.discordRoleId
-  ) {
-    await deleteRoleFromMember(team.discordRoleId, discordMember[0].discordId);
-    const res = await db
-      .update(particpants)
-      .set({ teamId: null, isCaptain: false })
-      .where(eq(particpants.id, memberId));
-    await updateTechnologies(participant.team.id);
-    await db
-      .update(teams)
-      .set({ memberCount: team.memberCount - 1 })
-      .where(eq(teams.id, team.id));
-    revalidateTag("teams");
-
-    if (res) {
-      return { success: true };
+  try {
+    const gb = await getServerSideGrowthBook();
+    if (gb.isOff("update-team-members")) {
+      return {
+        success: false,
+        message:
+          "Премахването на участници от отбори не е позволено по това време.",
+      };
     }
-    return { success: false, message: "Failed to remove team member" };
+
+    const participant = await getParticipantFromSession();
+    const admin = await getAdminFromSession();
+    if (!participant?.id && !admin) {
+      return { success: false, message: "Unauthenticated" };
+    }
+    const member = await getParticipantById(memberId);
+    if (!member?.team.id) {
+      return { success: false, message: "The member is not part of this team" };
+    }
+
+    const discordMember = await db
+      .select()
+      .from(discordUsers)
+      .where(eq(discordUsers.participantId, member.id));
+    if (!discordMember[0].discordId)
+      return {
+        success: false,
+        message: "The member does not have discord account",
+      };
+
+    const team = await getTeamById(member.team.id);
+
+    if (
+      ((participant?.team.isCaptain &&
+        participant?.team.id == member.team.id &&
+        participant.team.id) ||
+        admin?.userId) &&
+      team?.discordRoleId
+    ) {
+      await deleteRoleFromMember(
+        team.discordRoleId,
+        discordMember[0].discordId,
+      );
+      const res = await db
+        .update(particpants)
+        .set({ teamId: null, isCaptain: false })
+        .where(eq(particpants.id, memberId));
+      await updateTechnologies(member.team.id);
+      await db
+        .update(teams)
+        .set({ memberCount: team.memberCount - 1 })
+        .where(eq(teams.id, team.id));
+
+      if (team.memberCount - 1 == 0) {
+        await deleteChannelsRolesCategories(team.id);
+        await db.delete(teams).where(eq(teams.id, team.id));
+      }
+      revalidateTag("teams");
+
+      if (res) {
+        return { success: true };
+      }
+      return { success: false, message: "Failed to remove team member" };
+    }
+    return { success: false, message: "You are not a team captain" };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "" };
   }
-  return { success: false, message: "You are not a team captain" };
 }
 
 export async function makeCaptain(
@@ -399,7 +418,7 @@ export async function prepareParticipants(
 
   const res: any[] = [];
 
-  const dbResponse = await getParticipantsWithNoTeam();
+  const dbResponse = await getParticipantsWithNoTeam(true);
 
   const inv = await db
     .select()
@@ -420,7 +439,6 @@ export async function prepareParticipants(
       });
     }
   });
-
   const result = res.map((user) => {
     return {
       label: user.label,
@@ -433,7 +451,6 @@ export async function prepareParticipants(
       technologies: user.technologies,
     };
   });
-
   return result;
 }
 

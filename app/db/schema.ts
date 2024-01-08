@@ -54,6 +54,7 @@ export const particpants = pgTable("participants", {
   tShirtId: serial("tshirt_id")
     .references(() => tShirts.id)
     .notNull(), // FIXME: shouldnt use serial
+  isDisqualified: boolean("is_disqualified").notNull().default(false),
   technologies: varchar("technologies").default("").notNull(),
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
   isCaptain: boolean("is_captain").notNull().default(false),
@@ -312,16 +313,16 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
 export const admins = pgTable("admins", {
   userId: integer("user_id")
     .notNull()
-    .references(() => particpants.id)
+    .references(() => users.id)
     .primaryKey(),
   firstName: varchar("first_name").notNull(),
   lastName: varchar("last_name").notNull(),
 });
 
 export const adminsRelations = relations(admins, ({ one }) => ({
-  user: one(particpants, {
+  user: one(users, {
     fields: [admins.userId],
-    references: [particpants.id],
+    references: [users.id],
   }),
 }));
 

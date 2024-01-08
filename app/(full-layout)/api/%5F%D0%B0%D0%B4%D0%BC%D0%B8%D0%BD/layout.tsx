@@ -10,8 +10,8 @@ export default async function AdminLayout({ children }: PropsWithChildren<{}>) {
   }
 
   return (
-    <section className="flex h-screen w-screen max-w-xl justify-center gap-3">
-      <nav className="flex h-full flex-col gap-3">
+    <section className="flex h-screen w-screen justify-center gap-3">
+      <nav className="flex h-full flex-col gap-3 p-2">
         <ul>
           {/* FIXME: dont hardcode /api/_админ/ </3 */}
           <li>

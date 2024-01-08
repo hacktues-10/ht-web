@@ -47,18 +47,26 @@ export const createTeamAction = zact(
       error: "Вече си имате отбор, не ви ли харесва?",
     } as const;
   }
-  const team = await createTeam({
-    name: input.name,
-    description: input.description,
-    captainId: participant.id,
-    isAlumni: isAlumni,
-  });
-  return { success: true, team } as const;
+  try {
+    const team = await createTeam({
+      name: input.name,
+      description: input.description,
+      captainId: participant.id,
+      isAlumni: isAlumni,
+    });
+    return { success: true, team } as const;
+  } catch (e) {
+    return {
+      success: false,
+      error:
+        "Възнинкна грешка, ако смятате, че нещо не е наред, свържете се с нас!",
+    } as const;
+  }
 });
 
 export const checkUserCanCreateTeam = async () => {
   const participant = await getParticipantFromSession();
-  if (!participant || participant.team.id) {
+  if (!participant || participant.team.id || participant.isDisqualified) {
     return { isEligableToCreateTeam: false };
   }
   return { isEligableToCreateTeam: true };
