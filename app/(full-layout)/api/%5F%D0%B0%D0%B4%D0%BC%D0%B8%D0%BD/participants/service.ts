@@ -93,8 +93,6 @@ async function banMember(
   }
 
   try {
-    //ban member in discord
-    console.log(discordInfo);
     const response = await fetch(
       `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/bans/${discordInfo?.discordId}`,
       {
@@ -110,12 +108,10 @@ async function banMember(
       },
     );
 
-    console.log(response);
-
     if (response.status === 204) {
       return true;
     }
-    console.log(response);
+    return false;
   } catch (e) {
     console.error(JSON.stringify(e));
     return false;
