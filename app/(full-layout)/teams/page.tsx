@@ -23,12 +23,7 @@ export const metadata: Metadata = {
 export default function TeamListPage() {
   return (
     <>
-      <IfHTFeatureOn feature="show-teams">
-        <TeamList />
-      </IfHTFeatureOn>
-      <IfHTFeatureOff feature="show-teams">
-        <ComingSoonPage />
-      </IfHTFeatureOff>
+      <TeamList />
     </>
   );
 }
