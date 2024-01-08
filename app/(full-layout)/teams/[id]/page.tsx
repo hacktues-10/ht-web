@@ -91,7 +91,7 @@ export default async function TeamDetailPage({
   }
   const preparedParticipants = await prepareParticipants(
     team,
-    participant?.id ?? null,
+    participant?.id ?? null
   );
   const teamMembers = await getTeamMembers(team.id);
   // teamMembers.push(teamMembers[0]);
@@ -279,37 +279,38 @@ export default async function TeamDetailPage({
                   </h2>
                 </div>
               ))}
-            {team.mentorId && url ? (
-              <div
-                key={mentor?.id}
-                className="m-2 flex rounded-2xl border-2 p-2"
-              >
-                <div>
-                  <Avatar>
-                    <AvatarImage></AvatarImage>
-                    <AvatarFallback>?</AvatarFallback>
-                  </Avatar>
+            {!team.isAlumni &&
+              (team.mentorId && url ? (
+                <div
+                  key={mentor?.id}
+                  className="m-2 flex rounded-2xl border-2 p-2"
+                >
+                  <div>
+                    <Avatar>
+                      <AvatarImage></AvatarImage>
+                      <AvatarFallback>?</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <h2 className="m-auto ml-4 text-left text-lg">
+                    {mentor?.firstName} {mentor?.lastName}
+                  </h2>
                 </div>
-                <h2 className="m-auto ml-4 text-left text-lg">
-                  {mentor?.firstName} {mentor?.lastName}
-                </h2>
-              </div>
-            ) : (
-              <div
-                key={mentor?.id}
-                className="m-2 flex rounded-2xl border-2 p-2"
-              >
-                <div>
-                  <Avatar>
-                    <AvatarImage></AvatarImage>
-                    <AvatarFallback>?</AvatarFallback>
-                  </Avatar>
+              ) : (
+                <div
+                  key={mentor?.id}
+                  className="m-2 flex rounded-2xl border-2 p-2"
+                >
+                  <div>
+                    <Avatar>
+                      <AvatarImage></AvatarImage>
+                      <AvatarFallback>?</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <h2 className="m-auto ml-4 text-left text-lg">
+                    Все още няма ментор
+                  </h2>
                 </div>
-                <h2 className="m-auto ml-4 text-left text-lg">
-                  Все още няма ментор
-                </h2>
-              </div>
-            )}
+              ))}
           </Card>
 
           <Card className="fadeInComponent m-10 ml-auto mr-auto w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
