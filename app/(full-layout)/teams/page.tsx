@@ -57,13 +57,16 @@ async function TeamList() {
     //bg-[url('./assets/background.png')]
     <div className="h-full w-full max-w-[1920px] content-center items-center justify-center">
       <IfHTFeatureOn feature="create-team">
-        {participant && !participant.team.id && canCreateTeam && (
-          <div className="flex flex-col items-center justify-center">
-            <Button asChild size="lg" className="mx-auto mb-3 mt-3">
-              <Link href="/teams/new">Създай отбор</Link>
-            </Button>
-          </div>
-        )}
+        {participant &&
+          !participant.team.id &&
+          canCreateTeam &&
+          !participant.isDisqualified && (
+            <div className="flex flex-col items-center justify-center">
+              <Button asChild size="lg" className="mx-auto mb-3 mt-3">
+                <Link href="/teams/new">Създай отбор</Link>
+              </Button>
+            </div>
+          )}
       </IfHTFeatureOn>
 
       <Tabs

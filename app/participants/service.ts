@@ -30,6 +30,7 @@ const selectFromParticipants = () =>
       allergies: particpants.allergies,
       tShirtId: particpants.tShirtId,
       isLookingForTeam: particpants.isLookingForTeam,
+      isDisqualified: particpants.isDisqualified,
       technologies: particpants.technologies,
       team: {
         id: teams.id,

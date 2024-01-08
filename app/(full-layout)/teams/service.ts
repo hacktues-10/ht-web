@@ -62,6 +62,7 @@ export async function createTeam(team: {
   invariant(res, "Отборите са запълнени.");
 
   const captain = await getParticipantById(team.captainId);
+  invariant(!captain?.isDisqualified, "Участникът е дисквалифициран.");
   const roleId = await createDiscordTeam(slugify(team.name));
   const discordMember = await db
     .select()
