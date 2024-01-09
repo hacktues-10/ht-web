@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import {
   Select,
   SelectContent,
@@ -19,12 +17,11 @@ export default function FilterDisqulifiedComponent({
 }) {
   const handleChange = (value: string) => {
     setFilterDisqulified(value);
-    console.log(value);
   };
 
   return (
-    <div className="mx-10">
-      <h3 className="m-5 mb-0 font-semibold">Покажи дисквалифициран</h3>
+    <div className="mx-3">
+      <h3 className="m-5 mb-0 font-semibold">Дисквалифициран</h3>
       <div className="m-5 mt-1 ">
         <Select onValueChange={handleChange} defaultValue={filterDisqulified}>
           <SelectTrigger className="w-[180px]">

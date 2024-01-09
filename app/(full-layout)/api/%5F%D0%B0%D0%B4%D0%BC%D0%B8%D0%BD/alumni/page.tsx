@@ -12,7 +12,7 @@ export default async function AlumniParticipants() {
       <>
         <AdminOrNotFound />
         <h1 className="text-xl font-bold">Ученици</h1>
-        <TableAndOptions participants={data} />;
+        <TableAndOptions participants={data} />
       </>
     )
   );
