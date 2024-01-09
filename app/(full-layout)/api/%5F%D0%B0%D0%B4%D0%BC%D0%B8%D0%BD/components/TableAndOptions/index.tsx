@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 
 import { formatNick, PrepareParticipants } from "~/app/participants/actions";
 import DisqualifyParticipantComponent from "./components/DisqualifyParticipantComponent";
+import DownloadAsCSVComponent from "./components/DownloadAsCSVComponent";
 import FilterDisqulifiedComponent from "./components/FilterDisqulifiedComponent";
-import FilterEmailComponent from "./components/FilterEmailComponent";
+import FilterSearchComponent from "./components/FilterSeachComponent";
 import FilterTshirtsComponent from "./components/FilterTshirtsComponent";
 import TableData from "./components/TableData";
 
@@ -17,7 +18,8 @@ export default function TableAndOptions({
   const [data, setData] = useState(participants);
   const [filterDisqulified, setFilterDisqulified] = useState("all");
   const [filterTshirt, setFilterTshirt] = useState("all");
-  const [filterEmail, setFilterEmail] = useState("");
+  const [filterSearch, setFilterEmail] = useState("");
+
   useEffect(() => {
     let filteredData = participants;
 
@@ -37,14 +39,23 @@ export default function TableAndOptions({
       );
     }
 
-    if (filterEmail) {
+    if (filterSearch) {
       filteredData = filteredData.filter(
-        (participant) => participant.email?.includes(filterEmail),
+        (participant) =>
+          (
+            participant.email +
+            participant.firstName +
+            participant.middleName +
+            participant.lastName +
+            participant.discordUser
+          )
+            ?.toLowerCase()
+            .includes(filterSearch),
       );
     }
 
     setData(filteredData);
-  }, [filterDisqulified, filterTshirt, filterEmail]);
+  }, [filterDisqulified, filterTshirt, filterSearch]);
 
   const preparedParticipants = data.map(
     (participant: PrepareParticipants[number]) => {
@@ -63,8 +74,12 @@ export default function TableAndOptions({
   return (
     data && (
       <>
-        <div className="flex">
+        <div className="w-[440px]">
           <DisqualifyParticipantComponent participants={preparedParticipants} />
+        </div>
+        <h1 className="m-2 mt-4 text-left text-lg font-bold">Търсене</h1>
+
+        <div className="mb-5 flex w-min rounded-3xl border-2 border-white">
           <FilterDisqulifiedComponent
             filterDisqulified={filterDisqulified}
             setFilterDisqulified={setFilterDisqulified}
@@ -73,11 +88,13 @@ export default function TableAndOptions({
             filterTshirt={filterTshirt}
             setFilterTshirt={setFilterTshirt}
           />
-          <FilterEmailComponent
-            filterEmail={filterEmail}
-            setFilterEmail={setFilterEmail}
+          <DownloadAsCSVComponent data={data} />
+          <FilterSearchComponent
+            filterSearch={filterSearch}
+            setFilterSearch={setFilterEmail}
           />
         </div>
+
         <TableData data={data} />
       </>
     )

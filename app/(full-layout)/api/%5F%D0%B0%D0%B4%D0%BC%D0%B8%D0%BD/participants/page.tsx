@@ -10,7 +10,7 @@ export default async function AdminParticipantList() {
   return (
     <>
       <AdminOrNotFound />
-      <h1 className="text-xl font-bold">Завършили</h1>
+      <h1 className="text-xl font-bold">Всички ученици</h1>
       <TableAndOptions participants={data} />
     </>
   );

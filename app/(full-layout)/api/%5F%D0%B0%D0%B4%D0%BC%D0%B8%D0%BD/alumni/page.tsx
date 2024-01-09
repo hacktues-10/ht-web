@@ -11,7 +11,7 @@ export default async function AlumniParticipants() {
     data && (
       <>
         <AdminOrNotFound />
-        <h1 className="text-xl font-bold">Ученици</h1>
+        <h1 className="text-xl font-bold">Завършили</h1>
         <TableAndOptions participants={data} />
       </>
     )
