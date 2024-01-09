@@ -39,7 +39,7 @@ export const NotificationsPopover = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" aria-label="Съобщения">
                 <NotificationIcon hasNotifications={notifications.length > 0} />
               </Button>
             </PopoverTrigger>

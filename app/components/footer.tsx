@@ -48,6 +48,7 @@ export const SocialMediaIconButton = ({ media }: { media: SocialMedia }) => (
           variant="ghost"
           asChild
           className="transition-transform hover:scale-110"
+          aria-label={`${media.platform} на Hack TUES`}
         >
           <Link href={media.link} target="_blank">
             <media.icon />

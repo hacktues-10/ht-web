@@ -511,6 +511,7 @@ function ChevronDownLink({
       variant="secondary"
       size="icon"
       className={cn("rounded-full border backdrop-blur-md", className)}
+      aria-label="Към следващата секция"
     >
       <Link href={href}>
         <ChevronDown className="h-6 w-6" />
