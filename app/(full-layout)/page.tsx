@@ -162,7 +162,7 @@ export default async function LandingPage() {
             </h2>
             <div className="py-2" />
 
-            <Button size="lg">
+            <Button size="lg" asChild>
               <Link href="/signup">Регистрирайте се сега!</Link>
             </Button>
           </section>
@@ -455,6 +455,7 @@ function UnescoSection() {
             target="_blank"
             // FIXME: the focus ring classes are repeated in many places
             className="rounded-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            tabIndex={-1}
           >
             <Image
               src={ht8Image}
