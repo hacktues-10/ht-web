@@ -258,7 +258,7 @@ function CountdownHero() {
 
 function LandingCTAButton({ children }: PropsWithChildren) {
   return (
-    <Button asChild size="lg" tabIndex={1}>
+    <Button asChild size="lg">
       {children}
     </Button>
   );
