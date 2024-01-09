@@ -423,16 +423,7 @@ function UnescoSection() {
         <SandMask className="absolute inset-0 h-full w-full fill-sand" />
       </div>
       {/* <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] [clip-path:url(#sandMaskBg)]" /> */}
-      <div className="flex max-w-5xl flex-col-reverse items-center justify-center gap-8 sm:flex-row">
-        <div className="flex-3 flex w-full items-center justify-center">
-          <Link href={UNESCO_URL} target="_blank">
-            <Image
-              src={ht8Image}
-              alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
-              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl"
-            />
-          </Link>
-        </div>
+      <div className="flex max-w-5xl flex-col items-center justify-center gap-8 sm:flex-row-reverse">
         <div className="flex w-full flex-col gap-1">
           <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-destructive first:mt-0">
             <HTLogo className="font-extrabold">Hack TUES</HTLogo> в ЮНЕСКО
@@ -457,6 +448,20 @@ function UnescoSection() {
               <LinkIcon className="mr-2 h-4 w-4" /> Прочетете повече
             </Link>
           </Button>
+        </div>
+        <div className="flex-3 flex w-full items-center justify-center">
+          <Link
+            href={UNESCO_URL}
+            target="_blank"
+            // FIXME: the focus ring classes are repeated in many places
+            className="rounded-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          >
+            <Image
+              src={ht8Image}
+              alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
+              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            />
+          </Link>
         </div>
       </div>
     </section>
