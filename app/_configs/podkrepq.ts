@@ -413,7 +413,7 @@ export const MEDIA_ARTICLES = [
       "Ученици по технологии ще работят с експерти от 30 ИТ компании на HackTUES",
     logo: karieribgLogo,
     url: "https://www.karieri.bg/news/40146_uchenici-po-tehnologii-shche-rabotyat-s-eksperti-ot-30",
-    date: new Date(2023, FEBRUARY, 21),
+    date: new Date(2023, FEBRUARY, 23),
   },
   {
     name: "БНР София",
