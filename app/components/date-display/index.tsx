@@ -2,11 +2,14 @@
 
 import dynamic from "next/dynamic";
 
-export const DateDisplay = dynamic(() => import("./internal/date-display"), {
-  ssr: false,
-});
+export const DateDisplay = dynamic(
+  () => import("./wrong-timezone/date-display"),
+  {
+    ssr: false,
+  },
+);
 
 export const DateRangeDisplay = dynamic(
-  () => import("./internal/date-range-display"),
+  () => import("./wrong-timezone/date-range-display"),
   { ssr: false },
 );
