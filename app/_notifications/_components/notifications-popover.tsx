@@ -58,7 +58,7 @@ export const NotificationsPopover = ({
               />
             ))
           ) : (
-            <p className="w-80 overflow-auto px-2 py-4 text-center text-xs text-white/80 sm:text-left  ">
+            <p className="overflow-auto px-2 py-4 text-center text-xs text-white/80">
               Няма непрочетени съобщения
             </p>
           )}

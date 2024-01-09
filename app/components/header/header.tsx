@@ -46,11 +46,11 @@ export const Header = () => {
           .to([0, 100], [0, MAX_OPACITY])
           .to((x) => Math.min(x, MAX_OPACITY)),
       }}
-      className="sticky top-0 z-50 flex items-center gap-6 bg-background/[var(--header-bg-opacity)] px-6 py-6 backdrop-blur-md md:py-4"
+      className="sticky top-0 z-40 flex items-center gap-6 bg-background/[var(--header-bg-opacity)] px-6 py-6 backdrop-blur-md md:py-4"
     >
       <Link
         href="/"
-        className="text-center font-llpixel text-2xl text-brand transition-transform hover:scale-105"
+        className="rounded-sm text-center font-llpixel text-2xl text-brand ring-offset-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         Hack TUES <span className="text-sand">X</span>
       </Link>
@@ -66,19 +66,19 @@ export const Header = () => {
         )}
       {headerData && headerData.avatarName !== null && (
         <DropdownMenu>
-          <DropdownMenuTrigger className="hidden sm:block">
+          <DropdownMenuTrigger className="focus-visible:ring-offset-3 hidden rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring sm:block">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="hidden rounded-full outline-0 ring-0 focus:bg-white/0 md:inline-flex"
+                    className="hidden rounded-full focus:bg-white/0 md:inline-flex"
                     asChild
                   >
                     <Avatar>
                       <AvatarImage />
-                      <AvatarFallback>
+                      <AvatarFallback className="uppercase">
                         {headerData.avatarName.at(0) ?? <User />}
                       </AvatarFallback>
                     </Avatar>
@@ -88,7 +88,7 @@ export const Header = () => {
               </Tooltip>
             </TooltipProvider>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="items-center md:max-w-[12rem]">
+          <DropdownMenuContent className="hidden items-center sm:block md:max-w-[12rem]">
             <DropdownMenuLabel className="text-wrap justify-center text-ellipsis py-3 text-center">
               Здравейте, {headerData.avatarName}
             </DropdownMenuLabel>
