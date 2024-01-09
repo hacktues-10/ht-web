@@ -242,16 +242,7 @@ function CountdownHero() {
         </div>
 
         <CountdownTimer to={EVENT_START} />
-        <IfNotHTSession>
-          <Button asChild size="lg">
-            <Link href="/signup">Регистрирайте се!</Link>
-          </Button>
-        </IfNotHTSession>
-        <IfHTSession>
-          <Button asChild size="lg">
-            <Link href="/teams">Разгледайте отборите</Link>
-          </Button>
-        </IfHTSession>
+        <LandingCTA />
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>
@@ -262,6 +253,31 @@ function CountdownHero() {
         <CountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
       </aside>
     </div>
+  );
+}
+
+function LandingCTAButton({ children }: PropsWithChildren) {
+  return (
+    <Button asChild size="lg" tabIndex={1}>
+      {children}
+    </Button>
+  );
+}
+
+function LandingCTA() {
+  return (
+    <>
+      <IfNotHTSession>
+        <LandingCTAButton>
+          <Link href="/signup">Регистрирайте се!</Link>
+        </LandingCTAButton>
+      </IfNotHTSession>
+      <IfHTSession>
+        <LandingCTAButton>
+          <Link href="/teams">Разгледайте отборите</Link>
+        </LandingCTAButton>
+      </IfHTSession>
+    </>
   );
 }
 

@@ -36,8 +36,6 @@ export const Header = () => {
   const { scrollY } = useScroll();
   const { data: headerData } = useHeaderData();
 
-  headerData?.participant;
-
   return (
     <animated.header
       style={{
@@ -48,6 +46,12 @@ export const Header = () => {
       }}
       className="sticky top-0 z-40 flex items-center gap-6 bg-background/[var(--header-bg-opacity)] px-6 py-6 backdrop-blur-md md:py-4"
     >
+      <Link
+        href="#main-content"
+        className="absolute left-1 top-1 z-50 -translate-y-full bg-background/90 p-1 font-semibold ring-offset-background transition-transform focus-visible:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        Към съдържанието
+      </Link>
       <Link
         href="/"
         className="rounded-sm text-center font-llpixel text-2xl text-brand ring-offset-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
