@@ -114,7 +114,7 @@ export const MobileNavigationRoot = ({
             </MobileActionButtons>
           </IfAnyHTFeatureOn>
         )}
-        <SocialMediaIconRow />
+        <SocialMediaIconRow isMobile />
       </SheetContent>
     </Sheet>
   );

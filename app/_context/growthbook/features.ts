@@ -22,6 +22,15 @@ export type HTFeatures = {
   "show-linktree": boolean;
   "show-twitter": boolean;
   "show-email": boolean;
+
+  "show-instagram-mobile": boolean;
+  "show-facebook-mobile": boolean;
+  "show-linkedin-mobile": boolean;
+  "show-youtube-mobile": boolean;
+  "show-tiktok-mobile": boolean;
+  "show-linktree-mobile": boolean;
+  "show-twitter-mobile": boolean;
+  "show-email-mobile": boolean;
 };
 
 export type HTFeature = keyof HTFeatures;

@@ -27,10 +27,17 @@ export const Footer = () => (
   </footer>
 );
 
-export const SocialMediaIconRow = () => (
+export const SocialMediaIconRow = ({
+  isMobile = false,
+}: {
+  isMobile?: boolean;
+}) => (
   <ul className="flex">
     {SOCIAL_MEDIA.map((media) => (
-      <IfHTFeatureOn feature={media.feature} key={media.platform}>
+      <IfHTFeatureOn
+        feature={!isMobile ? media.feature : media.featureMobile}
+        key={media.platform}
+      >
         <li>
           <SocialMediaIconButton media={media} />
         </li>
