@@ -1,3 +1,5 @@
+"use server";
+
 import { eq } from "drizzle-orm";
 
 import { getHTSession } from "~/app/api/auth/session";

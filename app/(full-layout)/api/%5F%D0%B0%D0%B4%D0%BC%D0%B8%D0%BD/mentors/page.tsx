@@ -1,5 +1,5 @@
 import { AdminOrNotFound } from "../components/server";
-import TableData from "../components/TableData";
+import TableData from "../components/TableAndOptions/components/TableData";
 import { getMentorsAdmin } from "./service";
 
 export default async function AdminMentorList() {

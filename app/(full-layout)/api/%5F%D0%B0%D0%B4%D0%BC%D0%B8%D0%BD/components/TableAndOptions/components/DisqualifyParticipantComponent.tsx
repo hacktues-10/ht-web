@@ -18,9 +18,11 @@ import {
 } from "~/app/components/ui/popover";
 import { ScrollArea } from "~/app/components/ui/scroll-area";
 import { useToast } from "~/app/components/ui/use-toast";
-import { getParticipantIdByValue } from "~/app/participants/actions";
+import {
+  disqualifyParticipantById,
+  getParticipantIdByValue,
+} from "~/app/participants/actions";
 import { cn } from "~/app/utils";
-import { disqualifyParticipantById } from "../participants/service";
 
 //@ts-ignore
 export default function DisqualifyParticipantComponent({ participants }) {
