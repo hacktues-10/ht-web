@@ -48,7 +48,7 @@ export const Header = () => {
     >
       <Link
         href="#main-content"
-        className="absolute left-1 top-1 z-50 -translate-y-full bg-background/90 p-1 font-semibold ring-offset-background transition-transform focus-visible:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        className="absolute left-1 top-1 z-50 -translate-y-[130%] bg-background/90 p-1 font-semibold ring-offset-background transition-transform focus-visible:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
         Към съдържанието
       </Link>
