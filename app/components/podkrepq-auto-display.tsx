@@ -29,6 +29,7 @@ export default function PodkrepqAutoDisplay({
   podkrepqshti: Podkrepqsht[];
 }) {
   const [liveIndex, setLiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const nextIndex = liveIndex < podkrepqshti.length - 1 ? liveIndex + 1 : 0;
   const prevIndex = liveIndex === 0 ? podkrepqshti.length - 1 : liveIndex - 1;
   const prevPervIndex =
@@ -36,18 +37,19 @@ export default function PodkrepqAutoDisplay({
   const nextNextIndex = nextIndex < podkrepqshti.length - 1 ? nextIndex + 1 : 0;
 
   useEffect(() => {
+    if (isPaused) return;
     const intervalId = setInterval(() => {
       setLiveIndex((prevIndex) =>
         prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
       );
     }, 5000);
     return () => clearInterval(intervalId);
-  }, [liveIndex, podkrepqshti.length]);
+  }, [liveIndex, podkrepqshti.length, isPaused]);
 
   return (
     <div className="flex flex-wrap items-center justify-center align-middle">
       <ul className="relative mx-auto mt-20 w-64 sm:w-72 md:w-80 lg:w-96">
-        <div className="pb-[50%] pt-[20%] ">
+        <div className="pb-[50%] pt-[20%]">
           {podkrepqshti.map((podkrepqsht, index) => (
             <PodkrepqLogo
               key={podkrepqsht.name}
@@ -87,6 +89,7 @@ export default function PodkrepqAutoDisplay({
                     name={podkrepqshti[liveIndex].name}
                     url={podkrepqshti[liveIndex].url}
                     description={podkrepqshti[liveIndex].description}
+                    onOpenChange={setIsPaused}
                   />
                 </>
               ) : (
@@ -135,13 +138,15 @@ function PodkrepqReadMore({
   name,
   description,
   url,
+  onOpenChange,
 }: {
   name: string;
   description: string;
   url: string;
+  onOpenChange?: (open: boolean) => void;
 }) {
   return (
-    <Dialog>
+    <Dialog onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <button className={readMoreClasses}>{readMoreText}</button>
       </DialogTrigger>
