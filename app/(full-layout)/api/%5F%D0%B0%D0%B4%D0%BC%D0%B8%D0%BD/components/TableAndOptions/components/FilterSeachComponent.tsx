@@ -1,14 +1,15 @@
 "use client";
 
 import { Input } from "~/app/components/ui/input";
-import { Label } from "~/app/components/ui/label";
 
 export default function FilterSearchComponent({
   filterSearch,
   setFilterSearch,
+  isTeam = false,
 }: {
   filterSearch: string;
   setFilterSearch: Function;
+  isTeam: boolean;
 }) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterSearch(event.target.value.toLowerCase());
@@ -20,7 +21,11 @@ export default function FilterSearchComponent({
       <div className="m-5 mt-1 ">
         <Input
           type="text"
-          placeholder="Търсете по имена, имейл и Discord"
+          placeholder={
+            isTeam
+              ? "Търси по име на отбор"
+              : "Търсете по имена, имейл, отбор и Discord"
+          }
           onChange={handleChange}
           defaultValue={filterSearch}
         />

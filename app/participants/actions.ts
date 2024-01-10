@@ -13,7 +13,7 @@ import {
 import { env } from "../env.mjs";
 
 interface ParticipantAdmin {
-  id: number;
+  team: string | null;
   firstName: string;
   middleName: string | null;
   lastName: string;
@@ -22,7 +22,6 @@ interface ParticipantAdmin {
   grade: string;
   parallel: string;
   isLookingForTeam: boolean;
-  teamId: string | null;
   tshirt: number | null;
   isCaptain: boolean;
   isDisqualified: boolean;

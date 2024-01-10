@@ -150,7 +150,7 @@ export function formatParticipantDiscordNick(participant: Participant) {
 }
 
 export interface ParticipantAdmin {
-  id: number;
+  team: string | null;
   firstName: string;
   middleName: string | null;
   lastName: string;
@@ -159,7 +159,6 @@ export interface ParticipantAdmin {
   grade: string;
   parallel: string;
   isLookingForTeam: boolean;
-  teamId: string | null;
   tshirt: number | null;
   isCaptain: boolean;
   isDisqualified: boolean;
@@ -170,7 +169,6 @@ export interface ParticipantAdmin {
 function adminSelect() {
   return db
     .select({
-      id: particpants.id,
       firstName: particpants.firstName,
       middleName: particpants.middleName,
       lastName: particpants.lastName,
@@ -179,8 +177,8 @@ function adminSelect() {
       phoneNumber: particpants.phoneNumber,
       grade: particpants.grade,
       parallel: particpants.parallel,
+      team: teams.name,
       isLookingForTeam: particpants.isLookingForTeam,
-      teamId: teams.id,
       tshirt: particpants.tShirtId,
       isCaptain: particpants.isCaptain,
       isDisqualified: particpants.isDisqualified,

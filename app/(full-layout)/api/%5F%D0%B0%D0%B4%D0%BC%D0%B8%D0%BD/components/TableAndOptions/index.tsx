@@ -47,7 +47,8 @@ export default function TableAndOptions({
             participant.firstName +
             participant.middleName +
             participant.lastName +
-            participant.discordUser
+            participant.discordUser +
+            participant.team
           )
             ?.toLowerCase()
             .includes(filterSearch),
@@ -80,6 +81,7 @@ export default function TableAndOptions({
           <FilterSearchComponent
             filterSearch={filterSearch}
             setFilterSearch={setFilterEmail}
+            isTeam={false}
           />
           <FilterDisqulifiedComponent
             filterDisqulified={filterDisqulified}

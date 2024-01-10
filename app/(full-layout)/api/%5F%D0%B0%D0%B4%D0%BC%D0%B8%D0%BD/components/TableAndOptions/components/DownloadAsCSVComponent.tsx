@@ -8,7 +8,7 @@ import { PrepareParticipants } from "~/app/participants/actions";
 export default function DownloadAsCSVComponent({
   data,
 }: {
-  data: PrepareParticipants;
+  data: Array<object>;
 }) {
   const downloadDataAsCSV = () => {
     const csv = Papa.unparse(data);
