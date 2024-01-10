@@ -3,11 +3,25 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Globe } from "lucide-react";
 
 import { getHackathonById } from "../_configs/archive";
 import { Podkrepqsht } from "../_configs/podkrepq";
 import { cn } from "../utils";
+import { Button } from "./ui/button";
 import { Card, CardContent, CardTitle } from "./ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+
+const readMoreClasses =
+  "rounded-sm font-bold text-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+const readMoreText = "Покажи повече";
 
 export default function PodkrepqAutoDisplay({
   podkrepqshti,
@@ -21,14 +35,14 @@ export default function PodkrepqAutoDisplay({
     prevIndex === 0 ? podkrepqshti.length - 1 : prevIndex - 1;
   const nextNextIndex = nextIndex < podkrepqshti.length - 1 ? nextIndex + 1 : 0;
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setLiveIndex((prevIndex) =>
-  //       prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
-  //     );
-  //   }, 5000);
-  //   return () => clearInterval(intervalId);
-  // }, [liveIndex, podkrepqshti.length]);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setLiveIndex((prevIndex) =>
+        prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
+      );
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [liveIndex, podkrepqshti.length]);
 
   return (
     <div className="flex flex-wrap items-center justify-center align-middle">
@@ -49,40 +63,53 @@ export default function PodkrepqAutoDisplay({
           ))}
         </div>
       </ul>
-      <div className="ml-10 hidden md:mt-10 md:block md:w-[400px] lg:mt-20 lg:w-[600px]">
-        <Card className="flex h-64 w-full flex-col p-2">
+      <div className="ml-10 hidden h-96 items-center md:mt-10 md:flex md:w-[400px] lg:mt-20 lg:w-[600px]">
+        <Card className="flex w-full flex-col p-2">
           <CardTitle className="pt-5 text-center text-white">
             {podkrepqshti[liveIndex].name}
           </CardTitle>
           <CardContent className="h-full flex-shrink flex-grow p-5 text-white">
             <div className="h-full">
               {shouldShowDescription(podkrepqshti[liveIndex].description) ? (
-                <div className="flex h-full flex-shrink flex-grow flex-col">
-                  <div className="inline-flex h-full flex-1 flex-shrink flex-grow">
-                    {podkrepqshti[liveIndex].description
-                      .split("\n")
-                      .map((p) => (
-                        <p key={p} className="text-white">
-                          {p}
-                        </p>
-                      ))}
+                <>
+                  <div className="flex h-24 flex-shrink flex-grow flex-col overflow-clip">
+                    <div className="inline-flex h-full flex-1 flex-shrink flex-grow [mask-image:linear-gradient(to_bottom,white,calc(100%-20px),transparent)]">
+                      {podkrepqshti[liveIndex].description
+                        .split("\n")
+                        .map((p) => (
+                          <p key={p} className="text-white">
+                            {p}
+                          </p>
+                        ))}
+                    </div>
                   </div>
-                  <div className="flex justify-center">
-                    <PodkrepqReadMore url={podkrepqshti[liveIndex].url} />
-                  </div>
-                </div>
+                  <PodkrepqReadMore
+                    name={podkrepqshti[liveIndex].name}
+                    url={podkrepqshti[liveIndex].url}
+                    description={podkrepqshti[liveIndex].description}
+                  />
+                </>
               ) : (
                 <div className="flex h-[150px] flex-col items-center justify-center gap-1">
                   <p className="text-center text-xl font-bold">
                     Благодарим на {podkrepqshti[liveIndex].name} за подкрепата!
                   </p>
                   <p>
-                    <PodkrepqReadMore url={podkrepqshti[liveIndex].url} />
+                    <Link
+                      href={podkrepqshti[liveIndex].url}
+                      className={readMoreClasses}
+                      target="_blank"
+                    >
+                      {readMoreText}
+                    </Link>
                   </p>
                 </div>
               )}
             </div>
-            <div className="flex flex-wrap justify-center align-middle">
+            <div
+              className="flex flex-wrap justify-center align-middle"
+              title={`Издания на Hack TUES, които ${podkrepqshti[liveIndex].name} подкрепи`}
+            >
               {podkrepqshti[liveIndex].supportedEditions?.map((h) => {
                 const hackathon = getHackathonById(h);
                 if (hackathon)
@@ -105,18 +132,35 @@ function shouldShowDescription(description?: string) {
 }
 
 function PodkrepqReadMore({
+  name,
   description,
   url,
 }: {
-  description?: string;
+  name: string;
+  description: string;
   url: string;
 }) {
-  const link = (
-    <Link className="font-semibold italic text-white" href={url}>
-      Научи повече
-    </Link>
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button className={readMoreClasses}>{readMoreText}</button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{name}</DialogTitle>
+        </DialogHeader>
+        {description?.split("\n").map((p) => <p key={p}>{p}</p>)}
+        <DialogFooter>
+          <Button asChild variant="outline">
+            <Link href={url} target="_blank">
+              <Globe className="mr-2 h-4 w-4" />
+              Уебсайт на {name}
+            </Link>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
-  return link;
 }
 
 function PodkrepqLogo({
