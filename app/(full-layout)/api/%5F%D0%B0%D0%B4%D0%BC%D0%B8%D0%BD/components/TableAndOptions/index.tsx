@@ -74,12 +74,13 @@ export default function TableAndOptions({
   return (
     data && (
       <>
-        <div className="w-[440px]">
-          <DisqualifyParticipantComponent participants={preparedParticipants} />
-        </div>
         <h1 className="m-2 mt-4 text-left text-lg font-bold">Търсене</h1>
 
-        <div className="mb-5 flex w-min rounded-3xl border-2 border-white">
+        <div className="mb-5 flex w-min rounded-3xl border-2 border-white p-2">
+          <FilterSearchComponent
+            filterSearch={filterSearch}
+            setFilterSearch={setFilterEmail}
+          />
           <FilterDisqulifiedComponent
             filterDisqulified={filterDisqulified}
             setFilterDisqulified={setFilterDisqulified}
@@ -89,10 +90,9 @@ export default function TableAndOptions({
             setFilterTshirt={setFilterTshirt}
           />
           <DownloadAsCSVComponent data={data} />
-          <FilterSearchComponent
-            filterSearch={filterSearch}
-            setFilterSearch={setFilterEmail}
-          />
+        </div>
+        <div className="w-[440px]">
+          <DisqualifyParticipantComponent participants={preparedParticipants} />
         </div>
 
         <TableData data={data} />

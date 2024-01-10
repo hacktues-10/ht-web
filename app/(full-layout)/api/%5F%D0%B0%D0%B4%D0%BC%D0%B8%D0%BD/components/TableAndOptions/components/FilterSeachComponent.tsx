@@ -20,7 +20,7 @@ export default function FilterSearchComponent({
       <div className="m-5 mt-1 ">
         <Input
           type="text"
-          placeholder="Иванчо"
+          placeholder="Търсете по имена, имейл и Discord"
           onChange={handleChange}
           defaultValue={filterSearch}
         />

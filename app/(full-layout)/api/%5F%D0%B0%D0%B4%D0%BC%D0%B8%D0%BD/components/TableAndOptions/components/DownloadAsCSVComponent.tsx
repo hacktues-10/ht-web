@@ -1,5 +1,6 @@
 import { saveAs } from "file-saver";
 import Papa from "papaparse";
+import { FaDownload } from "react-icons/fa6";
 
 import { Button } from "~/app/components/ui/button";
 import { PrepareParticipants } from "~/app/participants/actions";
@@ -16,8 +17,13 @@ export default function DownloadAsCSVComponent({
   };
 
   return (
-    <Button className="mt-12" onClick={downloadDataAsCSV}>
-      Download CSV
-    </Button>
+    <div className="m-3 mt-12 flex">
+      <Button onClick={downloadDataAsCSV}>
+        <div className="pr-2">
+          <FaDownload />
+        </div>
+        Изтегли като CSV
+      </Button>
+    </div>
   );
 }
