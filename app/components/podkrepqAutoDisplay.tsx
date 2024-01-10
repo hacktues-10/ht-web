@@ -21,14 +21,14 @@ export default function PodkrepqAutomationComponent({
     prevIndex === 0 ? podkrepqshti.length - 1 : prevIndex - 1;
   const nextNextIndex = nextIndex < podkrepqshti.length - 1 ? nextIndex + 1 : 0;
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setLiveIndex((prevIndex) =>
-        prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
-      );
-    }, 5000);
-    return () => clearInterval(intervalId);
-  }, [liveIndex, podkrepqshti.length]);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setLiveIndex((prevIndex) =>
+  //       prevIndex === podkrepqshti.length - 1 ? 0 : prevIndex + 1,
+  //     );
+  //   }, 5000);
+  //   return () => clearInterval(intervalId);
+  // }, [liveIndex, podkrepqshti.length]);
 
   return (
     <div className="flex items-center flex-wrap align-middle justify-center">
@@ -50,24 +50,30 @@ export default function PodkrepqAutomationComponent({
         </div>
       </ul>
       <div className="ml-10 hidden md:mt-10 md:block md:w-[400px] lg:mt-20 lg:w-[600px]">
-        <Card className="w-full p-2">
+        <Card className="flex h-64 w-full flex-col p-2">
           <CardTitle className="pt-5 text-center text-white">
             {podkrepqshti[liveIndex].name}
           </CardTitle>
-          <CardContent className="p-5 text-white">
-            <div className="max-h-[200px]">
+          <CardContent className="h-full flex-shrink flex-grow p-5 text-white">
+            <div className="h-full">
               {shouldShowDescription(podkrepqshti[liveIndex].description) ? (
-                <p>
-                  {podkrepqshti[liveIndex].description?.substring(0, 270)}
-                  ...&emsp;
-                  <PodkrepqReadMore
-                    url={podkrepqshti[liveIndex].url}
-                    description={podkrepqshti[liveIndex].description}
-                  />
-                </p>
+                <div className="flex h-full flex-shrink flex-grow flex-col">
+                  <div className="inline-flex h-full flex-1 flex-shrink flex-grow">
+                    {podkrepqshti[liveIndex].description
+                      .split("\n")
+                      .map((p) => (
+                        <p key={p} className="text-white">
+                          {p}
+                        </p>
+                      ))}
+                  </div>
+                  <div className="flex justify-center">
+                    <PodkrepqReadMore url={podkrepqshti[liveIndex].url} />
+                  </div>
+                </div>
               ) : (
                 <div className="flex h-[150px] flex-col items-center justify-center gap-1">
-                  <p className="text-xl font-bold">
+                  <p className="text-center text-xl font-bold">
                     Благодарим на {podkrepqshti[liveIndex].name} за подкрепата!
                   </p>
                   <p>
@@ -150,6 +156,7 @@ function PodkrepqLogo({
               }
             : undefined
         }
+        tabIndex={[prevIndex, liveIndex, nextIndex].includes(index) ? 0 : -1}
         className={cn(
           "group z-0 grid aspect-video place-content-center overflow-clip rounded-lg bg-white p-4 opacity-0 shadow-md transition-all duration-700",
           index === prevIndex &&
