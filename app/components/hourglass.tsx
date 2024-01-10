@@ -168,7 +168,10 @@ export const CountdownHourglass = ({ from, to }: { from: Date; to: Date }) => {
 };
 
 function useFillAmount(startDate: Date, endDate: Date) {
-  const { diff: remaining } = useCountdown(endDate);
+  const { diff: remaining } = useCountdown(endDate, {
+    ssr: true,
+    from: startDate,
+  });
   const total = endDate.getTime() - startDate.getTime();
   const passed = total - remaining;
   const fillAmount = passed / total;
