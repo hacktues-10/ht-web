@@ -9,7 +9,7 @@ import { Podkrepqsht } from "../_configs/podkrepq";
 import { cn } from "../utils";
 import { Card, CardContent, CardTitle } from "./ui/card";
 
-export default function PodkrepqAutomationComponent({
+export default function PodkrepqAutoDisplay({
   podkrepqshti,
 }: {
   podkrepqshti: Podkrepqsht[];
@@ -31,7 +31,7 @@ export default function PodkrepqAutomationComponent({
   // }, [liveIndex, podkrepqshti.length]);
 
   return (
-    <div className="flex items-center flex-wrap align-middle justify-center">
+    <div className="flex flex-wrap items-center justify-center align-middle">
       <ul className="relative mx-auto mt-20 w-64 sm:w-72 md:w-80 lg:w-96">
         <div className="pb-[50%] pt-[20%] ">
           {podkrepqshti.map((podkrepqsht, index) => (
@@ -173,7 +173,7 @@ function PodkrepqLogo({
       >
         <Image
           className={cn(
-            "max-w-[14.2rem] max-h-[8rem] sm:max-w-[16rem] sm:max-h-[9rem] md:max-w-[17.7rem] md:max-h-[10rem] lg:max-w-[21.3rem] lg:max-h-[12rem] object-contain px-3 py-5",
+            "max-h-[8rem] max-w-[14.2rem] object-contain px-3 py-5 sm:max-h-[9rem] sm:max-w-[16rem] md:max-h-[10rem] md:max-w-[17.7rem] lg:max-h-[12rem] lg:max-w-[21.3rem]",
             index === prevIndex && "z-10",
             index === liveIndex && "z-50",
             index === nextIndex && "z-10 ",
