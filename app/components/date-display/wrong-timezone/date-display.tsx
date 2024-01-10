@@ -1,6 +1,6 @@
 import { dateFormatter, timeFormatter } from "./formatters";
 
-const DateDisplayInternal = ({
+const DateDisplayWrongTimezone = ({
   date,
   showHour = false,
 }: {
@@ -13,4 +13,4 @@ const DateDisplayInternal = ({
   </time>
 );
 
-export default DateDisplayInternal;
+export default DateDisplayWrongTimezone;

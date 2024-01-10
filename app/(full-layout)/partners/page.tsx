@@ -11,7 +11,7 @@ import {
   MediaArticle,
   PARTNERS,
 } from "~/app/_configs/podkrepq";
-import { DateDisplay } from "~/app/components/date-display";
+import DateDisplayWrongTimezone from "~/app/components/date-display/wrong-timezone/date-display";
 import PodkrepqAutoDisplay from "~/app/components/podkrepq-auto-display";
 import {
   Card,
@@ -110,7 +110,7 @@ function MediaArticleCard({ article }: { article: MediaArticle }) {
             </CardHeader>
             <div className="pb-3 text-center sm:hidden">{"●"}</div>
             <CardFooter className="justify-center text-center sm:justify-start sm:text-left">
-              <DateDisplay date={article.date} />
+              <DateDisplayWrongTimezone date={article.date} />
             </CardFooter>
           </div>
         </article>
