@@ -21,14 +21,14 @@ import {
   EVENT_START,
   MAX_TEAMS_ALUMNI,
   MAX_TEAMS_STUDENTS,
-  STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
 import { IfHTSession, IfNotHTSession } from "../api/auth/server-components";
 import { CountdownTimer } from "../components/countdowns";
-import { DateDisplay, DateRangeDisplay } from "../components/date-display";
+import { DateDisplay } from "../components/date-display";
+import DateRangeDisplayWrongTimezone from "../components/date-display/wrong-timezone/date-range-display";
 import { CountdownHourglass } from "../components/hourglass";
 import { HTLogo, HTXLogoDuotone } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
@@ -205,7 +205,10 @@ function CountdownHero() {
 
         <div className="flex flex-col gap-1 py-3 text-sm font-semibold">
           <IconParagraph icon={Calendar}>
-            <DateRangeDisplay startDate={EVENT_START} endDate={EVENT_END} />
+            <DateRangeDisplayWrongTimezone
+              startDate={EVENT_START}
+              endDate={EVENT_END}
+            />
           </IconParagraph>
           <IconParagraph icon={MapPin}>София Тех Парк</IconParagraph>
           <IconParagraph icon={Award}>10-ТО ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
@@ -339,7 +342,10 @@ function ArchiveLocation({
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:gap-4">
       <IconParagraph icon={Calendar}>
-        <DateRangeDisplay startDate={startDate} endDate={endDate} />
+        <DateRangeDisplayWrongTimezone
+          startDate={startDate}
+          endDate={endDate}
+        />
       </IconParagraph>
       {location ? (
         <IconParagraph icon={MapPin}>{location}</IconParagraph>
