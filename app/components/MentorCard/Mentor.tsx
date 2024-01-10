@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import { getImageUrl } from "../../_integrations/r2";
-import DisplayTechnologies from "../Technologies/displayTechnologies";
+// import DisplayTechnologies from "../Technologies/displayTechnologies";
 
 import "./MentorCard.css"; // Apply additional styles in a separate CSS file
 
@@ -60,7 +60,7 @@ const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
         <p className="mentor-email">{mentor.email}</p>
         <p className="mentor-company">{mentor.companyName}</p>
         <p className="mentor-description">{mentor.description}</p>
-        <DisplayTechnologies technologies={mentor.technologies} />
+        {/* <DisplayTechnologies technologies={mentor.technologies} /> */}
       </div>
       <IfHTFeatureOn feature="choose-mentor">
         {participant &&

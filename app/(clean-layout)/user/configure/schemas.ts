@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import {
+  ALUMNI_PARALLELS,
   EXTENDED_ALUMNI_GRADES,
-  EXTENDED_ALUMNI_PARALLELS,
   REGULAR_ALUMNI_GRADES,
   REGULAR_ALUMNI_PARALLELS,
   STUDENT_GRADES,
@@ -38,9 +38,15 @@ const names3Schema = z
   })
   .merge(names2Schema);
 
-const regulationAgreementSchema = z.object({
+const consentsSchema = z.object({
   regulationAgreement: z.boolean().refine((v) => v, {
-    message: "Трябва да се съгласите с правилника",
+    message: "Трябва да се съгласите с регламента за да участвате",
+  }),
+  personalDataConsent: z.boolean().refine((v) => v, {
+    message: "Трябва да се съгласите с обработката на личните данни",
+  }),
+  publicDataConsent: z.boolean().refine((v) => v, {
+    message: "Трябва да се съгласите с публикуването на името и класа/випуска",
   }),
 });
 
@@ -69,12 +75,10 @@ export const alumniStep1Schema = z
     }),
   })
   .merge(names3Schema)
-  .merge(regulationAgreementSchema)
+  .merge(consentsSchema)
   .merge(phoneNumberSchema);
 
-export const studentsStep1Schema = names2Schema.merge(
-  regulationAgreementSchema,
-);
+export const studentsStep1Schema = names2Schema.merge(consentsSchema);
 
 // export const alumniStep2Schema = z.object({
 //   grade: z.enum(ALUMNI_GRADES),
@@ -89,7 +93,7 @@ export const alumniStep2Schema = z.object({
     }),
     z.object({
       grade: z.enum(EXTENDED_ALUMNI_GRADES),
-      parallel: z.enum(EXTENDED_ALUMNI_PARALLELS),
+      parallel: z.enum(ALUMNI_PARALLELS),
     }),
   ]),
 });
@@ -122,7 +126,7 @@ export const alumniStep5Schema = z.object({
   question1: z
     .string()
     .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })
-    .max(100, { message: "Отговорът трябва да съдържа най-много 100 символа" }),
+    .max(300, { message: "Отговорът трябва да съдържа най-много 100 символа" }),
   question2: z
     .string()
     .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })

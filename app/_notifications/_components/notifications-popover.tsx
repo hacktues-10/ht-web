@@ -39,7 +39,7 @@ export const NotificationsPopover = ({
         <Tooltip>
           <TooltipTrigger asChild>
             <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" aria-label="Съобщения">
                 <NotificationIcon hasNotifications={notifications.length > 0} />
               </Button>
             </PopoverTrigger>
@@ -47,7 +47,7 @@ export const NotificationsPopover = ({
           <TooltipContent>{notifications.length} непрочетени</TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <PopoverContent className="w-96 sm:ml-auto sm:w-[67%]">
+      <PopoverContent isHeader={true} className="sm:ml-auto">
         <div className="flex flex-col gap-2">
           {notifications.length > 0 ? (
             notifications.map((notification) => (
@@ -58,7 +58,7 @@ export const NotificationsPopover = ({
               />
             ))
           ) : (
-            <p className="w-80 overflow-auto px-2 py-4 text-center text-xs text-white/80 sm:text-left  ">
+            <p className="overflow-auto px-2 py-4 text-center text-xs text-white/80">
               Няма непрочетени съобщения
             </p>
           )}

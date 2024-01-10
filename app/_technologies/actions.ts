@@ -5,14 +5,19 @@ import { eq } from "drizzle-orm";
 import { db } from "~/app/db";
 import { particpants } from "~/app/db/schema";
 
-export const updateAllergiesAndTechnologies = async (
+export const updateAllergiesTechnologiesAndIsLookingForTeam = async (
   allergies: string,
   technologies: string,
+  isLookingForTeam: boolean,
   participantId: number,
 ) => {
   const res = await db
     .update(particpants)
-    .set({ technologies: technologies, allergies: allergies })
+    .set({
+      technologies: technologies,
+      allergies: allergies,
+      isLookingForTeam: isLookingForTeam,
+    })
     .where(eq(particpants.id, participantId))
     .returning();
 

@@ -26,11 +26,12 @@ export const classEnum = pgEnum("class", [
 ]);
 export const gradeEnum = pgEnum("grade", [...STUDENT_GRADES, ...ALUMNI_GRADES]);
 export const tShirtSizeEnum = pgEnum("tshirt_size", [
-  "XS",
+  "XS", // XXX: should be impossible to select
   "S",
   "M",
   "L",
   "XL",
+  "XXL",
 ]);
 
 export const notificationsTypes = pgEnum("notifications_types", [
@@ -53,6 +54,7 @@ export const particpants = pgTable("participants", {
   tShirtId: serial("tshirt_id")
     .references(() => tShirts.id)
     .notNull(), // FIXME: shouldnt use serial
+  isDisqualified: boolean("is_disqualified").notNull().default(false),
   technologies: varchar("technologies").default("").notNull(),
   isLookingForTeam: boolean("is_looking_for_team").notNull().default(true),
   isCaptain: boolean("is_captain").notNull().default(false),
@@ -154,7 +156,6 @@ export const teams = pgTable("teams", {
   description: varchar("description").notNull(),
   mentorId: integer("mentor_id").references(() => mentors.id),
   technologies: varchar("technologies").default("").notNull(),
-  projectId: integer("project_id").references(() => projects.id),
   discordRoleId: varchar("role_id"),
   isAlumni: boolean("is_alumni").notNull().default(false),
   memberCount: integer("member_count").default(1).notNull(),
@@ -174,8 +175,8 @@ export const teamsRelations = relations(teams, ({ one, many }) => ({
     references: [mentors.id],
   }),
   project: one(projects, {
-    fields: [teams.projectId],
-    references: [projects.id],
+    fields: [teams.id],
+    references: [projects.teamId],
   }),
   invitations: many(invitations),
   joinRequests: many(joinRequests),
@@ -240,8 +241,17 @@ export const projects = pgTable("projects", {
   description: varchar("description").notNull(),
   technologies: varchar("technologies").notNull(),
   websiteURL: varchar("website_url").notNull(),
-  // TODO: technologies
+  teamId: varchar("team_id")
+    .notNull()
+    .references(() => teams.id),
 });
+
+export const projectsRelations = relations(projects, ({ one }) => ({
+  team: one(teams, {
+    fields: [projects.teamId],
+    references: [teams.id],
+  }),
+}));
 
 export const tShirts = pgTable("tshirts", {
   id: serial("id").primaryKey(),
@@ -303,16 +313,16 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
 export const admins = pgTable("admins", {
   userId: integer("user_id")
     .notNull()
-    .references(() => particpants.id)
+    .references(() => users.id)
     .primaryKey(),
   firstName: varchar("first_name").notNull(),
   lastName: varchar("last_name").notNull(),
 });
 
 export const adminsRelations = relations(admins, ({ one }) => ({
-  user: one(particpants, {
+  user: one(users, {
     fields: [admins.userId],
-    references: [particpants.id],
+    references: [users.id],
   }),
 }));
 

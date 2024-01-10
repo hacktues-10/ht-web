@@ -1,15 +1,17 @@
 "use client";
 
-import { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { LogOutIcon, Menu, User2 } from "lucide-react";
 
+import { IfAnyHTFeatureOn } from "../_integrations/components";
 import { cn } from "../utils";
 import { SignInButton, SignOutButton } from "./buttons";
 import { SocialMediaIconRow } from "./footer";
 import { useHeaderData } from "./header/header";
+import { HTLogo } from "./logos";
 import { Button } from "./ui/button";
 import { navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { Separator } from "./ui/separator";
@@ -41,42 +43,65 @@ export const MobileNavigationRoot = ({
       <SheetContent className="flex flex-col items-center gap-10 py-8">
         <MobileNavLink
           href="/"
-          className="font-llpixel text-3xl text-sand transition-transform hover:scale-105"
+          onOpenChange={setIsSheetOpen}
+          className="text-3xl transition-transform hover:scale-105"
         >
-          Hack TUES X
+          <HTLogo className="text-sand">Hack TUES X</HTLogo>
         </MobileNavLink>
         {/* FIXME: ScrollArea doesnt work */}
-        <ScrollArea className="h-full flex-1">{children}</ScrollArea>
+        <ScrollArea className="h-full flex-1">
+          {/* HACK: because the children are rendered by the server and they need to access the state setter,
+                    we're passing it by context. Don't know if good idea, but it works (i think...) */}
+          <SheetContext.Provider
+            value={{
+              onOpenChange: setIsSheetOpen,
+            }}
+          >
+            {children}
+          </SheetContext.Provider>
+        </ScrollArea>
         <Separator />
-        {headerData && (
-          <div className="flex flex-col gap-1">
-            {headerData.avatarName ? (
-              <>
-                <MobileNavLink
-                  href="/profile"
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "flex w-full justify-evenly gap-2 text-lg",
-                  )}
-                >
-                  <User2 /> Профил
-                </MobileNavLink>
-                <SignOutButton
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "flex w-full justify-evenly gap-2 text-lg text-destructive hover:text-[#fc3f6e]",
-                  )}
-                >
-                  <LogOutIcon /> Изход
-                </SignOutButton>
-              </>
-            ) : (
-              <>
+        {headerData && headerData.avatarName ? (
+          <MobileActionButtons>
+            <MobileNavLink
+              href="/profile"
+              onOpenChange={setIsSheetOpen}
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "flex w-full justify-evenly gap-2 text-lg",
+              )}
+            >
+              <User2 /> Профил
+            </MobileNavLink>
+            <SignOutButton
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "flex w-full justify-evenly gap-2 text-lg text-destructive hover:text-[#fc3f6e]",
+              )}
+            >
+              <LogOutIcon /> Изход
+            </SignOutButton>
+          </MobileActionButtons>
+        ) : (
+          <IfAnyHTFeatureOn
+            outOf={[
+              "signin-alumni",
+              "signin-students",
+              "register-alumni",
+              "register-students",
+            ]}
+          >
+            <MobileActionButtons>
+              <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
                 <SignInButton
                   className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
                 >
                   Вход
                 </SignInButton>
+              </IfAnyHTFeatureOn>
+              <IfAnyHTFeatureOn
+                outOf={["register-alumni", "register-students"]}
+              >
                 <SignInButton
                   className={cn(
                     navigationMenuTriggerStyle(),
@@ -85,17 +110,17 @@ export const MobileNavigationRoot = ({
                 >
                   Регистрация
                 </SignInButton>
-              </>
-            )}
-          </div>
+              </IfAnyHTFeatureOn>
+            </MobileActionButtons>
+          </IfAnyHTFeatureOn>
         )}
-        <SocialMediaIconRow />
+        <SocialMediaIconRow isMobile />
       </SheetContent>
     </Sheet>
   );
 };
 
-export function MobileNavLink({
+function MobileNavLink({
   href,
   onOpenChange,
   className,
@@ -117,3 +142,20 @@ export function MobileNavLink({
     </Link>
   );
 }
+
+const MobileActionButtons = ({ children }: PropsWithChildren) => (
+  <div className="flex flex-col gap-1">{children}</div>
+);
+
+type SheetContext = {
+  onOpenChange: (open: boolean) => void;
+};
+
+const SheetContext = React.createContext<SheetContext | null>(null);
+
+export const MobileNavLinkServer = (
+  props: Exclude<MobileLinkProps, "onOpenChange">,
+) => {
+  const sheetContext = React.useContext(SheetContext);
+  return <MobileNavLink {...props} onOpenChange={sheetContext?.onOpenChange} />;
+};

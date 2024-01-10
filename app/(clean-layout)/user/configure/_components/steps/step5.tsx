@@ -1,22 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import {
-  ALUMNI_GRADES,
-  ALUMNI_PARALLELS,
-  EXTENDED_ALUMNI_GRADES,
-  EXTENDED_ALUMNI_PARALLELS,
-  REGULAR_ALUMNI_PARALLELS,
-} from "~/app/_elsys/grades-parallels";
+import { SUBTHEMES } from "~/app/_configs/hackathon";
 import { SignOutButton } from "~/app/components/buttons";
+import { HTLogo } from "~/app/components/logos";
 import { Button, buttonVariants } from "~/app/components/ui/button";
-import { Card, CardContent } from "~/app/components/ui/card";
+import { Card, CardDescription } from "~/app/components/ui/card";
 import { Checkbox } from "~/app/components/ui/checkbox";
 import {
   Command,
@@ -34,19 +29,16 @@ import {
   FormLabel,
   FormMessage,
 } from "~/app/components/ui/form";
-import { Input } from "~/app/components/ui/input";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "~/app/components/ui/hover-card";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "~/app/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "~/app/components/ui/select";
 import { Textarea } from "~/app/components/ui/textarea";
 import { cn } from "~/app/utils";
 import { alumniStep5Schema } from "../../schemas";
@@ -62,6 +54,7 @@ export const AlumniStep5 = ({
   onNext,
   onPrev,
   className,
+  currentStep,
   isAlumni,
 }: {
   email: string;
@@ -70,16 +63,36 @@ export const AlumniStep5 = ({
   onNext: (data: AlumniStep5Data) => void;
   onPrev: () => void;
   className?: string;
+  currentStep: number;
   isAlumni: boolean;
 }) => {
   const form = useForm<AlumniStep5Data>({
     resolver: zodResolver(alumniStep5Schema),
     defaultValues: initialData,
   });
+  const [popoverWidth, setPopoverWidth] = useState(96);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     form.reset(initialData);
-  }, [initialData]);
+  }, [initialData, form]);
+
+  useEffect(() => {
+    const updatePopoverWidth = () => {
+      if (buttonRef.current) {
+        const buttonWidth = buttonRef.current.getBoundingClientRect().width;
+        setPopoverWidth(buttonWidth);
+      }
+    };
+    const handleResize = () => {
+      updatePopoverWidth();
+    };
+    window.addEventListener("resize", handleResize);
+    updatePopoverWidth();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [currentStep]);
 
   return (
     <section
@@ -92,6 +105,10 @@ export const AlumniStep5 = ({
         Персонализирайте профила си!
       </h2>
       <Card className="block w-full p-6">
+        <CardDescription className="mb-5 text-center">
+          За да направим Hack TUES X едно незабравимо преживяване за всички,
+          имаме нужда да разберем малко повече за теб.
+        </CardDescription>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onNext)} className="space-y-6">
             <FormField
@@ -100,8 +117,7 @@ export const AlumniStep5 = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    На каква нетехнологична тема бихте искали да разработвате
-                    проект на хакатон?
+                    Какви са вашите хобита и интереси извън ИТ сферата?
                   </FormLabel>
                   <FormControl>
                     <Textarea className="resize-none" {...field} />
@@ -119,14 +135,84 @@ export const AlumniStep5 = ({
                   <FormLabel>
                     Коя е любимата ви тема или подтема от всички изминали
                     издания на{" "}
-                    <span className="font-llpixel font-medium">
-                      Hack&nbsp;TUES
-                    </span>
-                    ?
+                    <HTLogo className="text-inherit">Hack&nbsp;TUES</HTLogo>?
                   </FormLabel>
-                  <FormControl>
-                    <Textarea className="resize-none" {...field} />
-                  </FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn("w-full justify-between")}
+                          ref={buttonRef}
+                        >
+                          {field.value || "Избери тема"}
+                          <ChevronsUpDown className="ml-2 h-24 w-2 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      style={{
+                        width: popoverWidth,
+                      }}
+                      className={"p-0"}
+                    >
+                      <Command>
+                        <CommandInput placeholder="Търси тема..." />
+                        <CommandEmpty>Теманата не е намерена.</CommandEmpty>
+                        <CommandGroup className="h-[200px] overflow-scroll">
+                          {/* FIXME: use `.toReversed()` when NodeJS supports it */}
+                          {SUBTHEMES.map((subTheme) => {
+                            const [name, description] =
+                              Object.entries(subTheme)[0];
+                            return (
+                              <HoverCard key={name}>
+                                <HoverCardTrigger>
+                                  <CommandItem
+                                    className="hover:bg-secondary/10"
+                                    value={name}
+                                    onSelect={() => {
+                                      form.setValue("question2", name, {
+                                        shouldDirty: true,
+                                      });
+                                      const escapeEvent = new KeyboardEvent(
+                                        "keydown",
+                                        {
+                                          key: "Escape",
+                                          bubbles: true,
+                                          cancelable: true,
+                                        },
+                                      );
+                                      document.dispatchEvent(escapeEvent);
+                                    }}
+                                  >
+                                    <Check
+                                      className={cn(
+                                        "mr-2 h-4 w-4",
+                                        name === field.value
+                                          ? "opacity-100"
+                                          : "opacity-0",
+                                      )}
+                                    />
+                                    {name}
+                                  </CommandItem>
+                                </HoverCardTrigger>
+                                <HoverCardContent
+                                  className={cn(
+                                    "max-w-[400px] overflow-auto",
+                                    !description && "hidden",
+                                  )}
+                                >
+                                  <p>{description}</p>
+                                </HoverCardContent>
+                              </HoverCard>
+                            );
+                          })}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+
                   <FormMessage />
                 </FormItem>
               )}

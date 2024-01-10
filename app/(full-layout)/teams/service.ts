@@ -1,7 +1,16 @@
+import { revalidateTag, unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
+import {
+  MAX_TEAM_MEMBERS_ALUMNI,
+  MAX_TEAM_MEMBERS_STUDENTS,
+  MAX_TEAMS_ALUMNI,
+  MAX_TEAMS_STUDENTS,
+  MIN_TEAM_MEMBERS_ALUMNI,
+  MIN_TEAM_MEMBERS_STUDENTS,
+} from "~/app/_configs/hackathon";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import { discordUsers, particpants, teams } from "~/app/db/schema";
@@ -9,50 +18,34 @@ import {
   getParticipantById,
   getParticipantFromSession,
 } from "~/app/participants/service";
+import { MINUTE } from "~/app/utils";
 
-export type Team = Awaited<ReturnType<typeof getConfirmedTeams>>[number];
+export type Team = Awaited<ReturnType<typeof getAllTeams>>[number];
 export type TeamMember = Team["members"][number];
 
-export async function getConfirmedTeams() {
-  return db.query.teams.findMany({
-    with: {
-      members: {
-        with: {
-          discordUser: {
-            columns: {
-              discordUsername: true,
+export const getAllTeams = unstable_cache(
+  async () => {
+    return db.query.teams.findMany({
+      with: {
+        members: {
+          with: {
+            discordUser: {
+              columns: {
+                discordUsername: true,
+              },
             },
           },
         },
+        project: true,
       },
-      project: true,
-    },
-  });
-  // .select({
-  //   id: teams.id,
-  //   name: teams.name,
-  //   description: teams.description,
-  //   mentorId: teams.mentorId,
-  //   projectId: teams.projectId,
-  //   isAlumni: teams.isAlumni,
-  //   members: {
-  //     particiapntId: particpants.id,
-  //     firstName: particpants.firstName,
-  //     lastName: particpants.lastName,
-  //     grade: particpants.grade,
-  //     parallel: particpants.parallel,
-  //     technologies: particpants.technologies,
-  //   },
-  //   project: {
-  //     id: projects.id,
-  //     name: projects.name,
-  //     technologies: projects.technologies,
-  //   },
-  // })
-  // .from(teams)
-  // .leftJoin(particpants, eq(particpants.teamId, teams.id))
-  // .leftJoin(projects, eq(teams.projectId, projects.id));
-}
+    });
+  },
+  ["all-teams"],
+  {
+    revalidate: 5 * MINUTE,
+    tags: ["teams"],
+  },
+);
 
 export async function getTeamById(id: string) {
   const results = await db.select().from(teams).where(eq(teams.id, id));
@@ -65,26 +58,11 @@ export async function createTeam(team: {
   captainId: number;
   isAlumni: boolean;
 }) {
-  const teamsNumber = await db
-    .select()
-    .from(teams)
-    .where(eq(teams.isAlumni, team.isAlumni));
-
-  const minMembers = team.isAlumni ? 2 : 3;
-  const maxMembers = team.isAlumni ? 3 : 5;
-
-  const teamsNumberFinal = teamsNumber.filter((team) => {
-    return team.memberCount >= minMembers && team.memberCount <= maxMembers;
-  });
-
-  if (
-    (team.isAlumni && teamsNumberFinal.length >= 20) ||
-    (teamsNumberFinal.length >= 70 && !team.isAlumni)
-  ) {
-    invariant(false, "Отборите са запълнени.");
-  }
+  const res = await checkIfTeamEligableToJoin(team.isAlumni);
+  invariant(res, "Отборите са запълнени.");
 
   const captain = await getParticipantById(team.captainId);
+  invariant(!captain?.isDisqualified, "Участникът е дисквалифициран.");
   const roleId = await createDiscordTeam(slugify(team.name));
   const discordMember = await db
     .select()
@@ -116,7 +94,31 @@ export async function createTeam(team: {
       teamId: insertedTeam.id,
     })
     .where(eq(particpants.id, team.captainId));
+  revalidateTag("teams");
   return insertedTeam;
+}
+
+export async function checkIfTeamEligableToJoin(isAlumni: boolean) {
+  const teamsNumber = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.isAlumni, isAlumni));
+
+  const minMembers = isAlumni ? 2 : 3;
+  const maxMembers = isAlumni ? 3 : 5;
+
+  const teamsNumberFinal = teamsNumber.filter((team) => {
+    return team.memberCount >= minMembers && team.memberCount <= maxMembers;
+  });
+
+  if (
+    (isAlumni && teamsNumberFinal.length >= MAX_TEAMS_ALUMNI) ||
+    (teamsNumberFinal.length >= MAX_TEAMS_STUDENTS && !isAlumni)
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 export function isParticipantEligableToJoin(
@@ -128,4 +130,14 @@ export function isParticipantEligableToJoin(
   }
   const grade = parseInt(participant.grade);
   return (grade > 12 && team.isAlumni) || (grade < 13 && !team.isAlumni);
+}
+
+export function isTeamConfirmed(team: Team) {
+  const minMembers = team.isAlumni
+    ? MIN_TEAM_MEMBERS_ALUMNI
+    : MIN_TEAM_MEMBERS_STUDENTS;
+  const maxMembers = team.isAlumni
+    ? MAX_TEAM_MEMBERS_ALUMNI
+    : MAX_TEAM_MEMBERS_STUDENTS;
+  return team.memberCount >= minMembers && team.memberCount <= maxMembers;
 }

@@ -36,23 +36,23 @@ type EveryoneStep3Data = z.infer<typeof everyoneStep3Schema>;
 const TSHIRTS = [
   {
     id: 1,
-    size: "XS",
-  },
-  {
-    id: 2,
     size: "S",
   },
   {
-    id: 3,
+    id: 2,
     size: "M",
   },
   {
-    id: 4,
+    id: 3,
     size: "L",
   },
   {
-    id: 5,
+    id: 4,
     size: "XL",
+  },
+  {
+    id: 5,
+    size: "XXL",
   },
 ] as const;
 

@@ -27,7 +27,7 @@
     --accent-foreground: 220.9 39.3% 11%;
 
     --destructive: var(--brand);
-    --destructive-foreground: var(--brand);
+    --destructive-foreground: var(--background);
 
     --brand: 345 87% 33%; /* originally 345 87% 43% */
     --brand-foreground: 210 20% 98%;
@@ -64,8 +64,8 @@
     --accent: 0 0% 100%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: var(--brand);
-    --destructive-foreground: var(--brand-foreground);
+    --destructive: 351 73% 40%;
+    --destructive-foreground: 0 0% 100%;
 
     --brand: 345 98% 53%; /* originally 345 87% 43% */
     --brand-foreground: 220.9 39.3% 11%;

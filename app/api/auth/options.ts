@@ -5,7 +5,8 @@ import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
-import { isInMentorWhitelist } from "~/app/(full-layout)/mentors/service";
+import { parseElsysEmail } from "~/app/_elsys/service";
+import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
@@ -25,11 +26,6 @@ const authConst = {
   clientSecret: env.GMAIL_CLIENT_SECRET,
   refreshToken: env.GMAIL_REFRESH_TOKEN,
 };
-
-function printReturn<T>(x: T) {
-  console.log(x);
-  return x;
-}
 
 export const authOptions = {
   providers: [
@@ -56,16 +52,22 @@ export const authOptions = {
       if (account?.provider !== "email" || !user.email) {
         return false;
       }
-      // if (
-      //   user.email.endsWith("@elsys-bg.org") ||
-      //   isInMentorWhitelist(user.email)
-      // ) {
+      const isAlumni = parseElsysEmail(user.email)?.isAlumni ?? true;
+      const gb = await getServerSideGrowthBook();
+      if (isAlumni && gb.isOff("signin-alumni")) {
+        return "/login/error?error=AlumniDisabled";
+      }
+      if (!isAlumni && gb.isOff("signin-students")) {
+        return "/login/error?error=StudentsDisabled";
+      }
       return true;
-      // }
-      // return false;
     },
   },
   pages: {
+    signIn: "/login",
+    signOut: "/signout",
+    error: "/login/error",
+    verifyRequest: "/confirm-email",
     newUser: "/user/configure",
   },
 
@@ -93,7 +95,8 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     color: ${color.buttonText};
     text-decoration: none;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 18px 36px;
+    font-size: 26px;
     display: inline-block;
     font-weight: bold;
     background: #b01c32;
@@ -105,15 +108,15 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     style="background: ${color.mainBackground}; max-width: 600px; margin: auto; border-radius: 10px;">
     <tr>
       <td align="center"
-        style="padding: 10px 0px; font-size: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
+        style="padding: 10px 0px; font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
         Влезте в <strong>Hack TUES X</strong>
       </td>
     </tr>
     <tr>
-      <td align="center" style="padding: 20px 0;">
+      <td align="center" style="padding: 10px 0;">
         <table border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="center" style="border-radius: 5px;">
+            <td align="center" style="border-radius: 5px; padding:5px;">
               <a href="${url}" target="_blank" style="${buttonStyle}">
                 Влез
               </a>
@@ -125,11 +128,26 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Получавате това писмо, защото някой е въвел вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. Можете да се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
+        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
       </td>
     </tr>
   </table>
 </body>
+`;
+}
+
+function text(params: { url: string; identifier: string; theme: Theme }) {
+  const { url, identifier } = params;
+
+  return `Влезте в Hack TUES X.
+
+За да продължите, моля посетете следния адрес:
+${url}
+
+Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта
+на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение.
+При нужда се свържете с нас като отговорите на този имейл или пишете на:
+hacktues@elsys-bg.org
 `;
 }
 
@@ -139,9 +157,7 @@ async function sendEmail(
   url: string,
   theme: Theme,
 ) {
-  const accessToken = await oAuth2Client.getAccessToken();
-  let token = await accessToken.token;
-
+  const { token: accessToken } = await oAuth2Client.getAccessToken();
   const transport = createTransport({
     // @ts-ignore
     service: "gmail",
@@ -149,14 +165,31 @@ async function sendEmail(
       rejectUnauthorized: false,
     },
     auth: {
-      ...authConst,
-      accessToken: token,
+      type: "OAuth2",
+      user: env.EMAIL_FROM,
+      clientId: env.GMAIL_CLIENT_ID,
+      clientSecret: env.GMAIL_CLIENT_SECRET,
+      accessToken,
+      refreshToken: env.GMAIL_REFRESH_TOKEN,
     },
   });
+
   return await transport.sendMail({
     to: identifier,
-    from: "Hack TUES X",
+    from: {
+      name: "Hack TUES X",
+      address: env.EMAIL_FROM,
+    },
     subject: `Влизане в Hack TUES X`,
     html: html({ url, identifier, theme }),
+    text: text({ url, identifier, theme }),
+    references: generateReferences(),
   });
+}
+
+function generateReferences() {
+  const uniqueId =
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
+  return `<${uniqueId}@elsys-bg.org>`;
 }

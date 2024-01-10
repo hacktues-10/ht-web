@@ -9,7 +9,13 @@ import { createTeam } from "../service";
 
 export const createTeamAction = zact(
   z.object({
-    name: z.string(),
+    name: z
+      .string()
+      .trim()
+      .max(30)
+      .refine(
+        (v) => v.toLocaleLowerCase().replaceAll(" ", "") !== "falsepositive",
+      ),
     description: z.string(),
   }),
 )(async (input) => {
@@ -41,18 +47,22 @@ export const createTeamAction = zact(
       error: "Вече си имате отбор, не ви ли харесва?",
     } as const;
   }
-  const team = await createTeam({
-    name: input.name,
-    description: input.description,
-    captainId: participant.id,
-    isAlumni: isAlumni,
-  });
-  return { success: true, team } as const;
+  try {
+    const team = await createTeam({
+      name: input.name,
+      description: input.description,
+      captainId: participant.id,
+      isAlumni: isAlumni,
+    });
+    return { success: true, team } as const;
+  } catch {
+    return { success: false, error: "Вече има отбор с това име" };
+  }
 });
 
 export const checkUserCanCreateTeam = async () => {
   const participant = await getParticipantFromSession();
-  if (!participant || participant.team.id) {
+  if (!participant || participant.team.id || participant.isDisqualified) {
     return { isEligableToCreateTeam: false };
   }
   return { isEligableToCreateTeam: true };

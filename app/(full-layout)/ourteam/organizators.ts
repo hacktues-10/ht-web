@@ -74,7 +74,7 @@ export const organizators = {
       Instagram: "@hristiyanaangelova",
       role: "Екип PR",
       description: "Здрасти :)",
-      customClass: "md:ml-10 ",
+      customClass: "ml-[100px] mt-[90px]",
     },
     {
       name: "Йони",
@@ -83,7 +83,7 @@ export const organizators = {
       role: "Екип PR",
       description:
         "Хей хей аз съм Йо и съм част от организационния екип на юбилейното издание на Hack TUES ;0 Две неща за мен - Toni Storaro & Akali supremacist!",
-      customClass: "md:ml-10",
+      customClass: "ml-[90px] mt-[65px]",
     },
   ],
   "Екип Логистика": [

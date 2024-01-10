@@ -1,25 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Instagram } from "lucide-react";
+
+import "./animation.css";
 
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
 import kiki from "../team/kiki.webp";
-
-import "./animations.css";
-
-import { HoverCardTrigger } from "@radix-ui/react-hover-card";
-import { Instagram } from "lucide-react";
-
-import { HoverCard, HoverCardContent } from "~/app/components/ui/hover-card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "~/app/components/ui/tooltip";
 
 interface Member {
   name: string;
@@ -37,51 +26,40 @@ export default function OrganizatorDetailed({
   member: Member;
   index: number;
 }) {
-  const [isVisibleImg, setIsVisibleImg] = useState(false);
-  const delay = index * 100;
+  // const [isVisibleImg, setIsVisibleImg] = useState(false);
+  // const delay = index * 100;
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisibleImg(true);
-    }, delay);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsVisibleImg(true);
+  //   }, delay);
 
-    return () => clearTimeout(timer);
-  }, []);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   return (
-    <div className="h-[560px]  w-[350px]  hover:[transform:rotateY(180deg)]">
-      <Card
-        className="fadeIn z-2 [transition:0.8s_transform-style:preserve-3d] relative m-8
-          mx-auto h-[100%] w-[100%] rounded-xl border-2 text-center [transform:rotateY(180deg)]  hover:scale-105"
-      >
-        <div
-          id="front"
-          className="absolute h-full w-full [-webkit-backface-visibility:hidden_backface-visibilityhidden]"
-        >
+    <div className="flip-card m-10 h-[560px] w-[350px] overflow-hidden rounded-xl ">
+      <div className="flip-card-inner m-8 mx-auto rounded-xl  border-2 bg-slate-900 text-center text-card-foreground shadow-sm hover:scale-105">
+        <div className="flip-card-front">
           <p className="pt-2 font-sans text-xl font-semibold leading-7">
             {member.name}
           </p>
           <p className="p-1 font-sans text-lg italic leading-7">
             {member.role}
           </p>
-          <div className="flex items-center">
-            <Image
-              src={member.photo}
-              alt={member.name}
-              className={`sm:w-200 md:w-300 lg:w-400 my-auto rounded ${member.customClass}`}
-            />
-          </div>
+          <Image
+            src={member.photo}
+            alt={member.name}
+            className={`sm:w-200 md:w-300 lg:w-400 my-auto rounded ${member.customClass}`}
+          />
         </div>
-        <div
-          id="back"
-          className="absolute h-full w-full [transform:rotateY(180deg)] [-webkit-backface-visibility:hidden_backface-visibilityhidden]"
-        >
-          <p>{member.description}</p>
+        <div className="flip-card-back bg-slate-900 p-5">
+          <p className="mb-2 mt-20 text-xl">{member.description}</p>
           <Button
             size="icon"
             variant="ghost"
             asChild
-            className="transition-transform hover:scale-110"
+            className="hover:scale-110"
           >
             <Link
               href={`https://www.instagram.com/${
@@ -90,13 +68,12 @@ export default function OrganizatorDetailed({
                   : member.Instagram
               }`}
               target="_blank"
-              className="hover:scale-110"
             >
               <Instagram />
             </Link>
           </Button>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

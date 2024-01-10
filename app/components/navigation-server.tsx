@@ -9,78 +9,9 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "~/app/components/ui/navigation-menu";
+import { NAVIGATION_CATEGORIES } from "../_configs/navigation-categories";
 import { cn } from "../utils";
-import { MobileNavigationRoot, MobileNavLink } from "./navigation-client";
-
-export const NAVIGATION_CATEGORIES = [
-  {
-    category: "root",
-    label: "Начало",
-    links: [
-      {
-        label: "Програма",
-        url: "/schedule",
-        isVisible: false,
-        isNew: false,
-      },
-      {
-        label: "Отбори",
-        url: "/teams",
-        isVisible: true,
-        isNew: false,
-      },
-      {
-        label: "Ментори",
-        url: "/mentors",
-        isVisible: false,
-        isNew: false,
-      },
-      {
-        label: "Теми",
-        url: "/themes",
-        isVisible: false,
-        isNew: false,
-      },
-      {
-        label: "Класация",
-        url: "/rankings",
-        isVisible: false,
-        isNew: false,
-      },
-    ],
-  },
-  {
-    category: "about",
-    label: "За Hack TUES",
-    links: [
-      {
-        label: "Нашият екип",
-        url: "/ourteam",
-        isVisible: true,
-        isNew: false,
-      },
-      {
-        label: "Регламент",
-        url: "/regulation",
-        isVisible: true,
-        isNew: false,
-      },
-      {
-        label: "ЧЗВ",
-        url: "/faq",
-        isVisible: true,
-        isNew: false,
-      },
-      {
-        label: "Архив",
-        url: "/archive",
-        isVisible: false,
-        isNew: false,
-      },
-    ],
-  },
-  // XXX: as const type errors, investigate?
-]; // as const;
+import { MobileNavigationRoot, MobileNavLinkServer } from "./navigation-client";
 
 type Category = (typeof NAVIGATION_CATEGORIES)[number];
 type CategoryId = Category["category"];
@@ -108,27 +39,18 @@ export const DesktopNavigation = ({ className }: { className: string }) => {
   return (
     <NavigationMenu className={className}>
       <NavigationMenuList>
-        {getVisibleLinks(getCategory("root")).map((link) => (
-          <NavigationMenuItem key={link.label}>
-            <Link href={link.url} legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                {link.label}
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-        ))}
         {getAdditionalCategories().map((category) => (
           <NavigationMenuItem key={category.category}>
             <NavigationMenuTrigger>{category.label}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="flex w-32 flex-col gap-1">
+              <ul className="flex w-36 flex-col gap-1">
                 {getVisibleLinks(category).map((link) => (
                   <li key={link.label} className="w-full">
                     <Link href={link.url} legacyBehavior passHref>
                       <NavigationMenuLink
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "w-full text-center",
+                          "h-auto w-full p-3 text-center",
                         )}
                       >
                         {link.label}
@@ -138,6 +60,15 @@ export const DesktopNavigation = ({ className }: { className: string }) => {
                 ))}
               </ul>
             </NavigationMenuContent>
+          </NavigationMenuItem>
+        ))}
+        {getVisibleLinks(getCategory("root")).map((link) => (
+          <NavigationMenuItem key={link.label}>
+            <Link href={link.url} legacyBehavior passHref>
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                {link.label}
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
         ))}
       </NavigationMenuList>
@@ -150,25 +81,25 @@ export const MobileNavigation = ({ className }: { className: string }) => {
     <MobileNavigationRoot className={className}>
       <nav className="flex flex-col items-center gap-7 text-center text-2xl font-medium">
         {getVisibleLinks(getCategory("root")).map((link) => (
-          <MobileNavLink
+          <MobileNavLinkServer
             key={link.label}
             href={link.url}
             className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
           >
             {link.label}
-          </MobileNavLink>
+          </MobileNavLinkServer>
         ))}
         {getAdditionalCategories().map((category) => (
           <div key={category.category} className="flex flex-col gap-3">
             <p className="font-extrabold">{category.label}</p>
             {getVisibleLinks(category).map((link) => (
-              <MobileNavLink
+              <MobileNavLinkServer
                 key={link.label}
                 href={link.url}
                 className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
               >
                 {link.label}
-              </MobileNavLink>
+              </MobileNavLinkServer>
             ))}
           </div>
         ))}

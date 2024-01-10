@@ -208,7 +208,6 @@ export const deleteChannelsRolesCategories = async (teamId: string) => {
   );
   const rolesData = await rolesResponse.json();
   const channelsData = await channelsResponse.json();
-  console.log(rolesData);
 
   for (const role of rolesData) {
     if (role.name === teamId) {

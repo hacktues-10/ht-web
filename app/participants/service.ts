@@ -1,8 +1,16 @@
-import { eq, isNull } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
+import invariant from "tiny-invariant";
 
+import { Team } from "../(full-layout)/teams/service";
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
-import { discordUsers, particpants, teams, users } from "../db/schema";
+import {
+  discordUsers,
+  invitations,
+  particpants,
+  teams,
+  users,
+} from "../db/schema";
 
 export type Participant = Awaited<
   ReturnType<typeof selectFromParticipants>
@@ -13,6 +21,7 @@ const selectFromParticipants = () =>
     .select({
       id: particpants.id,
       firstName: particpants.firstName,
+      middleName: particpants.middleName,
       lastName: particpants.lastName,
       email: users.email,
       phoneNumber: particpants.phoneNumber,
@@ -21,6 +30,7 @@ const selectFromParticipants = () =>
       allergies: particpants.allergies,
       tShirtId: particpants.tShirtId,
       isLookingForTeam: particpants.isLookingForTeam,
+      isDisqualified: particpants.isDisqualified,
       technologies: particpants.technologies,
       team: {
         id: teams.id,
@@ -55,6 +65,27 @@ export async function getParticipantFromSession() {
   return getParticipantByEmail(session.user.email);
 }
 
+export async function getInvitationsForParticipant(participantId: any) {
+  return db
+    .select({
+      id: invitations.id,
+      teamId: invitations.teamId,
+      invitedId: invitations.invitedParticipantId,
+    })
+    .from(particpants)
+    .leftJoin(invitations, eq(invitations.invitedParticipantId, participantId));
+}
+
+export async function hasInvitationFromTeam(participantId: any, teamId: any) {
+  const invitations = await getInvitationsForParticipant(participantId);
+  for (const invite of invitations) {
+    if (invite.teamId === teamId) {
+      return true;
+    }
+  }
+  return false;
+}
+
 export function isParticipantStudent(participant: Participant) {
   return participant.grade.length <= 2;
 }
@@ -63,17 +94,55 @@ export function isParticipantAlumni(participant: Participant) {
   return !isParticipantStudent(participant);
 }
 
-export async function getParticipantsWithNoTeam() {
+export async function getParticipantsWithNoTeam(Invite: boolean = false) {
+  if (Invite) {
+    const results = await selectFromParticipants().where(
+      and(isNull(particpants.teamId), eq(particpants.isLookingForTeam, true)),
+    );
+    return results;
+  }
   const results = await selectFromParticipants().where(
     isNull(particpants.teamId),
   );
   return results;
 }
 
-export function formatParticipantDiscordNick(participant: Participant) {
+function formatParticipantQualifier(participant: Participant) {
   if (isParticipantStudent(participant)) {
-    return `${participant.firstName} ${participant.lastName} (${participant.grade}${participant.parallel})`;
+    return `(${participant.grade}${participant.parallel})`;
   } else {
-    return `${participant.firstName} ${participant.lastName} (ТУЕС'${participant.grade})`;
+    return `(ТУЕС'${participant.grade})`;
   }
+}
+
+const DISCORD_NICK_MAX_LENGTH = 32;
+
+export function formatParticipantDiscordNick(participant: Participant) {
+  const qualifier = formatParticipantQualifier(participant);
+  let nick = `${participant.firstName} ${participant.lastName} ${qualifier}`;
+
+  if (nick.length > DISCORD_NICK_MAX_LENGTH) {
+    const lastNameInitial = participant.lastName.at(0)
+      ? ` ${participant.lastName.at(0)}.`
+      : "";
+    nick = `${participant.firstName}${lastNameInitial} ${qualifier}`;
+  }
+
+  if (nick.length > DISCORD_NICK_MAX_LENGTH) {
+    nick = `${participant.firstName} ${qualifier}`;
+  }
+
+  if (nick.length > DISCORD_NICK_MAX_LENGTH) {
+    const afterNickname = ` ${qualifier}`;
+    nick =
+      nick.slice(0, DISCORD_NICK_MAX_LENGTH - afterNickname.length) +
+      afterNickname;
+  }
+
+  invariant(
+    nick.length <= DISCORD_NICK_MAX_LENGTH,
+    "bug in discord nick algorithm",
+  );
+
+  return nick;
 }
