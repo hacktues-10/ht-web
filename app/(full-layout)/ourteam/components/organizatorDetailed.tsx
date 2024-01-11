@@ -6,8 +6,9 @@ import { Instagram } from "lucide-react";
 
 import "./animation.css";
 
+import { useEffect, useState } from "react";
+
 import { Button } from "~/app/components/ui/button";
-import { Card } from "~/app/components/ui/card";
 import kiki from "../team/kiki.webp";
 
 interface Member {
@@ -26,20 +27,26 @@ export default function OrganizatorDetailed({
   member: Member;
   index: number;
 }) {
-  // const [isVisibleImg, setIsVisibleImg] = useState(false);
-  // const delay = index * 100;
+  const [isVisibleImg, setIsVisibleImg] = useState(false);
+  const delay = 200;
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsVisibleImg(true);
-  //   }, delay);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisibleImg(true);
+    }, delay);
 
-  //   return () => clearTimeout(timer);
-  // }, []);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="flip-card m-10 h-[560px] w-[350px] overflow-hidden rounded-xl ">
-      <div className="flip-card-inner m-8 mx-auto rounded-xl  border-2 bg-slate-900 text-center text-card-foreground shadow-sm hover:scale-105">
+    <div
+      className="fadeInUp flip-card m-10 h-[560px] w-[350px] max-w-[350px] overflow-hidden rounded-xl "
+      style={{
+        animationDelay: `${delay}ms`,
+        opacity: isVisibleImg ? 1 : 0,
+      }}
+    >
+      <div className="flip-card-inner m-8 mx-auto rounded-xl  border-2 border-slate-900 bg-slate-900 text-center text-card-foreground shadow-sm hover:scale-105">
         <div className="flip-card-front">
           <p className="pt-2 font-sans text-xl font-semibold leading-7">
             {member.name}

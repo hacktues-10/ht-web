@@ -62,7 +62,7 @@ export const organizators = {
       photo: bojo,
       Instagram: "@__systpro0x7b",
       role: "Екип ИТ",
-      customClass: "",
+      customClass: "m-1",
       description:
         "Здравейте, аз съм Митко и съм част от тазгодишния организаторски екип на юбелейното издание на Hack TUES. Част от ИТ отдела съм и работя върху разработката на сайта. Обичам да четенето и тренировките. Фен съм на Porsche :)",
     },
@@ -92,7 +92,7 @@ export const organizators = {
       photo: tomi_i,
       Instagram: "@tomi.v.i",
       role: "Екип Логистика",
-      customClass: "",
+      customClass: "ml-[40px]",
       description:
         "Аз съм Томи! Познайте какво! Част съм от организационния екип на юбилейното издание на хакатон. Ако си около мен и си мълча това не означава, че няма какво да кажа, а че няма какво да ти кажа. Иначе хората ме харесват... Ако четеш това ще те очаквам на хакатона! ",
     },
@@ -101,9 +101,9 @@ export const organizators = {
       photo: tomi_r,
       Instagram: "@therealx_ray",
       role: "Екип Логистика",
-      customClass: "",
+      customClass: "ml-[50px] mt-[30px]",
       description:
-        "&quot;Тялото ми е някъде, душата другaде, а ментално здраве никога не съм имал&quot; - Томи 2k23",
+        "&quote;Тялото ми е някъде, душата другaде, а ментално здраве никога не съм имал&quot; - Томи 2k23",
     },
   ],
   "Екип Спонсори": [
@@ -112,7 +112,7 @@ export const organizators = {
       photo: josko,
       Instagram: "@retardaciq",
       role: "Екип Спонсори",
-      customClass: "",
+      customClass: "ml-[60px] mt-[40px]",
       description:
         "Аз съм Йоско и съм част от организационния екип на Hack TUES X. Обичам музика. И домати със сирене. Това е от мен. ЖИВОТЪТ Е ПРЕКРАСЕН!",
     },
@@ -121,7 +121,7 @@ export const organizators = {
       photo: kalata,
       Instagram: "@not_kaloyan",
       role: "Екип Спонсори",
-      customClass: "",
+      customClass: "mt-[10px]",
       description:
         "Обичам да се самозалъгвам, че ще си легна след още 5 минути.",
     },
@@ -139,7 +139,7 @@ export const organizators = {
       photo: silveto,
       Instagram: "@silviaaa_d",
       role: "Екип Спонсори",
-      customClass: "md:ml-10",
+      customClass: "ml-[32px]",
       description: "Имам много скилове",
     },
   ],
@@ -149,7 +149,7 @@ export const organizators = {
       photo: mecho,
       Instagram: "@mechkarov_",
       role: "Екип Дизайн",
-      customClass: "md:ml-10",
+      customClass: "mt-[30px] ml-[30px]",
       description:
         "Здравейте, аз съм Мечо и съм част от екипа <q>Дизайнери<q> на тазгодишния хакатон. Обичам гъски, гъските са топ и ако не сте съгласни с мен…Мечо Младши ще Ви намери…",
     },
@@ -158,7 +158,7 @@ export const organizators = {
       photo: eli,
       Instagram: "@eli_trynna_stalk_u",
       role: "Екип Дизайн",
-      customClass: "md:ml-10",
+      customClass: "mt-[50px] ",
       description: "Nah, I'd win",
     },
     {
@@ -166,7 +166,7 @@ export const organizators = {
       photo: koko,
       Instagram: "@izgubih_se_v_gorata",
       role: "Екип Дизайн",
-      customClass: "md:ml-10",
+      customClass: "mt-[50px] ml-[40px]",
       description:
         "&quot;Уважаеми зрители, това беше всичко от нас за този вечер. Благодарим ви, че бяхте с нас и до нови срещи!&quot; - С. Трифонов",
     },

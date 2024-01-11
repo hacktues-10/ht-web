@@ -15,7 +15,7 @@ export default function OurTeam() {
           <h1 className="font-htags mt-10 text-2xl font-extrabold">
             {groupName}
           </h1>
-          <div className="flex justify-center">
+          <div className="flex flex-wrap justify-center ">
             {group.map((member, memberIndex) => (
               <OrganizatorDetailed
                 key={memberIndex}
