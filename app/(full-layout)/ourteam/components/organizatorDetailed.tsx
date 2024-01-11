@@ -54,8 +54,6 @@ export default function OrganizatorDetailed({
               flipCard.style.transform == "rotateY(180deg)"
                 ? (flipCard.style.transform = "rotateY(0deg)")
                 : (flipCard.style.transform = "rotateY(180deg)");
-
-              console.log(flipCard.style.transform);
             }
           }
         }}
@@ -88,7 +86,6 @@ export default function OrganizatorDetailed({
                   ? member.Instagram.slice(1)
                   : member.Instagram
               }`}
-              target="_blank"
             >
               <Instagram />
             </Link>
