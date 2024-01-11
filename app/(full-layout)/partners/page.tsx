@@ -42,7 +42,7 @@ function SponsorsAndPartners() {
       <div className="grid grid-cols-1 place-items-center ">
         <div className="mb-52">
           <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
-          <PodkrepqAutoDisplay podkrepqshti={ALPHA_SPONSORS} />
+          <PodkrepqAutoDisplay podkrepqshti={ALPHA_SPONSORS} imagePriority />
         </div>
         <div className="mb-52">
           <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
