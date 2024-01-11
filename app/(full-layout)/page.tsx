@@ -467,6 +467,7 @@ function UnescoSection() {
               src={ht8Image}
               alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
               className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              priority
             />
           </Link>
         </div>

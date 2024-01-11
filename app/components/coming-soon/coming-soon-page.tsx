@@ -23,7 +23,8 @@ export function ComingSoonPage() {
       <Image
         className="h-[270px] [mask-image:linear-gradient(to_bottom,white,calc(100%-30px),transparent)]"
         src={sullyHourglass}
-        alt="Sully hourglass"
+        alt="Съли с пясъчен часовник"
+        priority
       />
     </div>
   );
