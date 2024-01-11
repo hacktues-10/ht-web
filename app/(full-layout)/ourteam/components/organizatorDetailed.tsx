@@ -40,7 +40,17 @@ export default function OrganizatorDetailed({
 
   return (
     <div
-      className="fadeInUp flip-card m-10 h-[560px] w-[350px] max-w-[350px] overflow-hidden rounded-xl "
+      className="fadeInUp flip-card m-10 h-[560px] w-[350px] max-w-[350px] overflow-hidden rounded-xl"
+      onClick={(e) => {
+        if (window.matchMedia("(max-width: 768px)").matches) {
+          const flipCardInner = e.currentTarget.querySelector(
+            ".flip-card-inner",
+          ) as HTMLElement;
+          if (flipCardInner) {
+            flipCardInner.style.transform = "rotateY(180deg)";
+          }
+        }
+      }}
       style={{
         animationDelay: `${delay}ms`,
         opacity: isVisibleImg ? 1 : 0,

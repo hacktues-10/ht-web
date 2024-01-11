@@ -12,7 +12,13 @@
     transform-style: preserve-3d;
   }
   
-  .flip-card:hover .flip-card-inner {
+  @media (min-width: 769px) {
+    .flip-card:hover {
+      transform: rotateY(180deg);
+    }
+  }
+  
+  .flip-card-inner {
     transform: rotateY(180deg);
   }
   
