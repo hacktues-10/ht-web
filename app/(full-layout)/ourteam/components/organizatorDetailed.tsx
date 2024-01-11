@@ -41,22 +41,26 @@ export default function OrganizatorDetailed({
   return (
     <div
       className="fadeInUp flip-card m-10 h-[560px] w-[350px] max-w-[350px] overflow-hidden rounded-xl"
-      onClick={(e) => {
-        if (window.matchMedia("(max-width: 768px)").matches) {
-          const flipCardInner = e.currentTarget.querySelector(
-            ".flip-card-inner",
-          ) as HTMLElement;
-          if (flipCardInner) {
-            flipCardInner.style.transform = "rotateY(180deg)";
-          }
-        }
-      }}
       style={{
         animationDelay: `${delay}ms`,
         opacity: isVisibleImg ? 1 : 0,
       }}
     >
-      <div className="flip-card-inner m-8 mx-auto rounded-xl  border-2 border-slate-900 bg-slate-900 text-center text-card-foreground shadow-sm hover:scale-105">
+      <div
+        onClick={(e) => {
+          if (window.matchMedia("(max-width: 768px)").matches) {
+            const flipCard = e.currentTarget as HTMLElement;
+            if (flipCard) {
+              flipCard.style.transform == "rotateY(180deg)"
+                ? (flipCard.style.transform = "rotateY(0deg)")
+                : (flipCard.style.transform = "rotateY(180deg)");
+
+              console.log(flipCard.style.transform);
+            }
+          }
+        }}
+        className="flip-card-inner  m-8 mx-auto rounded-xl  border-2 border-slate-900 bg-slate-900 text-center text-card-foreground shadow-sm hover:scale-105"
+      >
         <div className="flip-card-front">
           <p className="pt-2 font-sans text-xl font-semibold leading-7">
             {member.name}
