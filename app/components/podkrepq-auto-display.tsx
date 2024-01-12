@@ -222,7 +222,7 @@ function PodkrepqLogo({
       >
         <Image
           className={cn(
-            "max-h-[8rem] max-w-[14.2rem] object-contain px-3 py-5 sm:max-h-[9rem] sm:max-w-[16rem] md:max-h-[10rem] md:max-w-[17.7rem] lg:max-h-[12rem] lg:max-w-[21.3rem]",
+            "h-[8rem] max-w-[14.2rem] object-contain px-3 py-5 sm:h-[9rem] sm:max-w-[16rem] md:h-[10rem] md:max-w-[17.7rem] lg:h-[12rem] lg:max-w-[21.3rem]",
             index === prevIndex && "z-10",
             index === liveIndex && "z-50",
             index === nextIndex && "z-10 ",
