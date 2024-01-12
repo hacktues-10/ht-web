@@ -2,10 +2,10 @@
 
 import { IfFeatureEnabled, useGrowthBook } from "@growthbook/growthbook-react";
 
-import { HTFeatures } from "~/app/_context/growthbook/features";
+import { HTFeature } from "~/app/_context/growthbook/features";
 
 export function IfHTFeatureOn(props: {
-  feature: keyof HTFeatures;
+  feature: HTFeature;
   children: React.ReactNode;
 }) {
   return (
@@ -16,7 +16,7 @@ export function IfHTFeatureOn(props: {
 }
 
 export function IfHTFeatureOff(props: {
-  feature: keyof HTFeatures;
+  feature: HTFeature;
   children: React.ReactNode;
 }) {
   const gb = useGrowthBook();
@@ -24,7 +24,7 @@ export function IfHTFeatureOff(props: {
 }
 
 export function IfAnyHTFeatureOn(props: {
-  outOf: (keyof HTFeatures)[];
+  outOf: HTFeature[];
   children: React.ReactNode;
 }) {
   const gb = useGrowthBook();
@@ -33,7 +33,7 @@ export function IfAnyHTFeatureOn(props: {
 }
 
 export function IfAllHTFeaturesOff(props: {
-  outOf: (keyof HTFeatures)[];
+  outOf: HTFeature[];
   children: React.ReactNode;
 }) {
   const gb = useGrowthBook();

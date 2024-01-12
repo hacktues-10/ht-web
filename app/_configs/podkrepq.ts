@@ -47,13 +47,13 @@ import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import boniLogo from "../assets/sponsors/partners/boni.png";
 import cometLogo from "../assets/sponsors/partners/comet.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
-import devstylerLogo from "../assets/sponsors/partners/devstyler.png";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
 import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
 import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
+import { FEBRUARY, MARCH } from "../utils";
 
 //Partners
 
@@ -435,11 +435,11 @@ export type Podkrepqsht =
 
 export const MEDIA_ARTICLES = [
   {
-    name: "DevStyler",
+    name: "DevStyleR",
     title: "Проведе се Деветото Издание на Hack TUES 9",
     logo: devstylerArticleLogo,
     url: "https://devstyler.bg/blog/2023/03/13/provede-se-devetoto-izdanie-na-hack-tues-9/",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 13),
   },
   {
     name: "Кариери.bg",
@@ -447,21 +447,21 @@ export const MEDIA_ARTICLES = [
       "Ученици по технологии ще работят с експерти от 30 ИТ компании на HackTUES",
     logo: karieribgLogo,
     url: "https://www.karieri.bg/news/40146_uchenici-po-tehnologii-shche-rabotyat-s-eksperti-ot-30",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, FEBRUARY, 23),
   },
   {
-    name: "БНР",
+    name: "БНР София",
     title: "224 ученици и 25 фирми участват в осмия хакатон на ТУЕС",
     logo: bnrLogo,
     url: "https://bnr.bg/sofia/post/101613996/tues",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 10),
   },
   {
     name: "Столица.bg",
     title: "Започна осмият хакатон на Технологично училище в София",
     logo: capitalLogo,
     url: "https://stolica.bg/sofia/zapochna-osmiyat-hakaton-na-tehnologichno-uchilishte-v-sofiya",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 10),
   },
   {
     name: "Investor.BG",
@@ -469,7 +469,7 @@ export const MEDIA_ARTICLES = [
       "Знания и талант ще демонстрират ученици в осмото издание на хакатона HackTUES",
     logo: investorLogo,
     url: "https://www.investor.bg/a/261-novini/347522-znaniya-i-talant-shte-demonstrirat-uchenitsi-v-osmoto-izdanie-na-hakatona-hacktues",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 8),
   },
   {
     name: "Bloomberg TV Bulgaria",
@@ -477,7 +477,7 @@ export const MEDIA_ARTICLES = [
       "Ученици демонстрират знания и талант в осмото издание на хакатона HackTUES",
     logo: bloombergLogo,
     url: "https://www.bloombergtv.bg/a/16-biznes-start/104120-uchenitsi-demonstrirat-znaniya-i-talant-osmoto-izdanie-na-hakatona-hacktues",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 8),
   },
 ];
 

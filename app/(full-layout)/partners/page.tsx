@@ -11,8 +11,8 @@ import {
   MediaArticle,
   PARTNERS,
 } from "~/app/_configs/podkrepq";
-import { DateDisplay } from "~/app/components/date-display";
-import PodkrepqAutomationComponent from "~/app/components/podkrepqAutoDisplay";
+import DateDisplayWrongTimezone from "~/app/components/date-display/wrong-timezone/date-display";
+import PodkrepqAutoDisplay from "~/app/components/podkrepq-auto-display";
 import {
   Card,
   CardFooter,
@@ -42,19 +42,19 @@ function SponsorsAndPartners() {
       <div className="grid grid-cols-1 place-items-center ">
         <div className="mb-52">
           <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
-          <PodkrepqAutomationComponent podkrepqshti={ALPHA_SPONSORS} />
+          <PodkrepqAutoDisplay podkrepqshti={ALPHA_SPONSORS} />
         </div>
         <div className="mb-52">
           <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
-          <PodkrepqAutomationComponent podkrepqshti={BETA_SPONSORS} />
+          <PodkrepqAutoDisplay podkrepqshti={BETA_SPONSORS} />
         </div>
         <div className="mb-52">
           <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
-          <PodkrepqAutomationComponent podkrepqshti={GAMMA_SPONSORS} />
+          <PodkrepqAutoDisplay podkrepqshti={GAMMA_SPONSORS} />
         </div>
         <div className="mb-20 place-self-center">
           <PodkrepqTitle>Партньори</PodkrepqTitle>
-          <PodkrepqAutomationComponent podkrepqshti={PARTNERS} />
+          <PodkrepqAutoDisplay podkrepqshti={PARTNERS} />
         </div>
       </div>
     </section>
@@ -63,7 +63,7 @@ function SponsorsAndPartners() {
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className=" scroll-m-20 pb-2 text-center text-5xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
+    <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:text-5xl">
       {children}
     </h2>
   );
@@ -110,7 +110,7 @@ function MediaArticleCard({ article }: { article: MediaArticle }) {
             </CardHeader>
             <div className="pb-3 text-center sm:hidden">{"●"}</div>
             <CardFooter className="justify-center text-center sm:justify-start sm:text-left">
-              <DateDisplay date={article.date} />
+              <DateDisplayWrongTimezone date={article.date} />
             </CardFooter>
           </div>
         </article>

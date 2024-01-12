@@ -1,6 +1,6 @@
 import { dateFormatter } from "./formatters";
 
-const DateRangeDisplayInternal = ({
+const DateRangeDisplayWrongTimezone = ({
   startDate,
   endDate,
 }: {
@@ -12,4 +12,4 @@ const DateRangeDisplayInternal = ({
   </time>
 );
 
-export default DateRangeDisplayInternal;
+export default DateRangeDisplayWrongTimezone;
