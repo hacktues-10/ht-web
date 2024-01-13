@@ -74,6 +74,14 @@ export const acceptJoinRequest = async (
 
       const partic = await getParticipantById(joinRequest.userId);
 
+      if (partic?.isDisqualified) {
+        return {
+          success: false,
+          message:
+            "Не можеш да се присъединиш към отбор, защото си дисквалифициран",
+        };
+      }
+
       if (partic?.team.id) {
         return {
           success: false,
@@ -156,11 +164,20 @@ export const acceptInvitation = zact(
     };
   }
 
-  const particpant = await getParticipantFromSession();
-  if (!particpant) {
+  const participant = await getParticipantFromSession();
+  if (!participant) {
     return { success: false };
   }
-  if (particpant.team.id) {
+
+  if (participant.isDisqualified) {
+    return {
+      success: false,
+      message:
+        "Не можеш да се присъединиш към отбор, защото си дисквалифициран",
+    };
+  }
+
+  if (participant.team.id) {
     return {
       success: false,
       message: "Вече си в отбор, този не ти ли харесва",
@@ -196,7 +213,7 @@ export const acceptInvitation = zact(
     await db
       .update(particpants)
       .set({ teamId: invitation.teamId, isCaptain: false })
-      .where(eq(particpants.id, particpant.id));
+      .where(eq(particpants.id, participant.id));
 
     await db
       .update(teams)

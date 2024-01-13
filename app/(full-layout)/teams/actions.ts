@@ -119,6 +119,15 @@ export async function askToJoinTeam(teamIdToJoin: string) {
   if (!participant) {
     return { success: false, error: "Не си влязъл като участник" };
   }
+
+  if (participant.isDisqualified) {
+    return {
+      success: false,
+      message:
+        "Не можеш да се присъединиш към отбор, защото си дисквалифициран",
+    };
+  }
+
   if (participant.team.id) {
     return { success: false, error: "Вече си в отбор" };
   }

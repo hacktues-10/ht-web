@@ -97,7 +97,11 @@ export function isParticipantAlumni(participant: Participant) {
 export async function getParticipantsWithNoTeam(Invite: boolean = false) {
   if (Invite) {
     const results = await selectFromParticipants().where(
-      and(isNull(particpants.teamId), eq(particpants.isLookingForTeam, true)),
+      and(
+        isNull(particpants.teamId),
+        eq(particpants.isLookingForTeam, true),
+        eq(particpants.isDisqualified, false),
+      ),
     );
     return results;
   }
