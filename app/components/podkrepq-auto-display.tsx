@@ -25,8 +25,10 @@ const readMoreText = "Покажи повече";
 
 export default function PodkrepqAutoDisplay({
   podkrepqshti,
+  imagePriority,
 }: {
   podkrepqshti: Podkrepqsht[];
+  imagePriority?: boolean;
 }) {
   const [liveIndex, setLiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -61,6 +63,10 @@ export default function PodkrepqAutoDisplay({
               nextNextIndex={nextNextIndex}
               prevPrevIndex={prevPervIndex}
               onClick={() => setLiveIndex(index)}
+              priority={
+                [prevIndex, liveIndex, nextIndex].includes(index) &&
+                imagePriority
+              }
             />
           ))}
         </div>
@@ -177,6 +183,7 @@ function PodkrepqLogo({
   nextNextIndex,
   prevPrevIndex,
   onClick,
+  priority,
 }: {
   podkrepqsht: Podkrepqsht;
   index: number;
@@ -186,6 +193,7 @@ function PodkrepqLogo({
   nextNextIndex: number;
   prevPrevIndex: number;
   onClick: () => void;
+  priority?: boolean;
 }) {
   return (
     <li
@@ -231,6 +239,7 @@ function PodkrepqLogo({
           )}
           src={podkrepqsht.logo}
           alt={podkrepqsht.name}
+          priority={priority}
         />
       </Link>
     </li>
