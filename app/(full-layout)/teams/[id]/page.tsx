@@ -124,7 +124,7 @@ export default async function TeamDetailPage({
                 <div className="ml-5">
                   <IfHTFeatureOn feature="update-team-members">
                     <AskToJoinButton
-                      teamid={team.id}
+                      teamId={team.id}
                       hasAskedToJoinState={hasAskedToJoinState}
                     />
                   </IfHTFeatureOn>
