@@ -416,7 +416,9 @@ export const prepareParticipants = zact(
   }),
 )(async ({ teamId, captainId }) => {
   const team = await getTeamById(teamId);
-  invariant(team, "Team not found");
+  if (!team) {
+    return [];
+  }
   return getPreparedParticipants(team, captainId);
 });
 
