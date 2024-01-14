@@ -359,7 +359,7 @@ const PARTNERS = [
     url: "http://www.boniholding.com/",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    supportedEditions: []
+    supportedEditions: [],
   },
   {
     name: "Corporate Gifts",
@@ -400,7 +400,6 @@ const PARTNERS = [
     supportedEditions: [
       "hacktues-security",
       "hacktues-infinity",
-      "hacktues-gg",
       "hacktues-6",
       "hacktues-365",
       "hacktues-30x",
@@ -412,12 +411,11 @@ const PARTNERS = [
     logo: sofiaTechParkLogo,
     url: "https://sofiatech.bg/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "София Тех Парк е първият научно-технологичен парк в България. Той е хъб за изследователи, иновативни стартиращи предприятия и зрели технологични компании от България и региона. Паркът управлява и развива уникална среда за подпомагане и растеж на малки и средни фирми чрез предоставяне на ноу-хау, възможности за работа в мрежа и достъп до нови технологии в три ключови области: информационни и комуникационни технологии, науки за живота и чиста енергия. ",
 
     supportedEditions: [
       "hacktues-security",
       "hacktues-infinity",
-      "hacktues-gg",
       "hacktues-6",
       "hacktues-365",
       "hacktues-30x",
