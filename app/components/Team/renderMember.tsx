@@ -11,7 +11,6 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "~/app/components/ui/hover-card";
-import { isParticipantStudent } from "~/app/participants/service";
 import Crown from "../Crown";
 
 export type PublicTeamMember = Pick<
@@ -64,7 +63,7 @@ export default function RenderMember({
                 {member.isCaptain ? "Капитан" : "Участник"}
               </p>
               <p className="ml-2 text-xs opacity-70">
-                {isParticipantStudent(member)
+                {member.grade.length > 2
                   ? `${member.grade} ${member.parallel}`
                   : `Випуск ${member.grade}`}
               </p>
