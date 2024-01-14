@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -32,6 +34,7 @@ export default function CustomizableDialog({
   const router = useRouter();
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function actionProcess() {
     toast({
@@ -39,6 +42,7 @@ export default function CustomizableDialog({
       description:
         "Съли е в процес на затварянето на портала към вашата вселена...",
     });
+    setIsLoading(true);
 
     const res = await actionFunction();
     if (res?.success) {
@@ -54,6 +58,7 @@ export default function CustomizableDialog({
       <AlertDialogTrigger
         asChild
         className="ml-auto mr-auto items-center justify-center"
+        disabled={isLoading}
       >
         {children}
       </AlertDialogTrigger>
