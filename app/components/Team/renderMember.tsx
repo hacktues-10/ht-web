@@ -13,11 +13,20 @@ import {
 } from "~/app/components/ui/hover-card";
 import Crown from "../Crown";
 
+export type PublicTeamMember = Pick<
+  TeamMember,
+  "id" | "isCaptain" | "firstName" | "lastName" | "parallel" | "grade"
+> & {
+  discordUser?: {
+    discordUsername: string;
+  };
+};
+
 export default function RenderMember({
   member,
   color,
 }: {
-  member: TeamMember;
+  member: PublicTeamMember;
   color: string;
 }) {
   return (
@@ -54,7 +63,7 @@ export default function RenderMember({
                 {member.isCaptain ? "Капитан" : "Участник"}
               </p>
               <p className="ml-2 text-xs opacity-70">
-                {member.parallel
+                {member.grade.length > 2
                   ? `${member.grade} ${member.parallel}`
                   : `Випуск ${member.grade}`}
               </p>
