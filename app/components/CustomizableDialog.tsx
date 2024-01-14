@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -26,10 +27,11 @@ export default function CustomizableDialog({
   cancelTitle: string;
   actionTitle: string;
   children: React.ReactNode;
-  actionFunction: () => Promise<any>;
+  actionFunction: () => Promise<any> | void;
 }) {
   const router = useRouter();
   const { toast } = useToast();
+  const [open, setOpen] = useState(false);
 
   async function actionProcess() {
     toast({
@@ -44,10 +46,11 @@ export default function CustomizableDialog({
     } else if (res?.success === false) {
       console.error(res.message);
     }
+    setOpen(false);
   }
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger
         asChild
         className="ml-auto mr-auto items-center justify-center"
