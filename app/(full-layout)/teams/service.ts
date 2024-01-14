@@ -13,10 +13,12 @@ import {
 } from "~/app/_configs/hackathon";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
-import { discordUsers, particpants, teams } from "~/app/db/schema";
+import { discordUsers, invitations, particpants, teams } from "~/app/db/schema";
 import {
+  formatParticipantDiscordNick,
   getParticipantById,
   getParticipantFromSession,
+  getParticipantsWithNoTeam,
 } from "~/app/participants/service";
 import { MINUTE } from "~/app/utils";
 
@@ -140,4 +142,56 @@ export function isTeamConfirmed(team: Team) {
     ? MAX_TEAM_MEMBERS_ALUMNI
     : MAX_TEAM_MEMBERS_STUDENTS;
   return team.memberCount >= minMembers && team.memberCount <= maxMembers;
+}
+
+type ReducedTeam = Omit<Team, "project" | "mentor" | "members">;
+
+type X = keyof ReducedTeam;
+
+export async function getPreparedParticipants(
+  team: ReducedTeam,
+  captainId: number | null,
+) {
+  // FIXME: captainId should not be passed manually
+  if (!captainId) {
+    return null;
+  }
+
+  // FIXME: wtf zashto tova e any, povrushta mi se ot tozi kod
+  const res: any[] = [];
+
+  const participants = await getParticipantsWithNoTeam(true);
+
+  const inv = await db
+    .select()
+    .from(invitations)
+    .where(eq(invitations.senderParticipantId, captainId));
+
+  participants.forEach((participant) => {
+    const isInvited = inv.some(
+      (invite) => invite.invitedParticipantId === participant.id,
+    );
+    const fullName = formatParticipantDiscordNick(participant);
+
+    if (isParticipantEligableToJoin(participant, team) && !isInvited) {
+      res.push({
+        ...participant,
+        label: fullName,
+        value: `${fullName.toLowerCase()}`,
+      });
+    }
+  });
+  const result = res.map((participant) => {
+    return {
+      label: participant.label,
+      value: participant.value,
+      id: participant.id,
+      firstName: participant.firstName,
+      lastName: participant.lastName,
+      grade: participant.grade,
+      parallel: participant.parallel,
+      technologies: participant.technologies,
+    };
+  });
+  return result;
 }

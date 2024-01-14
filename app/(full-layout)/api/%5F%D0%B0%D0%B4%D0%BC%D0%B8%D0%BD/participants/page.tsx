@@ -1,4 +1,8 @@
-import { isParticipantStudent } from "~/app/participants/service";
+import {
+  formatParticipantDiscordNick,
+  isParticipantStudent,
+  Participant,
+} from "~/app/participants/service";
 import DisqualifyParticipantComponent from "../components/DisqualifyParticipantComponent";
 import { AdminOrNotFound } from "../components/server";
 import TableData from "../components/TableData";
@@ -9,7 +13,7 @@ export default async function AdminParticipantList() {
 
   const preparedParticipants = participants.map((participant) => {
     try {
-      const fullName = formatNick(participant);
+      const fullName = formatParticipantDiscordNick(participant);
       return {
         ...participant,
         label: fullName,
@@ -29,11 +33,3 @@ export default async function AdminParticipantList() {
     </>
   );
 }
-
-const formatNick = (user: any) => {
-  if (isParticipantStudent(user)) {
-    return `${user.firstName} ${user.lastName} (${user.grade}${user.parallel})`;
-  } else {
-    return `${user.firstName} ${user.lastName} (ТУЕС'${user.grade})`;
-  }
-};
