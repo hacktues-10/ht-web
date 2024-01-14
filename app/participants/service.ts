@@ -86,16 +86,23 @@ export async function hasInvitationFromTeam(participantId: any, teamId: any) {
   return false;
 }
 
-export function isParticipantStudent(participant: Participant) {
+type ReducedParticipant = Pick<
+  Participant,
+  "firstName" | "lastName" | "grade" | "parallel"
+>;
+
+export function isParticipantStudent(participant: ReducedParticipant) {
   return participant.grade.length <= 2;
 }
 
-export function isParticipantAlumni(participant: Participant) {
+export function isParticipantAlumni(participant: ReducedParticipant) {
   return !isParticipantStudent(participant);
 }
 
-export async function getParticipantsWithNoTeam(Invite: boolean = false) {
-  if (Invite) {
+export async function getParticipantsWithNoTeam(
+  isLookingForTeamOnly: boolean = false,
+) {
+  if (isLookingForTeamOnly) {
     const results = await selectFromParticipants().where(
       and(isNull(particpants.teamId), eq(particpants.isLookingForTeam, true)),
     );
@@ -107,7 +114,7 @@ export async function getParticipantsWithNoTeam(Invite: boolean = false) {
   return results;
 }
 
-function formatParticipantQualifier(participant: Participant) {
+function formatParticipantQualifier(participant: ReducedParticipant) {
   if (isParticipantStudent(participant)) {
     return `(${participant.grade}${participant.parallel})`;
   } else {
@@ -117,7 +124,7 @@ function formatParticipantQualifier(participant: Participant) {
 
 const DISCORD_NICK_MAX_LENGTH = 32;
 
-export function formatParticipantDiscordNick(participant: Participant) {
+export function formatParticipantDiscordNick(participant: ReducedParticipant) {
   const qualifier = formatParticipantQualifier(participant);
   let nick = `${participant.firstName} ${participant.lastName} ${qualifier}`;
 

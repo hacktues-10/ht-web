@@ -15,6 +15,7 @@ import {
   prepareParticipants,
 } from "~/app/(full-layout)/teams/actions";
 import {
+  getPreparedParticipants,
   getTeamById,
   isParticipantEligableToJoin,
 } from "~/app/(full-layout)/teams/service";
@@ -72,12 +73,22 @@ export default async function TeamDetailPage({
   params: { id },
 }: TeamDetailPageProps) {
   const participant = await getParticipantFromSession();
-  const team = await getTeamById(id);
-  if (!team) {
+  const loadedTeam = await getTeamById(id);
+  if (!loadedTeam) {
     notFound();
   }
 
-  const isEligabletoJoin = isParticipantEligableToJoin(participant, team);
+  const team = {
+    id: loadedTeam.id,
+    name: loadedTeam.name,
+    technologies: loadedTeam.technologies,
+    description: loadedTeam.description,
+    mentorId: loadedTeam.mentorId,
+    isAlumni: loadedTeam.isAlumni,
+    semiFinal: loadedTeam.semiFinal,
+  };
+
+  const isEligabletoJoin = isParticipantEligableToJoin(participant, loadedTeam);
 
   const hasAskedToJoinState = await checkStateJoinRequests({
     targetTeamId: team.id,
@@ -89,8 +100,8 @@ export default async function TeamDetailPage({
   if (mentor?.fileName) {
     url = await getImageUrl({ fileName: mentor?.fileName });
   }
-  const preparedParticipants = await prepareParticipants(
-    team,
+  const preparedParticipants = await getPreparedParticipants(
+    loadedTeam,
     participant?.id ?? null,
   );
   const teamMembers = await getTeamMembers(team.id);
@@ -144,8 +155,23 @@ export default async function TeamDetailPage({
         <div className="z-10 mt-4 flex w-full flex-wrap items-center justify-center sm:mb-4 sm:mt-10">
           {teamMembers.map((member) => (
             <TeamMemberDetailedView
-              member={member}
-              participant={participant}
+              member={{
+                id: member.id,
+                firstName: member.firstName,
+                lastName: member.lastName,
+                isCaptain: member.isCaptain,
+              }}
+              participant={
+                participant && participant.team.id
+                  ? {
+                      id: participant.id,
+                      team: {
+                        id: participant.team.id,
+                        isCaptain: participant.team.isCaptain,
+                      },
+                    }
+                  : null
+              }
               team={team}
               key={member.id}
             />

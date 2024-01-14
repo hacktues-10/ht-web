@@ -1,21 +1,35 @@
 "use client";
 
-import { getTeamMembers } from "../(full-layout)/teams/actions";
-import { getTeamById } from "../(full-layout)/teams/service";
-import { getParticipantFromSession } from "../participants/service";
+import { Team } from "../(full-layout)/teams/service";
+import {
+  getParticipantFromSession,
+  Participant,
+} from "../participants/service";
 import { cn } from "../utils";
 import Crown from "./Crown";
 import MakeCaptainComponent from "./makeCaptainComponent";
 import RemoveMemberComponent from "./RemoveMemberComponent";
+
+type ReducedTeamMember = Pick<Participant, "firstName" | "lastName" | "id"> & {
+  isCaptain: boolean;
+};
+type ReducedParticipant =
+  | (Pick<Participant, "id"> & {
+      team: Pick<Team, "id"> & {
+        isCaptain: boolean;
+      };
+    })
+  | null;
+type ReducedTeam = Pick<Team, "id">;
 
 export default function TeamMemberDetailedView({
   member,
   participant,
   team,
 }: {
-  member: Exclude<Awaited<ReturnType<typeof getTeamMembers>>[number], null>;
-  participant: Awaited<ReturnType<typeof getParticipantFromSession>>;
-  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>;
+  member: ReducedTeamMember;
+  participant: ReducedParticipant;
+  team: ReducedTeam;
 }) {
   const colors = [
     "bg-red-700",

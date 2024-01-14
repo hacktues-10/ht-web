@@ -27,15 +27,16 @@ import {
   formatParticipantDiscordNick,
   getParticipantById,
   getParticipantFromSession,
-  getParticipantsWithNoTeam,
   hasInvitationFromTeam,
   isParticipantStudent,
 } from "~/app/participants/service";
 import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import {
   checkIfTeamEligableToJoin,
+  getPreparedParticipants,
   getTeamById,
   isParticipantEligableToJoin,
+  Team,
 } from "./service";
 
 export async function deleteMyTeam() {
@@ -408,59 +409,16 @@ export async function getProjectByTeamId(teamId: string) {
   return null;
 }
 
-export async function prepareParticipants(
-  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>,
-  captainId: number | null,
-) {
-  if (!captainId) {
-    return null;
-  }
-
-  const res: any[] = [];
-
-  const dbResponse = await getParticipantsWithNoTeam(true);
-
-  const inv = await db
-    .select()
-    .from(invitations)
-    .where(eq(invitations.senderParticipantId, captainId));
-
-  dbResponse.forEach((user) => {
-    const isInvited = inv.some(
-      (invite) => invite.invitedParticipantId === user.id,
-    );
-    const fullName = formatNick(user);
-
-    if (isParticipantEligableToJoin(user, team) && !isInvited) {
-      res.push({
-        ...user,
-        label: fullName,
-        value: `${fullName.toLowerCase()}`,
-      });
-    }
-  });
-  const result = res.map((user) => {
-    return {
-      label: user.label,
-      value: user.value,
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      grade: user.grade,
-      parallel: user.parallel,
-      technologies: user.technologies,
-    };
-  });
-  return result;
-}
-
-const formatNick = (user: any) => {
-  if (isParticipantStudent(user)) {
-    return `${user.firstName} ${user.lastName} (${user.grade}${user.parallel})`;
-  } else {
-    return `${user.firstName} ${user.lastName} (ТУЕС'${user.grade})`;
-  }
-};
+export const prepareParticipants = zact(
+  z.object({
+    teamId: z.string(),
+    captainId: z.number().nullable(),
+  }),
+)(async ({ teamId, captainId }) => {
+  const team = await getTeamById(teamId);
+  invariant(team, "Team not found");
+  return getPreparedParticipants(team, captainId);
+});
 
 export async function createProject(project: {
   teamId: string;
