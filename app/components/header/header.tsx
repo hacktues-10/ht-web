@@ -36,7 +36,6 @@ export const Header = () => {
   const MAX_OPACITY = 0.7;
 
   const { scrollY } = useScroll();
-  // const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { data: headerData } = useHeaderData();
 
   return (
