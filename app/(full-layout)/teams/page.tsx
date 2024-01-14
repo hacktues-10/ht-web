@@ -101,7 +101,7 @@ async function TeamList() {
                           }
                         : undefined,
                     })),
-                    project: { name: team.project.name },
+                    project: team.project ? { name: team.project.name } : null,
                   }}
                   index={index}
                   key={team.id}

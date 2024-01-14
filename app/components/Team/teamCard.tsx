@@ -22,7 +22,7 @@ import RenderMember, { PublicTeamMember } from "./renderMember";
 interface TeamCardProps {
   team: Omit<Pick<Team, "id" | "technologies" | "name">, "members"> & {
     members: PublicTeamMember[];
-    project: Pick<Team["project"], "name">;
+    project: Pick<Team["project"], "name"> | null;
   };
   index: number;
 }
