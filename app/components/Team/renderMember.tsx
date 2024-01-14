@@ -41,7 +41,7 @@ export default function RenderMember({
               </div>
             )}
             <AvatarImage />
-            <AvatarFallback className={`${color}`}>
+            <AvatarFallback className={color}>
               {member.firstName?.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
@@ -51,7 +51,7 @@ export default function RenderMember({
         <div className="flex justify-between space-x-4">
           <Avatar className="m-auto">
             <AvatarImage />
-            <AvatarFallback className={`${color}`}>
+            <AvatarFallback className={color}>
               {member.firstName?.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>

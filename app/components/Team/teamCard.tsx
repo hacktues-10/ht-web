@@ -20,7 +20,7 @@ import { convertToPaginatedTechnologies } from "~/app/technologies";
 import RenderMember, { PublicTeamMember } from "./renderMember";
 
 interface TeamCardProps {
-  team: Omit<Pick<Team, "id" | "technologies" | "name">, "members"> & {
+  team: Pick<Team, "id" | "technologies" | "name"> & {
     members: PublicTeamMember[];
     project: Pick<Team["project"], "name"> | null;
   };
