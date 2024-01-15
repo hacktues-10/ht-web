@@ -56,7 +56,12 @@ export const acceptJoinRequest = async (
     };
   }
 
-  if (joinRequest?.userId && joinRequest.teamId) {
+  if (
+    joinRequest &&
+    joinRequest.id &&
+    joinRequest.userId &&
+    joinRequest.teamId
+  ) {
     try {
       const team = (
         await db.select().from(teams).where(eq(teams.id, joinRequest.teamId))
@@ -81,6 +86,8 @@ export const acceptJoinRequest = async (
         };
       }
 
+      await cleanJoinRequests(joinRequest.id);
+
       const res = await addDiscordRole(
         discord[0].discordId,
         team?.discordRoleId,
@@ -100,31 +107,29 @@ export const acceptJoinRequest = async (
         .set({ memberCount: team.memberCount + 1 })
         .where(eq(teams.id, team.id));
 
-      await db
-        .delete(notifications)
-        .where(eq(notifications.referenceId, joinRequest?.id));
-      await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
       await updateTechnologies(joinRequest?.teamId);
       revalidateTag("teams");
       return { success: true };
     } catch (err) {
+      await cleanJoinRequests(joinRequest.id);
       console.log(err);
       return { success: false };
     }
   }
+
   return { success: false };
+};
+
+const cleanJoinRequests = async (id: number) => {
+  await db.delete(notifications).where(eq(notifications.referenceId, id));
+  await db.delete(joinRequests).where(eq(joinRequests.id, id));
 };
 
 // FIXME: use zact
 export const declineJoinRequest = async (joinRequest: JoinRequest) => {
-  console.log(joinRequest);
   if (joinRequest?.userId && joinRequest.teamId) {
     try {
-      await db
-        .delete(notifications)
-        .where(eq(notifications.referenceId, joinRequest?.id));
-
-      await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
+      cleanJoinRequests(joinRequest.id);
       return { success: true };
     } catch (err) {
       console.log(err);
@@ -141,6 +146,11 @@ function getInvitation(id: number) {
     .where(eq(invitations.id, id))
     .then((rows) => rows.at(0) ?? null);
 }
+
+const cleanInvitation = async (id: number) => {
+  await db.delete(notifications).where(eq(notifications.referenceId, id));
+  await db.delete(invitations).where(eq(invitations.id, id));
+};
 
 export const acceptInvitation = zact(
   z.object({
@@ -187,6 +197,8 @@ export const acceptInvitation = zact(
       return { success: false };
     }
 
+    await cleanInvitation(invitationId);
+
     const res = await addDiscordRole(discord[0].discordId, team.discordRoleId);
 
     if (!res.success) {
@@ -203,18 +215,13 @@ export const acceptInvitation = zact(
       .set({ memberCount: team.memberCount + 1 })
       .where(eq(teams.id, team.id));
 
-    await db
-      .delete(notifications)
-      .where(eq(notifications.referenceId, invitationId));
-
     await updateTechnologies(invitation.teamId);
     revalidateTag("teams");
-
-    await db.delete(invitations).where(eq(invitations.id, invitationId));
 
     return { success: true };
   } catch (err) {
     console.log(err);
+    await cleanInvitation(invitationId);
     return { success: false };
   }
 });
@@ -238,11 +245,7 @@ export const declineInvitation = zact(
   }
 
   try {
-    await db
-      .delete(notifications)
-      .where(eq(notifications.referenceId, invitationId));
-
-    await db.delete(invitations).where(eq(invitations.id, invitationId));
+    await cleanInvitation(invitationId);
     return { success: true };
   } catch (err) {
     console.log(err);
