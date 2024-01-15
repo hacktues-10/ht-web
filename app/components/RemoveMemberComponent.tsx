@@ -15,16 +15,14 @@ import {
   getTeamMembers,
   removeTeamMember,
 } from "../(full-layout)/teams/actions";
+import { Participant } from "../participants/service";
 import { useToast } from "./ui/use-toast";
 
 export default function RemoveMemberComponent({
   memberToRemove,
   remove,
 }: {
-  memberToRemove: Exclude<
-    Awaited<ReturnType<typeof getTeamMembers>>[number],
-    null
-  >;
+  memberToRemove: Pick<Participant, "id">;
   remove: boolean;
 }) {
   const { toast } = useToast();

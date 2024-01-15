@@ -13,16 +13,16 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "~/app/components/ui/alert-dialog";
-import { getTeamMembers, makeCaptain } from "../(full-layout)/teams/actions";
-import { getParticipantFromSession } from "../participants/service";
+import { makeCaptain } from "../(full-layout)/teams/actions";
+import { Participant } from "../participants/service";
 import { useToast } from "./ui/use-toast";
 
 export default function MakeCaptainComponent({
   participant,
   member,
 }: {
-  member: Exclude<Awaited<ReturnType<typeof getTeamMembers>>[number], null>;
-  participant: Awaited<ReturnType<typeof getParticipantFromSession>>;
+  member: Pick<Participant, "id">;
+  participant: Pick<Participant, "id">;
 }) {
   const { toast } = useToast();
   const handleClick = async () => {

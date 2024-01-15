@@ -17,10 +17,13 @@ import {
   CardTitle,
 } from "~/app/components/ui/card";
 import { convertToPaginatedTechnologies } from "~/app/technologies";
-import RenderMember from "./renderMember";
+import RenderMember, { PublicTeamMember } from "./renderMember";
 
 interface TeamCardProps {
-  team: Team;
+  team: Pick<Team, "id" | "technologies" | "name"> & {
+    members: PublicTeamMember[];
+    project: Pick<Team["project"], "name"> | null;
+  };
   index: number;
 }
 
