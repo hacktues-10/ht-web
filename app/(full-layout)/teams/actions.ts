@@ -124,7 +124,7 @@ export async function askToJoinTeam(teamIdToJoin: string) {
     return {
       success: false,
       message:
-        "Не можеш да се присъединиш към отбор, защото си дисквалифициран",
+        "Не можете да се присъедините към отбор, защото сте дисквалифициран/а",
     };
   }
 
