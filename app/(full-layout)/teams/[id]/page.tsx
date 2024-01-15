@@ -9,6 +9,7 @@ import { getImageUrl } from "~/app/_integrations/r2";
 import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
   checkStateJoinRequests,
+  deleteMyTeam,
   getProjectByTeamId,
   getTeamMembers,
   isTeamFull,
@@ -20,7 +21,7 @@ import {
   isParticipantEligableToJoin,
 } from "~/app/(full-layout)/teams/service";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
-import DeleteTeamButton from "~/app/components/DeleteTeamButton";
+import CustomizableDialog from "~/app/components/CustomizableDialog";
 import { InviteForm } from "~/app/components/InviteForm";
 import TeamDetailsComponent from "~/app/components/teamDetailsComponent";
 import TeamMemberDetailedView from "~/app/components/teamMemberDetailedView";
@@ -272,7 +273,17 @@ export default async function TeamDetailPage({
                               Изтрийте своя отбор
                             </h4>
                             <div className="sm:ml-auto sm:self-end">
-                              <DeleteTeamButton id={team.id} />
+                              <CustomizableDialog
+                                actionFunction={deleteMyTeam}
+                                actionTitle="Изтрий"
+                                cancelTitle="Отказ"
+                                dialogDescription="Това действие не може да бъде върнато назад. Ще изтриете отбора си завинаги."
+                                dialogTitle="Сигурни ли сте, че искате да изтриете отбора?"
+                              >
+                                <Button className="" variant="destructive">
+                                  Изтрий отбора
+                                </Button>
+                              </CustomizableDialog>
                             </div>
                           </div>
                         </div>
