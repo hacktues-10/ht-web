@@ -8,7 +8,7 @@ import { getHTSession } from "~/app/api/auth/session";
 import { db } from "~/app/db";
 import { particpants, users } from "~/app/db/schema";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { alunmiRegistrationSchema } from "./schemas";
+import { alunmiRegistrationSchema, studentRegistrationSchema } from "./schemas";
 
 export const registerAlumni = zact(alunmiRegistrationSchema)(async (data) => {
   try {
@@ -60,6 +60,80 @@ export const registerAlumni = zact(alunmiRegistrationSchema)(async (data) => {
           isLookingForTeam: data.isLookingForTeam,
           question1Answer: data.question1,
           question2Answer: data.question2,
+        })
+        .returning({ id: particpants.id })
+    ).at(0);
+    if (!newParticipant) {
+      throw new Error("Participant not found");
+    }
+    return { success: true, participantId: newParticipant.id };
+  } catch (e) {
+    // HACK: this is a hack to get the error message from the drizzle-orm error,
+    // so we can show it to the user. Shouldnt happen to sane users, but we
+    // should still handle it. Still a bad UX, but better than nothing.
+    if (
+      e instanceof Error &&
+      e.message.includes("participants_phone_number_unique")
+    ) {
+      return {
+        success: false,
+        error: "Този телефонен номер вече е регистриран.",
+      };
+    }
+    return {
+      success: false,
+      error:
+        "Възникна неочаквана грешка при регистрацията. Моля опитайте отново по-късно. Ако проблемът продължава, моля свържете се с нас.",
+    };
+  }
+});
+
+export const registerStudent = zact(studentRegistrationSchema)(async (data) => {
+  try {
+    const gb = await getServerSideGrowthBook();
+    if (gb.isOff("register-students")) {
+      return {
+        success: false,
+        error: "Регистрацията на ученици е затворена.",
+      };
+    }
+
+    const session = await getHTSession();
+    if (!session || !session.user?.email) {
+      return { success: false, error: "Не сте влезли с имейл" };
+    }
+    const participant = await getParticipantFromSession();
+    if (participant) {
+      return {
+        success: false,
+        error: "Вече сте регистриран/а като участник.",
+      };
+    }
+
+    const user = (
+      await db
+        .select({ id: users.id })
+        .from(users)
+        .where(eq(users.email, session.user.email))
+    ).at(0);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const newParticipant = (
+      await db
+        .insert(particpants)
+        .values({
+          userId: user.id,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phoneNumber: data.phoneNumber,
+          grade: data.grade,
+          parallel: data.parallel,
+          allergies: data.allergies,
+          tShirtId: data.tShirtId,
+          technologies: data.technologies,
+          isLookingForTeam: data.isLookingForTeam,
         })
         .returning({ id: particpants.id })
     ).at(0);
