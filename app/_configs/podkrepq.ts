@@ -155,7 +155,7 @@ const BETA_SPONSORS = [
       "hacktues-infinity",
       "hacktues-gg",
       "hacktues-3",
-      "hacktues-2"
+      "hacktues-2",
     ],
     description:
       "Chaos е водеща световна компания в технологиите за 3D визуализация. Създадена в България, преди повече от 20 години, тя е отличена с технологични награди “Оскар” и “Емми” за принос към визуалните ефекти в киното и телевизията.  Днес Chaos има екип от повече от 700 души и офиси в 11 града по света. Почти половината от екипа работи в България. Тук е един от центровете за проучванеия и нови разработки на компанията Chaos Innovation Lab. С технологиите, създадени от екипа в София, днес работят водещи холивудски студиа и голяма част от световните архитектурни студиа. Ако се интересувате от фотореалистична графика, следете новостите, които се случват в Chaos тук: https://www.instagram.com/chaosgroup/?hl=en https://www.facebook.com/ChaosGroupBulgaria https://www.linkedin.com/company/chaos-group",
@@ -250,7 +250,7 @@ const GAMMA_SPONSORS = [
     logo: accediaLogo,
     url: "https://accedia.com/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "Аксидиа e българска технологична компания, предоставяща консултантски услуги и разработка на софтуерни решения. Основана през 2012 от четирима партньори, днес в Аксидиа работят над 250 човека. Приятелската атмосфера и възможностите за професионално развитие нареждат компанията сред най-добрите ИТ работодатели в България. Екипът на Аксидиа има опит с широк спектър от технологии като .NET, Java, React.js, Angular и много други.",
     supportedEditions: ["hacktues-security", "hacktues-30x"],
   },
   {
