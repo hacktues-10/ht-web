@@ -28,6 +28,7 @@ import devrixLogo from "../assets/sponsors/beta/devrix.png";
 import experianLogo from "../assets/sponsors/beta/experian.png";
 import haemimontLogo from "../assets/sponsors/beta/haemimont.png";
 import itGixLogo from "../assets/sponsors/beta/itGix.png";
+import sirmaLogo from "../assets/sponsors/beta/sirma.png";
 import stamsoftLogo from "../assets/sponsors/beta/stamsoft.png";
 import strypesLogo from "../assets/sponsors/beta/strypes.png";
 import telebidProLogo from "../assets/sponsors/beta/telebidPro.png";
@@ -202,6 +203,14 @@ const BETA_SPONSORS = [
     supportedEditions: ["hacktues-security"],
     description:
       "ITGix е сертифициран ISO/ IEC 27001: 2013 доставчик на DevOps услуги с фокус върху автоматизацията, облачната миграция, консултантските дейности и поддръжката. Специализирани сме в контейнеризацията, мониторинга и изграждането на CI/CD интеграции. Работим с клиенти от целия свят, използваме най-новите технологии в IT сектора и се гордеем с успешно завършените си проекти и положителна обратна връзка, която получаваме от клиентите си. Ако мечтаеш за работа, която освен просперитет, да ти носи и удоволетворение, то твоето място е в АйТи Гикс. Целогодишно организираме стажове и се стремим да развиваме хората в екипа си посредством менторски програми, сертифициране и придобиване на практически знания.",
+  },
+  {
+    name: "Sirma",
+    logo: sirmaLogo,
+    url: "https://sirma.com/",
+    description:
+      "Сирма е най-големият български ИТ холдинг с 32 години пазарно присъствие. В Сирма създават високотехнологични иновативни решения, услуги и продукти в едни от най-динамичните стратегически вертикали: финансов сектор, производство на опаковки, здравеопазване и науки за живота, логистика и транспорт, хотелиерство и електронна търговия. Основните хоризонтални специализации на холдинга са в сферата на изкуствения интелект и управлението на знания, IT консултации и системна интеграция.",
+    supportedEditions: ["hacktues-security"],
   },
   {
     name: "Stam Soft",
