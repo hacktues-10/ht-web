@@ -65,17 +65,16 @@ export default function ProfileInfo({
   const tshirt = (() => {
     switch (participant.tShirtId) {
       case 1:
-        return "XS";
-      case 2:
         return "S";
-      case 3:
+      case 2:
         return "M";
-      case 4:
+      case 3:
         return "L";
-      case 5:
+      case 4:
         return "XL";
-      case 6:
+      case 5:
         return "XXL";
+
       default:
         return "";
     }
