@@ -31,15 +31,7 @@ export default function RenderMember({
 }) {
   return (
     <HoverCard>
-      <HoverCardTrigger
-        asChild
-        style={
-          {
-            // position: "relative",
-            // zIndex: 1000,
-          }
-        }
-      >
+      <HoverCardTrigger asChild>
         <div className="transition-transform duration-300 ease-in-out hover:scale-105">
           <Avatar className="relative m-auto  mt-0 overflow-visible">
             {member.isCaptain && (
