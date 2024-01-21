@@ -104,7 +104,11 @@ export async function getParticipantsWithNoTeam(
 ) {
   if (isLookingForTeamOnly) {
     const results = await selectFromParticipants().where(
-      and(isNull(particpants.teamId), eq(particpants.isLookingForTeam, true)),
+      and(
+        isNull(particpants.teamId),
+        eq(particpants.isLookingForTeam, true),
+        eq(particpants.isDisqualified, false),
+      ),
     );
     return results;
   }
