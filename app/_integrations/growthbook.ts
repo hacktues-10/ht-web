@@ -23,7 +23,6 @@ export const getServerSideGrowthBook = async (id?: string) => {
       cache: "no-store",
     },
   ).then((res) => res.json());
-  console.log("features~~!!", features);
   growthbook.setFeatures(features);
   return growthbook;
 };
