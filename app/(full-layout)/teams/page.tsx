@@ -15,8 +15,6 @@ import {
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getAllTeams, isTeamConfirmed } from "./service";
 
-export const dynamic = "force-dynamic";
-
 export const metadata: Metadata = {
   title: "Отбори",
   description: "Отборите, които са се записали за Hack TUES X",
@@ -85,7 +83,29 @@ async function TeamList() {
             </h2>
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {studentTeams.map((team, index) => (
-                <TeamCard team={team} index={index} key={team.id} />
+                <TeamCard
+                  team={{
+                    id: team.id,
+                    name: team.name,
+                    technologies: team.technologies,
+                    members: team.members.map((member) => ({
+                      id: member.id,
+                      firstName: member.firstName,
+                      lastName: member.lastName,
+                      isCaptain: member.isCaptain,
+                      grade: member.grade,
+                      parallel: member.parallel,
+                      discordUser: member.discordUser
+                        ? {
+                            discordUsername: member.discordUser.discordUsername,
+                          }
+                        : undefined,
+                    })),
+                    project: team.project ? { name: team.project.name } : null,
+                  }}
+                  index={index}
+                  key={team.id}
+                />
               ))}
             </div>
           </div>
@@ -102,7 +122,29 @@ async function TeamList() {
 
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {alumniTeams.map((team, index) => (
-                <TeamCard team={team} index={index} key={team.id} />
+                <TeamCard
+                  team={{
+                    id: team.id,
+                    name: team.name,
+                    technologies: team.technologies,
+                    members: team.members.map((member) => ({
+                      id: member.id,
+                      firstName: member.firstName,
+                      lastName: member.lastName,
+                      isCaptain: member.isCaptain,
+                      grade: member.grade,
+                      parallel: member.parallel,
+                      discordUser: member.discordUser
+                        ? {
+                            discordUsername: member.discordUser.discordUsername,
+                          }
+                        : undefined,
+                    })),
+                    project: team.project ? { name: team.project.name } : null,
+                  }}
+                  index={index}
+                  key={team.id}
+                />
               ))}
             </div>
           </div>

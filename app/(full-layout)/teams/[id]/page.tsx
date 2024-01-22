@@ -9,17 +9,19 @@ import { getImageUrl } from "~/app/_integrations/r2";
 import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
   checkStateJoinRequests,
+  deleteMyTeam,
   getProjectByTeamId,
   getTeamMembers,
   isTeamFull,
   prepareParticipants,
 } from "~/app/(full-layout)/teams/actions";
 import {
+  getPreparedParticipants,
   getTeamById,
   isParticipantEligableToJoin,
 } from "~/app/(full-layout)/teams/service";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
-import DeleteTeamButton from "~/app/components/DeleteTeamButton";
+import CustomizableDialog from "~/app/components/CustomizableDialog";
 import { InviteForm } from "~/app/components/InviteForm";
 import TeamDetailsComponent from "~/app/components/teamDetailsComponent";
 import TeamMemberDetailedView from "~/app/components/teamMemberDetailedView";
@@ -72,12 +74,22 @@ export default async function TeamDetailPage({
   params: { id },
 }: TeamDetailPageProps) {
   const participant = await getParticipantFromSession();
-  const team = await getTeamById(id);
-  if (!team) {
+  const loadedTeam = await getTeamById(id);
+  if (!loadedTeam) {
     notFound();
   }
 
-  const isEligabletoJoin = isParticipantEligableToJoin(participant, team);
+  const team = {
+    id: loadedTeam.id,
+    name: loadedTeam.name,
+    technologies: loadedTeam.technologies,
+    description: loadedTeam.description,
+    mentorId: loadedTeam.mentorId,
+    isAlumni: loadedTeam.isAlumni,
+    semiFinal: loadedTeam.semiFinal,
+  };
+
+  const isEligabletoJoin = isParticipantEligableToJoin(participant, loadedTeam);
 
   const hasAskedToJoinState = await checkStateJoinRequests({
     targetTeamId: team.id,
@@ -89,9 +101,9 @@ export default async function TeamDetailPage({
   if (mentor?.fileName) {
     url = await getImageUrl({ fileName: mentor?.fileName });
   }
-  const preparedParticipants = await prepareParticipants(
-    team,
-    participant?.id ?? null
+  const preparedParticipants = await getPreparedParticipants(
+    loadedTeam,
+    participant?.id ?? null,
   );
   const teamMembers = await getTeamMembers(team.id);
   // teamMembers.push(teamMembers[0]);
@@ -124,7 +136,7 @@ export default async function TeamDetailPage({
                 <div className="ml-5">
                   <IfHTFeatureOn feature="update-team-members">
                     <AskToJoinButton
-                      teamid={team.id}
+                      teamId={team.id}
                       hasAskedToJoinState={hasAskedToJoinState}
                     />
                   </IfHTFeatureOn>
@@ -144,8 +156,23 @@ export default async function TeamDetailPage({
         <div className="z-10 mt-4 flex w-full flex-wrap items-center justify-center sm:mb-4 sm:mt-10">
           {teamMembers.map((member) => (
             <TeamMemberDetailedView
-              member={member}
-              participant={participant}
+              member={{
+                id: member.id,
+                firstName: member.firstName,
+                lastName: member.lastName,
+                isCaptain: member.isCaptain,
+              }}
+              participant={
+                participant && participant.team.id
+                  ? {
+                      id: participant.id,
+                      team: {
+                        id: participant.team.id,
+                        isCaptain: participant.team.isCaptain,
+                      },
+                    }
+                  : null
+              }
               team={team}
               key={member.id}
             />
@@ -246,7 +273,17 @@ export default async function TeamDetailPage({
                               Изтрийте своя отбор
                             </h4>
                             <div className="sm:ml-auto sm:self-end">
-                              <DeleteTeamButton id={team.id} />
+                              <CustomizableDialog
+                                actionFunction={deleteMyTeam}
+                                actionTitle="Изтрий"
+                                cancelTitle="Отказ"
+                                dialogDescription="Това действие не може да бъде върнато назад. Ще изтриете отбора си завинаги."
+                                dialogTitle="Сигурни ли сте, че искате да изтриете отбора?"
+                              >
+                                <Button className="" variant="destructive">
+                                  Изтрий отбора
+                                </Button>
+                              </CustomizableDialog>
                             </div>
                           </div>
                         </div>
@@ -259,7 +296,7 @@ export default async function TeamDetailPage({
         </Card>
         <div className="sm:w-2/5">
           <Card className="fadeInComponent m-10 ml-auto mr-auto  h-min w-5/6 rounded-3xl border-2 p-5 sm:mr-0">
-            {teamMembers.length &&
+            {teamMembers.length > 0 &&
               teamMembers.map((member) => (
                 <div
                   key={member.id}

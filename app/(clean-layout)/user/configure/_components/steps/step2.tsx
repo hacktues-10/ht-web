@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, ChevronsUpDown, LogOutIcon } from "lucide-react";
+import { Check, ChevronsUpDown, LogOutIcon, Text } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -13,7 +12,9 @@ import {
   EXTENDED_ALUMNI_GRADES,
   EXTENDED_ALUMNI_PARALLELS,
   REGULAR_ALUMNI_PARALLELS,
+  STUDENT_GRADES,
 } from "~/app/_elsys/grades-parallels";
+import { parseElsysEmail } from "~/app/_elsys/service";
 import { SignOutButton } from "~/app/components/buttons";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
@@ -33,6 +34,7 @@ import {
   FormLabel,
   FormMessage,
 } from "~/app/components/ui/form";
+import { Input } from "~/app/components/ui/input";
 import {
   Popover,
   PopoverContent,
@@ -45,12 +47,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/app/components/ui/select";
+import { gradeEnum } from "~/app/db/schema";
 import { cn } from "~/app/utils";
-import { alumniStep2Schema } from "../../schemas";
+import { alumniStep2Schema, studentsStep2Schema } from "../../schemas";
 import { NextStepButton, PrevStepButton, StepButtons } from "../step-buttonts";
 
 type AlumniStep2Data = z.infer<typeof alumniStep2Schema>;
-
+type StudentStep2Data = z.infer<typeof studentsStep2Schema>;
 // TODO: add more info about whats in the form in its name
 export const AlumniStep2 = ({
   email,
@@ -208,6 +211,114 @@ export const AlumniStep2 = ({
                         ? ALUMNI_PARALLELS
                         : REGULAR_ALUMNI_PARALLELS
                       ).map((parallel) => (
+                        <SelectItem key={parallel} value={parallel}>
+                          {parallel}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <StepButtons
+              left={<PrevStepButton onClick={onPrev} />}
+              right={
+                <NextStepButton
+                  disabled={!canSubmit}
+                  isLoading={form.formState.isSubmitting}
+                />
+              }
+            />
+          </form>
+        </Form>
+      </Card>
+    </section>
+  );
+};
+
+export const StudentStep2 = ({
+  email,
+  defaultValues,
+  initialData,
+  onNext,
+  onPrev,
+  className,
+}: {
+  email: string;
+  defaultValues: StudentStep2Data;
+  initialData: Partial<StudentStep2Data>;
+  onNext: (data: StudentStep2Data) => void;
+  onPrev: () => void;
+  className?: string;
+}) => {
+  const form = useForm<StudentStep2Data>({
+    resolver: zodResolver(studentsStep2Schema),
+    defaultValues: initialData,
+  });
+
+  useEffect(() => {
+    form.reset(initialData);
+    const grade = parseElsysEmail(email)?.grade;
+    //typescript e tup i za tova ne go priema
+    //@ts-ignore
+    if (grade && STUDENT_GRADES.includes(grade)) {
+      //@ts-ignore
+      form.setValue("grade", grade);
+    }
+  }, [initialData, form]);
+
+  const canSubmit =
+    form.watch("grade") != defaultValues.grade &&
+    form.watch("parallel") != defaultValues.parallel;
+
+  return (
+    <section
+      className={cn(
+        "flex w-full max-w-xl flex-col items-center gap-2",
+        className,
+      )}
+    >
+      <h2 className="text-center text-2xl font-extrabold">
+        Информация за настоящ ученик
+      </h2>
+      <Card className="block w-full p-6">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onNext)} className="space-y-3">
+            <FormField
+              control={form.control}
+              name="grade"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Клас</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled
+                      defaultValue={field.value}
+                      className="w-full justify-between px-3"
+                    />
+                  </FormControl>
+                  <FormDescription>Класът, в който сте.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="parallel"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Паралелка</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Изберете паралелка" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {REGULAR_ALUMNI_PARALLELS.map((parallel) => (
                         <SelectItem key={parallel} value={parallel}>
                           {parallel}
                         </SelectItem>

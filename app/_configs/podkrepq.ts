@@ -12,7 +12,7 @@ import a1Logo from "../assets/sponsors/alpha/a1.png";
 //Alpha sponsors
 import appolicaLogo from "../assets/sponsors/alpha/appolica.png";
 import boschECSLogo from "../assets/sponsors/alpha/bosch-engineering-center-sofia.png";
-import codbexLogo from "../assets/sponsors/alpha/codbex.png";
+import codbexLogo from "../assets/sponsors/alpha/codbex-orange-logo.png";
 import dxcLogo from "../assets/sponsors/alpha/dxc.png";
 import elevenVenturesLogo from "../assets/sponsors/alpha/eleven-ventures.png";
 import limechainLogo from "../assets/sponsors/alpha/limechain.png";
@@ -23,10 +23,12 @@ import trading212Logo from "../assets/sponsors/alpha/trading212.png";
 //Alpha sponsors
 
 //Beta sponsors
+import chaosLogo from "../assets/sponsors/beta/chaos1.png";
 import devrixLogo from "../assets/sponsors/beta/devrix.png";
 import experianLogo from "../assets/sponsors/beta/experian.png";
 import haemimontLogo from "../assets/sponsors/beta/haemimont.png";
 import itGixLogo from "../assets/sponsors/beta/itGix.png";
+import sirmaLogo from "../assets/sponsors/beta/sirma.png";
 import stamsoftLogo from "../assets/sponsors/beta/stamsoft.png";
 import strypesLogo from "../assets/sponsors/beta/strypes.png";
 import telebidProLogo from "../assets/sponsors/beta/telebidPro.png";
@@ -43,8 +45,13 @@ import progressLogo from "../assets/sponsors/gamma/progress.png";
 //Gamma sponsors
 
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
+import boniLogo from "../assets/sponsors/partners/boni.png";
+import cometLogo from "../assets/sponsors/partners/comet.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
+import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
+import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
+import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
 import { FEBRUARY, MARCH } from "../utils";
@@ -126,7 +133,7 @@ const ALPHA_SPONSORS = [
     logo: tbsLogo,
     url: "https://www.tbs.tech/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "Telelink Business Services е една от най-големите български технологични компании и лидер в областта на адаптивните и адекватни решения на комплексни технологични нужди. С над 20 години опит и доказана експертиза, компанията съумява да прилага иновативен и висококачествен подход към клиентите си. Telelink Business Services е доставчик на ИТ решения в областта на мрежи и центрове за данни, офис производителност и информационна сигурност с 200+ клиента в България, Западните Балкани и мултинационални компании и 50+ партньори като Cisco, Broadcom, Microsoft, DELL и др.",
     supportedEditions: ["hacktues-security", "hacktues-infinity"],
   },
   {
@@ -140,6 +147,20 @@ const ALPHA_SPONSORS = [
 ];
 
 const BETA_SPONSORS = [
+  {
+    name: "Chaos",
+    logo: chaosLogo,
+    url: "https://www.chaos.com/",
+    supportedEditions: [
+      "hacktues-security",
+      "hacktues-infinity",
+      "hacktues-gg",
+      "hacktues-3",
+      "hacktues-2",
+    ],
+    description:
+      "Chaos е водеща световна компания в технологиите за 3D визуализация. Създадена в България, преди повече от 20 години, тя е отличена с технологични награди “Оскар” и “Емми” за принос към визуалните ефекти в киното и телевизията.  Днес Chaos има екип от повече от 700 души и офиси в 11 града по света. Почти половината от екипа работи в България. Тук е един от центровете за проучванеия и нови разработки на компанията Chaos Innovation Lab. С технологиите, създадени от екипа в София, днес работят водещи холивудски студиа и голяма част от световните архитектурни студиа. Ако се интересувате от фотореалистична графика, следете новостите, които се случват в Chaos тук: https://www.instagram.com/chaosgroup/?hl=en https://www.facebook.com/ChaosGroupBulgaria https://www.linkedin.com/company/chaos-group",
+  },
   {
     name: "Devrix",
     logo: devrixLogo,
@@ -182,6 +203,14 @@ const BETA_SPONSORS = [
     supportedEditions: ["hacktues-security"],
     description:
       "ITGix е сертифициран ISO/ IEC 27001: 2013 доставчик на DevOps услуги с фокус върху автоматизацията, облачната миграция, консултантските дейности и поддръжката. Специализирани сме в контейнеризацията, мониторинга и изграждането на CI/CD интеграции. Работим с клиенти от целия свят, използваме най-новите технологии в IT сектора и се гордеем с успешно завършените си проекти и положителна обратна връзка, която получаваме от клиентите си. Ако мечтаеш за работа, която освен просперитет, да ти носи и удоволетворение, то твоето място е в АйТи Гикс. Целогодишно организираме стажове и се стремим да развиваме хората в екипа си посредством менторски програми, сертифициране и придобиване на практически знания.",
+  },
+  {
+    name: "Sirma",
+    logo: sirmaLogo,
+    url: "https://sirma.com/",
+    description:
+      "Сирма е най-големият български ИТ холдинг с 32 години пазарно присъствие. В Сирма създават високотехнологични иновативни решения, услуги и продукти в едни от най-динамичните стратегически вертикали: финансов сектор, производство на опаковки, здравеопазване и науки за живота, логистика и транспорт, хотелиерство и електронна търговия. Основните хоризонтални специализации на холдинга са в сферата на изкуствения интелект и управлението на знания, IT консултации и системна интеграция.",
+    supportedEditions: ["hacktues-security"],
   },
   {
     name: "Stam Soft",
@@ -230,7 +259,7 @@ const GAMMA_SPONSORS = [
     logo: accediaLogo,
     url: "https://accedia.com/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "Аксидиа e българска технологична компания, предоставяща консултантски услуги и разработка на софтуерни решения. Основана през 2012 от четирима партньори, днес в Аксидиа работят над 250 човека. Приятелската атмосфера и възможностите за професионално развитие нареждат компанията сред най-добрите ИТ работодатели в България. Екипът на Аксидиа има опит с широк спектър от технологии като .NET, Java, React.js, Angular и много други.",
     supportedEditions: ["hacktues-security", "hacktues-30x"],
   },
   {
@@ -336,6 +365,14 @@ const PARTNERS = [
   //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   // },
   {
+    name: "Бони",
+    logo: boniLogo,
+    url: "http://www.boniholding.com/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
+  },
+  {
     name: "Corporate Gifts",
     logo: corporateLogo,
     url: "https://corporategifts.bg",
@@ -358,6 +395,14 @@ const PARTNERS = [
     ],
   },
   {
+    name: "Мебели Ремо",
+    logo: remoLogo,
+    url: "https://mebeliremo.bg/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
+  },
+  {
     name: "Smartcom",
     logo: smartcomLogo,
     url: "https://smartcom.bg/",
@@ -366,7 +411,6 @@ const PARTNERS = [
     supportedEditions: [
       "hacktues-security",
       "hacktues-infinity",
-      "hacktues-gg",
       "hacktues-6",
       "hacktues-365",
       "hacktues-30x",
@@ -378,12 +422,11 @@ const PARTNERS = [
     logo: sofiaTechParkLogo,
     url: "https://sofiatech.bg/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "София Тех Парк е първият научно-технологичен парк в България. Той е хъб за изследователи, иновативни стартиращи предприятия и зрели технологични компании от България и региона. Паркът управлява и развива уникална среда за подпомагане и растеж на малки и средни фирми чрез предоставяне на ноу-хау, възможности за работа в мрежа и достъп до нови технологии в три ключови области: информационни и комуникационни технологии, науки за живота и чиста енергия. ",
 
     supportedEditions: [
       "hacktues-security",
       "hacktues-infinity",
-      "hacktues-gg",
       "hacktues-6",
       "hacktues-365",
       "hacktues-30x",

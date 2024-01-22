@@ -1,11 +1,10 @@
 import { CgInfo } from "react-icons/cg";
 
-import { getTeamById } from "~/app/(full-layout)/teams/service";
+import { Team } from "~/app/(full-layout)/teams/service";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -15,7 +14,7 @@ import { Button } from "./ui/button";
 export default async function TeamDetailsComponent({
   team,
 }: {
-  team: Exclude<Awaited<ReturnType<typeof getTeamById>>, null>;
+  team: Pick<Team, "name" | "description">;
 }) {
   return (
     <Dialog>

@@ -7,16 +7,16 @@ import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 
 export default function AskToJoinButton({
-  teamid,
+  teamId,
   hasAskedToJoinState,
 }: {
-  teamid: string;
+  teamId: string;
   hasAskedToJoinState: boolean;
 }) {
   const [hasAsked, setHasAsked] = useState(hasAskedToJoinState);
   const { toast } = useToast();
   async function handleAskToJoin() {
-    const res = await askToJoinTeam(teamid);
+    const res = await askToJoinTeam(teamId);
     if (res?.success) {
       toast({
         title: "Поздравления!",
@@ -33,15 +33,13 @@ export default function AskToJoinButton({
 
   return (
     <div className="mt-8">
-      {hasAsked === true ? (
-        <Button disabled variant="secondary">
-          <h1>Заявка за влизане</h1>
-        </Button>
-      ) : (
-        <Button variant="secondary" onClick={() => handleAskToJoin()}>
-          <h1>Заявка за влизане</h1>
-        </Button>
-      )}
+      <Button
+        variant="secondary"
+        disabled={hasAsked}
+        onClick={() => handleAskToJoin()}
+      >
+        <h1>Заявка за влизане</h1>
+      </Button>
     </div>
   );
 }

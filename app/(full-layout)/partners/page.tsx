@@ -42,7 +42,7 @@ function SponsorsAndPartners() {
       <div className="grid grid-cols-1 place-items-center ">
         <div className="mb-52">
           <PodkrepqTitle>Алфа Спонсори</PodkrepqTitle>
-          <PodkrepqAutoDisplay podkrepqshti={ALPHA_SPONSORS} />
+          <PodkrepqAutoDisplay podkrepqshti={ALPHA_SPONSORS} imagePriority />
         </div>
         <div className="mb-52">
           <PodkrepqTitle>Бета Спонсори</PodkrepqTitle>
@@ -63,7 +63,7 @@ function SponsorsAndPartners() {
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className=" scroll-m-20 pb-2 text-center text-5xl font-extrabold tracking-tight text-sand first:mt-0 md:mb-24">
+    <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:text-5xl">
       {children}
     </h2>
   );

@@ -78,7 +78,9 @@ export const alumniStep1Schema = z
   .merge(consentsSchema)
   .merge(phoneNumberSchema);
 
-export const studentsStep1Schema = names2Schema.merge(consentsSchema);
+export const studentsStep1Schema = names2Schema
+  .merge(consentsSchema)
+  .merge(phoneNumberSchema);
 
 // export const alumniStep2Schema = z.object({
 //   grade: z.enum(ALUMNI_GRADES),
@@ -126,7 +128,10 @@ export const alumniStep5Schema = z.object({
   question1: z
     .string()
     .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })
-    .max(300, { message: "Отговорът трябва да съдържа най-много 100 символа" }),
+    .max(300, { message: "Отговорът трябва да съдържа най-много 100 символа" })
+    .refine((value) => value.trim() !== "" && value.trim().length >= 3, {
+      message: "Отговорът не може да бъде само от интервали",
+    }),
   question2: z
     .string()
     .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })
