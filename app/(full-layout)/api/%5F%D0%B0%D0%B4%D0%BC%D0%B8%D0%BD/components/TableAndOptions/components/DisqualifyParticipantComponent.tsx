@@ -18,9 +18,11 @@ import {
 } from "~/app/components/ui/popover";
 import { ScrollArea } from "~/app/components/ui/scroll-area";
 import { useToast } from "~/app/components/ui/use-toast";
-import { getParticipantIdByValue } from "~/app/participants/actions";
+import {
+  disqualifyParticipantById,
+  getParticipantIdByValue,
+} from "~/app/participants/actions";
 import { cn } from "~/app/utils";
-import { disqualifyParticipantById } from "../participants/service";
 
 //@ts-ignore
 export default function DisqualifyParticipantComponent({ participants }) {
@@ -47,7 +49,7 @@ export default function DisqualifyParticipantComponent({ participants }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   return (
-    <div>
+    <div className="m-2 rounded-xl border-2 border-red-600">
       <h3 className="m-5 mb-0 font-semibold">Дисквалифицирай ученик</h3>
       <div className="m-5 mt-1 flex w-96">
         <Popover open={open} onOpenChange={setOpen}>

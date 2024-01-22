@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 import ProfileInfo from "~/app/(full-layout)/profile/_components/profile-info";
 import { signInRedirect } from "~/app/api/auth/session";
@@ -13,6 +14,9 @@ export default async function ProfilePage() {
   const participant = await getParticipantFromSession();
   if (!participant) {
     signInRedirect();
+  }
+  if (participant.isDisqualified) {
+    redirect("/");
   }
   return <ProfileInfo participant={participant} />;
 }
