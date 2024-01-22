@@ -21,14 +21,14 @@ import {
   EVENT_START,
   MAX_TEAMS_ALUMNI,
   MAX_TEAMS_STUDENTS,
-  STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
 import { IfHTSession, IfNotHTSession } from "../api/auth/server-components";
 import { CountdownTimer } from "../components/countdowns";
-import { DateDisplay, DateRangeDisplay } from "../components/date-display";
+import { DateDisplay } from "../components/date-display";
+import DateRangeDisplayWrongTimezone from "../components/date-display/wrong-timezone/date-range-display";
 import { CountdownHourglass } from "../components/hourglass";
 import { HTLogo, HTXLogoDuotone } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
@@ -162,7 +162,7 @@ export default async function LandingPage() {
             </h2>
             <div className="py-2" />
 
-            <Button size="lg">
+            <Button size="lg" asChild>
               <Link href="/signup">Регистрирайте се сега!</Link>
             </Button>
           </section>
@@ -205,7 +205,10 @@ function CountdownHero() {
 
         <div className="flex flex-col gap-1 py-3 text-sm font-semibold">
           <IconParagraph icon={Calendar}>
-            <DateRangeDisplay startDate={EVENT_START} endDate={EVENT_END} />
+            <DateRangeDisplayWrongTimezone
+              startDate={EVENT_START}
+              endDate={EVENT_END}
+            />
           </IconParagraph>
           <IconParagraph icon={MapPin}>София Тех Парк</IconParagraph>
           <IconParagraph icon={Award}>10-ТО ЮБИЛЕЙНО ИЗДАНИЕ!!!</IconParagraph>
@@ -242,16 +245,7 @@ function CountdownHero() {
         </div>
 
         <CountdownTimer to={EVENT_START} />
-        <IfNotHTSession>
-          <Button asChild size="lg">
-            <Link href="/signup">Регистрирайте се!</Link>
-          </Button>
-        </IfNotHTSession>
-        <IfHTSession>
-          <Button asChild size="lg">
-            <Link href="/teams">Разгледайте отборите</Link>
-          </Button>
-        </IfHTSession>
+        <LandingCTA />
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
         <h2 className="sr-only">Пясъчен часовник</h2>
@@ -262,6 +256,31 @@ function CountdownHero() {
         <CountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
       </aside>
     </div>
+  );
+}
+
+function LandingCTAButton({ children }: PropsWithChildren) {
+  return (
+    <Button asChild size="lg">
+      {children}
+    </Button>
+  );
+}
+
+function LandingCTA() {
+  return (
+    <>
+      <IfNotHTSession>
+        <LandingCTAButton>
+          <Link href="/signup">Регистрирайте се!</Link>
+        </LandingCTAButton>
+      </IfNotHTSession>
+      <IfHTSession>
+        <LandingCTAButton>
+          <Link href="/teams">Разгледайте отборите</Link>
+        </LandingCTAButton>
+      </IfHTSession>
+    </>
   );
 }
 
@@ -339,7 +358,10 @@ function ArchiveLocation({
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:gap-4">
       <IconParagraph icon={Calendar}>
-        <DateRangeDisplay startDate={startDate} endDate={endDate} />
+        <DateRangeDisplayWrongTimezone
+          startDate={startDate}
+          endDate={endDate}
+        />
       </IconParagraph>
       {location ? (
         <IconParagraph icon={MapPin}>{location}</IconParagraph>
@@ -407,16 +429,7 @@ function UnescoSection() {
         <SandMask className="absolute inset-0 h-full w-full fill-sand" />
       </div>
       {/* <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)] [clip-path:url(#sandMaskBg)]" /> */}
-      <div className="flex max-w-5xl flex-col-reverse items-center justify-center gap-8 sm:flex-row">
-        <div className="flex-3 flex w-full items-center justify-center">
-          <Link href={UNESCO_URL} target="_blank">
-            <Image
-              src={ht8Image}
-              alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
-              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl"
-            />
-          </Link>
-        </div>
+      <div className="flex max-w-5xl flex-col items-center justify-center gap-8 sm:flex-row-reverse">
         <div className="flex w-full flex-col gap-1">
           <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-destructive first:mt-0">
             <HTLogo className="font-extrabold">Hack TUES</HTLogo> в ЮНЕСКО
@@ -441,6 +454,21 @@ function UnescoSection() {
               <LinkIcon className="mr-2 h-4 w-4" /> Прочетете повече
             </Link>
           </Button>
+        </div>
+        <div className="flex-3 flex w-full items-center justify-center">
+          <Link
+            href={UNESCO_URL}
+            target="_blank"
+            // FIXME: the focus ring classes are repeated in many places
+            className="rounded-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            tabIndex={-1}
+          >
+            <Image
+              src={ht8Image}
+              alt="Екипът на Hack TUES 8 гледа в екрана на лаптоп"
+              className="h-auto w-full rounded-lg object-cover object-center shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            />
+          </Link>
         </div>
       </div>
     </section>
@@ -490,6 +518,7 @@ function ChevronDownLink({
       variant="secondary"
       size="icon"
       className={cn("rounded-full border backdrop-blur-md", className)}
+      aria-label="Към следващата секция"
     >
       <Link href={href}>
         <ChevronDown className="h-6 w-6" />

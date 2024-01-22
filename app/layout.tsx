@@ -34,7 +34,10 @@ export const metadata: Metadata = {
   },
   description: "Hack TUES",
   openGraph: {
-    title: "Hack TUES X",
+    title: {
+      default: "Hack TUES X",
+      template: "%s | Hack TUES X",
+    },
     description:
       "Единственият хакатон в България, организиран от ученици за ученици. ⌛",
     url: "https://hacktues.bg",

@@ -20,7 +20,7 @@ export const getHeaderData = async () => {
         ? {
             id: participant.id,
             isLookingForTeam: participant.isLookingForTeam,
-            team: participant.team.id
+            team: participant.team.id,
           }
         : null,
   };
@@ -36,5 +36,5 @@ function getAvatarName(
     }
     return null;
   }
-  return `${participant.firstName} ${participant.lastName}`;
+  return `${participant.firstName}`;
 }

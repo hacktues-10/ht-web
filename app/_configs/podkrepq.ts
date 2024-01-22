@@ -15,15 +15,17 @@ import boschECSLogo from "../assets/sponsors/alpha/bosch-engineering-center-sofi
 import codbexLogo from "../assets/sponsors/alpha/codbex.png";
 import dxcLogo from "../assets/sponsors/alpha/dxc.png";
 import elevenVenturesLogo from "../assets/sponsors/alpha/eleven-ventures.png";
+import limechainLogo from "../assets/sponsors/alpha/limechain.png";
 import sapLogo from "../assets/sponsors/alpha/sap.png";
-import stenikLogo from "../assets/sponsors/alpha/stenik.png"
-//import tbsLogo from "../assets/sponsors/alpha/tbs.png";
+import stenikLogo from "../assets/sponsors/alpha/stenik.png";
+import tbsLogo from "../assets/sponsors/alpha/tbs.png";
 import trading212Logo from "../assets/sponsors/alpha/trading212.png";
 //Alpha sponsors
 
 //Beta sponsors
 import devrixLogo from "../assets/sponsors/beta/devrix.png";
 import experianLogo from "../assets/sponsors/beta/experian.png";
+import haemimontLogo from "../assets/sponsors/beta/haemimont.png";
 import itGixLogo from "../assets/sponsors/beta/itGix.png";
 import stamsoftLogo from "../assets/sponsors/beta/stamsoft.png";
 import strypesLogo from "../assets/sponsors/beta/strypes.png";
@@ -35,17 +37,17 @@ import tumbaSolutionsLogo from "../assets/sponsors/beta/tumba-solutions.png";
 import accediaLogo from "../assets/sponsors/gamma/accedia.png";
 import asteaSolutionsLogo from "../assets/sponsors/gamma/astea-solutions.png";
 import globalFoundriesLogo from "../assets/sponsors/gamma/globalfoundries.png";
+import nemetschekLogo from "../assets/sponsors/gamma/nemetschek.png";
 import ocadoTechnologyLogo from "../assets/sponsors/gamma/ocado-technology.png";
 import progressLogo from "../assets/sponsors/gamma/progress.png";
+//Gamma sponsors
+
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
-import cometLogo from "../assets/sponsors/partners/comet.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
-import devstylerLogo from "../assets/sponsors/partners/devstyler.png";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
-import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
-import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
+import { FEBRUARY, MARCH } from "../utils";
 
 //Partners
 
@@ -78,9 +80,7 @@ const ALPHA_SPONSORS = [
     url: "https://dxc.com/bg/en",
     description:
       "DXC Technology е глобален лидер в предоставянето на цялостни IT решения. Мисията ни е да използваме силата на технологиите, за да изградим по-добро бъдеще за нашите клиенти, колеги, общности и околна среда. Имаме повече от 130 000 служители в над 70 страни, а в България сме сред най-големите работодатели с повече от 4000 колеги, работещи от различни части на страната. Тук е представено цялото IT портфолио на компанията - техническа поддръжка, анализ на големи масиви от данни, облачни технологии, разработване на системи за автономни автомобили, мрежи, киберсигурност, разработване на приложения и софтуери с Java, .Net, C++ и много други. Това, в което сме сред най-добрите, е да помагаме на бизнеси и правителства по целия свят да трансформират дейността си и да извлекат максимална добавена стойност от новите технологии.",
-    supportedEditions: [
-      "hacktues-security"
-    ],
+    supportedEditions: ["hacktues-security"],
   },
   {
     name: "Eleven Ventures",
@@ -88,6 +88,14 @@ const ALPHA_SPONSORS = [
     url: "https://www.11.vc/",
     description:
       "Eleven Ventures is one of the leading early-stage VCs in Southeast Europe, investing in startups since 2012. With 150+ collective investments over 11 years, Eleven’s team has been instrumental in catalysing the regional startup ecosystem. Eleven supports tech companies in four priority verticals - Future of Work, Fintech, Healthcare and Sustainable Food. Some of the startups which Eleven has backed include fintech unicorn Payhawk, Gtmhub, Dronamics, and SMSBump. For more information on Eleven Ventures, visit https://www.11.vc/. ",
+  },
+  {
+    name: "Limechain",
+    logo: limechainLogo,
+    url: "https://limechain.tech/",
+    description:
+      "LimeChain is a global leader in Web3 development and innovation, working with Fortune 500 clients and Web3 startups. We’re experts in crafting dApps, blockchain networks, and enterprise solutions using the latest Web3 technologies. With over 200 projects under our belt and a team of more than 120 industry experts, we are one of the companies with the most accumulated know-how in the Web3 space worldwide.",
+    supportedEditions: ["hacktues-security", "hacktues-infinity"],
   },
   {
     name: "SAP Labs България",
@@ -112,6 +120,14 @@ const ALPHA_SPONSORS = [
     url: "https://www.stenikgroup.com/bg/",
     description:
       "Stenik е българска технологична компания с eCommerce фокус. Започвайки като уеб агенция през 2004 г., компанията открива своята страст към електронната търговия още в ранните години на своето развитие. От 2012 г. Stenik помага на български и европейски производители, ритейлъри и брандове да оперират в дигиталната икономика посредством къстомизирани eCommerce решения. Мисията на Stenik е да предоставя и адаптира световни решения и ноу-хау за българските търговци, като по този начин ги прави по-конкурентни в дигиталната икономика. Характерно за компанията е предоставянето на изцяло in-house завършен цикъл за имплементация и поддръжка на B2C, B2B & D2C решения, а една от основните й цели е клиентите, с които си партнира, да се чувстват обезпечени от софтуерна гледна точка, за да могат да се фокусират върху своите продажби и развитие.",
+  },
+  {
+    name: "Telelink Business Services",
+    logo: tbsLogo,
+    url: "https://www.tbs.tech/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: ["hacktues-security", "hacktues-infinity"],
   },
   {
     name: "Trading 212",
@@ -150,6 +166,14 @@ const BETA_SPONSORS = [
       "hacktues-gg",
       "hacktues-6",
     ],
+  },
+  {
+    name: "Haemimont",
+    logo: haemimontLogo,
+    url: "http://www.haemimont.com/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
   },
   {
     name: "ITGix",
@@ -201,14 +225,14 @@ const BETA_SPONSORS = [
 ];
 
 const GAMMA_SPONSORS = [
-  /*{
+  {
     name: "Accedia",
     logo: accediaLogo,
     url: "https://accedia.com/",
     description:
-      "Accedia e българска технологична компания, предоставяща консултантски услуги и разработка на софтуер и цялостни IT решения. Основана през 2012, за изминалите 10 години компанията става пример за устойчив растеж и е оценена от многобройни клиенти, служители и отличия.  Над 250 човека са обединени около мисията да надскачат очаквания със своите технологични знания и професионално отношение, с това, че виждат промяната като възможност, и с това, че са постоянно ориентирани към учене и израстване. Не на последно място, умението на хората да се забавляват ги прави толкова сплотени и превръща Аксидиа в един от най-желаните работодатели.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     supportedEditions: ["hacktues-security", "hacktues-30x"],
-  },*/
+  },
   {
     name: "Astea Solutions",
     logo: asteaSolutionsLogo,
@@ -235,11 +259,27 @@ const GAMMA_SPONSORS = [
     supportedEditions: [],
   },
   {
+    name: "Nemetschek Bulgaria",
+    logo: nemetschekLogo,
+    url: "https://www.nemetschek.bg/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [
+      "hacktues-security",
+      "hacktues-infinity",
+      "hacktues-gg",
+      "hacktues-365",
+      "hacktues-30x",
+      "hacktues-3",
+      "hacktues",
+    ],
+  },
+  {
     name: "Ocado Technology",
     logo: ocadoTechnologyLogo,
-    url: "https://www.ocadogroup.com/",
+    url: "https://www.ocadogroup.com/technology/technology-pioneers/",
     description:
-      "Системите и решенията от световна класа на Ocado Technology в областта на автоматизацията, роботиката, изкуствения интелект, машинното обучение, симулацията и големите данни са в основата на онлайн операциите на търговци на хранителни стоки по целия свят. Ocado Smart Platform (OSP) е уникална платформа за електронна търговия и логистика, която дава възможност за устойчива, мащабна и изгодна онлайн доставка на хранителни продукти. Технологиите на компанията задвижват Ocado.com и Morrisons.com, Voila.ca и хранителни стоки на Monoprix.fr, Sobeys, Casino. Скоро ще стоят и зад още онлайн търговски марки в целия свят: от Европа и Северна Америка, до Австралия и Азия. Ocado Technology продължава да създава иновации всеки ден, използвайки своите уникални технологии, компетенции, IP и ноу-хау за трансформиране на онлайн търговията с хранителни стоки и не само.",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     supportedEditions: ["hacktues-infinity"],
   },
   {
@@ -361,11 +401,11 @@ export type Podkrepqsht =
 
 export const MEDIA_ARTICLES = [
   {
-    name: "DevStyler",
+    name: "DevStyleR",
     title: "Проведе се Деветото Издание на Hack TUES 9",
     logo: devstylerArticleLogo,
     url: "https://devstyler.bg/blog/2023/03/13/provede-se-devetoto-izdanie-na-hack-tues-9/",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 13),
   },
   {
     name: "Кариери.bg",
@@ -373,21 +413,21 @@ export const MEDIA_ARTICLES = [
       "Ученици по технологии ще работят с експерти от 30 ИТ компании на HackTUES",
     logo: karieribgLogo,
     url: "https://www.karieri.bg/news/40146_uchenici-po-tehnologii-shche-rabotyat-s-eksperti-ot-30",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, FEBRUARY, 23),
   },
   {
-    name: "БНР",
+    name: "БНР София",
     title: "224 ученици и 25 фирми участват в осмия хакатон на ТУЕС",
     logo: bnrLogo,
     url: "https://bnr.bg/sofia/post/101613996/tues",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 10),
   },
   {
     name: "Столица.bg",
     title: "Започна осмият хакатон на Технологично училище в София",
     logo: capitalLogo,
     url: "https://stolica.bg/sofia/zapochna-osmiyat-hakaton-na-tehnologichno-uchilishte-v-sofiya",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 10),
   },
   {
     name: "Investor.BG",
@@ -395,7 +435,7 @@ export const MEDIA_ARTICLES = [
       "Знания и талант ще демонстрират ученици в осмото издание на хакатона HackTUES",
     logo: investorLogo,
     url: "https://www.investor.bg/a/261-novini/347522-znaniya-i-talant-shte-demonstrirat-uchenitsi-v-osmoto-izdanie-na-hakatona-hacktues",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 8),
   },
   {
     name: "Bloomberg TV Bulgaria",
@@ -403,7 +443,7 @@ export const MEDIA_ARTICLES = [
       "Ученици демонстрират знания и талант в осмото издание на хакатона HackTUES",
     logo: bloombergLogo,
     url: "https://www.bloombergtv.bg/a/16-biznes-start/104120-uchenitsi-demonstrirat-znaniya-i-talant-osmoto-izdanie-na-hakatona-hacktues",
-    date: new Date(2023, 11, 9),
+    date: new Date(2023, MARCH, 8),
   },
 ];
 
