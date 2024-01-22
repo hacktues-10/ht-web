@@ -61,15 +61,19 @@ export async function createTeam(team: {
   isAlumni: boolean;
 }) {
   const res = await checkIfTeamEligableToJoin(team.isAlumni);
+  console.log("checkIfTeamEligableToJoin", res);
   invariant(res, "Отборите са запълнени.");
 
   const captain = await getParticipantById(team.captainId);
+  console.log("isDisqualified", captain?.isDisqualified);
   invariant(!captain?.isDisqualified, "Участникът е дисквалифициран.");
   const roleId = await createDiscordTeam(slugify(team.name));
   const discordMember = await db
     .select()
     .from(discordUsers)
     .where(eq(discordUsers.participantId, team.captainId));
+  console.log("discordMember", discordMember);
+
   invariant(
     !(discordMember.length < 1 || !discordMember[0].discordId),
     "Failed to get discord member",
@@ -85,7 +89,9 @@ export async function createTeam(team: {
       ...team,
     })
     .returning({ id: teams.id });
+  console.log("results", results);
   const insertedTeam = results.at(0);
+  console.log("insertedTeam", insertedTeam);
   invariant(insertedTeam, "Failed to create team");
 
   await addDiscordRole(discordMember[0].discordId, roleId);
