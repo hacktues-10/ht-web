@@ -24,8 +24,11 @@ import {
 } from "~/app/participants/actions";
 import { cn } from "~/app/utils";
 
-//@ts-ignore
-export default function DisqualifyParticipantComponent({ participants }) {
+export default function DisqualifyParticipantComponent({
+  participants,
+}: {
+  participants: any;
+}) {
   const { toast } = useToast();
   const handleClick = async () => {
     const response = await disqualifyParticipantById(

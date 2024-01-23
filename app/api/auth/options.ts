@@ -159,7 +159,7 @@ async function sendEmail(
 ) {
   const { token: accessToken } = await oAuth2Client.getAccessToken();
   const transport = createTransport({
-    // @ts-ignore
+    // @ts-expect-error защото типовете на nodemailer не са актуални
     service: "gmail",
     tls: {
       rejectUnauthorized: false,
