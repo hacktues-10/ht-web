@@ -52,7 +52,9 @@ export const removeDiscordRole = async (userId: string, roleId: string) => {
 export const createDiscordTeam = async (teamId: string) => {
   try {
     // Create the role with specified permissions
+    console.log("Creating role", teamId);
     const roleData = await createRole(teamId);
+    console.log("role created");
     // Create the section and channels with permission overwrites
     await createSectionAndChannels(teamId, roleData.id);
 
@@ -82,6 +84,7 @@ const createRole = async (teamId: string) => {
       body: JSON.stringify(params),
     },
   );
+  console.log("before invariant response ok", JSON.stringify(roleResponse));
   invariant(roleResponse.ok, "Bad role response");
 
   return await roleResponse.json();
@@ -93,6 +96,7 @@ const createSectionAndChannels = async (teamId: string, roleId: string) => {
     textChannels: [teamId],
     voiceChannels: [teamId],
   };
+  console.log("Creating section", section.name);
 
   const sectionResponse = await fetch(
     `https://discord.com/api/v10/guilds/${env.DISCORD_GUILD_ID}/channels`,
@@ -120,6 +124,8 @@ const createSectionAndChannels = async (teamId: string, roleId: string) => {
       }),
     },
   );
+
+  console.log("sectionResponse", sectionResponse);
 
   invariant(
     sectionResponse.ok,
