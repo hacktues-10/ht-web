@@ -9,6 +9,8 @@ import {
   STUDENT_PARALLELS,
 } from "~/app/_elsys/grades-parallels";
 
+const cyrillicNameRegex = /^[А-Яа-я\-– ]+$/;
+
 const names2Schema = z.object({
   firstName: z
     .string()
@@ -16,14 +18,14 @@ const names2Schema = z.object({
     .regex(/^[A-ZА-Я]/, {
       message: "Името трябва да започва с главна буква",
     })
-    .regex(/^[А-Яа-я\-–]/, { message: "Името трябва да е на кирилица" }),
+    .regex(cyrillicNameRegex, { message: "Името трябва да е на кирилица" }),
   lastName: z
     .string()
     .min(1, { message: "Фамилията трябва да съдържа поне 1 буква" })
     .regex(/^[A-ZА-Я]/, {
       message: "Фамилията трябва да започва с главна буква",
     })
-    .regex(/^[А-Яа-я\-–]/, { message: "Фамилията трябва да е на кирилица" }),
+    .regex(cyrillicNameRegex, { message: "Фамилията трябва да е на кирилица" }),
 });
 
 const names3Schema = z
@@ -34,7 +36,9 @@ const names3Schema = z
       .regex(/^[A-ZА-Я]/, {
         message: "Презимето трябва да започва с главна буква",
       })
-      .regex(/^[А-Яа-я\-–]/, { message: "Презимето трябва да е на кирилица" }),
+      .regex(cyrillicNameRegex, {
+        message: "Презимето трябва да е на кирилица",
+      }),
   })
   .merge(names2Schema);
 
