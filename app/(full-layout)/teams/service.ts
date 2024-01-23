@@ -21,6 +21,7 @@ import {
   getParticipantsWithNoTeam,
 } from "~/app/participants/service";
 import { MINUTE } from "~/app/utils";
+import { env } from "~/app/env.mjs";
 
 export type Team = Awaited<ReturnType<typeof getAllTeams>>[number];
 export type TeamMember = Team["members"][number];
@@ -42,7 +43,7 @@ export const getAllTeams = unstable_cache(
       },
     });
   },
-  ["all-teams"],
+  ["all-teams", env.VERCEL_ENV],
   {
     revalidate: 5 * MINUTE,
     tags: ["teams"],
