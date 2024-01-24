@@ -498,14 +498,14 @@ export const MEDIA_ARTICLES = [
     title: "Десетото юбилейно издание Hack TUES X стартира на 13 март",
     logo: darikBusinessReviewArticleLogo,
     url: "https://dbr.bg/8925",
-    date: new Date(2023, JANUARY, 24),
+    date: new Date(2024, JANUARY, 24),
   },
   {
     name: "DevStyleR",
     title: "Десетото Юбилейно Издание Hack TUES X Стартира през Март",
     logo: devstylerArticleLogo,
     url: "https://devstyler.bg/blog/2024/01/23/desetoto-yubilejno-izdanie-hack-tues-x-startira-prez-mart/",
-    date: new Date(2023, JANUARY, 23),
+    date: new Date(2024, JANUARY, 23),
   },
   {
     name: "Кариери.bg",
