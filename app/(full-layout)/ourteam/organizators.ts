@@ -119,7 +119,7 @@ export const organizators = {
     {
       name: "Калата",
       photo: kalata,
-      Instagram: "@not_kaloyan",
+      Instagram: "@not__kala",
       role: "Екип Спонсори",
       customClass: "mt-[10px]",
       description:
