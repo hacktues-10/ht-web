@@ -2,6 +2,7 @@
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
+import darikBusinessReviewArticleLogo from "../assets/media/dbr.png";
 import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
@@ -62,7 +63,7 @@ import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
 //Media partners
 
-import { FEBRUARY, MARCH } from "../utils";
+import { FEBRUARY, JANUARY, MARCH } from "../utils";
 
 const ALPHA_SPONSORS = [
   {
@@ -493,11 +494,18 @@ export type Podkrepqsht =
 
 export const MEDIA_ARTICLES = [
   {
+    name: "DARIK Business Review",
+    title: "Десетото юбилейно издание Hack TUES X стартира на 13 март",
+    logo: darikBusinessReviewArticleLogo,
+    url: "https://dbr.bg/8925",
+    date: new Date(2023, JANUARY, 24),
+  },
+  {
     name: "DevStyleR",
-    title: "Проведе се Деветото Издание на Hack TUES 9",
+    title: "Десетото Юбилейно Издание Hack TUES X Стартира през Март",
     logo: devstylerArticleLogo,
-    url: "https://devstyler.bg/blog/2023/03/13/provede-se-devetoto-izdanie-na-hack-tues-9/",
-    date: new Date(2023, MARCH, 13),
+    url: "https://devstyler.bg/blog/2024/01/23/desetoto-yubilejno-izdanie-hack-tues-x-startira-prez-mart/",
+    date: new Date(2023, JANUARY, 23),
   },
   {
     name: "Кариери.bg",
