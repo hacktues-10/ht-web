@@ -53,7 +53,7 @@ function SponsorsAndPartners() {
           <PodkrepqTitle>Гама Спонсори</PodkrepqTitle>
           <PodkrepqAutoDisplay podkrepqshti={GAMMA_SPONSORS} />
         </div>
-        <div className="mb-20 place-self-center">
+        <div className="mb-52">
           <PodkrepqTitle>Партньори</PodkrepqTitle>
           <PodkrepqAutoDisplay podkrepqshti={PARTNERS} />
         </div>
