@@ -42,11 +42,17 @@ import globalFoundriesLogo from "../assets/sponsors/gamma/globalfoundries.png";
 import nemetschekLogo from "../assets/sponsors/gamma/nemetschek.png";
 import ocadoTechnologyLogo from "../assets/sponsors/gamma/ocado-technology.png";
 import progressLogo from "../assets/sponsors/gamma/progress.png";
+//Media partners
+import btvLogo from "../assets/sponsors/media-partners/btv.webp";
+import darikLogo from "../assets/sponsors/media-partners/darik.webp";
+import devstylerLogo from "../assets/sponsors/media-partners/devstyler.webp";
+import inzhenerBgLogo from "../assets/sponsors/media-partners/inzhener-bg.webp";
+import kaldataLogo from "../assets/sponsors/media-partners/kaldata.webp";
 //Gamma sponsors
 
+//Partners
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import boniLogo from "../assets/sponsors/partners/boni.png";
-import cometLogo from "../assets/sponsors/partners/comet.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
 import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
@@ -54,9 +60,9 @@ import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
-import { FEBRUARY, MARCH } from "../utils";
+//Media partners
 
-//Partners
+import { FEBRUARY, MARCH } from "../utils";
 
 const ALPHA_SPONSORS = [
   {
@@ -357,13 +363,6 @@ const PARTNERS = [
     description:
       'Асоциацията на завършилите ТУЕС е неправителствена организация, която има за цел да обедини и подпомага общността от завършили и настоящи ученици в Технологично училище "Електронни Системи" към ТУ - София (ТУЕС), преподаватели и приятели на училището. Учредена е през декември 2014 и работи активно от средата на 2015, като вече наброява над 1,000 членове и се е превърнала в двигател на редица събития и инициативи, ключови за ТУЕС общността.',
   },
-  // {
-  //   name: "Comet Electronics",
-  //   logo: cometLogo,
-  //   url: "https://comet.bg/",
-  //   description:
-  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  // },
   {
     name: "Бони",
     logo: boniLogo,
@@ -434,13 +433,63 @@ const PARTNERS = [
   },
 ];
 
-export { ALPHA_SPONSORS, BETA_SPONSORS, GAMMA_SPONSORS, PARTNERS };
+const MEDIA_PARTNERS = [
+  {
+    name: "bTV",
+    logo: btvLogo,
+    url: "https://www.btv.bg/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
+  },
+  {
+    name: "DARIK",
+    logo: darikLogo,
+    url: "https://darik.bg/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
+  },
+  {
+    name: "DevStyleR",
+    logo: devstylerLogo,
+    url: "https://devstyler.bg/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
+  },
+  {
+    name: "Инженер.бг",
+    logo: inzhenerBgLogo,
+    url: "https://xn--e1aabhzcw.bg/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
+  },
+  {
+    name: "KALDATA",
+    logo: kaldataLogo,
+    url: "https://www.kaldata.com/tag/хакатон",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
+  },
+];
+
+export {
+  ALPHA_SPONSORS,
+  BETA_SPONSORS,
+  GAMMA_SPONSORS,
+  PARTNERS,
+  MEDIA_PARTNERS,
+};
 
 export type Podkrepqsht =
   | (typeof ALPHA_SPONSORS)[number]
   | (typeof BETA_SPONSORS)[number]
   | (typeof GAMMA_SPONSORS)[number]
-  | (typeof PARTNERS)[number];
+  | (typeof PARTNERS)[number]
+  | (typeof MEDIA_PARTNERS)[number];
 
 export const MEDIA_ARTICLES = [
   {

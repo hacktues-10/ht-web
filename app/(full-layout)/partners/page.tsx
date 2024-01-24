@@ -8,6 +8,7 @@ import {
   BETA_SPONSORS,
   GAMMA_SPONSORS,
   MEDIA_ARTICLES,
+  MEDIA_PARTNERS,
   MediaArticle,
   PARTNERS,
 } from "~/app/_configs/podkrepq";
@@ -55,6 +56,10 @@ function SponsorsAndPartners() {
         <div className="mb-20 place-self-center">
           <PodkrepqTitle>Партньори</PodkrepqTitle>
           <PodkrepqAutoDisplay podkrepqshti={PARTNERS} />
+        </div>
+        <div className="mb-20 place-self-center">
+          <PodkrepqTitle>Медийни Партньори</PodkrepqTitle>
+          <PodkrepqAutoDisplay podkrepqshti={MEDIA_PARTNERS} />
         </div>
       </div>
     </section>
