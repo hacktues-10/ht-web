@@ -30,7 +30,7 @@ export default async function TeamDetailsComponent({
       <DialogContent className="max-w-[300px] rounded-3xl sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{team.name}</DialogTitle>
-          <DialogDescription className="text-centerz">
+          <DialogDescription className="text-center">
             {team.description
               ? longWordInDescription(team.description).length > 0
                 ? `${team.description.slice(0, 40)}`
