@@ -144,8 +144,8 @@ export default async function TeamDetailPage({
             <TeamDetailsComponent team={team} />
           </div>
         </div>
-        <div className="mt-2 flex flex-grow items-center justify-center pt-3 sm:mt-1">
-          <h1 className="ml-auto mr-auto mt-0 flex text-4xl font-semibold text-white sm:text-5xl">
+        <div className="mt-2 flex flex-grow items-center justify-center overflow-hidden pt-3 sm:mt-1">
+          <h1 className="ml-auto mr-auto mt-0 flex  text-4xl font-semibold text-white sm:text-5xl">
             {team.name}
           </h1>
         </div>
@@ -308,7 +308,8 @@ export default async function TeamDetailPage({
                     </h1>
                   </div>
                   <h2 className="m-auto ml-4 text-left text-lg">
-                    {member.firstName} {member.lastName}
+                    {member.firstName.slice(0, 21)}{" "}
+                    {member.lastName.slice(0, 21)}
                   </h2>
                 </div>
               ))}
