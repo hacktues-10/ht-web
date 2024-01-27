@@ -41,7 +41,7 @@ import {
   TabsTrigger,
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { convertToTechnology, technologies } from "~/app/technologies";
+import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
 
 type TeamDetailPageProps = {
