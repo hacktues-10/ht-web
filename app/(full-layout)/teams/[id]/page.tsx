@@ -41,7 +41,8 @@ import {
   TabsTrigger,
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { convertToTechnology } from "~/app/technologies";
+import { convertToTechnology, technologies } from "~/app/technologies";
+import { cn } from "~/app/utils";
 
 type TeamDetailPageProps = {
   params: { id: string };
@@ -353,7 +354,12 @@ export default async function TeamDetailPage({
           <Card className="fadeInComponent m-10 ml-auto mr-auto w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
             <h3 className="mb-2 text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
-              <ScrollArea className="m-2 h-min max-h-[200px] w-full flex-auto gap-2 p-2">
+              <ScrollArea
+                className={cn(
+                  "m-2 h-min w-full flex-auto gap-2 p-2",
+                  techn.length > 10 && "h-[210px]",
+                )}
+              >
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"
