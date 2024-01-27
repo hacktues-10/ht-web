@@ -539,14 +539,14 @@ export const MEDIA_PARTNERS = [
     supportedEditions: [],
     bg: "bg-card/5 backdrop-blur-md",
   },
-  {
-    name: "Инженер.бг",
-    logo: inzhenyerLogo,
-    url: "https://инженер.bg/",
-    description: "",
-    supportedEditions: [],
-    bg: "",
-  },
+  // {
+  //   name: "Инженер.бг",
+  //   logo: inzhenyerLogo,
+  //   url: "https://инженер.bg/",
+  //   description: "",
+  //   supportedEditions: [],
+  //   bg: "",
+  // },
   {
     name: "Kaldata",
     logo: kaldataLogo,
