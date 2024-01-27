@@ -63,6 +63,7 @@ export default function PodkrepqAutoDisplay({
               nextNextIndex={nextNextIndex}
               prevPrevIndex={prevPervIndex}
               onClick={() => setLiveIndex(index)}
+              customBg={podkrepqsht.bg}
               priority={
                 [prevIndex, liveIndex, nextIndex].includes(index) &&
                 imagePriority
@@ -184,6 +185,7 @@ function PodkrepqLogo({
   prevPrevIndex,
   onClick,
   priority,
+  customBg,
 }: {
   podkrepqsht: Podkrepqsht;
   index: number;
@@ -194,7 +196,9 @@ function PodkrepqLogo({
   prevPrevIndex: number;
   onClick: () => void;
   priority?: boolean;
+  customBg: string;
 }) {
+  console.log(customBg);
   return (
     <li
       className={cn(
@@ -225,6 +229,7 @@ function PodkrepqLogo({
             "pointer-events-none opacity-0 [transform:translateY(110%)_rotateX(-90deg)_translateY(100%)]",
           index === prevPrevIndex &&
             "pointer-events-none opacity-0 [transform:translateY(-110%)_rotateX(90deg)_translateY(-100%)]",
+          customBg && `${customBg}`,
         )}
         target="_blank"
       >

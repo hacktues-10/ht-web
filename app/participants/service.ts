@@ -138,7 +138,7 @@ export function formatParticipantDiscordNick(participant: ReducedParticipant) {
     const lastNameInitial = participant.lastName.at(0)
       ? ` ${participant.lastName.at(0)}.`
       : "";
-    nick = `${participant.firstName}${lastNameInitial} ${qualifier}`;
+    nick = `${participant.firstName} ${lastNameInitial} ${qualifier}`;
   }
 
   if (nick.length > DISCORD_NICK_MAX_LENGTH) {
