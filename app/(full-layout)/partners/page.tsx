@@ -46,7 +46,7 @@ function SponsorsAndPartners() {
           <PodkrepqAutoDisplay podkrepqshti={PARTNERS} />
         </div>
         <div className="mb-20 place-self-center">
-          <PodkrepqTitle>Медиини Партньори</PodkrepqTitle>
+          <PodkrepqTitle>Медийни Партньори</PodkrepqTitle>
           <PodkrepqAutoDisplay podkrepqshti={MEDIA_PARTNERS} />
         </div>
       </div>
