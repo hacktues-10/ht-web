@@ -106,10 +106,6 @@ export default async function TeamDetailPage({
     participant?.id ?? null,
   );
   const teamMembers = await getTeamMembers(team.id);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
 
   const project = await getProjectByTeamId(team.id);
   const isFull = await isTeamFull(team.id);
