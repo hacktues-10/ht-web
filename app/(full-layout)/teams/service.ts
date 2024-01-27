@@ -71,6 +71,7 @@ export async function createTeam(team: {
     .select()
     .from(discordUsers)
     .where(eq(discordUsers.participantId, team.captainId));
+
   invariant(
     !(discordMember.length < 1 || !discordMember[0].discordId),
     "Failed to get discord member",
