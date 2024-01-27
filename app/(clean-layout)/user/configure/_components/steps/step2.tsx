@@ -292,13 +292,20 @@ export const StudentStep2 = ({
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Клас</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled
-                      defaultValue={field.value}
-                      className="w-full justify-between px-3"
-                    />
-                  </FormControl>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger value={field.value}>
+                        <SelectValue placeholder="Изберете паралелка" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {STUDENT_GRADES.map((grade) => (
+                        <SelectItem key={grade} value={grade}>
+                          {grade}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormDescription>Класът, в който сте.</FormDescription>
                   <FormMessage />
                 </FormItem>
