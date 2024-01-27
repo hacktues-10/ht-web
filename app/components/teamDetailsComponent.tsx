@@ -11,6 +11,10 @@ import {
 } from "~/app/components/ui/dialog";
 import { Button } from "./ui/button";
 
+function longWordInDescription(description: string) {
+  return description.split(" ").filter((word) => word.length > 40);
+}
+
 export default async function TeamDetailsComponent({
   team,
 }: {
@@ -28,7 +32,9 @@ export default async function TeamDetailsComponent({
           <DialogTitle>{team.name}</DialogTitle>
           <DialogDescription className="text-center">
             {team.description
-              ? `${team.description}`
+              ? longWordInDescription(team.description).length > 0
+                ? `${team.description.slice(0, 40)}`
+                : `${team.description}`
               : "Този отбор няма описание"}
           </DialogDescription>
         </DialogHeader>
