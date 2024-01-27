@@ -63,7 +63,7 @@ export default function PodkrepqAutoDisplay({
               nextNextIndex={nextNextIndex}
               prevPrevIndex={prevPervIndex}
               onClick={() => setLiveIndex(index)}
-              customBg={podkrepqsht.bg}
+              customBg={"bg" in podkrepqsht ? podkrepqsht.bg : ""}
               priority={
                 [prevIndex, liveIndex, nextIndex].includes(index) &&
                 imagePriority
