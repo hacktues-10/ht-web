@@ -41,7 +41,7 @@ export const Header = () => {
   return (
     <animated.header
       style={{
-        // @ts-ignore because it works, even though the types don't let me pass variables
+        // @ts-expect-error because it works, even though the types don't let me pass variables
         "--header-bg-opacity": scrollY
           .to([0, 100], [0, MAX_OPACITY])
           .to((x) => Math.min(x, MAX_OPACITY)),

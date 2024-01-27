@@ -11,7 +11,8 @@ import {
   TableRow,
 } from "~/app/components/ui/table";
 
-export default function TableData({ data }: { data: Array<object> }) {
+// FIXME: any :/
+export default function TableData({ data }: { data: any[] }) {
   if (!data || data.length === 0) {
     return null;
   }
@@ -34,9 +35,7 @@ export default function TableData({ data }: { data: Array<object> }) {
         {data.map((item, index) => (
           <TableRow key={index}>
             {columns.map((column) => (
-              //@ts-ignore
               <TableCell key={column} className="max-w-[100px] overflow-auto">
-                {/* @ts-ignore */}
                 <ScrollArea className="max-h-[60px]">{item[column]}</ScrollArea>
               </TableCell>
             ))}

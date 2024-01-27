@@ -30,7 +30,7 @@ export default function TableAndOptions({ teams }: { teams: TeamsAdmin }) {
     }
 
     setData(filteredData);
-  }, [filterIsFinalist, filterSearch]);
+  }, [filterIsFinalist, filterSearch, teams]);
 
   return (
     data && (
