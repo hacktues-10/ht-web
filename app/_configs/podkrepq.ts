@@ -1,4 +1,3 @@
-//Media
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
@@ -501,7 +500,7 @@ export const MEDIA_ARTICLES = [
     date: new Date(2024, JANUARY, 26),
   },
   {
-    name: "DARIK Business Review",
+    name: "Darik Business Review",
     title: "Десетото юбилейно издание Hack TUES X стартира на 13 март",
     logo: darikBusinessReviewLogo,
     url: "https://dbr.bg/8925",
