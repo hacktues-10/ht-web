@@ -16,7 +16,7 @@ import boschECSLogo from "../assets/sponsors/alpha/bosch-engineering-center-sofi
 import codbexLogo from "../assets/sponsors/alpha/codbex-orange-logo.png";
 import dxcLogo from "../assets/sponsors/alpha/dxc.png";
 import elevenVenturesLogo from "../assets/sponsors/alpha/eleven-ventures.png";
-import limechainLogo from "../assets/sponsors/alpha/limechain.png";
+import limeChainLogo from "../assets/sponsors/alpha/limechain.png";
 import sapLogo from "../assets/sponsors/alpha/sap.png";
 import stenikLogo from "../assets/sponsors/alpha/stenik.png";
 import tbsLogo from "../assets/sponsors/alpha/tbs.png";
@@ -103,8 +103,8 @@ const ALPHA_SPONSORS = [
       "Eleven Ventures is one of the leading early-stage VCs in Southeast Europe, investing in startups since 2012. With 150+ collective investments over 11 years, Eleven’s team has been instrumental in catalysing the regional startup ecosystem. Eleven supports tech companies in four priority verticals - Future of Work, Fintech, Healthcare and Sustainable Food. Some of the startups which Eleven has backed include fintech unicorn Payhawk, Gtmhub, Dronamics, and SMSBump. For more information on Eleven Ventures, visit https://www.11.vc/. ",
   },
   {
-    name: "Limechain",
-    logo: limechainLogo,
+    name: "LimeChain",
+    logo: limeChainLogo,
     url: "https://limechain.tech/",
     description:
       "LimeChain is a global leader in Web3 development and innovation, working with Fortune 500 clients and Web3 startups. We’re experts in crafting dApps, blockchain networks, and enterprise solutions using the latest Web3 technologies. With over 200 projects under our belt and a team of more than 120 industry experts, we are one of the companies with the most accumulated know-how in the Web3 space worldwide.",

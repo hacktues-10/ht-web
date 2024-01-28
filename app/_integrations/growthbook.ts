@@ -9,7 +9,6 @@ import { env } from "../env.mjs";
 // https://github.com/esauri/growthbook-next-app-router/blob/main/src/utils/growthbook.ts
 // XXX: should we move this to _integrations/growthbook.ts? (or some subdirectory of _integrations)
 export const getServerSideGrowthBook = async (id?: string) => {
-  unstable_noStore(); // XXX: Това може да чупи всичко, но пък може и да не чупи
   const growthbook = new GrowthBook<HTFeatures>({
     apiHost: env.NEXT_PUBLIC_GROWTHBOOK_API_HOST,
     clientKey: env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY,
@@ -18,6 +17,12 @@ export const getServerSideGrowthBook = async (id?: string) => {
       id,
     },
   });
-  await growthbook.loadFeatures({ timeout: 1000 });
+  const { features } = await fetch(
+    `${env.NEXT_PUBLIC_GROWTHBOOK_API_HOST}/api/features/${env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY}`,
+    {
+      cache: "no-store",
+    },
+  ).then((res) => res.json());
+  growthbook.setFeatures(features);
   return growthbook;
 };

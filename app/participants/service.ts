@@ -1,7 +1,7 @@
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, gt, isNull, lt, sql } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
-import { Team } from "../(full-layout)/teams/service";
+import { getAdminFromSession } from "../(full-layout)/api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
 import {
@@ -11,6 +11,7 @@ import {
   teams,
   users,
 } from "../db/schema";
+import { formatNick, perpareParticipantAdmin } from "./actions";
 
 export type Participant = Awaited<
   ReturnType<typeof selectFromParticipants>
@@ -41,6 +42,7 @@ const selectFromParticipants = () =>
         discordId: discordUsers.discordId,
         discordUsername: discordUsers.discordUsername,
       },
+      createdAt: particpants.createdAt,
     })
     .from(particpants)
     .innerJoin(users, eq(particpants.userId, users.id))
@@ -104,7 +106,11 @@ export async function getParticipantsWithNoTeam(
 ) {
   if (isLookingForTeamOnly) {
     const results = await selectFromParticipants().where(
-      and(isNull(particpants.teamId), eq(particpants.isLookingForTeam, true)),
+      and(
+        isNull(particpants.teamId),
+        eq(particpants.isLookingForTeam, true),
+        eq(particpants.isDisqualified, false),
+      ),
     );
     return results;
   }
@@ -152,4 +158,82 @@ export function formatParticipantDiscordNick(participant: ReducedParticipant) {
   );
 
   return nick;
+}
+
+export interface ParticipantAdmin {
+  team: string | null;
+  firstName: string;
+  middleName: string | null;
+  lastName: string;
+  email: string | null;
+  phoneNumber: string;
+  grade: string;
+  parallel: string;
+  isLookingForTeam: boolean;
+  tshirt: number | null;
+  isCaptain: boolean;
+  isDisqualified: boolean;
+  createdAt: Date;
+  discordUser: string | null;
+}
+
+function adminSelect() {
+  return db
+    .select({
+      firstName: particpants.firstName,
+      middleName: particpants.middleName,
+      lastName: particpants.lastName,
+      email: users.email,
+      discordUser: discordUsers.discordUsername,
+      phoneNumber: particpants.phoneNumber,
+      grade: particpants.grade,
+      parallel: particpants.parallel,
+      team: teams.name,
+      isLookingForTeam: particpants.isLookingForTeam,
+      tshirt: particpants.tShirtId,
+      isCaptain: particpants.isCaptain,
+      isDisqualified: particpants.isDisqualified,
+      createdAt: particpants.createdAt,
+    })
+    .from(particpants)
+    .innerJoin(users, eq(particpants.userId, users.id))
+    .leftJoin(teams, eq(particpants.teamId, teams.id))
+    .leftJoin(discordUsers, eq(particpants.id, discordUsers.participantId));
+}
+
+export async function getAlumniParticipantsAdmin() {
+  const admin = getAdminFromSession();
+  if (!admin) {
+    return [];
+  }
+
+  const res = await adminSelect().where(
+    gt(sql<number>`${particpants.grade}::text::int`, 12),
+  );
+
+  return perpareParticipantAdmin(res);
+}
+
+export async function getParticipantsAdmin() {
+  const admin = await getAdminFromSession();
+  if (!admin) {
+    return [];
+  }
+
+  const res = await adminSelect();
+
+  return perpareParticipantAdmin(res);
+}
+
+export async function getStudentParticipantsAdmin() {
+  const admin = getAdminFromSession();
+  if (!admin) {
+    return [];
+  }
+
+  const res = await adminSelect().where(
+    lt(sql<number>`${particpants.grade}::text::int`, 13),
+  );
+
+  return perpareParticipantAdmin(res);
 }

@@ -78,7 +78,9 @@ export const alumniStep1Schema = z
   .merge(consentsSchema)
   .merge(phoneNumberSchema);
 
-export const studentsStep1Schema = names2Schema.merge(consentsSchema);
+export const studentsStep1Schema = names2Schema
+  .merge(consentsSchema)
+  .merge(phoneNumberSchema);
 
 // export const alumniStep2Schema = z.object({
 //   grade: z.enum(ALUMNI_GRADES),

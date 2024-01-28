@@ -10,7 +10,7 @@ export default async function AdminLayout({ children }: PropsWithChildren<{}>) {
   }
 
   return (
-    <section className="flex h-screen w-screen justify-center gap-3">
+    <section className="m-2 flex h-screen w-screen justify-center gap-3">
       <nav className="flex h-full flex-col gap-3 p-2">
         <ul>
           {/* FIXME: dont hardcode /api/_админ/ </3 */}
@@ -19,6 +19,12 @@ export default async function AdminLayout({ children }: PropsWithChildren<{}>) {
           </li>
           <li>
             <a href="/api/_админ/participants">Участници</a>
+          </li>
+          <li>
+            <a href="/api/_админ/alumni">Завършили</a>
+          </li>
+          <li>
+            <a href="/api/_админ/students">Ученици</a>
           </li>
           <li>
             <a href="/api/_админ/mentors">Ментори</a>
