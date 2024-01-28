@@ -4,21 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Instagram } from "lucide-react";
 
+import { organizators } from "../organizators";
+
 import "./animation.css";
 
 import { useEffect, useState } from "react";
 
 import { Button } from "~/app/components/ui/button";
-import kiki from "../team/kiki.webp";
 
-interface Member {
-  name: string;
-  Instagram: string;
-  photo: typeof kiki;
-  role: string;
-  description: string;
-  customClass: string;
-}
+type Member = (typeof organizators)[keyof typeof organizators][number];
 
 export default function OrganizatorDetailed({
   member,
