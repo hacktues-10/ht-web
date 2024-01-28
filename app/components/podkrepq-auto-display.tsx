@@ -227,6 +227,11 @@ function PodkrepqLogo({
             "pointer-events-none opacity-0 [transform:translateY(-110%)_rotateX(90deg)_translateY(-100%)]",
         )}
         target="_blank"
+        style={
+          "customBg" in podkrepqsht
+            ? { background: podkrepqsht.customBg }
+            : undefined
+        }
       >
         <Image
           className={cn(

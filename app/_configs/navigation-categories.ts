@@ -75,6 +75,12 @@ export const NAVIGATION_CATEGORIES = [
         isVisible: true,
         isNew: false,
       },
+      {
+        label: "Медиите за нас",
+        url: "/media",
+        isVisible: true,
+        isNew: true,
+      },
     ],
   },
   // XXX: as const type errors, investigate?
