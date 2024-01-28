@@ -94,6 +94,15 @@ export const acceptJoinRequest = async (
         };
       }
 
+      if (partic?.id) {
+        cleanAllNotifications(partic?.id);
+      } else {
+        return {
+          success: false,
+          message: "Нещо се обърка, моля опитайте отново!",
+        };
+      }
+
       await cleanJoinRequests(joinRequest.id);
 
       const res = await addDiscordRole(
@@ -131,6 +140,12 @@ export const acceptJoinRequest = async (
 const cleanJoinRequests = async (id: number) => {
   await db.delete(notifications).where(eq(notifications.referenceId, id));
   await db.delete(joinRequests).where(eq(joinRequests.id, id));
+};
+
+const cleanAllNotifications = async (id: number) => {
+  await db.delete(notifications).where(eq(notifications.targetUserId, id));
+  await db.delete(joinRequests).where(eq(joinRequests.userId, id));
+  await db.delete(invitations).where(eq(invitations.invitedParticipantId, id));
 };
 
 // FIXME: use zact
@@ -183,7 +198,7 @@ export const acceptInvitation = zact(
     return {
       success: false,
       message:
-            "Не можете да се присъедините към отбор, защото сте дисквалифициран/а",
+        "Не можете да се присъедините към отбор, защото сте дисквалифициран/а",
     };
   }
 
@@ -221,6 +236,8 @@ export const acceptInvitation = zact(
     if (!res.success) {
       return { success: false };
     }
+
+    cleanAllNotifications(participant.id);
 
     await db
       .update(particpants)
