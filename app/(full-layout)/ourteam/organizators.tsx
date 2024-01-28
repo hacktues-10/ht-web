@@ -30,6 +30,7 @@ export const organizators = {
           TUES&nbsp;Fest&nbsp;2024! Ще станат нещата!
         </p>
       ),
+      color: "#fff",
     },
     {
       name: "Калин",
@@ -44,6 +45,7 @@ export const organizators = {
           организационен екип. #loshomie
         </p>
       ),
+      color: "#fff",
     },
   ],
   Координатор: [
@@ -60,6 +62,7 @@ export const organizators = {
           обичам да купонясвам!
         </p>
       ),
+      color: "#a8d4bb",
     },
   ],
   "Екип ИТ": [
@@ -70,6 +73,7 @@ export const organizators = {
       role: "Екип ИТ",
       customClass: "",
       description: <p>Обичам четенето и тренировките. Фен съм на Porsche :)</p>,
+      color: "#a4f85c",
     },
     {
       name: "Божо",
@@ -84,6 +88,7 @@ export const organizators = {
           но за една нощ може и да стане :Д
         </p>
       ),
+      color: "#57d7e4",
     },
   ],
   "Екип PR": [
@@ -94,6 +99,7 @@ export const organizators = {
       role: "Екип PR",
       description: "Здрасти :)",
       customClass: "ml-[100px] mt-[90px]",
+      color: "#a0a6d8",
     },
     {
       name: "Йони",
@@ -108,6 +114,7 @@ export const organizators = {
         </p>
       ),
       customClass: "ml-[90px] mt-[65px]",
+      color: "#bc8be4",
     },
   ],
   "Екип Логистика": [
@@ -126,6 +133,7 @@ export const organizators = {
           <footer>- Томи Р</footer>
         </blockquote>
       ),
+      color: "#9cd1f1",
     },
   ],
   "Екип Спонсори": [
@@ -138,6 +146,7 @@ export const organizators = {
       description: (
         <p>В живота най-много обичам 3 неща - да спя, да ям и да клюкаря.</p>
       ),
+      color: "#f789a4",
     },
     {
       name: "Силвето",
@@ -146,6 +155,7 @@ export const organizators = {
       role: "Екип Спонсори",
       customClass: "ml-[32px]",
       description: <p>Много щастлива и винаги радостна!</p>,
+      color: "#b98cdf",
     },
     {
       name: "Йоско",
@@ -159,6 +169,7 @@ export const organizators = {
           <strong>ЖИВОТЪТ Е ПРЕКРАСЕН!</strong>
         </p>
       ),
+      color: "#fec29e",
     },
     {
       name: "Калата",
@@ -169,6 +180,7 @@ export const organizators = {
       description: (
         <p>Обичам да се самозалъгвам, че ще си легна след още 5 минути.</p>
       ),
+      color: "#7de4e9",
     },
   ],
   "Eкип Дизайн": [
@@ -188,6 +200,7 @@ export const organizators = {
           <MechoMladshi className="p-10" />
         </>
       ),
+      color: "#ffbf9f",
     },
     {
       name: "Ели",
@@ -196,6 +209,7 @@ export const organizators = {
       role: "Екип Дизайн",
       customClass: "mt-[50px] ",
       description: "Nah, I'd win",
+      color: "#f493f4",
     },
     {
       name: "Коко",
@@ -212,6 +226,7 @@ export const organizators = {
           <footer>- С. Трифонов</footer>
         </blockquote>
       ),
+      color: "#a1a1a3",
     },
   ],
 };

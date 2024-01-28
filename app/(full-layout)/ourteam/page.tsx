@@ -4,7 +4,7 @@ import { organizators } from "./organizators";
 
 export default function OurTeam() {
   return (
-    <div className="w-full ">
+    <div className="flex w-full flex-col gap-11">
       <h1 className="font-htags mt-5 flex flex-col gap-5 text-center text-5xl font-extrabold">
         Екипът на <HTXLogoDuotone />
       </h1>
