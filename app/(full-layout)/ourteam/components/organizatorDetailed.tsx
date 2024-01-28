@@ -11,6 +11,12 @@ import "./animation.css";
 import { useEffect, useState } from "react";
 
 import { Button } from "~/app/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/app/components/ui/tooltip";
 import { cn } from "~/app/utils";
 
 type Member = (typeof organizators)[keyof typeof organizators][number];
@@ -35,7 +41,7 @@ export default function OrganizatorDetailed({
 
   return (
     <div
-      className="fadeInUp flip-card m-10 h-[560px] w-[350px] max-w-[350px] rounded-xl"
+      className="fadeInUp flip-card h-[560px] w-[350px] max-w-[350px] rounded-xl"
       style={{
         animationDelay: `${delay}ms`,
         opacity: isVisibleImg ? 1 : 0,
@@ -72,22 +78,35 @@ export default function OrganizatorDetailed({
           <div className="text-lg font-medium text-slate-300">
             {member.description}
           </div>
-          <Button
-            size="icon"
-            variant="ghost"
-            asChild
-            className="hover:scale-110"
-          >
-            <Link
-              href={`https://www.instagram.com/${
-                member.Instagram.startsWith("@")
-                  ? member.Instagram.slice(1)
-                  : member.Instagram
-              }`}
-            >
-              <Instagram />
-            </Link>
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  asChild
+                  className="hover:scale-110"
+                >
+                  <Link
+                    href={`https://www.instagram.com/${
+                      member.Instagram.startsWith("@")
+                        ? member.Instagram.slice(1)
+                        : member.Instagram
+                    }`}
+                  >
+                    <Instagram />
+                  </Link>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>
+                  {member.Instagram.startsWith("@")
+                    ? member.Instagram
+                    : "@" + member.Instagram}
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </div>
     </div>

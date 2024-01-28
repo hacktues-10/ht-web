@@ -5,7 +5,7 @@ import { organizators } from "./organizators";
 export default function OurTeam() {
   return (
     <div className="w-full ">
-      <h1 className="font-htags mt-5 text-center text-5xl font-extrabold">
+      <h1 className="font-htags mt-5 flex flex-col gap-5 text-center text-5xl font-extrabold">
         Екипът на <HTXLogoDuotone />
       </h1>
       {Object.entries(organizators).map(([groupName, group], index) => (
@@ -16,7 +16,7 @@ export default function OurTeam() {
           <h1 className="font-htags mt-10 text-3xl font-extrabold">
             {groupName}
           </h1>
-          <div className="flex flex-wrap justify-center ">
+          <div className="flex flex-wrap justify-center gap-10 ">
             {group.map((member, memberIndex) => (
               <OrganizatorDetailed
                 key={memberIndex}
