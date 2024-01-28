@@ -40,7 +40,7 @@ export default function OrganizatorDetailed({
 
   return (
     <div
-      className="fadeInUp flip-card m-10 h-[560px] w-[350px] max-w-[350px] overflow-hidden rounded-xl"
+      className="fadeInUp flip-card m-10 h-[560px] w-[350px] max-w-[350px] rounded-xl"
       style={{
         animationDelay: `${delay}ms`,
         opacity: isVisibleImg ? 1 : 0,
@@ -59,21 +59,19 @@ export default function OrganizatorDetailed({
         }}
         className="flip-card-inner  m-8 mx-auto rounded-xl  border-2 border-slate-900 bg-slate-900 text-center text-card-foreground shadow-sm hover:scale-105"
       >
-        <div className="flip-card-front">
-          <p className="pt-2 font-sans text-xl font-semibold leading-7">
-            {member.name}
-          </p>
-          <p className="p-1 font-sans text-lg italic leading-7">
-            {member.role}
-          </p>
+        <div className="flip-card-front overflow-clip">
+          <NameAndRole member={member} index={index} />
           <Image
             src={member.photo}
             alt={member.name}
             className={`sm:w-200 md:w-300 lg:w-400 my-auto rounded ${member.customClass}`}
           />
         </div>
-        <div className="flip-card-back bg-slate-900 p-5">
-          <p className="mb-2 mt-20 text-xl">{member.description}</p>
+        <div className="flip-card-back flex flex-col items-center justify-between bg-slate-900 p-5 pt-0">
+          <div>
+            <NameAndRole member={member} index={index} />
+          </div>
+          <p className="text-xl">{member.description}</p>
           <Button
             size="icon"
             variant="ghost"
@@ -93,5 +91,16 @@ export default function OrganizatorDetailed({
         </div>
       </div>
     </div>
+  );
+}
+
+function NameAndRole({ member, index }: { member: Member; index: number }) {
+  return (
+    <>
+      <p className="pt-2 font-sans text-2xl font-semibold leading-7">
+        {member.name}
+      </p>
+      <p className="p-1 font-sans text-lg italic leading-7">{member.role}</p>
+    </>
   );
 }

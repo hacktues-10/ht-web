@@ -1,11 +1,12 @@
+import { HTLogo, HTXLogoDuotone } from "~/app/components/logos";
 import OrganizatorDetailed from "./components/organizatorDetailed";
 import { organizators } from "./organizators";
 
 export default function OurTeam() {
   return (
     <div className="w-full ">
-      <h1 className="font-htags mt-5 text-center text-3xl font-extrabold">
-        Екипът на Hack TUES X
+      <h1 className="font-htags mt-5 text-center text-5xl font-extrabold">
+        Екипът на <HTXLogoDuotone />
       </h1>
       {Object.entries(organizators).map(([groupName, group], index) => (
         <div
