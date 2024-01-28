@@ -11,6 +11,7 @@ import "./animation.css";
 import { useEffect, useState } from "react";
 
 import { Button } from "~/app/components/ui/button";
+import { cn } from "~/app/utils";
 
 type Member = (typeof organizators)[keyof typeof organizators][number];
 
@@ -58,14 +59,19 @@ export default function OrganizatorDetailed({
           <Image
             src={member.photo}
             alt={member.name}
-            className={`sm:w-200 md:w-300 lg:w-400 my-auto rounded ${member.customClass}`}
+            className={cn(
+              "sm:w-200 md:w-300 lg:w-400 my-auto rounded",
+              member.customClass,
+            )}
           />
         </div>
         <div className="flip-card-back flex flex-col items-center justify-between bg-slate-900 p-5 pt-0">
           <div>
             <NameAndRole member={member} index={index} />
           </div>
-          <p className="text-xl">{member.description}</p>
+          <div className="text-lg font-medium text-slate-300">
+            {member.description}
+          </div>
           <Button
             size="icon"
             variant="ghost"

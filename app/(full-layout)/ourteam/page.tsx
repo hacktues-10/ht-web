@@ -13,7 +13,7 @@ export default function OurTeam() {
           className="z-1 mx-auto w-full justify-center rounded-xl text-center"
           key={index}
         >
-          <h1 className="font-htags mt-10 text-2xl font-extrabold">
+          <h1 className="font-htags mt-10 text-3xl font-extrabold">
             {groupName}
           </h1>
           <div className="flex flex-wrap justify-center ">
