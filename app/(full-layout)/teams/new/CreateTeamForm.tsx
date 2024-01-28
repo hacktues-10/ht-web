@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { Router } from "next/router";
 import invariant from "tiny-invariant";
 
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
@@ -81,7 +82,7 @@ export function CreateTeamForm() {
         ),
       });
       setIsEligible(false);
-      redirect("/teams");
+      router.push("/teams");
     } else {
       setIsEligible(true);
     }
