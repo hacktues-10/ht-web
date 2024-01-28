@@ -21,6 +21,7 @@ import {
   EVENT_START,
   MAX_TEAMS_ALUMNI,
   MAX_TEAMS_STUDENTS,
+  STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
@@ -129,17 +130,17 @@ export default async function LandingPage() {
               label="отбора на завършили"
             />
             <p className="col-span-2 text-center text-lg font-light">
-              Регистрацията на завършили ще бъде отворена от{" "}
-              <DateDisplay date={ALUMNI_REGISTRATION_START} showHour /> до{" "}
+              Регистрацията на ученици ще бъде отворена от{" "}
+              <DateDisplay date={STUDENTS_REGISTRATION_START} showHour /> до{" "}
               <DateDisplay
-                date={fiveDaysAfter(ALUMNI_REGISTRATION_START)}
+                date={fiveDaysAfter(STUDENTS_REGISTRATION_START)}
                 showHour
               />{" "}
               или{" "}
               <strong className="font-extrabold">
                 до изчерпване на местата
               </strong>
-              , а на ученици - ще ви разкрием скоро!
+              !
             </p>
           </ArchiveStatsCard>
           {/* <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
