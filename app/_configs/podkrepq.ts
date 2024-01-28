@@ -2,8 +2,8 @@
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
-import darikBusinessReviewArticleLogo from "../assets/media/dbr.png";
-import devstylerArticleLogo from "../assets/media/devstyler.png";
+// import darikBusinessReviewArticleLogo from "../assets/media/dbr.png";
+// import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
 //Partners
@@ -45,8 +45,9 @@ import ocadoTechnologyLogo from "../assets/sponsors/gamma/ocado-technology.png";
 import progressLogo from "../assets/sponsors/gamma/progress.png";
 //Media partners
 import btvLogo from "../assets/sponsors/media-partners/btv.webp";
-import darikLogo from "../assets/sponsors/media-partners/darik.webp";
+import darikBusinessReviewLogo from "../assets/sponsors/media-partners/dbr.webp";
 import devstylerLogo from "../assets/sponsors/media-partners/devstyler.webp";
+import economyBgLogo from "../assets/sponsors/media-partners/economy-bg.webp";
 import inzhenerBgLogo from "../assets/sponsors/media-partners/inzhener-bg.webp";
 import kaldataLogo from "../assets/sponsors/media-partners/kaldata.webp";
 //Gamma sponsors
@@ -56,8 +57,6 @@ import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import boniLogo from "../assets/sponsors/partners/boni.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
-import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
-import pureWaterLogo from "../assets/sponsors/partners/pure_water.png";
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
@@ -444,8 +443,8 @@ const MEDIA_PARTNERS = [
     supportedEditions: [],
   },
   {
-    name: "DARIK",
-    logo: darikLogo,
+    name: "Darik Business Review",
+    logo: darikBusinessReviewLogo,
     url: "https://darik.bg/",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
@@ -460,15 +459,16 @@ const MEDIA_PARTNERS = [
     supportedEditions: [],
   },
   {
-    name: "Инженер.бг",
+    name: "Инженер.bg",
     logo: inzhenerBgLogo,
     url: "https://xn--e1aabhzcw.bg/",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    customBg: "linear-gradient(180deg, #24587d 0%, #1578b2 68%, #1578b2 100%)",
     supportedEditions: [],
   },
   {
-    name: "KALDATA",
+    name: "Kaldata",
     logo: kaldataLogo,
     url: "https://www.kaldata.com/tag/хакатон",
     description:
@@ -494,16 +494,31 @@ export type Podkrepqsht =
 
 export const MEDIA_ARTICLES = [
   {
+    name: "Economy.bg",
+    title: "Предстои 10-ото юбилейно издание на Hack TUES X",
+    logo: economyBgLogo,
+    url: "https://economy.bg/innovations/view/57470/Predstoi-10-oto-jubilejno-izdanie-na-Hack-TUES-X",
+    date: new Date(2024, JANUARY, 26),
+  },
+  {
     name: "DARIK Business Review",
     title: "Десетото юбилейно издание Hack TUES X стартира на 13 март",
-    logo: darikBusinessReviewArticleLogo,
+    logo: darikBusinessReviewLogo,
     url: "https://dbr.bg/8925",
+    date: new Date(2024, JANUARY, 24),
+  },
+  {
+    name: "Kaldata",
+    title: "Hack TUES X стартира през март 2024 година",
+    bg: "#fff",
+    logo: kaldataLogo,
+    url: "https://www.kaldata.com/it-%D0%BD%D0%BE%D0%B2%D0%B8%D0%BD%D0%B8/hack-tues-x-%D1%81%D1%82%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B0-%D0%BF%D1%80%D0%B5%D0%B7-%D0%BC%D0%B0%D1%80%D1%82-2024-%D0%B3%D0%BE%D0%B4%D0%B8%D0%BD%D0%B0-461309.html",
     date: new Date(2024, JANUARY, 24),
   },
   {
     name: "DevStyleR",
     title: "Десетото Юбилейно Издание Hack TUES X Стартира през Март",
-    logo: devstylerArticleLogo,
+    logo: devstylerLogo,
     url: "https://devstyler.bg/blog/2024/01/23/desetoto-yubilejno-izdanie-hack-tues-x-startira-prez-mart/",
     date: new Date(2024, JANUARY, 23),
   },
