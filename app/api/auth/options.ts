@@ -168,7 +168,7 @@ async function sendEmail(
     secure: true,
     auth: {
       user: "postmaster@mg.hacktues.bg",
-      pass: "f0c2c778b761ae7aeb11092274c9637f-69a6bd85-b0d43718",
+      pass: "eba5d107d6dea62c0fd754e959e5d6bd-69a6bd85-ad4af96f",
     },
     // }
     //   auth: {
