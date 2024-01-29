@@ -13,6 +13,6 @@ export const HTLogo = ({
 
 export const HTXLogoDuotone = () => (
   <HTLogo>
-    Hack TUES <span className="text-sand">X</span>
+    Hack&nbsp;TUES&nbsp;<span className="text-sand">X</span>
   </HTLogo>
 );
