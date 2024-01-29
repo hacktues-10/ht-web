@@ -157,21 +157,28 @@ async function sendEmail(
   url: string,
   theme: Theme,
 ) {
-  const { token: accessToken } = await oAuth2Client.getAccessToken();
+  // const { token: accessToken } = await oAuth2Client.getAccessToken();
   const transport = createTransport({
-    // @ts-expect-error защото типовете на nodemailer не са актуални
-    service: "gmail",
+    //   // @ts-expect-error защото типовете на nodemailer не са актуални
+    //   service: "gmail",
     tls: {
       rejectUnauthorized: false,
     },
+    host: "smtp.mailgun.org",
+    secure: true,
     auth: {
-      type: "OAuth2",
-      user: env.EMAIL_FROM,
-      clientId: env.GMAIL_CLIENT_ID,
-      clientSecret: env.GMAIL_CLIENT_SECRET,
-      accessToken,
-      refreshToken: env.GMAIL_REFRESH_TOKEN,
+      user: "postmaster@mg.hacktues.bg",
+      pass: "734e97fe6a13481d6d4147b3653026c8-69a6bd85-797edfba",
     },
+    // }
+    //   auth: {
+    //     type: "OAuth2",
+    //     user: env.EMAIL_FROM,
+    //     clientId: env.GMAIL_CLIENT_ID,
+    //     clientSecret: env.GMAIL_CLIENT_SECRET,
+    //     accessToken,
+    //     refreshToken: env.GMAIL_REFRESH_TOKEN,
+    // },
   });
 
   return await transport.sendMail({
