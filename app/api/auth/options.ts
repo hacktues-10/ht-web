@@ -164,7 +164,7 @@ async function sendEmail(
     tls: {
       rejectUnauthorized: false,
     },
-    host: "smtp.mailgun.org",
+    host: "smtp.eu.mailgun.org",
     secure: true,
     auth: {
       user: "postmaster@mg.hacktues.bg",
