@@ -41,7 +41,7 @@ export const Header = () => {
   return (
     <animated.header
       style={{
-        // @ts-ignore because it works, even though the types don't let me pass variables
+        // @ts-expect-error because it works, even though the types don't let me pass variables
         "--header-bg-opacity": scrollY
           .to([0, 100], [0, MAX_OPACITY])
           .to((x) => Math.min(x, MAX_OPACITY)),
@@ -71,7 +71,7 @@ export const Header = () => {
           />
         )}
       {headerData && headerData.avatarName !== null && (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger className="focus-visible:ring-offset-3 hidden rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring sm:block">
             <TooltipProvider>
               <Tooltip>

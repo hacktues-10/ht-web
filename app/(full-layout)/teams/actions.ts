@@ -357,6 +357,56 @@ export async function removeTeamMember(memberId: number) {
   }
 }
 
+export async function leaveTeam() {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-team-members")) {
+    return {
+      success: false,
+      message: "Напускането на отбори не е позволено по това време.",
+    };
+  }
+
+  const participant = await getParticipantFromSession();
+  if (!participant) {
+    return { success: false, message: "Unauthenticated" };
+  }
+
+  if (!participant.team.id) {
+    return { success: false, message: "You are not in a team" };
+  }
+
+  try {
+    const res = await db
+      .update(particpants)
+      .set({ teamId: null, isCaptain: false })
+      .where(eq(particpants.id, participant.id));
+
+    await updateTechnologies(participant.team.id);
+
+    const team = await getTeamById(participant.team.id);
+    if (!team) {
+      return { success: false, message: "Team not found" };
+    }
+    await db
+      .update(teams)
+      .set({ memberCount: team?.memberCount - 1 })
+      .where(eq(teams.id, participant.team.id));
+
+    if (team?.memberCount - 1 == 0) {
+      await deleteChannelsRolesCategories(participant.team.id);
+      await db.delete(teams).where(eq(teams.id, participant.team.id));
+    }
+    revalidateTag("teams");
+
+    if (res) {
+      return { success: true };
+    }
+    return { success: false, message: "Failed to leave team" };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "" };
+  }
+}
+
 export async function makeCaptain(
   captainId: number | undefined,
   memberId: number,

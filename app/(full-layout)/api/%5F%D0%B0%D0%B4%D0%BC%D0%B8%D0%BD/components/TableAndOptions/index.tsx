@@ -56,7 +56,7 @@ export default function TableAndOptions({
     }
 
     setData(filteredData);
-  }, [filterDisqulified, filterTshirt, filterSearch]);
+  }, [filterDisqulified, filterTshirt, filterSearch, participants]);
 
   const preparedParticipants = data.map(
     (participant: PrepareParticipants[number]) => {

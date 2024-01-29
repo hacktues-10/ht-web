@@ -260,14 +260,12 @@ export const StudentStep2 = ({
 
   useEffect(() => {
     form.reset(initialData);
-    const grade = parseElsysEmail(email)?.grade;
-    //typescript e tup i za tova ne go priema
-    //@ts-ignore
+    const gradeStr = parseElsysEmail(email)?.grade;
+    const grade = z.enum(STUDENT_GRADES).parse(gradeStr);
     if (grade && STUDENT_GRADES.includes(grade)) {
-      //@ts-ignore
       form.setValue("grade", grade);
     }
-  }, [initialData, form]);
+  }, [initialData, form, email]);
 
   const canSubmit =
     form.watch("grade") != defaultValues.grade &&

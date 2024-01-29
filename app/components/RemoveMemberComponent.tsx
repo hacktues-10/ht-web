@@ -11,10 +11,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "~/app/components/ui/alert-dialog";
-import {
-  getTeamMembers,
-  removeTeamMember,
-} from "../(full-layout)/teams/actions";
+import { leaveTeam, removeTeamMember } from "../(full-layout)/teams/actions";
 import { Participant } from "../participants/service";
 import { useToast } from "./ui/use-toast";
 
@@ -27,15 +24,28 @@ export default function RemoveMemberComponent({
 }) {
   const { toast } = useToast();
   const handleClick = async () => {
-    const { success, message } = await removeTeamMember(memberToRemove.id);
-    if (success) {
-      window.location.reload();
-    } else {
-      toast({
-        title: "Неуспешен опит",
-        description: `Моля опитайте отново след мъничко. 
+    if (remove) {
+      const { success, message } = await removeTeamMember(memberToRemove.id);
+      if (success) {
+        window.location.reload();
+      } else {
+        toast({
+          title: "Неуспешен опит",
+          description: `Моля опитайте отново след мъничко. 
         Error: ${message}`,
-      });
+        });
+      }
+    } else {
+      const { success, message } = await leaveTeam();
+      if (success) {
+        window.location.reload();
+      } else {
+        toast({
+          title: "Неуспешен опит",
+          description: `Моля опитайте отново след мъничко. 
+        Error: ${message}`,
+        });
+      }
     }
   };
 
