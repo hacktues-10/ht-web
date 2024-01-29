@@ -62,6 +62,7 @@ export function CreateTeamForm() {
         title: "Неуспешен опит",
         description: res.error,
       });
+      setIsLoading(false);
     }
   }
 
