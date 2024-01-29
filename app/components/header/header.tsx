@@ -71,7 +71,7 @@ export const Header = () => {
           />
         )}
       {headerData && headerData.avatarName !== null && (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger className="focus-visible:ring-offset-3 hidden rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring sm:block">
             <TooltipProvider>
               <Tooltip>
