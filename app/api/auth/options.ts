@@ -128,7 +128,7 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
+        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като пишете на hacktues@elsys-bg.org
       </td>
     </tr>
   </table>
@@ -146,7 +146,7 @@ ${url}
 
 Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта
 на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение.
-При нужда се свържете с нас като отговорите на този имейл или пишете на:
+При нужда се свържете с нас като пишете на:
 hacktues@elsys-bg.org
 `;
 }
@@ -185,7 +185,7 @@ async function sendEmail(
     to: identifier,
     from: {
       name: "Hack TUES X",
-      address: env.EMAIL_FROM,
+      address: "noreply@hacktues.bg",
     },
     subject: `Влизане в Hack TUES X`,
     html: html({ url, identifier, theme }),
