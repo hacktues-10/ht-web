@@ -72,7 +72,7 @@ export const organizators = {
       Instagram: "@dimitarzhv",
       role: "Екип ИТ",
       customClass: "",
-      description: <p>Обичам четенето и тренировките. Фен съм на Porsche :)</p>,
+      description: <p>Не спя, за да пиша код. Тренирам, когато не пиша код. Мечтая си за Porsche като си нямам работа :)</p>,
       color: "#a4f85c",
     },
     {
@@ -119,7 +119,7 @@ export const organizators = {
   ],
   "Екип Логистика": [
     {
-      name: "Томи Р",
+      name: "Томи",
       photo: tomi_r,
       Instagram: "@therealx_ray",
       role: "Екип Логистика",
@@ -130,7 +130,7 @@ export const organizators = {
             Тялото ми е някъде, душата другaде, а ментално здраве никога не съм
             имал!
           </p>
-          <footer>- Томи Р</footer>
+          <footer>- Томи</footer>
         </blockquote>
       ),
       color: "#9cd1f1",
