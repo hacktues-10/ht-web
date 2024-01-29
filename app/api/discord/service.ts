@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
+import { slugify } from "transliteration";
 
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
@@ -49,12 +50,12 @@ export const removeDiscordRole = async (userId: string, roleId: string) => {
   return { success: true };
 };
 
-export const createDiscordTeam = async (teamId: string) => {
+export const createDiscordTeam = async (teamName: string, teamId: string) => {
   try {
     // Create the role with specified permissions
     const roleData = await createRole(teamId);
     // Create the section and channels with permission overwrites
-    await createSectionAndChannels(teamId, roleData.id);
+    await createSectionAndChannels(teamName, teamId, roleData.id);
 
     return roleData.id;
   } catch (error) {
@@ -87,9 +88,13 @@ const createRole = async (teamId: string) => {
   return await roleResponse.json();
 };
 
-const createSectionAndChannels = async (teamId: string, roleId: string) => {
+const createSectionAndChannels = async (
+  teamName: string,
+  teamId: string,
+  roleId: string,
+) => {
   const section = {
-    name: "Team " + teamId,
+    name: "Team " + teamName,
     textChannels: [teamId],
     voiceChannels: [teamId],
   };
