@@ -18,14 +18,16 @@ const names2Schema = z.object({
     .regex(/^[A-ZА-Я]/, {
       message: "Името трябва да започва с главна буква",
     })
-    .regex(cyrillicNameRegex, { message: "Името трябва да е на кирилица" }),
+    .regex(cyrillicNameRegex, { message: "Името трябва да е на кирилица" })
+    .max(20, { message: "Името трябва да съдържа най-много 100 символа" }),
   lastName: z
     .string()
     .min(1, { message: "Фамилията трябва да съдържа поне 1 буква" })
     .regex(/^[A-ZА-Я]/, {
       message: "Фамилията трябва да започва с главна буква",
     })
-    .regex(cyrillicNameRegex, { message: "Фамилията трябва да е на кирилица" }),
+    .regex(cyrillicNameRegex, { message: "Фамилията трябва да е на кирилица" })
+    .max(20, { message: "Фамилията трябва да съдържа най-много 20 символа" }),
 });
 
 const names3Schema = z
