@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { Button } from "~/app/components/ui/button";
 import { formatNick, PrepareParticipants } from "~/app/participants/actions";
 import DisqualifyParticipantComponent from "./components/DisqualifyParticipantComponent";
 import DownloadAsCSVComponent from "./components/DownloadAsCSVComponent";
@@ -15,13 +16,13 @@ export default function TableAndOptions({
 }: {
   participants: PrepareParticipants;
 }) {
-  const [data, setData] = useState(participants);
   const [filterDisqulified, setFilterDisqulified] = useState("all");
   const [filterTshirt, setFilterTshirt] = useState("all");
   const [filterSearch, setFilterEmail] = useState("");
+  const [index, setIndex] = useState(1);
 
-  useEffect(() => {
-    let filteredData = participants;
+  const filteredData = useMemo(() => {
+    let filteredData = [...participants];
 
     if (filterDisqulified === "yes") {
       filteredData = filteredData.filter(
@@ -55,10 +56,11 @@ export default function TableAndOptions({
       );
     }
 
-    setData(filteredData);
+    setIndex(1);
+    return filteredData;
   }, [filterDisqulified, filterTshirt, filterSearch, participants]);
 
-  const preparedParticipants = data.map(
+  const preparedParticipants = participants.map(
     (participant: PrepareParticipants[number]) => {
       try {
         const fullName = formatNick(participant);
@@ -72,11 +74,11 @@ export default function TableAndOptions({
       }
     },
   );
+
   return (
-    data && (
+    filteredData && (
       <>
         <h1 className="m-2 mt-4 text-left text-lg font-bold">Търсене</h1>
-
         <div className="mb-5 flex w-min rounded-3xl border-2 border-white p-2">
           <FilterSearchComponent
             filterSearch={filterSearch}
@@ -91,13 +93,24 @@ export default function TableAndOptions({
             filterTshirt={filterTshirt}
             setFilterTshirt={setFilterTshirt}
           />
-          <DownloadAsCSVComponent data={data} />
+          <DownloadAsCSVComponent data={filteredData} />
         </div>
         <div className="w-[440px]">
           <DisqualifyParticipantComponent participants={preparedParticipants} />
         </div>
-
-        <TableData data={data} />
+        <div>
+          <h1 className="m-2 mt-4 text-left text-lg font-bold">Pagination</h1>
+          <div className="flex gap-2">
+            <Button
+              disabled={index - 1 == 0 ?? "true"}
+              onClick={() => setIndex(index - 1)}
+            >
+              Previous
+            </Button>
+            <Button onClick={() => setIndex(index + 1)}>Next</Button>
+          </div>
+        </div>
+        <TableData data={filteredData.slice((index - 1) * 20, index * 20)} />
       </>
     )
   );
