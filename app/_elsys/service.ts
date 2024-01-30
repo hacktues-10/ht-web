@@ -64,7 +64,7 @@ type Student = {
   graduationYear: number;
 };
 
-export function parseStudentElsysEmail(email: string) {
+export function parseElsysEmail(email: string) {
   if (!email.endsWith(emailDomain)) return null;
   const namePart = email.slice(0, -emailDomain.length);
 
