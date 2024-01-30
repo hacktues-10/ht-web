@@ -64,7 +64,7 @@ export default function TableAndOptions({ teams }: { teams: TeamsAdmin }) {
           />
           <DownloadAsCSVComponent data={filteredData} />
         </div>
-        <UpdateTeamName data={preparedData} />
+        {/* <UpdateTeamName data={preparedData} /> */}
         <DeleteTeam data={preparedData} />
         <div>
           <h1 className="m-2 mt-4 text-left text-lg font-bold">Pagination</h1>

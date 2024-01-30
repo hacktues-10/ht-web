@@ -324,22 +324,22 @@ export async function renameTeam({
   teamId: string;
   name: string;
 }) {
-  const team = getTeamById(teamId);
-  if (!team) {
-    return;
-  }
+  // deleteTeamAdmin(teamId);
 
-  const res = await db
-    .update(teams)
-    .set({ name: name, id: slugify(name) })
-    .where(eq(teams.id, teamId))
-    .returning();
+  // const createTeamAdmin()
 
-  await db
-    .update(particpants)
-    .set({ teamId: slugify(name) })
-    .where(eq(particpants.teamId, teamId));
+  // const res = await db
+  //   .update(teams)
+  //   .set({ name: name, id: slugify(name) })
+  //   .where(eq(teams.id, teamId))
+  //   .returning();
 
+  // await db
+  //   .update(particpants)
+  //   .set({ teamId: slugify(name) })
+  //   .where(eq(particpants.teamId, teamId));
+
+  const res = [];
   if (res.length > 0) {
     return { success: true, message: "Успешно преименувахте отбора" };
   } else {
