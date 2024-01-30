@@ -5,6 +5,7 @@ import { error } from "console";
 import { revalidateTag } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
+import { slugify } from "transliteration";
 import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
@@ -89,6 +90,37 @@ export async function deleteMyTeam() {
   } catch (e) {
     console.log(e);
     return { success: false, message: e };
+  }
+}
+
+export async function deleteTeamAdmin(teamId: string) {
+  const admin = await getAdminFromSession();
+
+  if (!admin) {
+    return { success: false, error: "Не си влязъл като админ" };
+  }
+
+  try {
+    await deleteChannelsRolesCategories(teamId);
+
+    await db.delete(joinRequests).where(eq(joinRequests.teamId, teamId));
+
+    await db.delete(invitations).where(eq(invitations.teamId, teamId));
+    await db
+      .update(particpants)
+      .set({ teamId: null, isCaptain: false })
+      .where(eq(particpants.teamId, teamId));
+
+    await db.delete(projects).where(eq(projects.teamId, teamId));
+
+    const team = await db.delete(teams).where(eq(teams.id, teamId)).returning();
+
+    revalidateTag("teams");
+
+    return { success: true, message: "Успешно изтрихте отбор" };
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: e instanceof Error ? e.message : "" };
   }
 }
 
@@ -284,6 +316,31 @@ export const checkStateJoinRequests = zact(
     return false;
   }
 });
+
+export async function renameTeam({
+  teamId,
+  name,
+}: {
+  teamId: string;
+  name: string;
+}) {
+  const team = getTeamById(teamId);
+  if (!team) {
+    return;
+  }
+
+  const res = await db
+    .update(teams)
+    .set({ name: name, id: slugify(name) })
+    .where(eq(teams.id, teamId))
+    .returning();
+
+  if (res.length > 0) {
+    return { success: true, message: "Успешно преименувахте отбора" };
+  } else {
+    return { success: false, message: "Неуспешно преименуване на отбора" };
+  }
+}
 
 // FIXME: use zact
 export async function removeTeamMember(memberId: number) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import { renameTeam } from "~/app/(full-layout)/teams/actions";
+import { deleteTeamAdmin, renameTeam } from "~/app/(full-layout)/teams/actions";
 import { Button } from "~/app/components/ui/button";
 import {
   Command,
@@ -20,17 +20,14 @@ import { ScrollArea } from "~/app/components/ui/scroll-area";
 import { useToast } from "~/app/components/ui/use-toast";
 import { cn } from "~/app/utils";
 
-export default function UpdateTeamName({ data }: { data: Array<object> }) {
+export default function DeleteTeam({ data }: { data: Array<object> }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const { toast } = useToast();
   const [newName, setNewName] = useState("");
 
   async function handleClick() {
-    const rename = await renameTeam({
-      teamId: value,
-      name: newName,
-    });
+    const rename = await deleteTeamAdmin(value);
 
     toast({
       variant: rename?.success ? "sand" : "destructive",
@@ -40,7 +37,7 @@ export default function UpdateTeamName({ data }: { data: Array<object> }) {
 
   return (
     <div className="m-2  w-1/2 rounded-xl border-2 border-red-600">
-      <h3 className="m-5 mb-0 font-semibold">Преименувай отбор</h3>
+      <h3 className="m-5 mb-0 font-semibold">Изтрий отбор</h3>
       <div className="m-5 mt-1 flex ">
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger className="w-96" asChild>

@@ -60,7 +60,7 @@ export default function TableAndOptions({
     return filteredData;
   }, [filterDisqulified, filterTshirt, filterSearch, participants]);
 
-  const preparedParticipants = participants.map(
+  const preparedParticipants = filteredData.map(
     (participant: PrepareParticipants[number]) => {
       try {
         const fullName = formatNick(participant);
