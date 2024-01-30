@@ -65,14 +65,14 @@ export default function TeamMemberDetailedView({
       </div>
       {participant?.id == member.id && !participant.team.isCaptain && (
         <div className="flex items-center justify-center">
-          <RemoveMemberComponent memberToRemove={member} remove={false} />
+          {/* <RemoveMemberComponent memberToRemove={member} remove={false} /> */}
         </div>
       )}
       {participant?.team.isCaptain &&
       participant.team.id === team.id &&
       participant.id !== member.id ? (
         <div className="flex items-center justify-center">
-          <RemoveMemberComponent memberToRemove={member} remove={true} />
+          {/* <RemoveMemberComponent memberToRemove={member} remove={true} /> */}
           <MakeCaptainComponent participant={participant} member={member} />
         </div>
       ) : (

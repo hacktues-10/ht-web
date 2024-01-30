@@ -329,16 +329,16 @@ export async function renameTeam({
     return;
   }
 
-  await db
-    .update(particpants)
-    .set({ teamId: slugify(name) })
-    .where(eq(particpants.teamId, teamId));
-
   const res = await db
     .update(teams)
     .set({ name: name, id: slugify(name) })
     .where(eq(teams.id, teamId))
     .returning();
+
+  await db
+    .update(particpants)
+    .set({ teamId: slugify(name) })
+    .where(eq(particpants.teamId, teamId));
 
   if (res.length > 0) {
     return { success: true, message: "Успешно преименувахте отбора" };
