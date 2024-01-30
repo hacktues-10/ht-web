@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "~/app/components/ui/button";
 import { TeamsAdmin } from "../../teams/service";
+import DeleteTeam from "./components/DeleteTeam";
 import DownloadAsCSVComponent from "./components/DownloadAsCSVComponent";
 import FilterIsFinalistComponent from "./components/FilterIsFinalistComponent";
 import FilterSearchComponent from "./components/FilterSeachComponent";
