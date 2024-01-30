@@ -329,6 +329,11 @@ export async function renameTeam({
     return;
   }
 
+  await db
+    .update(particpants)
+    .set({ teamId: slugify(name) })
+    .where(eq(particpants.teamId, teamId));
+
   const res = await db
     .update(teams)
     .set({ name: name, id: slugify(name) })
