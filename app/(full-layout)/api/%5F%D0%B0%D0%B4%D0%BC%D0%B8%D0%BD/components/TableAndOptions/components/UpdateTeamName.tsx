@@ -20,7 +20,26 @@ import { ScrollArea } from "~/app/components/ui/scroll-area";
 import { useToast } from "~/app/components/ui/use-toast";
 import { cn } from "~/app/utils";
 
-export default function UpdateTeamName({ data }: { data: Array<object> }) {
+export default function UpdateTeamName({
+  data,
+}: {
+  data: (
+    | {
+        label: string;
+        value: string;
+        id: string;
+        name: string;
+        description: string;
+        mentor: string;
+        isAlumni: string;
+        members: number;
+        semiFinal: string;
+        isFinalist: string;
+        final: string;
+      }
+    | undefined
+  )[];
+}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const { toast } = useToast();
