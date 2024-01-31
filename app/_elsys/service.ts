@@ -42,7 +42,7 @@ function closestSchoolYearStartDate() {
 function getStudentGrade(admissionYear: number, repeatedGrades: number) {
   admissionYear += repeatedGrades;
   const closestStartDate = closestSchoolYearStartDate();
-  const grade = 8 + (closestStartDate.getFullYear() - admissionYear);
+  const grade = 8 + (2023 - admissionYear);
   const isAlumni = grade > 12;
   return {
     grade,
