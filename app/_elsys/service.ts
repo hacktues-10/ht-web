@@ -69,28 +69,22 @@ export function parseElsysEmail(email: string) {
   const namePart = email.slice(0, -emailDomain.length);
 
   const segments = namePart.split(".");
-  if (![3, 4].includes(segments.length)) return null;
-  const { firstName, middleNameInitial, lastName, admissionYearStr } =
-    resolveSegments(segments);
-  if (!firstName || (!middleNameInitial && segments.length === 4) || !lastName)
-    return null;
+  const admissionYearStr = segments[segments.length - 1];
+  console.log(admissionYearStr);
   const admissionYear = parseInt(admissionYearStr);
+  console.log(admissionYear);
   if (isNaN(admissionYear)) return null;
 
   const { grade, isAlumni, graduationYear } = getStudentGrade(admissionYear, 0);
 
   return {
-    email,
-    firstName: capitalizeName(firstName),
-    middleNameInitial: capitalizeName(middleNameInitial) + ".",
-    lastName: capitalizeName(lastName),
     admissionYear,
     grade,
     parallel: "",
     isAlumni,
     repeatedGrades: 0,
     graduationYear,
-  } satisfies Student;
+  };
 }
 
 function capitalizeFirstLetter(str: string) {
