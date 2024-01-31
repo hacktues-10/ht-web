@@ -119,7 +119,7 @@ export default async function LandingPage() {
           </Card>
           <ArchiveStatsCard className="md:grid-cols-2">
             <p className="col-span-2 pb-3 text-center text-2xl font-semibold md:text-3xl">
-              Местата са ограничени!
+              Местата са запълнени!
             </p>
             <ArchiveStatsItem
               value={MAX_TEAMS_STUDENTS}
@@ -129,7 +129,7 @@ export default async function LandingPage() {
               value={MAX_TEAMS_ALUMNI}
               label="отбора на завършили"
             />
-            <p className="col-span-2 text-center text-lg font-light">
+            {/* <p className="col-span-2 text-center text-lg font-light">
               Регистрацията на ученици ще бъде отворена от{" "}
               <DateDisplay date={STUDENTS_REGISTRATION_START} showHour /> до{" "}
               <DateDisplay
@@ -141,7 +141,7 @@ export default async function LandingPage() {
                 до изчерпване на местата
               </strong>
               !
-            </p>
+            </p> */}
           </ArchiveStatsCard>
           {/* <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
             <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">

@@ -39,14 +39,13 @@ export default function Regulations() {
             &emsp;Регистрация
           </h3>
           <p className="mb-3 leading-7 [&:not(:first-child)]:mt-6">
-            &emsp;&emsp;• Ако сте ученик от 8 до 12 клас в ТУЕС, можете да се
-            регистрирате за участие на страницата за регистрация, след нейното
-            отваряне на <strong>29 януари от 20:00 часа</strong>!
+            &emsp;&emsp;• Регистрацията за ученици и завършили възпитаници на
+            ТУЕС е <strong>затворена</strong>.
           </p>
-          <p className="mb-3 leading-7 [&:not(:first-child)]:mt-3">
+          {/* <p className="mb-3 leading-7 [&:not(:first-child)]:mt-3">
             &emsp;&emsp;• Ако сте завършил възпитаник на ТУЕС,вече не можете да
             се регистрирате, защото регистрацията е <strong>затворена</strong>.
-          </p>
+          </p> */}
           <p className="mb-8 leading-7 [&:not(:first-child)]:mt-3">
             &emsp;&emsp;• Регистрацията става чрез имейл адрес. След това ще
             трябва да попълните нужната информация и да влезете в Discord
