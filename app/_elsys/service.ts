@@ -70,9 +70,7 @@ export function parseElsysEmail(email: string) {
 
   const segments = namePart.split(".");
   const admissionYearStr = segments[segments.length - 1];
-  console.log(admissionYearStr);
   const admissionYear = parseInt(admissionYearStr);
-  console.log(admissionYear);
   if (isNaN(admissionYear)) return null;
 
   const { grade, isAlumni, graduationYear } = getStudentGrade(admissionYear, 0);
