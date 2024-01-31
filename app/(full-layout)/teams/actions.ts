@@ -324,25 +324,37 @@ export async function renameTeam({
   teamId: string;
   name: string;
 }) {
-  // deleteTeamAdmin(teamId);
+  const team = await getTeamById(teamId);
+  if (!team) {
+    return { success: false, message: "Няма такъв отбор" };
+  }
 
-  // const createTeamAdmin()
+  try {
+    const participants = await db
+      .update(particpants)
+      .set({
+        teamId: null,
+      })
+      .where(eq(particpants.teamId, teamId))
+      .returning();
 
-  // const res = await db
-  //   .update(teams)
-  //   .set({ name: name, id: slugify(name) })
-  //   .where(eq(teams.id, teamId))
-  //   .returning();
+    await db
+      .update(teams)
+      .set({ name: name, id: slugify(name) })
+      .where(eq(teams.id, teamId))
+      .returning();
 
-  // await db
-  //   .update(particpants)
-  //   .set({ teamId: slugify(name) })
-  //   .where(eq(particpants.teamId, teamId));
+    for (const participant of participants) {
+      await db
+        .update(particpants)
+        .set({ teamId: slugify(name) })
+        .where(eq(particpants.id, participant.id));
+    }
 
-  const res = [];
-  if (res.length > 0) {
+    revalidateTag("teams");
+
     return { success: true, message: "Успешно преименувахте отбора" };
-  } else {
+  } catch (e) {
     return { success: false, message: "Неуспешно преименуване на отбора" };
   }
 }

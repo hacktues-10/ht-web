@@ -12,7 +12,9 @@ export default async function AdminPage() {
   // XXX: Use SQL to aggregate, instead of doing it in the app.
 
   const students = await getStudentParticipantsAdmin();
+  const realStudent = students.filter((student) => student.team);
   const alumni = await getAlumniParticipantsAdmin();
+  const realAlumni = alumni.filter((alumnus) => alumnus.team);
   const teams = await getTeamsAdmin();
   const teamsCount = teams.length;
   // const mentors = await getTeamsAdmin();
@@ -24,11 +26,11 @@ export default async function AdminPage() {
       <div>
         <h1 className="text-lg font-bold">Здрасти, {admin?.firstName}!</h1>
         {/* FIXME: better UI */}
-        Участници: {alumni.length + students.length}
+        Участници: {realAlumni.length + realStudent.length}
         <br />
-        Завървшили: {alumni.length}
+        Завървшили: {realAlumni.length}
         <br />
-        Ученици: {students.length}
+        Ученици: {realStudent.length}
         <br />
         Отбори: {teamsCount}
         <br />

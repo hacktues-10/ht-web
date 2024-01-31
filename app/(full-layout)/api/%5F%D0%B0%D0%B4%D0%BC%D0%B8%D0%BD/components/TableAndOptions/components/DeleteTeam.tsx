@@ -43,8 +43,6 @@ export default function DeleteTeam({
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const { toast } = useToast();
-  const [newName, setNewName] = useState("");
-
   async function handleClick() {
     const rename = await deleteTeamAdmin(value);
 
@@ -104,18 +102,12 @@ export default function DeleteTeam({
             </Command>
           </PopoverContent>
         </Popover>
-        <Input
-          className="ml-2 w-96"
-          placeholder="Въведи новото име на отбора"
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-        />
         <Button
           className="ml-3"
           variant="destructive"
           onClick={() => handleClick()}
         >
-          Преименувай
+          Изтрий
         </Button>
       </div>
     </div>
