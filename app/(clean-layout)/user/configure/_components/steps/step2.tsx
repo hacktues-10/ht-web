@@ -260,7 +260,7 @@ export const StudentStep2 = ({
 
   useEffect(() => {
     form.reset(initialData);
-    const gradeStr = parseElsysEmail(email)?.grade;
+    const gradeStr = parseElsysEmail(email)?.grade.toString();
     const grade = z.enum(STUDENT_GRADES).parse(gradeStr);
     if (grade && STUDENT_GRADES.includes(grade)) {
       form.setValue("grade", grade);
