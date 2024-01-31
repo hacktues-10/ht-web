@@ -123,6 +123,8 @@ export async function deleteTeamAdmin(teamId: string) {
     return { success: false, message: e instanceof Error ? e.message : "" };
   }
 }
+
+// FIXME: use zact
 export async function askToJoinTeam(teamIdToJoin: string) {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("update-team-members")) {
