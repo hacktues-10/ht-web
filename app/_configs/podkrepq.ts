@@ -55,6 +55,7 @@ import kaldataLogo from "../assets/sponsors/media-partners/kaldata.webp";
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import boniLogo from "../assets/sponsors/partners/boni.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
+import culligan from "../assets/sponsors/partners/culligan.jpg";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
@@ -379,6 +380,14 @@ const PARTNERS = [
     supportedEditions: ["hacktues-security"],
   },
   {
+    name: "Culligan Bulgaria",
+    logo: culligan,
+    url: "https://www.culligan.bg/",
+    description:
+      "Culligan Bulgaria- всичко, от което се нуждаете, за да осигурите чиста, висококачествена вода за Вашия бизнес или домакинство. Водата, която обичате!<br>Ние в Culligan се ангажираме да изградим по-добър, по-устойчив свят чрез подобряване както на социалното, така и на нашето въздействие върху околната среда.  В Culligan вярваме, че по-чистата и по-здравословна вода може да допринесе за подобряване на живота на хората по света и е ключов двигател към решаването на някои от най-големите предизвикателства, които стоят в нашето бъдеще.",
+    supportedEditions: ["hacktues-security"],
+  },
+  {
     name: "Dominos",
     logo: dominosLogo,
     url: "https://dominos.bg",
@@ -400,6 +409,7 @@ const PARTNERS = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     supportedEditions: [],
   },
+
   {
     name: "Smartcom",
     logo: smartcomLogo,
