@@ -7,11 +7,17 @@ import { db } from "../db";
 import {
   discordUsers,
   invitations,
+  joinRequests,
+  notifications,
   particpants,
   teams,
   users,
 } from "../db/schema";
-import { formatNick, perpareParticipantAdmin } from "./actions";
+import {
+  formatNick,
+  perpareParticipantAdmin,
+  PrepareParticipants,
+} from "./actions";
 
 export type Participant = Awaited<
   ReturnType<typeof selectFromParticipants>
@@ -129,7 +135,6 @@ function formatParticipantQualifier(participant: ReducedParticipant) {
 }
 
 const DISCORD_NICK_MAX_LENGTH = 32;
-
 export function formatParticipantDiscordNick(participant: ReducedParticipant) {
   const qualifier = formatParticipantQualifier(participant);
   let nick = `${participant.firstName} ${participant.lastName} ${qualifier}`;

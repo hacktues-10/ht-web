@@ -18,10 +18,7 @@ import {
 } from "~/app/components/ui/popover";
 import { ScrollArea } from "~/app/components/ui/scroll-area";
 import { useToast } from "~/app/components/ui/use-toast";
-import {
-  disqualifyParticipantById,
-  getParticipantIdByValue,
-} from "~/app/participants/actions";
+import { disqualifyParticipantByIdClient } from "~/app/participants/actions";
 import { cn } from "~/app/utils";
 
 export default function DisqualifyParticipantComponent({
@@ -31,9 +28,7 @@ export default function DisqualifyParticipantComponent({
 }) {
   const { toast } = useToast();
   const handleClick = async () => {
-    const response = await disqualifyParticipantById(
-      await getParticipantIdByValue(value, participants),
-    );
+    const response = await disqualifyParticipantByIdClient(value, participants);
 
     if (response.success) {
       toast({
