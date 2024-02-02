@@ -317,6 +317,35 @@ export const checkStateJoinRequests = zact(
   }
 });
 
+async function deleteNotifications(teamId: string) {
+  const [selectedJoinReq, selectedInvitations] = await Promise.all([
+    db.select().from(joinRequests).where(eq(joinRequests.teamId, teamId)),
+    db.select().from(invitations).where(eq(invitations.teamId, teamId)),
+  ]);
+
+  const joinReqIds = selectedJoinReq.map((req) => req.id);
+  const invitationIds = selectedInvitations.map((invitation) => invitation.id);
+
+  for (const id of joinReqIds) {
+    await db
+      .delete(notifications)
+      .where(and(eq(notifications.id, id), eq(notifications.type, "ask_join")));
+  }
+
+  for (const id of invitationIds) {
+    await db
+      .delete(notifications)
+      .where(
+        and(eq(notifications.id, id), eq(notifications.type, "invitation")),
+      );
+  }
+
+  await Promise.all([
+    db.delete(joinRequests).where(eq(joinRequests.teamId, teamId)),
+    db.delete(invitations).where(eq(invitations.teamId, teamId)),
+  ]);
+}
+
 export async function renameTeam({
   teamId,
   name,
@@ -337,6 +366,8 @@ export async function renameTeam({
       })
       .where(eq(particpants.teamId, teamId))
       .returning();
+
+    await deleteNotifications(teamId);
 
     await db
       .update(teams)
