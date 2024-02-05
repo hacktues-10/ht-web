@@ -81,14 +81,18 @@ export default function PodkrepqAutoDisplay({
               {shouldShowDescription(podkrepqshti[liveIndex].description) ? (
                 <>
                   <div className="flex h-24 flex-shrink flex-grow flex-col overflow-clip">
-                    <div className="inline-flex h-full flex-1 flex-shrink flex-grow [mask-image:linear-gradient(to_bottom,white,calc(100%-20px),transparent)]">
+                    <div className="inline-flex h-full flex-1 flex-shrink flex-grow flex-col [mask-image:linear-gradient(to_bottom,white,calc(100%-20px),transparent)]">
                       {podkrepqshti[liveIndex].description
                         .split("\n")
-                        .map((p) => (
-                          <p key={p} className="text-white">
-                            {p}
-                          </p>
-                        ))}
+                        .map((p, i) =>
+                          p.startsWith("==") ? (
+                            <hr key={i} />
+                          ) : (
+                            <p key={i} className="text-white">
+                              {p}
+                            </p>
+                          ),
+                        )}
                     </div>
                   </div>
                   <PodkrepqReadMore
