@@ -18,6 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { Separator } from "./ui/separator";
 
 const readMoreClasses =
   "rounded-sm font-bold text-white ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
@@ -85,8 +86,8 @@ export default function PodkrepqAutoDisplay({
                       {podkrepqshti[liveIndex].description
                         .split("\n")
                         .map((p, i) =>
-                          p.startsWith("==") ? (
-                            <hr key={i} />
+                          isHorizontalRule(p) ? (
+                            <Separator key={i} />
                           ) : (
                             <p key={i} className="text-white">
                               {p}
@@ -164,7 +165,11 @@ function PodkrepqReadMore({
         <DialogHeader>
           <DialogTitle>{name}</DialogTitle>
         </DialogHeader>
-        {description?.split("\n").map((p) => <p key={p}>{p}</p>)}
+        {description
+          ?.split("\n")
+          .map((p, i) =>
+            isHorizontalRule(p) ? <Separator key={i} /> : <p key={i}>{p}</p>,
+          )}
         <DialogFooter>
           <Button asChild variant="outline">
             <Link href={url} target="_blank">
@@ -253,4 +258,8 @@ function PodkrepqLogo({
       </Link>
     </li>
   );
+}
+
+function isHorizontalRule(p: string) {
+  return p.startsWith("==");
 }
