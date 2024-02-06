@@ -38,6 +38,7 @@ import tumbaSolutionsLogo from "../assets/sponsors/beta/tumba-solutions.png";
 //Gamma sponsors
 import accediaLogo from "../assets/sponsors/gamma/accedia.png";
 import asteaSolutionsLogo from "../assets/sponsors/gamma/astea-solutions.png";
+import dynamoSoftwareLogo from "../assets/sponsors/gamma/dynamo-software.png";
 import globalFoundriesLogo from "../assets/sponsors/gamma/globalfoundries.png";
 import nemetschekLogo from "../assets/sponsors/gamma/nemetschek.png";
 import ocadoTechnologyLogo from "../assets/sponsors/gamma/ocado-technology.png";
@@ -288,6 +289,14 @@ const GAMMA_SPONSORS = [
       "hacktues-3",
       "hacktues-2",
     ],
+  },
+  {
+    name: "Dynamo Software",
+    logo: dynamoSoftwareLogo,
+    url: "https://www.dynamosoftware.com/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
   },
   {
     name: "GlobalFoundries Bulgaria",
