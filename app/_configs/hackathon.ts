@@ -34,3 +34,44 @@ export const SUBTHEMES = [...HACKATHONS].reverse().flatMap((hackathon) => {
 
   return [mainTheme, ...subThemes];
 });
+
+export const SCHEDULE = [
+  {
+    type: "workshop",
+    title: "Git && GitHub",
+    description:
+      "Git and GitHub workshop. Learn how to use Git and GitHub. This is a very important skill for every developer. You will learn how to use Git and GitHub in a team environment.",
+    startDate: new Date("Feb 15 2024 20:00:00 GMT+0200"),
+    endDate: null,
+  },
+  {
+    type: "workshop",
+    title: "Python - Flask",
+    description:
+      "Python - Flask workshop. Learn how to use Python and Flask to build web applications. You will learn how to build a simple web application using Python and Flask.",
+    startDate: new Date("Feb 21 2024 20:00:00 GMT+0200"),
+    endDate: null,
+  },
+  {
+    type: "workshop",
+    title: "Embedded Basics",
+    description:
+      "Росен Витанов - Embedded Basics workshop. Learn the basics of embedded systems. You will learn how to use embedded systems to build simple applications.",
+    startDate: new Date("Feb 26 2024 20:00:00 GMT+0200"),
+    endDate: null,
+  },
+  {
+    type: "workshop",
+    title: "React",
+    description: "React workshop",
+    startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
+    endDate: null,
+  },
+  {
+    type: "workshop",
+    title: "Hack TUES X - В какво се забърках?",
+    description: "Hack TUES X - В какво се забърках? workshop",
+    startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
+    endDate: null,
+  },
+] as const;
