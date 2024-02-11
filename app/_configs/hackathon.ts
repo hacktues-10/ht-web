@@ -74,4 +74,41 @@ export const SCHEDULE = [
     startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
     endDate: null,
   },
+  {
+    type: "youtube",
+    title: "Официално откриване", // или Откриваща церемония?
+    description: "Официално откриване на Hack TUES X",
+    startDate: new Date("Mar 13 2024 18:00:00 GMT+0200"),
+    endDate: new Date("Mar 13 2024 22:00:00 GMT+0200"),
+  },
+  {
+    type: "in-person",
+    title: "Време за работа",
+    description: "Работа по проектите",
+    startDate: new Date("Mar 13 2024 20:00:00 GMT+0200"),
+    endDate: new Date("Mar 16 2024 07:59:59 GMT+0200"),
+  },
+  {
+    type: "in-person",
+    title: "Полуфинали",
+    description: "Полуфинали на учениците", // а завършили?
+    startDate: new Date("Mar 16 2024 08:00:00 GMT+0200"),
+    endDate: new Date("Mar 16 2024 10:20:00 GMT+0200"),
+  },
+  {
+    type: "youtube",
+    title: "Финал",
+    description: "Финал",
+    startDate: new Date("Mar 16 2024 12:00:00 GMT+0200"),
+    endDate: new Date("Mar 16 2024 17:30:00 GMT+0200"),
+  },
+  {
+    type: "youtube",
+    title: "Награждаване и закриваща церемония",
+    description: "Награждаване и закриваща церемония",
+    startDate: new Date("Mar 16 2024 17:30:00 GMT+0200"),
+    endDate: new Date("Mar 16 2024 22:20:00 GMT+0200"),
+  },
 ] as const;
+
+export type ScheduleEvent = (typeof SCHEDULE)[number];
