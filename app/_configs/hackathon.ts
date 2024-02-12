@@ -101,7 +101,7 @@ export const SCHEDULE = [
     type: "workshop",
     title: "Embedded Basics",
     description:
-      "Росен Витанов - Embedded Basics workshop. Learn the basics of embedded systems. You will learn how to use embedded systems to build simple applications.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui at nunc tincidunt tincidunt. Workshop за въведение в embedded системите и микроконтролерите. Подходящо за всички, които искат да развият уменията си в embedded разработката.",
     startDate: new Date("Feb 26 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [
@@ -115,7 +115,8 @@ export const SCHEDULE = [
   {
     type: "workshop",
     title: "React",
-    description: "React workshop",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui at nunc tincidunt tincidunt. Workshop за въведение в React. Подходящо за всички, които искат да развият уменията си в уеб разработката.",
     startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [MITKO, BOZHO],
@@ -123,7 +124,8 @@ export const SCHEDULE = [
   {
     type: "workshop",
     title: "Hack TUES X - В какво се забърках?",
-    description: "Hack TUES X - В какво се забърках? workshop",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui at nunc tincidunt tincidunt. Workshop за въведение в Hack TUES X. Подходящо за всички, които искат да разберат какво предстои на събитието.",
     startDate: new Date("Mar 06 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [
