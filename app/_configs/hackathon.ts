@@ -124,7 +124,7 @@ export const SCHEDULE = [
     type: "workshop",
     title: "Hack TUES X - В какво се забърках?",
     description: "Hack TUES X - В какво се забърках? workshop",
-    startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
+    startDate: new Date("Mar 06 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [
       {

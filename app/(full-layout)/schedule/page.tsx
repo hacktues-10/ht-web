@@ -150,8 +150,8 @@ function CalendarDay({ event }: { event: ScheduleEvent }) {
   return (
     <Card asChild className="flex items-center justify-center">
       <time dateTime={event.startDate.toISOString()}>
-        <CardHeader className="flex w-24 flex-shrink flex-col items-center justify-center sm:w-40">
-          <h2 className="text-4xl font-extrabold">
+        <CardHeader className="flex w-32 flex-shrink flex-col items-center justify-center sm:w-40">
+          <h2 className="text-5xl font-extrabold">
             {event.endDate &&
             event.endDate.getDay() != event.startDate.getDay() ? (
               <>
@@ -162,7 +162,7 @@ function CalendarDay({ event }: { event: ScheduleEvent }) {
               dayOfMonthFormatter.format(event.startDate)
             )}
           </h2>
-          <p className="font-semibold">
+          <p className="font-light uppercase sm:text-lg">
             {monthFormatter.format(event.startDate)}
           </p>
         </CardHeader>
