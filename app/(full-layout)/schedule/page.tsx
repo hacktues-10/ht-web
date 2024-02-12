@@ -147,10 +147,10 @@ function TimeDisplay({
     >
       {!event.endDate || event.endDate.getDay() === event.startDate.getDay() ? (
         <>
-          <Badge variant="outline" className="text-sm">
+          <Badge variant="secondary" className="text-sm">
             {dayOfWeekFormatter.format(event.startDate)}
           </Badge>
-          <Badge variant="outline" className="text-sm">
+          <Badge variant="secondary" className="text-sm">
             {event.endDate
               ? hourFormatter.formatRange(event.startDate, event.endDate)
               : hourFormatter.format(event.startDate)}
@@ -158,13 +158,13 @@ function TimeDisplay({
         </>
       ) : (
         <>
-          <Badge variant="outline" className="text-sm">
+          <Badge variant="secondary" className="text-sm">
             от{" "}
             {dayOfWeekFormatter.format(event.startDate) +
               " " +
               hourFormatter.format(event.startDate)}
           </Badge>
-          <Badge variant="outline" className="text-sm">
+          <Badge variant="secondary" className="text-sm">
             до{" "}
             {dayOfWeekFormatter.format(event.endDate) +
               " " +
