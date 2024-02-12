@@ -1,5 +1,6 @@
 import bozhoAvatar from "~/app/assets/lectors/bozho.webp";
 import kalaAvatar from "~/app/assets/lectors/kala.webp";
+import kalinAvatar from "~/app/assets/lectors/kalin.webp";
 import kikiAvatar from "~/app/assets/lectors/kiki.webp";
 import mitkoAvatar from "~/app/assets/lectors/mitko.webp";
 import sachkovAvatar from "~/app/assets/lectors/sachkov.webp";
@@ -60,7 +61,7 @@ export const SCHEDULE = [
     type: "workshop",
     title: "Работа в екип и генериране на идеи",
     description:
-      "Python - Flask workshop. Learn how to use Python and Flask to build web applications. You will learn how to build a simple web application using Python and Flask.",
+      "Workshop, който ще ви даде ценни насоки и методи за ефективна работа в екип и техники за бързо генериране на иновативни идеи. Подходящо за всички, които искат да развият уменията си за екипна работа и креативно мислене.",
     startDate: new Date("Feb 13 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [
@@ -75,7 +76,7 @@ export const SCHEDULE = [
     type: "workshop",
     title: "Git && GitHub",
     description:
-      "Git and GitHub workshop. Learn how to use Git and GitHub. This is a very important skill for every developer. You will learn how to use Git and GitHub in a team environment.",
+      "Лекцията ще ви представи основите на Git && GitHub, ключови за съвместна работа по проекти и управление на код.\nПрепоръчително за всеки, който не знае основите му функции!",
     startDate: new Date("Feb 15 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [BOZHO, MITKO],
@@ -84,7 +85,7 @@ export const SCHEDULE = [
     type: "workshop",
     title: "Python - Flask",
     description:
-      "Python - Flask workshop. Learn how to use Python and Flask to build web applications. You will learn how to build a simple web application using Python and Flask.",
+      "Тази лекция ще ви запознае с Flask - лек и мощен инструмент за създаване на уеб приложения с Python. Калоян и Божидар ще ви покажат как да започнете своите проекти с Flask, давайки ви основите и малко повече. Идеално за тези, които търсят да разширят своите умения в уеб разработката.",
     startDate: new Date("Feb 21 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [
@@ -127,9 +128,7 @@ export const SCHEDULE = [
     endDate: null,
     lectors: [
       {
-        image: {
-          src: "https://dtkp6g0samjql.cloudfront.net/uploads/photo/file/20277419/gallery_hero_63f030f4-c931-43a9-9947-4b1fd1881796.png",
-        },
+        image: kalinAvatar,
         name: "Калин Георгиев",
         origin: "АЗТУЕС",
       },
