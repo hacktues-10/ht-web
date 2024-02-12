@@ -41,6 +41,24 @@ export default function SchedulePage() {
       <div className="pb-2" />
 
       <div className="flex max-w-2xl flex-col items-center justify-center gap-10 sm:gap-8">
+        {/* Gradients */}
+        <div
+          className="absolute left-1/2 top-52 -z-30 h-[30%] w-[300%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,#ce0e3e1c,transparent)]"
+          aria-hidden
+        />
+        <div
+          className="absolute left-5 top-[200px] -z-30 h-[1540px] w-[964px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(var(--brand)/5%),transparent)]"
+          aria-hidden
+        />
+        <div
+          className="absolute right-0 top-[380px] -z-30 h-[1500px] w-[640px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(var(--sand)/7%),transparent)]"
+          aria-hidden
+        />
+        <div
+          className="absolute left-0 top-[1300px] -z-30 h-[1040px] w-[564px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(var(--brand)/5%),transparent)]"
+          aria-hidden
+        />
+
         {SCHEDULE.filter((event) => event.type === "workshop").map(
           (event, index) => (
             <div
