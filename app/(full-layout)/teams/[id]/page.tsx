@@ -327,7 +327,7 @@ export default async function TeamDetailPage({
                     </Avatar>
                   </div>
                   <h2 className="m-auto ml-4 text-left text-lg">
-                    {mentor?.firstName} {mentor?.lastName}
+                    {mentor?.name}
                   </h2>
                 </div>
               ) : (

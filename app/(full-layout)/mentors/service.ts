@@ -5,7 +5,7 @@ import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
 
 export const getAllMentors = async () => {
-  const allMentors = await db.select().from(mentors);
+  const allMentors = await selectFromMentors();
   return allMentors;
 };
 
@@ -14,28 +14,21 @@ const selectFromMentors = () =>
   db
     .select({
       id: mentors.id,
-      email: mentors.email,
-      firstName: mentors.firstName,
-      lastName: mentors.lastName,
-      phoneNumber: mentors.phoneNumber,
+      name: mentors.name,
       description: mentors.description,
-      youtubeURL: mentors.youtubeURL,
       companyName: mentors.companyName,
       technologies: mentors.technologies,
-      tShirtId: mentors.tShirtId,
-      allergies: mentors.allergies,
       fileName: mentors.fileName,
+      jobPosition: mentors.jobPosition,
+      tuesVispusk: mentors.tuesVispusk,
+      schedule: mentors.schedule,
+      where: mentors.where,
       team: {
         id: teams.id,
         name: teams.name,
       },
-      discordUser: {
-        discordId: discordUsers.discordId,
-        discordUsername: discordUsers.discordUsername,
-      },
     })
     .from(mentors)
-    .leftJoin(discordUsers, eq(mentors.id, discordUsers.mentorId))
     .leftJoin(teams, eq(mentors.id, teams.mentorId));
 
 export const getMentorByEmail = async (email: string) => {
