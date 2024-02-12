@@ -1,3 +1,9 @@
+import bozhoAvatar from "~/app/assets/lectors/bozho.webp";
+import kalaAvatar from "~/app/assets/lectors/kala.webp";
+import kikiAvatar from "~/app/assets/lectors/kiki.webp";
+import mitkoAvatar from "~/app/assets/lectors/mitko.webp";
+import sachkovAvatar from "~/app/assets/lectors/sachkov.webp";
+import vitanovAvatar from "~/app/assets/lectors/vitanov.webp";
 import { HACKATHONS } from "./archive";
 
 export const COUNTDOWN_START = new Date("Jan 02 2024 20:00:00 GMT+0200");
@@ -35,18 +41,18 @@ export const SUBTHEMES = [...HACKATHONS].reverse().flatMap((hackathon) => {
   return [mainTheme, ...subThemes];
 });
 
-const ORGANIZATOR = "Организатор на Hack TUES X";
+const ORGANIZATOR_ORIGIN_TEXT = "Организатор";
 
 const MITKO = {
-  image: null,
+  image: mitkoAvatar,
   name: "Димитър Желев",
-  origin: ORGANIZATOR,
+  origin: ORGANIZATOR_ORIGIN_TEXT,
 };
 
 const BOZHO = {
-  image: null,
+  image: bozhoAvatar,
   name: "Божидар Павлов",
-  origin: ORGANIZATOR,
+  origin: ORGANIZATOR_ORIGIN_TEXT,
 };
 
 export const SCHEDULE = [
@@ -59,7 +65,7 @@ export const SCHEDULE = [
     endDate: null,
     lectors: [
       {
-        image: null,
+        image: kikiAvatar,
         name: "Кирилка Ангелова",
         origin: "АЗТУЕС",
       },
@@ -83,9 +89,9 @@ export const SCHEDULE = [
     endDate: null,
     lectors: [
       {
-        image: null,
+        image: kalaAvatar,
         name: "Калоян Миладинов",
-        origin: "Организатор на Hack TUES X",
+        origin: ORGANIZATOR_ORIGIN_TEXT,
       },
       BOZHO,
     ],
@@ -99,7 +105,7 @@ export const SCHEDULE = [
     endDate: null,
     lectors: [
       {
-        image: null,
+        image: vitanovAvatar,
         name: "Росен Витанов",
         origin: "Преподавател по ВМКС в ТУЕС",
       },
@@ -121,14 +127,14 @@ export const SCHEDULE = [
     endDate: null,
     lectors: [
       {
-        image: null,
+        image: kikiAvatar,
         name: "Калин Георгиев",
         origin: "АЗТУЕС",
       },
       {
-        image: null,
+        image: sachkovAvatar,
         name: "Никола Сачков",
-        origin: "Организатор на Hack TUES X",
+        origin: ORGANIZATOR_ORIGIN_TEXT,
       },
     ],
   },

@@ -38,7 +38,7 @@ export default function SchedulePage() {
         Програма
       </h1>
 
-      <div className="flex max-w-xl flex-col items-center justify-center gap-3">
+      <div className="flex max-w-2xl flex-col items-center justify-center gap-3">
         {SCHEDULE.filter((event) => event.type === "workshop").map(
           (event, index) => (
             <div className="flex w-full gap-3" key={index}>
@@ -86,7 +86,10 @@ export default function SchedulePage() {
                               key={lector.name}
                             >
                               <Avatar>
-                                {/* <AvatarImage src={lector.image} alt={lector.name} /> */}
+                                <AvatarImage
+                                  src={lector.image.src}
+                                  alt={lector.name}
+                                />
                                 <AvatarFallback>
                                   {lector.name.at(0)}
                                 </AvatarFallback>
