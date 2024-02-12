@@ -27,10 +27,7 @@ export default function SchedulePage() {
         {SCHEDULE.map((event, index) => (
           <div className="flex w-full gap-3" key={index}>
             <CalendarDay event={event} />
-            <Card
-              asChild
-              className="flex w-full flex-1 flex-grow flex-col sm:flex-row"
-            >
+            <Card asChild className="flex w-full flex-1 flex-grow flex-col">
               <article>
                 <div className="flex-1">
                   <CardHeader>
@@ -68,7 +65,7 @@ export default function SchedulePage() {
                   </CardContent>
                 </div>
                 <CardFooter
-                  className="flex flex-shrink-0 flex-grow-0 items-center justify-start gap-2 sm:h-full sm:w-32 sm:flex-col sm:justify-center"
+                  className="flex flex-shrink-0 flex-grow-0 items-center justify-start gap-2"
                   asChild
                 >
                   <TimeDisplay event={event} />
