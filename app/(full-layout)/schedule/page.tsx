@@ -38,10 +38,15 @@ export default function SchedulePage() {
         Програма
       </h1>
 
-      <div className="flex max-w-2xl flex-col items-center justify-center gap-3">
+      <div className="pb-2" />
+
+      <div className="flex max-w-2xl flex-col items-center justify-center gap-10 sm:gap-8">
         {SCHEDULE.filter((event) => event.type === "workshop").map(
           (event, index) => (
-            <div className="flex w-full gap-3" key={index}>
+            <div
+              className="flex w-full flex-col gap-2 sm:flex-row sm:gap-3"
+              key={index}
+            >
               <CalendarDay event={event} />
               <Card asChild className="flex w-full flex-1 flex-grow flex-col">
                 <article>
