@@ -55,7 +55,9 @@ export default function SchedulePage() {
                         )}
                         <CardTitle className="pb-1">{event.title}</CardTitle>
                       </div>
-                      <CardDescription>{event.description}</CardDescription>
+                      {event.description.split("\n").map((paragraph, i) => (
+                        <CardDescription key={i}>{paragraph}</CardDescription>
+                      ))}
                     </CardHeader>
                     <CardContent>
                       {event.type === "youtube" && (
