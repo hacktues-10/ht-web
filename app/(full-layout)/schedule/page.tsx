@@ -91,16 +91,20 @@ export default function SchedulePage() {
 
 const dayOfWeekFormatter = new Intl.DateTimeFormat("bg", {
   weekday: "long",
+  timeZone: "Europe/Sofia",
 });
 const hourFormatter = new Intl.DateTimeFormat("bg", {
   hour: "numeric",
   minute: "numeric",
+  timeZone: "Europe/Sofia",
 });
 const monthFormatter = new Intl.DateTimeFormat("bg", {
   month: "long",
+  timeZone: "Europe/Sofia",
 });
 const dayOfMonthFormatter = new Intl.DateTimeFormat("bg", {
   day: "numeric",
+  timeZone: "Europe/Sofia",
 });
 
 function CalendarDay({ event }: { event: ScheduleEvent }) {
