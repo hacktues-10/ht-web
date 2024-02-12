@@ -127,7 +127,9 @@ export const SCHEDULE = [
     endDate: null,
     lectors: [
       {
-        image: kikiAvatar,
+        image: {
+          src: "https://dtkp6g0samjql.cloudfront.net/uploads/photo/file/20277419/gallery_hero_63f030f4-c931-43a9-9947-4b1fd1881796.png",
+        },
         name: "Калин Георгиев",
         origin: "АЗТУЕС",
       },

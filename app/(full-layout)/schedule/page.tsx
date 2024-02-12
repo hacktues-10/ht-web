@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 export default function SchedulePage() {
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="font-htags mt-5 flex flex-col gap-5 text-center text-5xl font-extrabold">
+      <h1 className="mt-5 flex flex-col gap-5 text-center text-5xl font-extrabold">
         Програма
       </h1>
 
