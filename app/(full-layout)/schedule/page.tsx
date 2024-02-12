@@ -1,4 +1,5 @@
 import React from "react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { MapPin, Youtube } from "lucide-react";
 import invariant from "tiny-invariant";
@@ -15,6 +16,15 @@ import {
   CardTitle,
 } from "~/app/components/ui/card";
 import { IconParagraph } from "../page";
+
+export const metadata: Metadata = {
+  title: "Програма",
+  description: "Програма на Hack TUES X",
+  openGraph: {
+    title: "Програма",
+    description: "Програма на Hack TUES X",
+  },
+};
 
 export default function SchedulePage() {
   return (
