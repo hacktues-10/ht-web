@@ -60,10 +60,9 @@ export const SCHEDULE = [
     lectors: [
       {
         image: null,
-        name: "Калоян Миладинов",
-        origin: "Организатор на Hack TUES X",
+        name: "Кирилка Ангелова",
+        origin: "АЗТУЕС",
       },
-      BOZHO,
     ],
   },
   {

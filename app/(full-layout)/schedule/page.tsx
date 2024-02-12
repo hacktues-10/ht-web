@@ -5,6 +5,11 @@ import { MapPin, Youtube } from "lucide-react";
 import invariant from "tiny-invariant";
 
 import { SCHEDULE, ScheduleEvent } from "~/app/_configs/hackathon";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "~/app/components/ui/avatar";
 import { Badge } from "~/app/components/ui/badge";
 import { Button } from "~/app/components/ui/button";
 import {
@@ -34,56 +39,81 @@ export default function SchedulePage() {
       </h1>
 
       <div className="flex max-w-xl flex-col items-center justify-center gap-3">
-        {SCHEDULE.map((event, index) => (
-          <div className="flex w-full gap-3" key={index}>
-            <CalendarDay event={event} />
-            <Card asChild className="flex w-full flex-1 flex-grow flex-col">
-              <article>
-                <div className="flex-1">
-                  <CardHeader>
-                    <div>
-                      {event.type === "workshop" && (
-                        <p className="text-xl font-light uppercase text-primary">
-                          Workshop
-                        </p>
-                      )}
-                      <CardTitle className="pb-1">{event.title}</CardTitle>
-                    </div>
-                    <CardDescription>{event.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {event.type === "youtube" && (
-                      <Button
-                        asChild
-                        variant="destructive"
-                        className="items-center justify-center"
-                        size="sm"
-                      >
-                        <Link
-                          href="https://youtube.com/@TUES/live"
-                          target="_blank"
+        {SCHEDULE.filter((event) => event.type === "workshop").map(
+          (event, index) => (
+            <div className="flex w-full gap-3" key={index}>
+              <CalendarDay event={event} />
+              <Card asChild className="flex w-full flex-1 flex-grow flex-col">
+                <article>
+                  <div className="flex-1">
+                    <CardHeader>
+                      <div>
+                        {event.type === "workshop" && (
+                          <p className="text-xl font-light uppercase text-primary">
+                            Workshop
+                          </p>
+                        )}
+                        <CardTitle className="pb-1">{event.title}</CardTitle>
+                      </div>
+                      <CardDescription>{event.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      {event.type === "youtube" && (
+                        <Button
+                          asChild
+                          variant="destructive"
+                          className="items-center justify-center"
+                          size="sm"
                         >
-                          <Youtube className="mr-2 h-5 w-5" /> Гледай на живо!
-                        </Link>
-                      </Button>
-                    )}
-                    {event.type === "in-person" && (
-                      <IconParagraph icon={MapPin} className="text-sm">
-                        София&nbsp;Тех&nbsp;Парк „Джон&nbsp;Атанасов“
-                      </IconParagraph>
-                    )}
-                  </CardContent>
-                </div>
-                <CardFooter
-                  className="flex flex-shrink-0 flex-grow-0 items-center justify-start gap-2"
-                  asChild
-                >
-                  <TimeDisplay event={event} />
-                </CardFooter>
-              </article>
-            </Card>
-          </div>
-        ))}
+                          <Link
+                            href="https://youtube.com/@TUES/live"
+                            target="_blank"
+                          >
+                            <Youtube className="mr-2 h-5 w-5" /> Гледай на живо!
+                          </Link>
+                        </Button>
+                      )}
+                      {event.type === "in-person" && (
+                        <IconParagraph icon={MapPin} className="text-sm">
+                          София&nbsp;Тех&nbsp;Парк „Джон&nbsp;Атанасов“
+                        </IconParagraph>
+                      )}
+                      {event.type === "workshop" && (
+                        <ul className="flex flex-col gap-3">
+                          {event.lectors.map((lector) => (
+                            <li
+                              className="flex items-center gap-2"
+                              key={lector.name}
+                            >
+                              <Avatar>
+                                {/* <AvatarImage src={lector.image} alt={lector.name} /> */}
+                                <AvatarFallback>
+                                  {lector.name.at(0)}
+                                </AvatarFallback>
+                              </Avatar>
+                              <div className="flex flex-col justify-center">
+                                <p className="font-semibold">{lector.name}</p>
+                                <p className="text-xs font-light text-muted-foreground">
+                                  {lector.origin}
+                                </p>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </CardContent>
+                  </div>
+                  <CardFooter
+                    className="flex flex-shrink-0 flex-grow-0 items-center justify-start gap-2"
+                    asChild
+                  >
+                    <TimeDisplay event={event} />
+                  </CardFooter>
+                </article>
+              </Card>
+            </div>
+          ),
+        )}
       </div>
     </div>
   );
