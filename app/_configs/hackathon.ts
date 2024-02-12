@@ -35,7 +35,37 @@ export const SUBTHEMES = [...HACKATHONS].reverse().flatMap((hackathon) => {
   return [mainTheme, ...subThemes];
 });
 
+const ORGANIZATOR = "Организатор на Hack TUES X";
+
+const MITKO = {
+  image: null,
+  name: "Димитър Желев",
+  origin: ORGANIZATOR,
+};
+
+const BOZHO = {
+  image: null,
+  name: "Божидар Павлов",
+  origin: ORGANIZATOR,
+};
+
 export const SCHEDULE = [
+  {
+    type: "workshop",
+    title: "Работа в екип и генериране на идеи",
+    description:
+      "Python - Flask workshop. Learn how to use Python and Flask to build web applications. You will learn how to build a simple web application using Python and Flask.",
+    startDate: new Date("Feb 13 2024 20:00:00 GMT+0200"),
+    endDate: null,
+    lectors: [
+      {
+        image: null,
+        name: "Калоян Миладинов",
+        origin: "Организатор на Hack TUES X",
+      },
+      BOZHO,
+    ],
+  },
   {
     type: "workshop",
     title: "Git && GitHub",
@@ -43,6 +73,7 @@ export const SCHEDULE = [
       "Git and GitHub workshop. Learn how to use Git and GitHub. This is a very important skill for every developer. You will learn how to use Git and GitHub in a team environment.",
     startDate: new Date("Feb 15 2024 20:00:00 GMT+0200"),
     endDate: null,
+    lectors: [BOZHO, MITKO],
   },
   {
     type: "workshop",
@@ -51,6 +82,14 @@ export const SCHEDULE = [
       "Python - Flask workshop. Learn how to use Python and Flask to build web applications. You will learn how to build a simple web application using Python and Flask.",
     startDate: new Date("Feb 21 2024 20:00:00 GMT+0200"),
     endDate: null,
+    lectors: [
+      {
+        image: null,
+        name: "Калоян Миладинов",
+        origin: "Организатор на Hack TUES X",
+      },
+      BOZHO,
+    ],
   },
   {
     type: "workshop",
@@ -59,6 +98,13 @@ export const SCHEDULE = [
       "Росен Витанов - Embedded Basics workshop. Learn the basics of embedded systems. You will learn how to use embedded systems to build simple applications.",
     startDate: new Date("Feb 26 2024 20:00:00 GMT+0200"),
     endDate: null,
+    lectors: [
+      {
+        image: null,
+        name: "Росен Витанов",
+        origin: "Преподавател по ВМКС в ТУЕС",
+      },
+    ],
   },
   {
     type: "workshop",
@@ -66,6 +112,7 @@ export const SCHEDULE = [
     description: "React workshop",
     startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
     endDate: null,
+    lectors: [MITKO, BOZHO],
   },
   {
     type: "workshop",
@@ -73,6 +120,18 @@ export const SCHEDULE = [
     description: "Hack TUES X - В какво се забърках? workshop",
     startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
     endDate: null,
+    lectors: [
+      {
+        image: null,
+        name: "Калин Георгиев",
+        origin: "АЗТУЕС",
+      },
+      {
+        image: null,
+        name: "Никола Сачков",
+        origin: "Организатор на Hack TUES X",
+      },
+    ],
   },
   {
     type: "youtube",
