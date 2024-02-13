@@ -45,19 +45,6 @@ export const getMentorById = async (id: number) => {
   return mentor.at(0) ?? null;
 };
 
-export async function checkIfMentorIsTaken(mentorId: number) {
-  try {
-    const res = await db
-      .select()
-      .from(teams)
-      .where(eq(teams.mentorId, mentorId));
-    if (res.length > 0) return true;
-    else return false;
-  } catch (err) {
-    return false;
-  }
-}
-
 const whitelist = ["abv@trading.212"];
 
 export const isInMentorWhitelist = (email: string) => {
