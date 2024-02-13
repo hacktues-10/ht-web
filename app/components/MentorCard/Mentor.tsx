@@ -18,6 +18,12 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 import ChooseMentor from "./ChooseMentor";
 
 interface MentorInterface {
@@ -35,95 +41,109 @@ const Mentor: React.FC<MentorInterface> = async ({
 }) => {
   const techn = convertToTechnology(mentor.technologies ?? "");
   return (
-    <Card className="w-[300px] duration-500 hover:scale-105 hover:cursor-pointer">
-      <Dialog>
-        <DialogTrigger>
-          <Image
-            src={`/mentors/${mentor.fileName}`}
-            alt={mentor.name}
-            width={300}
-            height={300}
-          />
-          <CardHeader className="text-left text-xl font-semibold sm:text-2xl">
-            <h2>{mentor.name}</h2>
-            {mentor.tuesVispusk && (
-              <CardDescription className="text-xs">
-                Випуск {mentor.tuesVispusk}
-              </CardDescription>
-            )}
+    <TooltipProvider>
+      <Tooltip>
+        <Card className="w-[300px] duration-500 hover:scale-105 hover:cursor-pointer">
+          <Dialog>
+            <TooltipTrigger>
+              <DialogTrigger>
+                <Image
+                  src={`/mentors/${mentor.fileName}`}
+                  alt={mentor.name}
+                  width={300}
+                  height={300}
+                />
+                <CardHeader className="text-left text-xl font-semibold sm:text-2xl">
+                  <h2>{mentor.name}</h2>
+                  {mentor.tuesVispusk && (
+                    <CardDescription className="text-xs">
+                      Випуск {mentor.tuesVispusk}
+                    </CardDescription>
+                  )}
 
-            {mentor.companyName != "Общността" && (
-              <CardDescription className="text-xs sm:text-sm">
-                {mentor.companyName} -{" "}
-                <span className="italic">{mentor.jobPosition}</span>
-              </CardDescription>
-            )}
-            {mentor.companyName == "Общността" && (
-              <CardDescription className="text-xs sm:text-sm">
-                <span className="italic">{mentor.jobPosition}</span>
-              </CardDescription>
-            )}
-            <ScrollArea className="h-[100px]">
-              <CardDescription className="">
-                {mentor.description}
-              </CardDescription>
-            </ScrollArea>
-          </CardHeader>
+                  {mentor.companyName != "Общността" && (
+                    <CardDescription className="text-xs sm:text-sm">
+                      {mentor.companyName} -{" "}
+                      <span className="italic">{mentor.jobPosition}</span>
+                    </CardDescription>
+                  )}
+                  {mentor.companyName == "Общността" && (
+                    <CardDescription className="text-xs sm:text-sm">
+                      <span className="italic">{mentor.jobPosition}</span>
+                    </CardDescription>
+                  )}
+                  <ScrollArea className="h-[100px]">
+                    <CardDescription className="">
+                      {mentor.description}
+                    </CardDescription>
+                  </ScrollArea>
+                </CardHeader>
+                <CardFooter>
+                  {techn && techn.length > 0 && (
+                    <ScrollArea
+                      className={cn(
+                        "h-min w-full flex-auto gap-2",
+                        techn.length > 5 && "h-[70px]",
+                      )}
+                    >
+                      {techn.map((technology, index) => (
+                        <Badge
+                          variant="outline"
+                          style={{
+                            backgroundColor: technology?.color,
+                            color: technology?.textColor,
+                          }}
+                          className="m-1 whitespace-nowrap text-sm"
+                          key={index}
+                        >
+                          {technology?.name}
+                        </Badge>
+                      ))}
+                    </ScrollArea>
+                  )}
+                </CardFooter>
+              </DialogTrigger>
+            </TooltipTrigger>
+
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>{mentor.name}</DialogTitle>
+                <p className="text-sm text-muted-foreground">{mentor.where}</p>
+                <p className="text-sm text-muted-foreground">
+                  Ще може да ви помогне на:
+                </p>
+                {mentor.schedule
+                  ?.split(", ")
+                  .map((info) => <span key={info}>• {info}</span>)}
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+
           <CardFooter>
-            {techn && techn.length > 0 && (
-              <ScrollArea
-                className={cn(
-                  "h-min w-full flex-auto gap-2",
-                  techn.length > 5 && "h-[70px]",
+            <IfHTFeatureOn feature="choose-mentor">
+              {participant &&
+                participant.team.isCaptain == true &&
+                participantTeam?.id &&
+                participantTeam?.mentorId == null &&
+                !isMentorTaken && (
+                  <ChooseMentor
+                    mentorId={mentor.id}
+                    teamId={participantTeam?.id}
+                  />
                 )}
-              >
-                {techn.map((technology, index) => (
-                  <Badge
-                    variant="outline"
-                    style={{
-                      backgroundColor: technology?.color,
-                      color: technology?.textColor,
-                    }}
-                    className="m-1 whitespace-nowrap text-sm"
-                    key={index}
-                  >
-                    {technology?.name}
-                  </Badge>
-                ))}
-              </ScrollArea>
-            )}
+              {isMentorTaken && (
+                <Button disabled={true} className="w-full text-black">
+                  {mentor.team?.name}
+                </Button>
+              )}
+            </IfHTFeatureOn>
           </CardFooter>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{mentor.name}</DialogTitle>
-            <p className="text-sm text-muted-foreground">{mentor.where}</p>
-            <p className="text-sm text-muted-foreground">
-              Ще може да ви помогне на:
-            </p>
-            {mentor.schedule
-              ?.split(", ")
-              .map((info) => <span key={info}>• {info}</span>)}
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
-      <CardFooter>
-        <IfHTFeatureOn feature="choose-mentor">
-          {participant &&
-            participant.team.isCaptain == true &&
-            participantTeam?.id &&
-            participantTeam?.mentorId == null &&
-            !isMentorTaken && (
-              <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
-            )}
-          {isMentorTaken && (
-            <Button disabled={true} className="w-full text-black">
-              {mentor.team?.name}
-            </Button>
-          )}
-        </IfHTFeatureOn>
-      </CardFooter>
-    </Card>
+        </Card>
+        <TooltipContent>
+          <p>Цъкни ме</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 
