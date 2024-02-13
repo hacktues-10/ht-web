@@ -2,11 +2,13 @@ import React from "react";
 import Image from "next/image";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
+import { getAllMentors } from "~/app/(full-layout)/mentors/service";
 import { getTeamById } from "~/app/(full-layout)/teams/service";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import { Card, CardDescription, CardFooter, CardHeader } from "../ui/card";
 import {
   Dialog,
@@ -19,18 +21,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import ChooseMentor from "./ChooseMentor";
 
 interface MentorInterface {
-  mentor: {
-    id: number;
-    name: string;
-    companyName: string | null;
-    description: string | null;
-    technologies: string | null;
-    fileName: string;
-    jobPosition: string | null;
-    tuesVispusk: string | null;
-    schedule: string | null;
-    where: string | null;
-  };
+  mentor: Awaited<ReturnType<typeof getAllMentors>>[number];
   participant: Awaited<ReturnType<typeof getParticipantFromSession> | null>;
   participantTeam: Awaited<ReturnType<typeof getTeamById> | null>;
   isMentorTaken: boolean;
@@ -117,19 +108,21 @@ const Mentor: React.FC<MentorInterface> = async ({
         </DialogContent>
       </Dialog>
       <CardFooter>
-        <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id ?? ""} />
+        <IfHTFeatureOn feature="choose-mentor">
+          {participant &&
+            participant.team.isCaptain == true &&
+            participantTeam?.id &&
+            participantTeam?.mentorId == null &&
+            !isMentorTaken && (
+              <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
+            )}
+          {isMentorTaken && (
+            <Button disabled={true} className="w-full text-black">
+              {mentor.team?.name}
+            </Button>
+          )}
+        </IfHTFeatureOn>
       </CardFooter>
-      <IfHTFeatureOn feature="choose-mentor">
-        {participant &&
-        participant.team.isCaptain == true &&
-        participantTeam?.id &&
-        participantTeam?.mentorId == null &&
-        !isMentorTaken ? (
-          <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
-        ) : (
-          <div></div>
-        )}
-      </IfHTFeatureOn>
     </Card>
   );
 };

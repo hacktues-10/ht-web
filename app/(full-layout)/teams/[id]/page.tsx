@@ -98,10 +98,7 @@ export default async function TeamDetailPage({
 
   const techn = convertToTechnology(team.technologies || "");
   const mentor = team.mentorId ? await getMentorById(team.mentorId) : null;
-  let url = null;
-  if (mentor?.fileName) {
-    url = await getImageUrl({ fileName: mentor?.fileName });
-  }
+
   const preparedParticipants = await getPreparedParticipants(
     loadedTeam,
     participant?.id ?? null,
@@ -315,14 +312,17 @@ export default async function TeamDetailPage({
                 </div>
               ))}
             {!team.isAlumni &&
-              (team.mentorId && url ? (
+              (team.mentorId && mentor && mentor.id && mentor.fileName ? (
                 <div
                   key={mentor?.id}
                   className="m-2 flex rounded-2xl border-2 p-2"
                 >
                   <div>
                     <Avatar>
-                      <AvatarImage></AvatarImage>
+                      <AvatarImage
+                        src={`/mentors/${mentor?.fileName}`}
+                        alt={mentor?.name}
+                      ></AvatarImage>
                       <AvatarFallback>?</AvatarFallback>
                     </Avatar>
                   </div>

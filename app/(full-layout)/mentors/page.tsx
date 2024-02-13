@@ -38,7 +38,7 @@ export default async function MentorsPage() {
             mentor={mentor}
             participant={participant}
             participantTeam={participantTeam}
-            isMentorTaken={mentor.team?.id !== null}
+            isMentorTaken={mentor.team !== null}
           />
         ))}
       </div>
