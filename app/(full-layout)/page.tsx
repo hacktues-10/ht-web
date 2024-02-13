@@ -338,12 +338,13 @@ function ArchiveSection({
   );
 }
 
-function IconParagraph({
+export function IconParagraph({
   children,
   icon: Icon,
-}: PropsWithChildren<{ icon: LucideIcon }>) {
+  className,
+}: PropsWithChildren<{ className?: string; icon: LucideIcon }>) {
   return (
-    <p className="flex items-center gap-2">
+    <p className={cn("flex items-center gap-2", className)}>
       <Icon className="h-4 w-4" /> {children}
     </p>
   );

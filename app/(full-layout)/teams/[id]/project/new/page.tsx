@@ -1,11 +1,9 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import invariant from "tiny-invariant";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
-import { Button } from "~/app/components/ui/button";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { BackToTeamsButton } from "../../../new/page";
+import { BackToTeamsButton } from "../../../_components/back-to-teams-button";
 import CreateProjectFrom from "./CreateProjectForm";
 
 export const metadata: Metadata = {
