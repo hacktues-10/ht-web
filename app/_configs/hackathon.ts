@@ -100,8 +100,8 @@ export const SCHEDULE = [
   {
     type: "workshop",
     title: "Embedded Basics",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui at nunc tincidunt tincidunt. Workshop за въведение в embedded системите и микроконтролерите. Подходящо за всички, които искат да развият уменията си в embedded разработката.",
+    description: `Workshop, който ще ви предостави знания за основите на вградените микрокомпютърни системи, като покрие ключови концепции, хардуерни и софтуерни аспекти. Той ще ви помогне в създаването на вашия хардуерен проект.
+Идеална възможност за всеки, който иска да се потопи в света на вградените микрокомпютърни системи и да разшири своите знания и умения.`,
     startDate: new Date("Feb 26 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [
@@ -114,9 +114,9 @@ export const SCHEDULE = [
   },
   {
     type: "workshop",
-    title: "React",
+    title: "Потребителски интерфейси с React",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui at nunc tincidunt tincidunt. Workshop за въведение в React. Подходящо за всички, които искат да развият уменията си в уеб разработката.",
+      "Потопете се в света на React и React Native, популярни библиотеки за създаване на UI за уеб и мобилни приложения. Димитър и Божидар ще ви покажат основите и как да започнете със създаването на проекти с помощта на React Native.",
     startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [MITKO, BOZHO],
@@ -124,8 +124,7 @@ export const SCHEDULE = [
   {
     type: "workshop",
     title: "Hack TUES X - В какво се забърках?",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui at nunc tincidunt tincidunt. Workshop за въведение в Hack TUES X. Подходящо за всички, които искат да разберат какво предстои на събитието.",
+    description: `Последният ни Workshop ще ви отговори на всички въпроси по емблематичния и обичания от всички туесари хакатон - Hack TUES. Какво е Hack TUES? Как протича той? В какво се забърках? Елате и разберете!`,
     startDate: new Date("Mar 06 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [
