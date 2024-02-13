@@ -21,11 +21,17 @@ export default async function MentorsPage() {
   const participant = await getParticipantFromSession();
   const participantTeam = await getTeamById(participant?.team.id ?? "");
   const mentors = await getAllMentors();
+  mentors.push(mentors[0]);
+  mentors.push(mentors[0]);
+  mentors.push(mentors[0]);
+  mentors.push(mentors[0]);
+  mentors.push(mentors[0]);
+  mentors.push(mentors[0]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <div className="flex min-h-screen flex-col items-center">
       <h1 className="mb-4 text-2xl font-semibold">Ментори:</h1>
-      <div className="flex w-full flex-row">
+      <div className="inline-grid w-full grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {mentors.map((mentor) => (
           <Mentor
             key={mentor.id}

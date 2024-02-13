@@ -1,13 +1,22 @@
+import { unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 
 import { getHTSession, HTSession } from "~/app/api/auth/session";
 import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
+import { MINUTE } from "~/app/utils";
 
-export const getAllMentors = async () => {
-  const allMentors = await selectFromMentors();
-  return allMentors;
-};
+export const getAllMentors = unstable_cache(
+  async () => {
+    const allMentors = await selectFromMentors();
+    return allMentors;
+  },
+  ["all-mentors"],
+  {
+    revalidate: 1 * MINUTE,
+    tags: ["mentors"],
+  },
+);
 
 // FIXME: do we even need closure here?
 const selectFromMentors = () =>
@@ -31,21 +40,9 @@ const selectFromMentors = () =>
     .from(mentors)
     .leftJoin(teams, eq(mentors.id, teams.mentorId));
 
-export const getMentorByEmail = async (email: string) => {
-  const mentor = await selectFromMentors().where(eq(mentors.email, email));
-  return mentor.at(0) ?? null;
-};
-
 export const getMentorById = async (id: number) => {
   const mentor = await selectFromMentors().where(eq(mentors.id, id));
   return mentor.at(0) ?? null;
-};
-
-export const getMentorFromSession = async () => {
-  const session = await getHTSession();
-  if (!session?.user?.email) return null;
-  // FIXME: better to use the user relation?
-  return getMentorByEmail(session.user.email);
 };
 
 export async function checkIfMentorIsTaken(mentorId: number) {

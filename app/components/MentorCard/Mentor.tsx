@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
-import { checkIfMentorIsTaken } from "~/app/(full-layout)/mentors/service";
 import { getTeamById } from "~/app/(full-layout)/teams/service";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
@@ -103,6 +102,13 @@ const Mentor: React.FC<MentorInterface> = async ({
               </ScrollArea>
             )}
           </CardFooter>
+          <CardFooter>
+            <ChooseMentor
+              mentorId={mentor.id}
+              teamId={participantTeam?.id ?? ""}
+            />
+          </CardFooter>
+
           <IfHTFeatureOn feature="choose-mentor">
             {participant &&
             participant.team.isCaptain == true &&

@@ -1,6 +1,7 @@
 "use client";
 
 import { chooseTeamMentor } from "~/app/(full-layout)/mentors/actions";
+import { Button } from "../ui/button";
 
 export default function ChooseMentor({
   mentorId,
@@ -17,8 +18,8 @@ export default function ChooseMentor({
   };
 
   return (
-    <button onClick={() => handleMentorChoose()} className="m-5 text-black">
+    <Button onClick={() => handleMentorChoose()} className="w-full text-black">
       Избери ментор
-    </button>
+    </Button>
   );
 }
