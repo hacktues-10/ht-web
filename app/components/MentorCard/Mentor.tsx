@@ -44,16 +44,16 @@ const Mentor: React.FC<MentorInterface> = async ({
 }) => {
   const techn = convertToTechnology(mentor.technologies ?? "");
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Card className="w-[300px] duration-500 hover:scale-105 hover:cursor-pointer">
+    <Card className="w-[300px] duration-500 hover:scale-105 hover:cursor-pointer">
+      <Dialog>
+        <DialogTrigger>
           <Image
             src={`/mentors/${mentor.fileName}`}
             alt={mentor.name}
             width={300}
             height={300}
           />
-          <CardHeader className="text-xl font-semibold sm:text-2xl">
+          <CardHeader className="text-left text-xl font-semibold sm:text-2xl">
             <h2>{mentor.name}</h2>
             {mentor.tuesVispusk && (
               <CardDescription className="text-xs">
@@ -102,39 +102,35 @@ const Mentor: React.FC<MentorInterface> = async ({
               </ScrollArea>
             )}
           </CardFooter>
-          <CardFooter>
-            <ChooseMentor
-              mentorId={mentor.id}
-              teamId={participantTeam?.id ?? ""}
-            />
-          </CardFooter>
-
-          <IfHTFeatureOn feature="choose-mentor">
-            {participant &&
-            participant.team.isCaptain == true &&
-            participantTeam?.id &&
-            participantTeam?.mentorId == null &&
-            !isMentorTaken ? (
-              <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
-            ) : (
-              <div></div>
-            )}
-          </IfHTFeatureOn>
-        </Card>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{mentor.name}</DialogTitle>
-          <p className="text-sm text-muted-foreground">{mentor.where}</p>
-          <p className="text-sm text-muted-foreground">
-            Ще може да ви помогне на:
-          </p>
-          {mentor.schedule
-            ?.split(", ")
-            .map((info) => <span key={info}>• {info}</span>)}
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{mentor.name}</DialogTitle>
+            <p className="text-sm text-muted-foreground">{mentor.where}</p>
+            <p className="text-sm text-muted-foreground">
+              Ще може да ви помогне на:
+            </p>
+            {mentor.schedule
+              ?.split(", ")
+              .map((info) => <span key={info}>• {info}</span>)}
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+      <CardFooter>
+        <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id ?? ""} />
+      </CardFooter>
+      <IfHTFeatureOn feature="choose-mentor">
+        {participant &&
+        participant.team.isCaptain == true &&
+        participantTeam?.id &&
+        participantTeam?.mentorId == null &&
+        !isMentorTaken ? (
+          <ChooseMentor mentorId={mentor.id} teamId={participantTeam?.id} />
+        ) : (
+          <div></div>
+        )}
+      </IfHTFeatureOn>
+    </Card>
   );
 };
 

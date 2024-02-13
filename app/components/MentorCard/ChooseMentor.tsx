@@ -11,10 +11,11 @@ export default function ChooseMentor({
   teamId: string;
 }) {
   const handleMentorChoose = async () => {
-    const res = await chooseTeamMentor(mentorId, teamId);
-    if (res.success) {
-      window.location.reload();
-    }
+    console.log(mentorId, teamId);
+    // const res = await chooseTeamMentor(mentorId, teamId);
+    // if (res.success) {
+    //   window.location.reload();
+    // }
   };
 
   return (
