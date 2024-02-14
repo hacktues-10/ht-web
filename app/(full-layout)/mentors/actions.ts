@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
+import { DevBundlerService } from "next/dist/server/lib/dev-bundler-service";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 
@@ -35,13 +36,21 @@ export const checkifMentorExists = async (id: number) => {
 export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
     const team = await db.select().from(teams).where(eq(teams.id, teamId));
+
+    if (team.length === 0) return { success: false };
     if (!team[0].discordRoleId) return { success: false };
+    if (team[0].mentorId !== null) {
+      return { success: false };
+    }
+
     await db
       .update(teams)
       .set({ mentorId: mentorId })
       .where(eq(teams.id, teamId));
-    revalidateTag("teams");
+
     revalidateTag("mentors");
+    revalidateTag("teams");
+
     return { success: true };
   } catch (err) {
     console.log(err);

@@ -45,7 +45,7 @@ const Mentor: React.FC<MentorInterface> = async ({
       <Tooltip>
         <Card className="w-[300px] duration-500 hover:scale-105 hover:cursor-pointer">
           <Dialog>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <DialogTrigger>
                 <Image
                   src={`/mentors/${mentor.fileName}`}
