@@ -314,7 +314,7 @@ export default async function TeamDetailPage({
             {!team.isAlumni &&
               (team.mentorId && mentor && mentor.id && mentor.fileName ? (
                 <div className="mt-4 rounded-xl border-2 py-2">
-                  <h2 className="m-auto ml-4 text-left text-xl">Ментор:</h2>
+                  <h2 className="m-auto ml-4 text-left text-xl">Ментор</h2>
                   <div
                     key={mentor?.id}
                     className="m-2 flex rounded-2xl border-2 p-2"
