@@ -21,12 +21,6 @@ export default async function MentorsPage() {
   const participant = await getParticipantFromSession();
   const participantTeam = await getTeamById(participant?.team.id ?? "");
   const mentors = await getAllMentors();
-  mentors.push(mentors[0]);
-  mentors.push(mentors[0]);
-  mentors.push(mentors[0]);
-  mentors.push(mentors[0]);
-  mentors.push(mentors[0]);
-  mentors.push(mentors[0]);
 
   return (
     <div className="flex min-h-screen flex-col items-center">

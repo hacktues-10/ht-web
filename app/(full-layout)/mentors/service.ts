@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { getHTSession, HTSession } from "~/app/api/auth/session";
 import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
-import { MINUTE } from "~/app/utils";
+import { SECOND } from "~/app/utils";
 
 export const getAllMentors = unstable_cache(
   async () => {
@@ -13,7 +13,7 @@ export const getAllMentors = unstable_cache(
   },
   ["all-mentors"],
   {
-    revalidate: 1 * MINUTE,
+    revalidate: 1 * SECOND,
     tags: ["mentors"],
   },
 );

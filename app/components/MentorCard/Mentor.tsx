@@ -40,40 +40,54 @@ const Mentor: React.FC<MentorInterface> = async ({
   isMentorTaken,
 }) => {
   const techn = convertToTechnology(mentor.technologies ?? "");
+
   return (
     <TooltipProvider>
       <Tooltip>
-        <Card className="w-[300px] border-2 border-sand duration-500 hover:scale-105 hover:cursor-pointer">
+        <Card className="w-[300px] overflow-hidden border-2 border-sand duration-500 hover:scale-105 hover:cursor-pointer">
           <Dialog>
             <TooltipTrigger asChild>
               <DialogTrigger>
-                <div className="m-2">
-                  <img
+                <div className="m-2 h-[280px] overflow-hidden rounded-xl">
+                  <Image
                     src={`/mentors/${mentor.fileName}`}
-                    className="rounded-xl"
+                    className="overflow-hidden rounded-xl"
                     alt={mentor.name}
+                    width={298}
+                    height={390}
                   />
                 </div>
                 <CardHeader className="text-left text-xl font-semibold sm:text-2xl">
-                  <h2>{mentor.name}</h2>
-                  {mentor.tuesVispusk && (
-                    <CardDescription className="text-xs">
-                      Випуск {mentor.tuesVispusk}
-                    </CardDescription>
-                  )}
+                  <ScrollArea className="h-[200px]">
+                    <h2>{mentor.name}</h2>
+                    {mentor.tuesVispusk && mentor.tuesVispusk != "-" && (
+                      <CardDescription className="text-xs">
+                        Випуск {mentor.tuesVispusk}
+                      </CardDescription>
+                    )}
 
-                  {mentor.companyName != "Общността" && (
-                    <CardDescription className="text-xs sm:text-sm">
-                      {mentor.companyName} -{" "}
-                      <span className="italic">{mentor.jobPosition}</span>
-                    </CardDescription>
-                  )}
-                  {mentor.companyName == "Общността" && (
-                    <CardDescription className="text-xs sm:text-sm">
-                      <span className="italic">{mentor.jobPosition}</span>
-                    </CardDescription>
-                  )}
-                  <ScrollArea className="h-[100px]">
+                    {mentor.companyName != "Общността" &&
+                    mentor.companyName &&
+                    mentor.companyName.trim() != "-" ? (
+                      <CardDescription className="text-xs sm:text-sm">
+                        {mentor.companyName} -{" "}
+                        <span className="italic">{mentor.jobPosition}</span>
+                      </CardDescription>
+                    ) : (
+                      mentor.jobPosition &&
+                      mentor.jobPosition != "-" && (
+                        <CardDescription className="text-xs sm:text-sm">
+                          <span className="italic">{mentor.jobPosition}</span>
+                        </CardDescription>
+                      )
+                    )}
+
+                    {mentor.companyName == "Общността" && (
+                      <CardDescription className="text-xs sm:text-sm">
+                        <span className="italic">{mentor.jobPosition}</span>
+                      </CardDescription>
+                    )}
+
                     <CardDescription className="">
                       {mentor.description}
                     </CardDescription>
@@ -120,7 +134,7 @@ const Mentor: React.FC<MentorInterface> = async ({
             </DialogContent>
           </Dialog>
 
-          <CardFooter>
+          <CardFooter className=" ">
             <IfHTFeatureOn feature="choose-mentor">
               {participant &&
                 participant.team.isCaptain == true &&
