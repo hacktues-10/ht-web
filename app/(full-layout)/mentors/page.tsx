@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { getTeamById } from "~/app/(full-layout)/teams/service";
 import Mentor from "~/app/components/MentorCard/Mentor";
