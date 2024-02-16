@@ -44,22 +44,24 @@ const Mentor: React.FC<MentorInterface> = async ({
   return (
     <TooltipProvider>
       <Tooltip>
-        <Card className="w-[300px] overflow-hidden border-2 border-sand duration-500 hover:scale-105 hover:cursor-pointer">
+        <Card className="w-[360px] overflow-hidden border-2 border-gray-400 duration-500 hover:scale-105 hover:cursor-pointer hover:border-sand">
           <Dialog>
             <TooltipTrigger asChild>
               <DialogTrigger>
-                <div className="m-2 h-[280px] overflow-hidden rounded-xl">
+                <div className="mt-4 h-[300px] w-full overflow-hidden rounded-xl">
                   <Image
                     src={`/mentors/${mentor.fileName}`}
-                    className="overflow-hidden rounded-xl"
+                    className="m-auto overflow-hidden rounded-xl"
                     alt={mentor.name}
-                    width={298}
-                    height={390}
+                    width={300}
+                    height={300}
                   />
                 </div>
-                <CardHeader className="text-left text-xl font-semibold sm:text-2xl">
-                  <ScrollArea className="h-[200px]">
-                    <h2>{mentor.name}</h2>
+                <div className="h-min px-6 pt-6 text-left text-xl font-semibold sm:text-2xl">
+                  <h2>{mentor.name}</h2>
+                </div>
+                <CardHeader className="pt-0 text-left text-xl font-semibold sm:text-2xl">
+                  <ScrollArea className="h-[100px]">
                     {mentor.tuesVispusk && mentor.tuesVispusk != "-" && (
                       <CardDescription className="text-xs">
                         Випуск {mentor.tuesVispusk}
@@ -94,28 +96,21 @@ const Mentor: React.FC<MentorInterface> = async ({
                   </ScrollArea>
                 </CardHeader>
                 <CardFooter>
-                  {techn && techn.length > 0 && (
-                    <ScrollArea
-                      className={cn(
-                        "h-min w-full flex-auto gap-2",
-                        techn.length > 5 && "h-[70px]",
-                      )}
-                    >
-                      {techn.map((technology, index) => (
-                        <Badge
-                          variant="outline"
-                          style={{
-                            backgroundColor: technology?.color,
-                            color: technology?.textColor,
-                          }}
-                          className="m-1 whitespace-nowrap text-sm"
-                          key={index}
-                        >
-                          {technology?.name}
-                        </Badge>
-                      ))}
-                    </ScrollArea>
-                  )}
+                  <ScrollArea className={cn("h-[70px] w-full flex-auto gap-2")}>
+                    {techn.map((technology, index) => (
+                      <Badge
+                        variant="outline"
+                        style={{
+                          backgroundColor: technology?.color,
+                          color: technology?.textColor,
+                        }}
+                        className="m-1 whitespace-nowrap text-sm"
+                        key={index}
+                      >
+                        {technology?.name}
+                      </Badge>
+                    ))}
+                  </ScrollArea>
                 </CardFooter>
               </DialogTrigger>
             </TooltipTrigger>
