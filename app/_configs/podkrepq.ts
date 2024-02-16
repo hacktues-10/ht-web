@@ -1,14 +1,10 @@
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
-// import darikBusinessReviewArticleLogo from "../assets/media/dbr.png";
-// import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
 //Partners
 import a1Logo from "../assets/sponsors/alpha/a1.png";
-//Media
-
 //Alpha sponsors
 import appolicaLogo from "../assets/sponsors/alpha/appolica.png";
 import boschECSLogo from "../assets/sponsors/alpha/bosch-engineering-center-sofia.png";
@@ -497,7 +493,7 @@ const MEDIA_PARTNERS = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     customClass:
-      "bg-[linear-gradient(180deg, #24587d 0%, #1578b2 68%, #1578b2 100%)]",
+      "bg-[linear-gradient(180deg,_#24587d_0%,_#1578b2_68%,_#1578b2_100%)]",
     supportedEditions: [],
   },
   {
