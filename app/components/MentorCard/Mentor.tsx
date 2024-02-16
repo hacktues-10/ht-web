@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getAllMentors } from "~/app/(full-layout)/mentors/service";
 import { getTeamById } from "~/app/(full-layout)/teams/service";
@@ -43,24 +44,31 @@ const Mentor: React.FC<MentorInterface> = async ({
   return (
     <TooltipProvider>
       <Tooltip>
-        <Card className="w-[360px] overflow-hidden border-2 border-gray-400 duration-500 hover:scale-105 hover:cursor-pointer hover:border-sand">
+        <Card className="w-[290px] overflow-hidden border-2 border-gray-400 duration-500 hover:scale-105 hover:cursor-pointer hover:border-sand sm:w-[360px]">
           <Dialog>
             <TooltipTrigger asChild>
               <DialogTrigger>
-                <div className="mt-4 h-[300px] w-full overflow-hidden rounded-xl">
+                <div className="mt-4 h-[280px] max-h-[280px] w-full overflow-hidden rounded-xl sm:h-[300px] sm:max-h-[300px]">
                   <Image
                     src={`/mentors/${mentor.fileName}`}
-                    className="m-auto overflow-hidden rounded-xl"
+                    className="mx-auto overflow-hidden rounded-xl sm:hidden"
+                    alt={mentor.name}
+                    width={260}
+                    height={260}
+                  />
+                  <Image
+                    src={`/mentors/${mentor.fileName}`}
+                    className="mx-auto hidden overflow-hidden rounded-xl sm:block"
                     alt={mentor.name}
                     width={300}
                     height={300}
                   />
                 </div>
-                <div className="h-min px-6 pt-6 text-left text-xl font-semibold sm:text-2xl">
+                <div className="h-min px-6 pt-2 text-left text-xl font-semibold sm:pt-6 sm:text-2xl">
                   <h2>{mentor.name}</h2>
                 </div>
                 <CardHeader className="pt-0 text-left text-xl font-semibold sm:text-2xl">
-                  <ScrollArea className="h-[100px]">
+                  <ScrollArea className="h-[100px] overflow-ellipsis">
                     {mentor.tuesVispusk && mentor.tuesVispusk != "-" && (
                       <CardDescription className="text-xs">
                         Випуск {mentor.tuesVispusk}
@@ -114,16 +122,20 @@ const Mentor: React.FC<MentorInterface> = async ({
               </DialogTrigger>
             </TooltipTrigger>
 
-            <DialogContent>
-              <DialogHeader>
+            <DialogContent className="w-2/3 rounded-xl text-left">
+              <DialogHeader className="text-left">
                 <DialogTitle>{mentor.name}</DialogTitle>
-                <p className="text-sm text-muted-foreground">{mentor.where}</p>
+                <p className="text-sm text-muted-foreground">
+                  {mentor.where == "И двете"
+                    ? "На живо и онлайн"
+                    : mentor.where}
+                </p>
                 <p className="text-sm text-muted-foreground">
                   Ще може да ви помогне на:
                 </p>
-                {mentor.schedule
-                  ?.split(", ")
-                  .map((info) => <span key={info}>• {info}</span>)}
+                {mentor.schedule?.split(", ").map((info) => {
+                  return info.trim() != "" && <span key={info}>• {info}</span>;
+                })}
               </DialogHeader>
             </DialogContent>
           </Dialog>

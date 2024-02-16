@@ -22,12 +22,10 @@ export default async function MentorsPage() {
   const participantTeam = await getTeamById(participant?.team.id ?? "");
   const mentors = await getAllMentors();
 
-  console.log(mentors[0]);
-
   return (
-    <div className="flex min-h-screen flex-col items-center">
+    <div className="flex min-h-screen flex-col items-center justify-center">
       <h1 className="mb-4 text-4xl font-bold text-sand">Ментори</h1>
-      <div className="m-5 inline-grid w-full grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
+      <div className="m-1 inline-grid w-full grid-cols-1 gap-8 sm:m-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
         {mentors.map((mentor) => (
           <Mentor
             key={mentor.id}
