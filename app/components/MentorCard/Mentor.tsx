@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getAllMentors } from "~/app/(full-layout)/mentors/service";
 import { getTeamById } from "~/app/(full-layout)/teams/service";
