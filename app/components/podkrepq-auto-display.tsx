@@ -234,13 +234,9 @@ function PodkrepqLogo({
             "pointer-events-none opacity-0 [transform:translateY(110%)_rotateX(-90deg)_translateY(100%)]",
           index === prevPrevIndex &&
             "pointer-events-none opacity-0 [transform:translateY(-110%)_rotateX(90deg)_translateY(-100%)]",
+          "customClass" in podkrepqsht && `${podkrepqsht.customClass}`,
         )}
         target="_blank"
-        style={
-          "customBg" in podkrepqsht
-            ? { background: podkrepqsht.customBg }
-            : undefined
-        }
       >
         <Image
           className={cn(
