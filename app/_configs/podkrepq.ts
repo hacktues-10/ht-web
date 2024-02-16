@@ -1,13 +1,10 @@
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
-// import darikBusinessReviewArticleLogo from "../assets/media/dbr.png";
-// import devstylerArticleLogo from "../assets/media/devstyler.png";
 import investorLogo from "../assets/media/investor.png";
 import karieribgLogo from "../assets/media/karieribg.png";
 //Partners
 import a1Logo from "../assets/sponsors/alpha/a1.png";
-//Media
 
 //Alpha sponsors
 import appolicaLogo from "../assets/sponsors/alpha/appolica.png";
