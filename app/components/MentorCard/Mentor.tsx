@@ -126,12 +126,11 @@ const Mentor: React.FC<MentorInterface> = async ({
               <DialogHeader className="text-left">
                 <DialogTitle>{mentor.name}</DialogTitle>
                 <p className="text-sm text-muted-foreground">
+                  Ще може да ви помогне{" "}
                   {mentor.where == "И двете"
-                    ? "На живо и онлайн"
-                    : mentor.where}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Ще може да ви помогне на:
+                    ? "на живо и онлайн"
+                    : mentor.where?.toLowerCase()}{" "}
+                  на:
                 </p>
                 {mentor.schedule?.split(", ").map((info) => {
                   return info.trim() != "" && <span key={info}>• {info}</span>;
