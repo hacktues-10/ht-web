@@ -18,7 +18,7 @@ export const NAVIGATION_CATEGORIES = [
       {
         label: "Ментори",
         url: "/mentors",
-        isVisible: false,
+        isVisible: true,
         isNew: false,
       },
       {
