@@ -17,7 +17,6 @@ import stenikLogo from "../assets/sponsors/alpha/stenik.png";
 import tbsLogo from "../assets/sponsors/alpha/tbs.png";
 import trading212Logo from "../assets/sponsors/alpha/trading212.png";
 //Alpha sponsors
-
 //Beta sponsors
 import chaosLogo from "../assets/sponsors/beta/chaos1.png";
 import devrixLogo from "../assets/sponsors/beta/devrix.png";
