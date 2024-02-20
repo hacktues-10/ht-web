@@ -496,7 +496,6 @@ const MEDIA_PARTNERS = [
       "bg-[linear-gradient(180deg,_#24587d_0%,_#1578b2_68%,_#1578b2_100%)]",
     supportedEditions: [],
   },
-
   {
     name: "Kaldata",
     logo: kaldataLogo,
