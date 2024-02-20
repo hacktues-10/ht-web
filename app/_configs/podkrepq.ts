@@ -34,6 +34,7 @@ import tumbaSolutionsLogo from "../assets/sponsors/beta/tumba-solutions.png";
 //Gamma sponsors
 import accediaLogo from "../assets/sponsors/gamma/accedia.png";
 import asteaSolutionsLogo from "../assets/sponsors/gamma/astea-solutions.png";
+import dreamixLogo from "../assets/sponsors/gamma/dreamix.png";
 import dynamoSoftwareLogo from "../assets/sponsors/gamma/dynamo-software.png";
 import globalFoundriesLogo from "../assets/sponsors/gamma/globalfoundries.png";
 import nemetschekLogo from "../assets/sponsors/gamma/nemetschek.png";
@@ -287,6 +288,14 @@ const GAMMA_SPONSORS = [
       "hacktues-3",
       "hacktues-2",
     ],
+  },
+  {
+    name: "Dreamix",
+    logo: dreamixLogo,
+    url: "https://dreamix.eu/",
+    description:
+      "От 17 години Dreamix е една от най-успешните и бързо разрастващи се технологични компании, основани от млади ентусиасти в България. От създаването си през 2006 г., като начинание на шест студенти, днес компанията работи с десетки партньори от целия свят и има над 250 души екип. Ключов фактор за този устойчив успех е постоянният акцент върху хората, ценностите и високото качество на предоставяните услуги.",
+    supportedEditions: ["hacktues-security"],
   },
   {
     name: "Dynamo Software",
