@@ -50,7 +50,6 @@ import kaldataLogo from "../assets/sponsors/media-partners/kaldata.webp";
 import managerLogo from "../assets/sponsors/media-partners/manager.png";
 import obektiBgLogo from "../assets/sponsors/media-partners/obekti.jpg";
 //Gamma sponsors
-
 //Partners
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
 import boniLogo from "../assets/sponsors/partners/boni.png";
