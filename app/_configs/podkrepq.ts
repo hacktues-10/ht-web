@@ -22,6 +22,7 @@ import trading212Logo from "../assets/sponsors/alpha/trading212.png";
 import chaosLogo from "../assets/sponsors/beta/chaos1.png";
 import devrixLogo from "../assets/sponsors/beta/devrix.png";
 import experianLogo from "../assets/sponsors/beta/experian.png";
+import extremeLabsLogo from "../assets/sponsors/beta/extremeLabs.png";
 import haemimontLogo from "../assets/sponsors/beta/haemimont.png";
 import itGixLogo from "../assets/sponsors/beta/itGix.png";
 import sirmaLogo from "../assets/sponsors/beta/sirma.png";
@@ -193,6 +194,13 @@ const BETA_SPONSORS = [
       "hacktues-gg",
       "hacktues-6",
     ],
+  },
+  {
+    name: "Extreme Labs",
+    logo: extremeLabsLogo,
+    url: "https://extremepeering.net/en/",
+    description:
+      "Extreme Labs е българска компания помагаща на доставчиците на интернет и инфраструктура в Индия и Южна Азия да постигнат пълния си потенциал чрез иновативни решения за оптимизиране на скоростта, обхвата и качеството, което предлагат на клиентите си. В екипа на компанията работят както силни мрежови специалисти, благодарение на които създадохме и оперираме най-големия интернет ексчейндж в Индия, така и софтуеърни специалисти пишещи на C++, Go и Python работещи по софтуеърни продукти ползвани от над 400 интернет доставчика. Агитката от ТУЕС в компанията е голяма и затова се радваме да можем да подкрепим тазгодишният хакатон! 🙂",
   },
   {
     name: "Haemimont",
