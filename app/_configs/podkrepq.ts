@@ -57,6 +57,7 @@ import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import culligan from "../assets/sponsors/partners/culligan.jpg";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
+import robotevLogo from "../assets/sponsors/partners/robotev.webp";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
 //Media partners
@@ -435,7 +436,13 @@ const PARTNERS = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     supportedEditions: [],
   },
-
+  {
+    name: "Роботев",
+    logo: robotevLogo,
+    description: `Роботев стартира дейността си като онлайн магазин за хоби роботика и електроника през 2008, когато става първият дистрибутор на Arduino за България. Днес компанията има и физически магазин в София и предлага продуктите на много от най-разпознаваемите производители на компоненти за хоби роботика като Raspberry Pi, SparkFun, Adafruit и Pololu.
+Освен с търговска дейност, Роботев се занимава и с разработка на електронни устройства и интерактивни инсталации. Компанията разполага с екип от софтуерни и хардуерни инженери и е разработвала устройства за умен дом, медицински устройства и корабни симулатори. Роботев работи с всички големи рекламни агенции в България и е реализирал проекти за световни марки като Heineken, Nissan, Twitter, Absolut, Cartoon Network, Sobranie, IQOS, Renault и много други.`,
+    url: "https://robotev.com/",
+  },
   {
     name: "Smartcom",
     logo: smartcomLogo,
