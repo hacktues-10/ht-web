@@ -56,6 +56,7 @@ import boniLogo from "../assets/sponsors/partners/boni.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import culligan from "../assets/sponsors/partners/culligan.jpg";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
+import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png"
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
 import robotevLogo from "../assets/sponsors/partners/robotev.webp";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
@@ -395,7 +396,7 @@ const PARTNERS = [
     logo: boniLogo,
     url: "http://www.boniholding.com/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "Бони Холдинг е  най – големият производител на свинско месо в България и един от водещите производители в хранителната индустрия на страната. Дружеството осигурява 30% от прясното свинско месо в България. Бони Холдинг се развива основно в направление свиневъдство и месопреработка, като има и фуражно производство - помощна функция към свиневъдството. Портфолиото от продукти включва от живи животни, свежи меса и разфасовки до колбаси и полуфабрикати.",
     supportedEditions: [],
   },
   {
@@ -411,7 +412,7 @@ const PARTNERS = [
     logo: culligan,
     url: "https://www.culligan.bg/",
     description:
-      "Culligan Bulgaria- всичко, от което се нуждаете, за да осигурите чиста, висококачествена вода за Вашия бизнес или домакинство. Водата, която обичате!<br>Ние в Culligan се ангажираме да изградим по-добър, по-устойчив свят чрез подобряване както на социалното, така и на нашето въздействие върху околната среда.  В Culligan вярваме, че по-чистата и по-здравословна вода може да допринесе за подобряване на живота на хората по света и е ключов двигател към решаването на някои от най-големите предизвикателства, които стоят в нашето бъдеще.",
+      "Culligan Bulgaria- всичко, от което се нуждаете, за да осигурите чиста, висококачествена вода за Вашия бизнес или домакинство. Водата, която обичате! Ние в Culligan се ангажираме да изградим по-добър, по-устойчив свят чрез подобряване както на социалното, така и на нашето въздействие върху околната среда.  В Culligan вярваме, че по-чистата и по-здравословна вода може да допринесе за подобряване на живота на хората по света и е ключов двигател към решаването на някои от най-големите предизвикателства, които стоят в нашето бъдеще.",
     supportedEditions: ["hacktues-security"],
   },
   {
@@ -426,6 +427,16 @@ const PARTNERS = [
       "hacktues-gg",
       "hacktues-6",
       "hacktues-365",
+    ],
+  },
+  {
+    name: "Green Cherry Cafe",
+    logo: greenCherryLogo,
+    url: "https://bg-bg.facebook.com/greencherrycafe/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [
+      "hacktues-security",
     ],
   },
   {
