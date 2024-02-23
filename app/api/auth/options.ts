@@ -128,7 +128,7 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като отговорите на този имейл или пишете на hacktues@elsys-bg.org
+        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като пишете на hacktues@elsys-bg.org
       </td>
     </tr>
   </table>
@@ -146,7 +146,7 @@ ${url}
 
 Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта
 на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение.
-При нужда се свържете с нас като отговорите на този имейл или пишете на:
+При нужда се свържете с нас като пишете на:
 hacktues@elsys-bg.org
 `;
 }
@@ -157,28 +157,35 @@ async function sendEmail(
   url: string,
   theme: Theme,
 ) {
-  const { token: accessToken } = await oAuth2Client.getAccessToken();
+  // const { token: accessToken } = await oAuth2Client.getAccessToken();
   const transport = createTransport({
-    // @ts-ignore
-    service: "gmail",
+    //   // @ts-expect-error защото типовете на nodemailer не са актуални
+    //   service: "gmail",
     tls: {
       rejectUnauthorized: false,
     },
+    host: "smtp.eu.mailgun.org",
+    secure: true,
     auth: {
-      type: "OAuth2",
-      user: env.EMAIL_FROM,
-      clientId: env.GMAIL_CLIENT_ID,
-      clientSecret: env.GMAIL_CLIENT_SECRET,
-      accessToken,
-      refreshToken: env.GMAIL_REFRESH_TOKEN,
+      user: "postmaster@mg.hacktues.bg",
+      pass: "eba5d107d6dea62c0fd754e959e5d6bd-69a6bd85-ad4af96f",
     },
+    // }
+    //   auth: {
+    //     type: "OAuth2",
+    //     user: env.EMAIL_FROM,
+    //     clientId: env.GMAIL_CLIENT_ID,
+    //     clientSecret: env.GMAIL_CLIENT_SECRET,
+    //     accessToken,
+    //     refreshToken: env.GMAIL_REFRESH_TOKEN,
+    // },
   });
 
   return await transport.sendMail({
     to: identifier,
     from: {
       name: "Hack TUES X",
-      address: env.EMAIL_FROM,
+      address: "noreply@hacktues.bg",
     },
     subject: `Влизане в Hack TUES X`,
     html: html({ url, identifier, theme }),

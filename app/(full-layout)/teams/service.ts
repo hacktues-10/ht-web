@@ -14,6 +14,7 @@ import {
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import { discordUsers, invitations, particpants, teams } from "~/app/db/schema";
+import { env } from "~/app/env.mjs";
 import {
   formatParticipantDiscordNick,
   getParticipantById,
@@ -42,7 +43,7 @@ export const getAllTeams = unstable_cache(
       },
     });
   },
-  ["all-teams"],
+  ["all-teams", env.VERCEL_ENV],
   {
     revalidate: 5 * MINUTE,
     tags: ["teams"],
@@ -65,16 +66,18 @@ export async function createTeam(team: {
 
   const captain = await getParticipantById(team.captainId);
   invariant(!captain?.isDisqualified, "Участникът е дисквалифициран.");
-  const roleId = await createDiscordTeam(slugify(team.name));
   const discordMember = await db
     .select()
     .from(discordUsers)
     .where(eq(discordUsers.participantId, team.captainId));
+
   invariant(
     !(discordMember.length < 1 || !discordMember[0].discordId),
     "Failed to get discord member",
   );
   // TODO: verify if name is ok
+  const roleId = await createDiscordTeam(team.name, slugify(team.name));
+
   const results = await db
     .insert(teams)
     .values({

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
 import { LogOutIcon, User } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
 import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
@@ -20,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "~/app/components/ui/dropdown-menu";
 import { SignInButton, SignOutButton } from "../buttons";
+import CustomizableDialog from "../CustomizableDialog";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
 import { Button } from "../ui/button";
 import {
@@ -39,7 +41,7 @@ export const Header = () => {
   return (
     <animated.header
       style={{
-        // @ts-ignore because it works, even though the types don't let me pass variables
+        // @ts-expect-error because it works, even though the types don't let me pass variables
         "--header-bg-opacity": scrollY
           .to([0, 100], [0, MAX_OPACITY])
           .to((x) => Math.min(x, MAX_OPACITY)),
@@ -69,7 +71,7 @@ export const Header = () => {
           />
         )}
       {headerData && headerData.avatarName !== null && (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger className="focus-visible:ring-offset-3 hidden rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring sm:block">
             <TooltipProvider>
               <Tooltip>
@@ -109,28 +111,24 @@ export const Header = () => {
               </DropdownMenuItem>
             )}
             <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      size="default"
-                      variant="ghost"
-                      className="focus:bg-current/10 hover:bg-current/10 hidden h-full w-full px-0 py-2 md:inline-flex"
-                      asChild
-                    >
-                      <SignOutButton>
-                        <div className="hover:bg-current/10 flex items-center focus:bg-current">
-                          <LogOutIcon className="scale-90 text-center text-destructive" />
-                          <p className="focus:bg-current/10 hover:bg-current/10 ml-2 text-center text-destructive">
-                            Изход
-                          </p>
-                        </div>
-                      </SignOutButton>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>Изход</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <div onClick={(event) => event.stopPropagation()}>
+                <CustomizableDialog
+                  dialogTitle="Изход"
+                  dialogDescription="Сигурни ли сте, че искате да излезете от акаунта си?"
+                  actionTitle="Изход"
+                  cancelTitle="Назад"
+                  actionFunction={() => {
+                    signOut();
+                  }}
+                >
+                  <div className="hover:bg-current/10 flex items-center focus:bg-current">
+                    <LogOutIcon className="scale-90 text-center text-destructive" />
+                    <p className="focus:bg-current/10 hover:bg-current/10 ml-2 text-center text-destructive">
+                      Изход
+                    </p>
+                  </div>
+                </CustomizableDialog>
+              </div>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

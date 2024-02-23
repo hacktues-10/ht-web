@@ -16,6 +16,13 @@ export const NAVIGATION_CATEGORIES = [
         isNew: false,
       },
       {
+        // TODO: да го преместим в "За Hack TUES" категорията
+        label: "Програма",
+        url: "/schedule",
+        isVisible: true,
+        isNew: true,
+      },
+      {
         label: "Ментори",
         url: "/mentors",
         isVisible: false,
@@ -74,6 +81,12 @@ export const NAVIGATION_CATEGORIES = [
         url: "/partners",
         isVisible: true,
         isNew: false,
+      },
+      {
+        label: "Медиите за нас",
+        url: "/media",
+        isVisible: true,
+        isNew: true,
       },
     ],
   },

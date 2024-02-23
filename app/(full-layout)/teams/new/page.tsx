@@ -1,7 +1,5 @@
-import Link from "next/link";
-
 import { getHTSession, signInRedirect } from "~/app/api/auth/session";
-import { Button } from "~/app/components/ui/button";
+import { BackToTeamsButton } from "../_components/back-to-teams-button";
 import { CreateTeamForm } from "./CreateTeamForm";
 
 export default async function CreateTeamPage() {
@@ -17,16 +15,5 @@ export default async function CreateTeamPage() {
       </div>
       <CreateTeamForm />
     </div>
-  );
-}
-
-export function BackToTeamsButton() {
-  return (
-    <Button asChild variant="secondary" className="mt-8 backdrop-blur-md">
-      <Link href="/teams">
-        {"<- "}
-        Назад
-      </Link>
-    </Button>
   );
 }

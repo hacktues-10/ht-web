@@ -2,38 +2,45 @@
 
 import { eq } from "drizzle-orm";
 
-import { removeTeamMember } from "~/app/(full-layout)/teams/actions";
-import { db } from "~/app/db";
+import { getAdminFromSession } from "../(full-layout)/api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
+import { removeTeamMember } from "../(full-layout)/teams/actions";
+import { db } from "../db";
 import {
   discordUsers,
   invitations,
   joinRequests,
   notifications,
   particpants,
-} from "~/app/db/schema";
-import { env } from "~/app/env.mjs";
-import { getAdminFromSession } from "../service";
+  teams,
+  users,
+} from "../db/schema";
+import { env } from "../env.mjs";
+import { getParticipantByEmail } from "./service";
 
-export async function getParticipantsAdmin() {
-  const admin = await getAdminFromSession();
-  if (!admin) {
-    return [];
-  }
-
-  const participants = await db.select().from(particpants);
-
-  return participants.map((participant) => ({
-    ...participant,
-    createdAt: participant.createdAt.toISOString(),
-    isLookingForTeam: participant.isLookingForTeam ? "Yes" : "No",
-    isDisqualified: participant.isDisqualified ? "Yes" : "No",
-    isCaptain: participant.isCaptain ? "Yes" : "No",
-  }));
+interface Participant {
+  label: string;
+  value: string;
+  team: string | null;
+  firstName: string;
+  middleName: string | null;
+  lastName: string;
+  email: string | null;
+  phoneNumber: string;
+  grade: string;
+  parallel: string;
+  isLookingForTeam: boolean;
+  tshirt: number | null;
+  isCaptain: boolean;
+  isDisqualified: boolean;
+  createdAt: Date;
+  discordUser: string | null;
 }
 
-export async function disqualifyParticipantById(id: number) {
-  console.log("id", id);
-
+export async function disqualifyParticipantByEmail(email: string) {
+  const id = (await getParticipantByEmail(email))?.id;
+  if (!id) {
+    return { success: false, message: "no such participant" };
+  }
   const admin = await getAdminFromSession();
   if (!admin) {
     return { success: false, message: "not admin" };
@@ -43,7 +50,7 @@ export async function disqualifyParticipantById(id: number) {
     await db.select().from(particpants).where(eq(particpants.id, id))
   ).at(0);
 
-  if (!participant) {
+  if (!participant?.id) {
     return { success: false, message: "no such participant" };
   }
   try {
@@ -67,9 +74,7 @@ export async function disqualifyParticipantById(id: number) {
     if (!res) {
       return { success: false, message: "error in discord ban" };
     }
-    console.log("banned from discord");
     await db.delete(discordUsers).where(eq(discordUsers.participantId, id));
-    console.log("deleted from discord users");
     return { success: true, message: "" };
   } catch (e) {
     console.error(JSON.stringify(e));
@@ -81,6 +86,10 @@ async function banMember(
   id: number,
   admin: Awaited<ReturnType<typeof getAdminFromSession>>,
 ) {
+  if (!admin) {
+    return false;
+  }
+
   const discordInfo = (
     await db
       .select()

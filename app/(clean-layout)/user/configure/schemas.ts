@@ -9,6 +9,8 @@ import {
   STUDENT_PARALLELS,
 } from "~/app/_elsys/grades-parallels";
 
+const cyrillicNameRegex = /^[А-Яа-я\-– ]+$/;
+
 const names2Schema = z.object({
   firstName: z
     .string()
@@ -16,14 +18,16 @@ const names2Schema = z.object({
     .regex(/^[A-ZА-Я]/, {
       message: "Името трябва да започва с главна буква",
     })
-    .regex(/^[А-Яа-я\-–]/, { message: "Името трябва да е на кирилица" }),
+    .regex(cyrillicNameRegex, { message: "Името трябва да е на кирилица" })
+    .max(20, { message: "Името трябва да съдържа най-много 100 символа" }),
   lastName: z
     .string()
     .min(1, { message: "Фамилията трябва да съдържа поне 1 буква" })
     .regex(/^[A-ZА-Я]/, {
       message: "Фамилията трябва да започва с главна буква",
     })
-    .regex(/^[А-Яа-я\-–]/, { message: "Фамилията трябва да е на кирилица" }),
+    .regex(cyrillicNameRegex, { message: "Фамилията трябва да е на кирилица" })
+    .max(20, { message: "Фамилията трябва да съдържа най-много 20 символа" }),
 });
 
 const names3Schema = z
@@ -34,7 +38,9 @@ const names3Schema = z
       .regex(/^[A-ZА-Я]/, {
         message: "Презимето трябва да започва с главна буква",
       })
-      .regex(/^[А-Яа-я\-–]/, { message: "Презимето трябва да е на кирилица" }),
+      .regex(cyrillicNameRegex, {
+        message: "Презимето трябва да е на кирилица",
+      }),
   })
   .merge(names2Schema);
 
@@ -78,7 +84,9 @@ export const alumniStep1Schema = z
   .merge(consentsSchema)
   .merge(phoneNumberSchema);
 
-export const studentsStep1Schema = names2Schema.merge(consentsSchema);
+export const studentsStep1Schema = names2Schema
+  .merge(consentsSchema)
+  .merge(phoneNumberSchema);
 
 // export const alumniStep2Schema = z.object({
 //   grade: z.enum(ALUMNI_GRADES),
@@ -126,7 +134,10 @@ export const alumniStep5Schema = z.object({
   question1: z
     .string()
     .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })
-    .max(300, { message: "Отговорът трябва да съдържа най-много 100 символа" }),
+    .max(300, { message: "Отговорът трябва да съдържа най-много 100 символа" })
+    .refine((value) => value.trim() !== "" && value.trim().length >= 3, {
+      message: "Отговорът не може да бъде само от интервали",
+    }),
   question2: z
     .string()
     .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })

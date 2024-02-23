@@ -62,6 +62,24 @@ export default function ProfileInfo({
     "bg-purple-700",
   ];
 
+  const tshirt = (() => {
+    switch (participant.tShirtId) {
+      case 1:
+        return "S";
+      case 2:
+        return "M";
+      case 3:
+        return "L";
+      case 4:
+        return "XL";
+      case 5:
+        return "XXL";
+
+      default:
+        return "";
+    }
+  })();
+
   return (
     <div>
       <div className="rounded-3xl bg-sand p-5 text-slate-950 md:w-[500px] ">
@@ -82,15 +100,10 @@ export default function ProfileInfo({
               placeholder={participant.firstName}
               id="firstName"
             />
-            <Label htmlFor="secondName">Презиме</Label>
-            <Input
-              disabled
-              placeholder={participant.middleName ?? ""}
-              id="secondName"
-            />
             <Label htmlFor="lastName">Фамилия</Label>
             <Input disabled placeholder={participant.lastName} id="lastName" />
-
+            <Label htmlFor="tshirt">Размер тениска</Label>
+            <Input disabled placeholder={tshirt ?? ""} id="tshirt" />
             <Label htmlFor="phoneNumber">Телефонен номер</Label>
             <Input
               disabled
@@ -134,8 +147,8 @@ export default function ProfileInfo({
           <div className="m-4 flex rounded-lg bg-background p-3 text-foreground">
             <Checkbox
               id="isLookingForTeam"
-              // className="border-black"
               checked={isLookingForTeam}
+              disabled={participant.team.id ? true : false}
               onCheckedChange={() => setIsLookingForTeam(!isLookingForTeam)}
             />
             <div className="space-y-1 pl-4 leading-none">

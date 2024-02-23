@@ -21,6 +21,7 @@ import {
   EVENT_START,
   MAX_TEAMS_ALUMNI,
   MAX_TEAMS_STUDENTS,
+  STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
@@ -118,7 +119,7 @@ export default async function LandingPage() {
           </Card>
           <ArchiveStatsCard className="md:grid-cols-2">
             <p className="col-span-2 pb-3 text-center text-2xl font-semibold md:text-3xl">
-              Местата са ограничени!
+              Местата са запълнени!
             </p>
             <ArchiveStatsItem
               value={MAX_TEAMS_STUDENTS}
@@ -128,19 +129,19 @@ export default async function LandingPage() {
               value={MAX_TEAMS_ALUMNI}
               label="отбора на завършили"
             />
-            <p className="col-span-2 text-center text-lg font-light">
-              Регистрацията на завършили ще бъде отворена от{" "}
-              <DateDisplay date={ALUMNI_REGISTRATION_START} showHour /> до{" "}
+            {/* <p className="col-span-2 text-center text-lg font-light">
+              Регистрацията на ученици ще бъде отворена от{" "}
+              <DateDisplay date={STUDENTS_REGISTRATION_START} showHour /> до{" "}
               <DateDisplay
-                date={fiveDaysAfter(ALUMNI_REGISTRATION_START)}
+                date={fiveDaysAfter(STUDENTS_REGISTRATION_START)}
                 showHour
               />{" "}
               или{" "}
               <strong className="font-extrabold">
                 до изчерпване на местата
               </strong>
-              , а на ученици - ще ви разкрием скоро!
-            </p>
+              !
+            </p> */}
           </ArchiveStatsCard>
           {/* <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
             <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
@@ -337,12 +338,13 @@ function ArchiveSection({
   );
 }
 
-function IconParagraph({
+export function IconParagraph({
   children,
   icon: Icon,
-}: PropsWithChildren<{ icon: LucideIcon }>) {
+  className,
+}: PropsWithChildren<{ className?: string; icon: LucideIcon }>) {
   return (
-    <p className="flex items-center gap-2">
+    <p className={cn("flex items-center gap-2", className)}>
       <Icon className="h-4 w-4" /> {children}
     </p>
   );

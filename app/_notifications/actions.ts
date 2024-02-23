@@ -56,7 +56,12 @@ export const acceptJoinRequest = async (
     };
   }
 
-  if (joinRequest?.userId && joinRequest.teamId) {
+  if (
+    joinRequest &&
+    joinRequest.id &&
+    joinRequest.userId &&
+    joinRequest.teamId
+  ) {
     try {
       const team = (
         await db.select().from(teams).where(eq(teams.id, joinRequest.teamId))
@@ -74,12 +79,31 @@ export const acceptJoinRequest = async (
 
       const partic = await getParticipantById(joinRequest.userId);
 
+      if (partic?.isDisqualified) {
+        return {
+          success: false,
+          message:
+            "Не можете да се присъедините към отбор, защото сте дисквалифициран/а",
+        };
+      }
+
       if (partic?.team.id) {
         return {
           success: false,
           message: "Вече си в отбор, този не ти ли харесва",
         };
       }
+
+      if (partic?.id) {
+        cleanAllNotifications(partic?.id);
+      } else {
+        return {
+          success: false,
+          message: "Нещо се обърка, моля опитайте отново!",
+        };
+      }
+
+      await cleanJoinRequests(joinRequest.id);
 
       const res = await addDiscordRole(
         discord[0].discordId,
@@ -100,31 +124,35 @@ export const acceptJoinRequest = async (
         .set({ memberCount: team.memberCount + 1 })
         .where(eq(teams.id, team.id));
 
-      await db
-        .delete(notifications)
-        .where(eq(notifications.referenceId, joinRequest?.id));
-      await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
       await updateTechnologies(joinRequest?.teamId);
       revalidateTag("teams");
       return { success: true };
     } catch (err) {
+      await cleanJoinRequests(joinRequest.id);
       console.log(err);
       return { success: false };
     }
   }
+
   return { success: false };
+};
+
+const cleanJoinRequests = async (id: number) => {
+  await db.delete(notifications).where(eq(notifications.referenceId, id));
+  await db.delete(joinRequests).where(eq(joinRequests.id, id));
+};
+
+const cleanAllNotifications = async (id: number) => {
+  await db.delete(notifications).where(eq(notifications.targetUserId, id));
+  await db.delete(joinRequests).where(eq(joinRequests.userId, id));
+  await db.delete(invitations).where(eq(invitations.invitedParticipantId, id));
 };
 
 // FIXME: use zact
 export const declineJoinRequest = async (joinRequest: JoinRequest) => {
-  console.log(joinRequest);
   if (joinRequest?.userId && joinRequest.teamId) {
     try {
-      await db
-        .delete(notifications)
-        .where(eq(notifications.referenceId, joinRequest?.id));
-
-      await db.delete(joinRequests).where(eq(joinRequests.id, joinRequest.id));
+      cleanJoinRequests(joinRequest.id);
       return { success: true };
     } catch (err) {
       console.log(err);
@@ -142,6 +170,11 @@ function getInvitation(id: number) {
     .then((rows) => rows.at(0) ?? null);
 }
 
+const cleanInvitation = async (id: number) => {
+  await db.delete(notifications).where(eq(notifications.referenceId, id));
+  await db.delete(invitations).where(eq(invitations.id, id));
+};
+
 export const acceptInvitation = zact(
   z.object({
     invitationId: z.number().int(),
@@ -156,11 +189,20 @@ export const acceptInvitation = zact(
     };
   }
 
-  const particpant = await getParticipantFromSession();
-  if (!particpant) {
+  const participant = await getParticipantFromSession();
+  if (!participant) {
     return { success: false };
   }
-  if (particpant.team.id) {
+
+  if (participant.isDisqualified) {
+    return {
+      success: false,
+      message:
+        "Не можете да се присъедините към отбор, защото сте дисквалифициран/а",
+    };
+  }
+
+  if (participant.team.id) {
     return {
       success: false,
       message: "Вече си в отбор, този не ти ли харесва",
@@ -187,34 +229,33 @@ export const acceptInvitation = zact(
       return { success: false };
     }
 
+    await cleanInvitation(invitationId);
+
     const res = await addDiscordRole(discord[0].discordId, team.discordRoleId);
 
     if (!res.success) {
       return { success: false };
     }
 
+    cleanAllNotifications(participant.id);
+
     await db
       .update(particpants)
       .set({ teamId: invitation.teamId, isCaptain: false })
-      .where(eq(particpants.id, particpant.id));
+      .where(eq(particpants.id, participant.id));
 
     await db
       .update(teams)
       .set({ memberCount: team.memberCount + 1 })
       .where(eq(teams.id, team.id));
 
-    await db
-      .delete(notifications)
-      .where(eq(notifications.referenceId, invitationId));
-
     await updateTechnologies(invitation.teamId);
     revalidateTag("teams");
-
-    await db.delete(invitations).where(eq(invitations.id, invitationId));
 
     return { success: true };
   } catch (err) {
     console.log(err);
+    await cleanInvitation(invitationId);
     return { success: false };
   }
 });
@@ -238,11 +279,7 @@ export const declineInvitation = zact(
   }
 
   try {
-    await db
-      .delete(notifications)
-      .where(eq(notifications.referenceId, invitationId));
-
-    await db.delete(invitations).where(eq(invitations.id, invitationId));
+    await cleanInvitation(invitationId);
     return { success: true };
   } catch (err) {
     console.log(err);

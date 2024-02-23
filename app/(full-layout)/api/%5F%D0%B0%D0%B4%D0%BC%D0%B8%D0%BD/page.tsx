@@ -1,5 +1,8 @@
+import {
+  getAlumniParticipantsAdmin,
+  getStudentParticipantsAdmin,
+} from "~/app/participants/service";
 import { AdminOrNotFound } from "./components/server";
-import { getParticipantsAdmin } from "./participants/service";
 import { getAdminFromSession } from "./service";
 import { getTeamsAdmin } from "./teams/service";
 
@@ -7,12 +10,15 @@ export default async function AdminPage() {
   const admin = await getAdminFromSession();
 
   // XXX: Use SQL to aggregate, instead of doing it in the app.
-  const participants = await getParticipantsAdmin();
-  const participantsCount = participants.length;
+
+  const students = await getStudentParticipantsAdmin();
+  const realStudent = students.filter((student) => student.team);
+  const alumni = await getAlumniParticipantsAdmin();
+  const realAlumni = alumni.filter((alumnus) => alumnus.team);
   const teams = await getTeamsAdmin();
   const teamsCount = teams.length;
-  const mentors = await getTeamsAdmin();
-  const mentorsCount = mentors.length;
+  // const mentors = await getTeamsAdmin();
+  // const mentorsCount = mentors.length;
 
   return (
     <>
@@ -20,11 +26,15 @@ export default async function AdminPage() {
       <div>
         <h1 className="text-lg font-bold">Здрасти, {admin?.firstName}!</h1>
         {/* FIXME: better UI */}
-        Участници: {participantsCount}
+        Участници: {realAlumni.length + realStudent.length}
+        <br />
+        Завървшили: {realAlumni.length}
+        <br />
+        Ученици: {realStudent.length}
         <br />
         Отбори: {teamsCount}
         <br />
-        Ментори: {mentorsCount}
+        {/* Ментори: {mentorsCount} */}
       </div>
     </>
   );

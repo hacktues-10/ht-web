@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { deleteMyTeam } from "~/app/(full-layout)/teams/actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,55 +13,64 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "~/app/components/ui/alert-dialog";
-import { useToast } from "~/app/components/ui/use-toast";
-import { Button } from "./ui/button";
+} from "./ui/alert-dialog";
+import { useToast } from "./ui/use-toast";
 
-export default function DeleteTeamButton({ id }: { id: string }) {
+export default function CustomizableDialog({
+  children,
+  dialogTitle,
+  dialogDescription,
+  cancelTitle,
+  actionTitle,
+  actionFunction,
+}: {
+  dialogTitle: string;
+  dialogDescription: string;
+  cancelTitle: string;
+  actionTitle: string;
+  children: React.ReactNode;
+  actionFunction: () => Promise<any> | void;
+}) {
   const router = useRouter();
   const { toast } = useToast();
+  const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  async function deleteTeam() {
+  async function actionProcess() {
     toast({
-      title: "Вашият отбор се изтрива...",
+      title: "Действието се извършва...",
       description:
         "Съли е в процес на затварянето на портала към вашата вселена...",
     });
     setIsLoading(true);
 
-    const res = await deleteMyTeam();
+    const res = await actionFunction();
     if (res?.success) {
-      router.push("/teams");
+      router.push("/");
     } else if (res?.success === false) {
       console.error(res.message);
     }
+    setOpen(false);
   }
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger
         asChild
         className="ml-auto mr-auto items-center justify-center"
+        disabled={isLoading}
       >
-        <Button className="" variant="destructive" disabled={isLoading}>
-          Изтрий отбора
-        </Button>
+        {children}
       </AlertDialogTrigger>
       <AlertDialogContent className="w-4/5 rounded-3xl sm:w-auto">
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            Сигурни ли сте, че искате да изтриете отбора?
-          </AlertDialogTitle>
-          <AlertDialogDescription>
-            Това действие не може да бъде върнато назад. Ще изтриете отбора си
-            завинаги.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{dialogTitle}</AlertDialogTitle>
+          <AlertDialogDescription>{dialogDescription}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Отказ</AlertDialogCancel>
-          <AlertDialogAction className="destructive" onClick={deleteTeam}>
-            Изтрий
+          <AlertDialogCancel>{cancelTitle}</AlertDialogCancel>
+          <AlertDialogAction className="destructive" onClick={actionProcess}>
+            {actionTitle}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

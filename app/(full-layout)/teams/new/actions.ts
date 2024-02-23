@@ -55,7 +55,8 @@ export const createTeamAction = zact(
       isAlumni: isAlumni,
     });
     return { success: true, team } as const;
-  } catch {
+  } catch (e: any) {
+    console.log(e.message);
     return { success: false, error: "Вече има отбор с това име" };
   }
 });

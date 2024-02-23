@@ -5,6 +5,7 @@ import { error } from "console";
 import { revalidateTag } from "next/cache";
 import { and, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
+import { slugify } from "transliteration";
 import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
@@ -92,6 +93,37 @@ export async function deleteMyTeam() {
   }
 }
 
+export async function deleteTeamAdmin(teamId: string) {
+  const admin = await getAdminFromSession();
+
+  if (!admin) {
+    return { success: false, error: "Не си влязъл като админ" };
+  }
+
+  try {
+    await deleteChannelsRolesCategories(teamId);
+
+    await db.delete(joinRequests).where(eq(joinRequests.teamId, teamId));
+
+    await db.delete(invitations).where(eq(invitations.teamId, teamId));
+    await db
+      .update(particpants)
+      .set({ teamId: null, isCaptain: false })
+      .where(eq(particpants.teamId, teamId));
+
+    await db.delete(projects).where(eq(projects.teamId, teamId));
+
+    const team = await db.delete(teams).where(eq(teams.id, teamId)).returning();
+
+    revalidateTag("teams");
+
+    return { success: true, message: "Успешно изтрихте отбор" };
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: e instanceof Error ? e.message : "" };
+  }
+}
+
 // FIXME: use zact
 export async function askToJoinTeam(teamIdToJoin: string) {
   const gb = await getServerSideGrowthBook();
@@ -120,6 +152,15 @@ export async function askToJoinTeam(teamIdToJoin: string) {
   if (!participant) {
     return { success: false, error: "Не си влязъл като участник" };
   }
+
+  if (participant.isDisqualified) {
+    return {
+      success: false,
+      message:
+        "Не можете да се присъедините към отбор, защото сте дисквалифициран/а",
+    };
+  }
+
   if (participant.team.id) {
     return { success: false, error: "Вече си в отбор" };
   }
@@ -276,6 +317,79 @@ export const checkStateJoinRequests = zact(
   }
 });
 
+async function deleteNotifications(teamId: string) {
+  const [selectedJoinReq, selectedInvitations] = await Promise.all([
+    db.select().from(joinRequests).where(eq(joinRequests.teamId, teamId)),
+    db.select().from(invitations).where(eq(invitations.teamId, teamId)),
+  ]);
+
+  const joinReqIds = selectedJoinReq.map((req) => req.id);
+  const invitationIds = selectedInvitations.map((invitation) => invitation.id);
+
+  for (const id of joinReqIds) {
+    await db
+      .delete(notifications)
+      .where(and(eq(notifications.id, id), eq(notifications.type, "ask_join")));
+  }
+
+  for (const id of invitationIds) {
+    await db
+      .delete(notifications)
+      .where(
+        and(eq(notifications.id, id), eq(notifications.type, "invitation")),
+      );
+  }
+
+  await Promise.all([
+    db.delete(joinRequests).where(eq(joinRequests.teamId, teamId)),
+    db.delete(invitations).where(eq(invitations.teamId, teamId)),
+  ]);
+}
+
+export async function renameTeam({
+  teamId,
+  name,
+}: {
+  teamId: string;
+  name: string;
+}) {
+  const team = await getTeamById(teamId);
+  if (!team) {
+    return { success: false, message: "Няма такъв отбор" };
+  }
+
+  try {
+    const participants = await db
+      .update(particpants)
+      .set({
+        teamId: null,
+      })
+      .where(eq(particpants.teamId, teamId))
+      .returning();
+
+    await deleteNotifications(teamId);
+
+    await db
+      .update(teams)
+      .set({ name: name, id: slugify(name) })
+      .where(eq(teams.id, teamId))
+      .returning();
+
+    for (const participant of participants) {
+      await db
+        .update(particpants)
+        .set({ teamId: slugify(name) })
+        .where(eq(particpants.id, participant.id));
+    }
+
+    revalidateTag("teams");
+
+    return { success: true, message: "Успешно преименувахте отбора" };
+  } catch (e) {
+    return { success: false, message: "Неуспешно преименуване на отбора" };
+  }
+}
+
 // FIXME: use zact
 export async function removeTeamMember(memberId: number) {
   try {
@@ -343,6 +457,56 @@ export async function removeTeamMember(memberId: number) {
       return { success: false, message: "Failed to remove team member" };
     }
     return { success: false, message: "You are not a team captain" };
+  } catch (e) {
+    return { success: false, message: e instanceof Error ? e.message : "" };
+  }
+}
+
+export async function leaveTeam() {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-team-members")) {
+    return {
+      success: false,
+      message: "Напускането на отбори не е позволено по това време.",
+    };
+  }
+
+  const participant = await getParticipantFromSession();
+  if (!participant) {
+    return { success: false, message: "Unauthenticated" };
+  }
+
+  if (!participant.team.id) {
+    return { success: false, message: "You are not in a team" };
+  }
+
+  try {
+    const res = await db
+      .update(particpants)
+      .set({ teamId: null, isCaptain: false })
+      .where(eq(particpants.id, participant.id));
+
+    await updateTechnologies(participant.team.id);
+
+    const team = await getTeamById(participant.team.id);
+    if (!team) {
+      return { success: false, message: "Team not found" };
+    }
+    await db
+      .update(teams)
+      .set({ memberCount: team?.memberCount - 1 })
+      .where(eq(teams.id, participant.team.id));
+
+    if (team?.memberCount - 1 == 0) {
+      await deleteChannelsRolesCategories(participant.team.id);
+      await db.delete(teams).where(eq(teams.id, participant.team.id));
+    }
+    revalidateTag("teams");
+
+    if (res) {
+      return { success: true };
+    }
+    return { success: false, message: "Failed to leave team" };
   } catch (e) {
     return { success: false, message: e instanceof Error ? e.message : "" };
   }

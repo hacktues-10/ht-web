@@ -9,6 +9,7 @@ import { getImageUrl } from "~/app/_integrations/r2";
 import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
   checkStateJoinRequests,
+  deleteMyTeam,
   getProjectByTeamId,
   getTeamMembers,
   isTeamFull,
@@ -20,7 +21,7 @@ import {
   isParticipantEligableToJoin,
 } from "~/app/(full-layout)/teams/service";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
-import DeleteTeamButton from "~/app/components/DeleteTeamButton";
+import CustomizableDialog from "~/app/components/CustomizableDialog";
 import { InviteForm } from "~/app/components/InviteForm";
 import TeamDetailsComponent from "~/app/components/teamDetailsComponent";
 import TeamMemberDetailedView from "~/app/components/teamMemberDetailedView";
@@ -41,6 +42,7 @@ import {
 } from "~/app/components/ui/tabs";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
+import { cn } from "~/app/utils";
 
 type TeamDetailPageProps = {
   params: { id: string };
@@ -105,10 +107,6 @@ export default async function TeamDetailPage({
     participant?.id ?? null,
   );
   const teamMembers = await getTeamMembers(team.id);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
-  // teamMembers.push(teamMembers[0]);
 
   const project = await getProjectByTeamId(team.id);
   const isFull = await isTeamFull(team.id);
@@ -147,8 +145,8 @@ export default async function TeamDetailPage({
             <TeamDetailsComponent team={team} />
           </div>
         </div>
-        <div className="mt-2 flex flex-grow items-center justify-center pt-3 sm:mt-1">
-          <h1 className="ml-auto mr-auto mt-0 flex text-4xl font-semibold text-white sm:text-5xl">
+        <div className="mt-2 flex flex-grow items-center justify-center overflow-hidden pt-3 sm:mt-1">
+          <h1 className="ml-auto mr-auto mt-0 flex  text-4xl font-semibold text-white sm:text-5xl">
             {team.name}
           </h1>
         </div>
@@ -272,7 +270,17 @@ export default async function TeamDetailPage({
                               Изтрийте своя отбор
                             </h4>
                             <div className="sm:ml-auto sm:self-end">
-                              <DeleteTeamButton id={team.id} />
+                              <CustomizableDialog
+                                actionFunction={deleteMyTeam}
+                                actionTitle="Изтрий"
+                                cancelTitle="Отказ"
+                                dialogDescription="Това действие не може да бъде върнато назад. Ще изтриете отбора си завинаги."
+                                dialogTitle="Сигурни ли сте, че искате да изтриете отбора?"
+                              >
+                                <Button className="" variant="destructive">
+                                  Изтрий отбора
+                                </Button>
+                              </CustomizableDialog>
                             </div>
                           </div>
                         </div>
@@ -301,7 +309,8 @@ export default async function TeamDetailPage({
                     </h1>
                   </div>
                   <h2 className="m-auto ml-4 text-left text-lg">
-                    {member.firstName} {member.lastName}
+                    {member.firstName.slice(0, 21)}{" "}
+                    {member.lastName.slice(0, 21)}
                   </h2>
                 </div>
               ))}
@@ -342,7 +351,12 @@ export default async function TeamDetailPage({
           <Card className="fadeInComponent m-10 ml-auto mr-auto w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
             <h3 className="mb-2 text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
-              <ScrollArea className="m-2 h-min max-h-[200px] w-full flex-auto gap-2 p-2">
+              <ScrollArea
+                className={cn(
+                  "m-2 h-min w-full flex-auto gap-2 p-2",
+                  techn.length > 10 && "h-[210px]",
+                )}
+              >
                 {techn.map((technology, index) => (
                   <Badge
                     variant="outline"

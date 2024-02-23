@@ -78,8 +78,7 @@ async function TeamList() {
               Отбори на ученици
             </h1>
             <h2 className="m-4 self-center text-center text-2xl font-semibold tracking-tight  text-white sm:text-3xl">
-              Потвърдени отбори: {confirmedStudentTeamsNumber}/
-              {MAX_TEAMS_STUDENTS}
+              Потвърдени отбори: {confirmedStudentTeamsNumber}
             </h2>
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {studentTeams.map((team, index) => (
@@ -117,7 +116,7 @@ async function TeamList() {
             </h1>
 
             <h2 className="m-4 self-center text-center text-2xl font-semibold tracking-tight  text-white sm:text-3xl">
-              Потвърдени отбори: {confirmedAlumniTeamsNumber}/{MAX_TEAMS_ALUMNI}
+              Потвърдени отбори: {confirmedAlumniTeamsNumber}
             </h2>
 
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Router } from "next/router";
 import invariant from "tiny-invariant";
 
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
@@ -61,6 +62,7 @@ export function CreateTeamForm() {
         title: "Неуспешен опит",
         description: res.error,
       });
+      setIsLoading(false);
     }
   }
 
@@ -81,10 +83,11 @@ export function CreateTeamForm() {
         ),
       });
       setIsEligible(false);
+      router.push("/teams");
     } else {
       setIsEligible(true);
     }
-  }, [toast, canCreateTeam]);
+  }, [canCreateTeam, isEligible]);
 
   useEffect(() => {
     checkUserTeam();

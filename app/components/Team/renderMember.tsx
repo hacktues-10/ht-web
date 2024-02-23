@@ -63,7 +63,7 @@ export default function RenderMember({
                 {member.isCaptain ? "Капитан" : "Участник"}
               </p>
               <p className="ml-2 text-xs opacity-70">
-                {member.grade.length > 2
+                {parseInt(member.grade) <= 12
                   ? `${member.grade} ${member.parallel}`
                   : `Випуск ${member.grade}`}
               </p>

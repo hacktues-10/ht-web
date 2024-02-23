@@ -1,35 +1,17 @@
-import {
-  formatParticipantDiscordNick,
-  isParticipantStudent,
-  Participant,
-} from "~/app/participants/service";
-import DisqualifyParticipantComponent from "../components/DisqualifyParticipantComponent";
+import { getParticipantsAdmin } from "~/app/participants/service";
 import { AdminOrNotFound } from "../components/server";
-import TableData from "../components/TableData";
-import { getParticipantsAdmin } from "./service";
+import TableAndOptions from "../components/TableAndOptions";
 
 export default async function AdminParticipantList() {
-  const participants = await getParticipantsAdmin();
+  const data = await getParticipantsAdmin();
 
-  const preparedParticipants = participants.map((participant) => {
-    try {
-      const fullName = formatParticipantDiscordNick(participant);
-      return {
-        ...participant,
-        label: fullName,
-        value: `${fullName.toLowerCase()}`,
-      };
-    } catch (error) {
-      console.error("Error in map function:", error);
-    }
-  });
+  if (!data) return null;
 
   return (
     <>
       <AdminOrNotFound />
-      <h1 className="text-xl font-bold">Участници</h1>
-      <DisqualifyParticipantComponent participants={preparedParticipants} />
-      <TableData data={participants} />
+      <h1 className="text-xl font-bold">Всички ученици</h1>
+      <TableAndOptions participants={data} />
     </>
   );
 }
