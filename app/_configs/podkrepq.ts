@@ -57,6 +57,7 @@ import boniLogo from "../assets/sponsors/partners/boni.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import culligan from "../assets/sponsors/partners/culligan.jpg";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
+import metro from "../assets/sponsors/partners/metro.png";
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
@@ -436,7 +437,13 @@ const PARTNERS = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     supportedEditions: [],
   },
-
+  {
+    name: "Метро",
+    logo: metro,
+    url: "https://www.metro.bg/",
+    description:
+      "МЕТРО България - най-голямата компания за търговия на едро, оперираща на българския пазар вече 25 години, обслужваща клиенти от хотелския и ресторантьорския бизнес, търговци и фирми. Компанията управлява 11 магазина, както и 1 снабдителна база, с над 2000 служители. За нуждите на B2B клиентите, МЕТРО развива дейността си в многоканален модел на търговия, който съчетава магазини за търговия на едро и услуга за доставки на хранителни и нехранителни продукти. Хиляди професионални клиенти на МЕТРО България разчитат на продуктовата компетентност и качествените услуги на компанията, за да осъществяват успешно своя ежедневен бизнес. Отговорността е заложена в начина, по който МЕТРО осъществява дейността си - създавайки споделена стойност за общностите чрез своята ESG стратегия.",
+  },
   {
     name: "Smartcom",
     logo: smartcomLogo,
