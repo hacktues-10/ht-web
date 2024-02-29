@@ -31,6 +31,7 @@ export const checkifMentorExists = async (id: number) => {
 
 export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
+    
     const teams_res = await db.select().from(teams);
 
     teams_res.map((team) => {
