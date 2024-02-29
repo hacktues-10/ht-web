@@ -43,6 +43,7 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
         }
       }
     });
+    
     const team = teams_res.filter((team) => team.id === teamId);
 
     if (team.length === 0) return { success: false };
