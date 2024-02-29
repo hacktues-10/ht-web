@@ -58,7 +58,7 @@ const Mentor: React.FC<MentorInterface> = async ({
                   />
                   <Image
                     src={`/mentors/${mentor.fileName}`}
-                    className="mx-auto hidden overflow-hidden rounded-xl sm:block"
+                    className="mx-[30px] hidden overflow-hidden rounded-xl sm:block"
                     alt={mentor.name}
                     width={300}
                     height={300}
@@ -145,7 +145,8 @@ const Mentor: React.FC<MentorInterface> = async ({
                 participant.team.isCaptain == true &&
                 participantTeam?.id &&
                 participantTeam?.mentorId == null &&
-                !isMentorTaken && (
+                !isMentorTaken &&
+                parseInt(participant.grade) < 13 && (
                   <ChooseMentor
                     mentorId={mentor.id}
                     teamId={participantTeam?.id}

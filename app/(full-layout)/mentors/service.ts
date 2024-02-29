@@ -9,6 +9,7 @@ import { SECOND } from "~/app/utils";
 export const getAllMentors = unstable_cache(
   async () => {
     const allMentors = await selectFromMentors();
+    allMentors.sort((a, b) => a.name.localeCompare(b.name));
     return allMentors;
   },
   ["all-mentors"],
