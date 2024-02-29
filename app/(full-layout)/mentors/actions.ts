@@ -31,7 +31,19 @@ export const checkifMentorExists = async (id: number) => {
 
 export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
-    const team = await db.select().from(teams).where(eq(teams.id, teamId));
+    const teams_res = await db.select().from(teams);
+
+    teams_res.map((team) => {
+      if (team.mentorId === mentorId) {
+        return { success: false };
+      }
+      if (team.id === teamId) {
+        if (team.mentorId !== null) {
+          return { success: false };
+        }
+      }
+    });
+    const team = teams_res.filter((team) => team.id === teamId);
 
     if (team.length === 0) return { success: false };
     if (!team[0].discordRoleId) return { success: false };
