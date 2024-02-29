@@ -1,15 +1,11 @@
 "use server";
 
 import { revalidateTag } from "next/cache";
-import { DevBundlerService } from "next/dist/server/lib/dev-bundler-service";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 
-import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
-import { zact } from "~/app/_zact/server";
-import { addDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
-import { discordUsers, mentors, teams } from "~/app/db/schema";
+import { mentors, teams } from "~/app/db/schema";
 
 const formDataSchema = z.object({
   firstName: z.string(),
