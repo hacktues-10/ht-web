@@ -136,6 +136,8 @@ export const mentors = pgTable("mentors", {
   tuesVispusk: varchar("tues_vispusk"),
   schedule: varchar("schedule"),
   where: varchar("where"),
+  discordUserSnowflake: varchar("discord_user_snowflake"),
+  hasTeamRole: boolean("has_team_role").notNull().default(false),
 });
 
 export const teams = pgTable("teams", {
