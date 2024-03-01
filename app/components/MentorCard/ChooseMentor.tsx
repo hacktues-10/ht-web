@@ -20,10 +20,6 @@ export default function ChooseMentor({
       toast({ title: "Този ментор вече е зает от друг отбор" });
       window.location.reload();
     }
-    console.log(res);
-    // if (res.success) {
-    //   window.location.reload();
-    // }
   };
 
   return (
