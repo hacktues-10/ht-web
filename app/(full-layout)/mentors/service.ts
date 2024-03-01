@@ -5,7 +5,6 @@ import { getHTSession, HTSession } from "~/app/api/auth/session";
 import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
 import { SECOND } from "~/app/utils";
-
 export const getAllMentors = async () => {
   const allMentors = await selectFromMentors();
   allMentors.sort((a, b) => a.name.localeCompare(b.name));
