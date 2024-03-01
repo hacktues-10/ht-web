@@ -62,6 +62,7 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
       return { success: false };
     }
 
+    revalidateTag("mentors");
     revalidateTag("teams");
 
     return { success: true };
