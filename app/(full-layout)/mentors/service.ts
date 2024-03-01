@@ -6,11 +6,18 @@ import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
 import { SECOND } from "~/app/utils";
 
-export const getAllMentors = async () => {
-  const allMentors = await selectFromMentors();
-  allMentors.sort((a, b) => a.name.localeCompare(b.name));
-  return allMentors;
-};
+export const getAllMentors = unstable_cache(
+  async () => {
+    const allMentors = await selectFromMentors();
+    allMentors.sort((a, b) => a.name.localeCompare(b.name));
+    return allMentors;
+  },
+  ["all-mentors"],
+  {
+    revalidate: 1 * SECOND,
+    tags: ["mentors"],
+  },
+);
 
 // FIXME: do we even need closure here?
 const selectFromMentors = () =>
