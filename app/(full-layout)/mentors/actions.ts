@@ -3,6 +3,7 @@
 import { revalidateTag } from "next/cache";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+
 import { db } from "~/app/db";
 import { mentors, teams } from "~/app/db/schema";
 
@@ -30,7 +31,6 @@ export const checkifMentorExists = async (id: number) => {
 
 export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
-    
     const teams_res = await db.select().from(teams);
 
     teams_res.map((team) => {
@@ -43,7 +43,7 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
         }
       }
     });
-    
+
     const team = teams_res.filter((team) => team.id === teamId);
 
     if (team.length === 0) return { success: false };
@@ -52,10 +52,15 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
       return { success: false };
     }
 
-    await db
-      .update(teams)
-      .set({ mentorId: mentorId })
-      .where(eq(teams.id, teamId));
+    try {
+      await db
+        .update(teams)
+        .set({ mentorId: mentorId })
+        .where(eq(teams.id, teamId));
+    } catch (err) {
+      console.log(err);
+      return { success: false };
+    }
 
     revalidateTag("mentors");
     revalidateTag("teams");
