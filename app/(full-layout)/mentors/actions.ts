@@ -59,6 +59,7 @@ export async function chooseTeamMentor(mentorId: number, teamId: string) {
         .where(eq(teams.id, teamId));
     } catch (err) {
       console.log(err);
+      revalidateTag("mentors");
       return { success: false };
     }
 
