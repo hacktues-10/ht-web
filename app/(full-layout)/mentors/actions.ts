@@ -3,7 +3,6 @@
 import { revalidateTag } from "next/cache";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-
 import { db } from "~/app/db";
 import { mentors, teams } from "~/app/db/schema";
 
