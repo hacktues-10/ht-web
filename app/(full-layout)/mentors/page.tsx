@@ -8,6 +8,8 @@ import Mentor from "~/app/components/MentorCard/Mentor";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getAllMentors } from "./service";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Ментори",
   description: "Менторите на Hack TUES X",
