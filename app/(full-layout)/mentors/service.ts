@@ -32,7 +32,7 @@ const selectFromMentors = () =>
       },
     })
     .from(mentors)
-    .innerJoin(teams, eq(mentors.id, teams.mentorId));
+    .leftJoin(teams, eq(mentors.id, teams.mentorId));
 
 export const getMentorById = async (id: number) => {
   const mentor = await selectFromMentors().where(eq(mentors.id, id));
