@@ -6,18 +6,11 @@ import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
 import { SECOND } from "~/app/utils";
 
-export const getAllMentors = unstable_cache(
-  async () => {
-    const allMentors = await selectFromMentors();
-    allMentors.sort((a, b) => a.name.localeCompare(b.name));
-    return allMentors;
-  },
-  ["all-mentors"],
-  {
-    revalidate: 1 * SECOND,
-    tags: ["mentors"],
-  },
-);
+export const getAllMentors = async () => {
+  const allMentors = await selectFromMentors();
+  allMentors.sort((a, b) => a.name.localeCompare(b.name));
+  return allMentors;
+};
 
 // FIXME: do we even need closure here?
 const selectFromMentors = () =>
@@ -39,7 +32,7 @@ const selectFromMentors = () =>
       },
     })
     .from(mentors)
-    .leftJoin(teams, eq(mentors.id, teams.mentorId));
+    .innerJoin(teams, eq(mentors.id, teams.mentorId));
 
 export const getMentorById = async (id: number) => {
   const mentor = await selectFromMentors().where(eq(mentors.id, id));
