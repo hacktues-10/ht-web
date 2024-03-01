@@ -18,6 +18,7 @@ export default function ChooseMentor({
     const res = await chooseTeamMentor(mentorId, teamId);
     if (!res.success) {
       toast({ title: "Този ментор вече е зает от друг отбор" });
+      window.location.reload();
     }
     console.log(res);
     // if (res.success) {
