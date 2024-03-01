@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { NextResponse, type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 
-import { getMentorByEmail } from "~/app/(full-layout)/mentors/service";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
@@ -20,12 +19,6 @@ export async function GET(req: NextRequest) {
     const session = await getHTSession();
     if (!session) {
       signInRedirect();
-    }
-    if (session && session.user?.email && session?.user) {
-      const mentor = await getMentorByEmail(session.user.email);
-      if (mentor && mentor.id) {
-        idToMatch = mentor?.id;
-      }
     }
   } else {
     idToMatch = participant.id;

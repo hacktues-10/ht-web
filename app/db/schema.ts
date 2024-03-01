@@ -127,28 +127,18 @@ export const users = pgTable("users", {
 
 export const mentors = pgTable("mentors", {
   id: serial("id").primaryKey(),
-  email: varchar("email").notNull(),
-  firstName: varchar("first_name").notNull(),
-  lastName: varchar("last_name").notNull(),
-  phoneNumber: varchar("phone_number").notNull(),
-  // TODO: availability
-  description: varchar("description").notNull(),
-  youtubeURL: varchar("youtube_url"),
   companyName: varchar("company_name"),
-  technologies: varchar("technologies").notNull(),
-  tShirtId: serial("tshirt_id") // FIXME: shouldnt use serial
-    .references(() => tShirts.id)
-    .notNull(),
-  allergies: varchar("allergies").default(""),
+  name: varchar("name").notNull(),
   fileName: varchar("file_name").default("").notNull(),
+  description: varchar("description").notNull(),
+  technologies: varchar("technologies").notNull(),
+  jobPosition: varchar("job_position").notNull(),
+  tuesVispusk: varchar("tues_vispusk"),
+  schedule: varchar("schedule"),
+  where: varchar("where"),
+  discordUserSnowflake: varchar("discord_user_snowflake"),
+  hasTeamRole: boolean("has_team_role").notNull().default(false),
 });
-
-export const mentorsRelations = relations(mentors, ({ one }) => ({
-  tShirt: one(tShirts, {
-    fields: [mentors.tShirtId],
-    references: [tShirts.id],
-  }),
-}));
 
 export const teams = pgTable("teams", {
   id: varchar("id").primaryKey(),

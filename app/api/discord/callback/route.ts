@@ -2,7 +2,6 @@ import { redirect } from "next/navigation";
 import { type NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 
-import { getMentorByEmail } from "~/app/(full-layout)/mentors/service";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
@@ -77,7 +76,7 @@ export async function GET(req: NextRequest) {
     const user = await response.json();
     const participant = await getParticipantFromSession();
 
-    const mentor = await getMentorByEmail(session.user.email);
+    const mentor = null;
 
     const inviteParams = {
       access_token: data.access_token,
@@ -111,28 +110,6 @@ export async function GET(req: NextRequest) {
       if (!mentor) {
         console.error("no mentor and no participant here");
         redirect(generateErrorUrl(3000));
-      }
-
-      if (await mentorHasDiscordEntry(mentor.id)) {
-        await db
-          .update(discordUsers)
-          .set({
-            discordId: user.id,
-            discordUsername: user.username,
-            accessToken: data.access_token,
-            // FIXME: can sql do this for us?
-            lastUpdated: new Date(),
-          })
-          .where(eq(discordUsers.mentorId, mentor.id));
-      } else {
-        await db.insert(discordUsers).values({
-          mentorId: mentor.id,
-          discordId: user.id,
-          discordUsername: user.username,
-          accessToken: data.access_token,
-          // FIXME: can sql do this for us?
-          lastUpdated: new Date(),
-        });
       }
     } else {
       if (await participantHasDiscordEntry(participant.id)) {
@@ -190,18 +167,6 @@ async function participantHasDiscordEntry(participantId: number) {
       .select()
       .from(discordUsers)
       .where(eq(discordUsers.participantId, participantId));
-    return res.length > 0;
-  } catch (err) {
-    return false;
-  }
-}
-
-async function mentorHasDiscordEntry(mentorId: number) {
-  try {
-    const res = await db
-      .select()
-      .from(discordUsers)
-      .where(eq(discordUsers.mentorId, mentorId));
     return res.length > 0;
   } catch (err) {
     return false;

@@ -3,13 +3,8 @@
 import { revalidateTag } from "next/cache";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
-
-import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
-import { zact } from "~/app/_zact/server";
-import { addDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
-import { discordUsers, mentors, teams } from "~/app/db/schema";
-import { getMentorByEmail } from "./service";
+import { mentors, teams } from "~/app/db/schema";
 
 const formDataSchema = z.object({
   firstName: z.string(),
@@ -25,43 +20,8 @@ const formDataSchema = z.object({
   fileName: z.string(),
 });
 
-export const insertMentor = zact(formDataSchema)(async (formData) => {
-  const gb = await getServerSideGrowthBook();
-  if (gb.isOff("register-mentors")) {
-    return {
-      success: false,
-      error: "Регистрацията на ментори не е позволена по това време.",
-    };
-  }
-
-  const exists = await checkifMentorExists(formData.email);
-  if (!exists) {
-    const res = await db.insert(mentors).values(formData).returning();
-    if (res.length > 0) {
-      return true;
-    }
-    return false;
-  } else {
-    try {
-      const res = await updateMentor(formData);
-      return res !== null;
-    } catch (err) {
-      if (err instanceof Error) {
-        return {
-          success: false,
-          error: err.message,
-        };
-      }
-      throw err;
-    }
-  }
-});
-
-export const checkifMentorExists = async (email: string) => {
-  const mentor = await db
-    .select()
-    .from(mentors)
-    .where(eq(mentors.email, email));
+export const checkifMentorExists = async (id: number) => {
+  const mentor = await db.select().from(mentors).where(eq(mentors.id, id));
   if (mentor && mentor.length > 0) {
     return true;
   }
@@ -70,57 +30,39 @@ export const checkifMentorExists = async (email: string) => {
 
 export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
-    const res = await db
-      .select()
-      .from(discordUsers)
-      .where(eq(discordUsers.mentorId, mentorId));
+    
+    const teams_res = await db.select().from(teams);
 
-    const team = await db.select().from(teams).where(eq(teams.id, teamId));
+    teams_res.map((team) => {
+      if (team.mentorId === mentorId) {
+        return { success: false };
+      }
+      if (team.id === teamId) {
+        if (team.mentorId !== null) {
+          return { success: false };
+        }
+      }
+    });
+    
+    const team = teams_res.filter((team) => team.id === teamId);
+
+    if (team.length === 0) return { success: false };
     if (!team[0].discordRoleId) return { success: false };
-    if (!res[0].discordId) return { success: false };
-    await addDiscordRole(res[0].discordId, team[0].discordRoleId);
+    if (team[0].mentorId !== null) {
+      return { success: false };
+    }
+
     await db
       .update(teams)
       .set({ mentorId: mentorId })
       .where(eq(teams.id, teamId));
+
+    revalidateTag("mentors");
     revalidateTag("teams");
+
     return { success: true };
   } catch (err) {
     console.log(err);
     return { success: false };
   }
 }
-
-const updateMentor = async (formData: z.infer<typeof formDataSchema>) => {
-  const gb = await getServerSideGrowthBook();
-  if (gb.isOff("register-mentors")) {
-    throw new Error("Редактирането на ментори не е позволена по това време.");
-  }
-
-  const res = await db
-    .update(mentors)
-    .set({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      companyName: formData.companyName,
-      phoneNumber: formData.phoneNumber,
-      description: formData.description,
-      tShirtId: formData.tShirtId,
-      allergies: formData.allergies,
-      technologies: formData.technologies,
-      youtubeURL: formData.youtubeURL,
-      fileName: formData.fileName,
-    })
-    .where(eq(mentors.email, formData.email))
-    .returning();
-  return res.at(0) ?? null;
-};
-
-export const fetchMentor = zact(
-  z.object({
-    email: z.string(),
-  }),
-)(async ({ email }) => {
-  return getMentorByEmail(email);
-});

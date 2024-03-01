@@ -1,72 +1,50 @@
+import { unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 
 import { getHTSession, HTSession } from "~/app/api/auth/session";
 import { db } from "~/app/db";
 import { discordUsers, mentors, teams } from "~/app/db/schema";
+import { SECOND } from "~/app/utils";
 
-export const getAllMentors = async () => {
-  const allMentors = await db.select().from(mentors);
-  return allMentors;
-};
+export const getAllMentors = unstable_cache(
+  async () => {
+    const allMentors = await selectFromMentors();
+    allMentors.sort((a, b) => a.name.localeCompare(b.name));
+    return allMentors;
+  },
+  ["all-mentors"],
+  {
+    revalidate: 1 * SECOND,
+    tags: ["mentors"],
+  },
+);
 
 // FIXME: do we even need closure here?
 const selectFromMentors = () =>
   db
     .select({
       id: mentors.id,
-      email: mentors.email,
-      firstName: mentors.firstName,
-      lastName: mentors.lastName,
-      phoneNumber: mentors.phoneNumber,
+      name: mentors.name,
       description: mentors.description,
-      youtubeURL: mentors.youtubeURL,
       companyName: mentors.companyName,
       technologies: mentors.technologies,
-      tShirtId: mentors.tShirtId,
-      allergies: mentors.allergies,
       fileName: mentors.fileName,
+      jobPosition: mentors.jobPosition,
+      tuesVispusk: mentors.tuesVispusk,
+      schedule: mentors.schedule,
+      where: mentors.where,
       team: {
         id: teams.id,
         name: teams.name,
       },
-      discordUser: {
-        discordId: discordUsers.discordId,
-        discordUsername: discordUsers.discordUsername,
-      },
     })
     .from(mentors)
-    .leftJoin(discordUsers, eq(mentors.id, discordUsers.mentorId))
     .leftJoin(teams, eq(mentors.id, teams.mentorId));
-
-export const getMentorByEmail = async (email: string) => {
-  const mentor = await selectFromMentors().where(eq(mentors.email, email));
-  return mentor.at(0) ?? null;
-};
 
 export const getMentorById = async (id: number) => {
   const mentor = await selectFromMentors().where(eq(mentors.id, id));
   return mentor.at(0) ?? null;
 };
-
-export const getMentorFromSession = async () => {
-  const session = await getHTSession();
-  if (!session?.user?.email) return null;
-  // FIXME: better to use the user relation?
-  return getMentorByEmail(session.user.email);
-};
-
-export async function checkIfMentorIsTaken(mentorId: number) {
-  try {
-    const res = await db
-      .select()
-      .from(teams)
-      .where(eq(teams.mentorId, mentorId));
-    if (res.length > 0) return true;
-    else return false;
-  } catch (err) {
-    return false;
-  }
-}
 
 const whitelist = ["abv@trading.212"];
 

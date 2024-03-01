@@ -3,10 +3,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import invariant from "tiny-invariant";
 
-import {
-  getMentorFromSession,
-  isWhitelistedMentor,
-} from "~/app/(full-layout)/mentors/service";
+import { isWhitelistedMentor } from "~/app/(full-layout)/mentors/service";
 import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { MentorFrom } from "./_components/mentor-form";
@@ -45,7 +42,7 @@ async function IfNotMentor({
 }: PropsWithChildren<{
   callbackUrl?: string;
 }>) {
-  const mentor = await getMentorFromSession();
+  const mentor = null;
   if (mentor) {
     return initiateDiscordFlow(callbackUrl);
   }
