@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { getTeamById } from "~/app/(full-layout)/teams/service";
+import { ComingSoonPage } from "~/app/components/coming-soon/coming-soon-page";
 import Mentor from "~/app/components/MentorCard/Mentor";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { getAllMentors } from "./service";
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 export default async function MentorsPage() {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("show-mentors")) {
-    notFound();
+    return <ComingSoonPage />;
   }
 
   const participant = await getParticipantFromSession();
