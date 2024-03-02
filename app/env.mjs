@@ -35,7 +35,7 @@ export const env = createEnv({
     GMAIL_REDIRECT_URI: z.string(),
 
     GITHUB_WEBHOOK_SECRET: z.string(),
-    // GITHUB_APP_ID: z.string(),
+    GITHUB_APP_ID: z.string(),
     GITHUB_PRIVATE_KEY: z.string(),
     // GITHUB_CLIENT_ID: z.string(),
 
