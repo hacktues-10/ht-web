@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import {
   boolean,
   date,
+  index,
   integer,
   numeric,
   pgEnum,
@@ -84,6 +85,7 @@ export const participantsRelations = relations(
     invitations: many(invitations),
     sentInvitations: many(invitations),
     discordUser: one(discordUsers),
+    githubInstallationsToParticipants: many(githubInstallationsToParticipants),
   }),
 );
 
@@ -325,6 +327,42 @@ export const adminsRelations = relations(admins, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export const githubInstallation = pgTable(
+  "github_installation",
+  {
+    id: serial("id").primaryKey(),
+    installationId: integer("installation_id").notNull().unique(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    installationIdIndex: index().on(t.installationId),
+  }),
+);
+
+export const githubInstallationRelations = relations(
+  githubInstallation,
+  ({ many }) => ({
+    githubInstallationsToParticipants: many(githubInstallationsToParticipants),
+  }),
+);
+
+export const githubInstallationsToParticipants = pgTable(
+  "github_installations_to_participants",
+  {
+    id: serial("id").primaryKey(),
+    installationId: integer("installation_id")
+      .notNull()
+      .references(() => githubInstallation.id),
+    participantId: integer("participant_id")
+      .notNull()
+      .references(() => particpants.id),
+  },
+  (t) => ({
+    unique: unique().on(t.installationId, t.participantId),
+  }),
+);
 
 // TODO: maybe move to index.ts???
 export type DrizzleClient = typeof db;
