@@ -56,7 +56,10 @@ import boniLogo from "../assets/sponsors/partners/boni.png";
 import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import culligan from "../assets/sponsors/partners/culligan.jpg";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
+import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
+import metro from "../assets/sponsors/partners/metro.png";
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
+import robotevLogo from "../assets/sponsors/partners/robotev.webp";
 import smartcomLogo from "../assets/sponsors/partners/smartcom.png";
 import sofiaTechParkLogo from "../assets/sponsors/partners/sofia-tech-park.png";
 //Media partners
@@ -394,7 +397,7 @@ const PARTNERS = [
     logo: boniLogo,
     url: "http://www.boniholding.com/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "Бони Холдинг е  най – големият производител на свинско месо в България и един от водещите производители в хранителната индустрия на страната. Дружеството осигурява 30% от прясното свинско месо в България. Бони Холдинг се развива основно в направление свиневъдство и месопреработка, като има и фуражно производство - помощна функция към свиневъдството. Портфолиото от продукти включва от живи животни, свежи меса и разфасовки до колбаси и полуфабрикати.",
     supportedEditions: [],
   },
   {
@@ -410,7 +413,7 @@ const PARTNERS = [
     logo: culligan,
     url: "https://www.culligan.bg/",
     description:
-      "Culligan Bulgaria- всичко, от което се нуждаете, за да осигурите чиста, висококачествена вода за Вашия бизнес или домакинство. Водата, която обичате!<br>Ние в Culligan се ангажираме да изградим по-добър, по-устойчив свят чрез подобряване както на социалното, така и на нашето въздействие върху околната среда.  В Culligan вярваме, че по-чистата и по-здравословна вода може да допринесе за подобряване на живота на хората по света и е ключов двигател към решаването на някои от най-големите предизвикателства, които стоят в нашето бъдеще.",
+      "Culligan Bulgaria- всичко, от което се нуждаете, за да осигурите чиста, висококачествена вода за Вашия бизнес или домакинство. Водата, която обичате! Ние в Culligan се ангажираме да изградим по-добър, по-устойчив свят чрез подобряване както на социалното, така и на нашето въздействие върху околната среда.  В Culligan вярваме, че по-чистата и по-здравословна вода може да допринесе за подобряване на живота на хората по света и е ключов двигател към решаването на някои от най-големите предизвикателства, които стоят в нашето бъдеще.",
     supportedEditions: ["hacktues-security"],
   },
   {
@@ -428,6 +431,14 @@ const PARTNERS = [
     ],
   },
   {
+    name: "Green Cherry Cafe",
+    logo: greenCherryLogo,
+    url: "https://bg-bg.facebook.com/greencherrycafe/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: ["hacktues-security"],
+  },
+  {
     name: "Мебели Ремо",
     logo: remoLogo,
     url: "https://mebeliremo.bg/",
@@ -435,7 +446,20 @@ const PARTNERS = [
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     supportedEditions: [],
   },
-
+  {
+    name: "Метро",
+    logo: metro,
+    url: "https://www.metro.bg/",
+    description:
+      "МЕТРО България - най-голямата компания за търговия на едро, оперираща на българския пазар вече 25 години, обслужваща клиенти от хотелския и ресторантьорския бизнес, търговци и фирми. Компанията управлява 11 магазина, както и 1 снабдителна база, с над 2000 служители. За нуждите на B2B клиентите, МЕТРО развива дейността си в многоканален модел на търговия, който съчетава магазини за търговия на едро и услуга за доставки на хранителни и нехранителни продукти. Хиляди професионални клиенти на МЕТРО България разчитат на продуктовата компетентност и качествените услуги на компанията, за да осъществяват успешно своя ежедневен бизнес. Отговорността е заложена в начина, по който МЕТРО осъществява дейността си - създавайки споделена стойност за общностите чрез своята ESG стратегия.",
+  },
+  {
+    name: "Роботев",
+    logo: robotevLogo,
+    description: `Роботев стартира дейността си като онлайн магазин за хоби роботика и електроника през 2008, когато става първият дистрибутор на Arduino за България. Днес компанията има и физически магазин в София и предлага продуктите на много от най-разпознаваемите производители на компоненти за хоби роботика като Raspberry Pi, SparkFun, Adafruit и Pololu.
+Освен с търговска дейност, Роботев се занимава и с разработка на електронни устройства и интерактивни инсталации. Компанията разполага с екип от софтуерни и хардуерни инженери и е разработвала устройства за умен дом, медицински устройства и корабни симулатори. Роботев работи с всички големи рекламни агенции в България и е реализирал проекти за световни марки като Heineken, Nissan, Twitter, Absolut, Cartoon Network, Sobranie, IQOS, Renault и много други.`,
+    url: "https://robotev.com/",
+  },
   {
     name: "Smartcom",
     logo: smartcomLogo,
@@ -469,14 +493,6 @@ const PARTNERS = [
 ];
 
 const MEDIA_PARTNERS = [
-  // {
-  //   name: "bTV",
-  //   logo: btvLogo,
-  //   url: "https://www.btv.bg/",
-  //   description:
-  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  //   supportedEditions: [],
-  // },
   {
     name: "Darik Business Review",
     logo: darikBusinessReviewLogo,

@@ -98,10 +98,7 @@ export default async function TeamDetailPage({
 
   const techn = convertToTechnology(team.technologies || "");
   const mentor = team.mentorId ? await getMentorById(team.mentorId) : null;
-  let url = null;
-  if (mentor?.fileName) {
-    url = await getImageUrl({ fileName: mentor?.fileName });
-  }
+
   const preparedParticipants = await getPreparedParticipants(
     loadedTeam,
     participant?.id ?? null,
@@ -315,20 +312,26 @@ export default async function TeamDetailPage({
                 </div>
               ))}
             {!team.isAlumni &&
-              (team.mentorId && url ? (
-                <div
-                  key={mentor?.id}
-                  className="m-2 flex rounded-2xl border-2 p-2"
-                >
-                  <div>
-                    <Avatar>
-                      <AvatarImage></AvatarImage>
-                      <AvatarFallback>?</AvatarFallback>
-                    </Avatar>
+              (team.mentorId && mentor && mentor.id && mentor.fileName ? (
+                <div className="mt-4 rounded-xl border-2 py-2">
+                  <h2 className="m-auto ml-4 text-left text-xl">Ментор</h2>
+                  <div
+                    key={mentor?.id}
+                    className="m-2 flex rounded-2xl border-2 p-2"
+                  >
+                    <div>
+                      <Avatar>
+                        <AvatarImage
+                          src={`/mentors/${mentor?.fileName}`}
+                          alt={mentor?.name}
+                        ></AvatarImage>
+                        <AvatarFallback>?</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <h2 className="m-auto ml-4 text-left text-lg">
+                      {mentor?.name}
+                    </h2>
                   </div>
-                  <h2 className="m-auto ml-4 text-left text-lg">
-                    {mentor?.firstName} {mentor?.lastName}
-                  </h2>
                 </div>
               ) : (
                 <div

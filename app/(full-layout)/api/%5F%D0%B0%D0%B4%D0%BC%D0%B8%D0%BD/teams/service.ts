@@ -16,8 +16,7 @@ export async function getTeamsAdmin() {
       description: teams.description,
       mentor: {
         id: mentors.id,
-        firstName: mentors.firstName,
-        lastName: mentors.lastName,
+        name: mentors.name,
         company: mentors.companyName,
       },
       isAlumni: teams.isAlumni,
@@ -34,9 +33,7 @@ export async function getTeamsAdmin() {
       id: team.id,
       name: team.name,
       description: team.description,
-      mentor: `${team.mentor?.firstName ?? " "} ${
-        team.mentor?.lastName ?? " "
-      } ${team.mentor?.company ?? " "}`,
+      mentor: `${team.mentor?.name ?? ""} ${team.mentor?.company ?? ""}`,
       isAlumni: team.isAlumni ? "Yes" : "No",
       members: team.members,
       semiFinal: team.semiFinal,
