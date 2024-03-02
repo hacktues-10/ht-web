@@ -24,11 +24,11 @@ export function signInRedirect(): never {
   // I don't feel good about this
   // https://stackoverflow.com/a/76585119
   const invokePath = headers().get("x-invoke-path");
-  return redirect(
-    `/api/auth/signin?${new URLSearchParams({
-      callbackUrl: invokePath ?? "/",
-    })}`,
-  );
+  return signInRedirectCustom(invokePath ?? "/");
+}
+
+export function signInRedirectCustom(callbackUrl: string): never {
+  return redirect(`/api/auth/signin?${new URLSearchParams({ callbackUrl })}`);
 }
 
 export async function getUserAuthorization() {
