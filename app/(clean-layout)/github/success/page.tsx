@@ -9,7 +9,7 @@ import { SECOND } from "~/app/utils";
 
 function useWindow() {
   const [currentWindow, setCurrentWindow] = useState<Window | null>(
-    window || null,
+    typeof window === "undefined" ? null : window,
   );
   useEffect(() => {
     setCurrentWindow(window);
