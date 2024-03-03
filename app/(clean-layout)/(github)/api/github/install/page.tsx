@@ -9,15 +9,26 @@ import {
 } from "~/app/_integrations/github/installations/storage";
 import { isNextControlError } from "~/app/hacks";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { signInRedirectCustom } from "../../auth/session";
+import { signInRedirectCustom } from "../../../../../api/auth/session";
 
-export async function GET(req: NextRequest) {
+const URL_TO_THIS_PAGE = "/api/github/install";
+
+export default async function GithubLoadingPage({
+  searchParams,
+}: {
+  searchParams: {
+    setup_action?: string;
+    installation_id?: string;
+  };
+}) {
   try {
     const participant = await getParticipantFromSession();
     if (!participant) {
-      return signInRedirectCustom(req.url);
+      return signInRedirectCustom(
+        `${URL_TO_THIS_PAGE}?${new URLSearchParams(searchParams).toString()}`,
+      );
     }
-    const setupAction = req.nextUrl.searchParams.get("setup_action");
+    const setupAction = searchParams.setup_action;
     if (setupAction === "request") {
       return redirect("/github/request");
     }
@@ -29,7 +40,7 @@ export async function GET(req: NextRequest) {
       .string()
       .transform((s) => parseInt(s, 10))
       .pipe(z.number().int())
-      .safeParse(req.nextUrl.searchParams.get("installation_id"));
+      .safeParse(searchParams.installation_id);
     if (!res.success) {
       return redirect("/github/error?c=wp0rgu8");
     }
