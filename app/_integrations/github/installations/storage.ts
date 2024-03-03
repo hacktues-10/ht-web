@@ -1,3 +1,5 @@
+import { eq } from "drizzle-orm";
+
 import { db } from "~/app/db";
 import {
   githubInstallations,
@@ -37,3 +39,27 @@ export async function linkInstallationToParticipant(
       ],
     });
 }
+
+export async function getInstallationsForParticipant(participantId: number) {
+  return db
+    .select({
+      id: githubInstallations.id,
+      appInstallationId: githubInstallations.appInstallationId,
+      createdAt: githubInstallations.createdAt,
+      updatedAt: githubInstallations.updatedAt,
+      linkedAt: githubInstallationsToParticipants.linkedAt,
+    })
+    .from(githubInstallations)
+    .innerJoin(
+      githubInstallationsToParticipants,
+      eq(
+        githubInstallations.id,
+        githubInstallationsToParticipants.installationId,
+      ),
+    )
+    .where(eq(githubInstallationsToParticipants.participantId, participantId));
+}
+
+export type Installation = Awaited<
+  ReturnType<typeof getInstallationsForParticipant>
+>[number];

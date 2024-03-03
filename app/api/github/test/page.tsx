@@ -2,7 +2,9 @@
 
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
+import { getGithubRepos } from "~/app/_integrations/github/actions";
 import { Button } from "~/app/components/ui/button";
 import { env } from "~/app/env.mjs";
 
@@ -29,8 +31,9 @@ function closePopup() {
 }
 
 export default function TestPageDeletePls() {
-  useEffect(() => {
-    closePopup();
+  const { data } = useQuery({
+    queryKey: ["github-installations"],
+    queryFn: () => getGithubRepos(),
   });
 
   function handleOpen() {
@@ -40,5 +43,11 @@ export default function TestPageDeletePls() {
       600,
     );
   }
-  return <Button onClick={handleOpen}>Install</Button>;
+  // return ;
+  return (
+    <>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <Button onClick={handleOpen}>Install</Button>
+    </>
+  );
 }
