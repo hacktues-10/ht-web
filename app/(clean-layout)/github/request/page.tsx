@@ -8,7 +8,7 @@ export default function GitHubRequestSentPage() {
       <h1 className="text-3xl font-extrabold">
         Заявката за свързване с GitHub беше изпратена!
       </h1>
-      Трябва собственика на организацията да одобри заявката.
+      Трябва собственикът на организацията да одобри заявката.
       <CloseButton />
     </>
   );
