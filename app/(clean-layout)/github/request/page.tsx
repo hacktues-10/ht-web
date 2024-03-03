@@ -1,6 +1,6 @@
 "use client";
 
-import { CloseButton } from "./_components/close-button";
+import { CloseButton } from "../_components/close-button";
 
 export default function GitHubRequestSentPage() {
   return (
