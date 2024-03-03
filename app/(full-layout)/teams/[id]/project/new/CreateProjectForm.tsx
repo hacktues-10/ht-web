@@ -6,7 +6,7 @@ import invariant from "tiny-invariant";
 
 import { EVENT_END } from "~/app/_configs/hackathon";
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
-import { IfHTFeatureOn } from "~/app/_integrations/components";
+import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import { IfDateInFuture, IfDateInPast } from "~/app/components/countdowns";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
@@ -98,15 +98,17 @@ export default function CreateProjectFrom({ teamId }: { teamId: string }) {
         >
           Създай проект
         </Button>
-        <FeatureDisabledOverlay>
-          <FeatureDisabledHeading>
-            <IfDateInFuture date={EVENT_END}>Има време...</IfDateInFuture>
-            <IfDateInPast date={EVENT_END}>Твърде късно!</IfDateInPast>
-          </FeatureDisabledHeading>
-          <p className="text-center">
-            Създаването на проекти е затворено в момента.
-          </p>
-        </FeatureDisabledOverlay>
+        <IfHTFeatureOff feature="create-project">
+          <FeatureDisabledOverlay>
+            <FeatureDisabledHeading>
+              <IfDateInFuture date={EVENT_END}>Има време...</IfDateInFuture>
+              <IfDateInPast date={EVENT_END}>Твърде късно!</IfDateInPast>
+            </FeatureDisabledHeading>
+            <p className="text-center">
+              Създаването на проекти е затворено в момента.
+            </p>
+          </FeatureDisabledOverlay>
+        </IfHTFeatureOff>
       </form>
     </Card>
   );
