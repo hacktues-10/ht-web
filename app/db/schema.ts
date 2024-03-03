@@ -250,6 +250,28 @@ export const projectsRelations = relations(projects, ({ one }) => ({
   }),
 }));
 
+export const githubRepos = pgTable("github_repos", {
+  id: serial("id").primaryKey(),
+  githubId: integer("github_id").notNull().unique(),
+  name: varchar("name").notNull(),
+  url: varchar("url").notNull(),
+  projectId: integer("project_id")
+    .notNull()
+    .references(() => projects.id),
+  participantId: integer("participant_id")
+    .notNull()
+    .references(() => particpants.id),
+  installationId: integer("installation_id")
+    .notNull()
+    .references(() => githubInstallations.id),
+  lastAcceptedCommit: varchar("last_accepted_commit"),
+  lastAcceptedCommitDate: timestamp("last_accepted_commit_date"),
+  lastAcceptedCommitReceivedAt: timestamp("last_accepted_commit_received_at"),
+  isSuspended: boolean("is_suspended").notNull().default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 export const tShirts = pgTable("tshirts", {
   id: serial("id").primaryKey(),
   tShirtSize: tShirtSizeEnum("tshirt_size"),
