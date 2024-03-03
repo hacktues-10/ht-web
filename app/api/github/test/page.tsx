@@ -1,16 +1,90 @@
 "use client";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  Mutation,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
-import { getGithubRepos } from "~/app/_integrations/github/actions";
+import { addRepo, getGithubRepos } from "~/app/_integrations/github/actions";
 import { Button } from "~/app/components/ui/button";
+import { ToastAction } from "~/app/components/ui/toast";
+import { useToast } from "~/app/components/ui/use-toast";
 import { env } from "~/app/env.mjs";
 import { openPopup } from "~/app/popups";
+
+const REPOS_QUERY_KEY = ["github-installations"];
+
+function AddRepoButton(props: {
+  repoGithubId: number;
+  installationId: number;
+}) {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const result = await addRepo({
+        githubId: props.repoGithubId,
+        installationId: props.installationId,
+      });
+      if (!result.success) {
+        throw new Error(result.message);
+      }
+      return result.id;
+    },
+    onSuccess: async (createdId) => {
+      await queryClient.cancelQueries({
+        exact: true,
+        queryKey: REPOS_QUERY_KEY,
+      });
+      const previousData = queryClient.getQueryData(REPOS_QUERY_KEY);
+      if (Array.isArray(previousData)) {
+        const repos = previousData as unknown[];
+        queryClient.setQueryData(
+          REPOS_QUERY_KEY,
+          repos.map((repo) => {
+            if (
+              typeof repo === "object" &&
+              repo &&
+              "githubId" in repo &&
+              repo.githubId === props.repoGithubId
+            ) {
+              return { ...repo, id: createdId };
+            }
+            return repo;
+          }),
+        );
+      }
+      await queryClient.invalidateQueries({
+        exact: true,
+        queryKey: REPOS_QUERY_KEY,
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Хранилището не бе добавено",
+        description: error.message,
+        action: error.message.includes("отново") ? (
+          <ToastAction altText="Опитай пак" onClick={() => mutation.mutate()}>
+            Опитай пак
+          </ToastAction>
+        ) : undefined,
+      });
+    },
+  });
+
+  return (
+    <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}>
+      add
+    </Button>
+  );
+}
 
 export default function TestPageDeletePls() {
   const queryClient = useQueryClient();
   const { data } = useQuery({
-    queryKey: ["github-installations"],
+    queryKey: REPOS_QUERY_KEY,
     queryFn: () => getGithubRepos(),
   });
 
@@ -22,18 +96,32 @@ export default function TestPageDeletePls() {
     ).then(() => {
       // queryClient.refetchQueries({
       //   exact: true,
-      //   queryKey: ["github-installations"],
+      //   queryKey: REPOS_QUERY_KEY,
       // });
       queryClient.resetQueries({
         exact: true,
-        queryKey: ["github-installations"],
+        queryKey: REPOS_QUERY_KEY,
       });
     });
   }
   // return ;
   return (
     <>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      {data
+        ? data.map((repo) => (
+            <div key={repo.id} className="flex gap-1">
+              <h3>{repo.name}</h3>
+              {!repo.id ? (
+                <AddRepoButton
+                  repoGithubId={repo.githubId}
+                  installationId={repo.installationId}
+                />
+              ) : (
+                <Button>remove</Button>
+              )}
+            </div>
+          ))
+        : "Loading..."}
       <Button onClick={handleOpen}>Install</Button>
     </>
   );

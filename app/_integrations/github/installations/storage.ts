@@ -69,6 +69,35 @@ export type Installation = Awaited<
   ReturnType<typeof getInstallationsForParticipant>
 >[number];
 
+export async function getInstallationRecordByParticipantId(
+  participantId: number,
+  installationId: number,
+) {
+  const results = await db
+    .select({
+      id: githubInstallations.id,
+      appInstallationId: githubInstallations.appInstallationId,
+      createdAt: githubInstallations.createdAt,
+      updatedAt: githubInstallations.updatedAt,
+    })
+    .from(githubInstallations)
+    .innerJoin(
+      githubInstallationsToParticipants,
+      eq(
+        githubInstallations.id,
+        githubInstallationsToParticipants.installationId,
+      ),
+    )
+    .where(
+      and(
+        eq(githubInstallationsToParticipants.participantId, participantId),
+        not(githubInstallations.isSuspended),
+      ),
+    )
+    .limit(1);
+  return results.at(0) ?? null;
+}
+
 export async function getInstallationRecordByAppInstallationId(
   appInstallationId: number,
 ) {

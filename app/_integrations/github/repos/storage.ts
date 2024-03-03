@@ -2,6 +2,7 @@ import { and, desc, eq, not } from "drizzle-orm";
 
 import { db } from "~/app/db";
 import { githubRepos } from "~/app/db/schema";
+import { env } from "~/app/env.mjs";
 
 type UpdateRepo = typeof githubRepos.$inferInsert;
 type SelectRepo = typeof githubRepos.$inferSelect;
@@ -9,8 +10,31 @@ type SelectRepo = typeof githubRepos.$inferSelect;
 export async function importRepo(
   data: Exclude<UpdateRepo, "id" | "updatedAt" | "createdAt">,
 ) {
-  const res = await db.insert(githubRepos).values(data).returning();
-  return res.at(0) ?? null;
+  try {
+    const res = await db
+      .insert(githubRepos)
+      .values(data)
+      .onConflictDoNothing({
+        target: githubRepos.githubId,
+        // error: syntax error at or near "WHERE"
+        // where: eq(githubRepos.projectId, data.projectId),
+      })
+      .returning();
+    if (res.length === 0) {
+      const existingRepo = await getRepoByGithubId(data.githubId);
+      if (existingRepo?.projectId !== data.projectId) {
+        return null;
+      }
+      return existingRepo;
+    }
+    return res[0];
+  } catch (error) {
+    if (env.VERCEL_ENV !== "production") {
+      throw error;
+    }
+    console.error("importRepo error", error);
+    return null;
+  }
 }
 
 export async function removeRepo(id: number) {

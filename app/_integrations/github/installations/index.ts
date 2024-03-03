@@ -1,6 +1,6 @@
 import { app } from "../app";
 
-export async function getInstallationById(installationId: number) {
+export async function ghGetInstallationById(installationId: number) {
   try {
     const { data } = await app.octokit.request(
       "GET /app/installations/{installation_id}",

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-import { getInstallationById as getAppInstallationById } from "~/app/_integrations/github/installations";
+import { ghGetInstallationById as getAppInstallationById } from "~/app/_integrations/github/installations";
 import {
   linkInstallationToParticipant,
   upsertInstallation,

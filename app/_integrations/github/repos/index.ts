@@ -1,6 +1,9 @@
+import { components } from "@octokit/openapi-types";
+import { OctokitResponse } from "@octokit/types";
+
 import { app } from "../app";
 
-export async function getReposForInstallation(appInstallationId: number) {
+export async function ghGetReposForInstallation(appInstallationId: number) {
   try {
     const octokit = await app.getInstallationOctokit(appInstallationId);
     const res = await octokit.request("GET /installation/repositories", {
@@ -18,4 +21,23 @@ export async function getReposForInstallation(appInstallationId: number) {
   }
 }
 
-export type Repo = Awaited<ReturnType<typeof getReposForInstallation>>[number];
+export async function ghGetRepoById(appInstallationId: number, repoId: number) {
+  try {
+    const octokit = await app.getInstallationOctokit(appInstallationId);
+    const res = (await octokit.request("GET /repositories/{repository_id}", {
+      headers: {
+        "x-github-api-version": "2022-11-28",
+      },
+      repository_id: repoId,
+    })) as OctokitResponse<components["schemas"]["full-repository"]>;
+    return res.data;
+  } catch (error) {
+    // TODO: proper error logging
+    console.error("getRepoById error", error);
+    return null;
+  }
+}
+
+export type Repo = Awaited<
+  ReturnType<typeof ghGetReposForInstallation>
+>[number];
