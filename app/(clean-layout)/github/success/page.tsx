@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+import { closePopup } from "~/app/popups";
 import { SECOND } from "~/app/utils";
 import { useWindow } from "../use-window";
 
@@ -12,7 +13,7 @@ export default function GitHubSuccessPage() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (willClose) {
-        window?.close();
+        closePopup();
       }
     }, 3 * SECOND);
     return () => clearTimeout(timeout);
