@@ -2,6 +2,11 @@
 
 import { CloseButton } from "../_components/close-button";
 
+export const metadata = {
+  title: "Заявката беше изпратена!",
+  description: "Заявката беше изпратена!",
+};
+
 export default function GitHubRequestSentPage() {
   return (
     <>

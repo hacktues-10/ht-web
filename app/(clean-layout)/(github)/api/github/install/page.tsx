@@ -11,6 +11,11 @@ import { isNextControlError } from "~/app/hacks";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { signInRedirectCustom } from "../../../../../api/auth/session";
 
+export const metadata: Metadata = {
+  title: "Свързване с GitHub...",
+  description: "Свързва се с GitHub...",
+};
+
 const URL_TO_THIS_PAGE = "/api/github/install";
 
 export default async function GithubLoadingPage({
