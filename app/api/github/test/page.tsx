@@ -7,7 +7,11 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
-import { addRepo, getGithubRepos } from "~/app/_integrations/github/actions";
+import {
+  addRepo,
+  getGithubRepos,
+  removeRepo,
+} from "~/app/_integrations/github/actions";
 import { Button } from "~/app/components/ui/button";
 import { ToastAction } from "~/app/components/ui/toast";
 import { useToast } from "~/app/components/ui/use-toast";
@@ -56,7 +60,7 @@ function AddRepoButton(props: {
           }),
         );
       }
-      await queryClient.invalidateQueries({
+      await queryClient.refetchQueries({
         exact: true,
         queryKey: REPOS_QUERY_KEY,
       });
@@ -77,6 +81,65 @@ function AddRepoButton(props: {
   return (
     <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}>
       add
+    </Button>
+  );
+}
+
+function RemoveRepoButton(props: { repoId: number }) {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const response = await removeRepo({
+        id: props.repoId,
+      });
+      if (!response.success) {
+        throw new Error(response.message);
+      }
+    },
+    onSuccess: async () => {
+      await queryClient.cancelQueries({
+        exact: true,
+        queryKey: REPOS_QUERY_KEY,
+      });
+      const previousData = queryClient.getQueryData(REPOS_QUERY_KEY);
+      if (Array.isArray(previousData)) {
+        queryClient.setQueryData(
+          REPOS_QUERY_KEY,
+          previousData.map((repo) => {
+            if (
+              typeof repo === "object" &&
+              repo &&
+              "id" in repo &&
+              repo.id === props.repoId
+            ) {
+              return { ...repo, id: null };
+            }
+            return repo;
+          }),
+        );
+      }
+      await queryClient.refetchQueries({
+        exact: true,
+        queryKey: REPOS_QUERY_KEY,
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Хранилишето не бе премахнато",
+        description: error.message,
+        action: error.message.includes("отново") ? (
+          <ToastAction altText="Опитай пак" onClick={() => mutation.mutate()}>
+            Опитай пак
+          </ToastAction>
+        ) : undefined,
+      });
+    },
+  });
+
+  return (
+    <Button onClick={() => mutation.mutate()} disabled={mutation.isPending}>
+      remove
     </Button>
   );
 }
@@ -109,7 +172,7 @@ export default function TestPageDeletePls() {
     <>
       {data
         ? data.map((repo) => (
-            <div key={repo.id} className="flex gap-1">
+            <div key={repo.githubId} className="flex gap-1">
               <h3>{repo.name}</h3>
               {!repo.id ? (
                 <AddRepoButton
@@ -117,7 +180,7 @@ export default function TestPageDeletePls() {
                   installationId={repo.installationId}
                 />
               ) : (
-                <Button>remove</Button>
+                <RemoveRepoButton repoId={repo.id} />
               )}
             </div>
           ))

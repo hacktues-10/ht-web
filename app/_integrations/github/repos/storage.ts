@@ -37,7 +37,7 @@ export async function importRepo(
   }
 }
 
-export async function removeRepo(id: number) {
+export async function unimportRepo(id: number) {
   const res = await db
     .delete(githubRepos)
     .where(eq(githubRepos.id, id))
@@ -68,6 +68,11 @@ export async function getRepoByGithubId(githubId: number) {
     .select()
     .from(githubRepos)
     .where(eq(githubRepos.githubId, githubId));
+  return res.at(0) ?? null;
+}
+
+export async function getRepoById(id: number) {
+  const res = await db.select().from(githubRepos).where(eq(githubRepos.id, id));
   return res.at(0) ?? null;
 }
 

@@ -1,18 +1,14 @@
 "use server";
 
-import invariant from "tiny-invariant";
 import { z } from "zod";
 
 import { zact } from "~/app/_zact/server";
-import {
-  getProjectByTeamId,
-  getTeamById,
-} from "~/app/(full-layout)/teams/service";
+import { getProjectByTeamId } from "~/app/(full-layout)/teams/service";
+import { env } from "~/app/env.mjs";
 import {
   getParticipantFromSession,
   Participant,
 } from "~/app/participants/service";
-import { ghGetInstallationById } from "./installations";
 import {
   getInstallationRecordByParticipantId,
   getInstallationsForParticipant,
@@ -20,9 +16,10 @@ import {
 } from "./installations/storage";
 import { ghGetRepoById, ghGetReposForInstallation, Repo } from "./repos";
 import {
-  getRepoByGithubId,
+  getRepoById,
   getReposForProject,
   importRepo,
+  unimportRepo,
 } from "./repos/storage";
 
 export const getGithubRepos = async () => {
@@ -133,6 +130,48 @@ export const addRepo = zact(
     success: true,
     id: repo.id,
   };
+});
+
+export const removeRepo = zact(
+  z.object({
+    id: z.number().int(),
+  }),
+)(async (input) => {
+  const participant = await getParticipantFromSession();
+  if (!participant) {
+    return {
+      success: false,
+      message: "Не сте влезли като участник",
+    } as const;
+  }
+  const repo = await getRepoById(input.id);
+  if (!repo) {
+    return {
+      success: false,
+      message: "Хранилишето не съществува",
+    } as const;
+  }
+  if (repo.participantId !== participant.id) {
+    return {
+      success: false,
+      message: "Това хранилише не е добавено от вас",
+    } as const;
+  }
+  try {
+    await unimportRepo(repo.id);
+  } catch (error) {
+    if (env.VERCEL_ENV !== "production") {
+      throw error;
+    }
+    console.error("removeRepo error", error);
+    return {
+      success: false,
+      message: "Грешка при премахване на хранилишето. Моля, опитайте отново.",
+    } as const;
+  }
+  return {
+    success: true,
+  } as const;
 });
 
 async function fetchGithubRepos(participantId: number) {
