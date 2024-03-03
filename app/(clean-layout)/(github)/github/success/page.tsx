@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { closePopup } from "~/app/popups";
 import { SECOND } from "~/app/utils";
-import { useWindow } from "../use-window";
+import { useWindow } from "../../use-window";
 
 export default function GitHubSuccessPage() {
   const window = useWindow();
