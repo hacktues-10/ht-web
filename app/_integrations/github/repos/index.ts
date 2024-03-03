@@ -7,6 +7,8 @@ export async function getReposForInstallation(appInstallationId: number) {
       headers: {
         "x-github-api-version": "2022-11-28",
       },
+      per_page: 100, // ако някой има повече от 100 хранилища, да духа супата ;-;
+      //                (може да даде достъп само до тези, които са му нужни, в случай на тикети)
     });
     return res.data.repositories;
   } catch (error) {
