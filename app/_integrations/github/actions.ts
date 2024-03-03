@@ -37,7 +37,9 @@ export const getGithubRepos = async () => {
         id: repo.id,
         name: repo.full_name,
         isPrivate: repo.private,
-        updatedAt: repo.pushed_at ? new Date(repo.pushed_at) : new Date(0),
+        updatedAt: new Date(
+          repo.pushed_at || repo.updated_at || repo.created_at || 0,
+        ),
         url: repo.html_url,
         installationId: result.value.installation.id,
       })),
