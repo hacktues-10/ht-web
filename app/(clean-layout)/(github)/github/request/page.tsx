@@ -1,5 +1,3 @@
-"use client";
-
 import { CloseButton } from "../_components/close-button";
 
 export const metadata = {

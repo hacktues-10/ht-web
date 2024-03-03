@@ -1,5 +1,3 @@
-"use client";
-
 import { Metadata } from "next";
 
 import { CloseButton } from "../_components/close-button";
