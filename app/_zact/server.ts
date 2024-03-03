@@ -23,7 +23,7 @@ export function zact<InputType extends z.ZodTypeAny>(validator?: InputType) {
     const validatedAction = async (input: z.infer<InputType>) => {
       if (validator) {
         // This will throw if the input is invalid
-        const result = validator.safeParse(input);
+        const result = await validator.safeParseAsync(input);
 
         if (!result.success) {
           const validatedError = fromZodError(result.error);
