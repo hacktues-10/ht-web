@@ -1,29 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { HTXLogoDuotone } from "~/app/components/logos";
-import { Card } from "~/app/components/ui/card";
-import { Separator } from "~/app/components/ui/separator";
 import { SECOND } from "~/app/utils";
-
-function useWindow() {
-  const [currentWindow, setCurrentWindow] = useState<Window | null>(
-    typeof window === "undefined" ? null : window,
-  );
-  useEffect(() => {
-    setCurrentWindow(window);
-    const timeout = setTimeout(() => {
-      window.close();
-    }, 3 * SECOND);
-    return () => clearTimeout(timeout);
-  }, []);
-  return currentWindow;
-}
+import { useWindow } from "../use-window";
 
 export default function GitHubSuccessPage() {
   const window = useWindow();
   const willClose = !!window?.opener;
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (willClose) {
+        window?.close();
+      }
+    }, 3 * SECOND);
+    return () => clearTimeout(timeout);
+  }, [willClose, window]);
+
   return (
     <>
       <h1 className="text-3xl font-extrabold">
