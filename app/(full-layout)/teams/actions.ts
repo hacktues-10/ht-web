@@ -564,15 +564,6 @@ export async function updateTechnologies(teamId: string) {
   revalidateTag("teams");
 }
 
-export async function getProjectByTeamId(teamId: string) {
-  if (teamId) {
-    return (
-      await db.select().from(projects).where(eq(projects.teamId, teamId))
-    ).at(0);
-  }
-  return null;
-}
-
 export const prepareParticipants = zact(
   z.object({
     teamId: z.string(),

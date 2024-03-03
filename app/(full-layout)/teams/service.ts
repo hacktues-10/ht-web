@@ -13,7 +13,13 @@ import {
 } from "~/app/_configs/hackathon";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
-import { discordUsers, invitations, particpants, teams } from "~/app/db/schema";
+import {
+  discordUsers,
+  invitations,
+  particpants,
+  projects,
+  teams,
+} from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 import {
   formatParticipantDiscordNick,
@@ -52,6 +58,11 @@ export const getAllTeams = unstable_cache(
 
 export async function getTeamById(id: string) {
   const results = await db.select().from(teams).where(eq(teams.id, id));
+  return results.at(0) ?? null;
+}
+
+export async function getProjectByTeamId(teamId: string) {
+  const results = await db.select().from(projects);
   return results.at(0) ?? null;
 }
 

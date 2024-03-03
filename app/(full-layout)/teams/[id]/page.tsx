@@ -10,13 +10,13 @@ import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
   checkStateJoinRequests,
   deleteMyTeam,
-  getProjectByTeamId,
   getTeamMembers,
   isTeamFull,
   prepareParticipants,
 } from "~/app/(full-layout)/teams/actions";
 import {
   getPreparedParticipants,
+  getProjectByTeamId,
   getTeamById,
   isParticipantEligableToJoin,
 } from "~/app/(full-layout)/teams/service";
