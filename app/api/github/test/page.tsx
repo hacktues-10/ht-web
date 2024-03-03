@@ -20,7 +20,11 @@ export default function TestPageDeletePls() {
       800,
       600,
     ).then(() => {
-      queryClient.refetchQueries({
+      // queryClient.refetchQueries({
+      //   exact: true,
+      //   queryKey: ["github-installations"],
+      // });
+      queryClient.resetQueries({
         exact: true,
         queryKey: ["github-installations"],
       });
