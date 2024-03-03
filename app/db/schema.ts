@@ -323,21 +323,21 @@ export const adminsRelations = relations(admins, ({ one }) => ({
   }),
 }));
 
-export const githubInstallation = pgTable(
-  "github_installation",
+export const githubInstallations = pgTable(
+  "github_installations",
   {
     id: serial("id").primaryKey(),
-    installationId: integer("installation_id").notNull().unique(),
+    appInstallationId: integer("app_installation_id").notNull().unique(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
   },
   (t) => ({
-    installationIdIndex: index().on(t.installationId),
+    installationIdIndex: index().on(t.appInstallationId),
   }),
 );
 
-export const githubInstallationRelations = relations(
-  githubInstallation,
+export const githubInstallationsRelations = relations(
+  githubInstallations,
   ({ many }) => ({
     githubInstallationsToParticipants: many(githubInstallationsToParticipants),
   }),
@@ -349,10 +349,11 @@ export const githubInstallationsToParticipants = pgTable(
     id: serial("id").primaryKey(),
     installationId: integer("installation_id")
       .notNull()
-      .references(() => githubInstallation.id),
+      .references(() => githubInstallations.id),
     participantId: integer("participant_id")
       .notNull()
       .references(() => particpants.id),
+    linkedAt: timestamp("linked_at").defaultNow().notNull(),
   },
   (t) => ({
     unique: unique().on(t.installationId, t.participantId),

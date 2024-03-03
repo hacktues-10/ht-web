@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { db } from "~/app/db";
 import { discordUsers } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
+import { isNextControlError } from "~/app/hacks";
 import {
   formatParticipantDiscordNick,
   getParticipantFromSession,
@@ -133,14 +134,7 @@ export async function GET(req: NextRequest) {
       }
     }
   } catch (error) {
-    // HACK: prevent Next.js redirects and other stuff from triggering this
-    if (
-      typeof error === "object" &&
-      error !== null &&
-      "digest" in error &&
-      typeof error.digest === "string" &&
-      error.digest.toLowerCase().includes("next")
-    ) {
+    if (isNextControlError(error)) {
       throw error;
     }
 
