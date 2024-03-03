@@ -5,6 +5,7 @@ import { SECOND } from "~/app/utils";
 import {
   deleteInstallationRecord,
   getInstallationRecordByAppInstallationId,
+  markInstallationAsSuspended,
 } from "./installations/storage";
 
 export const app = new App({
@@ -36,4 +37,26 @@ app.webhooks.on("installation.deleted", async ({ octokit, payload }) => {
     return;
   }
   await deleteInstallationRecord(installationRecord.id);
+});
+
+app.webhooks.on("installation.suspend", async ({ octokit, payload }) => {
+  const installationRecord = await getInstallationRecordByAppInstallationId(
+    payload.installation.id,
+  );
+  if (!installationRecord) {
+    console.error("installation record not found", payload.installation.id);
+    return;
+  }
+  await markInstallationAsSuspended(installationRecord.id, true);
+});
+
+app.webhooks.on("installation.unsuspend", async ({ octokit, payload }) => {
+  const installationRecord = await getInstallationRecordByAppInstallationId(
+    payload.installation.id,
+  );
+  if (!installationRecord) {
+    console.error("installation record not found", payload.installation.id);
+    return;
+  }
+  await markInstallationAsSuspended(installationRecord.id, false);
 });

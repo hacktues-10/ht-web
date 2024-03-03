@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, not } from "drizzle-orm";
 
 import { db } from "~/app/db";
 import {
@@ -57,7 +57,12 @@ export async function getInstallationsForParticipant(participantId: number) {
         githubInstallationsToParticipants.installationId,
       ),
     )
-    .where(eq(githubInstallationsToParticipants.participantId, participantId));
+    .where(
+      and(
+        eq(githubInstallationsToParticipants.participantId, participantId),
+        not(githubInstallations.isSuspended),
+      ),
+    );
 }
 
 export type Installation = Awaited<
@@ -91,5 +96,17 @@ export async function deleteInstallationRecord(installationRecordId: number) {
     );
   await db
     .delete(githubInstallations)
+    .where(eq(githubInstallations.id, installationRecordId));
+}
+
+export async function markInstallationAsSuspended(
+  installationRecordId: number,
+  isSuspended: boolean,
+) {
+  await db
+    .update(githubInstallations)
+    .set({
+      isSuspended,
+    })
     .where(eq(githubInstallations.id, installationRecordId));
 }

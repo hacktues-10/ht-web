@@ -330,6 +330,7 @@ export const githubInstallations = pgTable(
     appInstallationId: integer("app_installation_id").notNull().unique(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    isSuspended: boolean("is_suspended").notNull().default(false),
   },
   (t) => ({
     installationIdIndex: index().on(t.appInstallationId),
