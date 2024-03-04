@@ -31,6 +31,8 @@ export type HTFeatures = {
   "show-linktree-mobile": boolean;
   "show-twitter-mobile": boolean;
   "show-email-mobile": boolean;
+
+  "add-github-repos": boolean;
 };
 
 export type HTFeature = keyof HTFeatures;

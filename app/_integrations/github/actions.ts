@@ -10,6 +10,7 @@ import {
   getParticipantFromSession,
   Participant,
 } from "~/app/participants/service";
+import { getServerSideGrowthBook } from "../growthbook";
 import {
   getInstallationRecordByParticipantId,
   getInstallationsForParticipant,
@@ -24,6 +25,11 @@ import {
 } from "./repos/storage";
 
 export const getGithubRepos = async () => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("add-github-repos")) {
+    return [];
+  }
+
   const participant = await getParticipantFromSession();
   if (!participant) {
     return [];
@@ -70,6 +76,14 @@ export const getGithubRepos = async () => {
 export const addRepo = zact(
   z.object({ githubId: z.number().int(), installationId: z.number().int() }),
 )(async (input) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("add-github-repos")) {
+    return {
+      success: false,
+      message: "Функционалността е изключена",
+    } as const;
+  }
+
   const participant = await getParticipantFromSession();
   if (!participant) {
     return {
@@ -140,6 +154,14 @@ export const removeRepo = zact(
     id: z.number().int(),
   }),
 )(async (input) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("add-github-repos")) {
+    return {
+      success: false,
+      message: "Функционалността е изключена",
+    } as const;
+  }
+
   const participant = await getParticipantFromSession();
   if (!participant) {
     return {

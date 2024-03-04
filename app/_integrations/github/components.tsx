@@ -44,6 +44,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/app/components/ui/tooltip";
+import { IfHTFeatureOff, IfHTFeatureOn } from "../components";
 import {
   useAddRepo,
   useGithubInstallationPopup,
@@ -61,27 +62,32 @@ export function GitHubRepoDialog({ children }: PropsWithChildren<{}>) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[90vmin]">
-        {hasInstallations ? (
-          <>
-            <DialogHeader>
-              <DialogTitle className="flex items-center gap-2">
-                <Github /> Управление на GitHub хранилища
-              </DialogTitle>
-            </DialogHeader>
-            <GitHubReposList />
-            <DialogFooter>
-              <Button
-                type="submit"
-                variant="outline"
-                onClick={() => setOpen(false)}
-              >
-                Готово
-              </Button>
-            </DialogFooter>
-          </>
-        ) : (
-          <GitHubInstallContent />
-        )}
+        <IfHTFeatureOn feature="add-github-repos">
+          {hasInstallations ? (
+            <>
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Github /> Управление на GitHub хранилища
+                </DialogTitle>
+              </DialogHeader>
+              <GitHubReposList />
+              <DialogFooter>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  onClick={() => setOpen(false)}
+                >
+                  Готово
+                </Button>
+              </DialogFooter>
+            </>
+          ) : (
+            <GitHubInstallContent />
+          )}
+        </IfHTFeatureOn>
+        <IfHTFeatureOff feature="add-github-repos">
+          <GitHubDisabledContent />
+        </IfHTFeatureOff>
       </DialogContent>
     </Dialog>
   );
@@ -102,6 +108,20 @@ function GitHubInstallContent() {
       <Button onClick={openPopup} size="lg">
         <Github className="mr-2 h-5 w-5" /> Свържи GitHub
       </Button>
+    </div>
+  );
+}
+
+function GitHubDisabledContent() {
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 p-8">
+      <h1 className="text-center text-2xl font-semibold">
+        GitHub интеграцията е изключена
+      </h1>
+      <p className="text-center text-muted-foreground">
+        GitHub интеграцията е временно изключена от организатор. Моля, опитайте
+        по-късно.
+      </p>
     </div>
   );
 }
