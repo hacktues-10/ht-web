@@ -53,28 +53,56 @@ import {
 
 export function GitHubRepoDialog({ children }: PropsWithChildren<{}>) {
   const [open, setOpen] = useState(false);
+  const { data } = useGithubRepos();
+
+  const hasInstallations = data?.length !== 0;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="w-[90vmin]">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Github /> Управление на GitHub хранилища
-          </DialogTitle>
-        </DialogHeader>
-        <GitHubReposList />
-        <DialogFooter>
-          <Button
-            type="submit"
-            variant="outline"
-            onClick={() => setOpen(false)}
-          >
-            Готово
-          </Button>
-        </DialogFooter>
+        {hasInstallations ? (
+          <>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Github /> Управление на GitHub хранилища
+              </DialogTitle>
+            </DialogHeader>
+            <GitHubReposList />
+            <DialogFooter>
+              <Button
+                type="submit"
+                variant="outline"
+                onClick={() => setOpen(false)}
+              >
+                Готово
+              </Button>
+            </DialogFooter>
+          </>
+        ) : (
+          <GitHubInstallContent />
+        )}
       </DialogContent>
     </Dialog>
+  );
+}
+
+function GitHubInstallContent() {
+  const openPopup = useGithubInstallationPopup();
+
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 p-8">
+      <h1 className="text-center text-2xl font-semibold">
+        Свържете Вашия GitHub
+      </h1>
+      <p className="text-center text-muted-foreground">
+        Нямате свързан GitHub профил. Инсталирайте приложението, за да добавите
+        хранилища.
+      </p>
+      <Button onClick={openPopup} size="lg">
+        <Github className="mr-2 h-5 w-5" /> Свържи GitHub
+      </Button>
+    </div>
   );
 }
 
