@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 
 export function useWindow() {
-  const [currentWindow, setCurrentWindow] = useState<Window | null>(
-    typeof window === "undefined" ? null : window,
-  );
+  const [currentWindow, setCurrentWindow] = useState<Window | null>(null);
   useEffect(() => {
     setCurrentWindow(window);
   }, []);

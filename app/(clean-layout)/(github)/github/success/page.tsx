@@ -24,7 +24,7 @@ export default function GitHubSuccessPage() {
       <h1 className="text-3xl font-extrabold">
         Успешно свързахте Вашия GitHub!
       </h1>
-      {willClose
+      {!window || willClose
         ? "Този прозорец ще се затвори автоматично."
         : "Можете да затворите този прозорец."}
     </>
