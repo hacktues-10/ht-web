@@ -91,6 +91,7 @@ export async function getInstallationRecordByParticipantId(
     .where(
       and(
         eq(githubInstallationsToParticipants.participantId, participantId),
+        eq(githubInstallations.id, installationId),
         not(githubInstallations.isSuspended),
       ),
     )

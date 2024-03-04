@@ -1,5 +1,6 @@
 "use server";
 
+import invariant from "tiny-invariant";
 import { z } from "zod";
 
 import { zact } from "~/app/_zact/server";
@@ -101,6 +102,8 @@ export const addRepo = zact(
       message: "Не можете да добавите хранилише от тази инсталация",
     } as const;
   }
+  invariant(installation.id === input.installationId);
+  console.log({ installation, input });
   const githubRepo = await ghGetRepoById(
     installation.appInstallationId,
     input.githubId,
