@@ -76,7 +76,7 @@ export async function getRepoById(id: number) {
   return res.at(0) ?? null;
 }
 
-export async function batchMarkAsSuspended(
+export async function batchMarkReposAsSuspended(
   installationId: number,
   isSuspended: boolean,
 ) {

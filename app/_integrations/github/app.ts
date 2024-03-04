@@ -7,7 +7,7 @@ import {
   getInstallationRecordByAppInstallationId,
   markInstallationAsSuspended,
 } from "./installations/storage";
-import { batchRemoveRepos } from "./repos/storage";
+import { batchMarkReposAsSuspended, batchRemoveRepos } from "./repos/storage";
 
 export const app = new App({
   appId: env.GITHUB_APP_ID,
@@ -54,6 +54,11 @@ app.webhooks.on("installation.suspend", async ({ octokit, payload }) => {
     return;
   }
   await markInstallationAsSuspended(installationRecord.id, true);
+  const repos = await batchMarkReposAsSuspended(installationRecord.id, true);
+  // TODO: notify team here
+  console.error({
+    repos,
+  });
 });
 
 app.webhooks.on("installation.unsuspend", async ({ octokit, payload }) => {
@@ -65,4 +70,5 @@ app.webhooks.on("installation.unsuspend", async ({ octokit, payload }) => {
     return;
   }
   await markInstallationAsSuspended(installationRecord.id, false);
+  await batchMarkReposAsSuspended(installationRecord.id, false);
 });
