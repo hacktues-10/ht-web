@@ -7,6 +7,7 @@ import {
   getInstallationRecordByAppInstallationId,
   markInstallationAsSuspended,
 } from "./installations/storage";
+import { batchRemoveRepos } from "./repos/storage";
 
 export const app = new App({
   appId: env.GITHUB_APP_ID,
@@ -36,7 +37,12 @@ app.webhooks.on("installation.deleted", async ({ octokit, payload }) => {
     console.error("installation record not found", payload.installation.id);
     return;
   }
+  const repos = await batchRemoveRepos(installationRecord.id);
   await deleteInstallationRecord(installationRecord.id);
+  // TODO: notify team here
+  console.error({
+    repos,
+  });
 });
 
 app.webhooks.on("installation.suspend", async ({ octokit, payload }) => {
