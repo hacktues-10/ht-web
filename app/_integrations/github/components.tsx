@@ -124,6 +124,7 @@ function GitHubReposList() {
                     <AddRepoButton
                       repoGithubId={repo.githubId}
                       installationId={repo.installationId}
+                      isPrivate={repo.isPrivate}
                     />
                   ) : (
                     <RemoveRepoButton repoId={repo.id} />
@@ -174,24 +175,56 @@ export const RepoListItemSkeleton = () =>
     />
   ));
 
+const AddRepoButtonUi = (props: {
+  onClick?: () => void;
+  isLoading: boolean;
+}) => (
+  <Button onClick={props.onClick} disabled={props.isLoading} size="sm">
+    {props.isLoading ? (
+      <MoreHorizontal className="mr-1 h-4 w-4 animate-pulse" />
+    ) : (
+      <Plus className="mr-1 h-4 w-4" />
+    )}{" "}
+    Добави
+  </Button>
+);
+
 export function AddRepoButton(props: {
   repoGithubId: number;
   installationId: number;
+  isPrivate: boolean;
 }) {
   const addRepo = useAddRepo(props);
-  return (
-    <Button
+  return !props.isPrivate ? (
+    <AddRepoButtonUi
       onClick={() => addRepo.mutate()}
-      disabled={addRepo.isPending}
-      size="sm"
-    >
-      {addRepo.isPending ? (
-        <MoreHorizontal className="mr-1 h-4 w-4 animate-pulse" />
-      ) : (
-        <Plus className="mr-1 h-4 w-4" />
-      )}{" "}
-      Добави
-    </Button>
+      isLoading={addRepo.isPending}
+    />
+  ) : (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <AddRepoButtonUi isLoading={addRepo.isPending} />
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Това хранилище е частно</AlertDialogTitle>
+          <AlertDialogDescription>
+            Не можете да участвате с частни хранилища. Ако продължите, то
+            автоматично{" "}
+            <strong className="font-bold">
+              ще бъде променено на „Публично“.
+            </strong>{" "}
+            Това ще го направи видимо от всички!
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Назад</AlertDialogCancel>
+          <AlertDialogAction onClick={() => addRepo.mutate()}>
+            Направи публично
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
