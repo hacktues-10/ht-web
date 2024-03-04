@@ -4,8 +4,28 @@
  */
 import { PropsWithChildren } from "react";
 import Link from "next/link";
-import { AlertTriangle, Github, Globe, Lock, Plus, XIcon } from "lucide-react";
+import {
+  AlertTriangle,
+  Github,
+  Globe,
+  Hourglass,
+  Lock,
+  MoreHorizontal,
+  Plus,
+  XIcon,
+} from "lucide-react";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "~/app/components/ui/alert-dialog";
 import { Button } from "~/app/components/ui/button";
 import {
   Dialog,
@@ -78,9 +98,9 @@ function GitHubReposList() {
                     >
                       <strong className="flex items-center gap-1 text-base font-semibold">
                         {repo.isPrivate ? (
-                          <Lock className="h-4 w-4 text-gray-50" />
+                          <Lock className="h-4 w-4 flex-shrink-0 text-gray-50" />
                         ) : (
-                          <Globe className="h-4 w-4 text-gray-50" />
+                          <Globe className="h-4 w-4 flex-shrink-0 text-gray-50" />
                         )}
                         {repo.name}
                       </strong>
@@ -165,7 +185,12 @@ export function AddRepoButton(props: {
       disabled={addRepo.isPending}
       size="sm"
     >
-      <Plus className="mr-1 h-4 w-4" /> Добави
+      {addRepo.isPending ? (
+        <MoreHorizontal className="mr-1 h-4 w-4 animate-pulse" />
+      ) : (
+        <Plus className="mr-1 h-4 w-4" />
+      )}{" "}
+      Добави
     </Button>
   );
 }
@@ -173,13 +198,32 @@ export function AddRepoButton(props: {
 function RemoveRepoButton(props: { repoId: number }) {
   const removeRepos = useRemoveRepo(props);
   return (
-    <Button
-      onClick={() => removeRepos.mutate()}
-      disabled={removeRepos.isPending}
-      variant="ghost"
-      size="icon"
-    >
-      <XIcon className="h-4 w-4" />
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button disabled={removeRepos.isPending} variant="ghost" size="icon">
+          {removeRepos.isPending ? (
+            <Hourglass className="h-4 w-4 animate-pulse" />
+          ) : (
+            <XIcon className="h-4 w-4" />
+          )}
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Сигурни ли сте?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Наистина ли искате да премахнете това хранилище? Отбор, който няма
+            хранилище след края на работното време няма да бъде допуснат до
+            полуфинал.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Назад</AlertDialogCancel>
+          <AlertDialogAction onClick={() => removeRepos.mutate()}>
+            Премахни
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
