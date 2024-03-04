@@ -16,7 +16,12 @@ import {
   getInstallationsForParticipant,
   Installation,
 } from "./installations/storage";
-import { ghGetRepoById, ghGetReposForInstallation, Repo } from "./repos";
+import {
+  ghGetRepoById,
+  ghGetReposForInstallation,
+  ghPublishRepo,
+  Repo,
+} from "./repos";
 import {
   getRepoById,
   getReposForProject,
@@ -117,7 +122,6 @@ export const addRepo = zact(
     } as const;
   }
   invariant(installation.id === input.installationId);
-  console.log({ installation, input });
   const githubRepo = await ghGetRepoById(
     installation.appInstallationId,
     input.githubId,
@@ -127,6 +131,12 @@ export const addRepo = zact(
       success: false,
       message: "Не можем да намерим хранилишето в GitHub.",
     } as const;
+  }
+  if (gb.isOn("publish-github-repos")) {
+    const { success } = await ghPublishRepo(
+      installation.appInstallationId,
+      githubRepo.id,
+    );
   }
   const repo = await importRepo({
     githubId: githubRepo.id,

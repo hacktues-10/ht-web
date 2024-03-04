@@ -1,6 +1,7 @@
-import { components } from "@octokit/openapi-types";
+import { components, operations } from "@octokit/openapi-types";
 import { OctokitResponse } from "@octokit/types";
 
+import { env } from "~/app/env.mjs";
 import { app } from "../app";
 
 export async function ghGetReposForInstallation(appInstallationId: number) {
@@ -41,3 +42,29 @@ export async function ghGetRepoById(appInstallationId: number, repoId: number) {
 export type Repo = Awaited<
   ReturnType<typeof ghGetReposForInstallation>
 >[number];
+
+export async function ghPublishRepo(appInstallationId: number, repoId: number) {
+  const octokit = await app.getInstallationOctokit(appInstallationId);
+  try {
+    const res = (await octokit.request("PATCH /repositories/{repository_id}", {
+      headers: {
+        "x-github-api-version": "2022-11-28",
+      },
+      repository_id: repoId,
+      private: false,
+    })) as OctokitResponse<components["schemas"]["full-repository"]>;
+    return {
+      success: res.data.visibility === "public",
+    };
+  } catch (error) {
+    if (env.VERCEL_ENV !== "production") {
+      throw error;
+    }
+
+    // TODO: proper error logging
+    console.error("publishRepo error", error);
+    return {
+      success: false,
+    };
+  }
+}

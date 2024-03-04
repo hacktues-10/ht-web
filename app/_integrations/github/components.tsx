@@ -15,6 +15,7 @@ import {
   XIcon,
 } from "lucide-react";
 
+import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -129,6 +130,7 @@ function GitHubDisabledContent() {
 function GitHubReposList() {
   const { data } = useGithubRepos();
   const openPopup = useGithubInstallationPopup();
+  const publishGithubRepos = useHTFeatureIsOn("publish-github-repos");
 
   if (data?.length === 0) {
     return null;
@@ -159,7 +161,7 @@ function GitHubReposList() {
                         {repo.name}
                       </strong>
                     </Link>
-                    {repo.isPrivate && (
+                    {repo.isPrivate && publishGithubRepos && (
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger>
@@ -249,7 +251,9 @@ export function AddRepoButton(props: {
   isPrivate: boolean;
 }) {
   const addRepo = useAddRepo(props);
-  return !props.isPrivate ? (
+  const publishGithubRepos = useHTFeatureIsOn("publish-github-repos");
+
+  return !props.isPrivate || !publishGithubRepos ? (
     <AddRepoButtonUi
       onClick={() => addRepo.mutate()}
       isLoading={addRepo.isPending}

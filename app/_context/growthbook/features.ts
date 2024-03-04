@@ -33,6 +33,7 @@ export type HTFeatures = {
   "show-email-mobile": boolean;
 
   "add-github-repos": boolean;
+  "publish-github-repos": boolean;
 };
 
 export type HTFeature = keyof HTFeatures;
