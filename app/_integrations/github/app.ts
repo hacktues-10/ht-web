@@ -7,7 +7,13 @@ import {
   getInstallationRecordByAppInstallationId,
   markInstallationAsSuspended,
 } from "./installations/storage";
-import { batchMarkReposAsSuspended, batchRemoveRepos } from "./repos/storage";
+import { Repo } from "./repos";
+import {
+  batchMarkReposAsSuspended,
+  batchRemoveRepos,
+  getRepoByGithubId,
+  unimportRepo,
+} from "./repos/storage";
 
 export const app = new App({
   appId: env.GITHUB_APP_ID,
@@ -28,6 +34,53 @@ app.webhooks.on("installation_repositories", async ({ octokit, payload }) => {
   await sleep(10);
   console.log("installation", payload);
 });
+
+app.webhooks.on(
+  "installation_repositories.removed",
+  async ({ octokit, payload }) => {
+    const unimportedRepos = [] as {
+      url: string;
+      name: string;
+      projectId: number;
+    }[];
+    for (const repo of payload.repositories_removed) {
+      const existingRepo = await getRepoByGithubId(repo.id);
+      if (!existingRepo) {
+        console.error("repo not found", repo.id);
+        continue;
+      }
+      await unimportRepo(existingRepo.id);
+      unimportedRepos.push(existingRepo);
+    }
+    const projectIdToRepos = unimportedRepos.reduce(
+      (acc, repo) => {
+        const existing = acc.find((r) => r.projectId === repo.projectId);
+        if (existing) {
+          existing.repos.push({
+            url: repo.url,
+            name: repo.name,
+          });
+        } else {
+          acc.push({
+            projectId: repo.projectId,
+            repos: [
+              {
+                url: repo.url,
+                name: repo.name,
+              },
+            ],
+          });
+        }
+        return acc;
+      },
+      [] as { projectId: number; repos: { url: string; name: string }[] }[],
+    );
+    // TODO: notify team here
+    console.error({
+      projectIdToRepos,
+    });
+  },
+);
 
 app.webhooks.on("installation.deleted", async ({ octokit, payload }) => {
   const installationRecord = await getInstallationRecordByAppInstallationId(
