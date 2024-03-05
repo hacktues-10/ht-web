@@ -245,6 +245,7 @@ export default async function TeamDetailPage({
                         </UpdateProjectDialog>
                       </IfHTFeatureOn>
                     )}
+                    <div className="pt-5" />
 
                     <ReposCard
                       project={project}
