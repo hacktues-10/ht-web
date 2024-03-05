@@ -5,7 +5,7 @@ import { TbBrandGithub } from "react-icons/tb";
 import "~/app/components/Team/animations.css";
 
 import { PropsWithChildren } from "react";
-import { Plus } from "lucide-react";
+import { LucideIcon, Plus, Settings } from "lucide-react";
 import { LuGlobe } from "react-icons/lu";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
@@ -55,7 +55,6 @@ import {
   TabsList,
   TabsTrigger,
 } from "~/app/components/ui/tabs";
-import { githubRepos } from "~/app/db/schema";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
@@ -225,7 +224,6 @@ export default async function TeamDetailPage({
 
                     <ReposCard
                       project={project}
-                      repos={project.githubRepos}
                       isInTeam={!!participant?.team.id}
                     />
                     <div className="pt-5" />
@@ -450,9 +448,15 @@ function ReposCard({
       {isInTeam && (
         <CardFooter className="px-5">
           <GitHubRepoDialog>
-            <Button variant="outline">
-              <Plus className="mr-1 h-5 w-5" /> Добави хранилище
-            </Button>
+            {repos.length === 0 ? (
+              <IconOutlineButton icon={Plus}>
+                Добави хранилище
+              </IconOutlineButton>
+            ) : (
+              <IconOutlineButton icon={Settings}>
+                Управление на хранилища
+              </IconOutlineButton>
+            )}
           </GitHubRepoDialog>
         </CardFooter>
       )}
@@ -468,7 +472,11 @@ function DemoCard({
   isInTeam?: boolean;
 }) {
   if (!url) {
-    return isInTeam && <PlusButton>Добави линк към демо</PlusButton>;
+    return (
+      !!isInTeam && (
+        <IconOutlineButton icon={Plus}>Добави линк към демо</IconOutlineButton>
+      )
+    );
   }
   return (
     <Card className="mt-4 border-2">
@@ -484,10 +492,13 @@ function DemoCard({
   );
 }
 
-function PlusButton({ children }: PropsWithChildren<{}>) {
+function IconOutlineButton({
+  children,
+  icon: Icon,
+}: PropsWithChildren<{ icon: LucideIcon }>) {
   return (
     <Button variant="outline">
-      <Plus className="mr-1 h-5 w-5" /> {children}
+      <Icon className="mr-2 h-5 w-5" /> {children}
     </Button>
   );
 }
