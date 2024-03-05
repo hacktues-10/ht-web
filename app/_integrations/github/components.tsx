@@ -331,7 +331,7 @@ function RemoveRepoButton(props: { repoId: number }) {
           <AlertDialogTitle>Сигурни ли сте?</AlertDialogTitle>
           <AlertDialogDescription>
             Наистина ли искате да премахнете това хранилище? Отбор, който няма
-            хранилище след края на работното време няма да бъде допуснат до
+            хранилище след края на работния ден няма да бъде допуснат до
             полуфинал.
           </AlertDialogDescription>
         </AlertDialogHeader>
