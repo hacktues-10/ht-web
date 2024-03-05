@@ -56,6 +56,7 @@ export function UpdateProjectDialog({
   description: string;
 }>) {
   const [open, setOpen] = useState(false);
+  const [discardConfirmOpen, setDiscardConfirmOpen] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(updateProjectSchema),
@@ -104,10 +105,38 @@ export function UpdateProjectDialog({
     setOpen(false);
   }
 
+  function handleOpenChange(open: boolean) {
+    if (!open && form.formState.isDirty) {
+      setDiscardConfirmOpen(true);
+    } else {
+      setOpen(open);
+    }
+  }
+
+  function handleConfirmDiscard() {
+    form.reset(
+      {
+        teamId,
+        name,
+        description,
+      },
+      {
+        keepDirty: false,
+      },
+    );
+    setOpen(false);
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
+        <DiscordConfirmationDialog
+          open={discardConfirmOpen}
+          onOpenChange={setDiscardConfirmOpen}
+          onConfirm={handleConfirmDiscard}
+        />
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)}>
             <DialogHeader>
@@ -116,13 +145,13 @@ export function UpdateProjectDialog({
                 Редактирайте името и описанието на Вашия проект.
               </DialogDescription>
             </DialogHeader>
-            <div className="py-4">
+            <div className="space-y-4 py-4">
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="sr-only">Име</FormLabel>
+                    <FormLabel>Име</FormLabel>
                     <FormControl>
                       <Input placeholder="Име" {...field} />
                     </FormControl>
@@ -135,7 +164,7 @@ export function UpdateProjectDialog({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="sr-only">Описание</FormLabel>
+                    <FormLabel>Описание</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Описанието на вашия проект..."
@@ -162,6 +191,36 @@ export function UpdateProjectDialog({
         </Form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function DiscordConfirmationDialog({
+  open,
+  onOpenChange,
+  children,
+  onConfirm,
+}: React.PropsWithChildren<{
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onConfirm: () => void;
+}>) {
+  return (
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Имате незапазени промени</AlertDialogTitle>
+          <AlertDialogDescription>
+            Сигурни ли сте, че искате да отхвърлите Вашите редакции?
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Назад</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm}>
+            Отхвърли промените
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
