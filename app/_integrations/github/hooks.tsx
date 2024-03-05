@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import {
   Mutation,
   useMutation,
@@ -24,6 +25,7 @@ export function useAddRepo(options: {
   installationId: number;
 }) {
   const { toast } = useToast();
+  const router = useRouter();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async () => {
@@ -63,6 +65,7 @@ export function useAddRepo(options: {
         exact: true,
         queryKey: REPOS_QUERY_KEY,
       });
+      router.refresh();
     },
     onError: (error) => {
       toast({
@@ -81,6 +84,7 @@ export function useAddRepo(options: {
 
 export function useRemoveRepo(options: { repoId: number }) {
   const { toast } = useToast();
+  const router = useRouter();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async () => {
@@ -117,6 +121,7 @@ export function useRemoveRepo(options: { repoId: number }) {
         exact: true,
         queryKey: REPOS_QUERY_KEY,
       });
+      router.refresh();
     },
     onError: (error) => {
       toast({
