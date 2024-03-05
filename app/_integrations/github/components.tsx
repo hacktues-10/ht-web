@@ -4,6 +4,8 @@
  */
 import { PropsWithChildren, useState } from "react";
 import Link from "next/link";
+import { Slot } from "@radix-ui/react-slot";
+import { Command } from "cmdk";
 import {
   AlertTriangle,
   Github,
@@ -12,6 +14,7 @@ import {
   Lock,
   MoreHorizontal,
   Plus,
+  Search,
   XIcon,
 } from "lucide-react";
 
@@ -36,7 +39,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/app/components/ui/dialog";
-import { Input } from "~/app/components/ui/input";
 import { ScrollArea } from "~/app/components/ui/scroll-area";
 import { Skeleton } from "~/app/components/ui/skeleton";
 import {
@@ -137,13 +139,29 @@ function GitHubReposList() {
   }
 
   return (
-    <div className="flex flex-col">
-      <Input placeholder="Търсене на хранилище" className="mb-4" />
+    <Command className="flex flex-col">
+      <div
+        className="mb-4 flex h-10 items-center justify-center gap-1 rounded-md border border-input bg-background px-3 py-2 ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 "
+        cmdk-input-wrapper=""
+      >
+        <Search className="h-4 w-4 shrink-0 opacity-100" />
+        <Command.Input
+          placeholder="Търсене на хранилище"
+          className="flex h-10 w-full rounded-md bg-transparent py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+        />
+      </div>
       <ScrollArea className="h-[300px] overflow-y-auto">
-        <div className="flex flex-col rounded-lg border">
+        <Command.List className="flex flex-col rounded-lg border">
+          <Command.Empty className="flex h-20 items-center justify-center text-center">
+            <p className="text-muted-foreground">
+              Няма хранилища, съответстващи на търсенето
+            </p>
+          </Command.Empty>
           {data ? (
             data.map((repo) => (
               <RepoListItem
+                asItem
+                value={`${repo.name} https://github.com/${repo.name}.git git@github.com:${repo.name}.git`}
                 key={repo.githubId}
                 left={
                   <>
@@ -189,9 +207,11 @@ function GitHubReposList() {
               />
             ))
           ) : (
-            <RepoListItemSkeleton />
+            <Command.Loading>
+              <RepoListItemSkeleton />
+            </Command.Loading>
           )}
-        </div>
+        </Command.List>
       </ScrollArea>
       <div className="px-3 py-1">
         <p className="text-sm">
@@ -206,19 +226,25 @@ function GitHubReposList() {
           </Button>
         </p>
       </div>
-    </div>
+    </Command>
   );
 }
 
 function RepoListItem(props: {
   left: React.ReactNode;
   right: React.ReactNode;
+  asItem?: boolean;
+  value?: string;
 }) {
+  const Comp = props.asItem ? Command.Item : "div";
   return (
-    <div className="flex items-center justify-between border-b p-4 last:border-none">
+    <Comp
+      className="flex items-center justify-between border-b p-4 last:border-none"
+      value={props.value}
+    >
       <div className="flex items-center gap-2">{props.left}</div>
       <div className="flex items-center">{props.right}</div>
-    </div>
+    </Comp>
   );
 }
 

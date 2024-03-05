@@ -6,6 +6,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import {
   addRepo,
@@ -50,6 +51,7 @@ export default function TestPageDeletePls() {
       <GitHubRepoDialog>
         <Button variant="ghost">Добави Хранилище</Button>
       </GitHubRepoDialog>
+      <ReactQueryDevtools />
     </>
   );
 }
