@@ -63,7 +63,10 @@ import {
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
-import { UpdateWebsiteUrlDialog } from "./project/components";
+import {
+  UpdateProjectDialog,
+  UpdateWebsiteUrlDialog,
+} from "./project/components";
 
 type TeamDetailPageProps = {
   params: { id: string };
@@ -221,12 +224,27 @@ export default async function TeamDetailPage({
                     <h2 className="w-full text-3xl font-bold">
                       {project.name}
                     </h2>
-                    {/* <p className="mt-4">{project.description}</p> */}
+                    <div className="pt-2" />
                     {project.description.split("\n").map((line, index) => (
                       <p key={index} className="mt-4 text-muted-foreground">
                         {line}
                       </p>
                     ))}
+
+                    {participant?.team.id == team.id && (
+                      <IfHTFeatureOn feature="update-project">
+                        <div className="pt-2" />
+                        <UpdateProjectDialog
+                          teamId={team.id}
+                          name={project.name}
+                          description={project.description}
+                        >
+                          <IconOutlineButton icon={Pencil}>
+                            Редактиране
+                          </IconOutlineButton>
+                        </UpdateProjectDialog>
+                      </IfHTFeatureOn>
+                    )}
 
                     <ReposCard
                       project={project}

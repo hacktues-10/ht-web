@@ -35,9 +35,135 @@ import {
   FormMessage,
 } from "~/app/components/ui/form";
 import { Input } from "~/app/components/ui/input";
+import { Textarea } from "~/app/components/ui/textarea";
 import { useToast } from "~/app/components/ui/use-toast";
-import { updateProjectWebsiteUrl } from "../../actions";
-import { UpdateWebsiteUrlInput, updateWebsiteUrlSchema } from "./schemas";
+import { updateProjectNameDesc, updateProjectWebsiteUrl } from "../../actions";
+import {
+  UpdateProjectInput,
+  updateProjectSchema,
+  UpdateWebsiteUrlInput,
+  updateWebsiteUrlSchema,
+} from "./schemas";
+
+export function UpdateProjectDialog({
+  children,
+  teamId,
+  name,
+  description,
+}: React.PropsWithChildren<{
+  teamId: string;
+  name: string;
+  description: string;
+}>) {
+  const [open, setOpen] = useState(false);
+
+  const form = useForm({
+    resolver: zodResolver(updateProjectSchema),
+    defaultValues: {
+      teamId,
+      name,
+      description,
+    },
+  });
+
+  const { toast } = useToast();
+
+  const updateProjectMutation = useMutation({
+    mutationFn: async (data: UpdateProjectInput) => {
+      const res = await updateProjectNameDesc(data);
+      if (!res.success) {
+        throw new Error(res.message);
+      }
+    },
+    onSuccess: () => {
+      toast({
+        title: "Промените са запазени",
+        description: "Успешно обновихте проекта",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Нещо се обърка",
+        description: error.message,
+      });
+    },
+  });
+
+  async function handleSubmit(data: UpdateProjectInput) {
+    await updateProjectMutation.mutateAsync(data);
+    form.reset(
+      {
+        teamId: data.teamId,
+        name: data.name,
+        description: data.description,
+      },
+      {
+        keepDirty: false,
+      },
+    );
+    setOpen(false);
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <DialogHeader>
+              <DialogTitle>Проект</DialogTitle>
+              <DialogDescription>
+                Редактирайте името и описанието на Вашия проект.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="py-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sr-only">Име</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Име" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="sr-only">Описание</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Описанието на вашия проект..."
+                        rows={10} //  ДЕСЕТОТО ЮБИЛЕЙНО ИЗДАНИЕ!!!
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <DialogFooter>
+              <Button
+                type="submit"
+                disabled={
+                  form.formState.isSubmitting || !form.formState.isDirty
+                }
+              >
+                Запази
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 export function UpdateWebsiteUrlDialog({
   children,

@@ -33,7 +33,10 @@ import {
   isParticipantStudent,
 } from "~/app/participants/service";
 import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
-import { updateWebsiteUrlSchema } from "./[id]/project/schemas";
+import {
+  updateProjectSchema,
+  updateWebsiteUrlSchema,
+} from "./[id]/project/schemas";
 import {
   checkIfTeamEligableToJoin,
   getPreparedParticipants,
@@ -609,44 +612,80 @@ export async function createProject(project: {
   }
 }
 
+async function canUpdateProject(teamId: string) {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-project")) {
+    return {
+      success: false,
+      message: "Промените по проектите не са позволена по това време.",
+    } as const;
+  }
+
+  const participant = await getParticipantFromSession();
+  if (!participant) {
+    return {
+      success: false,
+      message: "Не сте влезли като участник",
+    } as const;
+  }
+  if (participant.team.id !== teamId) {
+    return { success: false, message: "Не сте в този отбор" } as const;
+  }
+  if (!participant.team.isCaptain) {
+    return {
+      success: false,
+      message: "Само капитанът може да редактира проекта",
+    } as const;
+  }
+
+  const project = await getProjectByTeamId(participant.team.id);
+  if (!project) {
+    return {
+      success: false,
+      message: "Моля, създайте проект, за да добавите линк към демо",
+    } as const;
+  }
+  return {
+    success: true,
+    project,
+  } as const;
+}
+
+export const updateProjectNameDesc = zact(updateProjectSchema)(async (
+  input,
+) => {
+  try {
+    const res = await canUpdateProject(input.teamId);
+    if (!res.success) {
+      return res;
+    }
+    await updateProject({
+      id: res.project.id,
+      name: input.name,
+      description: input.description,
+    });
+    return { success: true } as const;
+  } catch (e) {
+    return {
+      success: false,
+      message:
+        e instanceof Error && env.VERCEL_ENV !== "production"
+          ? e.message
+          : "Възникна неочаквана грешка. Моля, опитайте отново.",
+    };
+  }
+});
+
 export const updateProjectWebsiteUrl = zact(updateWebsiteUrlSchema)(async (
   input,
 ) => {
   try {
-    const gb = await getServerSideGrowthBook();
-    if (gb.isOff("update-project")) {
-      return {
-        success: false,
-        message: "Промените по проектите не са позволена по това време.",
-      } as const;
-    }
-
-    const participant = await getParticipantFromSession();
-    if (!participant) {
-      return {
-        success: false,
-        message: "Не сте влезли като участник",
-      } as const;
-    }
-    if (participant.team.id !== input.teamId) {
-      return { success: false, message: "Не сте в този отбор" } as const;
-    }
-    if (!participant.team.isCaptain) {
-      return {
-        success: false,
-        message: "Само капитанът може да редактира проекта",
-      } as const;
-    }
-
-    const project = await getProjectByTeamId(participant.team.id);
-    if (!project) {
-      return {
-        success: false,
-        message: "Моля, създайте проект, за да добавите линк към демо",
-      } as const;
+    const res = await canUpdateProject(input.teamId);
+    if (!res.success) {
+      return res;
     }
     await updateProject({
-      id: project.id,
+      id: res.project.id,
       websiteUrl: input.websiteUrl ?? null,
     });
     return { success: true } as const;
@@ -654,7 +693,9 @@ export const updateProjectWebsiteUrl = zact(updateWebsiteUrlSchema)(async (
     return {
       success: false,
       message:
-        e instanceof Error && env.VERCEL_ENV !== "production" ? e.message : "",
+        e instanceof Error && env.VERCEL_ENV !== "production"
+          ? e.message
+          : "Възникна неочаквана грешка. Моля, опитайте отново.",
     };
   }
 });
