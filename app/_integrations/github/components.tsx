@@ -295,8 +295,8 @@ export function AddRepoButton(props: {
         <AlertDialogHeader>
           <AlertDialogTitle>Това хранилище е частно</AlertDialogTitle>
           <AlertDialogDescription>
-            Не можете да участвате с частни хранилища. Ако продължите, то
-            автоматично ще бъде направено „Публично“.{" "}
+            Не можете да участвате с частни хранилища. Ако продължите, това
+            хранилище автоматично ще бъде направено „Публично“.{" "}
             <strong className="font-bold">
               Това ще го направи видимо от всички!
             </strong>
