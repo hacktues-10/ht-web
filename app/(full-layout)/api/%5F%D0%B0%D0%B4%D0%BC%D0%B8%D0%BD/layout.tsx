@@ -32,6 +32,9 @@ export default async function AdminLayout({ children }: PropsWithChildren<{}>) {
           <li>
             <a href="/api/_админ/teams">Отбори</a>
           </li>
+          <li>
+            <a href="/api/_админ/results">Резултати</a>
+          </li>
         </ul>
         <span className="font-bold">
           {admin.firstName} {admin.lastName}
