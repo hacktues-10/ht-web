@@ -62,7 +62,10 @@ export async function getTeamById(id: string) {
 }
 
 export async function getProjectByTeamId(teamId: string) {
-  const results = await db.select().from(projects);
+  const results = await db
+    .select()
+    .from(projects)
+    .where(eq(projects.teamId, teamId));
   return results.at(0) ?? null;
 }
 
