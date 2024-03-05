@@ -238,6 +238,7 @@ export const projects = pgTable("projects", {
   description: varchar("description").notNull(),
   technologies: varchar("technologies").notNull(),
   websiteURL: varchar("website_url").notNull(),
+  fallbackRepoUrls: varchar("fallback_repo_urls").notNull().default(""),
   teamId: varchar("team_id")
     .notNull()
     .references(() => teams.id),

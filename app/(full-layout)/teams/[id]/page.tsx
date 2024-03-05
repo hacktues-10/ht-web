@@ -4,7 +4,14 @@ import { TbBrandGithub } from "react-icons/tb";
 
 import "~/app/components/Team/animations.css";
 
+import { PropsWithChildren } from "react";
+import { Plus } from "lucide-react";
+
 import { IfHTFeatureOn } from "~/app/_integrations/components";
+import {
+  AddRepoButton,
+  GitHubRepoDialog,
+} from "~/app/_integrations/github/components";
 import { getImageUrl } from "~/app/_integrations/r2";
 import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
@@ -32,8 +39,14 @@ import {
 } from "~/app/components/ui/avatar";
 import { Badge } from "~/app/components/ui/badge";
 import { Button } from "~/app/components/ui/button";
-import { Card } from "~/app/components/ui/card";
-import { ScrollArea } from "~/app/components/ui/scroll-area";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/app/components/ui/card";
+import { ScrollArea, ScrollBar } from "~/app/components/ui/scroll-area";
 import {
   Tabs,
   TabsContent,
@@ -197,22 +210,20 @@ export default async function TeamDetailPage({
               <TabsContent value="information">
                 {project ? (
                   <div>
-                    <h2 className="w-full text-2xl">{project.name}</h2>
-                    <h3 className="mt-4 text-xl">{project.description}</h3>
+                    <h2 className="w-full text-2xl font-bold">
+                      {project.name}
+                    </h2>
+                    {/* <p className="mt-4">{project.description}</p> */}
+                    {project.description.split("\n").map((line, index) => (
+                      <p key={index} className="mt-4">
+                        {line}
+                      </p>
+                    ))}
 
-                    {project.websiteURL && (
-                      <div className="mt-2 flex ">
-                        <TbBrandGithub size={26} />
-                        <div className="overflow-x-scroll">
-                          <Link
-                            className="ml-2 text-lg"
-                            href={project.websiteURL}
-                          >
-                            {project.websiteURL}
-                          </Link>
-                        </div>
-                      </div>
-                    )}
+                    <ReposCard
+                      project={project}
+                      isInTeam={!!participant?.team.id}
+                    />
                   </div>
                 ) : (
                   <div className="items-center justify-center sm:flex">
@@ -383,5 +394,64 @@ export default async function TeamDetailPage({
         </div>
       </div>
     </div>
+  );
+}
+
+function ReposCard({
+  project,
+  isInTeam,
+}: {
+  project: {
+    fallbackRepoUrls: string;
+  };
+  isInTeam?: boolean;
+}) {
+  const fallbackRepos = project.fallbackRepoUrls
+    .split("\n")
+    .filter((url) => !!url.trim())
+    .map((url) => ({ url, display: url }));
+  const repos = [...fallbackRepos];
+  return (
+    <Card className="mt-4 border-2">
+      <CardHeader
+        className={cn("px-5 pt-5", repos.length > 0 ? "pb-3" : "pb-0")}
+      >
+        <CardTitle>Код на проекта</CardTitle>
+      </CardHeader>
+      <CardContent className="px-5 py-3">
+        {repos.length > 0 ? (
+          repos.map((repo, index) => (
+            <RepoLink key={index} href={repo.url}>
+              {repo.display}
+            </RepoLink>
+          ))
+        ) : (
+          <p className="text-muted-foreground">
+            Няма добавени GitHub хранилища
+          </p>
+        )}
+      </CardContent>
+      {isInTeam && (
+        <CardFooter className="px-5">
+          <GitHubRepoDialog>
+            <Button variant="outline">
+              <Plus className="mr-1 h-5 w-5" /> Добави хранилище
+            </Button>
+          </GitHubRepoDialog>
+        </CardFooter>
+      )}
+    </Card>
+  );
+}
+
+function RepoLink({ href, children }: PropsWithChildren<{ href: string }>) {
+  return (
+    <Link className="mt-2 flex" href={href} target="_blank">
+      <TbBrandGithub size={26} />
+      <ScrollArea className="w-full">
+        <span className="ml-2 w-max text-lg">{children}</span>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
+    </Link>
   );
 }
