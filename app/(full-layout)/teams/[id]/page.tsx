@@ -8,7 +8,12 @@ import { PropsWithChildren } from "react";
 import { LucideIcon, Pencil, Plus, Settings } from "lucide-react";
 import { LuGlobe } from "react-icons/lu";
 
-import { IfHTFeatureOn } from "~/app/_integrations/components";
+import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
+import {
+  IfAllHTFeaturesOff,
+  IfHTFeatureOff,
+  IfHTFeatureOn,
+} from "~/app/_integrations/components";
 import {
   AddRepoButton,
   GitHubRepoDialog,
@@ -58,7 +63,7 @@ import {
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
-import { UpdateWebsiteUrlDialog } from "./project/_components/update-demo-url-dialog";
+import { UpdateWebsiteUrlDialog } from "./project/components";
 
 type TeamDetailPageProps = {
   params: { id: string };
@@ -448,19 +453,28 @@ function ReposCard({
         )}
       </CardContent>
       {isInTeam && (
-        <CardFooter className="px-5">
-          <GitHubRepoDialog>
-            {repos.length === 0 ? (
+        <IfHTFeatureOn feature="update-project">
+          <CardFooter className="px-5">
+            <IfHTFeatureOn feature="add-github-repos">
+              <GitHubRepoDialog>
+                {repos.length === 0 ? (
+                  <IconOutlineButton icon={Plus}>
+                    Добави хранилище
+                  </IconOutlineButton>
+                ) : (
+                  <IconOutlineButton icon={Settings}>
+                    Управление на хранилища
+                  </IconOutlineButton>
+                )}
+              </GitHubRepoDialog>
+            </IfHTFeatureOn>
+            <IfHTFeatureOff feature="add-github-repos">
               <IconOutlineButton icon={Plus}>
                 Добави хранилище
               </IconOutlineButton>
-            ) : (
-              <IconOutlineButton icon={Settings}>
-                Управление на хранилища
-              </IconOutlineButton>
-            )}
-          </GitHubRepoDialog>
-        </CardFooter>
+            </IfHTFeatureOff>
+          </CardFooter>
+        </IfHTFeatureOn>
       )}
     </Card>
   );
@@ -478,11 +492,13 @@ function DemoCard({
   if (!url) {
     return (
       !!isInTeam && (
-        <UpdateWebsiteUrlDialog teamId={teamId}>
-          <IconOutlineButton icon={Plus}>
-            Добави линк към демо
-          </IconOutlineButton>
-        </UpdateWebsiteUrlDialog>
+        <IfHTFeatureOn feature="update-project">
+          <UpdateWebsiteUrlDialog teamId={teamId}>
+            <IconOutlineButton icon={Plus}>
+              Добави линк към демо
+            </IconOutlineButton>
+          </UpdateWebsiteUrlDialog>
+        </IfHTFeatureOn>
       )
     );
   }
@@ -496,11 +512,15 @@ function DemoCard({
           {url}
         </ProjectLink>
       </CardContent>
-      <CardFooter className="px-5">
-        <UpdateWebsiteUrlDialog teamId={teamId} websiteUrl={url}>
-          <IconOutlineButton icon={Pencil}>Редактиране</IconOutlineButton>
-        </UpdateWebsiteUrlDialog>
-      </CardFooter>
+      {!!isInTeam && (
+        <IfHTFeatureOn feature="update-project">
+          <CardFooter className="px-5">
+            <UpdateWebsiteUrlDialog teamId={teamId} websiteUrl={url}>
+              <IconOutlineButton icon={Pencil}>Редактиране</IconOutlineButton>
+            </UpdateWebsiteUrlDialog>
+          </CardFooter>
+        </IfHTFeatureOn>
+      )}
     </Card>
   );
 }

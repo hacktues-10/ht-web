@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -30,17 +29,15 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "~/app/components/ui/form";
 import { Input } from "~/app/components/ui/input";
-import { Label } from "~/app/components/ui/label";
 import { useToast } from "~/app/components/ui/use-toast";
-import { updateProjectWebsiteUrl } from "../../../actions";
-import { UpdateWebsiteUrlInput, updateWebsiteUrlSchema } from "../schemas";
+import { updateProjectWebsiteUrl } from "../../actions";
+import { UpdateWebsiteUrlInput, updateWebsiteUrlSchema } from "./schemas";
 
 export function UpdateWebsiteUrlDialog({
   children,
@@ -99,7 +96,6 @@ export function UpdateWebsiteUrlDialog({
   }
 
   const willDelete = !form.watch("websiteUrl");
-  console.log({ willDelete });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
