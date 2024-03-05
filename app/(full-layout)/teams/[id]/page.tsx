@@ -212,12 +212,12 @@ export default async function TeamDetailPage({
               <TabsContent value="information">
                 {project ? (
                   <div>
-                    <h2 className="w-full text-2xl font-bold">
+                    <h2 className="w-full text-3xl font-bold">
                       {project.name}
                     </h2>
                     {/* <p className="mt-4">{project.description}</p> */}
                     {project.description.split("\n").map((line, index) => (
-                      <p key={index} className="mt-4">
+                      <p key={index} className="mt-4 text-muted-foreground">
                         {line}
                       </p>
                     ))}
