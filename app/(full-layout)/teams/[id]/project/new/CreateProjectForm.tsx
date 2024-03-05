@@ -45,7 +45,12 @@ export default function CreateProjectFrom({ teamId }: { teamId: string }) {
       return;
     }
 
-    const res = await createProject({ name, description, websiteURL, teamId });
+    const res = await createProject({
+      name,
+      description,
+      websiteUrl: websiteURL,
+      teamId,
+    });
     if (res.success) {
       router.push(`/teams/${teamId}`);
     } else {

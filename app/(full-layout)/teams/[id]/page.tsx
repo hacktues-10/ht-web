@@ -5,7 +5,7 @@ import { TbBrandGithub } from "react-icons/tb";
 import "~/app/components/Team/animations.css";
 
 import { PropsWithChildren } from "react";
-import { LucideIcon, Plus, Settings } from "lucide-react";
+import { LucideIcon, Pencil, Plus, Settings } from "lucide-react";
 import { LuGlobe } from "react-icons/lu";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
@@ -58,6 +58,7 @@ import {
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
+import { UpdateWebsiteUrlDialog } from "./project/_components/update-demo-url-dialog";
 
 type TeamDetailPageProps = {
   params: { id: string };
@@ -228,8 +229,9 @@ export default async function TeamDetailPage({
                     />
                     <div className="pt-5" />
                     <DemoCard
-                      url={project.websiteURL}
+                      url={project.websiteUrl}
                       isInTeam={!!participant?.team.id}
+                      teamId={team.id}
                     />
                   </div>
                 ) : (
@@ -467,27 +469,38 @@ function ReposCard({
 function DemoCard({
   url,
   isInTeam,
+  teamId,
 }: {
   url: string | null;
   isInTeam?: boolean;
+  teamId: string;
 }) {
   if (!url) {
     return (
       !!isInTeam && (
-        <IconOutlineButton icon={Plus}>Добави линк към демо</IconOutlineButton>
+        <UpdateWebsiteUrlDialog teamId={teamId}>
+          <IconOutlineButton icon={Plus}>
+            Добави линк към демо
+          </IconOutlineButton>
+        </UpdateWebsiteUrlDialog>
       )
     );
   }
   return (
     <Card className="mt-4 border-2">
-      <CardHeader className="px-5 pb-3 pt-5">
+      <CardHeader className="px-5 pb-0 pt-5">
         <CardTitle>Демо на проекта</CardTitle>
       </CardHeader>
-      <CardContent className="px-5 py-3">
+      <CardContent className="px-5 py-6">
         <ProjectLink href={url} icon={LuGlobe}>
           {url}
         </ProjectLink>
       </CardContent>
+      <CardFooter className="px-5">
+        <UpdateWebsiteUrlDialog teamId={teamId} websiteUrl={url}>
+          <IconOutlineButton icon={Pencil}>Редактиране</IconOutlineButton>
+        </UpdateWebsiteUrlDialog>
+      </CardFooter>
     </Card>
   );
 }

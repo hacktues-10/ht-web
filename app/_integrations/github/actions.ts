@@ -107,7 +107,7 @@ export const addRepo = zact(
     return {
       success: false,
       message: participant.team.isCaptain
-        ? "Моля, създайте проект за да добавите хранилише"
+        ? "Моля, създайте проект, за да добавите хранилише"
         : "Отборът ви няма проект",
     } as const;
   }
@@ -132,11 +132,17 @@ export const addRepo = zact(
       message: "Не можем да намерим хранилишето в GitHub.",
     } as const;
   }
-  if (gb.isOn("publish-github-repos")) {
+  if (gb.isOn("publish-github-repos") && githubRepo.private) {
     const { success } = await ghPublishRepo(
       installation.appInstallationId,
       githubRepo.id,
     );
+    if (!success) {
+      return {
+        success: false,
+        message: "Не можете да добавите хранилише, което не е публично.",
+      } as const;
+    }
   }
   const repo = await importRepo({
     githubId: githubRepo.id,

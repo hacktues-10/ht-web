@@ -24,6 +24,7 @@ import {
   projects,
   teams,
 } from "~/app/db/schema";
+import { env } from "~/app/env.mjs";
 import {
   formatParticipantDiscordNick,
   getParticipantById,
@@ -32,12 +33,15 @@ import {
   isParticipantStudent,
 } from "~/app/participants/service";
 import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
+import { updateWebsiteUrlSchema } from "./[id]/project/schemas";
 import {
   checkIfTeamEligableToJoin,
   getPreparedParticipants,
+  getProjectByTeamId,
   getTeamById,
   isParticipantEligableToJoin,
   Team,
+  updateProject,
 } from "./service";
 
 export async function deleteMyTeam() {
@@ -581,7 +585,7 @@ export async function createProject(project: {
   teamId: string;
   name: string;
   description: string;
-  websiteURL: string;
+  websiteUrl: string;
 }) {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("create-project")) {
@@ -595,7 +599,7 @@ export async function createProject(project: {
       name: project.name,
       description: project.description,
       technologies: "",
-      websiteURL: project.websiteURL,
+      websiteUrl: project.websiteUrl,
       teamId: project.teamId,
     });
 
@@ -604,6 +608,56 @@ export async function createProject(project: {
     return { success: false, message: "Опа, нещо се обърка" };
   }
 }
+
+export const updateProjectWebsiteUrl = zact(updateWebsiteUrlSchema)(async (
+  input,
+) => {
+  try {
+    const gb = await getServerSideGrowthBook();
+    if (gb.isOff("update-project")) {
+      return {
+        success: false,
+        message: "Промените по проектите не са позволена по това време.",
+      } as const;
+    }
+
+    const participant = await getParticipantFromSession();
+    if (!participant) {
+      return {
+        success: false,
+        message: "Не сте влезли като участник",
+      } as const;
+    }
+    if (participant.team.id !== input.teamId) {
+      return { success: false, message: "Не сте в този отбор" } as const;
+    }
+    if (!participant.team.isCaptain) {
+      return {
+        success: false,
+        message: "Само капитанът може да редактира проекта",
+      } as const;
+    }
+
+    const project = await getProjectByTeamId(participant.team.id);
+    if (!project) {
+      return {
+        success: false,
+        message: "Моля, създайте проект, за да добавите линк към демо",
+      } as const;
+    }
+    await updateProject({
+      id: project.id,
+      websiteUrl: input.websiteUrl ?? null,
+    });
+    return { success: true } as const;
+  } catch (e) {
+    return {
+      success: false,
+      message:
+        e instanceof Error && env.VERCEL_ENV !== "production" ? e.message : "",
+    };
+  }
+});
 
 export async function isTeamFull(teamId: string) {
   const team = (await db.select().from(teams).where(eq(teams.id, teamId)))[0];

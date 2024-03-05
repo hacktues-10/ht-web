@@ -80,6 +80,16 @@ export async function getProjectByTeamId(teamId: string) {
   return result ?? null;
 }
 
+// Make id required, using the same infer:
+type InsertProject = typeof projects.$inferInsert;
+type UpdateProject = Partial<InsertProject> &
+  Required<Pick<InsertProject, "id">>;
+
+export async function updateProject({ id, ...data }: UpdateProject) {
+  await db.update(projects).set(data).where(eq(projects.id, id));
+  revalidateTag("teams");
+}
+
 export type ProjectGitHubRepo = NonNullable<
   Awaited<ReturnType<typeof getProjectByTeamId>>
 >["githubRepos"][number];
