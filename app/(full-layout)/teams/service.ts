@@ -1,5 +1,5 @@
 import { revalidateTag, unstable_cache } from "next/cache";
-import { eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
@@ -15,6 +15,7 @@ import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
   discordUsers,
+  githubRepos,
   invitations,
   particpants,
   projects,
@@ -62,12 +63,26 @@ export async function getTeamById(id: string) {
 }
 
 export async function getProjectByTeamId(teamId: string) {
-  const results = await db
-    .select()
-    .from(projects)
-    .where(eq(projects.teamId, teamId));
-  return results.at(0) ?? null;
+  const result = await db.query.projects.findFirst({
+    with: {
+      githubRepos: {
+        orderBy: asc(githubRepos.createdAt),
+        columns: {
+          id: true,
+          name: true,
+          url: true,
+          createdAt: true,
+        },
+      },
+    },
+    where: eq(projects.teamId, teamId),
+  });
+  return result ?? null;
 }
+
+export type ProjectGitHubRepo = NonNullable<
+  Awaited<ReturnType<typeof getProjectByTeamId>>
+>["githubRepos"][number];
 
 export async function createTeam(team: {
   name: string;

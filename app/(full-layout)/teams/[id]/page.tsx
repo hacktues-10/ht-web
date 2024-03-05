@@ -27,6 +27,7 @@ import {
   getProjectByTeamId,
   getTeamById,
   isParticipantEligableToJoin,
+  ProjectGitHubRepo,
 } from "~/app/(full-layout)/teams/service";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import CustomizableDialog from "~/app/components/CustomizableDialog";
@@ -54,6 +55,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "~/app/components/ui/tabs";
+import { githubRepos } from "~/app/db/schema";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
@@ -223,6 +225,7 @@ export default async function TeamDetailPage({
 
                     <ReposCard
                       project={project}
+                      repos={project.githubRepos}
                       isInTeam={!!participant?.team.id}
                     />
                     <div className="pt-5" />
@@ -409,6 +412,7 @@ function ReposCard({
 }: {
   project: {
     fallbackRepoUrls: string;
+    githubRepos: ProjectGitHubRepo[];
   };
   isInTeam?: boolean;
 }) {
@@ -416,21 +420,27 @@ function ReposCard({
     .split("\n")
     .filter((url) => !!url.trim())
     .map((url) => ({ url, display: url }));
-  const repos = [...fallbackRepos];
+  const githubRepos = project.githubRepos
+    // .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+    .map((repo) => ({
+      url: repo.url,
+      display: repo.url,
+    }));
+  const repos = [...githubRepos, ...fallbackRepos];
   return (
     <Card className="mt-4 border-2">
-      <CardHeader
-        className={cn("px-5 pt-5", repos.length > 0 ? "pb-3" : "pb-0")}
-      >
+      <CardHeader className="px-5 pb-0 pt-5">
         <CardTitle>Код на проекта</CardTitle>
       </CardHeader>
       <CardContent className="px-5 py-3">
         {repos.length > 0 ? (
-          repos.map((repo, index) => (
-            <ProjectLink key={index} href={repo.url}>
-              {repo.display}
-            </ProjectLink>
-          ))
+          <div className="py-2">
+            {repos.map((repo, index) => (
+              <ProjectLink key={index} href={repo.url}>
+                {repo.display}
+              </ProjectLink>
+            ))}
+          </div>
         ) : (
           <p className="text-muted-foreground">
             Няма добавени GitHub хранилища

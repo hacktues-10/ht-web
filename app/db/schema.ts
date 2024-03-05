@@ -244,11 +244,12 @@ export const projects = pgTable("projects", {
     .references(() => teams.id),
 });
 
-export const projectsRelations = relations(projects, ({ one }) => ({
+export const projectsRelations = relations(projects, ({ one, many }) => ({
   team: one(teams, {
     fields: [projects.teamId],
     references: [teams.id],
   }),
+  githubRepos: many(githubRepos),
 }));
 
 export const githubRepos = pgTable("github_repos", {
@@ -272,6 +273,21 @@ export const githubRepos = pgTable("github_repos", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const githubReposRelations = relations(githubRepos, ({ one }) => ({
+  project: one(projects, {
+    fields: [githubRepos.projectId],
+    references: [projects.id],
+  }),
+  participant: one(particpants, {
+    fields: [githubRepos.participantId],
+    references: [particpants.id],
+  }),
+  installation: one(githubInstallations, {
+    fields: [githubRepos.installationId],
+    references: [githubInstallations.id],
+  }),
+}));
 
 export const tShirts = pgTable("tshirts", {
   id: serial("id").primaryKey(),
