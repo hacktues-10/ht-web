@@ -6,6 +6,7 @@ import "~/app/components/Team/animations.css";
 
 import { PropsWithChildren } from "react";
 import { Plus } from "lucide-react";
+import { LuGlobe } from "react-icons/lu";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import {
@@ -224,6 +225,11 @@ export default async function TeamDetailPage({
                       project={project}
                       isInTeam={!!participant?.team.id}
                     />
+                    <div className="pt-5" />
+                    <DemoCard
+                      url={project.websiteURL}
+                      isInTeam={!!participant?.team.id}
+                    />
                   </div>
                 ) : (
                   <div className="items-center justify-center sm:flex">
@@ -421,9 +427,9 @@ function ReposCard({
       <CardContent className="px-5 py-3">
         {repos.length > 0 ? (
           repos.map((repo, index) => (
-            <RepoLink key={index} href={repo.url}>
+            <ProjectLink key={index} href={repo.url}>
               {repo.display}
-            </RepoLink>
+            </ProjectLink>
           ))
         ) : (
           <p className="text-muted-foreground">
@@ -444,10 +450,46 @@ function ReposCard({
   );
 }
 
-function RepoLink({ href, children }: PropsWithChildren<{ href: string }>) {
+function DemoCard({
+  url,
+  isInTeam,
+}: {
+  url: string | null;
+  isInTeam?: boolean;
+}) {
+  if (!url) {
+    return isInTeam && <PlusButton>Добави линк към демо</PlusButton>;
+  }
+  return (
+    <Card className="mt-4 border-2">
+      <CardHeader className="px-5 pb-3 pt-5">
+        <CardTitle>Демо на проекта</CardTitle>
+      </CardHeader>
+      <CardContent className="px-5 py-3">
+        <ProjectLink href={url} icon={LuGlobe}>
+          {url}
+        </ProjectLink>
+      </CardContent>
+    </Card>
+  );
+}
+
+function PlusButton({ children }: PropsWithChildren<{}>) {
+  return (
+    <Button variant="outline">
+      <Plus className="mr-1 h-5 w-5" /> {children}
+    </Button>
+  );
+}
+
+function ProjectLink({
+  href,
+  children,
+  icon: Icon = TbBrandGithub,
+}: PropsWithChildren<{ href: string; icon?: React.FC<{ size: number }> }>) {
   return (
     <Link className="mt-2 flex" href={href} target="_blank">
-      <TbBrandGithub size={26} />
+      <Icon size={26} />
       <ScrollArea className="w-full">
         <span className="ml-2 w-max text-lg">{children}</span>
         <ScrollBar orientation="horizontal" />
