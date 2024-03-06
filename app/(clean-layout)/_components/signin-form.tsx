@@ -10,6 +10,7 @@ import { z } from "zod";
 
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
 import { parseElsysEmail } from "~/app/_elsys/service";
+import { ErrorMessage } from "~/app/components/error-message";
 import { Button } from "~/app/components/ui/button";
 import {
   Form,
@@ -77,12 +78,7 @@ export const SignInForm = (props: { isRegister: boolean }) => {
     <Form {...form}>
       <form method="post" onSubmit={handleSubmit} className="space-y-4">
         {!!form.formState.errors.root && (
-          <div className="flex items-center justify-center gap-2 rounded-sm border border-destructive bg-destructive/10 p-3 text-destructive">
-            <XOctagon className="h-4 w-4 shrink-0" />
-            <p className="max-w-full text-center text-sm font-semibold">
-              {form.formState.errors.root.message}
-            </p>
-          </div>
+          <ErrorMessage>{form.formState.errors.root.message}</ErrorMessage>
         )}
         <FormField
           control={form.control}

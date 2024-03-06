@@ -34,6 +34,7 @@ import {
 } from "~/app/participants/service";
 import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import {
+  updateFallbackGitHubReposSchema,
   updateProjectSchema,
   updateWebsiteUrlSchema,
 } from "./[id]/project/schemas";
@@ -687,6 +688,45 @@ export const updateProjectWebsiteUrl = zact(updateWebsiteUrlSchema)(async (
     await updateProject({
       id: res.project.id,
       websiteUrl: input.websiteUrl ?? null,
+    });
+    return { success: true } as const;
+  } catch (e) {
+    return {
+      success: false,
+      message:
+        e instanceof Error && env.VERCEL_ENV !== "production"
+          ? e.message
+          : "Възникна неочаквана грешка. Моля, опитайте отново.",
+    };
+  }
+});
+
+export const updateProjectFallbackGitHubRepos = zact(
+  updateFallbackGitHubReposSchema,
+)(async (input) => {
+  try {
+    const gb = await getServerSideGrowthBook();
+    if (gb.isOn("add-github-repos")) {
+      return {
+        success: false,
+        message:
+          "Техническият проблем вече е отстранен. Моля, редактирайте хранилищата, използвайки GitHub интеграцията.",
+      } as const;
+    }
+    const res = await canUpdateProject(input.teamId);
+    if (!res.success) {
+      return res;
+    }
+    const existingRepos = new Set(
+      res.project.githubRepos.map((repo) => repo.url),
+    );
+    // XXX: type cast shit is happening help
+    const fallbackRepos = (input.fallbackGitHubRepos as any as string)
+      .split("\n")
+      .filter((repo) => !existingRepos.has(repo));
+    await updateProject({
+      id: res.project.id,
+      fallbackRepoUrls: fallbackRepos.join("\n"),
     });
     return { success: true } as const;
   } catch (e) {

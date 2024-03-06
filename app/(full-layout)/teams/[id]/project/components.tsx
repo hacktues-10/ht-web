@@ -5,6 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
+import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
+import { GitHubRepoDialog } from "~/app/_integrations/github/components";
+import { ErrorMessage } from "~/app/components/error-message";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,6 +32,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -37,8 +41,14 @@ import {
 import { Input } from "~/app/components/ui/input";
 import { Textarea } from "~/app/components/ui/textarea";
 import { useToast } from "~/app/components/ui/use-toast";
-import { updateProjectNameDesc, updateProjectWebsiteUrl } from "../../actions";
 import {
+  updateProjectFallbackGitHubRepos,
+  updateProjectNameDesc,
+  updateProjectWebsiteUrl,
+} from "../../actions";
+import {
+  UpdateFallbackGitHubReposInput,
+  updateFallbackGitHubReposSchema,
   UpdateProjectInput,
   updateProjectSchema,
   UpdateWebsiteUrlInput,
@@ -361,5 +371,163 @@ function WebsiteUrlConfirmationDialog({
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+  );
+}
+
+const updateProjectFallbackGitHubReposFixed =
+  updateProjectFallbackGitHubRepos as any as (
+    input: UpdateFallbackGitHubReposInput,
+  ) => ReturnType<typeof updateProjectFallbackGitHubRepos>;
+
+export function UpdateFallbackReposDialog(
+  props: React.PropsWithChildren<{
+    teamId: string;
+    fallbackGitHubRepos: string;
+  }>,
+) {
+  const canAddGitHubRepos = useHTFeatureIsOn("add-github-repos");
+
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const form = useForm({
+    resolver: zodResolver(updateFallbackGitHubReposSchema),
+    defaultValues: {
+      teamId: props.teamId,
+      fallbackGitHubRepos: props.fallbackGitHubRepos,
+    },
+  });
+
+  const { toast } = useToast();
+
+  const updateFallbackReposMutation = useMutation({
+    mutationFn: async (data: UpdateFallbackGitHubReposInput) => {
+      const res = await updateProjectFallbackGitHubReposFixed(data);
+      if (!res.success) {
+        throw new Error(res.message);
+      }
+    },
+    onSuccess: () => {
+      toast({
+        title: "Промените са запазени",
+        description: "Успешно редактирахте хранилищата",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Нещо се обърка",
+        description: error.message,
+      });
+    },
+  });
+
+  if (canAddGitHubRepos) {
+    return <GitHubRepoDialog>{props.children}</GitHubRepoDialog>;
+  }
+
+  async function handleSubmit(data: UpdateFallbackGitHubReposInput) {
+    await updateFallbackReposMutation.mutateAsync(data);
+    form.reset(
+      {
+        teamId: data.teamId,
+        fallbackGitHubRepos: data.fallbackGitHubRepos,
+      },
+      {
+        keepDirty: false,
+      },
+    );
+    setOpen(false);
+  }
+
+  function handleOpenChange(open: boolean) {
+    if (!open && form.formState.isDirty) {
+      setConfirmOpen(true);
+    } else {
+      setOpen(open);
+    }
+  }
+
+  function handleConfirmDiscard() {
+    form.reset(
+      {
+        teamId: props.teamId,
+        fallbackGitHubRepos: props.fallbackGitHubRepos,
+      },
+      {
+        keepDirty: false,
+      },
+    );
+    setOpen(false);
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogTrigger asChild>{props.children}</DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DiscordConfirmationDialog
+          open={confirmOpen}
+          onOpenChange={setConfirmOpen}
+          onConfirm={handleConfirmDiscard}
+        />
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit((data) =>
+              handleSubmit({
+                ...data,
+                fallbackGitHubRepos: (
+                  data.fallbackGitHubRepos as any as string[]
+                ).join("\n"),
+              }),
+            )}
+          >
+            <DialogHeader>
+              <DialogTitle>GitHub хранилища</DialogTitle>
+              <div className="py-3">
+                <ErrorMessage>
+                  Поради техническа неизправност, интеграцията с GitHub е
+                  временно спряна. Моля, използвайте това поле, за да въведете
+                  хранилищата ръчно.
+                </ErrorMessage>
+              </div>
+            </DialogHeader>
+            <div className="py-4">
+              <FormField
+                control={form.control}
+                name="fallbackGitHubRepos"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>GitHub хранилища</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder={[
+                          "https://github.com/torvalds/linux",
+                          "https://github.com/git/git",
+                        ].join("\n")}
+                        rows={10}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                    <FormDescription>
+                      Линкове към GitHub хранилища, разделени с нов ред.
+                    </FormDescription>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <DialogFooter>
+              <Button
+                type="submit"
+                disabled={
+                  form.formState.isSubmitting || !form.formState.isDirty
+                }
+              >
+                Запази
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   );
 }

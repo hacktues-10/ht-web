@@ -64,6 +64,7 @@ import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
 import {
+  UpdateFallbackReposDialog,
   UpdateProjectDialog,
   UpdateWebsiteUrlDialog,
 } from "./project/components";
@@ -435,6 +436,7 @@ function ReposCard({
   isInTeam,
 }: {
   project: {
+    teamId: string;
     fallbackRepoUrls: string;
     githubRepos: ProjectGitHubRepo[];
   };
@@ -488,9 +490,17 @@ function ReposCard({
               </GitHubRepoDialog>
             </IfHTFeatureOn>
             <IfHTFeatureOff feature="add-github-repos">
-              <IconOutlineButton icon={Plus}>
-                Добави хранилище
-              </IconOutlineButton>
+              <UpdateFallbackReposDialog
+                fallbackGitHubRepos={`${project.githubRepos
+                  .map((r) => r.url)
+                  .join("\n")}
+${project.fallbackRepoUrls}`}
+                teamId={project.teamId}
+              >
+                <IconOutlineButton icon={Plus}>
+                  Добави хранилище
+                </IconOutlineButton>
+              </UpdateFallbackReposDialog>
             </IfHTFeatureOff>
           </CardFooter>
         </IfHTFeatureOn>
