@@ -138,10 +138,11 @@ export function useRemoveRepo(options: { repoId: number }) {
   return mutation;
 }
 
-export function useGithubRepos() {
+export function useGithubRepos(props: {enabled?: boolean}) {
   return useQuery({
     queryKey: REPOS_QUERY_KEY,
     queryFn: () => getGithubRepos(),
+    ...props
   });
 }
 

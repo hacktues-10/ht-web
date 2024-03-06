@@ -3,6 +3,7 @@
 import { PropsWithChildren, useState } from "react";
 import Link from "next/link";
 import { Slot } from "@radix-ui/react-slot";
+import { useQueryClient } from "@tanstack/react-query";
 import { Command } from "cmdk";
 import {
   AlertTriangle,
@@ -47,6 +48,7 @@ import {
 } from "~/app/components/ui/tooltip";
 import { IfHTFeatureOff, IfHTFeatureOn } from "../components";
 import {
+  REPOS_QUERY_KEY,
   useAddRepo,
   useGithubInstallationPopup,
   useGithubRepos,
@@ -54,14 +56,26 @@ import {
 } from "./hooks";
 
 export function GitHubRepoDialog({ children }: PropsWithChildren<{}>) {
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
-  const { data } = useGithubRepos();
+  const { data } = useGithubRepos({
+    enabled: open,
+  });
 
   const hasInstallations = data?.length !== 0;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogTrigger
+        asChild
+        onMouseEnter={() =>
+          queryClient.ensureQueryData({
+            queryKey: REPOS_QUERY_KEY,
+          })
+        }
+      >
+        {children}
+      </DialogTrigger>
       <DialogContent className="w-[90vmin]">
         <IfHTFeatureOn feature="add-github-repos">
           {hasInstallations ? (
