@@ -250,15 +250,12 @@ export default async function TeamDetailPage({
 
                     <ReposCard
                       project={project}
-                      isInTeam={participant?.team.id === team.id}
+                      isInTeam={!!participant?.team.id}
                     />
-                    {!!project.websiteUrl && <div className="pt-5" />}
+                    <div className="pt-5" />
                     <DemoCard
                       url={project.websiteUrl}
-                      isInTeam={
-                        participant?.team.id === team.id &&
-                        participant.team.isCaptain
-                      }
+                      isInTeam={!!participant?.team.id}
                       teamId={team.id}
                     />
                   </div>
