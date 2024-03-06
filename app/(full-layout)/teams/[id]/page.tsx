@@ -135,7 +135,7 @@ export default async function TeamDetailPage({
 
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <Card className="fadeIn h-min rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
+      <Card className="fadeIn h-min w-full rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
         <div className="flex w-full">
           <div className="flex items-center">
             <Button
@@ -198,8 +198,8 @@ export default async function TeamDetailPage({
           ))}
         </div>
       </Card>
-      <div className="w-full  sm:flex">
-        <Card className="fadeInComponent m-10 ml-auto mr-auto h-full rounded-3xl border-2 p-3 sm:m-10 sm:ml-0 sm:w-3/5">
+      <div className="w-full justify-between sm:shrink-0 md:flex">
+        <Card className="fadeInComponent m-10 ml-auto mr-auto h-full w-full rounded-3xl border-2 p-3 sm:m-10 sm:ml-0">
           <Tabs defaultValue="information">
             {participant?.team.id == team.id && (
               <TabsList className="mb-4">
@@ -333,8 +333,8 @@ export default async function TeamDetailPage({
             </div>
           </Tabs>
         </Card>
-        <div className="sm:w-2/5">
-          <Card className="fadeInComponent m-10 ml-auto mr-auto  h-min w-5/6 rounded-3xl border-2 p-5 sm:mr-0">
+        <div className="w-full md:max-w-sm">
+          <Card className="fadeInComponent m-10 ml-auto mr-auto h-min rounded-3xl border-2 p-5 sm:mr-0">
             {teamMembers.length > 0 &&
               teamMembers.map((member) => (
                 <div
@@ -396,7 +396,7 @@ export default async function TeamDetailPage({
               ))}
           </Card>
 
-          <Card className="fadeInComponent m-10 ml-auto mr-auto w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
+          <Card className="fadeInComponent m-10 ml-auto mr-auto overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
             <h3 className="mb-2 text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
               <ScrollArea
