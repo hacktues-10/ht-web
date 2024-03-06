@@ -34,6 +34,7 @@ import {
 } from "~/app/participants/service";
 import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import {
+  createProjectSchema,
   updateFallbackGitHubReposSchema,
   updateProjectSchema,
   updateWebsiteUrlSchema,
@@ -585,12 +586,11 @@ export const prepareParticipants = zact(
   return getPreparedParticipants(team, captainId);
 });
 
-export async function createProject(project: {
+export const createProject = zact(createProjectSchema)(async (project: {
   teamId: string;
   name: string;
   description: string;
-  websiteUrl: string;
-}) {
+}) => {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("create-project")) {
     return {
@@ -598,20 +598,41 @@ export async function createProject(project: {
       message: "Създаването на проекти не е позволено по това време.",
     };
   }
+  const participant = await getParticipantFromSession();
+  if (!participant) {
+    return { success: false, message: "Не сте влезли като участник" };
+  }
+  if (participant.team.id !== project.teamId) {
+    return { success: false, message: "Не сте в този отбор" };
+  }
+  if (!participant.team.isCaptain) {
+    return {
+      success: false,
+      message: "Само капитанът може да създаде проект",
+    };
+  }
   try {
-    await db.insert(projects).values({
-      name: project.name,
-      description: project.description,
-      technologies: "",
-      websiteUrl: project.websiteUrl,
-      teamId: project.teamId,
-    });
+    await db
+      .insert(projects)
+      .values({
+        name: project.name,
+        description: project.description,
+        technologies: "",
+        teamId: project.teamId,
+      })
+      .onConflictDoUpdate({
+        target: [projects.teamId],
+        set: {
+          name: project.name,
+          description: project.description,
+        },
+      });
 
     return { success: true, message: "Успешно създадохте проекта" };
   } catch (e) {
-    return { success: false, message: "Опа, нещо се обърка" };
+    return { success: false, message: "Възникна неочаквана грешка" };
   }
-}
+});
 
 async function canUpdateProject(teamId: string) {
   const gb = await getServerSideGrowthBook();

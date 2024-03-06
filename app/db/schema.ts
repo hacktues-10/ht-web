@@ -241,7 +241,8 @@ export const projects = pgTable("projects", {
   fallbackRepoUrls: varchar("fallback_repo_urls").notNull().default(""),
   teamId: varchar("team_id")
     .notNull()
-    .references(() => teams.id),
+    .references(() => teams.id)
+    .unique(),
 });
 
 export const projectsRelations = relations(projects, ({ one, many }) => ({

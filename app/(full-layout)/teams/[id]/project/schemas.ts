@@ -12,6 +12,10 @@ export const updateProjectSchema = z.object({
 
 export type UpdateProjectInput = z.input<typeof updateProjectSchema>;
 
+export const createProjectSchema = updateProjectSchema;
+
+export type CreateProjectInput = z.input<typeof createProjectSchema>;
+
 export const updateWebsiteUrlSchema = z.object({
   teamId: z.string().trim().min(1),
   websiteUrl: z.union([

@@ -12,3 +12,14 @@ export function BackToTeamsButton() {
     </Button>
   );
 }
+
+export function BackToMyTeamButton() {
+  return (
+    <Button asChild variant="secondary" className="mt-8 backdrop-blur-md">
+      <Link href="/teams/myteam">
+        {"<- "}
+        Назад
+      </Link>
+    </Button>
+  );
+}
