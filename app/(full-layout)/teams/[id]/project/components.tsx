@@ -94,7 +94,7 @@ export function UpdateProjectDialog({
     },
     onError: (error) => {
       toast({
-        title: "Нещо се обърка",
+        title: "Редакциите не бяха запазени",
         description: error.message,
       });
     },
@@ -266,7 +266,7 @@ export function UpdateWebsiteUrlDialog({
     },
     onError: (error) => {
       toast({
-        title: "Нещо се обърка",
+        title: "Промените не бяха запазени",
         description: error.message,
       });
     },
@@ -415,7 +415,7 @@ export function UpdateFallbackReposDialog(
     },
     onError: (error) => {
       toast({
-        title: "Нещо се обърка",
+        title: "Промените не бяха запазени",
         description: error.message,
       });
     },
