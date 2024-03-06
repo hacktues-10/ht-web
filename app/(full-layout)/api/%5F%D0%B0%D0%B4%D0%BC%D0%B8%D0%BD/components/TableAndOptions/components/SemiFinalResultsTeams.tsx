@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { set } from "zod";
 
-import { deleteTeamAdmin, renameTeam } from "~/app/(full-layout)/teams/actions";
+import { addTeamResultSemiFinal } from "~/app/(full-layout)/teams/actions";
 import { Button } from "~/app/components/ui/button";
 import {
   Command,
@@ -76,12 +77,19 @@ export default function SemiFinalResultsTeams({
   const [semiFinalResult, setSemiFinalResult] = useState("");
   const { toast } = useToast();
   async function handleClick() {
-    // const res = await addTeamResult(value, semiFinal, semiFinalResult);
-    // toast({
-    //   variant: res?.success ? "sand" : "destructive",
-    //   title: res?.message,
-    // });
-    console.log(selectedTeam, semiFinal, semiFinalResult);
+    const res = await addTeamResultSemiFinal(
+      selectedTeam,
+      semiFinal,
+      semiFinalResult,
+    );
+    toast({
+      variant: res?.success ? "sand" : "destructive",
+      title: res?.message,
+    });
+    setOpenTeam(false);
+    setTeam("");
+    setSemiFinal("");
+    setSemiFinalResult("");
   }
 
   return (
