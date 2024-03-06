@@ -8,6 +8,7 @@ import DeleteTeam from "./components/DeleteTeam";
 import DownloadAsCSVComponent from "./components/DownloadAsCSVComponent";
 import FilterIsFinalistComponent from "./components/FilterIsFinalistComponent";
 import FilterSearchComponent from "./components/FilterSeachComponent";
+import FinalResultsTeams from "./components/FinalResultsTeams";
 import SemiFinalResultsTeams from "./components/SemiFinalResultsTeams";
 import TableData from "./components/TableData";
 import UpdateTeamName from "./components/UpdateTeamName";
@@ -60,7 +61,7 @@ export default function TeamsResultsTableAndOptions({
           {/* <DownloadAsCSVComponent data={filteredData} /> */}
         </div>
         <SemiFinalResultsTeams data={preparedData} />
-
+        <FinalResultsTeams data={preparedData} />
         <div>
           <h1 className="m-2 mt-4 text-left text-lg font-bold">Pagination</h1>
           <div className="flex gap-2">
