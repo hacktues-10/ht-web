@@ -31,11 +31,11 @@ import { cn } from "~/app/utils";
 import { IconParagraph } from "../page";
 
 export const metadata: Metadata = {
-  title: "Програма",
-  description: "Програма на Hack TUES X",
+  title: "Пълна програма",
+  description: "Пълната програма на десетото юбилейно издание на Hack TUES",
   openGraph: {
     title: "Програма",
-    description: "Програма на Hack TUES X",
+    description: "Пълната програма на десетото юбилейно издание на Hack TUES",
   },
 };
 
