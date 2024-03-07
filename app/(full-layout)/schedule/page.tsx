@@ -70,7 +70,7 @@ export default function SchedulePage() {
           <AccordionItem value="workshops">
             <Card>
               <AccordionTrigger className="w-full">
-                Workshop-и преди Hack TUES
+                Workshop-и преди Hack TUES X
               </AccordionTrigger>
             </Card>
             <AccordionContent className="px-0">
@@ -94,7 +94,7 @@ export default function SchedulePage() {
         <p className="text-center font-lazydog text-lg">
           Нека направим един прекрасен и незабравим хакатон заедно.
           <br />
-          Бъдете с нас!
+          Успех на всички!
         </p>
       </div>
     </div>
