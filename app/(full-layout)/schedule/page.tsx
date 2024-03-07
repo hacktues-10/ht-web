@@ -21,6 +21,7 @@ import {
   CardTitle,
 } from "~/app/components/ui/card";
 import { IconParagraph } from "../page";
+import { ShowScheduleItem } from "./components";
 
 export const metadata: Metadata = {
   title: "Програма",
@@ -59,12 +60,9 @@ export default function SchedulePage() {
           aria-hidden
         />
 
-        {SCHEDULE.filter((event) => event.type === "workshop").map(
-          (event, index) => (
-            <div
-              className="flex w-full flex-col gap-2 sm:flex-row sm:gap-3"
-              key={index}
-            >
+        {SCHEDULE.map((event, index) => (
+          <ShowScheduleItem type={event.type} key={index}>
+            <div className="flex w-full flex-col gap-2 sm:flex-row sm:gap-3">
               <CalendarDay event={event} />
               <Card asChild className="flex w-full flex-1 flex-grow flex-col">
                 <article>
@@ -140,8 +138,8 @@ export default function SchedulePage() {
                 </article>
               </Card>
             </div>
-          ),
-        )}
+          </ShowScheduleItem>
+        ))}
       </div>
     </div>
   );
