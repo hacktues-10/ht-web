@@ -5,6 +5,7 @@ import { MapPin, Youtube } from "lucide-react";
 import invariant from "tiny-invariant";
 
 import { SCHEDULE, ScheduleEvent } from "~/app/_configs/hackathon";
+import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import {
   Accordion,
   AccordionContent,
@@ -66,31 +67,17 @@ export default function SchedulePage() {
           className="absolute left-0 top-[1300px] -z-30 h-[1040px] w-[564px] bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,hsl(var(--brand)/5%),transparent)]"
           aria-hidden
         />
-        <Accordion type="multiple" className="w-full">
-          <AccordionItem value="workshops">
-            <Card>
-              <AccordionTrigger className="w-full">
-                Workshop-и преди Hack TUES X
-              </AccordionTrigger>
-            </Card>
-            <AccordionContent className="px-0">
-              <ScheduleItemList
-                events={SCHEDULE.filter((item) => item.type === "workshop")}
-              />
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+        <WorkshopsDisplay>
+          <ScheduleItemList
+            events={SCHEDULE.filter((item) => item.type === "workshop")}
+          />
+        </WorkshopsDisplay>
         <ScheduleItemList
           events={SCHEDULE.filter((item) => item.type !== "workshop")}
         />
         <div className="w-full pt-2">
           <Separator />
         </div>
-        {/* <div className="flex items-center justify-center gap-10 py-4">
-          <div className="h-3 w-3 rounded-full bg-white/75"></div>
-          <div className="h-4 w-4 rounded-full bg-white/80"></div>
-          <div className="h-3 w-3 rounded-full bg-white/75"></div>
-        </div> */}
         <p className="text-center font-lazydog text-lg">
           Нека направим един прекрасен и незабравим хакатон заедно.
           <br />
@@ -281,5 +268,25 @@ function ScheduleItemList({ events }: { events: readonly ScheduleEvent[] }) {
         </div>
       ))}
     </div>
+  );
+}
+
+function WorkshopsDisplay({ children }: React.PropsWithChildren<{}>) {
+  return (
+    <>
+      <IfHTFeatureOff feature="show-full-schedule">
+        <Accordion type="multiple" className="w-full">
+          <AccordionItem value="workshops">
+            <Card>
+              <AccordionTrigger className="w-full">
+                Workshop-и преди Hack TUES X
+              </AccordionTrigger>
+            </Card>
+            <AccordionContent className="px-0">{children}</AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </IfHTFeatureOff>
+      <IfHTFeatureOn feature="show-full-schedule">{children}</IfHTFeatureOn>
+    </>
   );
 }
