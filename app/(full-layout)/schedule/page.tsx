@@ -27,6 +27,7 @@ import {
   CardTitle,
 } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
+import { cn } from "~/app/utils";
 import { IconParagraph } from "../page";
 
 export const metadata: Metadata = {
@@ -123,13 +124,19 @@ function CalendarDay({ event }: { event: ScheduleEvent }) {
     !event.endDate || event.startDate.getMonth() === event.endDate.getMonth(),
     "Events should not span multiple months",
   );
+  const spansMultipleDays =
+    event.endDate && event.endDate.getDay() != event.startDate.getDay();
   return (
     <Card asChild className="flex items-center justify-center">
       <time dateTime={event.startDate.toISOString()}>
         <CardHeader className="flex w-32 flex-shrink flex-col items-center justify-center sm:w-40">
-          <h2 className="text-5xl font-extrabold">
-            {event.endDate &&
-            event.endDate.getDay() != event.startDate.getDay() ? (
+          <h2
+            className={cn(
+              "text-5xl font-extrabold",
+              spansMultipleDays && "text-5xl sm:text-4xl",
+            )}
+          >
+            {spansMultipleDays ? (
               <>
                 {dayOfMonthFormatter.format(event.startDate)}&nbsp;-&nbsp;
                 {dayOfMonthFormatter.format(event.endDate)}
