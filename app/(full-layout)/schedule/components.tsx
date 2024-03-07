@@ -11,7 +11,7 @@ export function ShowScheduleItem({
 }: PropsWithChildren<{ type: ScheduleEvent["type"] }>) {
   const showFullSchedule = useHTFeatureIsOn("show-full-schedule");
 
-  if (type === "workshop" || !showFullSchedule) {
+  if (type === "workshop" || showFullSchedule) {
     return <>{children}</>;
   }
   return null;
