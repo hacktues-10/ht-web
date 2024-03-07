@@ -57,6 +57,7 @@ import corporateLogo from "../assets/sponsors/partners/corporate.png";
 import culligan from "../assets/sponsors/partners/culligan.jpg";
 import dominosLogo from "../assets/sponsors/partners/dominos.png";
 import greenCherryLogo from "../assets/sponsors/partners/green_cherry.png";
+import jmrLogo from "../assets/sponsors/partners/joker-media-rental.png";
 import metro from "../assets/sponsors/partners/metro.png";
 import remoLogo from "../assets/sponsors/partners/remo-mebeli.png";
 import robotevLogo from "../assets/sponsors/partners/robotev.webp";
@@ -311,7 +312,7 @@ const GAMMA_SPONSORS = [
     logo: dynamoSoftwareLogo,
     url: "https://www.dynamosoftware.com/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "Динамо Софтуер е глобална компания с дългогодишна история, българско ДНК и централа в Бостън. Разработва и предлага облачна платформа за управление на портфейли, финанси и други решения за фирми и фондове в алтернативния финансов сектор. През последните години компанията навлиза на нови пазари и бива подкрепена от най-големите фирми за частни капиталови инвестиции в света – Blackstone Growth и Francisco Partners. Разширява значително най-важният си актив - екипът, който днес наброява над 420 души, 180 от които в България.",
     supportedEditions: [],
   },
   {
@@ -442,6 +443,14 @@ const PARTNERS = [
     name: "Мебели Ремо",
     logo: remoLogo,
     url: "https://mebeliremo.bg/",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    supportedEditions: [],
+  },
+  {
+    name: "JOKER MEDIA RENTAL",
+    logo: jmrLogo,
+    url: "https://jokermedia-rental.net/",
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     supportedEditions: [],
