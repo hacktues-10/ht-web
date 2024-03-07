@@ -6,6 +6,10 @@ import { Card } from "~/app/components/ui/card";
 export const metadata: Metadata = {
   title: "Регламент",
   description: "Регламентът на Hack TUES X",
+  openGraph: {
+    title: "Регламент",
+    description: "Регламентът на Hack TUES X",
+  },
 };
 
 export default function Regulations() {

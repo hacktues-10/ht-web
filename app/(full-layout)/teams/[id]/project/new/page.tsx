@@ -9,6 +9,10 @@ import CreateProjectFrom from "./CreateProjectForm";
 export const metadata: Metadata = {
   title: "Създай проект",
   description: "Създай проект към твоя отбор за Hack TUES X",
+  openGraph: {
+    title: "Създай проект",
+    description: "Създай проект към твоя отбор за Hack TUES X",
+  },
 };
 
 export default async function NewProjectPage() {

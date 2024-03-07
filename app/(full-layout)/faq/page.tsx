@@ -11,6 +11,10 @@ import { Card } from "~/app/components/ui/card";
 export const metadata: Metadata = {
   title: "Често задавани въпроси",
   description: "Често задавани въпроси за Hack TUES X",
+  openGraph: {
+    title: "Често задавани въпроси",
+    description: "Често задавани въпроси за Hack TUES X",
+  },
 };
 
 export default function FAQ() {

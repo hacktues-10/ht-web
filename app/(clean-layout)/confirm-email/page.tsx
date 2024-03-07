@@ -8,6 +8,10 @@ import { Separator } from "~/app/components/ui/separator";
 export const metadata: Metadata = {
   title: "Потвърдете имейл адреса си",
   description: "Потвърдете вашия имейл адрес за да продължите",
+  openGraph: {
+    title: "Потвърдете имейл адреса си",
+    description: "Потвърдете вашия имейл адрес за да продължите",
+  },
 };
 
 export default function ConfirmEmailPage() {
