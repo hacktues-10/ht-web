@@ -1,6 +1,7 @@
 "use client";
 
 import { PropsWithChildren } from "react";
+import { atom, useAtom } from "jotai";
 
 import { ScheduleEvent } from "~/app/_configs/hackathon";
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
