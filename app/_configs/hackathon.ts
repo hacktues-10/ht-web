@@ -19,7 +19,7 @@ export const STUDENTS_REGISTRATION_START = new Date(
 );
 
 export const MAX_TEAMS_STUDENTS = 70;
-export const MAX_TEAMS_ALUMNI = 14;
+export const MAX_TEAMS_ALUMNI = 12;
 
 export const MIN_TEAM_MEMBERS_STUDENTS = 3;
 export const MAX_TEAM_MEMBERS_STUDENTS = 5;
@@ -159,7 +159,7 @@ export const SCHEDULE = [
     type: "youtube",
     title: "Финал на завършили",
     description: `Завършилите участници ще презентират своите проекти пред жури.
-  Всеки отбор ще има по 7 минути за презентация и 8 минути за въпроси от журито. То ще оцени и класира най-добрите проекти измежду 14-те отбора от завършили ТУЕС-ари.
+  Всеки отбор ще има по 7 минути за презентация и 8 минути за въпроси от журито. То ще оцени и класира най-добрите проекти измежду ${MAX_TEAMS_ALUMNI}-те отбора от завършили ТУЕС-ари.
     
 Кой ще спечели? Победителите ще бъдат обявени на закриващата церемония.`,
     startDate: new Date("Mar 16 2024 08:00:00 GMT+0200"),
