@@ -270,6 +270,7 @@ export const githubRepos = pgTable("github_repos", {
   lastAcceptedCommit: varchar("last_accepted_commit"),
   lastAcceptedCommitDate: timestamp("last_accepted_commit_date"),
   lastAcceptedCommitReceivedAt: timestamp("last_accepted_commit_received_at"),
+  lastAcceptedPushAt: timestamp("last_accepted_push_at"),
   isSuspended: boolean("is_suspended").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),

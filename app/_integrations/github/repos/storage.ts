@@ -101,7 +101,20 @@ export async function acceptRepoCommit({
   | "lastAcceptedCommit"
   | "lastAcceptedCommitDate"
   | "lastAcceptedCommitReceivedAt"
+  | "lastAcceptedPushAt"
 >) {
+  const res = await db
+    .update(githubRepos)
+    .set(data)
+    .where(eq(githubRepos.id, id))
+    .returning();
+  return res.at(0) ?? null;
+}
+
+export async function renameRepo({
+  id,
+  ...data
+}: Pick<UnNull<SelectRepo>, "id" | "name" | "url">) {
   const res = await db
     .update(githubRepos)
     .set(data)

@@ -35,6 +35,7 @@ export type HTFeatures = {
 
   "add-github-repos": boolean;
   "publish-github-repos": boolean;
+  "count-github-pushes": boolean;
 };
 
 export type HTFeature = keyof HTFeatures;
