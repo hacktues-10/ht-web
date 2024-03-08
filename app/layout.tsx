@@ -75,7 +75,7 @@ export default function RootLayout({
     <html lang="en" className="motion-safe:scroll-smooth ">
       <body
         className={cn(
-          "dark relative min-h-screen overflow-x-hidden bg-background font-sans antialiased",
+          "dark relative min-h-screen bg-background font-sans antialiased",
           inter.variable,
           llpixel.variable,
           lazydog.variable,
