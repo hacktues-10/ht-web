@@ -10,6 +10,10 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Профил",
   description: "Профил на участника в Hack TUES X",
+  openGraph: {
+    title: "Профил",
+    description: "Профил на участника в Hack TUES X",
+  },
 };
 
 export default async function ProfilePage() {

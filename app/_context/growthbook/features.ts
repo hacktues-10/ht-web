@@ -31,6 +31,8 @@ export type HTFeatures = {
   "show-linktree-mobile": boolean;
   "show-twitter-mobile": boolean;
   "show-email-mobile": boolean;
+
+  "show-full-schedule": boolean;
 };
 
 export type HTFeature = keyof HTFeatures;

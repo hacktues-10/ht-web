@@ -12,6 +12,10 @@ import { ParticipantForm } from "./_components/participant-form";
 export const metadata: Metadata = {
   title: "Регистрация",
   description: "Регистрирайте се за участие в Hack TUES X",
+  openGraph: {
+    title: "Регистрация",
+    description: "Регистрирайте се за участие в Hack TUES X",
+  },
 };
 
 export default async function ConfigFlowPage({

@@ -16,7 +16,11 @@ export const metadata: Metadata = {
   title: "Медиите за нас",
   description:
     "Медиите, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
-  openGraph: {},
+  openGraph: {
+    title: "Медиите за нас",
+    description:
+      "Медиите, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+  },
 };
 
 export default function MediaCoverage() {
