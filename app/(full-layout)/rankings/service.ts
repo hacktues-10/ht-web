@@ -3,11 +3,11 @@ import { eq } from "drizzle-orm";
 import { db } from "~/app/db";
 import { teams } from "~/app/db/schema";
 
-// TOMI KAZA CHE SHTE SA 7, TAKA CHE 7 :)))
 const SEMIFINALS_COUNT = 7;
 
 export async function getTeamsBySemiFinal() {
-  let teamsResult = [];
+  let teamsSemiFinal = [];
+
   for (let i = 1; i <= SEMIFINALS_COUNT; i++) {
     const teamsInSemiFinal = await db
       .select()
@@ -15,10 +15,27 @@ export async function getTeamsBySemiFinal() {
       .where(eq(teams.semiFinal, i));
 
     if (teamsInSemiFinal.length <= 0) {
-      return teamsResult;
+      return teamsSemiFinal;
     }
-    teamsResult.push(teamsInSemiFinal);
+
+    teamsInSemiFinal.sort((a, b) => {
+      return Number(b.semiFinalResult) - Number(a.semiFinalResult);
+    });
+    teamsSemiFinal.push(teamsInSemiFinal);
   }
-  console.log(teamsResult);
-  return teamsResult;
+  // console.log(teamsResult);
+  return teamsSemiFinal;
+}
+
+export async function getAlumniTeams() {
+  const alumniTeams = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.isAlumni, true));
+
+  alumniTeams.sort((a, b) => {
+    return Number(b.finalResult) - Number(a.finalResult);
+  });
+
+  return alumniTeams;
 }
