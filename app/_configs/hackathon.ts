@@ -191,7 +191,7 @@ export const SCHEDULE = [
 
 Накрая ще обявим и победителите на десетото юбилейно издание на Hack\u00a0TUES!`,
     startDate: new Date("Mar 16 2024 17:40:00 GMT+0200"),
-    // endDate: new Date("Mar 16 2024 22:00:00 GMT+0200"),
+    endDate: null,
   },
 ] as const;
 
