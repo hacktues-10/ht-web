@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import { slugify } from "transliteration";
 
 import { db } from "~/app/db";
 import { mentors, teams } from "~/app/db/schema";
@@ -44,3 +45,30 @@ export async function getTeamsAdmin() {
 }
 
 export type TeamsAdmin = Awaited<ReturnType<typeof getTeamsAdmin>>;
+
+export async function InsertingSomeShit() {
+  let k = 0;
+
+  for (let i = 1; i <= 70; i++) {
+    k += i;
+
+    const team = {
+      id: slugify(`Team ${i}`),
+      name: `Team ${i}`,
+      description: `Description ${i}`,
+      technologies: "",
+      discordRoleId: "",
+      isAlumni: false,
+      memberCount: 5,
+      semiFinal: i % 7,
+      semiFinalResult: `${k / 1.0}`,
+      isFinalist: k > 8 ? true : false,
+      finalResult: `0.0`,
+    };
+    await db.insert(teams).values(team).returning();
+
+    if (k == 10) {
+      k = 0;
+    }
+  }
+}
