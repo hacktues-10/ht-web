@@ -1,12 +1,22 @@
+import { Metadata } from "next";
 import Image from "next/image";
 
 import { volunteers } from "~/app/_configs/volunteers";
 import { Card, CardDescription, CardHeader } from "~/app/components/ui/card";
 
+export const metadata: Metadata = {
+  title: "Доброволци",
+  description: "Доброволците на Hack TUES X",
+  openGraph: {
+    title: "Доброволци",
+    description: "Доброволците на Hack TUES X",
+  },
+};
+
 export default function Volunteers() {
   return (
     <div className="min-h-screen">
-      <h1 className="mb-4 text-center font-lazydog text-4xl font-bold text-sand">
+      <h1 className="my-5 flex flex-col gap-5 text-center text-5xl font-extrabold">
         Доброволци
       </h1>
       <div className="m-1 inline-grid w-full grid-cols-1 justify-items-center gap-8 sm:m-5 lg:grid-cols-3">
