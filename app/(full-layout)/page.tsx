@@ -36,6 +36,7 @@ import { PageBackdrop } from "../components/page-backdrop";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
 import { cn } from "../utils";
+import { LandingSubtitle } from "./components";
 
 export default async function LandingPage() {
   return (
@@ -199,9 +200,7 @@ function CountdownHero() {
               X
             </span>
           </h1>
-          <p className="text-center font-lazydog text-sm lg:text-lg">
-            Eмблематичният за ТУЕС хакатон се&nbsp;завръща!
-          </p>
+          <LandingSubtitle />
         </div>
 
         <div className="flex flex-col gap-1 py-3 text-sm font-semibold">
