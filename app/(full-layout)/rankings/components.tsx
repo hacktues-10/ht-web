@@ -32,7 +32,7 @@ export function Ranking({ teams, isSemifinal }: RankingProps) {
               team.isFinalist && isSemifinal && "bg-green-200 text-black",
               index == 0 && !isSemifinal && "bg-yellow-200 text-black",
               index == 1 && !isSemifinal && "bg-gray-200 text-black",
-              index == 2 && !isSemifinal && "bg-orange-800",
+              index == 2 && !isSemifinal && "bg-[#cd7f32]",
               index > 2 && !isSemifinal && "border border-white",
               !team.isFinalist && isSemifinal && "border border-white",
             )}
