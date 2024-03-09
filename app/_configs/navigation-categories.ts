@@ -35,9 +35,10 @@ export const NAVIGATION_CATEGORIES = [
         isNew: false,
       },
       {
+        // IMPORTANT: не трябва да го показваме, преди 16ти март!!!!!!!!!!!!
         label: "Класация",
         url: "/rankings",
-        isVisible: false,
+        isVisible: true,
         isNew: false,
       },
       {
