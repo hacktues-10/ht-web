@@ -48,8 +48,7 @@ export const MobileNavigationRoot = ({
         >
           <HTLogo className="text-sand">Hack TUES X</HTLogo>
         </MobileNavLink>
-        {/* FIXME: ScrollArea doesnt work */}
-        <ScrollArea className="h-full flex-1">
+        <ScrollArea className="h-full flex-1 overflow-scroll">
           {/* HACK: because the children are rendered by the server and they need to access the state setter,
                     we're passing it by context. Don't know if good idea, but it works (i think...) */}
           <SheetContext.Provider
