@@ -14,6 +14,10 @@ export type HTFeatures = {
   "signin-alumni": boolean;
   "signin-students": boolean;
 
+  "show-semi-finals": boolean;
+  "show-student-finalists": boolean;
+  "show-alumni-finalists": boolean;
+
   "show-instagram": boolean;
   "show-facebook": boolean;
   "show-linkedin": boolean;

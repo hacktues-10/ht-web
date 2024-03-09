@@ -77,7 +77,9 @@ export default function SemiFinalResultsTeams({
               className="w-96 justify-between overflow-hidden"
             >
               {selectedTeam
-                ? data?.find((team: any) => team.value == selectedTeam)?.label
+                ? data?.find((team: any) => {
+                    return team.value == selectedTeam;
+                  })?.label
                 : "Избери отбор"}
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
@@ -93,7 +95,11 @@ export default function SemiFinalResultsTeams({
                       key={team.value}
                       value={team.value}
                       onSelect={(currentValue) => {
-                        setTeam(currentValue === team ? "" : currentValue);
+                        setTeam(
+                          currentValue === team.value
+                            ? team.value
+                            : currentValue,
+                        );
                         setOpenTeam(false);
                       }}
                       className="hover:bg-sand hover:text-black"

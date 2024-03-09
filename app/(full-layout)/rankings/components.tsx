@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { GiPodiumSecond, GiPodiumThird, GiPodiumWinner } from "react-icons/gi";
 
 import { Card } from "~/app/components/ui/card";
 import { teams } from "~/app/db/schema";
@@ -26,17 +27,45 @@ export function Ranking({ teams, isSemifinal }: RankingProps) {
       {teams.map((team, index) => (
         <div
           className={cn(
-            "m-4 columns-2 rounded-xl p-2 text-xl hover:bg-slate-600",
+            "m-1 my-2 w-full rounded-xl p-2 text-xl  font-medium hover:bg-slate-600 sm:m-2 md:m-4",
             team.isFinalist && isSemifinal && "bg-green-200 text-black",
             index == 0 && !isSemifinal && "bg-yellow-200 text-black",
             index == 1 && !isSemifinal && "bg-gray-200 text-black",
             index == 2 && !isSemifinal && "bg-orange-800",
+            index > 2 && !isSemifinal && "border border-white",
+            !team.isFinalist && isSemifinal && "border border-white",
           )}
           key={index}
         >
-          <Link href={`/teams/${team.id}`}>
-            <h1>{team.name}</h1>
-            <h2 className="text-right	">
+          <Link
+            href={`/teams/${team.id}`}
+            className="flex w-full justify-between "
+          >
+            <div className="mx-2 flex w-full gap-5 ">
+              <h2 className={!isSemifinal && index < 3 ? "hidden" : "block"}>
+                {index + 1}
+              </h2>
+              {index == 0 && !isSemifinal && (
+                <GiPodiumWinner className="text-3xl" />
+              )}
+              {index == 1 && !isSemifinal && (
+                <GiPodiumSecond className="text-3xl" />
+              )}
+              {index == 2 && !isSemifinal && (
+                <GiPodiumThird className="text-3xl" />
+              )}
+              <h1
+                className={cn(
+                  "text-lg sm:text-xl",
+                  index < 3 && "font-semibold",
+                )}
+              >
+                {team.name.length > 12 && !team.name.includes(" ")
+                  ? team.name.slice(0, 12) + " " + team.name.slice(12)
+                  : team.name}
+              </h1>
+            </div>
+            <h2 className="w-min text-end">
               {isSemifinal ? team.semiFinalResult : team.finalResult}
             </h2>
           </Link>
