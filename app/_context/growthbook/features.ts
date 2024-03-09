@@ -33,6 +33,7 @@ export type HTFeatures = {
   "show-email-mobile": boolean;
 
   "show-full-schedule": boolean;
+  "landing-subtitle": string;
 };
 
 export type HTFeature = keyof HTFeatures;
