@@ -15,22 +15,22 @@ import {
 } from "lucide-react";
 
 import {
-  ALUMNI_REGISTRATION_START,
   COUNTDOWN_START,
   EVENT_END,
   EVENT_START,
   MAX_TEAMS_ALUMNI,
   MAX_TEAMS_STUDENTS,
-  STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
-import { IfHTSession, IfNotHTSession } from "../api/auth/server-components";
-import { CountdownTimer } from "../components/countdowns";
-import { DateDisplay } from "../components/date-display";
+import { IfNotHTSession } from "../api/auth/server-components";
+import {
+  CountdownTimer,
+  LandingCountdownTimer,
+} from "../components/countdowns";
 import DateRangeDisplayWrongTimezone from "../components/date-display/wrong-timezone/date-range-display";
-import { CountdownHourglass } from "../components/hourglass";
+import { FeatureCountdownHourglass } from "../components/hourglass";
 import { HTLogo, HTXLogoDuotone } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
 import { Button } from "../components/ui/button";
@@ -244,7 +244,7 @@ function CountdownHero() {
           </IconParagraph> */}
         </div>
 
-        <CountdownTimer to={EVENT_START} />
+        <LandingCountdownTimer to={EVENT_START} />
         <LandingCTA />
       </section>
       <aside className="relative flex w-full flex-col items-center justify-center gap-4">
@@ -253,7 +253,7 @@ function CountdownHero() {
           className="absolute left-1/2 top-1/2 -z-30 h-[300%] min-h-[800px] w-[300%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,#ffdfa62f,transparent)]"
           aria-hidden
         />
-        <CountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
+        <FeatureCountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
       </aside>
     </div>
   );

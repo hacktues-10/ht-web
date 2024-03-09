@@ -34,6 +34,7 @@ export type HTFeatures = {
 
   "landing-subtitle": string;
   "landing-cta": unknown;
+  "landing-countdown": unknown;
 };
 
 export type HTFeature = keyof HTFeatures;

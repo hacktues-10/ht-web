@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { z } from "zod";
+
+import { useHTFeature } from "~/app/_context/growthbook/utils";
 
 export type Countdown = ReturnType<typeof calculateCountdown>;
 
@@ -49,4 +52,21 @@ function calculateCountdown(to: Date) {
     seconds,
     diff,
   };
+}
+
+const countdownCTASchema = z.object({
+  from: z.string().transform((v) => new Date(v)),
+  to: z.string().transform((v) => new Date(v)),
+});
+
+export function useLandingCountdown() {
+  const feature = useHTFeature("landing-countdown");
+  const landingCountdown = useMemo(() => {
+    const result = countdownCTASchema.safeParse(feature.value);
+    if (result.success) {
+      return result.data;
+    }
+    return null;
+  }, [feature]);
+  return landingCountdown;
 }

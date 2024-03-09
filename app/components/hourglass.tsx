@@ -2,7 +2,7 @@
 
 import { animated, useSpring } from "@react-spring/web";
 
-import { useCountdown } from "./countdowns/hooks";
+import { useCountdown, useLandingCountdown } from "./countdowns/hooks";
 
 export const Hourglass = ({
   fillAmount,
@@ -199,9 +199,18 @@ function lerpMid(a: number, mid: number, b: number, t: number, tMid: number) {
     : lerp(mid, b, (t - tMid) / (1 - tMid));
 }
 
-export const CountdownHourglass = ({ from, to }: { from: Date; to: Date }) => {
+const CountdownHourglass = ({ from, to }: { from: Date; to: Date }) => {
   const fillAmount = useFillAmount(from, to);
   return <Hourglass fillAmount={fillAmount} />;
+};
+
+export const FeatureCountdownHourglass = (props: { from: Date; to: Date }) => {
+  const landingCountdown = useLandingCountdown();
+  return landingCountdown ? (
+    <CountdownHourglass {...landingCountdown} />
+  ) : (
+    <CountdownHourglass {...props} />
+  );
 };
 
 function useFillAmount(startDate: Date, endDate: Date) {
