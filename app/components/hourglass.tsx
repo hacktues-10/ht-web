@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
 
 import { useCountdown } from "./countdowns/hooks";
