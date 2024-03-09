@@ -59,6 +59,12 @@ export const NAVIGATION_CATEGORIES = [
         isNew: false,
       },
       {
+        label: "Доброволци",
+        url: "/volunteers",
+        isVisible: true,
+        isNew: false,
+      },
+      {
         label: "Регламент",
         url: "/regulation",
         isVisible: true,
