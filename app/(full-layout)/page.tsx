@@ -36,7 +36,7 @@ import { PageBackdrop } from "../components/page-backdrop";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
 import { cn } from "../utils";
-import { LandingSubtitle } from "./components";
+import { LandingCTA, LandingSubtitle } from "./components";
 
 export default async function LandingPage() {
   return (
@@ -256,31 +256,6 @@ function CountdownHero() {
         <CountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
       </aside>
     </div>
-  );
-}
-
-function LandingCTAButton({ children }: PropsWithChildren) {
-  return (
-    <Button asChild size="lg">
-      {children}
-    </Button>
-  );
-}
-
-function LandingCTA() {
-  return (
-    <>
-      <IfNotHTSession>
-        <LandingCTAButton>
-          <Link href="/signup">Регистрирайте се!</Link>
-        </LandingCTAButton>
-      </IfNotHTSession>
-      <IfHTSession>
-        <LandingCTAButton>
-          <Link href="/teams">Разгледайте отборите</Link>
-        </LandingCTAButton>
-      </IfHTSession>
-    </>
   );
 }
 
