@@ -9,11 +9,15 @@ export default function Volunteers() {
       <h1 className="mb-4 text-center font-lazydog text-4xl font-bold text-sand">
         Доброволци
       </h1>
-      <div className="m-1 inline-grid w-full grid-cols-1 gap-8 sm:m-5 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
+      <div className="m-1 inline-grid w-full grid-cols-1 justify-items-center gap-8 sm:m-5 lg:grid-cols-3">
         {volunteers.map((volunteer, index) => (
           <Card
             key={index}
-            className="items-center justify-center rounded-lg shadow-lg"
+            className={`items-center justify-center rounded-lg px-3 shadow-lg ${
+              index === volunteers.length - 1
+                ? "col-start-1 lg:col-start-2"
+                : ""
+            }`}
           >
             <div className="mt-4 h-[280px] max-h-[280px] w-full overflow-hidden rounded-xl sm:h-[300px] sm:max-h-[300px]">
               <Image
@@ -25,7 +29,7 @@ export default function Volunteers() {
               />
               <Image
                 src={`/volunteers/${volunteer.fileName}`}
-                className="mx-[30px] hidden overflow-hidden rounded-xl sm:block"
+                className="mx-auto hidden overflow-hidden rounded-xl sm:block"
                 alt={volunteer.name}
                 width={300}
                 height={300}
