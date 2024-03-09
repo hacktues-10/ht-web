@@ -639,6 +639,7 @@ export async function addTeamResultSemiFinal(
       .update(teams)
       .set({ semiFinal: parseInt(semiFinal), semiFinalResult: semiFinalResult })
       .where(eq(teams.id, team));
+    revalidateTag("teams");
 
     return { success: true, message: "Успешно добавихте резултатите" };
   } catch (e) {
@@ -657,6 +658,7 @@ export async function addTeamResultFinal(team: string, finalResult: string) {
       .set({ finalResult: finalResult, isFinalist: true })
       .where(eq(teams.id, team));
 
+    revalidateTag("teams");
     return { success: true, message: "Успешно добавихте резултатите" };
   } catch (e) {
     return { success: false, message: "Опа, нещо се обърка" };

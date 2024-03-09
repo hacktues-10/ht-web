@@ -40,7 +40,7 @@ export function Ranking({ teams, isSemifinal }: RankingProps) {
           >
             <Link
               href={`/teams/${team.id}`}
-              className="flex w-full justify-between "
+              className="flex w-full items-center justify-between "
             >
               <div className="mx-2 flex w-full gap-5 ">
                 <h2 className={!isSemifinal && index < 3 ? "hidden" : "block"}>
@@ -57,16 +57,30 @@ export function Ranking({ teams, isSemifinal }: RankingProps) {
                 )}
                 <h1
                   className={cn(
-                    "text-lg sm:text-xl",
+                    "text-base font-semibold sm:hidden",
+                    index < 3 && "font-bold",
+                  )}
+                >
+                  {team.name.length > 10 && !team.name.includes(" ") ? (
+                    <>
+                      {team.name.slice(0, 10)}
+                      <wbr />
+                      {team.name.slice(10)}
+                    </>
+                  ) : (
+                    team.name
+                  )}
+                </h1>
+                <h1
+                  className={cn(
+                    "hidden text-xl sm:block",
                     index < 3 && "font-semibold",
                   )}
                 >
-                  {team.name.length > 12 && !team.name.includes(" ")
-                    ? team.name.slice(0, 12) + " " + team.name.slice(12)
-                    : team.name}
+                  {team.name}
                 </h1>
               </div>
-              <h2 className="w-min text-end">
+              <h2 className="w-min text-end text-lg sm:text-xl">
                 {isSemifinal ? team.semiFinalResult : team.finalResult}
               </h2>
             </Link>

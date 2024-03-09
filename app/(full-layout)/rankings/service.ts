@@ -1,41 +1,57 @@
+import { unstable_cache } from "next/cache";
 import { eq } from "drizzle-orm";
 
 import { db } from "~/app/db";
 import { teams } from "~/app/db/schema";
+import { env } from "~/app/env.mjs";
+import { MINUTE } from "~/app/utils";
 
 const SEMIFINALS_COUNT = 7;
 
-export async function getTeamsBySemiFinal() {
-  let teamsSemiFinal = [];
+export const getTeamsBySemiFinal = unstable_cache(
+  async () => {
+    let teamsSemiFinal = [];
 
-  for (let i = 1; i <= SEMIFINALS_COUNT; i++) {
-    const teamsInSemiFinal = await db
+    for (let i = 1; i <= SEMIFINALS_COUNT; i++) {
+      const teamsInSemiFinal = await db
+        .select()
+        .from(teams)
+        .where(eq(teams.semiFinal, i));
+
+      if (teamsInSemiFinal.length <= 0) {
+        return teamsSemiFinal;
+      }
+
+      teamsInSemiFinal.sort((a, b) => {
+        return Number(b.semiFinalResult) - Number(a.semiFinalResult);
+      });
+      teamsSemiFinal.push(teamsInSemiFinal);
+    }
+    return teamsSemiFinal;
+  },
+  ["students-results", env.VERCEL_ENV],
+  {
+    revalidate: 5 * MINUTE,
+    tags: ["teams"],
+  },
+);
+
+export const getAlumniTeams = unstable_cache(
+  async () => {
+    const alumniTeams = await db
       .select()
       .from(teams)
-      .where(eq(teams.semiFinal, i));
+      .where(eq(teams.isAlumni, true));
 
-    if (teamsInSemiFinal.length <= 0) {
-      return teamsSemiFinal;
-    }
-
-    teamsInSemiFinal.sort((a, b) => {
-      return Number(b.semiFinalResult) - Number(a.semiFinalResult);
+    alumniTeams.sort((a, b) => {
+      return Number(b.finalResult) - Number(a.finalResult);
     });
-    teamsSemiFinal.push(teamsInSemiFinal);
-  }
-  // console.log(teamsResult);
-  return teamsSemiFinal;
-}
 
-export async function getAlumniTeams() {
-  const alumniTeams = await db
-    .select()
-    .from(teams)
-    .where(eq(teams.isAlumni, true));
-
-  alumniTeams.sort((a, b) => {
-    return Number(b.finalResult) - Number(a.finalResult);
-  });
-
-  return alumniTeams;
-}
+    return alumniTeams;
+  },
+  ["alumni-results", env.VERCEL_ENV],
+  {
+    revalidate: 5 * MINUTE,
+    tags: ["teams"],
+  },
+);
