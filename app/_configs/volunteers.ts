@@ -59,4 +59,4 @@ export const volunteers = [
     class: "9 Г",
     fileName: "beti.png",
   },
-];
+].sort((a, b) => a.name.localeCompare(b.name));
