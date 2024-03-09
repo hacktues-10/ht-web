@@ -59,4 +59,9 @@ export const volunteers = [
     class: "9 Г",
     fileName: "beti.png",
   },
+  {
+    name: "Денис Мирчев",
+    class: "11 Г",
+    filteName: "denkata.png",
+  },
 ].sort((a, b) => a.name.localeCompare(b.name));
