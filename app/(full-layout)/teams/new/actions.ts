@@ -5,6 +5,7 @@ import { z } from "zod";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { zact } from "~/app/_zact/server";
 import { getParticipantFromSession } from "~/app/participants/service";
+import { env } from "~/app/env.mjs"
 import { createTeam } from "../service";
 
 export const createTeamAction = zact(
@@ -57,6 +58,9 @@ export const createTeamAction = zact(
     return { success: true, team } as const;
   } catch (e: any) {
     console.log(e.message);
+    if (env.VERCEL_ENV !== "production") {
+      throw e;
+    }
     return { success: false, error: "Вече има отбор с това име" };
   }
 });
