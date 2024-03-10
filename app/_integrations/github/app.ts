@@ -75,7 +75,7 @@ app.webhooks.on(
         )} ${getWereRemovedText(repos)} от сайта!
 Достъпът на GitHub приложението до ${getYourRepositoriesText(
           repos,
-        )} ${reposList} бе ограничен и ${pluralizeRepo(
+        )} ${reposList} бе премахнат и ${pluralizeRepo(
           repos,
         )} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
 
@@ -181,7 +181,7 @@ app.webhooks.on("installation.suspend", async ({ octokit, payload }) => {
         repos,
       )} временно ${getWereRemovedText(repos)} от сайта на Hack TUES X.
 
-Ако това е нежелано, моля, възстановете достъпа чрез "Unsuspend installation" бутона в GitHub за да добавите ${pluralizeRepo(
+Ако това е нежелано, моля, възстановете достъпа чрез "Unsuspend" бутона в GitHub за да добавите ${pluralizeRepo(
         repos,
       )} отново на сайта.
 
@@ -255,7 +255,7 @@ app.webhooks.on("repository.privatized", async ({ octokit, payload }) => {
       }> Вашето хранилище бе направено отново публично!
 Вие променихте видимостта на ${formatReposList([
         existingRepo,
-      ])} в GitHub от "Public" на "Private". Тъй като не можете да участвате в Hack TUES X с частни хранилища, ние го направихме публично отново.
+      ])} в GitHub от "Public" на "Private". Тъй като не можете да участвате в Hack TUES X с частни хранилища, ние го направихме отново публично.
 
 Ако желаете да премахнете хранилището от сайта, можете да го направите от страницата на отбора.
 
