@@ -62,6 +62,15 @@ export async function getTeamById(id: string) {
   return results.at(0) ?? null;
 }
 
+export async function getTeamByProjectId(projectId: number) {
+  const results = await db
+    .select()
+    .from(teams)
+    .leftJoin(projects, eq(teams.id, projects.teamId))
+    .where(eq(projects.id, projectId));
+  return results.at(0) ?? null;
+}
+
 export async function getProjectByTeamId(teamId: string) {
   const result = await db.query.projects.findFirst({
     with: {

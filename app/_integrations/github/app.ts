@@ -1,6 +1,10 @@
 import { App } from "octokit";
 import invariant from "tiny-invariant";
 
+import {
+  getTeamById,
+  getTeamByProjectId,
+} from "~/app/(full-layout)/teams/service";
 import { env } from "~/app/env.mjs";
 import { SECOND } from "~/app/utils";
 import { getServerSideGrowthBook } from "../growthbook";
@@ -18,6 +22,7 @@ import {
   renameRepo,
   unimportRepo,
 } from "./repos/storage";
+import { githubNewInstallationUrl } from "./urls";
 
 export const app = new App({
   appId: env.GITHUB_APP_ID,
@@ -79,10 +84,41 @@ app.webhooks.on(
       },
       [] as { projectId: number; repos: { url: string; name: string }[] }[],
     );
-    // TODO: notify team here
-    console.error({
-      projectIdToRepos,
-    });
+    for (const { projectId, repos } of projectIdToRepos) {
+      const team = await getTeamByProjectId(projectId);
+      if (!team) {
+        console.error("team not found", projectId);
+        continue;
+      }
+      invariant(team.teams.discordRoleId);
+      const reposList = formatReposList(repos);
+      await notifyTeam({
+        teamChannelId: team.teams.discordTextChannelId,
+        teamRoleId: team.teams.discordRoleId,
+        message: `# <@&{{role.id}}> ${capfirst(
+          getYourRepositoriesText(repos),
+        )} ${getWereRemovedText(repos)} от сайта!
+Достъпът на GitHub приложението до вашия акаунт бе отстранен и ${getYourRepositoriesText(
+          repos,
+        )} ${reposList} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
+
+Ако това е нежелано, моля, възстановете достъпа и добавете отново ${pluralizeRepo(
+          repos,
+        )} от страницата на отбора.
+
+${DISQUALIFICATION_WARNING}`,
+        links: [
+          {
+            name: "Възстановяване на достъпа",
+            url: githubNewInstallationUrl,
+          },
+          {
+            name: "Управление на хранилищата",
+            url: `https://hacktues.com/teams/${team.teams.id}`,
+          },
+        ],
+      });
+    }
   },
 );
 
@@ -96,7 +132,32 @@ app.webhooks.on("installation.deleted", async ({ octokit, payload }) => {
   }
   const repos = await batchRemoveRepos(installationRecord.id);
   await deleteInstallationRecord(installationRecord.id);
-  // TODO: notify team here
+  //       await notifyTeam({
+  //         teamChannelId: team.teams.discordTextChannelId,
+  //         teamRoleId: team.teams.discordRoleId,
+  //         message: `# <@&{{role.id}}> ${capfirst(
+  //           getYourRepositoriesText(repos),
+  //         )} ${getWereRemovedText(repos)} от сайта!
+  // Достъпът на GitHub приложението до вашия акаунт бе отстранен и ${getYourRepositoriesText(
+  //           repos,
+  //         )} ${reposList} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
+
+  // Ако това е нежелано, моля, възстановете достъпа и добавете отново ${pluralizeRepo(
+  //           repos,
+  //         )} от страницата на отбора.
+
+  // ${DISQUALIFICATION_WARNING}`,
+  //         links: [
+  //           {
+  //             name: "Възстановяване на достъпа",
+  //             url: githubNewInstallationUrl,
+  //           },
+  //           {
+  //             name: "Управление на хранилищата",
+  //             url: `https://hacktues.com/teams/${team.teams.id}`,
+  //           },
+  //         ],
+  //       });
   console.error({
     repos,
   });
@@ -226,3 +287,70 @@ app.webhooks.on("repository.unarchived", async ({ octokit, payload }) => {
   // TODO: notify here
   console.error("repo archived", existingRepo.githubId);
 });
+
+async function notifyTeam(options: {
+  teamChannelId: string;
+  teamRoleId: string;
+  message: string;
+  links?: { url: string; name: string }[];
+}) {
+  const response = await fetch(
+    `https://discord.com/api/channels/${options.teamChannelId}/messages`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bot ${env.DISCORD_BOT_ID}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: options.message,
+        allowed_mentions: {
+          roles: [options.teamRoleId],
+        },
+        components: options.links
+          ? [
+              {
+                type: 1,
+                components: options.links.map((link) => ({
+                  type: 2,
+                  url: link.url,
+                  label: link.name,
+                  style: 5,
+                })),
+              },
+            ]
+          : undefined,
+      }),
+    },
+  );
+}
+
+const DISQUALIFICATION_WARNING = `**Отбор, който няма хранилище, качено на сайта след края на първия работен ден (<t:1710383400:D>), няма да бъде допуснат до полуфинал!**`;
+
+const listFormat = new Intl.ListFormat("bg", {
+  style: "long",
+  type: "conjunction",
+});
+
+function formatReposList(repos: { url: string; name: string }[]) {
+  const list = repos
+    .map((repo) => `[\`${repo.name}\`](<${repo.url}>)`)
+    .join(", ");
+  return listFormat.format(list);
+}
+
+function getYourRepositoriesText(repos: unknown[]) {
+  return repos.length === 1 ? "вашето хранилище" : "вашите хранилища";
+}
+
+function getWereRemovedText(repos: unknown[]) {
+  return repos.length === 1 ? "бе премахнато" : "бяха премахнати";
+}
+
+function capfirst(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function pluralizeRepo(repos: unknown[]) {
+  return repos.length === 1 ? "хранилището" : "хранилищата";
+}

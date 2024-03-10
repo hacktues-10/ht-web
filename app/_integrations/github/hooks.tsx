@@ -1,22 +1,15 @@
 import { useRouter } from "next/navigation";
-import {
-  Mutation,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   addRepo,
   getGithubRepos,
   removeRepo,
 } from "~/app/_integrations/github/actions";
-import { GitHubRepoDialog } from "~/app/_integrations/github/components";
-import { Button } from "~/app/components/ui/button";
 import { ToastAction } from "~/app/components/ui/toast";
 import { useToast } from "~/app/components/ui/use-toast";
-import { env } from "~/app/env.mjs";
 import { openPopup } from "~/app/popups";
+import { githubNewInstallationUrl } from "./urls";
 
 export const REPOS_QUERY_KEY = ["github-installations"];
 
@@ -150,11 +143,7 @@ export function useGithubInstallationPopup() {
   const queryClient = useQueryClient();
 
   function handleOpen() {
-    openPopup(
-      `https://github.com/apps/${env.NEXT_PUBLIC_GITHUB_APP_SLUG}/installations/new`,
-      800,
-      600,
-    ).then(() => {
+    openPopup(githubNewInstallationUrl, 800, 600).then(() => {
       // queryClient.refetchQueries({
       //   exact: true,
       //   queryKey: REPOS_QUERY_KEY,
