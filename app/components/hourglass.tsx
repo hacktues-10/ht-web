@@ -13,6 +13,11 @@ export const Hourglass = ({
     topEllipseRX: lerp(350, 311.99695, fillAmount),
     topEllipseRY: lerpMid(252.12402, 410, 320, fillAmount, 0.9),
   });
+  const { middleEllipseY, middleEllipseRX, middleEllipseRY } = useSpring({
+    middleEllipseY: lerpMid(541.129, 343.877, 308.703, fillAmount, 0.9),
+    middleEllipseRX: lerpMid(496.22, 209.945, 317.889, fillAmount, 0.9),
+    middleEllipseRY: lerpMid(185.638, 196.142, 140.142, fillAmount, 0.9),
+  });
   const { bottomEllipseY, bottomEllipseRX, bottomEllipseRY } = useSpring({
     bottomEllipseY: lerp(1200, 730, fillAmount),
     bottomEllipseRX: lerpMid(311.99695, 270, 330, fillAmount, 0.1),
@@ -36,9 +41,23 @@ export const Hourglass = ({
         <clipPath id="sandTopClip" clipPathUnits="userSpaceOnUse">
           <path d="M358.945 402.363c-3.388.09-1.958 22.797-6.59 19.367-2.564-1.897-6.34-27.94-12.289-34.188-10.135-10.644-247.382-263.01-333.42-354.525 227.044-41.855 462.893-46.805 696.825 1.92C577.012 176.462 369.34 384.925 367.307 411.174c-.218 2.786-6.736-8.854-8.362-8.811z" />
         </clipPath>
-        <clipPath id="sandBottomClip" clipPathUnits="userSpaceOnUse">
-          <path d="M368.74 460.512c-9.078-7.29-13.384-13.733-26.275 4.486-8.728 19.924-121.035 136.728-244.435 265.688 88.94 49.188 433.462 50.15 524.344 3.723-202.189-191.485-231.81-256.374-253.633-273.897z" />
-        </clipPath>
+        <mask id="sandBottomMask" clipPathUnits="userSpaceOnUse">
+          <path
+            d="M368.74 460.512c-9.078-7.29-13.384-13.733-26.275 4.486-8.728 19.924-121.035 136.728-244.435 265.688 88.94 49.188 433.462 50.15 524.344 3.723-202.189-191.485-231.81-256.374-253.633-273.897z"
+            fill="white"
+          />
+          <animated.ellipse
+            cx={360}
+            cy={middleEllipseY}
+            rx={middleEllipseRX}
+            ry={middleEllipseRY}
+            strokeWidth={2.57862}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="black"
+          />
+        </mask>
+
         <ellipse
           id="sandTopMotion"
           cx={-33}
@@ -163,8 +182,8 @@ export const Hourglass = ({
         className="text-sand"
       />
       <use
-        clipPath="url(#sandBottomClip)"
         href="#sandBottom"
+        mask="url(#sandBottomMask)"
         fill="currentColor"
         className="text-sand"
       />
@@ -204,7 +223,7 @@ const CountdownHourglass = ({ from, to }: { from: Date; to: Date }) => {
   return <Hourglass fillAmount={fillAmount} />;
 };
 
-export const FeatureCountdownHourglass = (props: { from: Date; to: Date }) => {
+export const LandingCountdownHourglass = (props: { from: Date; to: Date }) => {
   const landingCountdown = useLandingCountdown();
   return landingCountdown ? (
     <CountdownHourglass {...landingCountdown} />

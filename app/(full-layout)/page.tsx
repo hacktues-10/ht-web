@@ -30,7 +30,7 @@ import {
   LandingCountdownTimer,
 } from "../components/countdowns";
 import DateRangeDisplayWrongTimezone from "../components/date-display/wrong-timezone/date-range-display";
-import { FeatureCountdownHourglass } from "../components/hourglass";
+import { LandingCountdownHourglass } from "../components/hourglass";
 import { HTLogo, HTXLogoDuotone } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
 import { Button } from "../components/ui/button";
@@ -253,7 +253,7 @@ function CountdownHero() {
           className="absolute left-1/2 top-1/2 -z-30 h-[300%] min-h-[800px] w-[300%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,#ffdfa62f,transparent)]"
           aria-hidden
         />
-        <FeatureCountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
+        <LandingCountdownHourglass from={COUNTDOWN_START} to={EVENT_START} />
       </aside>
     </div>
   );
