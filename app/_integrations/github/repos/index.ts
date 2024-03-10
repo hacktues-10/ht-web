@@ -68,3 +68,29 @@ export async function ghPublishRepo(appInstallationId: number, repoId: number) {
     };
   }
 }
+
+export async function ghArchiveRepo(appInstallationId: number, repoId: number) {
+  const octokit = await app.getInstallationOctokit(appInstallationId);
+  try {
+    const res = (await octokit.request("PATCH /repositories/{repository_id}", {
+      headers: {
+        "x-github-api-version": "2022-11-28",
+      },
+      repository_id: repoId,
+      archived: true,
+    })) as OctokitResponse<components["schemas"]["full-repository"]>;
+    return {
+      success: res.data.archived,
+    };
+  } catch (error) {
+    if (env.VERCEL_ENV !== "production") {
+      throw error;
+    }
+
+    // TODO: proper error logging
+    console.error("archiveRepo error", error);
+    return {
+      success: false,
+    };
+  }
+}

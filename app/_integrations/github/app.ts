@@ -9,7 +9,7 @@ import {
   getInstallationRecordByAppInstallationId,
   markInstallationAsSuspended,
 } from "./installations/storage";
-import { ghGetRepoById, ghPublishRepo, Repo } from "./repos";
+import { ghArchiveRepo, ghPublishRepo } from "./repos";
 import {
   acceptRepoCommit,
   batchMarkReposAsSuspended,
@@ -201,4 +201,28 @@ app.webhooks.on("push", async ({ octokit, payload }) => {
     lastAcceptedCommitDate: new Date(payload.head_commit.timestamp),
     lastAcceptedCommitReceivedAt: receivedAt,
   });
+});
+
+app.webhooks.on("repository.unarchived", async ({ octokit, payload }) => {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("archive-github-repos")) {
+    return;
+  }
+
+  const existingRepo = await getRepoByGithubId(payload.repository.id);
+  if (!existingRepo) {
+    console.error("repo not found", payload.repository.id);
+    return;
+  }
+
+  invariant(payload.installation, "Installation was not received, docs lied");
+  const result = await ghArchiveRepo(
+    payload.installation.id,
+    existingRepo.githubId,
+  );
+  if (!result.success) {
+    throw new Error("Failed to archive repo");
+  }
+  // TODO: notify here
+  console.error("repo archived", existingRepo.githubId);
 });
