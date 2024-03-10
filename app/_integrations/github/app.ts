@@ -339,7 +339,7 @@ app.webhooks.on("repository.unarchived", async ({ octokit, payload }) => {
     teamChannelId: team.teams.discordTextChannelId,
     teamRoleId: team.teams.discordRoleId,
     message: `# <@&${team.teams.discordRoleId}> Времето за работа приключи!
-Бе установен опит за въвеждане на промени в ${formatReposList([
+Бе установен опит за качване на промени в ${formatReposList([
       existingRepo,
     ])}. Крайният срок за предаване на проектите изтече и хранилището бе архивирано.`,
   });
@@ -414,9 +414,7 @@ const listFormat = new Intl.ListFormat("bg", {
 });
 
 function formatReposList(repos: { url: string; name: string }[]) {
-  const list = repos
-    .map((repo) => `[\`${repo.name}\`](<${repo.url}>)`)
-    .join(", ");
+  const list = repos.map((repo) => `[\`${repo.name}\`](<${repo.url}>)`);
   return listFormat.format(list);
 }
 
