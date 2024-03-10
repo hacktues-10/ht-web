@@ -32,7 +32,9 @@ export default async function RankingsPage() {
         "show-semi-finals",
       ]}
     >
-      <h1 className="mt-5 text-center font-lazydog text-6xl">Класация</h1>
+      <h1 className="mt-5 flex-col gap-5 text-center text-5xl font-extrabold">
+        Класация
+      </h1>
 
       <IfAnyHTFeatureOn
         outOf={["show-alumni-finalists", "show-student-finalists"]}
