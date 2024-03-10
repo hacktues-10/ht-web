@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 
 import {
@@ -17,6 +18,13 @@ import {
   DialogTrigger,
 } from "~/app/components/ui/dialog";
 import { Separator } from "~/app/components/ui/separator";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "~/app/components/ui/tabs";
+import { cn } from "~/app/utils";
 
 const mainTheme = {
   theme: "",
@@ -109,12 +117,17 @@ function MainThemeDisplay(props: { theme: Theme }) {
   );
 }
 
-function SubThemeDisplay(props: { theme: Theme }) {
+function SubThemeDisplay(props: { theme: Theme; className?: string }) {
   // make sure that the image is on top of the title
   return (
     <Dialog>
-      <DialogTrigger className="rounded-md ring-offset-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-4">
-        <Card className="">
+      <DialogTrigger
+        className={cn(
+          "rounded-md ring-offset-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 focus-visible:ring-offset-4",
+          props.className,
+        )}
+      >
+        <Card className="h-full">
           <CardHeader className="items-center gap-2 text-center">
             <Image
               src={props.theme.image.url}
@@ -158,15 +171,36 @@ function SubThemeDisplay(props: { theme: Theme }) {
   );
 }
 
+function ThemesContainer({ children }: React.PropsWithChildren<{}>) {
+  return (
+    <div className="flex max-w-7xl grid-cols-1 flex-col items-stretch justify-center gap-4 pt-2 md:flex-row">
+      {children}
+    </div>
+  );
+}
+
 export default function ThemesPage() {
   return (
     <div className="flex w-full flex-col items-center gap-11">
       <MainThemeDisplay theme={mainTheme} />
-      <div className="flex max-w-7xl flex-col items-center justify-center gap-4 md:flex-row">
-        <SubThemeDisplay theme={subtheme1} />
-        <SubThemeDisplay theme={subtheme2} />
-        <SubThemeDisplay theme={subtheme3} />
-      </div>
+      <Tabs className="content-center" defaultValue="students">
+        <TabsList className="mx-auto flex w-min" defaultValue="students">
+          <TabsTrigger value="students">Ученици</TabsTrigger>
+          <TabsTrigger value="alumni">Завършили</TabsTrigger>
+        </TabsList>
+        <TabsContent value="students" tabIndex={-1}>
+          <ThemesContainer>
+            <SubThemeDisplay theme={subtheme1} />
+            <SubThemeDisplay theme={subtheme2} />
+            <SubThemeDisplay theme={subtheme3} />
+          </ThemesContainer>
+        </TabsContent>
+        <TabsContent value="alumni" tabIndex={-1}>
+          <ThemesContainer>
+            <SubThemeDisplay theme={subthemeAlumni} className="md:w-1/3" />
+          </ThemesContainer>
+        </TabsContent>
+      </Tabs>
       <div className="hidden pt-10 md:block" />
     </div>
   );

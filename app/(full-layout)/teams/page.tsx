@@ -64,12 +64,12 @@ export default async function TeamListPage() {
         defaultValue={studentTeams.length > 0 ? "students" : "alumni"}
         className="content-center"
       >
-        <TabsList className="mx-auto flex w-min">
+        <TabsList className="mx-auto flex w-min" defaultValue="students">
           <TabsTrigger value="students">Ученици</TabsTrigger>
           <TabsTrigger value="alumni">Завършили</TabsTrigger>
         </TabsList>
         <TabsContent value="students">
-          <div className="flex h-full w-full flex-col items-center justify-center">
+          <div className="flex h-full w-full flex-col justify-center">
             <h1 className="mt-4 self-center text-center text-3xl font-semibold text-white sm:text-4xl">
               Отбори на ученици
             </h1>
