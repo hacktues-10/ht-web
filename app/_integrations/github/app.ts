@@ -220,7 +220,7 @@ app.webhooks.on("repository.renamed", async ({ octokit, payload }) => {
   }
   await renameRepo({
     id: existingRepo.id,
-    name: payload.repository.name,
+    name: payload.repository.full_name,
     url: payload.repository.html_url,
   });
 });
