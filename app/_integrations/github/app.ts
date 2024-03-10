@@ -1,10 +1,7 @@
 import { App } from "octokit";
 import invariant from "tiny-invariant";
 
-import {
-  getTeamById,
-  getTeamByProjectId,
-} from "~/app/(full-layout)/teams/service";
+import { getTeamByProjectId } from "~/app/(full-layout)/teams/service";
 import { env } from "~/app/env.mjs";
 import { SECOND } from "~/app/utils";
 import { getServerSideGrowthBook } from "../growthbook";
@@ -61,29 +58,7 @@ app.webhooks.on(
       await unimportRepo(existingRepo.id);
       unimportedRepos.push(existingRepo);
     }
-    const projectIdToRepos = unimportedRepos.reduce(
-      (acc, repo) => {
-        const existing = acc.find((r) => r.projectId === repo.projectId);
-        if (existing) {
-          existing.repos.push({
-            url: repo.url,
-            name: repo.name,
-          });
-        } else {
-          acc.push({
-            projectId: repo.projectId,
-            repos: [
-              {
-                url: repo.url,
-                name: repo.name,
-              },
-            ],
-          });
-        }
-        return acc;
-      },
-      [] as { projectId: number; repos: { url: string; name: string }[] }[],
-    );
+    const projectIdToRepos = getProjectToReposMap(unimportedRepos);
     for (const { projectId, repos } of projectIdToRepos) {
       const team = await getTeamByProjectId(projectId);
       if (!team) {
@@ -95,26 +70,28 @@ app.webhooks.on(
       await notifyTeam({
         teamChannelId: team.teams.discordTextChannelId,
         teamRoleId: team.teams.discordRoleId,
-        message: `# <@&{{role.id}}> ${capfirst(
+        message: `# <@&${team.teams.discordRoleId}> ${capfirst(
           getYourRepositoriesText(repos),
         )} ${getWereRemovedText(repos)} от сайта!
-Достъпът на GitHub приложението до вашия акаунт бе отстранен и ${getYourRepositoriesText(
+Достъпът на GitHub приложението до ${getYourRepositoriesText(
           repos,
-        )} ${reposList} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
+        )} ${reposList} бе ограничен и ${pluralizeRepo(
+          repos,
+        )} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
 
 Ако това е нежелано, моля, възстановете достъпа и добавете отново ${pluralizeRepo(
           repos,
-        )} от страницата на отбора.
+        )} на страницата вашия отбор.
 
 ${DISQUALIFICATION_WARNING}`,
         links: [
           {
-            name: "Възстановяване на достъпа",
+            name: "Управление на достъпа",
             url: githubNewInstallationUrl,
           },
           {
             name: "Управление на хранилищата",
-            url: `https://hacktues.com/teams/${team.teams.id}`,
+            url: `https://hacktues.bg/teams/${team.teams.id}`,
           },
         ],
       });
@@ -132,32 +109,42 @@ app.webhooks.on("installation.deleted", async ({ octokit, payload }) => {
   }
   const repos = await batchRemoveRepos(installationRecord.id);
   await deleteInstallationRecord(installationRecord.id);
-  //       await notifyTeam({
-  //         teamChannelId: team.teams.discordTextChannelId,
-  //         teamRoleId: team.teams.discordRoleId,
-  //         message: `# <@&{{role.id}}> ${capfirst(
-  //           getYourRepositoriesText(repos),
-  //         )} ${getWereRemovedText(repos)} от сайта!
-  // Достъпът на GitHub приложението до вашия акаунт бе отстранен и ${getYourRepositoriesText(
-  //           repos,
-  //         )} ${reposList} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
+  const projectIdToRepos = getProjectToReposMap(repos);
+  const reposList = formatReposList(repos);
+  for (const { projectId, repos } of projectIdToRepos) {
+    const team = await getTeamByProjectId(projectId);
+    if (!team) {
+      console.error("team not found", projectId);
+      continue;
+    }
+    invariant(team.teams.discordRoleId);
+    await notifyTeam({
+      teamChannelId: team.teams.discordTextChannelId,
+      teamRoleId: team.teams.discordRoleId,
+      message: `# <@&${team.teams.discordRoleId}> ${capfirst(
+        getYourRepositoriesText(repos),
+      )} ${getWereRemovedText(repos)} от сайта!
+Достъпът на GitHub приложението до вашия акаунт бе отстранен и ${getYourRepositoriesText(
+        repos,
+      )} ${reposList} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
 
-  // Ако това е нежелано, моля, възстановете достъпа и добавете отново ${pluralizeRepo(
-  //           repos,
-  //         )} от страницата на отбора.
+Ако това е нежелано, моля, възстановете достъпа и добавете отново ${pluralizeRepo(
+        repos,
+      )} на страницата на отбора.
 
-  // ${DISQUALIFICATION_WARNING}`,
-  //         links: [
-  //           {
-  //             name: "Възстановяване на достъпа",
-  //             url: githubNewInstallationUrl,
-  //           },
-  //           {
-  //             name: "Управление на хранилищата",
-  //             url: `https://hacktues.com/teams/${team.teams.id}`,
-  //           },
-  //         ],
-  //       });
+${DISQUALIFICATION_WARNING}`,
+      links: [
+        {
+          name: "Възстановяване на достъпа",
+          url: githubNewInstallationUrl,
+        },
+        {
+          name: "Управление на хранилищата",
+          url: `https://hacktues.bg/teams/${team.teams.id}`,
+        },
+      ],
+    });
+  }
   console.error({
     repos,
   });
@@ -173,10 +160,44 @@ app.webhooks.on("installation.suspend", async ({ octokit, payload }) => {
   }
   await markInstallationAsSuspended(installationRecord.id, true);
   const repos = await batchMarkReposAsSuspended(installationRecord.id, true);
-  // TODO: notify team here
-  console.error({
-    repos,
-  });
+  const projectIdToRepos = getProjectToReposMap(repos);
+  for (const { projectId, repos } of projectIdToRepos) {
+    const team = await getTeamByProjectId(projectId);
+    if (!team) {
+      console.error("team not found", projectId);
+      continue;
+    }
+    invariant(team.teams.discordRoleId);
+    const reposList = formatReposList(repos);
+    await notifyTeam({
+      teamChannelId: team.teams.discordTextChannelId,
+      teamRoleId: team.teams.discordRoleId,
+      message: `# <@&${team.teams.discordRoleId}> ${capfirst(
+        getYourRepositoriesText(repos),
+      )} временно ${getWereRemovedText(repos)} от сайта!
+Достъпът на GitHub приложението до ${getYourRepositoriesText(
+        repos,
+      )} ${reposList} бе временно ограничен с бутона "Suspend" и ${pluralizeRepo(
+        repos,
+      )} временно ${getWereRemovedText(repos)} от сайта на Hack TUES X.
+
+Ако това е нежелано, моля, възстановете достъпа чрез "Unsuspend installation" бутона в GitHub за да добавите ${pluralizeRepo(
+        repos,
+      )} отново на сайта.
+
+${DISQUALIFICATION_WARNING}`,
+      links: [
+        {
+          name: "Възстановяване на достъпа",
+          url: githubNewInstallationUrl,
+        },
+        {
+          name: "Управление на хранилищата",
+          url: `https://hacktues.bg/teams/${team.teams.id}`,
+        },
+      ],
+    });
+  }
 });
 
 app.webhooks.on("installation.unsuspend", async ({ octokit, payload }) => {
@@ -220,8 +241,32 @@ app.webhooks.on("repository.privatized", async ({ octokit, payload }) => {
     if (!result.success) {
       throw new Error("Failed to publish repo");
     }
-    // TODO: notify here
-    console.error("repo published", existingRepo.githubId);
+    const team = await getTeamByProjectId(existingRepo.projectId);
+    if (!team) {
+      console.error("team not found", existingRepo.projectId);
+      return;
+    }
+    invariant(team.teams.discordRoleId);
+    await notifyTeam({
+      teamChannelId: team.teams.discordTextChannelId,
+      teamRoleId: team.teams.discordRoleId,
+      message: `# <@&${
+        team.teams.discordRoleId
+      }> Вашето хранилище бе направено отново публично!
+Вие променихте видимостта на ${formatReposList([
+        existingRepo,
+      ])} в GitHub от "Public" на "Private". Тъй като не можете да участвате в Hack TUES X с частни хранилища, ние го направихме публично отново.
+
+Ако желаете да премахнете хранилището от сайта, можете да го направите от страницата на отбора.
+
+${DISQUALIFICATION_WARNING}`,
+      links: [
+        {
+          url: `https://hacktues.bg/teams/${team.teams.id}`,
+          name: "Управление на хранилищата",
+        },
+      ],
+    });
   } else {
     const repo = await unimportRepo(existingRepo.id);
     if (!repo) {
@@ -284,7 +329,20 @@ app.webhooks.on("repository.unarchived", async ({ octokit, payload }) => {
   if (!result.success) {
     throw new Error("Failed to archive repo");
   }
-  // TODO: notify here
+  const team = await getTeamByProjectId(existingRepo.projectId);
+  if (!team) {
+    console.error("team not found", existingRepo.projectId);
+    return;
+  }
+  invariant(team.teams.discordRoleId);
+  await notifyTeam({
+    teamChannelId: team.teams.discordTextChannelId,
+    teamRoleId: team.teams.discordRoleId,
+    message: `# <@&${team.teams.discordRoleId}> Времето за работа приключи!
+Бе установен опит за въвеждане на промени в ${formatReposList([
+      existingRepo,
+    ])}. Крайният срок за предаване на проектите изтече и хранилището бе архивирано.`,
+  });
   console.error("repo archived", existingRepo.githubId);
 });
 
@@ -323,9 +381,32 @@ async function notifyTeam(options: {
       }),
     },
   );
+  if (!response.ok) {
+    console.error(
+      "failed to send message",
+      JSON.stringify(await response.json()),
+    );
+  }
 }
 
 const DISQUALIFICATION_WARNING = `**Отбор, който няма хранилище, качено на сайта след края на първия работен ден (<t:1710383400:D>), няма да бъде допуснат до полуфинал!**`;
+
+const getProjectToReposMap = <T extends { projectId: number }>(repos: T[]) =>
+  repos.reduce(
+    (acc, { projectId, ...rest }) => {
+      const existing = acc.find((r) => r.projectId === projectId);
+      if (existing) {
+        existing.repos.push(rest);
+      } else {
+        acc.push({
+          projectId: projectId,
+          repos: [rest],
+        });
+      }
+      return acc;
+    },
+    [] as { projectId: T["projectId"]; repos: Omit<T, "projectId">[] }[],
+  );
 
 const listFormat = new Intl.ListFormat("bg", {
   style: "long",
