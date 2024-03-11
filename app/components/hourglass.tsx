@@ -1,27 +1,18 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
 
-import { useCountdown, useLandingCountdown } from "./countdowns/hooks";
+import { useCountdown } from "./countdowns/hooks";
 
 export const Hourglass = ({
   fillAmount,
   ...props
 }: { fillAmount: number } & React.ComponentProps<"svg">) => {
-  const { topEllipseY, topEllipseRX, topEllipseRY } = useSpring({
-    topEllipseY: lerp(312, 740, fillAmount),
-    topEllipseRX: lerp(350, 311.99695, fillAmount),
-    topEllipseRY: lerpMid(252.12402, 410, 320, fillAmount, 0.9),
-  });
-  const { middleEllipseY, middleEllipseRX, middleEllipseRY } = useSpring({
-    middleEllipseY: lerpMid(541.129, 343.877, 308.703, fillAmount, 0.9),
-    middleEllipseRX: lerpMid(496.22, 209.945, 317.889, fillAmount, 0.9),
-    middleEllipseRY: lerpMid(185.638, 196.142, 140.142, fillAmount, 0.9),
-  });
-  const { bottomEllipseY, bottomEllipseRX, bottomEllipseRY } = useSpring({
-    bottomEllipseY: lerp(1200, 730, fillAmount),
-    bottomEllipseRX: lerpMid(311.99695, 270, 330, fillAmount, 0.1),
-    bottomEllipseRY: lerpMid(320, 480, 300, fillAmount, 0.1),
+  const { ellipseY, ellipseRX, ellipseRY } = useSpring({
+    ellipseY: lerp(312, 740, fillAmount),
+    ellipseRX: lerp(350, 311.99695, fillAmount),
+    ellipseRY: lerpMid(252.12402, 410, 320, fillAmount, 0.9),
   });
 
   return (
@@ -41,23 +32,6 @@ export const Hourglass = ({
         <clipPath id="sandTopClip" clipPathUnits="userSpaceOnUse">
           <path d="M358.945 402.363c-3.388.09-1.958 22.797-6.59 19.367-2.564-1.897-6.34-27.94-12.289-34.188-10.135-10.644-247.382-263.01-333.42-354.525 227.044-41.855 462.893-46.805 696.825 1.92C577.012 176.462 369.34 384.925 367.307 411.174c-.218 2.786-6.736-8.854-8.362-8.811z" />
         </clipPath>
-        <mask id="sandBottomMask" clipPathUnits="userSpaceOnUse">
-          <path
-            d="M368.74 460.512c-9.078-7.29-13.384-13.733-26.275 4.486-8.728 19.924-121.035 136.728-244.435 265.688 88.94 49.188 433.462 50.15 524.344 3.723-202.189-191.485-231.81-256.374-253.633-273.897z"
-            fill="white"
-          />
-          <animated.ellipse
-            cx={360}
-            cy={middleEllipseY}
-            rx={middleEllipseRX}
-            ry={middleEllipseRY}
-            strokeWidth={2.57862}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="black"
-          />
-        </mask>
-
         <ellipse
           id="sandTopMotion"
           cx={-33}
@@ -73,9 +47,9 @@ export const Hourglass = ({
         <animated.ellipse
           id="sandTop"
           cx={389.29218}
-          cy={topEllipseY}
-          rx={topEllipseRX}
-          ry={topEllipseRY}
+          cy={ellipseY}
+          rx={ellipseRX}
+          ry={ellipseRY}
           strokeWidth={2.57862}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -89,68 +63,46 @@ export const Hourglass = ({
             <mpath href="#sandTopMotion" />
           </animateMotion>
         </animated.ellipse>
-        <animated.ellipse
-          id="sandBottom"
-          cx={370.29218}
-          cy={bottomEllipseY}
-          rx={bottomEllipseRX}
-          ry={bottomEllipseRY}
-          strokeWidth={2.57862}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
       </defs>
 
-      <g
-        clipRule="evenodd"
-        fillOpacity={1}
-        fillRule="evenodd"
-        fill="#ffdfa6"
-        strokeWidth="25.3638px"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeMiterlimit={1.5}
-        strokeOpacity={1}
-        className="-z-50"
-      >
-        {fillAmount < 0.75 && (
-          <g className="animate-out fade-out">
-            <path
-              d="M1862.07 1835.05c-9.15 14.99-13.81 31.01-16.13 48.3-1.59 11.88-2.23 24.01.7 35.75 3.43 13.68 19.12 35.06 35.04 22.24 2.29-1.84 4.17-3.92 5.71-6.41 8.46-13.7 2.42-25.88-5.37-38.04-12.02-18.78-30.75-38.47-19.95-61.84z"
-              transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(9.821 19.03)"
-            />
-            <path
-              d="M1866.61 1837.15c-4.7 10.17-2.81 19.53 1.39 28.4 4.75 10.01 12.33 19.43 18.23 28.64 8.86 13.83 15.03 27.78 5.41 43.36-1.84 2.99-4.09 5.48-6.82 7.68-10.25 8.25-20.44 5.74-28.6-1.28-7.12-6.13-12.51-15.96-14.43-23.64-3.09-12.35-2.48-25.12-.81-37.63 2.41-17.98 7.3-34.64 16.83-50.24a4.994 4.994 0 016.62-1.8 4.999 4.999 0 012.18 6.51zm-10.91 24.31c-2.24 7.27-3.76 14.78-4.81 22.55-1.51 11.26-2.17 22.76.61 33.87 1.5 6 5.67 13.7 11.24 18.48 4.52 3.89 10.14 5.65 15.81 1.08 1.83-1.47 3.35-3.14 4.58-5.14 7.3-11.82 1.4-22.22-5.32-32.71-6.12-9.56-13.92-19.38-18.84-29.75-1.31-2.76-2.42-5.54-3.27-8.38z"
-              transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(9.821 19.03)"
-            />
-          </g>
-        )}
-        {fillAmount < 0.4 && (
-          <g className="animate-out fade-out">
-            <path
-              d="M1927.4 1880.9c4.59 22.79 2.48 47.78-3.57 69.92-2.98 10.94-5.71 21.59-5.51 33.02.09 4.94.52 10.63 3.46 14.82 3.96 5.63 11.56 5.47 16.98 2.14 8.37-5.16 13.76-15.2 16.29-24.44 8.6-31.4.81-75.49-27.65-95.46z"
-              transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(-19.829 234.359)"
-            />
-            <path
-              d="M1930.28 1876.81c30.1 21.12 38.69 67.66 29.59 100.87-2.85 10.4-9.08 21.58-18.49 27.37-7.58 4.68-18.15 4.37-23.7-3.52-3.5-4.99-4.26-11.71-4.36-17.6-.2-11.91 2.58-23.02 5.69-34.42 5.85-21.42 7.93-45.58 3.49-67.62-.4-2.01.46-4.05 2.17-5.17a4.993 4.993 0 015.61.09zm4.02 16.95c1.77 19.55-.6 39.92-5.64 58.38-2.86 10.48-5.53 20.67-5.34 31.62.07 3.99.17 8.64 2.55 12.02 2.38 3.39 7.01 2.77 10.27.76 7.32-4.51 11.87-13.41 14.09-21.5 7.01-25.6 2.72-60.23-15.93-81.28z"
-              transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(-19.829 234.359)"
-            />
-          </g>
-        )}
-        {fillAmount < 0.9 && (
-          <g className="animate-out fade-out">
-            <path
-              d="M1917.75 1807.94c-7.95.47-14.04 11.58-12.04 31.92.71 7.22 2.97 18.37 12.61 14.49 1.1-.44 2.28-1.03 3.2-1.79 1.48-1.22 3.04-2.66 4.17-4.25 9.87-13.79 9.28-41.41-7.94-40.37z"
-              transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(-8.014 -13.505)"
-            />
-            <path
-              d="M1917.45 1802.95c9.46-.57 15.44 4.94 18.13 13.23 3.37 10.37.96 25.56-5.82 35.04-1.38 1.93-3.26 3.71-5.07 5.2-1.3 1.07-2.95 1.95-4.51 2.57-3.89 1.57-7.06 1.4-9.61.41-2.6-1.01-4.69-2.98-6.23-5.63-2.19-3.78-3.18-9.16-3.6-13.42-1.35-13.68.84-23.59 4.52-29.47 3.19-5.12 7.54-7.65 12.19-7.93zm.6 9.98c-2.37.14-4.1 2.26-5.44 5.46-2.03 4.82-2.82 11.87-1.92 20.98.24 2.47.66 5.49 1.65 8 .46 1.17.85 2.36 1.88 2.72.61.21 1.33-.01 2.23-.37.65-.26 1.35-.58 1.89-1.02 1.16-.96 2.4-2.06 3.28-3.3 5.06-7.07 6.97-18.39 4.45-26.13-1.23-3.78-3.71-6.6-8.02-6.34z"
-              transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(-8.014 -13.505)"
-            />
-          </g>
-        )}
-        {fillAmount < 0.7 && (
-          <g className="animate-out fade-out">
+      {fillAmount < 0.9 && (
+        <g
+          clipRule="evenodd"
+          fillOpacity={1}
+          fillRule="evenodd"
+          fill="#ffdfa6"
+          strokeWidth="25.3638px"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeMiterlimit={1.5}
+          strokeOpacity={1}
+          className="-z-50 animate-in fade-in"
+        >
+          <path
+            d="M1862.07 1835.05c-9.15 14.99-13.81 31.01-16.13 48.3-1.59 11.88-2.23 24.01.7 35.75 3.43 13.68 19.12 35.06 35.04 22.24 2.29-1.84 4.17-3.92 5.71-6.41 8.46-13.7 2.42-25.88-5.37-38.04-12.02-18.78-30.75-38.47-19.95-61.84z"
+            transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(9.821 19.03)"
+          />
+          <path
+            d="M1866.61 1837.15c-4.7 10.17-2.81 19.53 1.39 28.4 4.75 10.01 12.33 19.43 18.23 28.64 8.86 13.83 15.03 27.78 5.41 43.36-1.84 2.99-4.09 5.48-6.82 7.68-10.25 8.25-20.44 5.74-28.6-1.28-7.12-6.13-12.51-15.96-14.43-23.64-3.09-12.35-2.48-25.12-.81-37.63 2.41-17.98 7.3-34.64 16.83-50.24a4.994 4.994 0 016.62-1.8 4.999 4.999 0 012.18 6.51zm-10.91 24.31c-2.24 7.27-3.76 14.78-4.81 22.55-1.51 11.26-2.17 22.76.61 33.87 1.5 6 5.67 13.7 11.24 18.48 4.52 3.89 10.14 5.65 15.81 1.08 1.83-1.47 3.35-3.14 4.58-5.14 7.3-11.82 1.4-22.22-5.32-32.71-6.12-9.56-13.92-19.38-18.84-29.75-1.31-2.76-2.42-5.54-3.27-8.38z"
+            transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(9.821 19.03)"
+          />
+          <path
+            d="M1927.4 1880.9c4.59 22.79 2.48 47.78-3.57 69.92-2.98 10.94-5.71 21.59-5.51 33.02.09 4.94.52 10.63 3.46 14.82 3.96 5.63 11.56 5.47 16.98 2.14 8.37-5.16 13.76-15.2 16.29-24.44 8.6-31.4.81-75.49-27.65-95.46z"
+            transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(-19.829 234.359)"
+          />
+          <path
+            d="M1930.28 1876.81c30.1 21.12 38.69 67.66 29.59 100.87-2.85 10.4-9.08 21.58-18.49 27.37-7.58 4.68-18.15 4.37-23.7-3.52-3.5-4.99-4.26-11.71-4.36-17.6-.2-11.91 2.58-23.02 5.69-34.42 5.85-21.42 7.93-45.58 3.49-67.62-.4-2.01.46-4.05 2.17-5.17a4.993 4.993 0 015.61.09zm4.02 16.95c1.77 19.55-.6 39.92-5.64 58.38-2.86 10.48-5.53 20.67-5.34 31.62.07 3.99.17 8.64 2.55 12.02 2.38 3.39 7.01 2.77 10.27.76 7.32-4.51 11.87-13.41 14.09-21.5 7.01-25.6 2.72-60.23-15.93-81.28z"
+            transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(-19.829 234.359)"
+          />
+          <path
+            d="M1917.75 1807.94c-7.95.47-14.04 11.58-12.04 31.92.71 7.22 2.97 18.37 12.61 14.49 1.1-.44 2.28-1.03 3.2-1.79 1.48-1.22 3.04-2.66 4.17-4.25 9.87-13.79 9.28-41.41-7.94-40.37z"
+            transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(-8.014 -13.505)"
+          />
+          <path
+            d="M1917.45 1802.95c9.46-.57 15.44 4.94 18.13 13.23 3.37 10.37.96 25.56-5.82 35.04-1.38 1.93-3.26 3.71-5.07 5.2-1.3 1.07-2.95 1.95-4.51 2.57-3.89 1.57-7.06 1.4-9.61.41-2.6-1.01-4.69-2.98-6.23-5.63-2.19-3.78-3.18-9.16-3.6-13.42-1.35-13.68.84-23.59 4.52-29.47 3.19-5.12 7.54-7.65 12.19-7.93zm.6 9.98c-2.37.14-4.1 2.26-5.44 5.46-2.03 4.82-2.82 11.87-1.92 20.98.24 2.47.66 5.49 1.65 8 .46 1.17.85 2.36 1.88 2.72.61.21 1.33-.01 2.23-.37.65-.26 1.35-.58 1.89-1.02 1.16-.96 2.4-2.06 3.28-3.3 5.06-7.07 6.97-18.39 4.45-26.13-1.23-3.78-3.71-6.6-8.02-6.34z"
+            transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(-8.014 -13.505)"
+          />
+          <g>
             <path
               d="M1860.37 2036.99c6.09-4.85 12.57-4.97 19.43-5.56 4.66-.39 9.34.02 13.92.92 2.74.53 5.44 1.32 7.98 2.49 1.97.91 3.83 2.07 5.47 3.48 11.06 9.41 2.15 22.4-2.53 32.74-4.37 9.63-8 20.72-7.12 31.43 1.05 12.83 9.44 22.85 15.85 33.41 4.64 7.68 7.21 15.94-1.37 21.77-7.79 5.29-18.15 2.6-22.72-5.51-2.34-4.15-3.13-9.09-3.79-13.74-1.69-11.94-.22-25.45-4.53-36.86-4.58-12.14-16.87-16.54-24.56-26.1-8.13-10.11-7.12-29.66 3.97-38.47z"
               transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(72.797 -149.132)"
@@ -160,9 +112,7 @@ export const Hourglass = ({
               transform="matrix(.36537 0 0 .36537 -337.674 -209.116) translate(72.797 -149.132)"
             />
           </g>
-        )}
-        {fillAmount < 0.6 && (
-          <g className="animate-in animate-out fade-in fade-out">
+          <g>
             <path
               d="M1938.43 2072.22c-8.27.13-14.39 10.46-14.25 17.91.17 8.96 2.93 18.39 8.43 25.55 6.88 8.95 16.06 15.31 19.7 26.45 1.36 4.19 2.19 9.01 1.72 13.43-.56 5.26-3.5 12.1 1.73 16.01 5.68 4.25 11.87-2.71 14.25-7.27 5.67-10.88 4.83-23.77.69-34.98-3.33-9-9.31-16.39-16.12-22.9-11.66-11.14-13.06-26.17-16.15-34.2z"
               transform="matrix(.36537 0 0 .36537 -337.674 -209.116) rotate(-.81 -2834.931 3063.399)"
@@ -172,18 +122,12 @@ export const Hourglass = ({
               transform="matrix(.36537 0 0 .36537 -337.674 -209.116) rotate(-.81 -2834.931 3063.399)"
             />
           </g>
-        )}
-      </g>
+        </g>
+      )}
 
       <use
         clipPath="url(#sandTopClip)"
         href="#sandTop"
-        fill="currentColor"
-        className="text-sand"
-      />
-      <use
-        href="#sandBottom"
-        mask="url(#sandBottomMask)"
         fill="currentColor"
         className="text-sand"
       />
@@ -218,18 +162,9 @@ function lerpMid(a: number, mid: number, b: number, t: number, tMid: number) {
     : lerp(mid, b, (t - tMid) / (1 - tMid));
 }
 
-const CountdownHourglass = ({ from, to }: { from: Date; to: Date }) => {
+export const CountdownHourglass = ({ from, to }: { from: Date; to: Date }) => {
   const fillAmount = useFillAmount(from, to);
   return <Hourglass fillAmount={fillAmount} />;
-};
-
-export const LandingCountdownHourglass = (props: { from: Date; to: Date }) => {
-  const landingCountdown = useLandingCountdown();
-  return landingCountdown ? (
-    <CountdownHourglass {...landingCountdown} />
-  ) : (
-    <CountdownHourglass {...props} />
-  );
 };
 
 function useFillAmount(startDate: Date, endDate: Date) {

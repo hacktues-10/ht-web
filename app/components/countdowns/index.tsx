@@ -4,7 +4,7 @@ import { PropsWithChildren, useState } from "react";
 import { animated, useSpring } from "@react-spring/web";
 
 import { Card } from "../ui/card";
-import { Countdown, useCountdown, useLandingCountdown } from "./hooks";
+import { Countdown, useCountdown } from "./hooks";
 
 function useCountdownSpring(countdown: Countdown) {
   const [immediate, setImmediate] = useState(false);
@@ -103,9 +103,3 @@ export const IfDateInPast = ({
   const countdown = useCountdown(date, { ssr: true });
   return countdown.diff <= 0 ? <>{children}</> : null;
 };
-
-export function LandingCountdownTimer({ to }: { to: Date }) {
-  const landingCountdown = useLandingCountdown();
-  const countdown = useCountdown(landingCountdown?.to ?? to);
-  return <CountdownTimerDisplay countdown={countdown} />;
-}
