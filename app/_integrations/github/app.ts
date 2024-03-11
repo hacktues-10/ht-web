@@ -81,7 +81,7 @@ app.webhooks.on(
 
 Ако това е нежелано, моля, възстановете достъпа и добавете отново ${pluralizeRepo(
           repos,
-        )} на страницата вашия отбор.
+        )} от страницата на вашия отбор.
 
 ${getDisqualificationWarning(team.teams.isAlumni)}`,
         links: [
@@ -177,7 +177,7 @@ app.webhooks.on("installation.suspend", async ({ octokit, payload }) => {
       )} временно ${getWereRemovedText(repos)} от сайта!
 Достъпът на GitHub приложението до ${getYourRepositoriesText(
         repos,
-      )} ${reposList} бе временно ограничен с бутона "Suspend" и ${pluralizeRepo(
+      )} ${reposList} беше временно ограничен с бутона "Suspend" и ${pluralizeRepo(
         repos,
       )} временно ${getWereRemovedText(repos)} от сайта на Hack TUES X.
 
@@ -426,7 +426,7 @@ function getYourRepositoriesText(repos: unknown[]) {
 }
 
 function getWereRemovedText(repos: unknown[]) {
-  return repos.length === 1 ? "бе премахнато" : "бяха премахнати";
+  return repos.length === 1 ? "е премахнато" : "са премахнати";
 }
 
 function capfirst(str: string) {
