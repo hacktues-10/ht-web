@@ -50,7 +50,7 @@ type LandingCTA = z.infer<typeof landingCTASchema>;
 const defaultCTA = {
   text: "Разгледайте отборите",
   href: "/teams",
-  color: "brand",
+  color: "sand",
   icon: undefined,
 } as const satisfies LandingCTA;
 
