@@ -3,5 +3,5 @@ import { getTheme, ThemeFeature } from "./lib";
 
 export function useTheme(themeFeature: ThemeFeature) {
   const feature = useHTFeature(themeFeature);
-  return getTheme(feature);
+  return getTheme(feature.value);
 }
