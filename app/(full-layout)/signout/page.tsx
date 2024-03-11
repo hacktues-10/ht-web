@@ -7,6 +7,10 @@ import { Card } from "~/app/components/ui/card";
 export const metadata: Metadata = {
   title: "Изход",
   description: "Излезте от своя акаунт",
+  openGraph: {
+    title: "Изход",
+    description: "Излезте от своя акаунт",
+  },
 };
 
 export default async function SignOut() {

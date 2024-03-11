@@ -17,6 +17,10 @@ import { Separator } from "~/app/components/ui/separator";
 export const metadata: Metadata = {
   title: "Възникна грешка при влизането",
   description: "Възникна грешка при влизането ви в Hack TUES X",
+  openGraph: {
+    title: "Възникна грешка при влизането",
+    description: "Възникна грешка при влизането ви в Hack TUES X",
+  },
 };
 
 export default function LoginErrorPage({

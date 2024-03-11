@@ -72,10 +72,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="overflow-x-hidden motion-safe:scroll-smooth ">
+    <html lang="en" className="motion-safe:scroll-smooth ">
       <body
         className={cn(
-          "dark relative min-h-screen overflow-x-hidden bg-background font-sans antialiased",
+          "dark relative min-h-screen bg-background font-sans antialiased",
           inter.variable,
           llpixel.variable,
           lazydog.variable,

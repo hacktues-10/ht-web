@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   title: "Спонсори и партньори",
   description:
     "Компании, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+  openGraph: {
+    title: "Спонсори и партньори",
+    description:
+      "Компании, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+  },
 };
 
 export default function SponsorsAndPartners() {

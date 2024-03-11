@@ -13,6 +13,10 @@ import { SignInForm } from "../_components/signin-form";
 export const metadata: Metadata = {
   title: "Регистрация",
   description: "Регистирайте се за участие в Hack TUES X",
+  openGraph: {
+    title: "Регистрация",
+    description: "Регистирайте се за участие в Hack TUES X",
+  },
 };
 
 export default async function SignUpPage() {

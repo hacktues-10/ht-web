@@ -56,6 +56,10 @@ export async function generateMetadata({ params }: TeamDetailPageProps) {
   return {
     title: team.name,
     description: team.description,
+    openGraph: {
+      title: team.name,
+      description: team.description,
+    },
   };
 }
 const colors = [

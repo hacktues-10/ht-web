@@ -32,6 +32,8 @@ export type HTFeatures = {
   "show-twitter-mobile": boolean;
   "show-email-mobile": boolean;
 
+  "show-full-schedule": boolean;
+
   "landing-subtitle": string;
   "landing-cta": {};
   "landing-countdown": {};

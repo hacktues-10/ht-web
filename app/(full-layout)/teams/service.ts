@@ -86,6 +86,9 @@ export async function createTeam(team: {
       technologies: captain?.technologies || "",
       memberCount: 1,
       ...team,
+      discordCategoryId: "To be added",
+      discordTextChannelId: "To be added",
+      discordVoiceChannelId: "To be added",
     })
     .returning({ id: teams.id });
   const insertedTeam = results.at(0);

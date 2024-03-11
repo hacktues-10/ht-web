@@ -17,18 +17,14 @@ import { getAllTeams, isTeamConfirmed } from "./service";
 
 export const metadata: Metadata = {
   title: "Отбори",
-  description: "Отборите, които са се записали за Hack TUES X",
+  description: "Отборите, които участват в Hack TUES X",
+  openGraph: {
+    title: "Отбори",
+    description: "Отборите, които участват в Hack TUES X",
+  },
 };
 
-export default function TeamListPage() {
-  return (
-    <>
-      <TeamList />
-    </>
-  );
-}
-
-async function TeamList() {
+export default async function TeamListPage() {
   const teams = await getAllTeams();
   const participant = await getParticipantFromSession();
   const studentTeams = teams.filter((team) => !team.isAlumni);
