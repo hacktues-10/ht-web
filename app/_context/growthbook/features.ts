@@ -33,8 +33,8 @@ export type HTFeatures = {
   "show-email-mobile": boolean;
 
   "landing-subtitle": string;
-  "landing-cta": unknown;
-  "landing-countdown": unknown;
+  "landing-cta": {};
+  "landing-countdown": {};
 };
 
 export type HTFeature = keyof HTFeatures;
