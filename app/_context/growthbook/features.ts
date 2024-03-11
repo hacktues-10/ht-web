@@ -34,6 +34,12 @@ export type HTFeatures = {
 
   "show-full-schedule": boolean;
   "landing-subtitle": string;
+
+  "main-theme": unknown;
+  subtheme1: unknown;
+  subtheme2: unknown;
+  subtheme3: unknown;
+  "subtheme-alumni": unknown;
 };
 
 export type HTFeature = keyof HTFeatures;
