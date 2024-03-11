@@ -32,7 +32,10 @@ export default function ThemesPage() {
             </TabsContent>
             <TabsContent value="alumni" tabIndex={-1}>
               <ThemesContainer>
-                <FeatureSubtheme feature="subtheme-alumni" />
+                <FeatureSubtheme
+                  feature="subtheme-alumni"
+                  className="md:w-1/3"
+                />
               </ThemesContainer>
             </TabsContent>
           </Tabs>
