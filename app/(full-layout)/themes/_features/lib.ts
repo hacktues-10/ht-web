@@ -33,7 +33,7 @@ export type ThemeFeature = (typeof themeFeatures)[number];
 
 export async function getThemeFeature(feature: ThemeFeature) {
   const gb = await getServerSideGrowthBook();
-  return getTheme(gb.evalFeature(feature));
+  return getTheme(gb.evalFeature(feature).value);
 }
 
 export async function getDynamicThemeFeature(feature: string) {
