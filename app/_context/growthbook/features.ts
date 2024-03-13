@@ -3,6 +3,7 @@ export type HTFeatures = {
   "update-team-details": boolean;
   "update-team-members": boolean;
   "create-project": boolean;
+  "update-project": boolean;
   "show-mentors": boolean;
   "register-mentors": boolean;
   "choose-mentor": boolean;
@@ -31,6 +32,11 @@ export type HTFeatures = {
   "show-linktree-mobile": boolean;
   "show-twitter-mobile": boolean;
   "show-email-mobile": boolean;
+
+  "add-github-repos": boolean;
+  "publish-github-repos": boolean;
+  "count-github-pushes": boolean;
+  "archive-github-repos": boolean;
 
   "show-full-schedule": boolean;
 

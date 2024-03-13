@@ -1,5 +1,5 @@
 import { revalidateTag, unstable_cache } from "next/cache";
-import { eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
@@ -13,7 +13,14 @@ import {
 } from "~/app/_configs/hackathon";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
-import { discordUsers, invitations, particpants, teams } from "~/app/db/schema";
+import {
+  discordUsers,
+  githubRepos,
+  invitations,
+  particpants,
+  projects,
+  teams,
+} from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 import {
   formatParticipantDiscordNick,
@@ -55,6 +62,47 @@ export async function getTeamById(id: string) {
   return results.at(0) ?? null;
 }
 
+export async function getTeamByProjectId(projectId: number) {
+  const results = await db
+    .select()
+    .from(teams)
+    .leftJoin(projects, eq(teams.id, projects.teamId))
+    .where(eq(projects.id, projectId));
+  return results.at(0) ?? null;
+}
+
+export async function getProjectByTeamId(teamId: string) {
+  const result = await db.query.projects.findFirst({
+    with: {
+      githubRepos: {
+        orderBy: asc(githubRepos.createdAt),
+        columns: {
+          id: true,
+          name: true,
+          url: true,
+          createdAt: true,
+        },
+      },
+    },
+    where: eq(projects.teamId, teamId),
+  });
+  return result ?? null;
+}
+
+// Make id required, using the same infer:
+type InsertProject = typeof projects.$inferInsert;
+type UpdateProject = Partial<InsertProject> &
+  Required<Pick<InsertProject, "id">>;
+
+export async function updateProject({ id, ...data }: UpdateProject) {
+  await db.update(projects).set(data).where(eq(projects.id, id));
+  revalidateTag("teams");
+}
+
+export type ProjectGitHubRepo = NonNullable<
+  Awaited<ReturnType<typeof getProjectByTeamId>>
+>["githubRepos"][number];
+
 export async function createTeam(team: {
   name: string;
   description: string;
@@ -86,9 +134,9 @@ export async function createTeam(team: {
       technologies: captain?.technologies || "",
       memberCount: 1,
       ...team,
-      discordCategoryId: "To be added",
-      discordTextChannelId: "To be added",
-      discordVoiceChannelId: "To be added",
+      discordCategoryId: `To be added ${Date.now()}`,
+      discordTextChannelId: `To be added ${Date.now()}`,
+      discordVoiceChannelId: `To be added ${Date.now()}`,
     })
     .returning({ id: teams.id });
   const insertedTeam = results.at(0);

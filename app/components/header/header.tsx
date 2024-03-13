@@ -100,12 +100,15 @@ export const Header = () => {
             </DropdownMenuLabel>
             <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
               <Link href="/profile" className="w-full py-3 text-center">
-                Моят Профил
+                Моят профил
               </Link>
             </DropdownMenuItem>
             {headerData.participant && headerData.participant.team != null && (
               <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
-                <Link href="/teams/myteam" className="w-full py-3 text-center">
+                <Link
+                  href={`/teams/${headerData.participant.team}`}
+                  className="w-full py-3 text-center"
+                >
                   Моят отбор
                 </Link>
               </DropdownMenuItem>

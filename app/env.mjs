@@ -34,6 +34,11 @@ export const env = createEnv({
     GMAIL_CLIENT_SECRET: z.string(),
     GMAIL_REDIRECT_URI: z.string(),
 
+    GITHUB_WEBHOOK_SECRET: z.string(),
+    GITHUB_APP_ID: z.string(),
+    GITHUB_PRIVATE_KEY: z.string(),
+    // GITHUB_CLIENT_ID: z.string(),
+
     // TODO: rename
     HOSTNAME: z.string(),
   },
@@ -45,6 +50,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_GROWTHBOOK_API_HOST: z.string().url(),
     NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY: z.string(),
+    NEXT_PUBLIC_GITHUB_APP_SLUG: z.string(),
   },
   // If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
   //   runtimeEnv: {
@@ -56,5 +62,6 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_GROWTHBOOK_API_HOST,
     NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY:
       process.env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY,
+    NEXT_PUBLIC_GITHUB_APP_SLUG: process.env.NEXT_PUBLIC_GITHUB_APP_SLUG,
   },
 });

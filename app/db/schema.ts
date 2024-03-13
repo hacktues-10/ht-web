@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import {
   boolean,
   date,
+  index,
   integer,
   numeric,
   pgEnum,
@@ -84,6 +85,7 @@ export const participantsRelations = relations(
     invitations: many(invitations),
     sentInvitations: many(invitations),
     discordUser: one(discordUsers),
+    githubInstallationsToParticipants: many(githubInstallationsToParticipants),
   }),
 );
 
@@ -235,16 +237,57 @@ export const projects = pgTable("projects", {
   name: varchar("name").notNull(),
   description: varchar("description").notNull(),
   technologies: varchar("technologies").notNull(),
-  websiteURL: varchar("website_url").notNull(),
+  websiteUrl: varchar("website_url"),
+  fallbackRepoUrls: varchar("fallback_repo_urls").notNull().default(""),
   teamId: varchar("team_id")
     .notNull()
-    .references(() => teams.id),
+    .references(() => teams.id)
+    .unique(),
 });
 
-export const projectsRelations = relations(projects, ({ one }) => ({
+export const projectsRelations = relations(projects, ({ one, many }) => ({
   team: one(teams, {
     fields: [projects.teamId],
     references: [teams.id],
+  }),
+  githubRepos: many(githubRepos),
+}));
+
+export const githubRepos = pgTable("github_repos", {
+  id: serial("id").primaryKey(),
+  githubId: integer("github_id").notNull().unique(),
+  name: varchar("name").notNull(),
+  url: varchar("url").notNull(),
+  projectId: integer("project_id")
+    .notNull()
+    .references(() => projects.id),
+  participantId: integer("participant_id")
+    .notNull()
+    .references(() => particpants.id),
+  installationId: integer("installation_id")
+    .notNull()
+    .references(() => githubInstallations.id),
+  lastAcceptedCommit: varchar("last_accepted_commit"),
+  lastAcceptedCommitDate: timestamp("last_accepted_commit_date"),
+  lastAcceptedCommitReceivedAt: timestamp("last_accepted_commit_received_at"),
+  lastAcceptedPushAt: timestamp("last_accepted_push_at"),
+  isSuspended: boolean("is_suspended").notNull().default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const githubReposRelations = relations(githubRepos, ({ one }) => ({
+  project: one(projects, {
+    fields: [githubRepos.projectId],
+    references: [projects.id],
+  }),
+  participant: one(particpants, {
+    fields: [githubRepos.participantId],
+    references: [particpants.id],
+  }),
+  installation: one(githubInstallations, {
+    fields: [githubRepos.installationId],
+    references: [githubInstallations.id],
   }),
 }));
 
@@ -320,6 +363,44 @@ export const adminsRelations = relations(admins, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export const githubInstallations = pgTable(
+  "github_installations",
+  {
+    id: serial("id").primaryKey(),
+    appInstallationId: integer("app_installation_id").notNull().unique(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+    isSuspended: boolean("is_suspended").notNull().default(false),
+  },
+  (t) => ({
+    installationIdIndex: index().on(t.appInstallationId),
+  }),
+);
+
+export const githubInstallationsRelations = relations(
+  githubInstallations,
+  ({ many }) => ({
+    githubInstallationsToParticipants: many(githubInstallationsToParticipants),
+  }),
+);
+
+export const githubInstallationsToParticipants = pgTable(
+  "github_installations_to_participants",
+  {
+    id: serial("id").primaryKey(),
+    installationId: integer("installation_id")
+      .notNull()
+      .references(() => githubInstallations.id),
+    participantId: integer("participant_id")
+      .notNull()
+      .references(() => particpants.id),
+    linkedAt: timestamp("linked_at").defaultNow().notNull(),
+  },
+  (t) => ({
+    unique: unique().on(t.installationId, t.participantId),
+  }),
+);
 
 // TODO: maybe move to index.ts???
 export type DrizzleClient = typeof db;

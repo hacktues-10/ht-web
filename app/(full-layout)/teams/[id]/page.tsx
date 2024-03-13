@@ -4,21 +4,35 @@ import { TbBrandGithub } from "react-icons/tb";
 
 import "~/app/components/Team/animations.css";
 
-import { IfHTFeatureOn } from "~/app/_integrations/components";
+import { PropsWithChildren } from "react";
+import { LucideIcon, Pencil, Plus, Settings } from "lucide-react";
+import { LuGlobe } from "react-icons/lu";
+
+import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
+import {
+  IfAllHTFeaturesOff,
+  IfHTFeatureOff,
+  IfHTFeatureOn,
+} from "~/app/_integrations/components";
+import {
+  AddRepoButton,
+  GitHubRepoDialog,
+} from "~/app/_integrations/github/components";
 import { getImageUrl } from "~/app/_integrations/r2";
 import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
   checkStateJoinRequests,
   deleteMyTeam,
-  getProjectByTeamId,
   getTeamMembers,
   isTeamFull,
   prepareParticipants,
 } from "~/app/(full-layout)/teams/actions";
 import {
   getPreparedParticipants,
+  getProjectByTeamId,
   getTeamById,
   isParticipantEligableToJoin,
+  ProjectGitHubRepo,
 } from "~/app/(full-layout)/teams/service";
 import AskToJoinButton from "~/app/components/AskToJoinButton";
 import CustomizableDialog from "~/app/components/CustomizableDialog";
@@ -32,8 +46,14 @@ import {
 } from "~/app/components/ui/avatar";
 import { Badge } from "~/app/components/ui/badge";
 import { Button } from "~/app/components/ui/button";
-import { Card } from "~/app/components/ui/card";
-import { ScrollArea } from "~/app/components/ui/scroll-area";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "~/app/components/ui/card";
+import { ScrollArea, ScrollBar } from "~/app/components/ui/scroll-area";
 import {
   Tabs,
   TabsContent,
@@ -43,6 +63,11 @@ import {
 import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
+import {
+  UpdateFallbackReposDialog,
+  UpdateProjectDialog,
+  UpdateWebsiteUrlDialog,
+} from "./project/components";
 
 type TeamDetailPageProps = {
   params: { id: string };
@@ -114,7 +139,7 @@ export default async function TeamDetailPage({
 
   return (
     <div className="h-full w-full max-w-6xl justify-center text-center ">
-      <Card className="fadeIn h-min rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
+      <Card className="fadeIn h-min w-full rounded-3xl border-2 p-5 pt-0 sm:p-10 sm:pt-5">
         <div className="flex w-full">
           <div className="flex items-center">
             <Button
@@ -177,8 +202,8 @@ export default async function TeamDetailPage({
           ))}
         </div>
       </Card>
-      <div className="w-full  sm:flex">
-        <Card className="fadeInComponent m-10 ml-auto mr-auto h-full rounded-3xl border-2 p-3 sm:m-10 sm:ml-0 sm:w-3/5">
+      <div className="w-full justify-between sm:shrink-0 md:flex">
+        <Card className="fadeInComponent m-10 ml-auto mr-auto h-full w-full rounded-3xl border-2 p-3 sm:m-10 sm:ml-0">
           <Tabs defaultValue="information">
             {participant?.team.id == team.id && (
               <TabsList className="mb-4">
@@ -201,22 +226,50 @@ export default async function TeamDetailPage({
               <TabsContent value="information">
                 {project ? (
                   <div>
-                    <h2 className="w-full text-2xl">{project.name}</h2>
-                    <h3 className="mt-4 text-xl">{project.description}</h3>
+                    <h2 className="w-full text-3xl font-bold">
+                      {project.name}
+                    </h2>
+                    <div className="pt-2" />
+                    {project.description.split("\n").map((line, index) => (
+                      <p key={index} className="mt-4 text-muted-foreground">
+                        {line}
+                      </p>
+                    ))}
 
-                    {project.websiteURL && (
-                      <div className="mt-2 flex ">
-                        <TbBrandGithub size={26} />
-                        <div className="overflow-x-scroll">
-                          <Link
-                            className="ml-2 text-lg"
-                            href={project.websiteURL}
-                          >
-                            {project.websiteURL}
-                          </Link>
-                        </div>
-                      </div>
+                    {participant?.team.id == team.id && (
+                      <IfHTFeatureOn feature="update-project">
+                        <div className="pt-2" />
+                        <UpdateProjectDialog
+                          teamId={team.id}
+                          name={project.name}
+                          description={project.description}
+                        >
+                          <IconOutlineButton icon={Pencil}>
+                            Редактиране
+                          </IconOutlineButton>
+                        </UpdateProjectDialog>
+                      </IfHTFeatureOn>
                     )}
+                    <div className="pt-5" />
+
+                    <ReposCard
+                      project={project}
+                      isInTeam={participant?.team.id === team.id}
+                    />
+                    {participant?.team.id === team.id &&
+                      participant.team.isCaptain && (
+                        <IfHTFeatureOn feature="update-project">
+                          <div className="pt-5" />
+                        </IfHTFeatureOn>
+                      )}
+                    <DemoCard
+                      url={project.websiteUrl}
+                      isInTeam={
+                        participant?.team.id === team.id &&
+                        participant.team.isCaptain
+                      }
+                      teamId={team.id}
+                    />
                   </div>
                 ) : (
                   <div className="items-center justify-center sm:flex">
@@ -292,8 +345,8 @@ export default async function TeamDetailPage({
             </div>
           </Tabs>
         </Card>
-        <div className="sm:w-2/5">
-          <Card className="fadeInComponent m-10 ml-auto mr-auto  h-min w-5/6 rounded-3xl border-2 p-5 sm:mr-0">
+        <div className="w-full md:max-w-sm">
+          <Card className="fadeInComponent m-10 ml-auto mr-auto h-min rounded-3xl border-2 p-5 sm:mr-0">
             {teamMembers.length > 0 &&
               teamMembers.map((member) => (
                 <div
@@ -355,7 +408,7 @@ export default async function TeamDetailPage({
               ))}
           </Card>
 
-          <Card className="fadeInComponent m-10 ml-auto mr-auto w-5/6 overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
+          <Card className="fadeInComponent m-10 ml-auto mr-auto overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">
             <h3 className="mb-2 text-2xl">Технологии</h3>
             {techn && techn.length > 0 ? (
               <ScrollArea
@@ -387,5 +440,155 @@ export default async function TeamDetailPage({
         </div>
       </div>
     </div>
+  );
+}
+
+function ReposCard({
+  project,
+  isInTeam,
+}: {
+  project: {
+    teamId: string;
+    fallbackRepoUrls: string;
+    githubRepos: ProjectGitHubRepo[];
+  };
+  isInTeam?: boolean;
+}) {
+  const fallbackRepos = project.fallbackRepoUrls
+    .split("\n")
+    .filter((url) => !!url.trim())
+    .map((url) => ({ url, display: url }));
+  const githubRepos = project.githubRepos
+    // .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+    .map((repo) => ({
+      url: repo.url,
+      display: repo.url,
+    }));
+  const repos = [...githubRepos, ...fallbackRepos];
+  return (
+    <Card className="mt-4 border-2">
+      <CardHeader className="px-5 pb-0 pt-5">
+        <CardTitle>Код на проекта</CardTitle>
+      </CardHeader>
+      <CardContent className="px-5 py-3">
+        {repos.length > 0 ? (
+          <div className="py-2">
+            {repos.map((repo, index) => (
+              <ProjectLink key={index} href={repo.url}>
+                {repo.display}
+              </ProjectLink>
+            ))}
+          </div>
+        ) : (
+          <p className="text-muted-foreground">
+            Няма добавени GitHub хранилища
+          </p>
+        )}
+      </CardContent>
+      {isInTeam && (
+        <IfHTFeatureOn feature="update-project">
+          <CardFooter className="px-5">
+            <IfHTFeatureOn feature="add-github-repos">
+              <GitHubRepoDialog>
+                {repos.length === 0 ? (
+                  <IconOutlineButton icon={Plus}>
+                    Добави хранилище
+                  </IconOutlineButton>
+                ) : (
+                  <IconOutlineButton icon={Settings}>
+                    Управление на хранилища
+                  </IconOutlineButton>
+                )}
+              </GitHubRepoDialog>
+            </IfHTFeatureOn>
+            <IfHTFeatureOff feature="add-github-repos">
+              <UpdateFallbackReposDialog
+                fallbackGitHubRepos={`${project.githubRepos
+                  .map((r) => r.url)
+                  .join("\n")}
+${project.fallbackRepoUrls}`}
+                teamId={project.teamId}
+              >
+                <IconOutlineButton icon={Plus}>
+                  Добави хранилище
+                </IconOutlineButton>
+              </UpdateFallbackReposDialog>
+            </IfHTFeatureOff>
+          </CardFooter>
+        </IfHTFeatureOn>
+      )}
+    </Card>
+  );
+}
+
+function DemoCard({
+  url,
+  isInTeam,
+  teamId,
+}: {
+  url: string | null;
+  isInTeam?: boolean;
+  teamId: string;
+}) {
+  if (!url) {
+    return (
+      !!isInTeam && (
+        <IfHTFeatureOn feature="update-project">
+          <UpdateWebsiteUrlDialog teamId={teamId}>
+            <IconOutlineButton icon={Plus}>
+              Добави линк към демо
+            </IconOutlineButton>
+          </UpdateWebsiteUrlDialog>
+        </IfHTFeatureOn>
+      )
+    );
+  }
+  return (
+    <Card className="mt-4 border-2">
+      <CardHeader className="px-5 pb-0 pt-5">
+        <CardTitle>Демо на проекта</CardTitle>
+      </CardHeader>
+      <CardContent className="px-5 py-6">
+        <ProjectLink href={url} icon={LuGlobe}>
+          {url}
+        </ProjectLink>
+      </CardContent>
+      {!!isInTeam && (
+        <IfHTFeatureOn feature="update-project">
+          <CardFooter className="px-5">
+            <UpdateWebsiteUrlDialog teamId={teamId} websiteUrl={url}>
+              <IconOutlineButton icon={Pencil}>Редактиране</IconOutlineButton>
+            </UpdateWebsiteUrlDialog>
+          </CardFooter>
+        </IfHTFeatureOn>
+      )}
+    </Card>
+  );
+}
+
+function IconOutlineButton({
+  children,
+  icon: Icon,
+}: PropsWithChildren<{ icon: LucideIcon }>) {
+  return (
+    <Button variant="outline">
+      <Icon className="mr-2 h-5 w-5" /> {children}
+    </Button>
+  );
+}
+
+function ProjectLink({
+  href,
+  children,
+  icon: Icon = TbBrandGithub,
+}: PropsWithChildren<{ href: string; icon?: React.FC<{ size: number }> }>) {
+  return (
+    <Link className="mt-2 flex" href={href} target="_blank">
+      <Icon size={26} />
+      <ScrollArea className="w-full">
+        <span className="ml-2 w-max text-lg">{children}</span>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
+    </Link>
   );
 }

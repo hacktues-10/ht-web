@@ -24,6 +24,7 @@ import {
   projects,
   teams,
 } from "~/app/db/schema";
+import { env } from "~/app/env.mjs";
 import {
   formatParticipantDiscordNick,
   getParticipantById,
@@ -33,11 +34,19 @@ import {
 } from "~/app/participants/service";
 import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import {
+  createProjectSchema,
+  updateFallbackGitHubReposSchema,
+  updateProjectSchema,
+  updateWebsiteUrlSchema,
+} from "./[id]/project/schemas";
+import {
   checkIfTeamEligableToJoin,
   getPreparedParticipants,
+  getProjectByTeamId,
   getTeamById,
   isParticipantEligableToJoin,
   Team,
+  updateProject,
 } from "./service";
 
 export async function deleteMyTeam() {
@@ -564,15 +573,6 @@ export async function updateTechnologies(teamId: string) {
   revalidateTag("teams");
 }
 
-export async function getProjectByTeamId(teamId: string) {
-  if (teamId) {
-    return (
-      await db.select().from(projects).where(eq(projects.teamId, teamId))
-    ).at(0);
-  }
-  return null;
-}
-
 export const prepareParticipants = zact(
   z.object({
     teamId: z.string(),
@@ -586,12 +586,11 @@ export const prepareParticipants = zact(
   return getPreparedParticipants(team, captainId);
 });
 
-export async function createProject(project: {
+export const createProject = zact(createProjectSchema)(async (project: {
   teamId: string;
   name: string;
   description: string;
-  websiteURL: string;
-}) {
+}) => {
   const gb = await getServerSideGrowthBook();
   if (gb.isOff("create-project")) {
     return {
@@ -599,20 +598,168 @@ export async function createProject(project: {
       message: "Създаването на проекти не е позволено по това време.",
     };
   }
+  const participant = await getParticipantFromSession();
+  if (!participant) {
+    return { success: false, message: "Не сте влезли като участник" };
+  }
+  if (participant.team.id !== project.teamId) {
+    return { success: false, message: "Не сте в този отбор" };
+  }
+  if (!participant.team.isCaptain) {
+    return {
+      success: false,
+      message: "Само капитанът може да създаде проект",
+    };
+  }
   try {
-    await db.insert(projects).values({
-      name: project.name,
-      description: project.description,
-      technologies: "",
-      websiteURL: project.websiteURL,
-      teamId: project.teamId,
-    });
+    await db
+      .insert(projects)
+      .values({
+        name: project.name,
+        description: project.description,
+        technologies: "",
+        teamId: project.teamId,
+      })
+      .onConflictDoUpdate({
+        target: [projects.teamId],
+        set: {
+          name: project.name,
+          description: project.description,
+        },
+      });
 
     return { success: true, message: "Успешно създадохте проекта" };
   } catch (e) {
-    return { success: false, message: "Опа, нещо се обърка" };
+    return { success: false, message: "Възникна неочаквана грешка" };
   }
+});
+
+async function canUpdateProject(teamId: string) {
+  const gb = await getServerSideGrowthBook();
+  if (gb.isOff("update-project")) {
+    return {
+      success: false,
+      message: "Промените по проектите не са позволена по това време.",
+    } as const;
+  }
+
+  const participant = await getParticipantFromSession();
+  if (!participant) {
+    return {
+      success: false,
+      message: "Не сте влезли като участник",
+    } as const;
+  }
+  if (participant.team.id !== teamId) {
+    return { success: false, message: "Не сте в този отбор" } as const;
+  }
+  if (!participant.team.isCaptain) {
+    return {
+      success: false,
+      message: "Само капитанът може да редактира проекта",
+    } as const;
+  }
+
+  const project = await getProjectByTeamId(participant.team.id);
+  if (!project) {
+    return {
+      success: false,
+      message: "Моля, създайте проект, за да добавите линк към демо",
+    } as const;
+  }
+  return {
+    success: true,
+    project,
+  } as const;
 }
+
+export const updateProjectNameDesc = zact(updateProjectSchema)(async (
+  input,
+) => {
+  try {
+    const res = await canUpdateProject(input.teamId);
+    if (!res.success) {
+      return res;
+    }
+    await updateProject({
+      id: res.project.id,
+      name: input.name,
+      description: input.description,
+    });
+    return { success: true } as const;
+  } catch (e) {
+    return {
+      success: false,
+      message:
+        e instanceof Error && env.VERCEL_ENV !== "production"
+          ? e.message
+          : "Възникна неочаквана грешка. Моля, опитайте отново.",
+    };
+  }
+});
+
+export const updateProjectWebsiteUrl = zact(updateWebsiteUrlSchema)(async (
+  input,
+) => {
+  try {
+    const res = await canUpdateProject(input.teamId);
+    if (!res.success) {
+      return res;
+    }
+    await updateProject({
+      id: res.project.id,
+      websiteUrl: input.websiteUrl ?? null,
+    });
+    return { success: true } as const;
+  } catch (e) {
+    return {
+      success: false,
+      message:
+        e instanceof Error && env.VERCEL_ENV !== "production"
+          ? e.message
+          : "Възникна неочаквана грешка. Моля, опитайте отново.",
+    };
+  }
+});
+
+export const updateProjectFallbackGitHubRepos = zact(
+  updateFallbackGitHubReposSchema,
+)(async (input) => {
+  try {
+    const gb = await getServerSideGrowthBook();
+    if (gb.isOn("add-github-repos")) {
+      return {
+        success: false,
+        message:
+          "Техническият проблем вече е отстранен. Моля, редактирайте хранилищата, използвайки GitHub интеграцията.",
+      } as const;
+    }
+    const res = await canUpdateProject(input.teamId);
+    if (!res.success) {
+      return res;
+    }
+    const existingRepos = new Set(
+      res.project.githubRepos.map((repo) => repo.url),
+    );
+    // XXX: type cast shit is happening help
+    const fallbackRepos = (input.fallbackGitHubRepos as any as string)
+      .split("\n")
+      .filter((repo) => !existingRepos.has(repo));
+    await updateProject({
+      id: res.project.id,
+      fallbackRepoUrls: fallbackRepos.join("\n"),
+    });
+    return { success: true } as const;
+  } catch (e) {
+    return {
+      success: false,
+      message:
+        e instanceof Error && env.VERCEL_ENV !== "production"
+          ? e.message
+          : "Възникна неочаквана грешка. Моля, опитайте отново.",
+    };
+  }
+});
 
 export async function isTeamFull(teamId: string) {
   const team = (await db.select().from(teams).where(eq(teams.id, teamId)))[0];

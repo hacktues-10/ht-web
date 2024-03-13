@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
 import { db } from "~/app/db";
-import { discordUsers } from "~/app/db/schema";
+import { discordUsers, teams } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 
 export const resolveDiscordRedirectUri = (req: NextRequest) =>
@@ -184,6 +184,12 @@ const createChannel = async (
     channelResponse.ok,
     `Error creating channel (${channelType}): ${channelResponse.statusText}`,
   );
+
+  const channel = await channelResponse.json();
+  await db
+    .update(teams)
+    .set({ discordTextChannelId: channel.id })
+    .where(eq(teams.id, channelName));
 };
 
 export const deleteChannelsRolesCategories = async (teamId: string) => {
