@@ -209,7 +209,7 @@ const BETA_SPONSORS = [
     logo: haemimontLogo,
     url: "http://www.haemimont.com/",
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "„Хемимонд“ АД е компания, предлагаща качествени услуги по разработка на комплексни софтуерни решения, основана през 2003г. Специализира се в проектирането, разработката и тестването на специфични клиентски приложения и услуги, предоставяйки решения, базирани на технологии от Майкрософт (.NET, MSSQL, ASP.NET и др.), там, където стандартните програмни продукти не могат да се приложат. Клиенти на компанията са водещи интернационални корпорации в областта на застраховането, риска и др. През 2010 г. екипът на Хемимонд АД започва проекти по разширяване и диверсифициране на дейността. Като пряк резултат от изпълнението им е началото на предлаганите публични облачни услуги през 2014 г. - появява се oblak.bg, а през 2016 г. новата облачна услуга disk.bg. За да предложим тези услуги по-качествени, създадохме собствен дейта-център според най-добрите стандaрти и практики.",
     supportedEditions: [],
   },
   {

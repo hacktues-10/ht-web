@@ -33,7 +33,10 @@ export type HTFeatures = {
   "show-email-mobile": boolean;
 
   "show-full-schedule": boolean;
+
   "landing-subtitle": string;
+  "landing-cta": {};
+  "landing-countdown": {};
 
   "main-theme": {};
   subtheme1: {};
