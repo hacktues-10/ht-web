@@ -31,8 +31,8 @@ export const NAVIGATION_CATEGORIES = [
       {
         label: "Теми",
         url: "/themes",
-        isVisible: false,
-        isNew: false,
+        isVisible: true,
+        isNew: true,
       },
       {
         label: "Класация",

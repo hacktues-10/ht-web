@@ -37,6 +37,12 @@ export type HTFeatures = {
   "landing-subtitle": string;
   "landing-cta": {};
   "landing-countdown": {};
+
+  "main-theme": {};
+  subtheme1: {};
+  subtheme2: {};
+  subtheme3: {};
+  "subtheme-alumni": {};
 };
 
 export type HTFeature = keyof HTFeatures;
