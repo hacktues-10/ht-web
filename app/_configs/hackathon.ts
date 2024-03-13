@@ -8,7 +8,7 @@ import vitanovAvatar from "~/app/assets/lectors/vitanov.webp";
 import { HACKATHONS } from "./archive";
 
 export const COUNTDOWN_START = new Date("Jan 02 2024 20:00:00 GMT+0200");
-export const EVENT_START = new Date("Mar 13 2024 20:00:00 GMT+0200");
+export const EVENT_START = new Date("Mar 13 2024 18:00:00 GMT+0200");
 export const EVENT_END = new Date("Mar 16 2024 07:59:59 GMT+0200");
 
 export const ALUMNI_REGISTRATION_START = new Date(
@@ -19,7 +19,7 @@ export const STUDENTS_REGISTRATION_START = new Date(
 );
 
 export const MAX_TEAMS_STUDENTS = 70;
-export const MAX_TEAMS_ALUMNI = 14;
+export const MAX_TEAMS_ALUMNI = 12;
 
 export const MIN_TEAM_MEMBERS_STUDENTS = 3;
 export const MAX_TEAM_MEMBERS_STUDENTS = 5;
@@ -143,38 +143,57 @@ export const SCHEDULE = [
   {
     type: "youtube",
     title: "Официално откриване", // или Откриваща церемония?
-    description: "Официално откриване на Hack TUES X",
+    description: `Започва откриващата церемония! Тя ще бъде излъчвана в официалния канал на ТУЕС в YouTube.
+А каква е темата? В тематичната лекция ще разкрием постепенно тайната.`,
     startDate: new Date("Mar 13 2024 18:00:00 GMT+0200"),
-    endDate: new Date("Mar 13 2024 22:00:00 GMT+0200"),
+    endDate: new Date("Mar 13 2024 19:00:00 GMT+0200"),
   },
   {
     type: "in-person",
     title: "Време за работа",
-    description: "Работа по проектите",
-    startDate: new Date("Mar 13 2024 20:00:00 GMT+0200"),
-    endDate: new Date("Mar 16 2024 07:59:59 GMT+0200"),
-  },
-  {
-    type: "in-person",
-    title: "Полуфинали",
-    description: "Полуфинали на учениците", // а завършили?
-    startDate: new Date("Mar 16 2024 08:00:00 GMT+0200"),
-    endDate: new Date("Mar 16 2024 10:20:00 GMT+0200"),
+    description: `Започва да тече времето на участниците за разработване на проектите. Работата ще кипи и кипи... Финалните версии трябва да бъдат предадени до 6:59 на 16 март.`,
+    startDate: new Date("Mar 13 2024 21:45:00 GMT+0200"),
+    endDate: new Date("Mar 16 2024 06:59:59 GMT+0200"),
   },
   {
     type: "youtube",
-    title: "Финал",
-    description: "Финал",
-    startDate: new Date("Mar 16 2024 12:00:00 GMT+0200"),
-    endDate: new Date("Mar 16 2024 17:30:00 GMT+0200"),
+    title: "Финал на завършили",
+    description: `Завършилите участници ще презентират своите проекти пред жури.
+  Всеки отбор ще има по 7 минути за презентация и 8 минути за въпроси от журито. То ще оцени и класира най-добрите проекти измежду ${MAX_TEAMS_ALUMNI}-те отбора от завършили ТУЕС-ари.
+    
+Кой ще спечели? Победителите ще бъдат обявени на закриващата церемония.`,
+    startDate: new Date("Mar 16 2024 08:00:00 GMT+0200"),
+    endDate: new Date("Mar 16 2024 12:00:00 GMT+0200"),
+  },
+  {
+    type: "in-person",
+    title: "Полуфинали на ученици",
+    description: `Започват седем паралелни полуфинала на учениците. По 10 отбора в полуфинал, те ще презентират своите проекти пред жури.
+Всеки отбор ще има по 7 минути за презентация и 8 минути за въпроси от журито.
+14 отбора ще бъдат класирани на финал.`,
+    startDate: new Date("Mar 16 2024 08:00:00 GMT+0200"),
+    endDate: new Date("Mar 16 2024 11:15:00 GMT+0200"),
+  },
+  {
+    type: "youtube",
+    title: "Финал на ученици",
+    description: `Предстои финалът на учениците. Класираните отбори ще презентират своите проекти пред журито.
+Всеки финалист ще има по 7 минути за презентация и 8 минути за въпроси от журито. То ще оцени и класира най-добрите проекти измежду тях.`,
+    startDate: new Date("Mar 16 2024 12:30:00 GMT+0200"),
+    endDate: new Date("Mar 16 2024 17:10:00 GMT+0200"),
   },
   {
     type: "youtube",
     title: "Награждаване и закриваща церемония",
-    description: "Награждаване и закриваща церемония",
-    startDate: new Date("Mar 16 2024 17:30:00 GMT+0200"),
-    endDate: new Date("Mar 16 2024 22:20:00 GMT+0200"),
+    description: `Предстои дългоочакван момент – награждаването на най-добрите проекти!
+    
+Ще бъдат връчени над 30 специални награди на отличилите-се отбори от нас и нашите спонсори и партньори, водещи ИТ компании от българския сектор.
+
+Накрая ще обявим и победителите на десетото юбилейно издание на Hack\u00a0TUES!`,
+    startDate: new Date("Mar 16 2024 17:40:00 GMT+0200"),
+    endDate: null,
   },
 ] as const;
 
 export type ScheduleEvent = (typeof SCHEDULE)[number];
+//

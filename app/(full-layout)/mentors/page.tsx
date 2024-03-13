@@ -13,6 +13,10 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Ментори",
   description: "Менторите на Hack TUES X",
+  openGraph: {
+    title: "Ментори",
+    description: "Менторите на Hack TUES X",
+  },
 };
 
 export default async function MentorsPage() {

@@ -31,8 +31,8 @@ export const NAVIGATION_CATEGORIES = [
       {
         label: "Теми",
         url: "/themes",
-        isVisible: false,
-        isNew: false,
+        isVisible: true,
+        isNew: true,
       },
       {
         label: "Класация",
@@ -55,6 +55,12 @@ export const NAVIGATION_CATEGORIES = [
       {
         label: "Нашият екип",
         url: "/ourteam",
+        isVisible: true,
+        isNew: false,
+      },
+      {
+        label: "Доброволци",
+        url: "/volunteers",
         isVisible: true,
         isNew: false,
       },

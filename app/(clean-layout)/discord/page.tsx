@@ -15,6 +15,10 @@ import { DiscordLoadingLink } from "./_components/discord-loading-link";
 export const metadata: Metadata = {
   title: "Discord Профил",
   description: "Свържете своя Discord профил с Hack TUES X",
+  openGraph: {
+    title: "Discord Профил",
+    description: "Свържете своя Discord профил с Hack TUES X",
+  },
 };
 
 export default async function DiscordPage() {
