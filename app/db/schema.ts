@@ -63,6 +63,8 @@ export const particpants = pgTable("participants", {
   question1Answer: varchar("question1_answer"),
   question2Answer: varchar("question2_answer"),
 
+  tableNumber: integer("table_number"),
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   // TODO: add updatedAt?
 });
