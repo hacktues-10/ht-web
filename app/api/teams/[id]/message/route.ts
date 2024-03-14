@@ -25,6 +25,7 @@ async function batchSendMessages(teamIds: string[], req: NextRequest) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bot ${req.headers.get("authorization")}`,
         },
         body: JSON.stringify(await req.clone().json()),
       },
