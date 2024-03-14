@@ -15,22 +15,24 @@ export async function POST(
 async function batchSendMessages(teamIds: string[], req: NextRequest) {
   const teams = await Promise.all(teamIds.map(getTeamById));
   // send the same request to all team endpoints using fetch, but changing the url:
-  const messagePromises = teams.map(async (team) => {
-    if (!team) {
-      return;
-    }
-    return fetch(
-      `https://discord.com/api/10/channels/${team.discordTextChannelId}/messages`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bot ${req.headers.get("authorization")}`,
+  const messagePromises = teams
+    .map(async (team) => {
+      if (!team) {
+        throw new Error("Team not found");
+      }
+      return fetch(
+        `https://discord.com/api/10/channels/${team.discordTextChannelId}/messages`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bot ${req.headers.get("authorization")}`,
+          },
+          body: JSON.stringify(await req.clone().json()),
         },
-        body: JSON.stringify(await req.clone().json()),
-      },
-    );
-  });
+      );
+    })
+    .map(async (r) => (await r).json());
 
   return await Promise.all(messagePromises);
 }
