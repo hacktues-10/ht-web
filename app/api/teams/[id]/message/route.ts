@@ -34,7 +34,8 @@ async function batchSendMessages(teamIds: string[], req: NextRequest) {
     })
     .map(async (r) => (await r).json());
 
-  return await Promise.all(messagePromises);
+  const messages = await Promise.all(messagePromises);
+  return NextResponse.json(messages);
 }
 
 async function sendSingleMessage(teamId: string) {
