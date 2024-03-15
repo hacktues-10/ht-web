@@ -11,6 +11,7 @@ import { LuGlobe } from "react-icons/lu";
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
 import {
   IfAllHTFeaturesOff,
+  IfAnyHTFeatureOn,
   IfHTFeatureOff,
   IfHTFeatureOn,
 } from "~/app/_integrations/components";
@@ -486,35 +487,37 @@ function ReposCard({
         )}
       </CardContent>
       {isInTeam && (
-        <IfHTFeatureOn feature="update-project">
-          <CardFooter className="px-5">
-            <IfHTFeatureOn feature="add-github-repos">
-              <GitHubRepoDialog>
-                {repos.length === 0 ? (
+        <IfHTFeatureOn feature="update-project-repos">
+          <IfHTFeatureOn feature="update-project">
+            <CardFooter className="px-5">
+              <IfHTFeatureOn feature="add-github-repos">
+                <GitHubRepoDialog>
+                  {repos.length === 0 ? (
+                    <IconOutlineButton icon={Plus}>
+                      Добави хранилище
+                    </IconOutlineButton>
+                  ) : (
+                    <IconOutlineButton icon={Settings}>
+                      Управление на хранилища
+                    </IconOutlineButton>
+                  )}
+                </GitHubRepoDialog>
+              </IfHTFeatureOn>
+              <IfHTFeatureOff feature="add-github-repos">
+                <UpdateFallbackReposDialog
+                  fallbackGitHubRepos={`${project.githubRepos
+                    .map((r) => r.url)
+                    .join("\n")}
+${project.fallbackRepoUrls}`}
+                  teamId={project.teamId}
+                >
                   <IconOutlineButton icon={Plus}>
                     Добави хранилище
                   </IconOutlineButton>
-                ) : (
-                  <IconOutlineButton icon={Settings}>
-                    Управление на хранилища
-                  </IconOutlineButton>
-                )}
-              </GitHubRepoDialog>
-            </IfHTFeatureOn>
-            <IfHTFeatureOff feature="add-github-repos">
-              <UpdateFallbackReposDialog
-                fallbackGitHubRepos={`${project.githubRepos
-                  .map((r) => r.url)
-                  .join("\n")}
-${project.fallbackRepoUrls}`}
-                teamId={project.teamId}
-              >
-                <IconOutlineButton icon={Plus}>
-                  Добави хранилище
-                </IconOutlineButton>
-              </UpdateFallbackReposDialog>
-            </IfHTFeatureOff>
-          </CardFooter>
+                </UpdateFallbackReposDialog>
+              </IfHTFeatureOff>
+            </CardFooter>
+          </IfHTFeatureOn>
         </IfHTFeatureOn>
       )}
     </Card>
