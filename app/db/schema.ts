@@ -63,8 +63,6 @@ export const particpants = pgTable("participants", {
   question1Answer: varchar("question1_answer"),
   question2Answer: varchar("question2_answer"),
 
-  tableNumber: integer("table_number"),
-
   createdAt: timestamp("created_at").defaultNow().notNull(),
   // TODO: add updatedAt?
 });
@@ -166,6 +164,7 @@ export const teams = pgTable("teams", {
   finalResult: numeric("final_result", { precision: 3, scale: 2 })
     .notNull()
     .default("0.00"),
+  tableNumber: integer("table_number"),
 });
 
 export const teamsRelations = relations(teams, ({ one, many }) => ({
