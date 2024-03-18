@@ -771,3 +771,43 @@ export async function isTeamFull(teamId: string) {
   }
   return false;
 }
+
+export async function addTeamResultSemiFinal(
+  team: string,
+  semiFinal: string,
+  semiFinalResult: string,
+) {
+  const admin = await getAdminFromSession();
+  if (!admin) {
+    return { success: false, message: "Не си влязъл като админ" };
+  }
+  try {
+    await db
+      .update(teams)
+      .set({ semiFinal: parseInt(semiFinal), semiFinalResult: semiFinalResult })
+      .where(eq(teams.id, team));
+    revalidateTag("teams");
+
+    return { success: true, message: "Успешно добавихте резултатите" };
+  } catch (e) {
+    return { success: false, message: "Опа, нещо се обърка" };
+  }
+}
+
+export async function addTeamResultFinal(team: string, finalResult: string) {
+  const admin = await getAdminFromSession();
+  if (!admin) {
+    return { success: false, message: "Не си влязъл като админ" };
+  }
+  try {
+    await db
+      .update(teams)
+      .set({ finalResult: finalResult, isFinalist: true })
+      .where(eq(teams.id, team));
+
+    revalidateTag("teams");
+    return { success: true, message: "Успешно добавихте резултатите" };
+  } catch (e) {
+    return { success: false, message: "Опа, нещо се обърка" };
+  }
+}

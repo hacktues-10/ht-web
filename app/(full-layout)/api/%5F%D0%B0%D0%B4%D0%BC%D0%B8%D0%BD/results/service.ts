@@ -1,11 +1,10 @@
 import { eq } from "drizzle-orm";
-import { slugify } from "transliteration";
 
 import { db } from "~/app/db";
 import { mentors, teams } from "~/app/db/schema";
 import { getAdminFromSession } from "../service";
 
-export async function getTeamsAdmin() {
+export async function getTeamsResultsAdmin() {
   const admin = await getAdminFromSession();
   if (!admin) {
     return [];
@@ -14,15 +13,9 @@ export async function getTeamsAdmin() {
     .select({
       id: teams.id,
       name: teams.name,
-      description: teams.description,
-      mentor: {
-        id: mentors.id,
-        name: mentors.name,
-        company: mentors.companyName,
-      },
       isAlumni: teams.isAlumni,
-      members: teams.memberCount,
-      semiFinal: teams.semiFinalResult,
+      semiFinal: teams.semiFinal,
+      semiFinalResult: teams.semiFinalResult,
       isFinalist: teams.isFinalist,
       final: teams.finalResult,
     })
@@ -33,15 +26,13 @@ export async function getTeamsAdmin() {
     return {
       id: team.id,
       name: team.name,
-      description: team.description,
-      mentor: `${team.mentor?.name ?? ""} ${team.mentor?.company ?? ""}`,
       isAlumni: team.isAlumni ? "Yes" : "No",
-      members: team.members,
       semiFinal: team.semiFinal,
+      semiFinalResult: team.semiFinalResult,
       isFinalist: team.isFinalist ? "Yes" : "No",
       final: team.final,
     };
   });
 }
 
-export type TeamsAdmin = Awaited<ReturnType<typeof getTeamsAdmin>>;
+export type TeamsResultAdmin = Awaited<ReturnType<typeof getTeamsResultsAdmin>>;
