@@ -49,6 +49,7 @@ import darikBusinessReviewLogo from "../assets/sponsors/media-partners/dbr.webp"
 import devstylerLogo from "../assets/sponsors/media-partners/devstyler.webp";
 import economyBgLogo from "../assets/sponsors/media-partners/economy-bg.webp";
 import inzhenerBgLogo from "../assets/sponsors/media-partners/inzhener-bg.webp";
+import jobsBg from "../assets/sponsors/media-partners/jobsbg.png";
 import kaldataLogo from "../assets/sponsors/media-partners/kaldata.webp";
 import managerLogo from "../assets/sponsors/media-partners/manager.png";
 import obektiBgLogo from "../assets/sponsors/media-partners/obekti.jpg";
@@ -637,13 +638,13 @@ export const MEDIA_ARTICLES = [
     url: "https://manager.bg/%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8/hakatonat-hack-tues-x-organiziran-ot-uchenici-za-uchenici-startira-prez-mart-",
     date: new Date(2024, MARCH, 20),
   },
-  // {
-  //   name: "Jobs.bg",
-  //   title: "Анкета: С какво искат да се занимават възпитаниците на ТУЕС?",
-  //   date: new Date(2024, MARCH, 20),
-  //   logo: jobsBgLogo,
-  //   url: "https://www.jobs.bg/blog/5851/anketa-s-kakvo-iskat-da-se-zanimavat-vazpitanitsite-na-tues"
-  // },
+  {
+    name: "Jobs.bg",
+    title: "Анкета: С какво искат да се занимават възпитаниците на ТУЕС?",
+    date: new Date(2024, MARCH, 20),
+    logo: jobsBg,
+    url: "https://www.jobs.bg/blog/5851/anketa-s-kakvo-iskat-da-se-zanimavat-vazpitanitsite-na-tues",
+  },
   {
     name: "Darik",
     title:
