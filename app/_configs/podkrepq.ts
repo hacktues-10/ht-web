@@ -1,3 +1,5 @@
+import { title } from "process";
+
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
@@ -42,6 +44,7 @@ import ocadoTechnologyLogo from "../assets/sponsors/gamma/ocado-technology.png";
 import progressLogo from "../assets/sponsors/gamma/progress.png";
 //Media partners
 import btvLogo from "../assets/sponsors/media-partners/btv.webp";
+import darikLogo from "../assets/sponsors/media-partners/darik.webp";
 import darikBusinessReviewLogo from "../assets/sponsors/media-partners/dbr.webp";
 import devstylerLogo from "../assets/sponsors/media-partners/devstyler.webp";
 import economyBgLogo from "../assets/sponsors/media-partners/economy-bg.webp";
@@ -503,6 +506,11 @@ const PARTNERS = [
 
 const MEDIA_PARTNERS = [
   {
+    name: "BTV Media Group",
+    logo: btvLogo,
+    url: "https://www.btv.bg/",
+  },
+  {
     name: "Darik Business Review",
     logo: darikBusinessReviewLogo,
     url: "https://darik.bg/",
@@ -578,6 +586,80 @@ export type Podkrepqsht =
 
 export const MEDIA_ARTICLES = [
   {
+    name: "BTV Media Group",
+    title:
+      "Успешно приключи десетото юбилейно издание на най-големия хакатон, създаден от ученици за ученици у нас",
+    logo: btvLogo,
+    url: "https://www.btv.bg/shows/tazi-nedelia/videos-nedelia/uspeshno-prikljuchi-desetoto-jubilejno-izdanie-na-naj-golemija-hakaton-sazdaden-ot-uchenici-za-uchenici-u-nas.html",
+    date: new Date(2024, MARCH, 20),
+  },
+  {
+    name: "BTV Media Group",
+    title: "Hack TUES X: Над 70 отбора и тайна тема",
+    logo: btvLogo,
+    url: "https://businessnovinite.bg/bg-biznes/hack-tues-x-nad-70-otbora-i-tajna-tema.html",
+    date: new Date(2024, MARCH, 20),
+  },
+  {
+    name: "Darik Business Review",
+    title: "Кои са победителите в хакатона Hack TUES X?",
+    logo: darikBusinessReviewLogo,
+    url: "https://dbr.bg/9753",
+    date: new Date(2024, MARCH, 20),
+  },
+  {
+    name: "Economy.bg",
+    title: "Анкета: С какво искат да се занимават възпитаниците на ТУЕС?",
+    date: new Date(2024, MARCH, 20),
+    logo: economyBgLogo,
+    url: "https://www.economy.bg/innovations/view/58031/Anketa-S-kakvo-iskat-da-se-zanimavat-vyzpitanicite-na-TUES",
+  },
+  {
+    name: "Economy.bg",
+    title: "Завърши юбилейното издание на Hack TUES X - Back to the Roots",
+    date: new Date(2024, MARCH, 20),
+    logo: economyBgLogo,
+    url: "https://www.economy.bg/innovations/view/58029/Zavyrshi-jubilejnoto-izdanie-na-Hack-TUES-X---Back-to-the-Roots",
+  },
+
+  {
+    name: "DevStyleR",
+    title: "Завърши Десетото Юбилейно Издание на Hack TUES",
+    logo: devstylerLogo,
+    url: "https://devstyler.bg/blog/2024/03/17/zavarshi-desetoto-yubilejno-izdanie-na-hack-tues/",
+    date: new Date(2024, MARCH, 17),
+  },
+  {
+    name: "Manager.bg",
+    title:
+      "Хакатонът Hack TUES X, организиран от ученици за ученици стартира през март",
+    logo: managerLogo,
+    url: "https://manager.bg/%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8/hakatonat-hack-tues-x-organiziran-ot-uchenici-za-uchenici-startira-prez-mart-",
+    date: new Date(2024, MARCH, 20),
+  },
+  // {
+  //   name: "Jobs.bg",
+  //   title: "Анкета: С какво искат да се занимават възпитаниците на ТУЕС?",
+  //   date: new Date(2024, MARCH, 20),
+  //   logo: jobsBgLogo,
+  //   url: "https://www.jobs.bg/blog/5851/anketa-s-kakvo-iskat-da-se-zanimavat-vazpitanitsite-na-tues"
+  // },
+  {
+    name: "Darik",
+    title:
+      "Hack TUES X: Ученици от ТУЕС организират юбилейно издание на емблематичното състезание",
+    logo: darikLogo,
+    url: "https://darik.bg/kakvo-e-hakaton-koi-trabva-da-prisastva-na-hakatona-i-zasto-",
+    date: new Date(2024, MARCH, 11),
+  },
+  {
+    name: "Обекти",
+    title: "Hack TUES X стартира през март",
+    url: "https://www.obekti.bg/tehno/hack-tues-x-startira-prez-mart",
+    logo: obektiBgLogo,
+    date: new Date(2024, FEBRUARY, 2),
+  },
+  {
     name: "Economy.bg",
     title: "Предстои 10-ото юбилейно издание на Hack TUES X",
     logo: economyBgLogo,
@@ -605,44 +687,6 @@ export const MEDIA_ARTICLES = [
     logo: devstylerLogo,
     url: "https://devstyler.bg/blog/2024/01/23/desetoto-yubilejno-izdanie-hack-tues-x-startira-prez-mart/",
     date: new Date(2024, JANUARY, 23),
-  },
-  {
-    name: "Кариери.bg",
-    title:
-      "Ученици по технологии ще работят с експерти от 30 ИТ компании на HackTUES",
-    logo: karieribgLogo,
-    url: "https://www.karieri.bg/news/40146_uchenici-po-tehnologii-shche-rabotyat-s-eksperti-ot-30",
-    date: new Date(2023, FEBRUARY, 23),
-  },
-  {
-    name: "БНР София",
-    title: "224 ученици и 25 фирми участват в осмия хакатон на ТУЕС",
-    logo: bnrLogo,
-    url: "https://bnr.bg/sofia/post/101613996/tues",
-    date: new Date(2023, MARCH, 10),
-  },
-  {
-    name: "Столица.bg",
-    title: "Започна осмият хакатон на Технологично училище в София",
-    logo: capitalLogo,
-    url: "https://stolica.bg/sofia/zapochna-osmiyat-hakaton-na-tehnologichno-uchilishte-v-sofiya",
-    date: new Date(2023, MARCH, 10),
-  },
-  {
-    name: "Investor.BG",
-    title:
-      "Знания и талант ще демонстрират ученици в осмото издание на хакатона HackTUES",
-    logo: investorLogo,
-    url: "https://www.investor.bg/a/261-novini/347522-znaniya-i-talant-shte-demonstrirat-uchenitsi-v-osmoto-izdanie-na-hakatona-hacktues",
-    date: new Date(2023, MARCH, 8),
-  },
-  {
-    name: "Bloomberg TV Bulgaria",
-    title:
-      "Ученици демонстрират знания и талант в осмото издание на хакатона HackTUES",
-    logo: bloombergLogo,
-    url: "https://www.bloombergtv.bg/a/16-biznes-start/104120-uchenitsi-demonstrirat-znaniya-i-talant-osmoto-izdanie-na-hakatona-hacktues",
-    date: new Date(2023, MARCH, 8),
   },
 ];
 
