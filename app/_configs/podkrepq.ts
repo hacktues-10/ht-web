@@ -1,5 +1,3 @@
-import { title } from "process";
-
 import bloombergLogo from "../assets/media/bloomberg.png";
 import bnrLogo from "../assets/media/bnr.png";
 import capitalLogo from "../assets/media/capital.png";
@@ -510,9 +508,9 @@ const MEDIA_PARTNERS = [
     name: "BTV Media Group",
     logo: btvLogo,
     url: "https://www.btv.bg/",
-     description:
+    description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-     supportedEditions: [],
+    supportedEditions: [],
   },
   {
     name: "Darik Business Review",
@@ -571,6 +569,13 @@ const MEDIA_PARTNERS = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   },
+  {
+    name: "Jobs.bg",
+    logo: jobsBg,
+    url: "https://www.jobs.bg/",
+    supportedEditions: [],
+    description: "Lorem Ipsum",
+  },
 ];
 
 export {
@@ -625,14 +630,6 @@ export const MEDIA_ARTICLES = [
     logo: economyBgLogo,
     url: "https://www.economy.bg/innovations/view/58029/Zavyrshi-jubilejnoto-izdanie-na-Hack-TUES-X---Back-to-the-Roots",
   },
-
-  {
-    name: "DevStyleR",
-    title: "Завърши Десетото Юбилейно Издание на Hack TUES",
-    logo: devstylerLogo,
-    url: "https://devstyler.bg/blog/2024/03/17/zavarshi-desetoto-yubilejno-izdanie-na-hack-tues/",
-    date: new Date(2024, MARCH, 17),
-  },
   {
     name: "Manager.bg",
     title:
@@ -647,6 +644,14 @@ export const MEDIA_ARTICLES = [
     date: new Date(2024, MARCH, 20),
     logo: jobsBg,
     url: "https://www.jobs.bg/blog/5851/anketa-s-kakvo-iskat-da-se-zanimavat-vazpitanitsite-na-tues",
+  },
+
+  {
+    name: "DevStyleR",
+    title: "Завърши Десетото Юбилейно Издание на Hack TUES",
+    logo: devstylerLogo,
+    url: "https://devstyler.bg/blog/2024/03/17/zavarshi-desetoto-yubilejno-izdanie-na-hack-tues/",
+    date: new Date(2024, MARCH, 17),
   },
   {
     name: "Darik",
