@@ -1,22 +1,9 @@
 "use client";
 
-import { Team } from "../(full-layout)/teams/service";
-import {
-  getParticipantFromSession,
-  Participant,
-} from "../participants/service";
 import { cn } from "../utils";
 import Crown from "./Crown";
 
-type ReducedTeamMember = Pick<Participant, "firstName" | "lastName" | "id"> & {
-  isCaptain: boolean;
-};
-
-export default function TeamMemberDetailedView({
-  member,
-}: {
-  member: ReducedTeamMember;
-}) {
+export default function TeamMemberDetailedView({ member }: { member: any }) {
   const colors = [
     "bg-red-700",
     "bg-green-700",
