@@ -10,10 +10,6 @@ import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { zact } from "~/app/_zact/server";
-import {
-  deleteChannelsRolesCategories,
-  deleteRoleFromMember,
-} from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
   discordUsers,
@@ -32,7 +28,6 @@ import {
   hasInvitationFromTeam,
   isParticipantStudent,
 } from "~/app/participants/service";
-import { getAdminFromSession } from "../api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
 import {
   createProjectSchema,
   updateFallbackGitHubReposSchema,
@@ -561,8 +556,8 @@ export async function getTeamMembers(teamId: string) {
 
 export async function updateTechnologies(teamId: string) {
   const members = await getTeamMembers(teamId);
-  const allTechnologies = members.flatMap(
-    (member) => member.technologies?.split(", "),
+  const allTechnologies = members.flatMap((member) =>
+    member.technologies?.split(", "),
   );
   const uniqueTechnologies = [...new Set(allTechnologies)];
   const technologiesString = uniqueTechnologies.join(", ");

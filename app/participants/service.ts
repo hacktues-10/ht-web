@@ -1,8 +1,6 @@
 import { and, eq, gt, isNull, lt, sql } from "drizzle-orm";
 import invariant from "tiny-invariant";
 
-import { getAdminFromSession } from "../(full-layout)/api/%5F%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD/service";
-import { getHTSession } from "../api/auth/session";
 import { db } from "../db";
 import {
   discordUsers,

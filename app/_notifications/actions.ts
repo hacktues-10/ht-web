@@ -10,7 +10,6 @@ import {
   removeTeamMember,
   updateTechnologies,
 } from "~/app/(full-layout)/teams/actions";
-import { addDiscordRole } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
   discordUsers,

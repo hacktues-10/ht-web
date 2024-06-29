@@ -11,7 +11,6 @@ import {
   MIN_TEAM_MEMBERS_ALUMNI,
   MIN_TEAM_MEMBERS_STUDENTS,
 } from "~/app/_configs/hackathon";
-import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
 import { db } from "~/app/db";
 import {
   discordUsers,

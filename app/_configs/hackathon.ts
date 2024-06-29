@@ -71,6 +71,7 @@ export const SCHEDULE = [
         origin: "АЗТУЕС",
       },
     ],
+    link: "https://youtu.be/IxPUlJbaJeY?si=x3_fJCLmXkLt1boS",
   },
   {
     type: "workshop",
@@ -80,6 +81,7 @@ export const SCHEDULE = [
     startDate: new Date("Feb 15 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [BOZHO, MITKO],
+    link: "https://youtu.be/C_PHVlXn1cE?si=yOjhENY-4CeaoUXv",
   },
   {
     type: "workshop",
@@ -96,6 +98,7 @@ export const SCHEDULE = [
       },
       BOZHO,
     ],
+    link: "https://youtu.be/eEodMLM3RY0?si=IMO8MjPZe7axCqDJ",
   },
   {
     type: "workshop",
@@ -111,6 +114,7 @@ export const SCHEDULE = [
         origin: "Преподавател по ВМКС в ТУЕС",
       },
     ],
+    link: "https://youtu.be/M-HnAQ8kF2I?si=9M9jBcBVmoBVxWn3",
   },
   {
     type: "workshop",
@@ -120,6 +124,7 @@ export const SCHEDULE = [
     startDate: new Date("Feb 28 2024 20:00:00 GMT+0200"),
     endDate: null,
     lectors: [MITKO, BOZHO],
+    link: "https://youtu.be/AKN8eP0EhxE?si=VmDx5woERZAEthJm",
   },
   {
     type: "workshop",
@@ -139,6 +144,7 @@ export const SCHEDULE = [
         origin: ORGANIZATOR_ORIGIN_TEXT,
       },
     ],
+    link: "https://youtu.be/xosZKqmChN8?si=WTp5crJAVKmaVe9W",
   },
   {
     type: "youtube",
@@ -147,6 +153,7 @@ export const SCHEDULE = [
 А каква е темата? В тематичната лекция ще разкрием постепенно тайната.`,
     startDate: new Date("Mar 13 2024 18:00:00 GMT+0200"),
     endDate: new Date("Mar 13 2024 19:00:00 GMT+0200"),
+    link: "https://www.youtube.com/live/s_h9wTqZ1-Q?si=Dei_6JE3ODmYje7s",
   },
   {
     type: "in-person",
@@ -164,6 +171,7 @@ export const SCHEDULE = [
 Кой ще спечели? Победителите ще бъдат обявени на закриващата церемония.`,
     startDate: new Date("Mar 16 2024 08:00:00 GMT+0200"),
     endDate: new Date("Mar 16 2024 12:00:00 GMT+0200"),
+    link: "https://youtu.be/rd15Lp2a7uw?si=se_uC7RTob0AbvEQ",
   },
   {
     type: "in-person",
@@ -181,6 +189,7 @@ export const SCHEDULE = [
 Всеки финалист ще има по 7 минути за презентация и 8 минути за въпроси от журито. То ще оцени и класира най-добрите проекти измежду тях.`,
     startDate: new Date("Mar 16 2024 12:30:00 GMT+0200"),
     endDate: new Date("Mar 16 2024 17:10:00 GMT+0200"),
+    link: "https://youtu.be/UhEJuVlGn6Y?si=fMJeMQKeaUr_V799",
   },
   {
     type: "youtube",
@@ -192,6 +201,7 @@ export const SCHEDULE = [
 Накрая ще обявим и победителите на десетото юбилейно издание на Hack\u00a0TUES!`,
     startDate: new Date("Mar 16 2024 17:40:00 GMT+0200"),
     endDate: null,
+    link: "https://www.youtube.com/live/YcdIqoyLhMA?si=wWJL1De_44GLAwvq&t=35403",
   },
 ] as const;
 
