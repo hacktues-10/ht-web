@@ -1,7 +1,6 @@
 import { App } from "octokit";
 import invariant from "tiny-invariant";
 
-import { getTeamByProjectId } from "~/app/(full-layout)/teams/service";
 import { env } from "~/app/env.mjs";
 import { SECOND } from "~/app/utils";
 import { getServerSideGrowthBook } from "../growthbook";

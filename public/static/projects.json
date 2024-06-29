@@ -1,0 +1,1444 @@
+[
+  {
+    "id": 4,
+    "name": "Quizify",
+    "description": "Генерира тестови задачи на база предоставени от потребителя материали.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "fixxxxer",
+    "githubRepos": [
+      {
+        "id": 4,
+        "name": "Monika950/HackTues10",
+        "url": "https://github.com/Monika950/HackTues10",
+        "createdAt": "2024-03-13T20:00:08.186Z"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "name": "AquaTrack",
+    "description": "Уеб приложение за следене на риболова.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "bukbybanzhmanbukby",
+    "githubRepos": [
+      {
+        "id": 47,
+        "name": "Nikieprogramach/bukbybanzhmanbukbyServer",
+        "url": "https://github.com/Nikieprogramach/bukbybanzhmanbukbyServer",
+        "createdAt": "2024-03-14T12:08:23.876Z"
+      },
+      {
+        "id": 48,
+        "name": "Nikieprogramach/Bukbybanzhmanbukby",
+        "url": "https://github.com/Nikieprogramach/Bukbybanzhmanbukby",
+        "createdAt": "2024-03-14T12:08:26.217Z"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "name": "AtlasFlow",
+    "description": "Когато човек отиде в спортна зала, най-често не е особено доволен, когато в залата има твърде много хора. AtlasFlow е IoT решение на този проблем.  Представлява система, състояща се от две главни части: камерни модули и уебсайт. \nКамерните модули са предназначени за монтаж в различни части от спортната зала с различни предназначения, например: бодибилдинг, силов трибой, калистеника и т.н.\nМодулите предават визуална информация за съответстващите им части от спортната зала в реално време на програма, утилизираща компютърно зрение, като с помощта на класифициращ алгоритъм преброява хората, които влизат в кадъра на камерата. \nТази информация се предава и се представя по удобен за потребители начин на уебсайта, където може да бъде намерена статистика в реално време за всяка спортна зала, имплементираща системата, и отделните ѝ части.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "tranzistoro",
+    "githubRepos": [
+      {
+        "id": 65,
+        "name": "generot/HackTuesX-Tranzistoro-CamModule",
+        "url": "https://github.com/generot/HackTuesX-Tranzistoro-CamModule",
+        "createdAt": "2024-03-14T14:09:35.595Z"
+      },
+      {
+        "id": 67,
+        "name": "AlexOgnyanov/HackTUES-X-tranzistoro-BE",
+        "url": "https://github.com/AlexOgnyanov/HackTUES-X-tranzistoro-BE",
+        "createdAt": "2024-03-14T14:33:38.480Z"
+      },
+      {
+        "id": 68,
+        "name": "emildoychinov/HackTUES-X-tranzistoro-FE",
+        "url": "https://github.com/emildoychinov/HackTUES-X-tranzistoro-FE",
+        "createdAt": "2024-03-14T14:35:07.145Z"
+      },
+      {
+        "id": 88,
+        "name": "VeniNovakov/HackTUES-X-tranzistoro-BO",
+        "url": "https://github.com/VeniNovakov/HackTUES-X-tranzistoro-BO",
+        "createdAt": "2024-03-15T06:44:12.983Z"
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "name": "Mountains4All",
+    "description": "Платформа позволяваща достъпен и безопасен туризъм в планините. Платформата концентрира данни генерирани от граждански организации и граждани, с цел повишаване на гражданското удовлетворение, безопасността и отговорността при планински туризъм.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "de-debuggers",
+    "githubRepos": [
+      {
+        "id": 72,
+        "name": "KrilPavlov/hacktues2024",
+        "url": "https://github.com/KrilPavlov/hacktues2024",
+        "createdAt": "2024-03-14T17:55:17.773Z"
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "name": "OceanPaint",
+    "description": "\"OceanPaint\" е иновативно микросървизно уеб приложение, което оживява динамичната екосистема на океана чрез интерактивна симулация. Потребителите могат да изграждат морската флора и фауна, както и да изследват въздействието на индустриалните дейности като корабоплаване и петролни платформи. След симулацията, екосистемата на потребителя се качва като пост, който всеки може да види и ако хареса да редактира в негов стил.\n[В github работата е на development branch :) ]",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "bezzevsovi",
+    "githubRepos": [
+      {
+        "id": 76,
+        "name": "AntonStankov/HackTuesX",
+        "url": "https://github.com/AntonStankov/HackTuesX",
+        "createdAt": "2024-03-14T20:36:00.697Z"
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "name": "Nezavisimi",
+    "description": "Nezavisimi е платформа за обективен поглед върху новините в България. Включва търсачка за новини в български медии и ML модел за сравнение на речника на статиите с речника на парламентарно представените партии с цел да се покажат новини с възможност за пристрастие или защитаващи само определена гледна точка.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "9040",
+    "githubRepos": [
+      {
+        "id": 75,
+        "name": "Hristiyyann/Nezavisimi-hacktuesX",
+        "url": "https://github.com/Hristiyyann/Nezavisimi-hacktuesX",
+        "createdAt": "2024-03-14T20:25:11.764Z"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "AquaSense",
+    "description": "\"AquaSense\" е иновативна система за наблюдение на водната среда, разработена за измерване на pH нивата, идентифициране на нефтени замърсявания и локализиране на наддводни обекти. \n  Разработена с цел оптимизиране на контрола и защитата на водната екосистема, AquaSense интегрира сензори и софтуер в една платформа, предлагаща надеждни данни за поддържане на водната безопасност и биоразнообразие. \n  Този проект подпомага превенцията на замърсявания и активно информира обществото за състоянието на водните басейни.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "ne-se-chete",
+    "githubRepos": [
+      {
+        "id": 2,
+        "name": "Ne-Se-Chete/hacktues2024",
+        "url": "https://github.com/Ne-Se-Chete/hacktues2024",
+        "createdAt": "2024-03-13T19:32:47.156Z"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "name": "(CO)do",
+    "description": "Сайт, помагащ на хора с различни хобита (наричаме ги skillset-ове) да се събират в екипи и да създават проекти, целта на които да е да подобрят света.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "brainbugged",
+    "githubRepos": [
+      {
+        "id": 39,
+        "name": "moris071651/BrainBugged",
+        "url": "https://github.com/moris071651/BrainBugged",
+        "createdAt": "2024-03-14T12:01:52.239Z"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "name": "TtTranquil",
+    "description": "Проучвания показват, че подводният шум, излъчван от двигателите и най-вече от перките на търговските кораби, може да има както краткосрочни, така и дългосрочни отрицателни последици за морските обитатели.\n\nВъпреки че този шум може да изглежда безобиден на пръв поглед, постоянното му присъствие представлява значителен риск за морските обитатели, като нарушава тяхната комуникация, навигация и поведение при хранене.\n\nИма множество регулаторни усилия на организации като Международната морска организация (ММО) и Международната организация на труда (МОТ) за цялостно решаване на проблема. Въпреки тези усилия, корабният шум продължава да бъде проблем и до днес.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "ttt",
+    "githubRepos": [
+      {
+        "id": 59,
+        "name": "JivkoNushev/TtT-HackTUES-10",
+        "url": "https://github.com/JivkoNushev/TtT-HackTUES-10",
+        "createdAt": "2024-03-14T12:52:59.920Z"
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "name": "Svetl.io",
+    "description": "Svetlio optimizes Sofia's traffic lights using real-time data and image recognition to improve flow and reduce congestion. It categorizes vehicles, recognizes eco stickers, and integrates with navigation apps to show live traffic light statuses. Aimed at safer, efficient, and eco-friendly urban mobility.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "pochti-lemniskata",
+    "githubRepos": [
+      {
+        "id": 92,
+        "name": "svetl-io/svetlio",
+        "url": "https://github.com/svetl-io/svetlio",
+        "createdAt": "2024-03-15T07:27:34.713Z"
+      },
+      {
+        "id": 93,
+        "name": "svetl-io/concurrent-vehicle-detection",
+        "url": "https://github.com/svetl-io/concurrent-vehicle-detection",
+        "createdAt": "2024-03-15T07:27:38.535Z"
+      },
+      {
+        "id": 94,
+        "name": "svetl-io/vehicle-detection",
+        "url": "https://github.com/svetl-io/vehicle-detection",
+        "createdAt": "2024-03-15T07:27:42.863Z"
+      },
+      {
+        "id": 95,
+        "name": "svetl-io/traffic-visualisation",
+        "url": "https://github.com/svetl-io/traffic-visualisation",
+        "createdAt": "2024-03-15T07:27:44.658Z"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "name": "OPAS",
+    "description": "OPAS is a cutting-edge mobile web application designed to empower individuals to take action against ocean pollution by reporting garbage and waste sightings in the ocean. With its intuitive interface and seamless functionality, OPAS harnesses the power of crowdsourcing to collect real-time data on ocean pollution, enabling users to make a tangible impact on marine conservation efforts.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "balalayka-v-komnata",
+    "githubRepos": [
+      {
+        "id": 51,
+        "name": "pesho21/OPAS",
+        "url": "https://github.com/pesho21/OPAS",
+        "createdAt": "2024-03-14T12:21:25.840Z"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "name": "Сайт за опознаване на световния океан",
+    "description": "Интерактивен образователен сайт, в който потребителят може да научи повече за световния океан. Сайтът е подходящ за ученици и те ще могат да научат за океаните и някои по интересни места на и под вода.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "kvo-staa-men",
+    "githubRepos": [
+      {
+        "id": 53,
+        "name": "DunevTsvetomir/KvoStaaMen",
+        "url": "https://github.com/DunevTsvetomir/KvoStaaMen",
+        "createdAt": "2024-03-14T12:23:24.876Z"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "name": "TrackFit",
+    "description": "Фитнес гривна за анализиране на тренировка с тежести. Чрез акселеометър и жироскоп гривната може да записва данни от движенията, които извършваш и самостоятелно разбира какво упражнение правиш и колко бройки си направил. След края на тренировката данните от нея се анализират от Machine Learning модел, който сами направихме. Структурираните и обработени данни за тренировката се визуализират на уебсайта, където може да намериш история на всички твои тренировки ( видовете упражнения, бройките, сериите, времетраенето на тренировката и полезни графики, които ще ти помогнат да подобриш изпълнението на упражнението.\nГривната ни може самостоятелно да разпознава следните упражнения:\nBench Press, Deadlift, Over Head Press, Rows, Squats, Rest.",
+    "technologies": "",
+    "websiteUrl": "https://excalidraw.com/#json=EqFP8ot03mOTwV_DwhXsT,nwJEcqZuhlHQQUpn0MIK7g",
+    "fallbackRepoUrls": "",
+    "teamId": "c-3po",
+    "githubRepos": [
+      {
+        "id": 74,
+        "name": "BorimirGanchev/HackTues2024",
+        "url": "https://github.com/BorimirGanchev/HackTues2024",
+        "createdAt": "2024-03-14T20:01:00.834Z"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Шамандура със стойност",
+    "description": "Проектът ни представлява иновативна система от умни шамандури, разположени в стратегически области на морето. Всяка шамандура е оборудвана с множество сензори, които автоматично измерват и записват важни данни от морската и въздушната среда. Събраните данни се изпращат до централна станция, където преминават през процес на обработка и анализ, след което се визуализират чрез уеб приложение. Тази система позволява на изследователи, образователни институции и любители на океана да проследяват и анализират тенденции, да моделират климатични промени и да оценяват антропогенното въздействие върху морските екосистеми с голяма точност и лекота.",
+    "technologies": "",
+    "websiteUrl": "https://shamandura.vercel.app/",
+    "fallbackRepoUrls": "",
+    "teamId": "nikva-stoynost",
+    "githubRepos": [
+      {
+        "id": 5,
+        "name": "j7zd/hacktues10",
+        "url": "https://github.com/j7zd/hacktues10",
+        "createdAt": "2024-03-13T20:11:14.668Z"
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "name": "UnderWater Capture",
+    "description": "Проектът представлява разработка на система, която използва подводна камера и ултразвуков за заснемане на изображения, близки до нея. Чрез безжична връзка, снимките се пренасят в датабаза. С помощта на Google Lens се анализират снимките и се идентифицират различните видове морски организми, обекти и структури, които се наблюдават.  Това позволява научното общество и еколозите да извличат полезна информация за разнообразието на живота в океана, за състоянието на екосистемите и за въздействието на човешката дейност върху тях.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "samo-po-zhici",
+    "githubRepos": [
+      {
+        "id": 91,
+        "name": "Zlati12/Underwater-Capture",
+        "url": "https://github.com/Zlati12/Underwater-Capture",
+        "createdAt": "2024-03-15T07:24:12.061Z"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "artidee",
+    "description": "Проектът е платформа, насърчаваща артисти от всички нива - от начинаещи до напреднали, да практикуват и усъвършенстват своите умения в рисуването ежедневно, като по този начин поддържат и развиват своята техника. Системата генерира индивидуализирани ежедневни предизвикателства за рисуване, адаптирани според уменията на всеки потребител. За начинаещите артисти предлага специфични изображения по зададена тема за прерисуване, помагайки им да усвоят нови техники и подходи. За по-опитните, платформата предоставя по-абстрактни теми, които стимулират креативността и предлагат свобода за експериментиране, спомагайки за развитието на уникален стил. Всички създадени рисунки се съхраняват в лична галерия, която може да служи като портфолио или просто като запис на прогреса в областта на рисуването. Тази функционалност позволява на артистите да наблюдават своето развитие с течение на времето и да идентифицират области за подобрение.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "kocosi",
+    "githubRepos": [
+      {
+        "id": 32,
+        "name": "iv4pa4/artidee",
+        "url": "https://github.com/iv4pa4/artidee",
+        "createdAt": "2024-03-14T10:55:45.230Z"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "name": "Secrets of The Deep",
+    "description": "В тази игра си в плавниците на водолаз, който се спуска в дълбините на безкрайния океан, в търсене на Златната риба, НЕ за да я улови, а за да я снима. По време на пътешествието младият изследовател се сблъсква с множество препятствия, но и с много други риби, на които да направи снимки.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "viktm",
+    "githubRepos": [
+      {
+        "id": 54,
+        "name": "KristiyanKobarelov/VIKTM---Hack-TUES",
+        "url": "https://github.com/KristiyanKobarelov/VIKTM---Hack-TUES",
+        "createdAt": "2024-03-14T12:27:31.149Z"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "name": "Smart_PomoOsht_School",
+    "description": "Уеб приложение в помощ и удобство на ученици. В него те могат да комуникират и да подобряват училищното си изкарване.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "pomoosht",
+    "githubRepos": [
+      {
+        "id": 57,
+        "name": "demiralyubenova/Smart_PomoOsht_School",
+        "url": "https://github.com/demiralyubenova/Smart_PomoOsht_School",
+        "createdAt": "2024-03-14T12:48:35.846Z"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Practicum",
+    "description": "Платформата ни за самообучение предоставя бърз и лесен достъп до набор от тестове. Добавена е и система за обратана връзка между учител и ученик.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "izgubenite",
+    "githubRepos": [
+      {
+        "id": 16,
+        "name": "KaloianPenchev/Izgubenite",
+        "url": "https://github.com/KaloianPenchev/Izgubenite",
+        "createdAt": "2024-03-13T23:37:15.828Z"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "AcademiX",
+    "description": "Нашия проект цели пълна интеграция на онлайн платформа за обучение с онлайн дневник. Той комбинира фронтенд и бекенд технологии, за да създаде безпроблемно образователно преживяване за учители, ученици и администратори.\n\nПроектът ни спада към тема Smart School",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "chikn-litl",
+    "githubRepos": [
+      {
+        "id": 64,
+        "name": "ChrisY60/HT2024",
+        "url": "https://github.com/ChrisY60/HT2024",
+        "createdAt": "2024-03-14T13:46:07.255Z"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "name": "HobbHUB",
+    "description": "HobbHUB е платформа, която позволява на хората да се свързват с други хора, които имат общи хобита. Така хората ще могат да обменят помежду си знания и опит, да пишат за постиженията си и да намират съотборници и опоненти за различни спортове и игри.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "s-tier",
+    "githubRepos": [
+      {
+        "id": 46,
+        "name": "rosen1710/hobby-hub",
+        "url": "https://github.com/rosen1710/hobby-hub",
+        "createdAt": "2024-03-14T12:07:19.388Z"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Balkan Travel",
+    "description": "Balkan Travel представлява удобно и иновативно мобилно/уеб приложение, което предоставя на потребителите информация и помощ при пътуванията им от едно място до друго. С помощта на интерактивна карта, потребителите могат да планират своето пътуване, виждайки маршрута, различните валути и такси и винетките във всяка балканска държава. Приложението е лесно за използване и достъпно за всеки потребител, като има опцията да се виждат минали пътувания, университети и традиционни ястия във всяка една държава на Балканите.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "gnk",
+    "githubRepos": [
+      {
+        "id": 3,
+        "name": "Gotvacha/GNK_repo",
+        "url": "https://github.com/Gotvacha/GNK_repo",
+        "createdAt": "2024-03-13T19:50:00.086Z"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "name": "Muscle Master",
+    "description": "Muscle Master е сайт, проектиран да бъде незаменим помощник във фитнеса на всеки, който иска да наблюдава и анализира своя прогрес.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "people-in-paris",
+    "githubRepos": [
+      {
+        "id": 49,
+        "name": "alekmiltenov/gym",
+        "url": "https://github.com/alekmiltenov/gym",
+        "createdAt": "2024-03-14T12:09:48.132Z"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "name": "Aqua Clean-up",
+    "description": "Aqua Clean-up е онлайн платформа, фокусирана върху проблемите, свързани със замърсяването на океаните. В уебсайта се представят различни аспекти на тези проблеми, като морски отпадъци, замърсяване с пластмаса и влиянието върху морската биоразнообразност. Посетителите имат възможност да създадат профил чрез страниците за влизане и регистрация.\n\nЕдин от ключовите елементи на уебсайта е играта, разработена на Pygame, която е забавен начин за децата да се запознаят с проблемите на замърсяването на океана. Чрез интерактивната игра малките потребители могат да се научат какви са последствията от замърсяването на океана и какво могат да направят, за да помогнат за неговото решаване. Тази игра предлага образователен и ангажиращ подход за учене и осъзнаване на важността на опазването на морската среда.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "boyan-hristov",
+    "githubRepos": [
+      {
+        "id": 99,
+        "name": "VaskoVelev/HackTuesX",
+        "url": "https://github.com/VaskoVelev/HackTuesX",
+        "createdAt": "2024-03-15T07:54:34.689Z"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "name": "Quizstics",
+    "description": "Уеб приложение, което по дадена презентация/документ/текст, свързана/а с преподаден урок, генерира викторина с въпроси за проверка на знанията на учениците. Всеки учител вижда викторините, които е създал в страницата MyProfile и има опцията да генерира статистики на базата на резултатите на учениците. Някои от статистиките, които учителят може да види са процент успеваемост на учениците на всеки въпрос, процент успеваемост на учениците на цялата викторина и по колко отговора от всеки има на всеки въпрос.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "asap-x11",
+    "githubRepos": [
+      {
+        "id": 77,
+        "name": "KillLaker/HackTues-X",
+        "url": "https://github.com/KillLaker/HackTues-X",
+        "createdAt": "2024-03-14T20:45:44.437Z"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "name": "Oceansis",
+    "description": "Проектът представлява 2д симулатор на движение на морски транспортни средства. След определяне на началната и крайната точка от пътуването, алгоритъмът ще визуализира възможно най - краткия път. Проектът предлага поставяне на различни морски препядствия, като морски течения, които евентуално биха променили курса на превозното средство.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "vitam2in-g",
+    "githubRepos": [
+      {
+        "id": 80,
+        "name": "MartinovG/HT10---Vitam2in-G",
+        "url": "https://github.com/MartinovG/HT10---Vitam2in-G",
+        "createdAt": "2024-03-14T21:32:01.122Z"
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "name": "Smartifying the electric grid",
+    "description": "Система, която дава възможност на операторите на електропреносни мрежи и на потребителите по - голям контрол върху консумацията на електроенергия с цел оптимизиране на потреблението и избягването на непредвидени прекъсвания.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "_",
+    "githubRepos": [
+      {
+        "id": 97,
+        "name": "tirence/upravtok",
+        "url": "https://github.com/tirence/upravtok",
+        "createdAt": "2024-03-15T07:42:00.404Z"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "name": "The secrets of the depth",
+    "description": "Запознаваме потребителите с тайните и проблемите на океана и така ги мотивираме да го пазят!",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "iconic",
+    "githubRepos": [
+      {
+        "id": 35,
+        "name": "stephanianev/Hack-TUES",
+        "url": "https://github.com/stephanianev/Hack-TUES",
+        "createdAt": "2024-03-14T11:49:38.172Z"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "StockChain",
+    "description": "StockChain е web3 платформа, позволяваща на фотографи, да продават сигурно правата над техните снимки, чрез използването на NFT технология.",
+    "technologies": "",
+    "websiteUrl": "https://stockchain.kaloyan.tech",
+    "fallbackRepoUrls": "https://github.com/pandishpancheta/auth-service\nhttps://github.com/pandishpancheta/contract-observer-service\nhttps://github.com/pandishpancheta/smart-contract\nhttps://github.com/pandishpancheta/frontend\nhttps://github.com/pandishpancheta/listings-service\nhttps://github.com/pandishpancheta/order-service\nhttps://github.com/pandishpancheta/tokenization-service\nhttps://github.com/pandishpancheta/api-gateway-service\nhttps://github.com/pandishpancheta/service-deployment \nhttps://github.com/pandishpancheta/presentation",
+    "teamId": "pandishpancheta",
+    "githubRepos": []
+  },
+  {
+    "id": 50,
+    "name": "Boqdjiqta",
+    "description": "Нашия прокет представлява робот, който намира и заличава графити от училищни сгради.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "4bp",
+    "githubRepos": [
+      {
+        "id": 111,
+        "name": "ivan-p-petkov/4bp",
+        "url": "https://github.com/ivan-p-petkov/4bp",
+        "createdAt": "2024-03-15T13:32:18.886Z"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "name": "QuestBet",
+    "description": "Проектът се състои от мисии, които изпълнявате, чрез игране на любимите ви игри и печелите точки, с които може да се сдобиете със скинове или други награди свързани с играта или да се присъедините към различни турнири срещу други хора.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "pookie-tata",
+    "githubRepos": [
+      {
+        "id": 109,
+        "name": "VocoPoco/pookie-tata-server",
+        "url": "https://github.com/VocoPoco/pookie-tata-server",
+        "createdAt": "2024-03-15T12:31:16.602Z"
+      },
+      {
+        "id": 110,
+        "name": "VocoPoco/pookie-tata-client",
+        "url": "https://github.com/VocoPoco/pookie-tata-client",
+        "createdAt": "2024-03-15T12:31:17.736Z"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "FreshEd",
+    "description": "Решаваме проблема с изучаването и връзката м/у ученици и учители, нивото на образование и осигуряване на академична честност",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "svezhi",
+    "githubRepos": [
+      {
+        "id": 1,
+        "name": "SookX/FreshEd",
+        "url": "https://github.com/SookX/FreshEd",
+        "createdAt": "2024-03-13T18:41:04.605Z"
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "name": "Unifish",
+    "description": "Unfish е приложение, интуитивно превеждащо законов текст (какъвто е например документ за наложен фиш) на лесен и разбираем за нарушителя език.\n\nВ законови документи често се цитират определени членове и алинеи и от законов текст с очакването, че получателят на фиша ще отвори съответния закон, ще открие съответната част от него и ще я прочете. Въпреки това, макар и законовите текстове да са публично достъпни в правни портали, какъвто е lex.bg, гражданите рядко отделят време за подобна справка.\n\nЕто защо в Unfish съответната част от закона бива директно показвана на екрана чрез улеснен и изчистен от не пряко съотносими към ситуацията термини и уточнения. В случай, че гражданинът желае да прочете, пълния текст на закона, той може да го направи в съотвените публично достъпни справочници.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "otchasti-lemniskata",
+    "githubRepos": [
+      {
+        "id": 102,
+        "name": "dzhelek/unfish",
+        "url": "https://github.com/dzhelek/unfish",
+        "createdAt": "2024-03-15T09:33:05.638Z"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "name": "Fast and Smart",
+    "description": "Сайт на тема SmartSchool, който е разработен като анкета, лесно достъпна за ученици и учители, която има за цел да развие и обогати общата култура на обществото.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "hackeight",
+    "githubRepos": [
+      {
+        "id": 41,
+        "name": "BorbiAl/HackEight",
+        "url": "https://github.com/BorbiAl/HackEight",
+        "createdAt": "2024-03-14T12:02:27.597Z"
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "name": "BayWatch",
+    "description": "Baywatch: Заедно за чисти брегове и води!\n\nЗамърсено крайбрежие? Застрашени морски обитатели? Незаконен риболов? Увредена екосистема?\n\nС Baywatch можете да подадете сигнал за проблеми в морски, крайбрежни и речни среди и да станете част от решението.\n\nСигнал: Споделете снимка, описание и местоположение на замърсяване, бракониерство или други проблеми.\n\nОрганизирайтe акция: Създайте и координирайте акция по подаден сигнал или се присъединете като доброволец.\n\nАвтоматично валидирайте събитията си като успешно приключени.\nпрезентация: baywatch.pptx",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "ctrlaltdefeat",
+    "githubRepos": [
+      {
+        "id": 98,
+        "name": "krsultov/CtrlAltDefeat-HTX",
+        "url": "https://github.com/krsultov/CtrlAltDefeat-HTX",
+        "createdAt": "2024-03-15T07:53:06.309Z"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "Login/Logout Device",
+    "description": "Нашият проект е свързан с олесняване влизането на ученик или учител в техния класен профил, като устройството има 2 бутона:\n1. Бутон за влизане в класния профил: При натискане на този бутон системата ще трябва да аутентикира потребителя в класния профил, като използва потребителско име и парола.\n2. Бутон за излизане от профила: Този бутон ще позволява на потребителя да излезе от класния профил. Това включва просто изтриване на текущата сесия на потребителя.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "pchelichkite",
+    "githubRepos": [
+      {
+        "id": 55,
+        "name": "Dizzy918/Hacktues-2024",
+        "url": "https://github.com/Dizzy918/Hacktues-2024",
+        "createdAt": "2024-03-14T12:30:03.747Z"
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "name": "Xranilka",
+    "description": "Платформа за подаване на оплаквания от процеса на работа в държавните институции. Целим да подобрим отчетността след подадени жалби. неизпълнени заявки и некоректно функциониране на дърважни институции.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "kotki-s-palci-2",
+    "githubRepos": [
+      {
+        "id": 81,
+        "name": "NikolayLazarov/HackTUES10",
+        "url": "https://github.com/NikolayLazarov/HackTUES10",
+        "createdAt": "2024-03-14T23:39:52.646Z"
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "name": "Платформа за дигитализиране на процеса по разработка на дипломни проекти",
+    "description": "Платформа за дигитализиране на процеса по разработка на дипломни проекти",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "taricad-sistema-v2",
+    "githubRepos": [
+      {
+        "id": 108,
+        "name": "AnMe3z/HackTuesX",
+        "url": "https://github.com/AnMe3z/HackTuesX",
+        "createdAt": "2024-03-15T12:04:16.656Z"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Elsyser's Home",
+    "description": "Интерактивна карта на учебното заведение, която показва важна информация за сградата и стаите.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "mladi-bogati-tuesari",
+    "githubRepos": [
+      {
+        "id": 21,
+        "name": "retr0-debug/MladiBogatiTuesari",
+        "url": "https://github.com/retr0-debug/MladiBogatiTuesari",
+        "createdAt": "2024-03-14T07:28:27.318Z"
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "name": "WiCry",
+    "description": "Проектът има за цел активно да тества реакциите, действията и експертизата на екипите отговарящи за защита на инфраструктурата, контролите и процедурите за информационна сигурност в реалистична киберзаплаха, която включва най-разпространения протокол за безжична мрежова свързаност - Wi-Fi. \nПроектът дублирана избрана мрежа, използвайки подхода Evil Twin. В процеса на свързване се отваря графичен потребителски интерфейс. Използва се микрокомпютър за безжична точка за достъп. За да се реализира свързаност към мрежата, се използва потребителски графичен интерфейс. Целия трафик на устройставата, които са свързани към нашата мрежа, минава през централизирана точка и бива визуализиран.\nНашето решение RAPD представлява активен мрежов скенер, които филтрира наличните Wifi мрежи с цел откриване на EvilTwin/RougueAP. Има два режима на работа. Learning - Събира информация за точките за достъп. Записва техните MAC адреси. Active - Следи за нови Wi-Fi мрежи и алармира за непознати мрежи.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "zaloopenite",
+    "githubRepos": [
+      {
+        "id": 82,
+        "name": "mospassova/WiCry",
+        "url": "https://github.com/mospassova/WiCry",
+        "createdAt": "2024-03-15T00:19:19.116Z"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "HobbyLobby",
+    "description": "Webapp, който помага на хората, имащи желание да си намерят хоби да открият правилното такова за тях. Ние предоставяме и опцията да се свържеш с други хора имащи подобна на твоята страст и да направиш връзката между няколко хобита.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "drzhavnicite",
+    "githubRepos": [
+      {
+        "id": 34,
+        "name": "Martobgz/HobbyLobby",
+        "url": "https://github.com/Martobgz/HobbyLobby",
+        "createdAt": "2024-03-14T11:31:44.231Z"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "name": "IntelliNotes",
+    "description": "IntelliNotes е мобилно приложение, което помага на учениците да учат по-ефективно и прави учебния процес достъпен за всички.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "skater",
+    "githubRepos": [
+      {
+        "id": 69,
+        "name": "NikiKerezov/IntelliNotes",
+        "url": "https://github.com/NikiKerezov/IntelliNotes",
+        "createdAt": "2024-03-14T14:56:28.232Z"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "name": "Underwater container integrity station",
+    "description": "Устройство за анализ на промените настъпили при потапянето на контейнери със сървъри в океаните, с цел охлаждане на въпросните сървъри.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "mandzha-s-grozde",
+    "githubRepos": [
+      {
+        "id": 63,
+        "name": "GeorgiFidanov/HackTUES-X",
+        "url": "https://github.com/GeorgiFidanov/HackTUES-X",
+        "createdAt": "2024-03-14T13:41:37.530Z"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Градинарят",
+    "description": "Роботизирана количка, която следи и поддържа градини/ малки ниви. Той минава покрай растенията и ги полива със своята 5v-ва  помпа. Той може да наторява, обезпарязитява и полива растителността. Също следи и за дъжд и полива, когатое необходимо.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "whitelisted",
+    "githubRepos": [
+      {
+        "id": 18,
+        "name": "MihCom9/HackTX",
+        "url": "https://github.com/MihCom9/HackTX",
+        "createdAt": "2024-03-14T06:46:39.532Z"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "name": "EduNova",
+    "description": "EduNova e усъвършенстван образователен инструмент, който използва изкуствен интелект, за да превърне традиционните класни стаи в интерактивна среда за обучение. Като разбира контекста и съдържанието на дискусиите в класната стая, той предлага персонализирана подкрепа и ресурси, като повишава ангажираността и разбирането на учениците. Тази инициатива има за цел да направи обучението по-достъпно и персонализирано, като революционизира начина, по който се предоставя и преживява образованието.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "malkite-kalashnici",
+    "githubRepos": [
+      {
+        "id": 60,
+        "name": "1RedGuy/HackTues10",
+        "url": "https://github.com/1RedGuy/HackTues10",
+        "createdAt": "2024-03-14T13:02:00.287Z"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "GreenGathers",
+    "description": "Правим сайт, който включва календар със събития, на които да могат да присъстват хора от различни училища. Тези събития ще представляват нещо като workshop-и и освен с образователна, ще са и с цел опазване на околната среда.",
+    "technologies": "",
+    "websiteUrl": "http://91.239.13.16:4200/",
+    "fallbackRepoUrls": "",
+    "teamId": "die-katze-mqu-mqu",
+    "githubRepos": [
+      {
+        "id": 6,
+        "name": "ScripterEve/DieKatzeMquMqu",
+        "url": "https://github.com/ScripterEve/DieKatzeMquMqu",
+        "createdAt": "2024-03-13T20:18:40.528Z"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "name": "Smart Classroom",
+    "description": "Уеб приложение,създадено с цел да подпомогне образователните институции.То помага на учениците да се подготвят по-успешно и също така се грижи за общото благосъстояние на училището като постоянно наблюдава състоянието на всяка класна стая с умна мониторинг система.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "technovators",
+    "githubRepos": [
+      {
+        "id": 66,
+        "name": "Mladen-Robotics/TechNovators_HackTUES_X",
+        "url": "https://github.com/Mladen-Robotics/TechNovators_HackTUES_X",
+        "createdAt": "2024-03-14T14:10:34.109Z"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "name": "Chadium",
+    "description": "Chadium е платформа, която улеснява менажирането на малки общости и подобрява вътрешната им комуникация. Някои от функционалностите включват: мениджър на задачи, който позволява създаване и разпределяне на задачи, модул за новини и постове, възможност за набиране на средства, система за гласуване по ключови въпроси касаещи обществото и др. Chadium е идеалният помощник за малки общности, който улеснява организацията и вземането на решения и стимулира ангажираността.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "fanton-again",
+    "githubRepos": [
+      {
+        "id": 70,
+        "name": "fanton-dev/chadium-site",
+        "url": "https://github.com/fanton-dev/chadium-site",
+        "createdAt": "2024-03-14T17:41:28.995Z"
+      },
+      {
+        "id": 71,
+        "name": "fanton-dev/chadium-api-spring",
+        "url": "https://github.com/fanton-dev/chadium-api-spring",
+        "createdAt": "2024-03-14T17:41:29.619Z"
+      },
+      {
+        "id": 112,
+        "name": "fanton-dev/chadium-api",
+        "url": "https://github.com/fanton-dev/chadium-api",
+        "createdAt": "2024-03-16T01:28:22.786Z"
+      },
+      {
+        "id": 113,
+        "name": "fanton-dev/chadium",
+        "url": "https://github.com/fanton-dev/chadium",
+        "createdAt": "2024-03-16T05:02:25.946Z"
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "name": "HOBBYt",
+    "description": "HOBBYt е приложение, предназначено да предостави на потребителите платформа за изучаване на техните хобита и интереси и препоръчване на обучителни онлайн курсове/университети/начини да си направят хобито истинска професия за близкото бъдеще.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "23-e-chin",
+    "githubRepos": [
+      {
+        "id": 84,
+        "name": "Misho12345/HackTuesXProj",
+        "url": "https://github.com/Misho12345/HackTuesXProj",
+        "createdAt": "2024-03-15T06:32:51.729Z"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Polluted",
+    "description": "Openworld игра на Unity със C#, в която започваме в бъдещето, където на дъното на океана има фабрики, които замърсяват водата. Нашата цел е да събираме скрап от дъното, с която създаваме tool-ове, с чиято помощ унищожаваме фабриките и ги заменяма с водни турбини. Имаме противници, които работят за правителството, което се опитва да ни спре. След като унищожим всички фабрики се връщаме назад в настоящето (където идва темата Back to the roots). Правителството не взима никакви мерки, за да се предотврати разтапянето на ледниците. Напротив. Даже поощрява мефтената индустрия, която по това време е в своя пик на замърсяване. Нашата цел е да разрушим нефтените сондажни платформи.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "monke-stew",
+    "githubRepos": [
+      {
+        "id": 78,
+        "name": "Toxic-Fuel/Polluted",
+        "url": "https://github.com/Toxic-Fuel/Polluted",
+        "createdAt": "2024-03-14T21:24:40.748Z"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "TUES Connect",
+    "description": "Социална мрежа за туесари, която помага за създаването и поддържането на извънкласните клубове в ТУЕС, като свързва хора от различни випуски по интереси.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "child-club-penguin",
+    "githubRepos": [
+      {
+        "id": 28,
+        "name": "jukfiuune/tuesconnect",
+        "url": "https://github.com/jukfiuune/tuesconnect",
+        "createdAt": "2024-03-14T08:05:24.968Z"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "DishEat",
+    "description": "DishEat е приложение за генериране на рецепти и режими на ядене. С помощта на AI потребителите ще могат да ядат максимално здравослвоно и според предпочитанията си.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "4ta-papka",
+    "githubRepos": [
+      {
+        "id": 33,
+        "name": "BOGI5/4ta-papka",
+        "url": "https://github.com/BOGI5/4ta-papka",
+        "createdAt": "2024-03-14T11:27:07.708Z"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Scanaryo",
+    "description": "Това е приложение за визуализация и изтегляне на модели от 3Д скенер.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "smth",
+    "githubRepos": [
+      {
+        "id": 44,
+        "name": "Petyo-Miladinov/HackTuesX-smth",
+        "url": "https://github.com/Petyo-Miladinov/HackTuesX-smth",
+        "createdAt": "2024-03-14T12:05:36.038Z"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "Експаншън Дневник",
+    "description": "Сайт, дневник, където учители могат да изпращат материали на учениците и да им пишат оценки.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "domain-expansion",
+    "githubRepos": [
+      {
+        "id": 40,
+        "name": "TonyDamov/HackTUES_X_Project_Domain_expansion",
+        "url": "https://github.com/TonyDamov/HackTUES_X_Project_Domain_expansion",
+        "createdAt": "2024-03-14T12:02:22.908Z"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "FinFinder",
+    "description": "Web приложение, което спрямо дадена локация, област, дава информация за рибите, които могат да бъдат уловени. Приложението предоставя и търсене по вид риба, област и други фактори, което ще подпомогне и улесни любителския риболов.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "az-hristos",
+    "githubRepos": [
+      {
+        "id": 43,
+        "name": "sswegy/HacktuesX",
+        "url": "https://github.com/sswegy/HacktuesX",
+        "createdAt": "2024-03-14T12:03:49.037Z"
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "name": "Прозрачна търговия",
+    "description": "Платформа, която анализира обществени поръчки за нарушения и позволява на гражданите да ги следят.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "kakvo-stava-a",
+    "githubRepos": [
+      {
+        "id": 96,
+        "name": "dashkata/kvo-stava-a",
+        "url": "https://github.com/dashkata/kvo-stava-a",
+        "createdAt": "2024-03-15T07:36:00.232Z"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "HacktuesProject",
+    "description": "Сайт с образователни игри, мини игрипо подтемата \"SmartSchools\"",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "shpaklovchicite",
+    "githubRepos": [
+      {
+        "id": 73,
+        "name": "KristianMih/HackTuesShpaklovchicite",
+        "url": "https://github.com/KristianMih/HackTuesShpaklovchicite",
+        "createdAt": "2024-03-14T19:20:12.332Z"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "name": "Botanical Buddy",
+    "description": "Web приложение, което ще е много полезно за любители градинари като то ще им помага да разберат всичко за техните растения. Потребителят ще може да добавя растения към своята градина и ще получава напомняне когато трябва да го полива.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "restarted",
+    "githubRepos": [
+      {
+        "id": 101,
+        "name": "KonstantinZlatew/Hack-TUES-10",
+        "url": "https://github.com/KonstantinZlatew/Hack-TUES-10",
+        "createdAt": "2024-03-15T08:48:14.033Z"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "name": "Techscape",
+    "description": "\"Techscape\" е образователна игра с интерактивни задачи по програмиане. Играчът е поставен в постапокалиптичен свят, опустошен от напредъка на изкуствения интелект, и може да спаси човечеството, като се върне назад във времето, преди унищожителното влияние на технологиите. Героят трябва да изпълни различни мисии, за да успее да постигне своята крайна цел.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "pomelo",
+    "githubRepos": [
+      {
+        "id": 79,
+        "name": "kristin-lina-todorova/Pomelo",
+        "url": "https://github.com/kristin-lina-todorova/Pomelo",
+        "createdAt": "2024-03-14T21:28:11.506Z"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "name": "FocusFlow",
+    "description": "Нашият проект мониторира колко са съсредоточени и в какво настроение са учениците чрез пулса им. Това улеснява преподавателската работа и добавя научна стойност към проучванията за връзката между пулса и вниманието и емоциите на човек, подобно на DEAP и проучването в този линк: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7038485/. Използваме микросървисна архитектура, като сървисите са: Frontend - Next.js, Backend - Spring Boot, AI server - Flask (създаден с Tensorflow и Keras) и 2 различни вида хардуерни устройства.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "the-chu",
+    "githubRepos": [
+      {
+        "id": 83,
+        "name": "MontBru/HackTues10",
+        "url": "https://github.com/MontBru/HackTues10",
+        "createdAt": "2024-03-15T04:43:08.105Z"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "SeaLifeScan",
+    "description": "Website, който използва качени от потребителя  изображения на акули, разпознава типа им чрез изкуствен интелект, който сме тренирали и дава информация за биологичния вид.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "gnub",
+    "githubRepos": [
+      {
+        "id": 17,
+        "name": "boyanbgeorgiev/gnub",
+        "url": "https://github.com/boyanbgeorgiev/gnub",
+        "createdAt": "2024-03-14T00:28:31.476Z"
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "name": "dF4s",
+    "description": "dF4s - decentralized feedback for school / studies - e децентрализирана система за обратна връзка по образователния процес. Тя предоставя демократична среда за споделяне на мнение, запазвано в блокчейна, и \"второ мнение\" за проекти на самите ученици.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "vafli-kuci",
+    "githubRepos": [
+      {
+        "id": 100,
+        "name": "rangelovkiril/HTX",
+        "url": "https://github.com/rangelovkiril/HTX",
+        "createdAt": "2024-03-15T08:27:21.110Z"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "DartsSense",
+    "description": "DartsSense ще автоматизира аспекти от играта на дартс, предоставяйки на играчите в реално време информация за тяхната точност и техника. Така ще бъдат подобрени тренировките и играчите ще могат да развият по-добри умения в играта.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "a4-samo-hartiya",
+    "githubRepos": [
+      {
+        "id": 27,
+        "name": "michislava/DartsSense",
+        "url": "https://github.com/michislava/DartsSense",
+        "createdAt": "2024-03-14T07:54:07.828Z"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Law Time Machine",
+    "description": "Сайт за визуализиране на връзките в законите и техните подразделения с цел прозрачност и разбиране от общността.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "assert-i",
+    "githubRepos": [
+      {
+        "id": 30,
+        "name": "simo1209/hacktues10_law_time_machine",
+        "url": "https://github.com/simo1209/hacktues10_law_time_machine",
+        "createdAt": "2024-03-14T09:10:09.090Z"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "smart aquarium",
+    "description": "Автоматизиране на пълненето и изпразването на водата при смяна ;автоматизирана лампа; затопляне на водата когато е под някаква температура; Система за филтриране; Система за хранене;",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "gorublyanska-aristokraciya",
+    "githubRepos": [
+      {
+        "id": 15,
+        "name": "kaloyan-yanev/HackTuesX_gorublqnska_aristokraciq",
+        "url": "https://github.com/kaloyan-yanev/HackTuesX_gorublqnska_aristokraciq",
+        "createdAt": "2024-03-13T21:44:39.090Z"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "name": "HobbyHook",
+    "description": "Нашия проект е приложение написано на Java Android - HobbyHook.\nА какво представлява HobbyHook? Това е приложение, в което ще можеш да качаш така наречените - евенти, които са като meet up-и. Тоест ти си седиш във вас и ти се заиграва футбол, но нямаш с кого да играеш, а какво е решението? Правиш \"евент\" в нашето приложение, което ще може да бъде виждано и join-вано от другите потребители. Ще можеш да виждаш какъв е този \"евент\", кога е той, къде е той и кой се е включил в него.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "telk-adzhiite",
+    "githubRepos": [
+      {
+        "id": 89,
+        "name": "NickProgrammerGaming/HackTuesXApp",
+        "url": "https://github.com/NickProgrammerGaming/HackTuesXApp",
+        "createdAt": "2024-03-15T07:06:19.204Z"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "член42.бг",
+    "description": "Платформа за лесно търсене и извличане на информация от българските закони. Визуализация на връзките между части на закона, способност за търсене на релевантна информация, лесно подреждане на подбраната информация.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "go6o",
+    "githubRepos": [
+      {
+        "id": 13,
+        "name": "petergerasimov/chlen42",
+        "url": "https://github.com/petergerasimov/chlen42",
+        "createdAt": "2024-03-13T21:14:44.256Z"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Price Compass",
+    "description": "Мобилно приложение за отчет и анализ на цените на пазарните продукти",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "mixed-equilibrium",
+    "githubRepos": [
+      {
+        "id": 31,
+        "name": "Squidfishrl/Price-Compass",
+        "url": "https://github.com/Squidfishrl/Price-Compass",
+        "createdAt": "2024-03-14T10:05:31.989Z"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "The Bunny GPT",
+    "description": "Bunny GPT е проект, който подпомага на 3-6 годишни деца да навлязат в сферата на учението с помощта на изкуствен интелект. Той дава един по-плавен и лесен преход чрез разбираща се за малките деца информация в предучилищна възраст. Bunny GPT със своя иновативен начин на комуникация и забавен процес на обучение улеснява и запалва интереса на всяко малко дете. Ние предлагаме иновативна идея, с която вашето дете да има по-добри резултати още от своя старт в академичните науки.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "absolyutnite-choveci",
+    "githubRepos": [
+      {
+        "id": 85,
+        "name": "BorisJIordanov/Absolut-chovek",
+        "url": "https://github.com/BorisJIordanov/Absolut-chovek",
+        "createdAt": "2024-03-15T06:33:05.951Z"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "name": "PhotoStereo",
+    "description": "Easily visualize any stereometry question with real-time generated 3D model and AI. You can scan your question with your smartphone and the 3D figure will appear in a 3D-coordinate system accompanied by a step-by-step solution.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "sector-c",
+    "githubRepos": [
+      {
+        "id": 56,
+        "name": "SectorCT/Hacktues10SC",
+        "url": "https://github.com/SectorCT/Hacktues10SC",
+        "createdAt": "2024-03-14T12:30:59.235Z"
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "name": "Learn the A, B, See",
+    "description": "Проекта ни представлява 3d визуализация на земята, която да можеш да въртиш както си искаш. Можеш да цъкнеш върху един от океанине, след което камерата ще се приближи до толкова, че ще влезе под вода и пред теб ще започнат да плуват пред теб. Заедно с тях ще се появи и информацията им.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "lonely-wolf",
+    "githubRepos": [
+      {
+        "id": 90,
+        "name": "BoyanGerasimov/HackTuesX",
+        "url": "https://github.com/BoyanGerasimov/HackTuesX",
+        "createdAt": "2024-03-15T07:16:49.954Z"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "LepriOcean",
+    "description": "Our game \"LepriOcean\" is about a leprichaun with a yellow submarine who goes around the ocean to clean it from the trash",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "heisenburger",
+    "githubRepos": [
+      {
+        "id": 45,
+        "name": "Stefcho69/HackTuesX-Heisenburger",
+        "url": "https://github.com/Stefcho69/HackTuesX-Heisenburger",
+        "createdAt": "2024-03-14T12:05:39.804Z"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "name": "The Legend of Atlantis",
+    "description": "A 3D Game about The Legend of Atlantis, included in a Website with more Interactive Elements.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "the-butterfly-effect",
+    "githubRepos": [
+      {
+        "id": 50,
+        "name": "Al1002/hackTuesX",
+        "url": "https://github.com/Al1002/hackTuesX",
+        "createdAt": "2024-03-14T12:18:11.094Z"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "MasterMove",
+    "description": "MasterMove е революционно приложение, предназначено да даде възможност на потребителите да придобият разнообразни умения в различни области. Независимо дали искате да усъвършенствате своите умения в шаха, да овладеете нов музикален инструмент, да усъвършенствате фотографските си умения или да навлезете в тънкостите на програмирането, MasterMove ви предлага всичко.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "double-oreo",
+    "githubRepos": [
+      {
+        "id": 58,
+        "name": "kaloyan-gavrilov/MasterMove",
+        "url": "https://github.com/kaloyan-gavrilov/MasterMove",
+        "createdAt": "2024-03-14T12:49:49.330Z"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "name": "Tidal Tech Station",
+    "description": "Метерологична станция за следене на различни параматри в близост до брега на воден обект.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "the-warriors",
+    "githubRepos": [
+      {
+        "id": 62,
+        "name": "Veselin-Vladimirov/The-warrior-project",
+        "url": "https://github.com/Veselin-Vladimirov/The-warrior-project",
+        "createdAt": "2024-03-14T13:38:13.719Z"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "name": "HTXSearch",
+    "description": "Платформа позволяваща бързото намиране на информация във всякакви видове документи!",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "113",
+    "githubRepos": [
+      {
+        "id": 61,
+        "name": "kaldimitrov/HTXSearch",
+        "url": "https://github.com/kaldimitrov/HTXSearch",
+        "createdAt": "2024-03-14T13:36:54.402Z"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Dreamer",
+    "description": "Smart home система, която анализира съня на потребителя и в случай, че е заспал, подготвя дома му за сън като изключва лампи, спуска щори и т.н.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "quatro-dummies",
+    "githubRepos": [
+      {
+        "id": 29,
+        "name": "plammmygeor/HackTUESX",
+        "url": "https://github.com/plammmygeor/HackTUESX",
+        "createdAt": "2024-03-14T08:36:50.297Z"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Easy-going fitness",
+    "description": "Приложение, което да помага на начинаещи да проходят във фитнеса.\nСъздаване на тренировка за деня за различни мускулни групи.\nВъзможност за избиране на интензивността на тренировката.\nВключва видео към всяко упражнение, което показва правилното му изпълнение.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "mladi-tuesari",
+    "githubRepos": [
+      {
+        "id": 38,
+        "name": "ivanAleksandrov09/Mladi_Tuesari",
+        "url": "https://github.com/ivanAleksandrov09/Mladi_Tuesari",
+        "createdAt": "2024-03-14T11:59:07.538Z"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "ClassCompass",
+    "description": "Мобилно приложение, в което ученици могат да гледат интерактивна карта на училището си и да търсят учители и свободни стаи. В него има и страница с учебните програми на класовете за бързо и удобно гледане.\n\nДопълнително има и администраторска апликация, която позволява промяна на учебната програма, добавяне/премахване на учители и др.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "macrohard-onfire",
+    "githubRepos": [
+      {
+        "id": 11,
+        "name": "HackTUES-X-Macrohard-Onfire/Class-Compass-MAUI-App",
+        "url": "https://github.com/HackTUES-X-Macrohard-Onfire/Class-Compass-MAUI-App",
+        "createdAt": "2024-03-13T20:28:50.914Z"
+      },
+      {
+        "id": 12,
+        "name": "HackTUES-X-Macrohard-Onfire/Class-Compass-Server-And-Admin",
+        "url": "https://github.com/HackTUES-X-Macrohard-Onfire/Class-Compass-Server-And-Admin",
+        "createdAt": "2024-03-13T20:30:12.488Z"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "TeamPlayer",
+    "description": "Уеб приложение с главна цел намиране на съотборници, които отговарят на твои критерии и желания, с който да играеш различни по вид игри.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "calmar-dot-net",
+    "githubRepos": [
+      {
+        "id": 14,
+        "name": "dimitarbinev/HackTues-Calmar-dot-net",
+        "url": "https://github.com/dimitarbinev/HackTues-Calmar-dot-net",
+        "createdAt": "2024-03-13T21:27:00.326Z"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "AtendanceCheck",
+    "description": "Проверка за закъснение, отсъствие или присъствие с RFID четец.Всеки ученик получава чип и при влизане в стаята го сканира на четеца.",
+    "technologies": "",
+    "websiteUrl": null,
+    "fallbackRepoUrls": "",
+    "teamId": "na-chicha-mi-na-chiniyata",
+    "githubRepos": [
+      {
+        "id": 37,
+        "name": "smookie77/hacktues_X-na-chicha-mi-na-chiniyata",
+        "url": "https://github.com/smookie77/hacktues_X-na-chicha-mi-na-chiniyata",
+        "createdAt": "2024-03-14T11:58:19.127Z"
+      }
+    ]
+  }
+]
