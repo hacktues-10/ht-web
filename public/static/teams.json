@@ -36,7 +36,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-09T11:40:25.575Z",
-        "discordUser": { "discordUsername": "Stef_" }
+        "discordUser": {
+          "discordUsername": "Stef_"
+        }
       },
       {
         "id": 50,
@@ -57,7 +59,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-12T14:59:50.230Z",
-        "discordUser": { "discordUsername": "v.a.68" }
+        "discordUser": {
+          "discordUsername": "v.a.68"
+        }
       },
       {
         "id": 51,
@@ -78,7 +82,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-12T20:58:20.582Z",
-        "discordUser": { "discordUsername": "paupau.29" }
+        "discordUser": {
+          "discordUsername": "paupau.29"
+        }
       }
     ],
     "project": {
@@ -128,7 +134,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:04:13.214Z",
-        "discordUser": { "discordUsername": "justtsb" }
+        "discordUser": {
+          "discordUsername": "justtsb"
+        }
       },
       {
         "id": 12,
@@ -149,7 +157,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:16:56.614Z",
-        "discordUser": { "discordUsername": "b.i.ivanov" }
+        "discordUser": {
+          "discordUsername": "b.i.ivanov"
+        }
       },
       {
         "id": 14,
@@ -170,7 +180,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:20:40.173Z",
-        "discordUser": { "discordUsername": "kamoer" }
+        "discordUser": {
+          "discordUsername": "kamoer"
+        }
       }
     ],
     "project": {
@@ -220,7 +232,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:46.317Z",
-        "discordUser": { "discordUsername": "gosho7916" }
+        "discordUser": {
+          "discordUsername": "gosho7916"
+        }
       },
       {
         "id": 60,
@@ -241,7 +255,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:13.479Z",
-        "discordUser": { "discordUsername": "1redguy" }
+        "discordUser": {
+          "discordUsername": "1redguy"
+        }
       },
       {
         "id": 267,
@@ -262,7 +278,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:26:35.912Z",
-        "discordUser": { "discordUsername": "petar7643" }
+        "discordUser": {
+          "discordUsername": "petar7643"
+        }
       }
     ],
     "project": {
@@ -312,7 +330,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:05:33.300Z",
-        "discordUser": { "discordUsername": "nikizahariev2036" }
+        "discordUser": {
+          "discordUsername": "nikizahariev2036"
+        }
       },
       {
         "id": 126,
@@ -333,7 +353,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:24.055Z",
-        "discordUser": { "discordUsername": "rosenmarinov" }
+        "discordUser": {
+          "discordUsername": "rosenmarinov"
+        }
       },
       {
         "id": 233,
@@ -354,7 +376,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:00:35.645Z",
-        "discordUser": { "discordUsername": "ivancholol" }
+        "discordUser": {
+          "discordUsername": "ivancholol"
+        }
       }
     ],
     "project": {
@@ -404,7 +428,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:06:08.752Z",
-        "discordUser": { "discordUsername": ".chefa" }
+        "discordUser": {
+          "discordUsername": ".chefa"
+        }
       },
       {
         "id": 130,
@@ -425,7 +451,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:43.513Z",
-        "discordUser": { "discordUsername": "flychuban" }
+        "discordUser": {
+          "discordUsername": "flychuban"
+        }
       },
       {
         "id": 144,
@@ -446,7 +474,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:45.599Z",
-        "discordUser": { "discordUsername": "ivailo_27" }
+        "discordUser": {
+          "discordUsername": "ivailo_27"
+        }
       },
       {
         "id": 162,
@@ -467,7 +497,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:48:21.972Z",
-        "discordUser": { "discordUsername": "skyli1440" }
+        "discordUser": {
+          "discordUsername": "skyli1440"
+        }
       },
       {
         "id": 202,
@@ -488,7 +520,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:55:26.893Z",
-        "discordUser": { "discordUsername": "yosif_stalin_gaming" }
+        "discordUser": {
+          "discordUsername": "yosif_stalin_gaming"
+        }
       }
     ],
     "project": {
@@ -538,7 +572,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:06:04.365Z",
-        "discordUser": { "discordUsername": "kokozlatev" }
+        "discordUser": {
+          "discordUsername": "kokozlatev"
+        }
       },
       {
         "id": 137,
@@ -559,7 +595,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:03.258Z",
-        "discordUser": { "discordUsername": "Самико" }
+        "discordUser": {
+          "discordUsername": "Самико"
+        }
       },
       {
         "id": 299,
@@ -580,7 +618,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:52:12.211Z",
-        "discordUser": { "discordUsername": "tan4y" }
+        "discordUser": {
+          "discordUsername": "tan4y"
+        }
       },
       {
         "id": 297,
@@ -601,7 +641,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:51:46.325Z",
-        "discordUser": { "discordUsername": "marcelvelichkov" }
+        "discordUser": {
+          "discordUsername": "marcelvelichkov"
+        }
       },
       {
         "id": 419,
@@ -622,7 +664,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-02-12T21:32:49.577Z",
-        "discordUser": { "discordUsername": "amazingdanny" }
+        "discordUser": {
+          "discordUsername": "amazingdanny"
+        }
       }
     ],
     "project": {
@@ -672,7 +716,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:06:29.850Z",
-        "discordUser": { "discordUsername": ".doktora" }
+        "discordUser": {
+          "discordUsername": ".doktora"
+        }
       },
       {
         "id": 163,
@@ -693,7 +739,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:48:46.152Z",
-        "discordUser": { "discordUsername": ".bezime" }
+        "discordUser": {
+          "discordUsername": ".bezime"
+        }
       },
       {
         "id": 289,
@@ -714,7 +762,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:43:20.481Z",
-        "discordUser": { "discordUsername": "sashotrubata" }
+        "discordUser": {
+          "discordUsername": "sashotrubata"
+        }
       },
       {
         "id": 308,
@@ -735,7 +785,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:07:31.861Z",
-        "discordUser": { "discordUsername": "gamereturn" }
+        "discordUser": {
+          "discordUsername": "gamereturn"
+        }
       },
       {
         "id": 411,
@@ -756,7 +808,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-31T20:29:16.559Z",
-        "discordUser": { "discordUsername": "sbd_enjoyer" }
+        "discordUser": {
+          "discordUsername": "sbd_enjoyer"
+        }
       }
     ],
     "project": {
@@ -806,7 +860,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:44.594Z",
-        "discordUser": { "discordUsername": "vikiplaybg" }
+        "discordUser": {
+          "discordUsername": "vikiplaybg"
+        }
       },
       {
         "id": 62,
@@ -827,7 +883,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:18.894Z",
-        "discordUser": { "discordUsername": "_demvi" }
+        "discordUser": {
+          "discordUsername": "_demvi"
+        }
       },
       {
         "id": 102,
@@ -848,7 +906,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:37.516Z",
-        "discordUser": { "discordUsername": "ivanetaivanova" }
+        "discordUser": {
+          "discordUsername": "ivanetaivanova"
+        }
       },
       {
         "id": 147,
@@ -869,7 +929,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:05:12.025Z",
-        "discordUser": { "discordUsername": "teo_tempest" }
+        "discordUser": {
+          "discordUsername": "teo_tempest"
+        }
       },
       {
         "id": 336,
@@ -890,7 +952,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T04:58:42.978Z",
-        "discordUser": { "discordUsername": "weathy" }
+        "discordUser": {
+          "discordUsername": "weathy"
+        }
       }
     ],
     "project": {
@@ -940,7 +1004,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:06.601Z",
-        "discordUser": { "discordUsername": "paco1_2006" }
+        "discordUser": {
+          "discordUsername": "paco1_2006"
+        }
       },
       {
         "id": 304,
@@ -961,7 +1027,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:00:15.215Z",
-        "discordUser": { "discordUsername": "bababooey69420" }
+        "discordUser": {
+          "discordUsername": "bababooey69420"
+        }
       },
       {
         "id": 359,
@@ -982,7 +1050,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T06:30:46.516Z",
-        "discordUser": { "discordUsername": "trengogo" }
+        "discordUser": {
+          "discordUsername": "trengogo"
+        }
       },
       {
         "id": 287,
@@ -1003,7 +1073,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:42:44.963Z",
-        "discordUser": { "discordUsername": "rank1racist" }
+        "discordUser": {
+          "discordUsername": "rank1racist"
+        }
       }
     ],
     "project": {
@@ -1053,7 +1125,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:49:40.082Z",
-        "discordUser": { "discordUsername": "pikeboo" }
+        "discordUser": {
+          "discordUsername": "pikeboo"
+        }
       },
       {
         "id": 176,
@@ -1074,7 +1148,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:51:20.418Z",
-        "discordUser": { "discordUsername": "didko3193" }
+        "discordUser": {
+          "discordUsername": "didko3193"
+        }
       },
       {
         "id": 279,
@@ -1095,7 +1171,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:36:02.717Z",
-        "discordUser": { "discordUsername": "v.e.s.i." }
+        "discordUser": {
+          "discordUsername": "v.e.s.i."
+        }
       },
       {
         "id": 273,
@@ -1116,7 +1194,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:31:15.241Z",
-        "discordUser": { "discordUsername": "hr.lyutskanov" }
+        "discordUser": {
+          "discordUsername": "hr.lyutskanov"
+        }
       },
       {
         "id": 303,
@@ -1137,7 +1217,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:58:39.618Z",
-        "discordUser": { "discordUsername": "lisuger" }
+        "discordUser": {
+          "discordUsername": "lisuger"
+        }
       }
     ],
     "project": {
@@ -1187,7 +1269,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:50:40.582Z",
-        "discordUser": { "discordUsername": "3levanacqlo" }
+        "discordUser": {
+          "discordUsername": "3levanacqlo"
+        }
       },
       {
         "id": 180,
@@ -1208,7 +1292,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:52:06.128Z",
-        "discordUser": { "discordUsername": "giga777" }
+        "discordUser": {
+          "discordUsername": "giga777"
+        }
       },
       {
         "id": 215,
@@ -1229,7 +1315,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:32.562Z",
-        "discordUser": { "discordUsername": "antonstankov" }
+        "discordUser": {
+          "discordUsername": "antonstankov"
+        }
       },
       {
         "id": 210,
@@ -1250,7 +1338,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:56:53.477Z",
-        "discordUser": { "discordUsername": "faint1_" }
+        "discordUser": {
+          "discordUsername": "faint1_"
+        }
       },
       {
         "id": 296,
@@ -1271,7 +1361,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:49:19.690Z",
-        "discordUser": { "discordUsername": "to6enceto" }
+        "discordUser": {
+          "discordUsername": "to6enceto"
+        }
       }
     ],
     "project": {
@@ -1321,7 +1413,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:16.838Z",
-        "discordUser": { "discordUsername": "hristob_" }
+        "discordUser": {
+          "discordUsername": "hristob_"
+        }
       },
       {
         "id": 135,
@@ -1342,7 +1436,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:02.395Z",
-        "discordUser": { "discordUsername": "Kris4o" }
+        "discordUser": {
+          "discordUsername": "Kris4o"
+        }
       },
       {
         "id": 277,
@@ -1363,7 +1459,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:34:11.365Z",
-        "discordUser": { "discordUsername": "dido87_" }
+        "discordUser": {
+          "discordUsername": "dido87_"
+        }
       },
       {
         "id": 331,
@@ -1384,7 +1482,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T03:46:39.090Z",
-        "discordUser": { "discordUsername": "martin02718" }
+        "discordUser": {
+          "discordUsername": "martin02718"
+        }
       },
       {
         "id": 310,
@@ -1405,7 +1505,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:09:46.485Z",
-        "discordUser": { "discordUsername": "alek7256" }
+        "discordUser": {
+          "discordUsername": "alek7256"
+        }
       }
     ],
     "project": {
@@ -1455,7 +1557,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:49:16.529Z",
-        "discordUser": { "discordUsername": "mvl.what" }
+        "discordUser": {
+          "discordUsername": "mvl.what"
+        }
       },
       {
         "id": 169,
@@ -1476,7 +1580,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:49:59.815Z",
-        "discordUser": { "discordUsername": "pulnenichushki" }
+        "discordUser": {
+          "discordUsername": "pulnenichushki"
+        }
       },
       {
         "id": 156,
@@ -1497,7 +1603,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:46:41.867Z",
-        "discordUser": { "discordUsername": "iren kolarova" }
+        "discordUser": {
+          "discordUsername": "iren kolarova"
+        }
       },
       {
         "id": 249,
@@ -1518,7 +1626,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:04:28.223Z",
-        "discordUser": { "discordUsername": "Maria Koneva" }
+        "discordUser": {
+          "discordUsername": "Maria Koneva"
+        }
       },
       {
         "id": 391,
@@ -1539,7 +1649,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T11:36:18.540Z",
-        "discordUser": { "discordUsername": ".cveto" }
+        "discordUser": {
+          "discordUsername": ".cveto"
+        }
       }
     ],
     "project": {
@@ -1589,7 +1701,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:13.114Z",
-        "discordUser": { "discordUsername": "boris.iordanov" }
+        "discordUser": {
+          "discordUsername": "boris.iordanov"
+        }
       },
       {
         "id": 268,
@@ -1610,7 +1724,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:26:47.618Z",
-        "discordUser": { "discordUsername": "raia2212" }
+        "discordUser": {
+          "discordUsername": "raia2212"
+        }
       },
       {
         "id": 242,
@@ -1631,7 +1747,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:02:48.946Z",
-        "discordUser": { "discordUsername": "deo8699" }
+        "discordUser": {
+          "discordUsername": "deo8699"
+        }
       },
       {
         "id": 298,
@@ -1652,7 +1770,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:52:08.371Z",
-        "discordUser": { "discordUsername": "filipj._" }
+        "discordUser": {
+          "discordUsername": "filipj._"
+        }
       },
       {
         "id": 284,
@@ -1673,7 +1793,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:37:52.279Z",
-        "discordUser": { "discordUsername": "daravader" }
+        "discordUser": {
+          "discordUsername": "daravader"
+        }
       }
     ],
     "project": {
@@ -1723,7 +1845,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:05:53.993Z",
-        "discordUser": { "discordUsername": "mrboombastic__" }
+        "discordUser": {
+          "discordUsername": "mrboombastic__"
+        }
       },
       {
         "id": 157,
@@ -1744,7 +1868,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:46:58.034Z",
-        "discordUser": { "discordUsername": "emsiish" }
+        "discordUser": {
+          "discordUsername": "emsiish"
+        }
       },
       {
         "id": 188,
@@ -1765,7 +1891,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:53:46.254Z",
-        "discordUser": { "discordUsername": "roberyb" }
+        "discordUser": {
+          "discordUsername": "roberyb"
+        }
       },
       {
         "id": 392,
@@ -1786,7 +1914,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T11:56:57.563Z",
-        "discordUser": { "discordUsername": "zombiestriker" }
+        "discordUser": {
+          "discordUsername": "zombiestriker"
+        }
       },
       {
         "id": 166,
@@ -1807,7 +1937,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:49:26.806Z",
-        "discordUser": { "discordUsername": "vortex_27" }
+        "discordUser": {
+          "discordUsername": "vortex_27"
+        }
       }
     ],
     "project": {
@@ -1857,7 +1989,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:41.187Z",
-        "discordUser": { "discordUsername": "TseTsit0" }
+        "discordUser": {
+          "discordUsername": "TseTsit0"
+        }
       },
       {
         "id": 132,
@@ -1878,7 +2012,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:54.773Z",
-        "discordUser": { "discordUsername": "HristoCh" }
+        "discordUser": {
+          "discordUsername": "HristoCh"
+        }
       },
       {
         "id": 341,
@@ -1899,7 +2035,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:27:15.196Z",
-        "discordUser": { "discordUsername": "simeon40_bg" }
+        "discordUser": {
+          "discordUsername": "simeon40_bg"
+        }
       },
       {
         "id": 355,
@@ -1920,7 +2058,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T06:01:23.318Z",
-        "discordUser": { "discordUsername": "kaloyanG" }
+        "discordUser": {
+          "discordUsername": "kaloyanG"
+        }
       },
       {
         "id": 390,
@@ -1941,7 +2081,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T11:24:23.630Z",
-        "discordUser": { "discordUsername": "ko4an4o__35511" }
+        "discordUser": {
+          "discordUsername": "ko4an4o__35511"
+        }
       }
     ],
     "project": {
@@ -1991,7 +2133,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:51.893Z",
-        "discordUser": { "discordUsername": "martinn2417" }
+        "discordUser": {
+          "discordUsername": "martinn2417"
+        }
       },
       {
         "id": 93,
@@ -2012,7 +2156,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:23.508Z",
-        "discordUser": { "discordUsername": "trashysashi" }
+        "discordUser": {
+          "discordUsername": "trashysashi"
+        }
       },
       {
         "id": 209,
@@ -2033,7 +2179,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:56:41.837Z",
-        "discordUser": { "discordUsername": "alek1918" }
+        "discordUser": {
+          "discordUsername": "alek1918"
+        }
       },
       {
         "id": 57,
@@ -2054,7 +2202,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:01.017Z",
-        "discordUser": { "discordUsername": "sooka0001" }
+        "discordUser": {
+          "discordUsername": "sooka0001"
+        }
       },
       {
         "id": 186,
@@ -2075,7 +2225,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:52:59.404Z",
-        "discordUser": { "discordUsername": "anastassow" }
+        "discordUser": {
+          "discordUsername": "anastassow"
+        }
       }
     ],
     "project": {
@@ -2125,7 +2277,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:14.214Z",
-        "discordUser": { "discordUsername": "alexander_555" }
+        "discordUser": {
+          "discordUsername": "alexander_555"
+        }
       },
       {
         "id": 95,
@@ -2146,7 +2300,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:25.359Z",
-        "discordUser": { "discordUsername": "nathanielnech" }
+        "discordUser": {
+          "discordUsername": "nathanielnech"
+        }
       },
       {
         "id": 146,
@@ -2167,7 +2323,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:05:01.344Z",
-        "discordUser": { "discordUsername": "nazobanaguska" }
+        "discordUser": {
+          "discordUsername": "nazobanaguska"
+        }
       },
       {
         "id": 226,
@@ -2188,7 +2346,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:59:05.751Z",
-        "discordUser": { "discordUsername": "toniabv69" }
+        "discordUser": {
+          "discordUsername": "toniabv69"
+        }
       },
       {
         "id": 318,
@@ -2209,7 +2369,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:36:15.910Z",
-        "discordUser": { "discordUsername": "amalino7" }
+        "discordUser": {
+          "discordUsername": "amalino7"
+        }
       }
     ],
     "project": {
@@ -2259,7 +2421,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:14.925Z",
-        "discordUser": { "discordUsername": "yordan_200973" }
+        "discordUser": {
+          "discordUsername": "yordan_200973"
+        }
       },
       {
         "id": 260,
@@ -2280,7 +2444,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:24:32.032Z",
-        "discordUser": { "discordUsername": "happypotato9766" }
+        "discordUser": {
+          "discordUsername": "happypotato9766"
+        }
       },
       {
         "id": 351,
@@ -2301,7 +2467,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:57:07.728Z",
-        "discordUser": { "discordUsername": "____fire" }
+        "discordUser": {
+          "discordUsername": "____fire"
+        }
       },
       {
         "id": 346,
@@ -2322,7 +2490,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:50:12.239Z",
-        "discordUser": { "discordUsername": "gogo2587" }
+        "discordUser": {
+          "discordUsername": "gogo2587"
+        }
       },
       {
         "id": 368,
@@ -2343,7 +2513,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T07:38:55.422Z",
-        "discordUser": { "discordUsername": "oshteedinaltacc" }
+        "discordUser": {
+          "discordUsername": "oshteedinaltacc"
+        }
       }
     ],
     "project": {
@@ -2393,7 +2565,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:49:26.241Z",
-        "discordUser": { "discordUsername": "Nikolay.R.Goranov" }
+        "discordUser": {
+          "discordUsername": "Nikolay.R.Goranov"
+        }
       },
       {
         "id": 301,
@@ -2414,7 +2588,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:53:31.851Z",
-        "discordUser": { "discordUsername": "dimchokhalifcho" }
+        "discordUser": {
+          "discordUsername": "dimchokhalifcho"
+        }
       },
       {
         "id": 320,
@@ -2435,7 +2611,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:42:05.247Z",
-        "discordUser": { "discordUsername": "mommyboy" }
+        "discordUser": {
+          "discordUsername": "mommyboy"
+        }
       },
       {
         "id": 321,
@@ -2456,7 +2634,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:46:13.105Z",
-        "discordUser": { "discordUsername": "d14m0nd" }
+        "discordUser": {
+          "discordUsername": "d14m0nd"
+        }
       }
     ],
     "project": {
@@ -2506,7 +2686,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:56.606Z",
-        "discordUser": { "discordUsername": "its_rize" }
+        "discordUser": {
+          "discordUsername": "its_rize"
+        }
       },
       {
         "id": 192,
@@ -2527,7 +2709,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:54:27.196Z",
-        "discordUser": { "discordUsername": "suseda_" }
+        "discordUser": {
+          "discordUsername": "suseda_"
+        }
       },
       {
         "id": 316,
@@ -2548,7 +2732,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:35:22.326Z",
-        "discordUser": { "discordUsername": "12iii12" }
+        "discordUser": {
+          "discordUsername": "12iii12"
+        }
       },
       {
         "id": 337,
@@ -2569,7 +2755,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:15:32.624Z",
-        "discordUser": { "discordUsername": "ok_pal" }
+        "discordUser": {
+          "discordUsername": "ok_pal"
+        }
       },
       {
         "id": 412,
@@ -2590,7 +2778,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-31T21:08:15.560Z",
-        "discordUser": { "discordUsername": "montbr" }
+        "discordUser": {
+          "discordUsername": "montbr"
+        }
       }
     ],
     "project": {
@@ -2640,7 +2830,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:07.747Z",
-        "discordUser": { "discordUsername": "dida_." }
+        "discordUser": {
+          "discordUsername": "dida_."
+        }
       },
       {
         "id": 122,
@@ -2661,7 +2853,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:17.857Z",
-        "discordUser": { "discordUsername": "boji lazarov" }
+        "discordUser": {
+          "discordUsername": "boji lazarov"
+        }
       },
       {
         "id": 125,
@@ -2682,7 +2876,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:20.308Z",
-        "discordUser": { "discordUsername": "nikicha2" }
+        "discordUser": {
+          "discordUsername": "nikicha2"
+        }
       },
       {
         "id": 150,
@@ -2703,7 +2899,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:05:36.026Z",
-        "discordUser": { "discordUsername": "uguuuuorig" }
+        "discordUser": {
+          "discordUsername": "uguuuuorig"
+        }
       },
       {
         "id": 243,
@@ -2724,7 +2922,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:02:59.577Z",
-        "discordUser": { "discordUsername": "alexsanderkrastev" }
+        "discordUser": {
+          "discordUsername": "alexsanderkrastev"
+        }
       }
     ],
     "project": {
@@ -2774,7 +2974,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:22.886Z",
-        "discordUser": { "discordUsername": "pitashtiqtdobromuzh" }
+        "discordUser": {
+          "discordUsername": "pitashtiqtdobromuzh"
+        }
       },
       {
         "id": 261,
@@ -2795,7 +2997,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:24:54.259Z",
-        "discordUser": { "discordUsername": "bannanium" }
+        "discordUser": {
+          "discordUsername": "bannanium"
+        }
       },
       {
         "id": 307,
@@ -2816,7 +3020,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:07:01.858Z",
-        "discordUser": { "discordUsername": "soletki" }
+        "discordUser": {
+          "discordUsername": "soletki"
+        }
       },
       {
         "id": 396,
@@ -2837,7 +3043,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T15:09:00.622Z",
-        "discordUser": { "discordUsername": "dancho6743" }
+        "discordUser": {
+          "discordUsername": "dancho6743"
+        }
       }
     ],
     "project": {
@@ -2887,7 +3095,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:23.359Z",
-        "discordUser": { "discordUsername": "stanislavganchev" }
+        "discordUser": {
+          "discordUsername": "stanislavganchev"
+        }
       },
       {
         "id": 214,
@@ -2908,7 +3118,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:27.426Z",
-        "discordUser": { "discordUsername": "merdzhak" }
+        "discordUser": {
+          "discordUsername": "merdzhak"
+        }
       },
       {
         "id": 230,
@@ -2929,7 +3141,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:00:20.229Z",
-        "discordUser": { "discordUsername": "Daniel_Y" }
+        "discordUser": {
+          "discordUsername": "Daniel_Y"
+        }
       },
       {
         "id": 228,
@@ -2950,7 +3164,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:59:55.799Z",
-        "discordUser": { "discordUsername": "ge2008" }
+        "discordUser": {
+          "discordUsername": "ge2008"
+        }
       },
       {
         "id": 266,
@@ -2971,7 +3187,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:26:06.548Z",
-        "discordUser": { "discordUsername": "dizzy1408" }
+        "discordUser": {
+          "discordUsername": "dizzy1408"
+        }
       }
     ],
     "project": {
@@ -3021,7 +3239,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:20.120Z",
-        "discordUser": { "discordUsername": "jojoninof" }
+        "discordUser": {
+          "discordUsername": "jojoninof"
+        }
       },
       {
         "id": 99,
@@ -3042,7 +3262,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:29.132Z",
-        "discordUser": { "discordUsername": "airqn3" }
+        "discordUser": {
+          "discordUsername": "airqn3"
+        }
       },
       {
         "id": 274,
@@ -3063,7 +3285,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:31:54.405Z",
-        "discordUser": { "discordUsername": "honeybadger310" }
+        "discordUser": {
+          "discordUsername": "honeybadger310"
+        }
       },
       {
         "id": 314,
@@ -3084,7 +3308,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:25:14.000Z",
-        "discordUser": { "discordUsername": "emito312" }
+        "discordUser": {
+          "discordUsername": "emito312"
+        }
       },
       {
         "id": 367,
@@ -3105,7 +3331,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T07:35:49.337Z",
-        "discordUser": { "discordUsername": "petyadam" }
+        "discordUser": {
+          "discordUsername": "petyadam"
+        }
       }
     ],
     "project": {
@@ -3155,7 +3383,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:16.187Z",
-        "discordUser": { "discordUsername": "yoan9702" }
+        "discordUser": {
+          "discordUsername": "yoan9702"
+        }
       },
       {
         "id": 76,
@@ -3176,7 +3406,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:59.733Z",
-        "discordUser": { "discordUsername": "rijavapolskakrava" }
+        "discordUser": {
+          "discordUsername": "rijavapolskakrava"
+        }
       },
       {
         "id": 67,
@@ -3197,7 +3429,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:41.183Z",
-        "discordUser": { "discordUsername": "victorr2275" }
+        "discordUser": {
+          "discordUsername": "victorr2275"
+        }
       },
       {
         "id": 161,
@@ -3218,7 +3452,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:48:16.322Z",
-        "discordUser": { "discordUsername": "indianamitko" }
+        "discordUser": {
+          "discordUsername": "indianamitko"
+        }
       },
       {
         "id": 199,
@@ -3239,7 +3475,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:55:16.698Z",
-        "discordUser": { "discordUsername": "prostojivko" }
+        "discordUser": {
+          "discordUsername": "prostojivko"
+        }
       }
     ],
     "project": {
@@ -3289,7 +3527,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:55.500Z",
-        "discordUser": { "discordUsername": "Ънц Ънц" }
+        "discordUser": {
+          "discordUsername": "Ънц Ънц"
+        }
       },
       {
         "id": 58,
@@ -3310,7 +3550,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:02.515Z",
-        "discordUser": { "discordUsername": "turluchkibg" }
+        "discordUser": {
+          "discordUsername": "turluchkibg"
+        }
       },
       {
         "id": 118,
@@ -3331,7 +3573,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:03.318Z",
-        "discordUser": { "discordUsername": "nadq2411" }
+        "discordUser": {
+          "discordUsername": "nadq2411"
+        }
       },
       {
         "id": 293,
@@ -3352,7 +3596,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:48:00.179Z",
-        "discordUser": { "discordUsername": ".my_plam" }
+        "discordUser": {
+          "discordUsername": ".my_plam"
+        }
       }
     ],
     "project": {
@@ -3402,7 +3648,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:06:17.248Z",
-        "discordUser": { "discordUsername": "hristiyyann" }
+        "discordUser": {
+          "discordUsername": "hristiyyann"
+        }
       },
       {
         "id": 37,
@@ -3423,7 +3671,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T20:37:01.807Z",
-        "discordUser": { "discordUsername": "kaloyan24" }
+        "discordUser": {
+          "discordUsername": "kaloyan24"
+        }
       },
       {
         "id": 27,
@@ -3444,7 +3694,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T14:27:49.045Z",
-        "discordUser": { "discordUsername": "hristoff" }
+        "discordUser": {
+          "discordUsername": "hristoff"
+        }
       }
     ],
     "project": {
@@ -3494,7 +3746,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:13:36.615Z",
-        "discordUser": { "discordUsername": "cimeon" }
+        "discordUser": {
+          "discordUsername": "cimeon"
+        }
       },
       {
         "id": 47,
@@ -3515,7 +3769,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-11T21:19:19.741Z",
-        "discordUser": { "discordUsername": "_mostpalone" }
+        "discordUser": {
+          "discordUsername": "_mostpalone"
+        }
       }
     ],
     "project": {
@@ -3565,7 +3821,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T10:15:59.634Z",
-        "discordUser": { "discordUsername": "aefawsfdawd" }
+        "discordUser": {
+          "discordUsername": "aefawsfdawd"
+        }
       },
       {
         "id": 387,
@@ -3586,7 +3844,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T11:02:33.824Z",
-        "discordUser": { "discordUsername": "thatbait" }
+        "discordUser": {
+          "discordUsername": "thatbait"
+        }
       },
       {
         "id": 380,
@@ -3607,7 +3867,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T10:22:34.527Z",
-        "discordUser": { "discordUsername": "cirovshampiona" }
+        "discordUser": {
+          "discordUsername": "cirovshampiona"
+        }
       },
       {
         "id": 397,
@@ -3628,7 +3890,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T15:19:57.767Z",
-        "discordUser": { "discordUsername": "georgi16" }
+        "discordUser": {
+          "discordUsername": "georgi16"
+        }
       },
       {
         "id": 399,
@@ -3649,7 +3913,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T16:28:36.808Z",
-        "discordUser": { "discordUsername": "joto69" }
+        "discordUser": {
+          "discordUsername": "joto69"
+        }
       }
     ],
     "project": {
@@ -3699,7 +3965,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:46.010Z",
-        "discordUser": { "discordUsername": "spimisenakuche" }
+        "discordUser": {
+          "discordUsername": "spimisenakuche"
+        }
       },
       {
         "id": 195,
@@ -3720,7 +3988,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:54:44.046Z",
-        "discordUser": { "discordUsername": "brusnarq" }
+        "discordUser": {
+          "discordUsername": "brusnarq"
+        }
       },
       {
         "id": 258,
@@ -3741,7 +4011,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:23:42.613Z",
-        "discordUser": { "discordUsername": "sswegy" }
+        "discordUser": {
+          "discordUsername": "sswegy"
+        }
       },
       {
         "id": 292,
@@ -3762,7 +4034,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:45:40.679Z",
-        "discordUser": { "discordUsername": "leicesterenjoyer" }
+        "discordUser": {
+          "discordUsername": "leicesterenjoyer"
+        }
       },
       {
         "id": 371,
@@ -3783,7 +4057,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T08:05:11.861Z",
-        "discordUser": { "discordUsername": "neznambrt" }
+        "discordUser": {
+          "discordUsername": "neznambrt"
+        }
       }
     ],
     "project": {
@@ -3833,7 +4109,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:39.896Z",
-        "discordUser": { "discordUsername": "evgeniya_go" }
+        "discordUser": {
+          "discordUsername": "evgeniya_go"
+        }
       },
       {
         "id": 324,
@@ -3854,7 +4132,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T22:05:22.817Z",
-        "discordUser": { "discordUsername": "original_thedumb1" }
+        "discordUser": {
+          "discordUsername": "original_thedumb1"
+        }
       },
       {
         "id": 376,
@@ -3875,7 +4155,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T09:40:52.527Z",
-        "discordUser": { "discordUsername": "moris0760" }
+        "discordUser": {
+          "discordUsername": "moris0760"
+        }
       }
     ],
     "project": {
@@ -3925,7 +4207,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:25.937Z",
-        "discordUser": { "discordUsername": "smookie77" }
+        "discordUser": {
+          "discordUsername": "smookie77"
+        }
       },
       {
         "id": 350,
@@ -3946,7 +4230,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:57:02.886Z",
-        "discordUser": { "discordUsername": "proto18" }
+        "discordUser": {
+          "discordUsername": "proto18"
+        }
       },
       {
         "id": 345,
@@ -3967,7 +4253,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:50:07.757Z",
-        "discordUser": { "discordUsername": "mateichokingsun" }
+        "discordUser": {
+          "discordUsername": "mateichokingsun"
+        }
       },
       {
         "id": 353,
@@ -3988,7 +4276,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:59:20.536Z",
-        "discordUser": { "discordUsername": "ira_serbezova" }
+        "discordUser": {
+          "discordUsername": "ira_serbezova"
+        }
       },
       {
         "id": 395,
@@ -4009,7 +4299,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T14:43:57.500Z",
-        "discordUser": { "discordUsername": "lazy_lazynger" }
+        "discordUser": {
+          "discordUsername": "lazy_lazynger"
+        }
       }
     ],
     "project": {
@@ -4059,7 +4351,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:47.285Z",
-        "discordUser": { "discordUsername": "monika__" }
+        "discordUser": {
+          "discordUsername": "monika__"
+        }
       },
       {
         "id": 120,
@@ -4080,7 +4374,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:07.105Z",
-        "discordUser": { "discordUsername": "Kalo" }
+        "discordUser": {
+          "discordUsername": "Kalo"
+        }
       },
       {
         "id": 151,
@@ -4101,7 +4397,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:06:24.001Z",
-        "discordUser": { "discordUsername": "Riracien" }
+        "discordUser": {
+          "discordUsername": "Riracien"
+        }
       },
       {
         "id": 383,
@@ -4122,7 +4420,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T10:35:59.974Z",
-        "discordUser": { "discordUsername": "A_Human_Barcode" }
+        "discordUser": {
+          "discordUsername": "A_Human_Barcode"
+        }
       },
       {
         "id": 418,
@@ -4143,7 +4443,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-02-02T16:55:56.950Z",
-        "discordUser": { "discordUsername": "dimitar13" }
+        "discordUser": {
+          "discordUsername": "dimitar13"
+        }
       }
     ],
     "project": {
@@ -4193,7 +4495,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T14:23:58.896Z",
-        "discordUser": { "discordUsername": "josifhamed" }
+        "discordUser": {
+          "discordUsername": "josifhamed"
+        }
       },
       {
         "id": 31,
@@ -4214,7 +4518,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T17:32:20.961Z",
-        "discordUser": { "discordUsername": "niki_laz_678" }
+        "discordUser": {
+          "discordUsername": "niki_laz_678"
+        }
       }
     ],
     "project": {
@@ -4264,7 +4570,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-12T13:33:23.495Z",
-        "discordUser": { "discordUsername": "martinsimov" }
+        "discordUser": {
+          "discordUsername": "martinsimov"
+        }
       },
       {
         "id": 49,
@@ -4285,7 +4593,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-12T13:59:01.127Z",
-        "discordUser": { "discordUsername": "manush1669" }
+        "discordUser": {
+          "discordUsername": "manush1669"
+        }
       }
     ],
     "project": null
@@ -4327,7 +4637,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:55.939Z",
-        "discordUser": { "discordUsername": "jaeger_bg" }
+        "discordUser": {
+          "discordUsername": "jaeger_bg"
+        }
       },
       {
         "id": 365,
@@ -4348,7 +4660,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T07:25:45.464Z",
-        "discordUser": { "discordUsername": "pishonka" }
+        "discordUser": {
+          "discordUsername": "pishonka"
+        }
       },
       {
         "id": 398,
@@ -4369,7 +4683,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T15:28:52.054Z",
-        "discordUser": { "discordUsername": "zlatigiklati" }
+        "discordUser": {
+          "discordUsername": "zlatigiklati"
+        }
       },
       {
         "id": 369,
@@ -4390,7 +4706,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T07:42:40.396Z",
-        "discordUser": { "discordUsername": "eliteminion" }
+        "discordUser": {
+          "discordUsername": "eliteminion"
+        }
       },
       {
         "id": 417,
@@ -4411,7 +4729,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-02-02T09:54:39.304Z",
-        "discordUser": { "discordUsername": "kalchomal4o" }
+        "discordUser": {
+          "discordUsername": "kalchomal4o"
+        }
       }
     ],
     "project": {
@@ -4461,7 +4781,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:32.398Z",
-        "discordUser": { "discordUsername": "Nigerian Prince" }
+        "discordUser": {
+          "discordUsername": "Nigerian Prince"
+        }
       },
       {
         "id": 170,
@@ -4482,7 +4804,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:50:12.577Z",
-        "discordUser": { "discordUsername": "boqnina" }
+        "discordUser": {
+          "discordUsername": "boqnina"
+        }
       },
       {
         "id": 181,
@@ -4503,7 +4827,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:52:15.942Z",
-        "discordUser": { "discordUsername": "vikicho" }
+        "discordUser": {
+          "discordUsername": "vikicho"
+        }
       },
       {
         "id": 177,
@@ -4524,7 +4850,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:51:26.754Z",
-        "discordUser": { "discordUsername": "the_tree_rbop8080" }
+        "discordUser": {
+          "discordUsername": "the_tree_rbop8080"
+        }
       },
       {
         "id": 403,
@@ -4545,7 +4873,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T17:07:19.702Z",
-        "discordUser": { "discordUsername": "alexnay1383" }
+        "discordUser": {
+          "discordUsername": "alexnay1383"
+        }
       }
     ],
     "project": {
@@ -4595,7 +4925,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:56:09.471Z",
-        "discordUser": { "discordUsername": "toxicsdev" }
+        "discordUser": {
+          "discordUsername": "toxicsdev"
+        }
       },
       {
         "id": 240,
@@ -4616,7 +4948,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:02:24.478Z",
-        "discordUser": { "discordUsername": "mmarto113" }
+        "discordUser": {
+          "discordUsername": "mmarto113"
+        }
       },
       {
         "id": 410,
@@ -4637,7 +4971,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-31T11:22:54.701Z",
-        "discordUser": { "discordUsername": "teoet6" }
+        "discordUser": {
+          "discordUsername": "teoet6"
+        }
       },
       {
         "id": 194,
@@ -4658,7 +4994,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:54:37.246Z",
-        "discordUser": { "discordUsername": "d.nklv" }
+        "discordUser": {
+          "discordUsername": "d.nklv"
+        }
       },
       {
         "id": 275,
@@ -4679,7 +5017,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:33:03.133Z",
-        "discordUser": { "discordUsername": "terro1458" }
+        "discordUser": {
+          "discordUsername": "terro1458"
+        }
       }
     ],
     "project": {
@@ -4729,7 +5069,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:48:46.700Z",
-        "discordUser": { "discordUsername": "liubo" }
+        "discordUser": {
+          "discordUsername": "liubo"
+        }
       },
       {
         "id": 184,
@@ -4750,7 +5092,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:52:52.791Z",
-        "discordUser": { "discordUsername": "cinganin" }
+        "discordUser": {
+          "discordUsername": "cinganin"
+        }
       },
       {
         "id": 224,
@@ -4771,7 +5115,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:58:34.758Z",
-        "discordUser": { "discordUsername": "nikecisgevreci" }
+        "discordUser": {
+          "discordUsername": "nikecisgevreci"
+        }
       },
       {
         "id": 312,
@@ -4792,7 +5138,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:21:53.098Z",
-        "discordUser": { "discordUsername": "emilia_chukaleva" }
+        "discordUser": {
+          "discordUsername": "emilia_chukaleva"
+        }
       }
     ],
     "project": {
@@ -4842,7 +5190,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:22.511Z",
-        "discordUser": { "discordUsername": "lia_555_" }
+        "discordUser": {
+          "discordUsername": "lia_555_"
+        }
       },
       {
         "id": 113,
@@ -4863,7 +5213,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:52.617Z",
-        "discordUser": { "discordUsername": "steph_088" }
+        "discordUser": {
+          "discordUsername": "steph_088"
+        }
       },
       {
         "id": 305,
@@ -4884,7 +5236,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:05:27.084Z",
-        "discordUser": { "discordUsername": "danchogipsa" }
+        "discordUser": {
+          "discordUsername": "danchogipsa"
+        }
       },
       {
         "id": 311,
@@ -4905,7 +5259,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:13:05.400Z",
-        "discordUser": { "discordUsername": "ivelin8494" }
+        "discordUser": {
+          "discordUsername": "ivelin8494"
+        }
       },
       {
         "id": 416,
@@ -4926,7 +5282,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-02-01T17:50:05.079Z",
-        "discordUser": { "discordUsername": "callmevicks" }
+        "discordUser": {
+          "discordUsername": "callmevicks"
+        }
       }
     ],
     "project": {
@@ -4976,7 +5334,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:33.625Z",
-        "discordUser": { "discordUsername": "Boqn" }
+        "discordUser": {
+          "discordUsername": "Boqn"
+        }
       },
       {
         "id": 239,
@@ -4997,7 +5357,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:02:16.283Z",
-        "discordUser": { "discordUsername": "neve9324" }
+        "discordUser": {
+          "discordUsername": "neve9324"
+        }
       },
       {
         "id": 280,
@@ -5018,7 +5380,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:36:26.188Z",
-        "discordUser": { "discordUsername": "joro_gorata" }
+        "discordUser": {
+          "discordUsername": "joro_gorata"
+        }
       },
       {
         "id": 294,
@@ -5039,7 +5403,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:48:25.272Z",
-        "discordUser": { "discordUsername": "ni.kol.ev" }
+        "discordUser": {
+          "discordUsername": "ni.kol.ev"
+        }
       },
       {
         "id": 290,
@@ -5060,7 +5426,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:43:34.125Z",
-        "discordUser": { "discordUsername": "tsonchi" }
+        "discordUser": {
+          "discordUsername": "tsonchi"
+        }
       }
     ],
     "project": {
@@ -5110,7 +5478,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:10:24.936Z",
-        "discordUser": { "discordUsername": "stanislav04" }
+        "discordUser": {
+          "discordUsername": "stanislav04"
+        }
       },
       {
         "id": 19,
@@ -5131,7 +5501,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T12:12:27.905Z",
-        "discordUser": { "discordUsername": "yassen_dd" }
+        "discordUser": {
+          "discordUsername": "yassen_dd"
+        }
       },
       {
         "id": 21,
@@ -5152,7 +5524,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T12:35:23.986Z",
-        "discordUser": { "discordUsername": "squidfish" }
+        "discordUser": {
+          "discordUsername": "squidfish"
+        }
       }
     ],
     "project": {
@@ -5202,7 +5576,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:04:13.903Z",
-        "discordUser": { "discordUsername": "bokiii1" }
+        "discordUser": {
+          "discordUsername": "bokiii1"
+        }
       },
       {
         "id": 15,
@@ -5223,7 +5599,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:31:34.610Z",
-        "discordUser": { "discordUsername": "vilokab" }
+        "discordUser": {
+          "discordUsername": "vilokab"
+        }
       },
       {
         "id": 20,
@@ -5244,7 +5622,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T12:28:01.419Z",
-        "discordUser": { "discordUsername": "josen_d" }
+        "discordUser": {
+          "discordUsername": "josen_d"
+        }
       }
     ],
     "project": {
@@ -5294,7 +5674,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:34.131Z",
-        "discordUser": { "discordUsername": "zer0_pwr" }
+        "discordUser": {
+          "discordUsername": "zer0_pwr"
+        }
       },
       {
         "id": 201,
@@ -5315,7 +5697,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:55:25.547Z",
-        "discordUser": { "discordUsername": "Dani's  fiance" }
+        "discordUser": {
+          "discordUsername": "Dani's  fiance"
+        }
       },
       {
         "id": 278,
@@ -5336,7 +5720,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:34:30.531Z",
-        "discordUser": { "discordUsername": ".krizo" }
+        "discordUser": {
+          "discordUsername": ".krizo"
+        }
       },
       {
         "id": 262,
@@ -5357,7 +5743,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:25:04.531Z",
-        "discordUser": { "discordUsername": "sova_11" }
+        "discordUser": {
+          "discordUsername": "sova_11"
+        }
       },
       {
         "id": 358,
@@ -5378,7 +5766,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T06:30:30.716Z",
-        "discordUser": { "discordUsername": "itz_niki.exe_" }
+        "discordUser": {
+          "discordUsername": "itz_niki.exe_"
+        }
       }
     ],
     "project": {
@@ -5428,7 +5818,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:53:42.163Z",
-        "discordUser": { "discordUsername": "vladi0309" }
+        "discordUser": {
+          "discordUsername": "vladi0309"
+        }
       },
       {
         "id": 204,
@@ -5449,7 +5841,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:55:42.946Z",
-        "discordUser": { "discordUsername": "koky6." }
+        "discordUser": {
+          "discordUsername": "koky6."
+        }
       },
       {
         "id": 232,
@@ -5470,7 +5864,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:00:26.311Z",
-        "discordUser": { "discordUsername": "vic5147" }
+        "discordUser": {
+          "discordUsername": "vic5147"
+        }
       },
       {
         "id": 241,
@@ -5491,7 +5887,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:02:25.689Z",
-        "discordUser": { "discordUsername": "rstiranozavyr" }
+        "discordUser": {
+          "discordUsername": "rstiranozavyr"
+        }
       },
       {
         "id": 281,
@@ -5512,7 +5910,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:36:26.938Z",
-        "discordUser": { "discordUsername": "Mrt" }
+        "discordUser": {
+          "discordUsername": "Mrt"
+        }
       }
     ],
     "project": {
@@ -5562,7 +5962,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:00:59.780Z",
-        "discordUser": { "discordUsername": "svetoslaviliev" }
+        "discordUser": {
+          "discordUsername": "svetoslaviliev"
+        }
       },
       {
         "id": 97,
@@ -5583,7 +5985,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:28.562Z",
-        "discordUser": { "discordUsername": "myashkov_69" }
+        "discordUser": {
+          "discordUsername": "myashkov_69"
+        }
       },
       {
         "id": 244,
@@ -5604,7 +6008,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:03:06.821Z",
-        "discordUser": { "discordUsername": "drtopuzov" }
+        "discordUser": {
+          "discordUsername": "drtopuzov"
+        }
       },
       {
         "id": 291,
@@ -5625,7 +6031,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:44:19.350Z",
-        "discordUser": { "discordUsername": "rkdimitrov" }
+        "discordUser": {
+          "discordUsername": "rkdimitrov"
+        }
       },
       {
         "id": 378,
@@ -5646,7 +6054,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T10:05:32.177Z",
-        "discordUser": { "discordUsername": "pantalonio" }
+        "discordUser": {
+          "discordUsername": "pantalonio"
+        }
       }
     ],
     "project": {
@@ -5696,7 +6106,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T22:47:45.903Z",
-        "discordUser": { "discordUsername": "boho2bizona" }
+        "discordUser": {
+          "discordUsername": "boho2bizona"
+        }
       },
       {
         "id": 36,
@@ -5717,7 +6129,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T20:09:09.272Z",
-        "discordUser": { "discordUsername": "dashko161" }
+        "discordUser": {
+          "discordUsername": "dashko161"
+        }
       },
       {
         "id": 22,
@@ -5738,7 +6152,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T13:19:34.028Z",
-        "discordUser": { "discordUsername": "F1ashBr0BG" }
+        "discordUser": {
+          "discordUsername": "F1ashBr0BG"
+        }
       }
     ],
     "project": {
@@ -5788,7 +6204,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:04:28.842Z",
-        "discordUser": { "discordUsername": "norjacked" }
+        "discordUser": {
+          "discordUsername": "norjacked"
+        }
       },
       {
         "id": 6,
@@ -5809,7 +6227,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:06:37.604Z",
-        "discordUser": { "discordUsername": "_vayer_" }
+        "discordUser": {
+          "discordUsername": "_vayer_"
+        }
       },
       {
         "id": 9,
@@ -5830,7 +6250,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T11:11:31.327Z",
-        "discordUser": { "discordUsername": "jumpingbaker358" }
+        "discordUser": {
+          "discordUsername": "jumpingbaker358"
+        }
       }
     ],
     "project": {
@@ -5880,7 +6302,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:54:20.417Z",
-        "discordUser": { "discordUsername": "stily." }
+        "discordUser": {
+          "discordUsername": "stily."
+        }
       },
       {
         "id": 206,
@@ -5901,7 +6325,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:56:05.143Z",
-        "discordUser": { "discordUsername": "avatarzorak" }
+        "discordUser": {
+          "discordUsername": "avatarzorak"
+        }
       },
       {
         "id": 231,
@@ -5922,7 +6348,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:00:25.648Z",
-        "discordUser": { "discordUsername": "portocala" }
+        "discordUser": {
+          "discordUsername": "portocala"
+        }
       },
       {
         "id": 282,
@@ -5943,7 +6371,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:36:58.387Z",
-        "discordUser": { "discordUsername": "niann" }
+        "discordUser": {
+          "discordUsername": "niann"
+        }
       },
       {
         "id": 323,
@@ -5964,7 +6394,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T22:02:00.320Z",
-        "discordUser": { "discordUsername": "UrbanNomad" }
+        "discordUser": {
+          "discordUsername": "UrbanNomad"
+        }
       }
     ],
     "project": {
@@ -6014,7 +6446,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:39.410Z",
-        "discordUser": { "discordUsername": "yodata" }
+        "discordUser": {
+          "discordUsername": "yodata"
+        }
       },
       {
         "id": 263,
@@ -6035,7 +6469,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:25:13.269Z",
-        "discordUser": { "discordUsername": "interface.30" }
+        "discordUser": {
+          "discordUsername": "interface.30"
+        }
       },
       {
         "id": 306,
@@ -6056,7 +6492,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:06:35.938Z",
-        "discordUser": { "discordUsername": "Wild Mexican" }
+        "discordUser": {
+          "discordUsername": "Wild Mexican"
+        }
       },
       {
         "id": 375,
@@ -6077,7 +6515,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T09:16:46.111Z",
-        "discordUser": { "discordUsername": "bladkovarev" }
+        "discordUser": {
+          "discordUsername": "bladkovarev"
+        }
       }
     ],
     "project": {
@@ -6127,7 +6567,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:41.512Z",
-        "discordUser": { "discordUsername": "billakfina" }
+        "discordUser": {
+          "discordUsername": "billakfina"
+        }
       },
       {
         "id": 94,
@@ -6148,7 +6590,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:24.370Z",
-        "discordUser": { "discordUsername": "nisuk_giraf" }
+        "discordUser": {
+          "discordUsername": "nisuk_giraf"
+        }
       },
       {
         "id": 218,
@@ -6169,7 +6613,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:49.322Z",
-        "discordUser": { "discordUsername": "ArtMimi16" }
+        "discordUser": {
+          "discordUsername": "ArtMimi16"
+        }
       },
       {
         "id": 220,
@@ -6190,7 +6636,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:54.878Z",
-        "discordUser": { "discordUsername": "nikolii08" }
+        "discordUser": {
+          "discordUsername": "nikolii08"
+        }
       },
       {
         "id": 362,
@@ -6211,7 +6659,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T07:17:27.684Z",
-        "discordUser": { "discordUsername": "maycheto" }
+        "discordUser": {
+          "discordUsername": "maycheto"
+        }
       }
     ],
     "project": {
@@ -6261,7 +6711,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:29.716Z",
-        "discordUser": { "discordUsername": "kaloyan_gavrilov" }
+        "discordUser": {
+          "discordUsername": "kaloyan_gavrilov"
+        }
       },
       {
         "id": 234,
@@ -6282,7 +6734,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:00:39.300Z",
-        "discordUser": { "discordUsername": "ficho_on_the_flow" }
+        "discordUser": {
+          "discordUsername": "ficho_on_the_flow"
+        }
       },
       {
         "id": 338,
@@ -6303,7 +6757,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:18:51.411Z",
-        "discordUser": { "discordUsername": "1_fe1n_1" }
+        "discordUser": {
+          "discordUsername": "1_fe1n_1"
+        }
       },
       {
         "id": 340,
@@ -6324,7 +6780,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:23:09.326Z",
-        "discordUser": { "discordUsername": "k1rsen" }
+        "discordUser": {
+          "discordUsername": "k1rsen"
+        }
       }
     ],
     "project": {
@@ -6374,7 +6832,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:41.068Z",
-        "discordUser": { "discordUsername": "t.garmenliev" }
+        "discordUser": {
+          "discordUsername": "t.garmenliev"
+        }
       },
       {
         "id": 54,
@@ -6395,7 +6855,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:00:41.990Z",
-        "discordUser": { "discordUsername": "kaloyanx" }
+        "discordUser": {
+          "discordUsername": "kaloyanx"
+        }
       },
       {
         "id": 112,
@@ -6416,7 +6878,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:48.858Z",
-        "discordUser": { "discordUsername": "alvog" }
+        "discordUser": {
+          "discordUsername": "alvog"
+        }
       },
       {
         "id": 106,
@@ -6437,7 +6901,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:40.674Z",
-        "discordUser": { "discordUsername": "techxtt" }
+        "discordUser": {
+          "discordUsername": "techxtt"
+        }
       }
     ],
     "project": {
@@ -6487,7 +6953,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:35.236Z",
-        "discordUser": { "discordUsername": ".chicken_tikka_masala" }
+        "discordUser": {
+          "discordUsername": ".chicken_tikka_masala"
+        }
       },
       {
         "id": 117,
@@ -6508,7 +6976,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:00.582Z",
-        "discordUser": { "discordUsername": "kurami_qnko" }
+        "discordUser": {
+          "discordUsername": "kurami_qnko"
+        }
       },
       {
         "id": 200,
@@ -6529,7 +6999,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:55:21.113Z",
-        "discordUser": { "discordUsername": "ali.lazarova" }
+        "discordUser": {
+          "discordUsername": "ali.lazarova"
+        }
       },
       {
         "id": 236,
@@ -6550,7 +7022,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:01:50.015Z",
-        "discordUser": { "discordUsername": "mi60" }
+        "discordUser": {
+          "discordUsername": "mi60"
+        }
       },
       {
         "id": 79,
@@ -6571,7 +7045,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:07.269Z",
-        "discordUser": { "discordUsername": "_filio" }
+        "discordUser": {
+          "discordUsername": "_filio"
+        }
       }
     ],
     "project": {
@@ -6621,7 +7097,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:18.761Z",
-        "discordUser": { "discordUsername": "jojy123" }
+        "discordUser": {
+          "discordUsername": "jojy123"
+        }
       },
       {
         "id": 237,
@@ -6642,7 +7120,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:01:55.506Z",
-        "discordUser": { "discordUsername": "proto_bg" }
+        "discordUser": {
+          "discordUsername": "proto_bg"
+        }
       },
       {
         "id": 235,
@@ -6663,7 +7143,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:01:15.252Z",
-        "discordUser": { "discordUsername": "stto2009" }
+        "discordUser": {
+          "discordUsername": "stto2009"
+        }
       },
       {
         "id": 356,
@@ -6684,7 +7166,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T06:01:29.613Z",
-        "discordUser": { "discordUsername": ".martin_2009" }
+        "discordUser": {
+          "discordUsername": ".martin_2009"
+        }
       },
       {
         "id": 364,
@@ -6705,7 +7189,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T07:24:26.291Z",
-        "discordUser": { "discordUsername": "adrianatanasov" }
+        "discordUser": {
+          "discordUsername": "adrianatanasov"
+        }
       }
     ],
     "project": {
@@ -6755,7 +7241,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:40.084Z",
-        "discordUser": { "discordUsername": "yasenofficial" }
+        "discordUser": {
+          "discordUsername": "yasenofficial"
+        }
       },
       {
         "id": 85,
@@ -6776,7 +7264,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:15.627Z",
-        "discordUser": { "discordUsername": ".bobinkata" }
+        "discordUser": {
+          "discordUsername": ".bobinkata"
+        }
       },
       {
         "id": 216,
@@ -6797,7 +7287,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:33.058Z",
-        "discordUser": { "discordUsername": "mrgoblings" }
+        "discordUser": {
+          "discordUsername": "mrgoblings"
+        }
       },
       {
         "id": 247,
@@ -6818,7 +7310,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:04:05.565Z",
-        "discordUser": { "discordUsername": "simeon6307" }
+        "discordUser": {
+          "discordUsername": "simeon6307"
+        }
       },
       {
         "id": 265,
@@ -6839,7 +7333,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:25:24.102Z",
-        "discordUser": { "discordUsername": "valeri_t" }
+        "discordUser": {
+          "discordUsername": "valeri_t"
+        }
       }
     ],
     "project": {
@@ -6889,7 +7385,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:28.902Z",
-        "discordUser": { "discordUsername": "gogo112008" }
+        "discordUser": {
+          "discordUsername": "gogo112008"
+        }
       },
       {
         "id": 219,
@@ -6910,7 +7408,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:49.994Z",
-        "discordUser": { "discordUsername": "caparo" }
+        "discordUser": {
+          "discordUsername": "caparo"
+        }
       },
       {
         "id": 229,
@@ -6931,7 +7431,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:00:18.752Z",
-        "discordUser": { "discordUsername": "kaloyanyanev" }
+        "discordUser": {
+          "discordUsername": "kaloyanyanev"
+        }
       },
       {
         "id": 333,
@@ -6952,7 +7454,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T04:19:29.938Z",
-        "discordUser": { "discordUsername": "adiland_king" }
+        "discordUser": {
+          "discordUsername": "adiland_king"
+        }
       },
       {
         "id": 286,
@@ -6973,7 +7477,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:42:28.215Z",
-        "discordUser": { "discordUsername": "somaspo" }
+        "discordUser": {
+          "discordUsername": "somaspo"
+        }
       }
     ],
     "project": {
@@ -7023,7 +7529,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:17.708Z",
-        "discordUser": { "discordUsername": "teodora0320_41256" }
+        "discordUser": {
+          "discordUsername": "teodora0320_41256"
+        }
       },
       {
         "id": 131,
@@ -7044,7 +7552,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:52.103Z",
-        "discordUser": { "discordUsername": "b0r1s9858" }
+        "discordUser": {
+          "discordUsername": "b0r1s9858"
+        }
       },
       {
         "id": 142,
@@ -7065,7 +7575,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:19.497Z",
-        "discordUser": { "discordUsername": "panielski" }
+        "discordUser": {
+          "discordUsername": "panielski"
+        }
       },
       {
         "id": 152,
@@ -7086,7 +7598,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:07:50.440Z",
-        "discordUser": { "discordUsername": "vellyts" }
+        "discordUser": {
+          "discordUsername": "vellyts"
+        }
       }
     ],
     "project": {
@@ -7136,7 +7650,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:46.076Z",
-        "discordUser": { "discordUsername": "a1exand3rr" }
+        "discordUser": {
+          "discordUsername": "a1exand3rr"
+        }
       },
       {
         "id": 223,
@@ -7157,7 +7673,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:58:34.090Z",
-        "discordUser": { "discordUsername": "boris2233." }
+        "discordUser": {
+          "discordUsername": "boris2233."
+        }
       },
       {
         "id": 208,
@@ -7178,7 +7696,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:56:22.967Z",
-        "discordUser": { "discordUsername": "i.petkov_" }
+        "discordUser": {
+          "discordUsername": "i.petkov_"
+        }
       },
       {
         "id": 300,
@@ -7199,7 +7719,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:52:13.474Z",
-        "discordUser": { "discordUsername": "gen0vv" }
+        "discordUser": {
+          "discordUsername": "gen0vv"
+        }
       }
     ],
     "project": {
@@ -7249,7 +7771,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T04:55:25.563Z",
-        "discordUser": { "discordUsername": "martinmihalkov" }
+        "discordUser": {
+          "discordUsername": "martinmihalkov"
+        }
       },
       {
         "id": 334,
@@ -7270,7 +7794,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T04:54:23.762Z",
-        "discordUser": { "discordUsername": "Mladen_Mihalkov" }
+        "discordUser": {
+          "discordUsername": "Mladen_Mihalkov"
+        }
       },
       {
         "id": 317,
@@ -7291,7 +7817,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:35:30.573Z",
-        "discordUser": { "discordUsername": "muhatacece_" }
+        "discordUser": {
+          "discordUsername": "muhatacece_"
+        }
       },
       {
         "id": 332,
@@ -7312,7 +7840,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T04:10:21.254Z",
-        "discordUser": { "discordUsername": "bl_glarus" }
+        "discordUser": {
+          "discordUsername": "bl_glarus"
+        }
       }
     ],
     "project": {
@@ -7362,7 +7892,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:04.764Z",
-        "discordUser": { "discordUsername": "kiril_" }
+        "discordUser": {
+          "discordUsername": "kiril_"
+        }
       },
       {
         "id": 246,
@@ -7383,7 +7915,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:04:02.897Z",
-        "discordUser": { "discordUsername": ".djq" }
+        "discordUser": {
+          "discordUsername": ".djq"
+        }
       },
       {
         "id": 257,
@@ -7404,7 +7938,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:23:09.344Z",
-        "discordUser": { "discordUsername": "babi_po_cici" }
+        "discordUser": {
+          "discordUsername": "babi_po_cici"
+        }
       },
       {
         "id": 400,
@@ -7425,7 +7961,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T16:49:40.481Z",
-        "discordUser": { "discordUsername": "bor0__" }
+        "discordUser": {
+          "discordUsername": "bor0__"
+        }
       }
     ],
     "project": {
@@ -7475,7 +8013,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T06:01:17.073Z",
-        "discordUser": { "discordUsername": "commandermiho" }
+        "discordUser": {
+          "discordUsername": "commandermiho"
+        }
       },
       {
         "id": 348,
@@ -7496,7 +8036,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:52:36.691Z",
-        "discordUser": { "discordUsername": "Boris_k" }
+        "discordUser": {
+          "discordUsername": "Boris_k"
+        }
       },
       {
         "id": 347,
@@ -7517,7 +8059,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:51:19.209Z",
-        "discordUser": { "discordUsername": "sashungera" }
+        "discordUser": {
+          "discordUsername": "sashungera"
+        }
       },
       {
         "id": 352,
@@ -7538,7 +8082,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:57:11.653Z",
-        "discordUser": { "discordUsername": "_algold" }
+        "discordUser": {
+          "discordUsername": "_algold"
+        }
       },
       {
         "id": 366,
@@ -7559,7 +8105,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T07:26:01.830Z",
-        "discordUser": { "discordUsername": "alexpro124" }
+        "discordUser": {
+          "discordUsername": "alexpro124"
+        }
       }
     ],
     "project": {
@@ -7609,7 +8157,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:37.838Z",
-        "discordUser": { "discordUsername": "definitely_not_nase" }
+        "discordUser": {
+          "discordUsername": "definitely_not_nase"
+        }
       },
       {
         "id": 114,
@@ -7630,7 +8180,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:52.630Z",
-        "discordUser": { "discordUsername": "bogi5" }
+        "discordUser": {
+          "discordUsername": "bogi5"
+        }
       },
       {
         "id": 91,
@@ -7651,7 +8203,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:23.036Z",
-        "discordUser": { "discordUsername": "nikgeo." }
+        "discordUser": {
+          "discordUsername": "nikgeo."
+        }
       },
       {
         "id": 339,
@@ -7672,7 +8226,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:21:53.839Z",
-        "discordUser": { "discordUsername": "george3113." }
+        "discordUser": {
+          "discordUsername": "george3113."
+        }
       },
       {
         "id": 402,
@@ -7693,7 +8249,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T17:01:36.088Z",
-        "discordUser": { "discordUsername": "kris" }
+        "discordUser": {
+          "discordUsername": "kris"
+        }
       }
     ],
     "project": {
@@ -7743,7 +8301,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T14:21:38.673Z",
-        "discordUser": { "discordUsername": "toniuyt" }
+        "discordUser": {
+          "discordUsername": "toniuyt"
+        }
       },
       {
         "id": 420,
@@ -7764,7 +8324,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-03-07T18:11:15.005Z",
-        "discordUser": { "discordUsername": "pepideez" }
+        "discordUser": {
+          "discordUsername": "pepideez"
+        }
       },
       {
         "id": 28,
@@ -7785,7 +8347,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T14:27:55.123Z",
-        "discordUser": { "discordUsername": "zf0" }
+        "discordUser": {
+          "discordUsername": "zf0"
+        }
       }
     ],
     "project": {
@@ -7835,7 +8399,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T21:43:06.801Z",
-        "discordUser": { "discordUsername": "genwolfactual" }
+        "discordUser": {
+          "discordUsername": "genwolfactual"
+        }
       },
       {
         "id": 43,
@@ -7856,7 +8422,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-09T18:47:35.118Z",
-        "discordUser": { "discordUsername": "imran.hs" }
+        "discordUser": {
+          "discordUsername": "imran.hs"
+        }
       },
       {
         "id": 39,
@@ -7877,7 +8445,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-08T22:05:58.136Z",
-        "discordUser": { "discordUsername": "kikobg98" }
+        "discordUser": {
+          "discordUsername": "kikobg98"
+        }
       }
     ],
     "project": {
@@ -7927,7 +8497,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:38.446Z",
-        "discordUser": { "discordUsername": "tony9553" }
+        "discordUser": {
+          "discordUsername": "tony9553"
+        }
       },
       {
         "id": 123,
@@ -7948,7 +8520,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:18.365Z",
-        "discordUser": { "discordUsername": "y.kal" }
+        "discordUser": {
+          "discordUsername": "y.kal"
+        }
       },
       {
         "id": 148,
@@ -7969,7 +8543,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:05:13.002Z",
-        "discordUser": { "discordUsername": "viliyanpromax" }
+        "discordUser": {
+          "discordUsername": "viliyanpromax"
+        }
       },
       {
         "id": 190,
@@ -7990,7 +8566,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:54:20.121Z",
-        "discordUser": { "discordUsername": "xXDanGamerXx" }
+        "discordUser": {
+          "discordUsername": "xXDanGamerXx"
+        }
       },
       {
         "id": 245,
@@ -8011,7 +8589,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:04:01.388Z",
-        "discordUser": { "discordUsername": "lppetrov" }
+        "discordUser": {
+          "discordUsername": "lppetrov"
+        }
       }
     ],
     "project": {
@@ -8061,7 +8641,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:29.886Z",
-        "discordUser": { "discordUsername": "hlebche" }
+        "discordUser": {
+          "discordUsername": "hlebche"
+        }
       },
       {
         "id": 134,
@@ -8082,7 +8664,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:01.825Z",
-        "discordUser": { "discordUsername": "Demira" }
+        "discordUser": {
+          "discordUsername": "Demira"
+        }
       },
       {
         "id": 138,
@@ -8103,7 +8687,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:04.517Z",
-        "discordUser": { "discordUsername": "gosheto6668" }
+        "discordUser": {
+          "discordUsername": "gosheto6668"
+        }
       },
       {
         "id": 139,
@@ -8124,7 +8710,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:04.635Z",
-        "discordUser": { "discordUsername": "mstephanova" }
+        "discordUser": {
+          "discordUsername": "mstephanova"
+        }
       },
       {
         "id": 183,
@@ -8145,7 +8733,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:52:29.246Z",
-        "discordUser": { "discordUsername": "_fxtz_" }
+        "discordUser": {
+          "discordUsername": "_fxtz_"
+        }
       }
     ],
     "project": {
@@ -8195,7 +8785,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:00.925Z",
-        "discordUser": { "discordUsername": "nikol_p18" }
+        "discordUser": {
+          "discordUsername": "nikol_p18"
+        }
       },
       {
         "id": 133,
@@ -8216,7 +8808,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:56.688Z",
-        "discordUser": { "discordUsername": "gencho_tigura" }
+        "discordUser": {
+          "discordUsername": "gencho_tigura"
+        }
       },
       {
         "id": 136,
@@ -8237,7 +8831,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:03.129Z",
-        "discordUser": { "discordUsername": "aleks4e" }
+        "discordUser": {
+          "discordUsername": "aleks4e"
+        }
       },
       {
         "id": 154,
@@ -8258,7 +8854,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:46:11.046Z",
-        "discordUser": { "discordUsername": ".sylyx." }
+        "discordUser": {
+          "discordUsername": ".sylyx."
+        }
       },
       {
         "id": 179,
@@ -8279,7 +8877,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:52:04.989Z",
-        "discordUser": { "discordUsername": "v_hristowa_" }
+        "discordUser": {
+          "discordUsername": "v_hristowa_"
+        }
       }
     ],
     "project": {
@@ -8329,7 +8929,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:48.752Z",
-        "discordUser": { "discordUsername": "ivan_i07" }
+        "discordUser": {
+          "discordUsername": "ivan_i07"
+        }
       },
       {
         "id": 121,
@@ -8350,7 +8952,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:16.916Z",
-        "discordUser": { "discordUsername": "knpronoob" }
+        "discordUser": {
+          "discordUsername": "knpronoob"
+        }
       },
       {
         "id": 124,
@@ -8371,7 +8975,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:19.297Z",
-        "discordUser": { "discordUsername": "cvetkovdim27" }
+        "discordUser": {
+          "discordUsername": "cvetkovdim27"
+        }
       },
       {
         "id": 149,
@@ -8392,7 +8998,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:05:13.996Z",
-        "discordUser": { "discordUsername": "pavkataxd" }
+        "discordUser": {
+          "discordUsername": "pavkataxd"
+        }
       },
       {
         "id": 217,
@@ -8413,7 +9021,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:42.557Z",
-        "discordUser": { "discordUsername": "darklingeye" }
+        "discordUser": {
+          "discordUsername": "darklingeye"
+        }
       }
     ],
     "project": {
@@ -8463,7 +9073,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:01:08.412Z",
-        "discordUser": { "discordUsername": "monika950" }
+        "discordUser": {
+          "discordUsername": "monika950"
+        }
       },
       {
         "id": 182,
@@ -8484,7 +9096,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:52:28.243Z",
-        "discordUser": { "discordUsername": "LillyThePiggy" }
+        "discordUser": {
+          "discordUsername": "LillyThePiggy"
+        }
       },
       {
         "id": 211,
@@ -8505,7 +9119,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:56:55.978Z",
-        "discordUser": { "discordUsername": "ilina55" }
+        "discordUser": {
+          "discordUsername": "ilina55"
+        }
       },
       {
         "id": 285,
@@ -8526,7 +9142,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:42:18.946Z",
-        "discordUser": { "discordUsername": ".rizova" }
+        "discordUser": {
+          "discordUsername": ".rizova"
+        }
       }
     ],
     "project": {
@@ -8576,7 +9194,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:11.925Z",
-        "discordUser": { "discordUsername": "_shadow4o_" }
+        "discordUser": {
+          "discordUsername": "_shadow4o_"
+        }
       },
       {
         "id": 252,
@@ -8597,7 +9217,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:05:59.249Z",
-        "discordUser": { "discordUsername": "warlordgor2.0" }
+        "discordUser": {
+          "discordUsername": "warlordgor2.0"
+        }
       },
       {
         "id": 196,
@@ -8618,7 +9240,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:54:45.715Z",
-        "discordUser": { "discordUsername": "hehrd" }
+        "discordUser": {
+          "discordUsername": "hehrd"
+        }
       },
       {
         "id": 198,
@@ -8639,7 +9263,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:54:56.868Z",
-        "discordUser": { "discordUsername": "zapek_no_shit" }
+        "discordUser": {
+          "discordUsername": "zapek_no_shit"
+        }
       },
       {
         "id": 213,
@@ -8660,7 +9286,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:18.843Z",
-        "discordUser": { "discordUsername": "frogo_o" }
+        "discordUser": {
+          "discordUsername": "frogo_o"
+        }
       }
     ],
     "project": {
@@ -8710,7 +9338,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:27:35.707Z",
-        "discordUser": { "discordUsername": "deyan.a.naidenov_46952" }
+        "discordUser": {
+          "discordUsername": "deyan.a.naidenov_46952"
+        }
       },
       {
         "id": 269,
@@ -8731,7 +9361,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:27:35.459Z",
-        "discordUser": { "discordUsername": "zakluchihamevmaze" }
+        "discordUser": {
+          "discordUsername": "zakluchihamevmaze"
+        }
       },
       {
         "id": 248,
@@ -8752,7 +9384,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:04:27.495Z",
-        "discordUser": { "discordUsername": "katakurabgmaster15_96_79609" }
+        "discordUser": {
+          "discordUsername": "katakurabgmaster15_96_79609"
+        }
       },
       {
         "id": 408,
@@ -8773,7 +9407,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-31T06:04:49.578Z",
-        "discordUser": { "discordUsername": "b_peev17" }
+        "discordUser": {
+          "discordUsername": "b_peev17"
+        }
       },
       {
         "id": 271,
@@ -8794,7 +9430,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:28:43.912Z",
-        "discordUser": { "discordUsername": "b.stoinev77" }
+        "discordUser": {
+          "discordUsername": "b.stoinev77"
+        }
       }
     ],
     "project": {
@@ -8844,7 +9482,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:50.298Z",
-        "discordUser": { "discordUsername": "scriptereve" }
+        "discordUser": {
+          "discordUsername": "scriptereve"
+        }
       },
       {
         "id": 153,
@@ -8865,7 +9505,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:09:37.846Z",
-        "discordUser": { "discordUsername": "stellusha_3" }
+        "discordUser": {
+          "discordUsername": "stellusha_3"
+        }
       },
       {
         "id": 315,
@@ -8886,7 +9528,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:25:53.747Z",
-        "discordUser": { "discordUsername": "soloissofine" }
+        "discordUser": {
+          "discordUsername": "soloissofine"
+        }
       },
       {
         "id": 327,
@@ -8907,7 +9551,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T22:09:15.476Z",
-        "discordUser": { "discordUsername": "mariyan_cholakov" }
+        "discordUser": {
+          "discordUsername": "mariyan_cholakov"
+        }
       },
       {
         "id": 349,
@@ -8928,7 +9574,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:55:55.844Z",
-        "discordUser": { "discordUsername": "denkata9876" }
+        "discordUser": {
+          "discordUsername": "denkata9876"
+        }
       }
     ],
     "project": {
@@ -8978,7 +9626,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:47:05.140Z",
-        "discordUser": { "discordUsername": "iv4e" }
+        "discordUser": {
+          "discordUsername": "iv4e"
+        }
       },
       {
         "id": 160,
@@ -8999,7 +9649,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:48:03.423Z",
-        "discordUser": { "discordUsername": "yana5064" }
+        "discordUser": {
+          "discordUsername": "yana5064"
+        }
       },
       {
         "id": 155,
@@ -9020,7 +9672,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:46:38.886Z",
-        "discordUser": { "discordUsername": "militsaaaa" }
+        "discordUser": {
+          "discordUsername": "militsaaaa"
+        }
       },
       {
         "id": 185,
@@ -9041,7 +9695,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:52:55.850Z",
-        "discordUser": { "discordUsername": "quant22" }
+        "discordUser": {
+          "discordUsername": "quant22"
+        }
       },
       {
         "id": 342,
@@ -9062,7 +9718,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T05:32:59.366Z",
-        "discordUser": { "discordUsername": "shhhockk" }
+        "discordUser": {
+          "discordUsername": "shhhockk"
+        }
       }
     ],
     "project": {
@@ -9112,7 +9770,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:02:26.766Z",
-        "discordUser": { "discordUsername": "sasho_1." }
+        "discordUser": {
+          "discordUsername": "sasho_1."
+        }
       },
       {
         "id": 167,
@@ -9133,7 +9793,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:49:33.546Z",
-        "discordUser": { "discordUsername": "deurc" }
+        "discordUser": {
+          "discordUsername": "deurc"
+        }
       },
       {
         "id": 173,
@@ -9154,7 +9816,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:50:59.742Z",
-        "discordUser": { "discordUsername": "ivan_dj._17504" }
+        "discordUser": {
+          "discordUsername": "ivan_dj._17504"
+        }
       },
       {
         "id": 159,
@@ -9175,7 +9839,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:47:39.199Z",
-        "discordUser": { "discordUsername": "venev.09" }
+        "discordUser": {
+          "discordUsername": "venev.09"
+        }
       },
       {
         "id": 276,
@@ -9196,7 +9862,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:33:08.148Z",
-        "discordUser": { "discordUsername": "pecata2754" }
+        "discordUser": {
+          "discordUsername": "pecata2754"
+        }
       }
     ],
     "project": {
@@ -9246,7 +9914,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T08:03:17.793Z",
-        "discordUser": { "discordUsername": "bicagis" }
+        "discordUser": {
+          "discordUsername": "bicagis"
+        }
       },
       {
         "id": 372,
@@ -9267,7 +9937,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T08:18:11.891Z",
-        "discordUser": { "discordUsername": "bv_hand487" }
+        "discordUser": {
+          "discordUsername": "bv_hand487"
+        }
       },
       {
         "id": 373,
@@ -9288,7 +9960,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T09:02:14.353Z",
-        "discordUser": { "discordUsername": "schriodingerscat42" }
+        "discordUser": {
+          "discordUsername": "schriodingerscat42"
+        }
       },
       {
         "id": 374,
@@ -9309,7 +9983,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T09:10:57.530Z",
-        "discordUser": { "discordUsername": "insocrow" }
+        "discordUser": {
+          "discordUsername": "insocrow"
+        }
       },
       {
         "id": 377,
@@ -9330,7 +10006,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T10:01:20.043Z",
-        "discordUser": { "discordUsername": "brain.lag" }
+        "discordUser": {
+          "discordUsername": "brain.lag"
+        }
       }
     ],
     "project": {
@@ -9380,7 +10058,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:57:12.368Z",
-        "discordUser": { "discordUsername": "niki4a" }
+        "discordUser": {
+          "discordUsername": "niki4a"
+        }
       },
       {
         "id": 272,
@@ -9401,7 +10081,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:28:53.634Z",
-        "discordUser": { "discordUsername": "achonatora" }
+        "discordUser": {
+          "discordUsername": "achonatora"
+        }
       },
       {
         "id": 205,
@@ -9422,7 +10104,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:55:53.859Z",
-        "discordUser": { "discordUsername": ".aleban" }
+        "discordUser": {
+          "discordUsername": ".aleban"
+        }
       },
       {
         "id": 407,
@@ -9443,7 +10127,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T19:03:38.572Z",
-        "discordUser": { "discordUsername": "simeon681" }
+        "discordUser": {
+          "discordUsername": "simeon681"
+        }
       },
       {
         "id": 406,
@@ -9464,7 +10150,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T18:20:48.942Z",
-        "discordUser": { "discordUsername": "_banan4e" }
+        "discordUser": {
+          "discordUsername": "_banan4e"
+        }
       }
     ],
     "project": {
@@ -9514,7 +10202,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:03:03.608Z",
-        "discordUser": { "discordUsername": "nickolay_" }
+        "discordUser": {
+          "discordUsername": "nickolay_"
+        }
       },
       {
         "id": 225,
@@ -9535,7 +10225,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:59:00.161Z",
-        "discordUser": { "discordUsername": "danchosocute" }
+        "discordUser": {
+          "discordUsername": "danchosocute"
+        }
       },
       {
         "id": 325,
@@ -9556,7 +10248,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T22:06:21.903Z",
-        "discordUser": { "discordUsername": "milchevdimitar" }
+        "discordUser": {
+          "discordUsername": "milchevdimitar"
+        }
       },
       {
         "id": 414,
@@ -9577,7 +10271,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-02-01T13:50:07.840Z",
-        "discordUser": { "discordUsername": "and.d.d" }
+        "discordUser": {
+          "discordUsername": "and.d.d"
+        }
       }
     ],
     "project": {
@@ -9627,7 +10323,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T18:04:12.638Z",
-        "discordUser": { "discordUsername": "phantomv.1" }
+        "discordUser": {
+          "discordUsername": "phantomv.1"
+        }
       },
       {
         "id": 221,
@@ -9648,7 +10346,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:58:01.796Z",
-        "discordUser": { "discordUsername": "bobkata____" }
+        "discordUser": {
+          "discordUsername": "bobkata____"
+        }
       },
       {
         "id": 222,
@@ -9669,7 +10369,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:58:27.592Z",
-        "discordUser": { "discordUsername": "mariyangeorgiev" }
+        "discordUser": {
+          "discordUsername": "mariyangeorgiev"
+        }
       },
       {
         "id": 313,
@@ -9690,7 +10392,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:22:03.798Z",
-        "discordUser": { "discordUsername": "bot_javorcho" }
+        "discordUser": {
+          "discordUsername": "bot_javorcho"
+        }
       },
       {
         "id": 329,
@@ -9711,7 +10415,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T22:54:44.548Z",
-        "discordUser": { "discordUsername": "vachkoff" }
+        "discordUser": {
+          "discordUsername": "vachkoff"
+        }
       }
     ],
     "project": {
@@ -9761,7 +10467,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T21:08:09.511Z",
-        "discordUser": { "discordUsername": "vaskovelev" }
+        "discordUser": {
+          "discordUsername": "vaskovelev"
+        }
       },
       {
         "id": 302,
@@ -9782,7 +10490,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:54:26.820Z",
-        "discordUser": { "discordUsername": "yaskata." }
+        "discordUser": {
+          "discordUsername": "yaskata."
+        }
       },
       {
         "id": 330,
@@ -9803,7 +10513,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T22:56:35.715Z",
-        "discordUser": { "discordUsername": "adrian1360" }
+        "discordUser": {
+          "discordUsername": "adrian1360"
+        }
       },
       {
         "id": 413,
@@ -9824,7 +10536,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-02-01T12:25:38.300Z",
-        "discordUser": { "discordUsername": "to6o" }
+        "discordUser": {
+          "discordUsername": "to6o"
+        }
       }
     ],
     "project": {
@@ -9874,7 +10588,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T19:59:54.520Z",
-        "discordUser": { "discordUsername": "victorsmash12" }
+        "discordUser": {
+          "discordUsername": "victorsmash12"
+        }
       },
       {
         "id": 238,
@@ -9895,7 +10611,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:02:14.470Z",
-        "discordUser": { "discordUsername": "flopplet" }
+        "discordUser": {
+          "discordUsername": "flopplet"
+        }
       },
       {
         "id": 357,
@@ -9916,7 +10634,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T06:02:50.506Z",
-        "discordUser": { "discordUsername": "bobby0nekenobi" }
+        "discordUser": {
+          "discordUsername": "bobby0nekenobi"
+        }
       },
       {
         "id": 259,
@@ -9937,7 +10657,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-29T20:24:11.050Z",
-        "discordUser": { "discordUsername": "2_serafim" }
+        "discordUser": {
+          "discordUsername": "2_serafim"
+        }
       },
       {
         "id": 363,
@@ -9958,7 +10680,9 @@
         "question1Answer": null,
         "question2Answer": null,
         "createdAt": "2024-01-30T07:24:23.196Z",
-        "discordUser": { "discordUsername": "pinghater3000.2741" }
+        "discordUser": {
+          "discordUsername": "pinghater3000.2741"
+       op }
       }
     ],
     "project": {
