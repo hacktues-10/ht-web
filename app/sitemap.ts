@@ -16,7 +16,7 @@ export default async function sitemap() {
           priority: link.isNew ? 1 : 0.5,
         })),
     ),
-    ...teams.map((team) => ({
+    ...teams.map((team: any) => ({
       url: `/teams/${team.id}`,
       lastModified: new Date(),
       changeFrequency: "daily",
