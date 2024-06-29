@@ -42,11 +42,6 @@ import { Input } from "~/app/components/ui/input";
 import { Textarea } from "~/app/components/ui/textarea";
 import { useToast } from "~/app/components/ui/use-toast";
 import {
-  updateProjectFallbackGitHubRepos,
-  updateProjectNameDesc,
-  updateProjectWebsiteUrl,
-} from "../../actions";
-import {
   UpdateFallbackGitHubReposInput,
   updateFallbackGitHubReposSchema,
   UpdateProjectInput,
@@ -81,10 +76,7 @@ export function UpdateProjectDialog({
 
   const updateProjectMutation = useMutation({
     mutationFn: async (data: UpdateProjectInput) => {
-      const res = await updateProjectNameDesc(data);
-      if (!res.success) {
-        throw new Error(res.message);
-      }
+      throw new Error("its static version of the site sowwy");
     },
     onSuccess: () => {
       toast({
@@ -159,7 +151,7 @@ export function UpdateProjectDialog({
               <FormField
                 control={form.control}
                 name="name"
-                render={({ field }) => (
+                render={({ field }: { field: any }) => (
                   <FormItem>
                     <FormLabel>Име</FormLabel>
                     <FormControl>
@@ -172,7 +164,7 @@ export function UpdateProjectDialog({
               <FormField
                 control={form.control}
                 name="description"
-                render={({ field }) => (
+                render={({ field }: { field: any }) => (
                   <FormItem>
                     <FormLabel>Описание</FormLabel>
                     <FormControl>
@@ -253,10 +245,7 @@ export function UpdateWebsiteUrlDialog({
 
   const updateWebsiteUrlMutation = useMutation({
     mutationFn: async (data: UpdateWebsiteUrlInput) => {
-      const res = await updateProjectWebsiteUrl(data);
-      if (!res.success) {
-        throw new Error(res.message);
-      }
+      throw new Error("its static version of the site sowwy");
     },
     onSuccess: () => {
       toast({
@@ -309,7 +298,7 @@ export function UpdateWebsiteUrlDialog({
               <FormField
                 control={form.control}
                 name="websiteUrl"
-                render={({ field }) => (
+                render={({ field }: { field: any }) => (
                   <FormItem>
                     <FormLabel className="sr-only">Линк</FormLabel>
                     <FormControl>
@@ -374,11 +363,6 @@ function WebsiteUrlConfirmationDialog({
   );
 }
 
-const updateProjectFallbackGitHubReposFixed =
-  updateProjectFallbackGitHubRepos as any as (
-    input: UpdateFallbackGitHubReposInput,
-  ) => ReturnType<typeof updateProjectFallbackGitHubRepos>;
-
 export function UpdateFallbackReposDialog(
   props: React.PropsWithChildren<{
     teamId: string;
@@ -402,10 +386,7 @@ export function UpdateFallbackReposDialog(
 
   const updateFallbackReposMutation = useMutation({
     mutationFn: async (data: UpdateFallbackGitHubReposInput) => {
-      const res = await updateProjectFallbackGitHubReposFixed(data);
-      if (!res.success) {
-        throw new Error(res.message);
-      }
+      throw new Error("its static version of the site sowwy");
     },
     onSuccess: () => {
       toast({
@@ -471,7 +452,7 @@ export function UpdateFallbackReposDialog(
         />
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((data) =>
+            onSubmit={form.handleSubmit((data: any) =>
               handleSubmit({
                 ...data,
                 fallbackGitHubRepos: (
@@ -494,7 +475,7 @@ export function UpdateFallbackReposDialog(
               <FormField
                 control={form.control}
                 name="fallbackGitHubRepos"
-                render={({ field }) => (
+                render={({ field }: { field: any }) => (
                   <FormItem>
                     <FormLabel>GitHub хранилища</FormLabel>
                     <FormControl>
