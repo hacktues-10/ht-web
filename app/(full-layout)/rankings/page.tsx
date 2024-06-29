@@ -24,7 +24,7 @@ export default async function RankingsPage() {
 
   const finalists = teams
     .map((selectedTeams) =>
-      selectedTeams.filter((team) => team.isFinalist == true),
+      selectedTeams.filter((team: any) => team.isFinalist == true),
     )
     .flat()
     .sort((a, b) => Number(b.finalResult) - Number(a.finalResult));
