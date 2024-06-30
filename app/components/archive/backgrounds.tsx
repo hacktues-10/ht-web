@@ -95,7 +95,7 @@ export const HT6Background = () => (
 
 export const HT7Background = () => (
   <>
-    <HT7Wireframe className="-z-2 absolute inset-0 [mask-image:linear-gradient(to_right,transparent,10%,white,90%,transparent)]" />
+    <HT7Wireframe className="absolute inset-0 -z-20 [mask-image:linear-gradient(to_right,transparent,10%,white,90%,transparent)]" />
     <div className="inset-0">
       <PageBackdrop className="h-full">
         <Image
