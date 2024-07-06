@@ -600,14 +600,14 @@ export const MEDIA_ARTICLES = [
       "Успешно приключи десетото юбилейно издание на най-големия хакатон, създаден от ученици за ученици у нас",
     logo: btvLogo,
     url: "https://www.btv.bg/shows/tazi-nedelia/videos-nedelia/uspeshno-prikljuchi-desetoto-jubilejno-izdanie-na-naj-golemija-hakaton-sazdaden-ot-uchenici-za-uchenici-u-nas.html",
-    date: new Date(2024, MARCH, 20),
+    date: new Date(2024, MARCH, 17),
   },
   {
     name: "BTV Media Group",
     title: "Hack TUES X: Над 70 отбора и тайна тема",
     logo: btvLogo,
     url: "https://businessnovinite.bg/bg-biznes/hack-tues-x-nad-70-otbora-i-tajna-tema.html",
-    date: new Date(2024, MARCH, 20),
+    date: new Date(2024, MARCH, 13),
   },
   {
     name: "Darik Business Review",
@@ -666,7 +666,7 @@ export const MEDIA_ARTICLES = [
     title: "Hack TUES X стартира през март",
     url: "https://www.obekti.bg/tehno/hack-tues-x-startira-prez-mart",
     logo: obektiBgLogo,
-    date: new Date(2024, FEBRUARY, 2),
+    date: new Date(2024, FEBRUARY, 20),
   },
   {
     name: "Economy.bg",
@@ -688,7 +688,7 @@ export const MEDIA_ARTICLES = [
     bg: "#fff",
     logo: kaldataLogo,
     url: "https://www.kaldata.com/it-%D0%BD%D0%BE%D0%B2%D0%B8%D0%BD%D0%B8/hack-tues-x-%D1%81%D1%82%D0%B0%D1%80%D1%82%D0%B8%D1%80%D0%B0-%D0%BF%D1%80%D0%B5%D0%B7-%D0%BC%D0%B0%D1%80%D1%82-2024-%D0%B3%D0%BE%D0%B4%D0%B8%D0%BD%D0%B0-461309.html",
-    date: new Date(2024, JANUARY, 24),
+    date: new Date(2024, JANUARY, 25),
   },
   {
     name: "DevStyleR",
