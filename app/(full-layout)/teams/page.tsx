@@ -1,19 +1,13 @@
 import { Metadata } from "next";
-import Link from "next/link";
 
-import { MAX_TEAMS_ALUMNI, MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
-import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
-import { ComingSoonPage } from "~/app/components/coming-soon/coming-soon-page";
 import TeamCard from "~/app/components/Team/teamCard";
-import { Button } from "~/app/components/ui/button";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "~/app/components/ui/tabs";
-import { getParticipantFromSession } from "~/app/participants/service";
-import { getAllTeams, isTeamConfirmed } from "./service";
+import { getAllTeams } from "./service";
 
 export const metadata: Metadata = {
   title: "Отбори",
@@ -26,40 +20,13 @@ export const metadata: Metadata = {
 
 export default async function TeamListPage() {
   const teams = await getAllTeams();
-  const participant = await getParticipantFromSession();
-  const studentTeams = teams.filter((team) => !team.isAlumni);
-  const alumniTeams = teams.filter((team) => team.isAlumni);
-
-  const confirmedStudentTeamsNumber =
-    studentTeams.filter(isTeamConfirmed).length;
-  const confirmedAlumniTeamsNumber = alumniTeams.filter(isTeamConfirmed).length;
+  const studentTeams = teams.filter((team: any) => !team.isAlumni);
+  const alumniTeams = teams.filter((team: any) => team.isAlumni);
 
   let canCreateTeam = false;
-  if (participant?.grade) {
-    canCreateTeam =
-      (confirmedAlumniTeamsNumber < MAX_TEAMS_ALUMNI &&
-        parseInt(participant.grade) > 12) ||
-      (confirmedStudentTeamsNumber < MAX_TEAMS_STUDENTS &&
-        parseInt(participant.grade) <= 12);
-  }
 
-  //   TODO: move elsewhere
   return (
-    //bg-[url('./assets/background.png')]
     <div className="h-full w-full max-w-[1920px] content-center items-center justify-center">
-      <IfHTFeatureOn feature="create-team">
-        {participant &&
-          !participant.team.id &&
-          canCreateTeam &&
-          !participant.isDisqualified && (
-            <div className="flex flex-col items-center justify-center">
-              <Button asChild size="lg" className="mx-auto mb-3 mt-3">
-                <Link href="/teams/new">Създай отбор</Link>
-              </Button>
-            </div>
-          )}
-      </IfHTFeatureOn>
-
       <Tabs
         defaultValue={studentTeams.length > 0 ? "students" : "alumni"}
         className="content-center"
@@ -74,16 +41,16 @@ export default async function TeamListPage() {
               Отбори на ученици
             </h1>
             <h2 className="m-4 self-center text-center text-2xl font-semibold tracking-tight  text-white sm:text-3xl">
-              Потвърдени отбори: {confirmedStudentTeamsNumber}
+              Потвърдени отбори: {studentTeams.length}
             </h2>
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {studentTeams.map((team, index) => (
+              {studentTeams.map((team: any, index: any) => (
                 <TeamCard
                   team={{
                     id: team.id,
                     name: team.name,
                     technologies: team.technologies,
-                    members: team.members.map((member) => ({
+                    members: team.members.map((member: any) => ({
                       id: member.id,
                       firstName: member.firstName,
                       lastName: member.lastName,
@@ -112,17 +79,17 @@ export default async function TeamListPage() {
             </h1>
 
             <h2 className="m-4 self-center text-center text-2xl font-semibold tracking-tight  text-white sm:text-3xl">
-              Потвърдени отбори: {confirmedAlumniTeamsNumber}
+              Потвърдени отбори: {alumniTeams.length}
             </h2>
 
             <div className="inline-grid w-full grid-cols-1 gap-5 py-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {alumniTeams.map((team, index) => (
+              {alumniTeams.map((team: any, index: any) => (
                 <TeamCard
                   team={{
                     id: team.id,
                     name: team.name,
                     technologies: team.technologies,
-                    members: team.members.map((member) => ({
+                    members: team.members.map((member: any) => ({
                       id: member.id,
                       firstName: member.firstName,
                       lastName: member.lastName,

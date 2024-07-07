@@ -211,18 +211,18 @@ function ScheduleItemList({ events }: { events: readonly ScheduleEvent[] }) {
                   ))}
                 </CardHeader>
                 <CardContent>
-                  {event.type === "youtube" && (
+                  {(event.type === "youtube" || event.type === "workshop") && (
                     <Button
                       asChild
                       variant="destructive"
-                      className="items-center justify-center"
+                      className={cn(
+                        "items-center justify-center",
+                        event.type === "workshop" && "my-2",
+                      )}
                       size="sm"
                     >
-                      <Link
-                        href="https://youtube.com/@TUES/live"
-                        target="_blank"
-                      >
-                        <Youtube className="mr-2 h-5 w-5" /> Гледай на живо!
+                      <Link href={event.link} target="_blank">
+                        <Youtube className="mr-2 h-5 w-5" /> Гледай!
                       </Link>
                     </Button>
                   )}

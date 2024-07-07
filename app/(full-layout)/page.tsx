@@ -24,7 +24,6 @@ import {
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
 import { IfAnyHTFeatureOn } from "../_integrations/components";
-import { IfNotHTSession } from "../api/auth/server-components";
 import {
   CountdownTimer,
   LandingCountdownTimer,
@@ -156,20 +155,6 @@ export default async function LandingPage() {
           </IfAnyHTFeatureOn> */}
         </ArchiveSection>
       </ArchiveContainer>
-      <IfNotHTSession>
-        <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
-          <section className="relative flex flex-col items-center gap-3 pb-16 pt-5">
-            <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
-              Какво чакате?
-            </h2>
-            <div className="py-2" />
-
-            <Button size="lg" asChild>
-              <Link href="/signup">Регистрирайте се сега!</Link>
-            </Button>
-          </section>
-        </IfAnyHTFeatureOn>
-      </IfNotHTSession>
       <div className="pb-4"></div>
     </div>
   );

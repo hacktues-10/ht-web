@@ -1,10 +1,8 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getAllMentors } from "~/app/(full-layout)/mentors/service";
-import { getTeamById } from "~/app/(full-layout)/teams/service";
-import { getParticipantFromSession } from "~/app/participants/service";
 import { convertToTechnology } from "~/app/technologies";
 import { cn } from "~/app/utils";
 import { Badge } from "../ui/badge";
@@ -24,21 +22,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
-import ChooseMentor from "./ChooseMentor";
 
 interface MentorInterface {
   mentor: Awaited<ReturnType<typeof getAllMentors>>[number];
-  participant: Awaited<ReturnType<typeof getParticipantFromSession> | null>;
-  participantTeam: Awaited<ReturnType<typeof getTeamById> | null>;
-  isMentorTaken: boolean;
 }
 
-const Mentor: React.FC<MentorInterface> = async ({
-  mentor,
-  participant,
-  participantTeam,
-  isMentorTaken,
-}) => {
+const Mentor: React.FC<MentorInterface> = async ({ mentor }) => {
   const techn = convertToTechnology(mentor.technologies ?? "");
 
   return (
@@ -132,7 +121,7 @@ const Mentor: React.FC<MentorInterface> = async ({
                     : mentor.where?.toLowerCase()}{" "}
                   на:
                 </p>
-                {mentor.schedule?.split(", ").map((info) => {
+                {mentor.schedule?.split(", ").map((info: any) => {
                   return info.trim() != "" && <span key={info}>• {info}</span>;
                 })}
               </DialogHeader>
@@ -140,24 +129,9 @@ const Mentor: React.FC<MentorInterface> = async ({
           </Dialog>
 
           <CardFooter className=" ">
-            <IfHTFeatureOn feature="choose-mentor">
-              {participant &&
-                participant.team.isCaptain == true &&
-                participantTeam?.id &&
-                participantTeam?.mentorId == null &&
-                !isMentorTaken &&
-                parseInt(participant.grade) < 13 && (
-                  <ChooseMentor
-                    mentorId={mentor.id}
-                    teamId={participantTeam?.id}
-                  />
-                )}
-              {isMentorTaken && (
-                <Button disabled={true} className="w-full text-black">
-                  {mentor.team?.name}
-                </Button>
-              )}
-            </IfHTFeatureOn>
+            <Button asChild className="w-full text-black">
+              <Link href={`/teams/${mentor.team.id}`}>{mentor.team.name}</Link>
+            </Button>
           </CardFooter>
         </Card>
         <TooltipContent>

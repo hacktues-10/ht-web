@@ -3,40 +3,14 @@
 import Link from "next/link";
 import { animated, useScroll } from "@react-spring/web";
 import { useQuery } from "@tanstack/react-query";
-import { LogOutIcon, User } from "lucide-react";
-import { signOut } from "next-auth/react";
 
-import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
-import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "~/app/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "~/app/components/ui/dropdown-menu";
-import { SignInButton, SignOutButton } from "../buttons";
-import CustomizableDialog from "../CustomizableDialog";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
-import { Button } from "../ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
 import { getHeaderData } from "./actions";
 
 export const Header = () => {
   const MAX_OPACITY = 0.7;
 
   const { scrollY } = useScroll();
-  const { data: headerData } = useHeaderData();
 
   return (
     <animated.header
@@ -62,103 +36,7 @@ export const Header = () => {
       </Link>
       <DesktopNavigation className="hidden md:block" />
       <div className="w-full flex-1" />
-      {headerData &&
-        headerData.notifications !== null &&
-        headerData.participant && (
-          <NotificationsPopover
-            notifications={headerData.notifications}
-            participant={headerData.participant}
-          />
-        )}
-      {headerData && headerData.avatarName !== null && (
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger className="focus-visible:ring-offset-3 hidden rounded-full outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring sm:block">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    size="icon"
-                    variant="ghost"
-                    className="hidden rounded-full focus:bg-white/0 md:inline-flex"
-                    asChild
-                  >
-                    <Avatar>
-                      <AvatarImage />
-                      <AvatarFallback className="uppercase">
-                        {headerData.avatarName.at(0) ?? <User />}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>{headerData.avatarName}</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="hidden items-center sm:block md:max-w-[12rem]">
-            <DropdownMenuLabel className="text-wrap justify-center text-ellipsis py-3 text-center">
-              Здравейте, {headerData.avatarName}
-            </DropdownMenuLabel>
-            <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
-              <Link href="/profile" className="w-full py-3 text-center">
-                Моят профил
-              </Link>
-            </DropdownMenuItem>
-            {headerData.participant && headerData.participant.team != null && (
-              <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
-                <Link
-                  href={`/teams/${headerData.participant.team}`}
-                  className="w-full py-3 text-center"
-                >
-                  Моят отбор
-                </Link>
-              </DropdownMenuItem>
-            )}
-            <DropdownMenuItem className="w-full items-center justify-center hover:bg-white/10">
-              <div onClick={(event) => event.stopPropagation()}>
-                <CustomizableDialog
-                  dialogTitle="Изход"
-                  dialogDescription="Сигурни ли сте, че искате да излезете от акаунта си?"
-                  actionTitle="Изход"
-                  cancelTitle="Назад"
-                  actionFunction={() => {
-                    signOut();
-                  }}
-                >
-                  <div className="hover:bg-current/10 flex items-center focus:bg-current">
-                    <LogOutIcon className="scale-90 text-center text-destructive" />
-                    <p className="focus:bg-current/10 hover:bg-current/10 ml-2 text-center text-destructive">
-                      Изход
-                    </p>
-                  </div>
-                </CustomizableDialog>
-              </div>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )}
 
-      {headerData && headerData.avatarName === null && (
-        <div className="hidden gap-2 md:flex">
-          <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
-            <Button variant="secondary" asChild>
-              <Link href="/signup">Регистрация</Link>
-            </Button>
-          </IfAnyHTFeatureOn>
-          <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
-            <Button asChild>
-              <SignInButton>
-                <Link
-                  href="/login"
-                  tabIndex={-1}
-                  className="pointer-events-none"
-                >
-                  Вход
-                </Link>
-              </SignInButton>
-            </Button>
-          </IfAnyHTFeatureOn>
-        </div>
-      )}
       <MobileNavigation className="md:hidden" />
     </animated.header>
   );

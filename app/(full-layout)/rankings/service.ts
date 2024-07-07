@@ -1,57 +1,41 @@
-import { unstable_cache } from "next/cache";
-import { eq } from "drizzle-orm";
-
-import { db } from "~/app/db";
-import { teams } from "~/app/db/schema";
-import { env } from "~/app/env.mjs";
-import { MINUTE } from "~/app/utils";
+import fs from "fs";
+import path from "path";
 
 const SEMIFINALS_COUNT = 7;
+const getTeamsData = () => {
+  const filePath = path.join(process.cwd(), "public", "static", "teams.json");
+  const jsonData = fs.readFileSync(filePath, "utf8");
+  return JSON.parse(jsonData);
+};
 
-export const getTeamsBySemiFinal = unstable_cache(
-  async () => {
-    let teamsSemiFinal = [];
+export const getTeamsBySemiFinal = async () => {
+  const teamsData = getTeamsData();
+  let teamsSemiFinal = [];
 
-    for (let i = 1; i <= SEMIFINALS_COUNT; i++) {
-      const teamsInSemiFinal = await db
-        .select()
-        .from(teams)
-        .where(eq(teams.semiFinal, i));
+  for (let i = 1; i <= SEMIFINALS_COUNT; i++) {
+    const teamsInSemiFinal = teamsData.filter(
+      (team: any) => team.semiFinal === i,
+    );
 
-      if (teamsInSemiFinal.length <= 0) {
-        return teamsSemiFinal;
-      }
-
-      teamsInSemiFinal.sort((a, b) => {
-        return Number(b.semiFinalResult) - Number(a.semiFinalResult);
-      });
-      teamsSemiFinal.push(teamsInSemiFinal);
+    if (teamsInSemiFinal.length <= 0) {
+      return teamsSemiFinal;
     }
-    return teamsSemiFinal;
-  },
-  ["students-results", env.VERCEL_ENV],
-  {
-    revalidate: 5 * MINUTE,
-    tags: ["teams"],
-  },
-);
 
-export const getAlumniTeams = unstable_cache(
-  async () => {
-    const alumniTeams = await db
-      .select()
-      .from(teams)
-      .where(eq(teams.isAlumni, true));
-
-    alumniTeams.sort((a, b) => {
-      return Number(b.finalResult) - Number(a.finalResult);
+    teamsInSemiFinal.sort((a: any, b: any) => {
+      return Number(b.semiFinalResult) - Number(a.semiFinalResult);
     });
+    teamsSemiFinal.push(teamsInSemiFinal);
+  }
+  return teamsSemiFinal;
+};
 
-    return alumniTeams;
-  },
-  ["alumni-results", env.VERCEL_ENV],
-  {
-    revalidate: 5 * MINUTE,
-    tags: ["teams"],
-  },
-);
+export const getAlumniTeams = async () => {
+  const teamsData = getTeamsData();
+  const alumniTeams = teamsData.filter((team: any) => team.isAlumni);
+
+  alumniTeams.sort((a: any, b: any) => {
+    return Number(b.finalResult) - Number(a.finalResult);
+  });
+
+  return alumniTeams;
+};

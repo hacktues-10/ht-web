@@ -6,14 +6,10 @@ import { useRouter } from "next/navigation";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { LogOutIcon, Menu, User2 } from "lucide-react";
 
-import { IfAnyHTFeatureOn } from "../_integrations/components";
 import { cn } from "../utils";
-import { SignInButton, SignOutButton } from "./buttons";
 import { SocialMediaIconRow } from "./footer";
-import { useHeaderData } from "./header/header";
 import { HTLogo } from "./logos";
 import { Button } from "./ui/button";
-import { navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { Separator } from "./ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
@@ -28,7 +24,6 @@ export const MobileNavigationRoot = ({
   children,
 }: PropsWithChildren<{ className: string }>) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const { data: headerData } = useHeaderData();
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -60,59 +55,6 @@ export const MobileNavigationRoot = ({
           </SheetContext.Provider>
         </ScrollArea>
         <Separator />
-        {headerData && headerData.avatarName ? (
-          <MobileActionButtons>
-            <MobileNavLink
-              href="/profile"
-              onOpenChange={setIsSheetOpen}
-              className={cn(
-                navigationMenuTriggerStyle(),
-                "flex w-full justify-evenly gap-2 text-lg",
-              )}
-            >
-              <User2 /> Профил
-            </MobileNavLink>
-            <SignOutButton
-              className={cn(
-                navigationMenuTriggerStyle(),
-                "flex w-full justify-evenly gap-2 text-lg text-destructive hover:text-[#fc3f6e]",
-              )}
-            >
-              <LogOutIcon /> Изход
-            </SignOutButton>
-          </MobileActionButtons>
-        ) : (
-          <IfAnyHTFeatureOn
-            outOf={[
-              "signin-alumni",
-              "signin-students",
-              "register-alumni",
-              "register-students",
-            ]}
-          >
-            <MobileActionButtons>
-              <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
-                <SignInButton
-                  className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
-                >
-                  Вход
-                </SignInButton>
-              </IfAnyHTFeatureOn>
-              <IfAnyHTFeatureOn
-                outOf={["register-alumni", "register-students"]}
-              >
-                <SignInButton
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "w-full text-lg text-primary",
-                  )}
-                >
-                  Регистрация
-                </SignInButton>
-              </IfAnyHTFeatureOn>
-            </MobileActionButtons>
-          </IfAnyHTFeatureOn>
-        )}
         <SocialMediaIconRow isMobile />
       </SheetContent>
     </Sheet>

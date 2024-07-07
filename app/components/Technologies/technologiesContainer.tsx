@@ -34,9 +34,9 @@ const TechnologiesTab = ({
   const [filterValue, setFilterValue] = useState("");
 
   const handleOnChange = (value: string) => {
-    setTechnolgoies((prevTechnologies) => {
+    setTechnolgoies((prevTechnologies: any) => {
       const technologyExists = prevTechnologies.some(
-        (technology) => technology?.name === value,
+        (technology: any) => technology?.name === value,
       );
 
       const newTechnology = convertToTechnology(value).at(0);
@@ -46,7 +46,7 @@ const TechnologiesTab = ({
         return [...prevTechnologies, newTechnology];
       } else {
         const newTechnologies = prevTechnologies.filter(
-          (technology) => technology?.name != newTechnology?.name,
+          (technology: any) => technology?.name != newTechnology?.name,
         );
         return newTechnologies;
       }
