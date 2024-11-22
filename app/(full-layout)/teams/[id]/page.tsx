@@ -8,10 +8,7 @@ import { PropsWithChildren } from "react";
 import { LucideIcon, Pencil, Plus, Settings } from "lucide-react";
 import { LuGlobe } from "react-icons/lu";
 
-import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
 import {
-  IfAllHTFeaturesOff,
-  IfAnyHTFeatureOn,
   IfHTFeatureOff,
   IfHTFeatureOn,
 } from "~/app/_integrations/components";
@@ -115,7 +112,6 @@ export default async function TeamDetailPage({
     technologies: loadedTeam.technologies,
     description: loadedTeam.description,
     mentorId: loadedTeam.mentorId,
-    isAlumni: loadedTeam.isAlumni,
     semiFinal: loadedTeam.semiFinal,
   };
 
@@ -368,7 +364,6 @@ export default async function TeamDetailPage({
                   </h2>
                 </div>
               ))}
-            {!team.isAlumni &&
               (team.mentorId && mentor && mentor.id && mentor.fileName ? (
                 <div className="mt-4 rounded-xl border-2 py-2">
                   <h2 className="m-auto ml-4 text-left text-xl">Ментор</h2>
@@ -405,7 +400,7 @@ export default async function TeamDetailPage({
                     Все още няма ментор
                   </h2>
                 </div>
-              ))}
+              ))
           </Card>
 
           <Card className="fadeInComponent m-10 ml-auto mr-auto overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">

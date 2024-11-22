@@ -37,11 +37,6 @@ export const createTeamAction = zact(
     } as const;
   }
 
-  let isAlumni = false;
-  if (participant.grade && parseInt(participant.grade) > 12) {
-    isAlumni = true;
-  }
-
   if (participant.team.id !== null) {
     return {
       success: false,
@@ -53,7 +48,6 @@ export const createTeamAction = zact(
       name: input.name,
       description: input.description,
       captainId: participant.id,
-      isAlumni: isAlumni,
     });
     return { success: true, team } as const;
   } catch (e: any) {

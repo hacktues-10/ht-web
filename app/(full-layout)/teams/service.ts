@@ -4,11 +4,8 @@ import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 
 import {
-  MAX_TEAM_MEMBERS_ALUMNI,
   MAX_TEAM_MEMBERS_STUDENTS,
-  MAX_TEAMS_ALUMNI,
   MAX_TEAMS_STUDENTS,
-  MIN_TEAM_MEMBERS_ALUMNI,
   MIN_TEAM_MEMBERS_STUDENTS,
 } from "~/app/_configs/hackathon";
 import { addDiscordRole, createDiscordTeam } from "~/app/api/discord/service";
@@ -107,9 +104,8 @@ export async function createTeam(team: {
   name: string;
   description: string;
   captainId: number;
-  isAlumni: boolean;
 }) {
-  const res = await checkIfTeamEligableToJoin(team.isAlumni);
+  const res = await checkIfTeamEligableToJoin();
   invariant(res, "Отборите са запълнени.");
 
   const captain = await getParticipantById(team.captainId);
@@ -154,22 +150,20 @@ export async function createTeam(team: {
   return insertedTeam;
 }
 
-export async function checkIfTeamEligableToJoin(isAlumni: boolean) {
+export async function checkIfTeamEligableToJoin() {
   const teamsNumber = await db
     .select()
     .from(teams)
-    .where(eq(teams.isAlumni, isAlumni));
 
-  const minMembers = isAlumni ? 2 : 3;
-  const maxMembers = isAlumni ? 3 : 5;
+  const minMembers = MIN_TEAM_MEMBERS_STUDENTS;
+  const maxMembers = MAX_TEAM_MEMBERS_STUDENTS;
 
   const teamsNumberFinal = teamsNumber.filter((team) => {
     return team.memberCount >= minMembers && team.memberCount <= maxMembers;
   });
 
   if (
-    (isAlumni && teamsNumberFinal.length >= MAX_TEAMS_ALUMNI) ||
-    (teamsNumberFinal.length >= MAX_TEAMS_STUDENTS && !isAlumni)
+    (teamsNumberFinal.length >= MAX_TEAMS_STUDENTS)
   ) {
     return false;
   }
@@ -185,16 +179,14 @@ export function isParticipantEligableToJoin(
     return false;
   }
   const grade = parseInt(participant.grade);
-  return (grade > 12 && team.isAlumni) || (grade < 13 && !team.isAlumni);
+  return (grade < 13);
 }
 
 export function isTeamConfirmed(team: Team) {
-  const minMembers = team.isAlumni
-    ? MIN_TEAM_MEMBERS_ALUMNI
-    : MIN_TEAM_MEMBERS_STUDENTS;
-  const maxMembers = team.isAlumni
-    ? MAX_TEAM_MEMBERS_ALUMNI
-    : MAX_TEAM_MEMBERS_STUDENTS;
+  const minMembers =
+    MIN_TEAM_MEMBERS_STUDENTS;
+  const maxMembers =
+    MAX_TEAM_MEMBERS_STUDENTS;
   return team.memberCount >= minMembers && team.memberCount <= maxMembers;
 }
 

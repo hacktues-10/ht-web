@@ -48,6 +48,7 @@ import {
   Team,
   updateProject,
 } from "./service";
+import { MAX_TEAM_MEMBERS_STUDENTS, MIN_TEAM_MEMBERS_STUDENTS } from "~/app/_configs/hackathon";
 
 export async function deleteMyTeam() {
   const gb = await getServerSideGrowthBook();
@@ -149,11 +150,11 @@ export async function askToJoinTeam(teamIdToJoin: string) {
     return { success: false, error: "Няма такъв отбор" };
   }
 
-  const minMembers = team.isAlumni ? 2 : 3;
-  const maxMembers = team.isAlumni ? 3 : 5;
+  const minMembers = MIN_TEAM_MEMBERS_STUDENTS;
+  const maxMembers = MAX_TEAM_MEMBERS_STUDENTS;
 
   if (team.memberCount < minMembers || team.memberCount > maxMembers) {
-    const res = await checkIfTeamEligableToJoin(team.isAlumni);
+    const res = await checkIfTeamEligableToJoin();
     if (!res) return { success: false, error: "Отборите са запълнени." };
   }
 
@@ -247,11 +248,11 @@ export const inviteToTeam = zact(
     };
   }
 
-  const minMembers = team.isAlumni ? 2 : 3;
-  const maxMembers = team.isAlumni ? 3 : 5;
+  const minMembers = MIN_TEAM_MEMBERS_STUDENTS;
+  const maxMembers = MAX_TEAM_MEMBERS_STUDENTS;
 
   if (team.memberCount < minMembers || team.memberCount > maxMembers) {
-    const res = await checkIfTeamEligableToJoin(team.isAlumni);
+    const res = await checkIfTeamEligableToJoin();
     if (!res) return { success: false, error: "Отборите са запълнени." };
   }
 
@@ -266,8 +267,7 @@ export const inviteToTeam = zact(
 
   if (
     invitedParticipant.grade &&
-    ((team?.isAlumni && parseInt(invitedParticipant?.grade) < 13) ||
-      (team?.isAlumni == false && parseInt(invitedParticipant?.grade) > 12))
+      (parseInt(invitedParticipant?.grade) > 12)
   ) {
     return { success: false, error: "Този участник не може да бъде поканен" };
   }
@@ -764,8 +764,7 @@ export const updateProjectFallbackGitHubRepos = zact(
 export async function isTeamFull(teamId: string) {
   const team = (await db.select().from(teams).where(eq(teams.id, teamId)))[0];
   if (
-    (team.isAlumni && team.memberCount == 3) ||
-    (!team.isAlumni && team.memberCount == 5)
+    (team.memberCount == 5)
   ) {
     return true;
   }
