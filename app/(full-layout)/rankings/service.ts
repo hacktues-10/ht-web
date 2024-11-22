@@ -36,22 +36,3 @@ export const getTeamsBySemiFinal = unstable_cache(
   },
 );
 
-export const getAlumniTeams = unstable_cache(
-  async () => {
-    const alumniTeams = await db
-      .select()
-      .from(teams)
-      .where(eq(teams.isAlumni, true));
-
-    alumniTeams.sort((a, b) => {
-      return Number(b.finalResult) - Number(a.finalResult);
-    });
-
-    return alumniTeams;
-  },
-  ["alumni-results", env.VERCEL_ENV],
-  {
-    revalidate: 5 * MINUTE,
-    tags: ["teams"],
-  },
-);

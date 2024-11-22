@@ -1,8 +1,3 @@
-import bloombergLogo from "../assets/media/bloomberg.png";
-import bnrLogo from "../assets/media/bnr.png";
-import capitalLogo from "../assets/media/capital.png";
-import investorLogo from "../assets/media/investor.png";
-import karieribgLogo from "../assets/media/karieribg.png";
 //Partners
 import a1Logo from "../assets/sponsors/alpha/a1.png";
 //Alpha sponsors
@@ -50,7 +45,7 @@ import inzhenerBgLogo from "../assets/sponsors/media-partners/inzhener-bg.webp";
 import jobsBg from "../assets/sponsors/media-partners/jobsbg.png";
 import kaldataLogo from "../assets/sponsors/media-partners/kaldata.webp";
 import managerLogo from "../assets/sponsors/media-partners/manager.png";
-import obektiBgLogo from "../assets/sponsors/media-partners/obekti.jpg";
+// import obektiBgLogo from "../assets/sponsors/media-partners/obekti.jpg";
 //Gamma sponsors
 //Partners
 import aztuesLogo from "../assets/sponsors/partners/aztues.png";
@@ -561,14 +556,14 @@ const MEDIA_PARTNERS = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   },
-  {
-    name: "Обекти",
-    logo: obektiBgLogo,
-    url: "https://obekti.bg/",
-    customClass: "bg-black border-2 border-white",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
+  // {
+  //   name: "Обекти",
+  //   logo: obektiBgLogo,
+  //   url: "https://obekti.bg/",
+  //   customClass: "bg-black border-2 border-white",
+  //   description:
+  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  // },
   {
     name: "Jobs.bg",
     logo: jobsBg,
@@ -661,13 +656,13 @@ export const MEDIA_ARTICLES = [
     url: "https://darik.bg/kakvo-e-hakaton-koi-trabva-da-prisastva-na-hakatona-i-zasto-",
     date: new Date(2024, MARCH, 11),
   },
-  {
-    name: "Обекти",
-    title: "Hack TUES X стартира през март",
-    url: "https://www.obekti.bg/tehno/hack-tues-x-startira-prez-mart",
-    logo: obektiBgLogo,
-    date: new Date(2024, FEBRUARY, 2),
-  },
+  // {
+  //   name: "Обекти",
+  //   title: "Hack TUES X стартира през март",
+  //   url: "https://www.obekti.bg/tehno/hack-tues-x-startira-prez-mart",
+  //   logo: obektiBgLogo,
+  //   date: new Date(2024, FEBRUARY, 2),
+  // },
   {
     name: "Economy.bg",
     title: "Предстои 10-ото юбилейно издание на Hack TUES X",

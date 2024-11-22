@@ -21,21 +21,12 @@ export default function ThemesPage() {
           <Tabs className="content-center" defaultValue="students">
             <TabsList className="mx-auto flex w-min" defaultValue="students">
               <TabsTrigger value="students">Ученици</TabsTrigger>
-              <TabsTrigger value="alumni">Завършили</TabsTrigger>
             </TabsList>
             <TabsContent value="students" tabIndex={-1}>
               <ThemesContainer>
                 <FeatureSubtheme feature="subtheme1" />
                 <FeatureSubtheme feature="subtheme2" />
                 <FeatureSubtheme feature="subtheme3" />
-              </ThemesContainer>
-            </TabsContent>
-            <TabsContent value="alumni" tabIndex={-1}>
-              <ThemesContainer>
-                <FeatureSubtheme
-                  feature="subtheme-alumni"
-                  className="md:w-1/3"
-                />
               </ThemesContainer>
             </TabsContent>
           </Tabs>

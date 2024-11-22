@@ -5,7 +5,7 @@ import {
   IfHTFeatureOn,
 } from "~/app/_integrations/components";
 import { FinalRanking, SemiFinalRanking } from "./components";
-import { getAlumniTeams, getTeamsBySemiFinal } from "./service";
+import { getTeamsBySemiFinal } from "./service";
 
 export const metadata: Metadata = {
   title: "Класация",
@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 
 export default async function RankingsPage() {
   const teams = await getTeamsBySemiFinal();
-  const alumniTeams = await getAlumniTeams();
 
   const finalists = teams
     .map((selectedTeams) =>
@@ -32,7 +31,6 @@ export default async function RankingsPage() {
   return (
     <IfAnyHTFeatureOn
       outOf={[
-        "show-alumni-finalists",
         "show-student-finalists",
         "show-semi-finals",
       ]}
@@ -41,19 +39,14 @@ export default async function RankingsPage() {
         Класация
       </h1>
 
-      <IfAnyHTFeatureOn
-        outOf={["show-alumni-finalists", "show-student-finalists"]}
-      >
+      <IfHTFeatureOn feature="show-student-finalists">
         <div className="m-2 sm:m-10">
           <h1 className="mt-5 text-center font-lazydog text-5xl">Финали</h1>
           <IfHTFeatureOn feature="show-student-finalists">
             {finalists.length > 0 && <FinalRanking teams={finalists} />}
           </IfHTFeatureOn>
-          <IfHTFeatureOn feature="show-alumni-finalists">
-            {alumniTeams.length > 0 && <FinalRanking teams={alumniTeams} />}
-          </IfHTFeatureOn>
         </div>
-      </IfAnyHTFeatureOn>
+      </IfHTFeatureOn>
       <IfHTFeatureOn feature="show-semi-finals">
         <div className="m-2 sm:m-10">
           <h1 className="mt-5 text-center font-lazydog text-5xl">Полуфинали</h1>

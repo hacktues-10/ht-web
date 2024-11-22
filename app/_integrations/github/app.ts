@@ -83,7 +83,7 @@ app.webhooks.on(
           repos,
         )} от страницата на вашия отбор.
 
-${getDisqualificationWarning(team.teams.isAlumni)}`,
+${getDisqualificationWarning()}`,
         links: [
           {
             name: "Управление на достъпа",
@@ -132,7 +132,7 @@ app.webhooks.on("installation.deleted", async ({ octokit, payload }) => {
         repos,
       )} на страницата на отбора.
 
-${getDisqualificationWarning(team.teams.isAlumni)}`,
+${getDisqualificationWarning()}`,
       links: [
         {
           name: "Възстановяване на достъпа",
@@ -185,7 +185,7 @@ app.webhooks.on("installation.suspend", async ({ octokit, payload }) => {
         repos,
       )} отново на сайта.
 
-${getDisqualificationWarning(team.teams.isAlumni)}`,
+${getDisqualificationWarning()}`,
       links: [
         {
           name: "Възстановяване на достъпа",
@@ -259,7 +259,7 @@ app.webhooks.on("repository.privatized", async ({ octokit, payload }) => {
 
 Ако желаете да премахнете хранилището от сайта, можете да го направите от страницата на отбора.
 
-${getDisqualificationWarning(team.teams.isAlumni)}`,
+${getDisqualificationWarning()}`,
       links: [
         {
           url: `https://hacktues.bg/teams/${team.teams.id}`,
@@ -389,10 +389,8 @@ async function notifyTeam(options: {
   }
 }
 
-const getDisqualificationWarning = (isAlumni: boolean) =>
-  `**Отбор, който няма хранилище, качено на сайта след края на първия работен ден (<t:1710383400:D>), няма да бъде допуснат до ${
-    !isAlumni ? "полуфинал" : "финал"
-  }!**`;
+const getDisqualificationWarning = () =>
+  `**Отбор, който няма хранилище, качено на сайта след края на първия работен ден (<t:1710383400:D>), няма да бъде допуснат до полуфинал!**`;
 
 const getProjectToReposMap = <T extends { projectId: number }>(repos: T[]) =>
   repos.reduce(

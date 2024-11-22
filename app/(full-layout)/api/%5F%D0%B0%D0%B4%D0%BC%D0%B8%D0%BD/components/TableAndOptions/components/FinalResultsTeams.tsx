@@ -36,7 +36,6 @@ export default function SemiFinalResultsTeams({
         value: string;
         id: string;
         name: string;
-        isAlumni: string;
         semiFinal: number | null;
         semiFinalResult: string;
         isFinalist: string;

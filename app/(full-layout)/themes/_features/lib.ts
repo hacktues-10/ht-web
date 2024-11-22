@@ -26,7 +26,6 @@ const themeFeatures = [
   "subtheme1",
   "subtheme2",
   "subtheme3",
-  "subtheme-alumni",
 ] as const;
 
 export type ThemeFeature = (typeof themeFeatures)[number];

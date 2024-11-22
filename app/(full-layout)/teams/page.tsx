@@ -55,7 +55,7 @@ export default async function TeamListPage() {
       </IfHTFeatureOn>
 
       <Tabs
-        defaultValue={teams.length > 0 ? "students" : "alumni"}
+        defaultValue={teams.length > 0 ? "students" : "students"}
         className="content-center"
       >
         <TabsList className="mx-auto flex w-min">

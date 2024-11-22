@@ -27,9 +27,8 @@ export const authOptions = {
       if (account?.provider !== "email" || !user.email) {
         return false;
       }
-      const isAlumni = parseElsysEmail(user.email)?.isAlumni ?? true;
       const gb = await getServerSideGrowthBook();
-      if (!isAlumni && gb.isOff("signin-students")) {
+      if (gb.isOff("signin-students")) {
         return "/login/error?error=StudentsDisabled";
       }
       return true;

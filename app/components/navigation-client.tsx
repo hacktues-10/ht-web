@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { LogOutIcon, Menu, User2 } from "lucide-react";
 
-import { IfAnyHTFeatureOn } from "../_integrations/components";
+import { IfAnyHTFeatureOn, IfHTFeatureOn } from "../_integrations/components";
 import { cn } from "../utils";
 import { SignInButton, SignOutButton } from "./buttons";
 import { SocialMediaIconRow } from "./footer";
@@ -84,23 +84,19 @@ export const MobileNavigationRoot = ({
         ) : (
           <IfAnyHTFeatureOn
             outOf={[
-              "signin-alumni",
               "signin-students",
-              "register-alumni",
               "register-students",
             ]}
           >
             <MobileActionButtons>
-              <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
-                <SignInButton
+            <IfHTFeatureOn feature="signin-students">
+            <SignInButton
                   className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
                 >
                   Вход
                 </SignInButton>
-              </IfAnyHTFeatureOn>
-              <IfAnyHTFeatureOn
-                outOf={["register-alumni", "register-students"]}
-              >
+              </IfHTFeatureOn>
+              <IfHTFeatureOn feature="register-students">
                 <SignInButton
                   className={cn(
                     navigationMenuTriggerStyle(),
@@ -109,7 +105,7 @@ export const MobileNavigationRoot = ({
                 >
                   Регистрация
                 </SignInButton>
-              </IfAnyHTFeatureOn>
+              </IfHTFeatureOn>
             </MobileActionButtons>
           </IfAnyHTFeatureOn>
         )}

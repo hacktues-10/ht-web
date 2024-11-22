@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { LogOutIcon, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 
-import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
+import { IfAnyHTFeatureOn, IfHTFeatureOn } from "~/app/_integrations/components";
 import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
 import {
   Avatar,
@@ -139,12 +139,12 @@ export const Header = () => {
 
       {headerData && headerData.avatarName === null && (
         <div className="hidden gap-2 md:flex">
-          <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
-            <Button variant="secondary" asChild>
+        <IfHTFeatureOn feature="register-students">
+        <Button variant="secondary" asChild>
               <Link href="/signup">Регистрация</Link>
             </Button>
-          </IfAnyHTFeatureOn>
-          <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
+          </IfHTFeatureOn>
+          <IfHTFeatureOn feature="signin-students" >
             <Button asChild>
               <SignInButton>
                 <Link
@@ -156,7 +156,7 @@ export const Header = () => {
                 </Link>
               </SignInButton>
             </Button>
-          </IfAnyHTFeatureOn>
+          </IfHTFeatureOn>
         </div>
       )}
       <MobileNavigation className="md:hidden" />

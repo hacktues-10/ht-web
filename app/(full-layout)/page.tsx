@@ -18,12 +18,11 @@ import {
   COUNTDOWN_START,
   EVENT_END,
   EVENT_START,
-  MAX_TEAMS_ALUMNI,
   MAX_TEAMS_STUDENTS,
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import { Hackathon, HACKATHONS } from "../_configs/archive";
-import { IfAnyHTFeatureOn } from "../_integrations/components";
+import { IfAnyHTFeatureOn, IfHTFeatureOn } from "../_integrations/components";
 import { IfNotHTSession } from "../api/auth/server-components";
 import {
   CountdownTimer,
@@ -127,7 +126,7 @@ export default async function LandingPage() {
               label="отбора на ученици"
             />
             <ArchiveStatsItem
-              value={MAX_TEAMS_ALUMNI}
+              value={12}
               label="отбора на завършили"
             />
             {/* <p className="col-span-2 text-center text-lg font-light">
@@ -144,20 +143,10 @@ export default async function LandingPage() {
               !
             </p> */}
           </ArchiveStatsCard>
-          {/* <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
-            <Card className="flex flex-col items-center justify-center gap-4 p-5 text-center">
-              <h3 className="pb-3 text-2xl font-bold md:text-3xl">
-                Не пропускайте възможността да участвате!
-              </h3>
-              <Button asChild size="lg">
-                <Link href="/signup">Регистрирайте се!</Link>
-              </Button>
-            </Card>
-          </IfAnyHTFeatureOn> */}
         </ArchiveSection>
       </ArchiveContainer>
       <IfNotHTSession>
-        <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+        <IfHTFeatureOn feature="register-students">
           <section className="relative flex flex-col items-center gap-3 pb-16 pt-5">
             <h2 className="scroll-m-20 pt-7 text-center text-5xl font-extrabold tracking-tight first:mt-0">
               Какво чакате?
@@ -168,7 +157,7 @@ export default async function LandingPage() {
               <Link href="/signup">Регистрирайте се сега!</Link>
             </Button>
           </section>
-        </IfAnyHTFeatureOn>
+        </IfHTFeatureOn>
       </IfNotHTSession>
       <div className="pb-4"></div>
     </div>

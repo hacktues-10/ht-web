@@ -52,16 +52,11 @@ export const SignInForm = (props: { isRegister: boolean }) => {
   const handleSubmit = form.handleSubmit((credentials) => {
     if (props.isRegister) {
       const elsysEmail = parseElsysEmail(credentials.email);
-      if (!elsysEmail || elsysEmail.isAlumni) {
+      if (!elsysEmail) {
         return form.setError("email", {
           message: "Този имейл адрес не е на настоящ ученик",
         });
       }
-      // if (!canRegisterStudents && elsysEmail && !elsysEmail.isAlumni) {
-      //   return form.setError("email", {
-      //     message: "Невалиден имейл адрес на завършил ученик",
-      //   });
-      // }
     }
 
     // TODO: use redirect: false

@@ -13,7 +13,6 @@ export async function getTeamsResultsAdmin() {
     .select({
       id: teams.id,
       name: teams.name,
-      isAlumni: teams.isAlumni,
       semiFinal: teams.semiFinal,
       semiFinalResult: teams.semiFinalResult,
       isFinalist: teams.isFinalist,
@@ -26,7 +25,6 @@ export async function getTeamsResultsAdmin() {
     return {
       id: team.id,
       name: team.name,
-      isAlumni: team.isAlumni ? "Yes" : "No",
       semiFinal: team.semiFinal,
       semiFinalResult: team.semiFinalResult,
       isFinalist: team.isFinalist ? "Yes" : "No",

@@ -99,10 +99,6 @@ export function isParticipantStudent(participant: ReducedParticipant) {
   return participant.grade.length <= 2;
 }
 
-export function isParticipantAlumni(participant: ReducedParticipant) {
-  return !isParticipantStudent(participant);
-}
-
 export async function getParticipantsWithNoTeam(
   isLookingForTeamOnly: boolean = false,
 ) {

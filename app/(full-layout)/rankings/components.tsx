@@ -18,8 +18,6 @@ export function Ranking({ teams, isSemifinal }: RankingProps) {
       <h1 className="mb-2 text-center font-lazydog text-3xl">
         {isSemifinal ? (
           <>Полуфинал {teams[0].semiFinal}</>
-        ) : teams[0].isAlumni ? (
-          <>Финал - завършили</>
         ) : (
           <>Финал - ученици</>
         )}

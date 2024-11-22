@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import {
-  ALUMNI_REGISTRATION_START,
   STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
 import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
@@ -151,66 +150,6 @@ const errors: Record<
         <IfHTFeatureOn feature="register-students">
           <p>
             Влизането на ученици е временно забранено. Моля, върнете се
-            по-късно.
-          </p>
-        </IfHTFeatureOn>
-        <div>
-          <Button variant="secondary" asChild>
-            <Link href="/">
-              <ArrowLeft className="mr-1 h-4 w-4" /> Kъм началната страница
-            </Link>
-          </Button>
-        </div>
-      </>
-    ),
-  },
-  AlumniDisabled: {
-    status: 403,
-    heading: (
-      <>
-        <IfHTFeatureOff feature="register-alumni">
-          <IfDateInFuture date={ALUMNI_REGISTRATION_START}>
-            Регистрацията на завършили още не е отворена!
-          </IfDateInFuture>
-          <IfDateInPast date={ALUMNI_REGISTRATION_START}>
-            Регистрацията на завършили вече е затворена.
-          </IfDateInPast>
-        </IfHTFeatureOff>
-        <IfHTFeatureOn feature="register-alumni">
-          Влизането на завършили е забранено.
-        </IfHTFeatureOn>
-      </>
-    ),
-    message: (
-      <>
-        <IfHTFeatureOff feature="register-alumni">
-          <IfDateInFuture date={ALUMNI_REGISTRATION_START}>
-            <p>
-              Регистрацията на завършили възпитаници на ТУЕС отваря на
-              <br />
-              <strong>
-                <DateDisplay date={ALUMNI_REGISTRATION_START} showHour />
-              </strong>
-              <br />
-              Oчакваме ви тогава!
-            </p>
-          </IfDateInFuture>
-          <IfDateInPast date={ALUMNI_REGISTRATION_START}>
-            <p>За съжаление, регистрацията на завършили вече е затворена.</p>
-          </IfDateInPast>
-          <IfHTFeatureOn feature="register-students">
-            <p>
-              Aко сте настоящ ученик, моля{" "}
-              <Link className="underline" href="/login">
-                влезте с ученическия си имейл
-              </Link>{" "}
-              за да се регистрирате.
-            </p>
-          </IfHTFeatureOn>
-        </IfHTFeatureOff>
-        <IfHTFeatureOn feature="register-alumni">
-          <p>
-            Влизането на завършили е временно забранено. Моля, върнете се
             по-късно.
           </p>
         </IfHTFeatureOn>

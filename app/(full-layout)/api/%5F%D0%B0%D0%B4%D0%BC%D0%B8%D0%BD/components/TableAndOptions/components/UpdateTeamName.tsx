@@ -31,7 +31,6 @@ export default function UpdateTeamName({
         name: string;
         description: string;
         mentor: string;
-        isAlumni: string;
         members: number;
         semiFinal: string;
         isFinalist: string;

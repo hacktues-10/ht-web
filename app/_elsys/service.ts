@@ -43,10 +43,8 @@ function getStudentGrade(admissionYear: number, repeatedGrades: number) {
   admissionYear += repeatedGrades;
   const closestStartDate = closestSchoolYearStartDate();
   const grade = 8 + (2023 - admissionYear);
-  const isAlumni = grade > 12;
   return {
     grade,
-    isAlumni,
     graduationYear: admissionYear + repeatedGrades + 5,
   };
 }
@@ -60,7 +58,6 @@ type Student = {
   grade: number;
   parallel: string;
   repeatedGrades: number;
-  isAlumni: boolean;
   graduationYear: number;
 };
 
@@ -73,13 +70,12 @@ export function parseElsysEmail(email: string) {
   const admissionYear = parseInt(admissionYearStr);
   if (isNaN(admissionYear)) return null;
 
-  const { grade, isAlumni, graduationYear } = getStudentGrade(admissionYear, 0);
+  const { grade, graduationYear } = getStudentGrade(admissionYear, 0);
 
   return {
     admissionYear,
     grade,
     parallel: "",
-    isAlumni,
     repeatedGrades: 0,
     graduationYear,
   };
