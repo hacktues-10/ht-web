@@ -9,7 +9,6 @@ export const env = createEnv({
       .default("development"),
 
     POSTGRES_URL: z.string().url(),
-    EMAIL_FROM: z.string().email(),
 
     DISCORD_BOT_ID: z.string(),
     DISCORD_CLIENT_ID: z.string(),
@@ -18,21 +17,9 @@ export const env = createEnv({
 
     NEXTAUTH_SECRET: z.string(),
 
-    R2_ACCOUNT_ID: z.string(),
-    R2_ACCESS_URL: z.string(),
-    S3_UPLOAD_KEY: z.string(),
-    S3_UPLOAD_SECRET: z.string(),
-    S3_UPLOAD_BUCKET: z.string(),
-
     PARTICIPANT_ROLE: z.string(),
     MEMBER_ROLE: z.string(),
     MENTOR_ROLE: z.string(),
-    ALUMNI_ROLE: z.string(),
-
-    GMAIL_CLIENT_ID: z.string(),
-    GMAIL_REFRESH_TOKEN: z.string(),
-    GMAIL_CLIENT_SECRET: z.string(),
-    GMAIL_REDIRECT_URI: z.string(),
 
     GITHUB_WEBHOOK_SECRET: z.string(),
     GITHUB_APP_ID: z.string(),
