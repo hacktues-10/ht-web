@@ -10,11 +10,11 @@ export async function middleware(request: NextRequest) {
     credentials,
     headers: cookieHeader ? { cookie: cookieHeader } : {},
   });
-  const { isMentorOrParticipant, hasConnectedDiscord, hasSession } =
+  const { isParticipant, hasConnectedDiscord, hasSession } =
     (await response.json()) as CheckAuthenticationResponse;
 
   if (hasSession) {
-    if (!isMentorOrParticipant) {
+    if (!isParticipant) {
       if (request.nextUrl.pathname !== "/user/configure") {
         return NextResponse.redirect(
           `${baseUrl}/user/configure?callbackUrl=` +

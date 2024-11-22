@@ -7,16 +7,12 @@ import { db } from "../db";
 import {
   discordUsers,
   invitations,
-  joinRequests,
-  notifications,
   particpants,
   teams,
   users,
 } from "../db/schema";
 import {
-  formatNick,
   perpareParticipantAdmin,
-  PrepareParticipants,
 } from "./actions";
 
 export type Participant = Awaited<
@@ -206,18 +202,6 @@ function adminSelect() {
     .leftJoin(discordUsers, eq(particpants.id, discordUsers.participantId));
 }
 
-export async function getAlumniParticipantsAdmin() {
-  const admin = getAdminFromSession();
-  if (!admin) {
-    return [];
-  }
-
-  const res = await adminSelect().where(
-    gt(sql<number>`${particpants.grade}::text::int`, 12),
-  );
-
-  return perpareParticipantAdmin(res);
-}
 
 export async function getParticipantsAdmin() {
   const admin = await getAdminFromSession();

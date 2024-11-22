@@ -1,5 +1,4 @@
 import { AdminOrNotFound } from "../components/server";
-import TableData from "../components/TableAndOptions/components/TableData";
 import TeamsResultsTableAndOptions from "../components/TableAndOptions/TeamsResultsTableAndOptions";
 import { getTeamsResultsAdmin } from "./service";
 

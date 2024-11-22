@@ -21,9 +21,6 @@ export default async function AdminLayout({ children }: PropsWithChildren<{}>) {
             <a href="/api/_админ/participants">Участници</a>
           </li>
           <li>
-            <a href="/api/_админ/alumni">Завършили</a>
-          </li>
-          <li>
             <a href="/api/_админ/students">Ученици</a>
           </li>
           <li>

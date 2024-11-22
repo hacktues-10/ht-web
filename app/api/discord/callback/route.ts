@@ -186,13 +186,10 @@ function uniqueRolesOfUser(
 ) {
   if (participant) {
     const grade = parseInt(participant.grade);
-    if (grade > 12) {
-      return [env.PARTICIPANT_ROLE, env.ALUMNI_ROLE];
+    if (grade <= 12) {
+      return [env.PARTICIPANT_ROLE, env.MEMBER_ROLE];
     }
-    return [env.PARTICIPANT_ROLE, env.MEMBER_ROLE];
-  }
-  if (mentor) {
-    return [env.MENTOR_ROLE];
+    return [env.PARTICIPANT_ROLE];
   }
   return [];
 }

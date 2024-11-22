@@ -1,10 +1,9 @@
 import { NextRequest } from "next/server";
 import { eq } from "drizzle-orm";
 import invariant from "tiny-invariant";
-import { slugify } from "transliteration";
 
 import { db } from "~/app/db";
-import { discordUsers, teams } from "~/app/db/schema";
+import { teams } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 
 export const resolveDiscordRedirectUri = (req: NextRequest) =>

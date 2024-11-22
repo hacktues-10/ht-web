@@ -37,7 +37,6 @@ export async function getUserAuthorization() {
   const admin = await getAdminFromSession();
   return {
     hasSession: !!session,
-    isMentor: false,
     isParticipant: !!participant,
     hasConnectedDiscord: !!participant?.discordUser,
     isAdmin: !!admin,

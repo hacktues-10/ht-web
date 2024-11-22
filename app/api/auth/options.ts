@@ -1,6 +1,5 @@
 import "server-only";
 
-import { google } from "googleapis";
 import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
@@ -10,22 +9,6 @@ import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
 import { DrizzleAdapter } from "~/app/db/adapter";
 import { env } from "~/app/env.mjs";
-
-const oAuth2Client = new google.auth.OAuth2(
-  env.GMAIL_CLIENT_ID,
-  env.GMAIL_CLIENT_SECRET,
-  env.GMAIL_REDIRECT_URI,
-);
-
-oAuth2Client.setCredentials({ refresh_token: env.GMAIL_REFRESH_TOKEN });
-
-const authConst = {
-  type: "OAuth2",
-  user: env.EMAIL_FROM,
-  clientId: env.GMAIL_CLIENT_ID,
-  clientSecret: env.GMAIL_CLIENT_SECRET,
-  refreshToken: env.GMAIL_REFRESH_TOKEN,
-};
 
 export const authOptions = {
   providers: [
@@ -54,9 +37,6 @@ export const authOptions = {
       }
       const isAlumni = parseElsysEmail(user.email)?.isAlumni ?? true;
       const gb = await getServerSideGrowthBook();
-      if (isAlumni && gb.isOff("signin-alumni")) {
-        return "/login/error?error=AlumniDisabled";
-      }
       if (!isAlumni && gb.isOff("signin-students")) {
         return "/login/error?error=StudentsDisabled";
       }

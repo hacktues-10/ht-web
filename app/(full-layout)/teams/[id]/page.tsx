@@ -19,7 +19,6 @@ import {
   AddRepoButton,
   GitHubRepoDialog,
 } from "~/app/_integrations/github/components";
-import { getImageUrl } from "~/app/_integrations/r2";
 import { getMentorById } from "~/app/(full-layout)/mentors/service";
 import {
   checkStateJoinRequests,

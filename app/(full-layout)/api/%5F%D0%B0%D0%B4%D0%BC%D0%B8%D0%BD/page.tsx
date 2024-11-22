@@ -1,5 +1,4 @@
 import {
-  getAlumniParticipantsAdmin,
   getStudentParticipantsAdmin,
 } from "~/app/participants/service";
 import { AdminOrNotFound } from "./components/server";
@@ -13,8 +12,6 @@ export default async function AdminPage() {
 
   const students = await getStudentParticipantsAdmin();
   const realStudent = students.filter((student) => student.team);
-  const alumni = await getAlumniParticipantsAdmin();
-  const realAlumni = alumni.filter((alumnus) => alumnus.team);
   const teams = await getTeamsAdmin();
   const teamsCount = teams.length;
   // const mentors = await getTeamsAdmin();
@@ -26,9 +23,7 @@ export default async function AdminPage() {
       <div>
         <h1 className="text-lg font-bold">Здрасти, {admin?.firstName}!</h1>
         {/* FIXME: better UI */}
-        Участници: {realAlumni.length + realStudent.length}
-        <br />
-        Завървшили: {realAlumni.length}
+        Участници: {realStudent.length}
         <br />
         Ученици: {realStudent.length}
         <br />

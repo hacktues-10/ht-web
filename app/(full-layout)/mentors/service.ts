@@ -45,14 +45,3 @@ export const getMentorById = async (id: number) => {
   const mentor = await selectFromMentors().where(eq(mentors.id, id));
   return mentor.at(0) ?? null;
 };
-
-const whitelist = ["abv@trading.212"];
-
-export const isInMentorWhitelist = (email: string) => {
-  return whitelist.includes(email);
-};
-
-export const isWhitelistedMentor = (session: HTSession) => {
-  if (!session.user?.email) return false;
-  return isInMentorWhitelist(session.user.email);
-};

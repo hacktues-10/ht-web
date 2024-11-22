@@ -9,9 +9,8 @@ export async function GET(req: NextRequest) {
 async function checkAuthentication() {
   const authorization = await getUserAuthorization();
   return {
-    isMentorOrParticipant:
+    isParticipant:
       authorization.isAdmin ||
-      authorization.isMentor ||
       authorization.isParticipant,
     hasConnectedDiscord:
       authorization.isAdmin || authorization.hasConnectedDiscord,

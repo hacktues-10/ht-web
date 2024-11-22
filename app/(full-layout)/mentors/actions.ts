@@ -2,32 +2,10 @@
 
 import { revalidateTag } from "next/cache";
 import { eq } from "drizzle-orm";
-import { z } from "zod";
 
 import { db } from "~/app/db";
-import { mentors, teams } from "~/app/db/schema";
+import { teams } from "~/app/db/schema";
 
-const formDataSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string(),
-  companyName: z.string(),
-  phoneNumber: z.string(),
-  description: z.string(),
-  tShirtId: z.number().int().min(1).max(5),
-  allergies: z.string(),
-  technologies: z.string(),
-  youtubeURL: z.string(),
-  fileName: z.string(),
-});
-
-export const checkifMentorExists = async (id: number) => {
-  const mentor = await db.select().from(mentors).where(eq(mentors.id, id));
-  if (mentor && mentor.length > 0) {
-    return true;
-  }
-  return false;
-};
 
 export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
