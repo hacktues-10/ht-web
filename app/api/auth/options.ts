@@ -14,19 +14,11 @@ export const authOptions = {
   providers: [
     EmailProvider({
       sendVerificationRequest: async ({ identifier, url, provider, theme }) => {
-        // if (
-        //   identifier.endsWith("@elsys-bg.org") ||
-        //   (await mentorWhitelist(identifier))
-        // )
-        // {
         const result = await sendEmail(identifier, provider, url, theme);
         const failed = result.rejected.concat(result.pending).filter(Boolean);
         if (failed.length) {
           throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`);
         }
-        // } else {
-        //   throw new Error(`Please use your @elsys-bg.org email to sign in.`);
-        // }
       },
     }),
   ],
@@ -137,10 +129,7 @@ async function sendEmail(
   url: string,
   theme: Theme,
 ) {
-  // const { token: accessToken } = await oAuth2Client.getAccessToken();
   const transport = createTransport({
-    //   // @ts-expect-error защото типовете на nodemailer не са актуални
-    //   service: "gmail",
     tls: {
       rejectUnauthorized: false,
     },
@@ -150,15 +139,6 @@ async function sendEmail(
       user: "postmaster@mg.hacktues.bg",
       pass: "eba5d107d6dea62c0fd754e959e5d6bd-69a6bd85-ad4af96f",
     },
-    // }
-    //   auth: {
-    //     type: "OAuth2",
-    //     user: env.EMAIL_FROM,
-    //     clientId: env.GMAIL_CLIENT_ID,
-    //     clientSecret: env.GMAIL_CLIENT_SECRET,
-    //     accessToken,
-    //     refreshToken: env.GMAIL_REFRESH_TOKEN,
-    // },
   });
 
   return await transport.sendMail({
