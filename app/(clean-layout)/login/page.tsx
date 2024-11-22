@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
+import { IfHTFeatureOff } from "~/app/_integrations/components";
 import { getHTSession } from "~/app/api/auth/session";
 import { HTXLogoDuotone } from "~/app/components/logos";
 import { IfQueryParamNotPresent } from "~/app/components/query-params";
@@ -45,7 +45,7 @@ export default async function LoginPage() {
         <Link href="/">{"<-"} Обратно в началото</Link>
       </Button>
       <Separator />
-      <IfAnyHTFeatureOn outOf={["register-alumni", "register-students"]}>
+      <IfHTFeatureOff feature="register-students">
         <p className="text-center">
           Нямате акаунт?{" "}
           <Link
@@ -55,7 +55,7 @@ export default async function LoginPage() {
             Регистрирайте се!
           </Link>
         </p>
-      </IfAnyHTFeatureOn>
+      </IfHTFeatureOff>
       <p className="text-center text-xl">
         <Link href="/">
           <HTXLogoDuotone />

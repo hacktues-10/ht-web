@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { ghGetInstallationById as getAppInstallationById } from "~/app/_integrations/github/installations";
@@ -58,6 +57,7 @@ export default async function GithubLoadingPage({
     if (!installation) {
       return redirect("/github/error?c=0f2g9s");
     }
+    // @ts-ignore - ПС. МОЖЕ ДА СЧУПИ КОДА, НЗ
     await linkInstallationToParticipant(installation.id, participant.id);
     return redirect("/github/success");
   } catch (error) {

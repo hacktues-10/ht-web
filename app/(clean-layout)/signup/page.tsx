@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { IfAnyHTFeatureOn } from "~/app/_integrations/components";
+import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getHTSession } from "~/app/api/auth/session";
 import { HTLogo, HTXLogoDuotone } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
@@ -32,7 +32,7 @@ export default async function SignUpPage() {
         <SignInForm isRegister={true} />
       </Card>
       <Separator />
-      <IfAnyHTFeatureOn outOf={["signin-alumni", "signin-students"]}>
+      <IfHTFeatureOn feature="signin-students">
         <p className="text-center">
           Вече имате акаунт?{" "}
           <Link
@@ -42,7 +42,7 @@ export default async function SignUpPage() {
             Влезте!
           </Link>
         </p>
-      </IfAnyHTFeatureOn>
+      </IfHTFeatureOn>
       <p className="text-center text-xl">
         <Link href="/">
           <HTXLogoDuotone />

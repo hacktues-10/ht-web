@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { XOctagon } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,16 +32,14 @@ export const SignInForm = (props: { isRegister: boolean }) => {
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
   });
-  const canSignInAlumni = useHTFeatureIsOn("signin-alumni");
   const canSignInStudents = useHTFeatureIsOn("signin-students");
-  const canRegisterAlumni = useHTFeatureIsOn("register-alumni");
   const canRegisterStudents = useHTFeatureIsOn("register-students");
 
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
   const shouldBeInactive =
-    props.isRegister && !canSignInAlumni && !canSignInStudents;
+    props.isRegister && !canSignInStudents;
 
   useEffect(() => {
     if (error) {
@@ -55,7 +52,7 @@ export const SignInForm = (props: { isRegister: boolean }) => {
   const handleSubmit = form.handleSubmit((credentials) => {
     if (props.isRegister) {
       const elsysEmail = parseElsysEmail(credentials.email);
-      if (!canRegisterAlumni && (!elsysEmail || elsysEmail.isAlumni)) {
+      if (!elsysEmail || elsysEmail.isAlumni) {
         return form.setError("email", {
           message: "Този имейл адрес не е на настоящ ученик",
         });
@@ -87,23 +84,21 @@ export const SignInForm = (props: { isRegister: boolean }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                {props.isRegister && !canRegisterAlumni
-                  ? "Ученически имейл"
-                  : "Имейл aдрес"}
+                {props.isRegister ??
+                  "Ученически имейл"
+                  }
               </FormLabel>
               <FormControl>
                 <Input
                   placeholder={
                     canSignInStudents
-                      ? "tuesar.t.tuesarov.2024@elsys-bg.org"
-                      : "tuesar@gmail.com"
+                      ? "tuesar.t.tuesarov.2024@elsys-bg.org" : ""
                   }
                   {...field}
                 />
               </FormControl>
               <FormMessage />
               {props.isRegister &&
-                !canRegisterAlumni &&
                 canRegisterStudents && (
                   <FormDescription>
                     Вашият служебен имейл адрес, който използвате за достъп до

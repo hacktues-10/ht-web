@@ -1,10 +1,6 @@
 import { z } from "zod";
 
 import {
-  ALUMNI_PARALLELS,
-  EXTENDED_ALUMNI_GRADES,
-  REGULAR_ALUMNI_GRADES,
-  REGULAR_ALUMNI_PARALLELS,
   STUDENT_GRADES,
   STUDENT_PARALLELS,
 } from "~/app/_elsys/grades-parallels";
@@ -74,37 +70,11 @@ const phoneNumberSchema = z.object({
   ),
 });
 
-export const alumniStep1Schema = z
-  .object({
-    isAlumni: z.boolean().refine((v) => v, {
-      message: "Трябва да сте завършили ТУЕС за да се регистрирате",
-    }),
-  })
-  .merge(names3Schema)
-  .merge(consentsSchema)
-  .merge(phoneNumberSchema);
 
 export const studentsStep1Schema = names2Schema
   .merge(consentsSchema)
   .merge(phoneNumberSchema);
 
-// export const alumniStep2Schema = z.object({
-//   grade: z.enum(ALUMNI_GRADES),
-//   parallel: z.enum(ALUMNI_PARALLELS),
-// });
-
-export const alumniStep2Schema = z.object({
-  class: z.union([
-    z.object({
-      grade: z.enum(REGULAR_ALUMNI_GRADES),
-      parallel: z.enum(REGULAR_ALUMNI_PARALLELS),
-    }),
-    z.object({
-      grade: z.enum(EXTENDED_ALUMNI_GRADES),
-      parallel: z.enum(ALUMNI_PARALLELS),
-    }),
-  ]),
-});
 
 export const studentsStep2Schema = z.object({
   grade: z.enum(STUDENT_GRADES),
@@ -130,28 +100,6 @@ export const everyoneStep4Schema = z.object({
   isLookingForTeam: z.boolean().default(true),
 });
 
-export const alumniStep5Schema = z.object({
-  question1: z
-    .string()
-    .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })
-    .max(300, { message: "Отговорът трябва да съдържа най-много 100 символа" })
-    .refine((value) => value.trim() !== "" && value.trim().length >= 3, {
-      message: "Отговорът не може да бъде само от интервали",
-    }),
-  question2: z
-    .string()
-    .min(3, { message: "Отговорът трябва да съдържа поне 3 символа" })
-    .max(100, { message: "Отговорът трябва да съдържа най-много 100 символа" }),
-});
-
-export const alunmiRegistrationSchema = alumniStep1Schema
-  .merge(alumniStep1Schema)
-  .merge(alumniStep2Schema)
-  .merge(everyoneStep3Schema)
-  .merge(everyoneStep4Schema)
-  .merge(alumniStep5Schema);
-
-export type AlumniRegistrationSchema = z.infer<typeof alunmiRegistrationSchema>;
 
 export const studentRegistrationSchema = studentsStep1Schema
   .merge(studentsStep2Schema)
