@@ -14,18 +14,10 @@ import {
 } from "drizzle-orm/pg-core";
 
 import { db } from ".";
-import {
-  ALUMNI_GRADES,
-  ALUMNI_PARALLELS,
-  STUDENT_GRADES,
-  STUDENT_PARALLELS,
-} from "../_elsys/grades-parallels";
+import { STUDENT_GRADES, STUDENT_PARALLELS } from "../_elsys/grades-parallels";
 
-export const classEnum = pgEnum("class", [
-  ...STUDENT_PARALLELS,
-  ...ALUMNI_PARALLELS,
-]);
-export const gradeEnum = pgEnum("grade", [...STUDENT_GRADES, ...ALUMNI_GRADES]);
+export const classEnum = pgEnum("class", [...STUDENT_PARALLELS]);
+export const gradeEnum = pgEnum("grade", [...STUDENT_GRADES]);
 export const tShirtSizeEnum = pgEnum("tshirt_size", [
   "XS", // XXX: should be impossible to select
   "S",
