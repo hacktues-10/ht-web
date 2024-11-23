@@ -86,7 +86,7 @@ export function CreateTeamForm() {
     } else {
       setIsEligible(true);
     }
-  }, [canCreateTeam, isEligible]);
+  }, [canCreateTeam, isEligible, router, toast]);
 
   useEffect(() => {
     checkUserTeam();

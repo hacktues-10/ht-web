@@ -7,10 +7,10 @@ import localFont from "next/font/local";
 import AuthProvider from "~/app/_context/auth-provider";
 import { GrowthBookServerProvider } from "~/app/_context/growthbook/GrowthBookServerProvider";
 import { HT_EDITION_NAME } from "./_configs/hackathon";
+import { HT_EVENT_HEADLINE } from "./_configs/pr";
 import { HTQueryClientProvider } from "./_context/query-client-provider";
 import { Toaster } from "./components/ui/toaster";
-import { HT_EDITION_NAME, cn } from "./utils";
-import { HT_EVENT_HEADLINE } from "./_configs/pr";
+import { cn } from "./utils";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -30,8 +30,7 @@ const lazydog = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://hacktues.bg/"),
   title: {
-    default:
-      `${HT_EDITION_NAME} – ${HT_EVENT_HEADLINE}`,
+    default: `${HT_EDITION_NAME} – ${HT_EVENT_HEADLINE}`,
     template: `%s | ${HT_EDITION_NAME}`,
   },
   description: HT_EVENT_HEADLINE,
@@ -40,8 +39,7 @@ export const metadata: Metadata = {
       default: HT_EDITION_NAME,
       template: `%s | ${HT_EDITION_NAME}`,
     },
-    description:
-      `${HT_EVENT_HEADLINE}.`,
+    description: `${HT_EVENT_HEADLINE}.`,
     url: "https://hacktues.bg",
     siteName: HT_EDITION_NAME,
     locale: "bg_BG",

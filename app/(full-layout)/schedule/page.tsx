@@ -244,10 +244,7 @@ function ScheduleItemList({ events }: { events: readonly ScheduleEvent[] }) {
                   )}
                 </CardContent>
               </div>
-              <CardFooter
-                className="flex flex-shrink-0 flex-grow-0 items-center justify-start gap-2"
-                asChild
-              >
+              <CardFooter className="flex flex-shrink-0 flex-grow-0 items-center justify-start gap-2">
                 <TimeDisplay event={event} />
               </CardFooter>
             </article>

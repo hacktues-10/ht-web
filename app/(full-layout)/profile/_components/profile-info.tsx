@@ -122,7 +122,11 @@ export default function ProfileInfo({
             />
 
             <Label htmlFor="email">Имейл</Label>
-            <Input disabled placeholder={participant.email} id="email" />
+            <Input
+              disabled
+              placeholder={participant.email ?? undefined}
+              id="email"
+            />
             <div className="mb-3 mt-3">
               <Label htmlFor="allergies">Алергии</Label>
               <Textarea
