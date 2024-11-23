@@ -17,12 +17,12 @@ export const getServerSideGrowthBook = async (id?: string) => {
       id,
     },
   });
-  const { features } = await fetch(
+  const payload = await fetch(
     `${env.NEXT_PUBLIC_GROWTHBOOK_API_HOST}/api/features/${env.NEXT_PUBLIC_GROWTHBOOK_CLIENT_KEY}`,
     {
       cache: "no-store",
     },
   ).then((res) => res.json());
-  growthbook.setFeatures(features);
+  await growthbook.init({ payload, streaming: true });
   return growthbook;
 };

@@ -12,11 +12,11 @@ importers:
         specifier: ^0.34.2
         version: 0.34.2(nodemailer@6.9.16)
       '@growthbook/growthbook':
-        specifier: ^0.29.0
-        version: 0.29.0
+        specifier: ^1.3.0
+        version: 1.3.0
       '@growthbook/growthbook-react':
-        specifier: ^0.19.0
-        version: 0.19.0(react@18.2.0)
+        specifier: ^1.3.0
+        version: 1.3.0(react@18.2.0)
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.9.1(react-hook-form@7.53.2(react@18.2.0))
@@ -103,7 +103,7 @@ importers:
         version: 0.2.1(@types/react@18.2.45)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       drizzle-orm:
         specifier: ^0.28.6
-        version: 0.28.6(@neondatabase/serverless@0.5.6)(@types/pg@8.6.6)(@vercel/postgres@0.4.2)
+        version: 0.28.6(@neondatabase/serverless@0.10.3)(@types/pg@8.11.10)(@vercel/postgres@0.4.2)
       eslint:
         specifier: 8.46.0
         version: 8.46.0
@@ -526,14 +526,14 @@ packages:
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
 
-  '@growthbook/growthbook-react@0.19.0':
-    resolution: {integrity: sha512-h3Pum2OVMd9J6503QRdIwHBZ/R6WDCNQhE3rM0ReSzR7N6YsNZusOswt9xDZKzqKUEdc4RY8PXgeD1d4z9usQA==}
+  '@growthbook/growthbook-react@1.3.0':
+    resolution: {integrity: sha512-kpafw0KJ8JyXzI8wdLYNbYUZoMyokQK1ksV//X26bxU3OF3umSDziFzk7TKUK9+2Cr29afpUoq5yMl3ms5Ll7w==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16.8.0-0 || ^17.0.0-0 || ^18.0.0-0
 
-  '@growthbook/growthbook@0.29.0':
-    resolution: {integrity: sha512-hRYtBw1cg3fqjBRKRfazkRfCJyFpIxjdEUjmwkFaSBorzVDiX35gcp8x83vytQdx5E9xfQo3x/m9Z1yEMDrN7A==}
+  '@growthbook/growthbook@1.3.0':
+    resolution: {integrity: sha512-N5LKgpJPLBcyqpc5sRtIXVttdwCiJnBpbyxh0fTOrqEZZc53EWz6KbAVM986jsncLHPK3h14uf3l2TW6txr4Zw==}
     engines: {node: '>=10'}
 
   '@hookform/resolvers@3.9.1':
@@ -584,6 +584,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@neondatabase/serverless@0.10.3':
+    resolution: {integrity: sha512-F4kqSj++GUwLnO3OzPb95Y/xn3qVLkjJA/36YTqT7c3MRgA/IBOIs/Is1+HBZkGfEwfMG3A9tFkxiEg5eBjxDw==}
 
   '@neondatabase/serverless@0.5.6':
     resolution: {integrity: sha512-Ru0lG6W/nQtHRkDFVQFF+1PJYx8wd3jereln0Ep0YkiHey50hjTLVUycQoE4X977605pXMuFWORweuktzph+Xg==}
@@ -1468,6 +1471,12 @@ packages:
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
 
+  '@types/pg@8.11.10':
+    resolution: {integrity: sha512-LczQUW4dbOQzsH2RQ5qoeJ6qJPdrcM/DcMLoqWQkMLMsq83J5lAX3LXjdkWdpscFy67JSOWDnh7Ny/sPFykmkg==}
+
+  '@types/pg@8.11.6':
+    resolution: {integrity: sha512-/2WmmBXHLsfRqzfHW7BNZ8SbYzE8OSk7i3WjFYvfgRHj7S1xj+16Je5fUKv3lVdVzk/zn9TXOqf+avFCFIE0yQ==}
+
   '@types/pg@8.6.6':
     resolution: {integrity: sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw==}
 
@@ -1908,8 +1917,8 @@ packages:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
 
-  dom-mutator@0.5.0:
-    resolution: {integrity: sha512-bbeX8HWE8JGzraFgbVBX4ws2g3heZFuTtrleQBuN7huy+7n2n7etSuVnot3/1z3jdY2MiwuvoS4Ep1UT2rrGBw==}
+  dom-mutator@0.6.0:
+    resolution: {integrity: sha512-iCt9o0aYfXMUkz/43ZOAUFQYotjGB+GNbYJiJdz4TgXkyToXbbRy5S6FbTp72lRBtfpUMwEc1KmpFEU4CZeoNg==}
     engines: {node: '>=10'}
 
   dotenv@16.4.5:
@@ -2864,6 +2873,9 @@ packages:
     resolution: {integrity: sha512-yBYjY9QX2hnRmZHAjG/f13MzmBzxzYgQhFrke06TTyKY5zSTEqkOeukBzIdVA3j3ulu8Qa3MbVFShV7T2RmGtQ==}
     engines: {node: '>= 0.4'}
 
+  obuf@1.1.2:
+    resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
+
   octokit@3.2.1:
     resolution: {integrity: sha512-u+XuSejhe3NdIvty3Jod00JvTdAE/0/+XbhIDhefHbu+2OcTRHd80aCiH6TX19ZybJmwPQBKFQmHGxp0i9mJrg==}
     engines: {node: '>= 18'}
@@ -2931,12 +2943,20 @@ packages:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
     engines: {node: '>=4.0.0'}
 
+  pg-numeric@1.0.2:
+    resolution: {integrity: sha512-BM/Thnrw5jm2kKLE5uJkXqqExRUY/toLHda65XgFTBTFYZyopbKjBe29Ii3RbkvlsMoFwD+tHeGaCjjv0gHlyw==}
+    engines: {node: '>=4'}
+
   pg-protocol@1.7.0:
     resolution: {integrity: sha512-hTK/mE36i8fDDhgDFjy6xNOG+LCorxLG3WO17tku+ij6sVHXh1jQUJ8hYAnRhNla4QVD2H8er/FOjc/+EgC6yQ==}
 
   pg-types@2.2.0:
     resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
     engines: {node: '>=4'}
+
+  pg-types@4.0.2:
+    resolution: {integrity: sha512-cRL3JpS3lKMGsKaWndugWQoLOCoP+Cic8oseVcbr0qhPzYD5DWXK+RZ9LY9wxRf7RQia4SCwQlXk0q6FCPrVng==}
+    engines: {node: '>=10'}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -3006,17 +3026,36 @@ packages:
     resolution: {integrity: sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==}
     engines: {node: '>=4'}
 
+  postgres-array@3.0.2:
+    resolution: {integrity: sha512-6faShkdFugNQCLwucjPcY5ARoW1SlbnrZjmGl0IrrqewpvxvhSLHimCVzqeuULCbG0fQv7Dtk1yDbG3xv7Veog==}
+    engines: {node: '>=12'}
+
   postgres-bytea@1.0.0:
     resolution: {integrity: sha512-xy3pmLuQqRBZBXDULy7KbaitYqLcmxigw14Q5sj8QBVLqEwXfeybIKVWiqAXTlcvdvb0+xkOtDbfQMOf4lST1w==}
     engines: {node: '>=0.10.0'}
+
+  postgres-bytea@3.0.0:
+    resolution: {integrity: sha512-CNd4jim9RFPkObHSjVHlVrxoVQXz7quwNFpz7RY1okNNme49+sVyiTvTRobiLV548Hx/hb1BG+iE7h9493WzFw==}
+    engines: {node: '>= 6'}
 
   postgres-date@1.0.7:
     resolution: {integrity: sha512-suDmjLVQg78nMK2UZ454hAG+OAW+HQPZ6n++TNDUX+L0+uUlLywnoxJKDou51Zm+zTCjrCl0Nq6J9C5hP9vK/Q==}
     engines: {node: '>=0.10.0'}
 
+  postgres-date@2.1.0:
+    resolution: {integrity: sha512-K7Juri8gtgXVcDfZttFKVmhglp7epKb1K4pgrkLxehjqkrgPhfG6OO8LHLkfaqkbpjNRnra018XwAr1yQFWGcA==}
+    engines: {node: '>=12'}
+
   postgres-interval@1.2.0:
     resolution: {integrity: sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==}
     engines: {node: '>=0.10.0'}
+
+  postgres-interval@3.0.0:
+    resolution: {integrity: sha512-BSNDnbyZCXSxgA+1f5UU2GmwhoI0aU5yMxRGO8CdFEcY2BQF9xm/7MqKnYoM1nJDk8nONNWDk9WeSmePFhQdlw==}
+    engines: {node: '>=12'}
+
+  postgres-range@1.1.4:
+    resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
 
   preact-render-to-string@5.2.3:
     resolution: {integrity: sha512-aPDxUn5o3GhWdtJtW0svRC2SS/l8D9MAgo2+AWml+BhDImb27ALf04Q2d+AHqUUOc6RdSXFIBVa2gxzgMKgtZA==}
@@ -3917,14 +3956,14 @@ snapshots:
 
   '@floating-ui/utils@0.2.8': {}
 
-  '@growthbook/growthbook-react@0.19.0(react@18.2.0)':
+  '@growthbook/growthbook-react@1.3.0(react@18.2.0)':
     dependencies:
-      '@growthbook/growthbook': 0.29.0
+      '@growthbook/growthbook': 1.3.0
       react: 18.2.0
 
-  '@growthbook/growthbook@0.29.0':
+  '@growthbook/growthbook@1.3.0':
     dependencies:
-      dom-mutator: 0.5.0
+      dom-mutator: 0.6.0
 
   '@hookform/resolvers@3.9.1(react-hook-form@7.53.2(react@18.2.0))':
     dependencies:
@@ -3978,6 +4017,11 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@neondatabase/serverless@0.10.3':
+    dependencies:
+      '@types/pg': 8.11.6
+    optional: true
 
   '@neondatabase/serverless@0.5.6':
     dependencies:
@@ -4943,6 +4987,20 @@ snapshots:
 
   '@types/parse-json@4.0.2': {}
 
+  '@types/pg@8.11.10':
+    dependencies:
+      '@types/node': 20.4.7
+      pg-protocol: 1.7.0
+      pg-types: 4.0.2
+    optional: true
+
+  '@types/pg@8.11.6':
+    dependencies:
+      '@types/node': 20.4.7
+      pg-protocol: 1.7.0
+      pg-types: 4.0.2
+    optional: true
+
   '@types/pg@8.6.6':
     dependencies:
       '@types/node': 20.4.7
@@ -5387,7 +5445,7 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
-  dom-mutator@0.5.0: {}
+  dom-mutator@0.6.0: {}
 
   dotenv@16.4.5: {}
 
@@ -5412,10 +5470,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.28.6(@neondatabase/serverless@0.5.6)(@types/pg@8.6.6)(@vercel/postgres@0.4.2):
+  drizzle-orm@0.28.6(@neondatabase/serverless@0.10.3)(@types/pg@8.11.10)(@vercel/postgres@0.4.2):
     optionalDependencies:
-      '@neondatabase/serverless': 0.5.6
-      '@types/pg': 8.6.6
+      '@neondatabase/serverless': 0.10.3
+      '@types/pg': 8.11.10
       '@vercel/postgres': 0.4.2
 
   eastasianwidth@0.2.0: {}
@@ -6528,6 +6586,9 @@ snapshots:
       define-properties: 1.2.1
       es-object-atoms: 1.0.0
 
+  obuf@1.1.2:
+    optional: true
+
   octokit@3.2.1:
     dependencies:
       '@octokit/app': 14.1.0
@@ -6603,6 +6664,9 @@ snapshots:
 
   pg-int8@1.0.1: {}
 
+  pg-numeric@1.0.2:
+    optional: true
+
   pg-protocol@1.7.0: {}
 
   pg-types@2.2.0:
@@ -6612,6 +6676,17 @@ snapshots:
       postgres-bytea: 1.0.0
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
+
+  pg-types@4.0.2:
+    dependencies:
+      pg-int8: 1.0.1
+      pg-numeric: 1.0.2
+      postgres-array: 3.0.2
+      postgres-bytea: 3.0.0
+      postgres-date: 2.1.0
+      postgres-interval: 3.0.0
+      postgres-range: 1.1.4
+    optional: true
 
   picocolors@1.1.1: {}
 
@@ -6668,13 +6743,30 @@ snapshots:
 
   postgres-array@2.0.0: {}
 
+  postgres-array@3.0.2:
+    optional: true
+
   postgres-bytea@1.0.0: {}
 
+  postgres-bytea@3.0.0:
+    dependencies:
+      obuf: 1.1.2
+    optional: true
+
   postgres-date@1.0.7: {}
+
+  postgres-date@2.1.0:
+    optional: true
 
   postgres-interval@1.2.0:
     dependencies:
       xtend: 4.0.2
+
+  postgres-interval@3.0.0:
+    optional: true
+
+  postgres-range@1.1.4:
+    optional: true
 
   preact-render-to-string@5.2.3(preact@10.11.3):
     dependencies:
