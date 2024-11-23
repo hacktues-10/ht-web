@@ -6,8 +6,9 @@ import { env } from "./app/env.mjs";
 
 export default {
   schema: "./app/db/schema.ts",
-  driver: "pg",
+  driver: "pglite",
+  dialect: "postgresql",
   dbCredentials: {
-    connectionString: env.POSTGRES_URL,
+    url: env.POSTGRES_URL,
   },
 } satisfies Config;

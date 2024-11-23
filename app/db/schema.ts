@@ -1,3 +1,4 @@
+import { AdapterAccountType } from "@auth/core/adapters";
 import { relations } from "drizzle-orm";
 import {
   boolean,
@@ -7,7 +8,9 @@ import {
   numeric,
   pgEnum,
   pgTable,
+  primaryKey,
   serial,
+  text,
   timestamp,
   unique,
   varchar,
@@ -35,7 +38,7 @@ export const notificationsTypes = pgEnum("notifications_types", [
 // FIXME: typo in word "participants" :/
 export const particpants = pgTable("participants", {
   id: serial("id").primaryKey(),
-  userId: integer("user_id").references(() => users.id),
+  userId: text("user_id").references(() => users.id),
 
   firstName: varchar("first_name").notNull(),
   middleName: varchar("middle_name"),
@@ -105,9 +108,13 @@ export const discordUsersRelations = relations(discordUsers, ({ one }) => ({
 }));
 
 export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  email: varchar("email").notNull(),
-  emailVerified: date("email_verified", { mode: "date" }),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  name: text("name"),
+  email: text("email").unique(),
+  emailVerified: timestamp("email_verified", { mode: "date" }),
+  image: text("image"),
   participantId: serial("participant_id"),
 });
 
@@ -288,21 +295,27 @@ export const tShirts = pgTable("tshirts", {
   tShirtSize: tShirtSizeEnum("tshirt_size"),
 });
 
-export const accounts = pgTable("accounts", {
-  id: varchar("id").primaryKey().notNull(),
-  userId: varchar("user_id").notNull(),
-  type: varchar("type").notNull(),
-  provider: varchar("provider").notNull(),
-  providerAccountId: varchar("provider_account_id").notNull(),
-  refresh_token: varchar("refresh_token"),
-  access_token: varchar("access_token"),
-  created_at: timestamp("created_at").defaultNow().notNull(),
-  expires_at: integer("expires_at"),
-  token_type: varchar("token_type"),
-  scope: varchar("scope"),
-  id_token: varchar("id_token"),
-  session_state: varchar("session_state"),
-});
+export const accounts = pgTable(
+  "accounts",
+  {
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    type: text("type").$type<AdapterAccountType>().notNull(),
+    provider: text("provider").notNull(),
+    providerAccountId: text("provider_account_id").notNull(),
+    refresh_token: text("refresh_token"),
+    access_token: text("access_token"),
+    expires_at: integer("expires_at"),
+    token_type: text("token_type"),
+    scope: text("scope"),
+    id_token: text("id_token"),
+    session_state: text("session_state"),
+  },
+  (account) => ({
+    compoundKey: primaryKey(account.provider, account.providerAccountId),
+  }),
+);
 
 export const accountRelations = relations(accounts, ({ one }) => ({
   user: one(particpants, {
@@ -312,17 +325,27 @@ export const accountRelations = relations(accounts, ({ one }) => ({
 }));
 
 export const sessions = pgTable("sessions", {
-  id: varchar("id").primaryKey().notNull(),
-  userId: integer("user_id").notNull(),
-  expires: date("expires", { mode: "date" }).notNull(),
-  sessionToken: varchar("session_token").notNull(),
+  sessionToken: text("session_token").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
-export const verificationTokens = pgTable("verification_tokens", {
-  identifier: varchar("identifier").notNull(),
-  token: varchar("token").notNull(),
-  expires: date("expires", { mode: "date" }).notNull(),
-});
+export const verificationTokens = pgTable(
+  "verification_tokens",
+  {
+    identifier: text("identifier").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (verificationToken) => ({
+    compositePk: primaryKey(
+      verificationToken.identifier,
+      verificationToken.token,
+    ),
+  }),
+);
 
 export const notifications = pgTable("notifications", {
   id: serial("id").primaryKey(),
@@ -341,7 +364,7 @@ export const notificationsRelations = relations(notifications, ({ one }) => ({
 }));
 
 export const admins = pgTable("admins", {
-  userId: integer("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => users.id)
     .primaryKey(),

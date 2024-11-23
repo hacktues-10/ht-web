@@ -1,14 +1,14 @@
 import "server-only";
 
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
 import { HT_CONTACT_EMAIL, HT_EDITION_NAME } from "~/app/_configs/hackathon";
-import { parseElsysEmail } from "~/app/_elsys/service";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
-import { DrizzleAdapter } from "~/app/db/adapter";
+import { accounts, sessions, users, verificationTokens } from "~/app/db/schema";
 import { env } from "~/app/env.mjs";
 
 export const authOptions = {
@@ -43,7 +43,12 @@ export const authOptions = {
     newUser: "/user/configure",
   },
 
-  adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db, {
+    usersTable: users,
+    accountsTable: accounts,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+  }),
   session: {
     strategy: "database",
     maxAge: 30 * 24 * 60 * 60 * 4, // 120 days
