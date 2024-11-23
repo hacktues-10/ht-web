@@ -280,7 +280,7 @@ function PastHTArchiveSection({
         {nextHackathon ? (
           <ChevronDownLink href={`#${nextHackathon.id}`} />
         ) : (
-          <ChevronDownLink href={`${CURRENT_HACKATHON_ID}`} />
+          <ChevronDownLink href={`#${CURRENT_HACKATHON_ID}`} />
         )}
       </div>
     </ArchiveSection>
@@ -350,7 +350,7 @@ function UnescoSection() {
   return (
     <section
       id="unesco"
-      className="light relative grid place-items-center gap-14 overflow-x-visible pb-48 pt-28"
+      className="light relative grid place-items-center gap-14 overflow-x-visible bg-background pb-48 pt-28 text-foreground"
     >
       <div className="flex max-w-5xl flex-col items-center justify-center gap-8 sm:flex-row-reverse">
         <div className="flex w-full flex-col gap-1">
