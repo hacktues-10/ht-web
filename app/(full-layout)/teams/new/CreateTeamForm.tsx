@@ -35,8 +35,6 @@ export function CreateTeamForm() {
     if (
       !name ||
       name.length > 30 ||
-      name.toString().toLocaleLowerCase().replaceAll(" ", "") ==
-        "falsepositive" ||
       (description && description.length > 255) ||
       typeof name !== "string" ||
       typeof description !== "string"

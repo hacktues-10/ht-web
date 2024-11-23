@@ -10,13 +10,7 @@ import { createTeam } from "../service";
 
 export const createTeamAction = zact(
   z.object({
-    name: z
-      .string()
-      .trim()
-      .max(30)
-      .refine(
-        (v) => v.toLocaleLowerCase().replaceAll(" ", "") !== "falsepositive",
-      ),
+    name: z.string().trim().max(30),
     description: z.string(),
   }),
 )(async (input) => {
