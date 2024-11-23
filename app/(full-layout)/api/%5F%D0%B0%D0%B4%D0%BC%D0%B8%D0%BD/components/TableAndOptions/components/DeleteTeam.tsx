@@ -83,7 +83,6 @@ export default function DeleteTeam({
                         setValue(currentValue === value ? "" : currentValue);
                         setOpen(false);
                       }}
-                      className="hover:bg-sand hover:text-black"
                     >
                       <Check
                         className={cn(

@@ -123,7 +123,6 @@ export default function SemiFinalResultsTeams({
                         setTeam(currentValue === team ? "" : currentValue);
                         setOpenTeam(false);
                       }}
-                      className="hover:bg-sand hover:text-black"
                     >
                       <Check
                         className={cn(
@@ -172,7 +171,6 @@ export default function SemiFinalResultsTeams({
                           );
                           setOpenSemiFinal(false);
                         }}
-                        className="hover:bg-sand hover:text-black"
                       >
                         <Check
                           className={cn(
