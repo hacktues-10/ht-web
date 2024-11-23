@@ -4,6 +4,7 @@ import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { parseElsysEmail } from "~/app/_elsys/service";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
@@ -80,7 +81,7 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 10px 0px; font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Влезте в <strong>Hack TUES X</strong>
+        Влезте в <strong>${HT_EDITION_NAME}</strong>
       </td>
     </tr>
     <tr>
@@ -99,7 +100,7 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като пишете на hacktues@elsys-bg.org
+        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на ${HT_EDITION_NAME}. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като пишете на hacktues@elsys-bg.org
       </td>
     </tr>
   </table>
@@ -110,13 +111,13 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
 function text(params: { url: string; identifier: string; theme: Theme }) {
   const { url, identifier } = params;
 
-  return `Влезте в Hack TUES X.
+  return `Влезте в ${HT_EDITION_NAME}.
 
 За да продължите, моля посетете следния адрес:
 ${url}
 
 Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта
-на Hack TUES X. Ако не сте били вие, моля пренебрегнете това съобщение.
+на ${HT_EDITION_NAME}. Ако не сте били вие, моля пренебрегнете това съобщение.
 При нужда се свържете с нас като пишете на:
 hacktues@elsys-bg.org
 `;
@@ -143,10 +144,10 @@ async function sendEmail(
   return await transport.sendMail({
     to: identifier,
     from: {
-      name: "Hack TUES X",
+      name: HT_EDITION_NAME,
       address: "noreply@hacktues.bg",
     },
-    subject: `Влизане в Hack TUES X`,
+    subject: `Влизане в ${HT_EDITION_NAME}`,
     html: html({ url, identifier, theme }),
     text: text({ url, identifier, theme }),
     references: generateReferences(),

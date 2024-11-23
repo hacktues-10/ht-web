@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { getTeamById } from "~/app/(full-layout)/teams/service";
 import { ComingSoonPage } from "~/app/components/coming-soon/coming-soon-page";
@@ -12,10 +12,10 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Ментори",
-  description: "Менторите на Hack TUES X",
+  description: `Менторите на ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Ментори",
-    description: "Менторите на Hack TUES X",
+    description: `Менторите на ${HT_EDITION_NAME}`,
   },
 };
 

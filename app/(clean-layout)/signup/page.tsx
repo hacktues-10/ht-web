@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getHTSession } from "~/app/api/auth/session";
 import { HTEditionLogo } from "~/app/components/logos";
@@ -12,10 +13,10 @@ import { SignInForm } from "../_components/signin-form";
 
 export const metadata: Metadata = {
   title: "Регистрация",
-  description: "Регистирайте се за участие в Hack TUES X",
+  description: `Регистирайте се за участие в ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Регистрация",
-    description: "Регистирайте се за участие в Hack TUES X",
+    description: `Регистирайте се за участие в ${HT_EDITION_NAME}`,
   },
 };
 

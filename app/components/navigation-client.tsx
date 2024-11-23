@@ -11,7 +11,7 @@ import { cn } from "../utils";
 import { SignInButton, SignOutButton } from "./buttons";
 import { SocialMediaIconRow } from "./footer";
 import { useHeaderData } from "./header/header";
-import { HTLogo } from "./logos";
+import { HTEditionLogo, HTLogo } from "./logos";
 import { Button } from "./ui/button";
 import { navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { Separator } from "./ui/separator";
@@ -46,7 +46,7 @@ export const MobileNavigationRoot = ({
           onOpenChange={setIsSheetOpen}
           className="text-3xl transition-transform hover:scale-105"
         >
-          <HTLogo className="text-secondary-foreground">Hack TUES X</HTLogo>
+          <HTEditionLogo />
         </MobileNavLink>
         <ScrollArea className="h-full flex-1 overflow-scroll">
           {/* HACK: because the children are rendered by the server and they need to access the state setter,

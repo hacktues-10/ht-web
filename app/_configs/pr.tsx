@@ -11,6 +11,16 @@ import { SiLinktree } from "react-icons/si";
 
 import { HTFeature } from "../_context/growthbook/features";
 
+// Не трябва да завършва с точка – на местата, на които тази константа
+// се използва, ако има нужда от точка, се добавя там.
+export const HT_EVENT_HEADLINE =
+  "Единственият хакатон в България, организиран от ученици за ученици";
+
+// Background цветът на сайта
+export const HT_EDITION_BACKGROUND_COLOR = "#030712";
+// Primary цветът на сайта
+export const HT_EDITION_PRIMARY_COLOR = "#ffdfa8";
+
 export const SOCIAL_MEDIA = [
   {
     platform: "Instagram",

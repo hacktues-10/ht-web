@@ -1,14 +1,15 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { Card } from "~/app/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Регламент",
-  description: "Регламентът на Hack TUES X",
+  description: `Регламентът на ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Регламент",
-    description: "Регламентът на Hack TUES X",
+    description: `Регламентът на ${HT_EDITION_NAME}`,
   },
 };
 
@@ -132,8 +133,8 @@ export default function Regulations() {
             Тормоз
           </h2>
           <p className="leading-7 [&:not(:first-child)]:mt-6">
-            &emsp;Не се толерира тормоз над екипа на Hack TUES X, доброволците и
-            участниците в събитието под каквато и да е форма.
+            &emsp;Не се толерира тормоз над екипа на {HT_EDITION_NAME},
+            доброволците и участниците в събитието под каквато и да е форма.
           </p>
           <p className="mb-6 leading-7 [&:not(:first-child)]:mt-3">
             &emsp;Ако сте подложен на тормоз, забележите, че някой друг е

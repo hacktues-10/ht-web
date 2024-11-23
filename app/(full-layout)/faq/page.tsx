@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import {
   Accordion,
   AccordionContent,
@@ -10,10 +11,10 @@ import { Card } from "~/app/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Често задавани въпроси",
-  description: "Често задавани въпроси за Hack TUES X",
+  description: `Често задавани въпроси за ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Често задавани въпроси",
-    description: "Често задавани въпроси за Hack TUES X",
+    description: `Често задавани въпроси за ${HT_EDITION_NAME}`,
   },
 };
 
@@ -29,7 +30,7 @@ export default function FAQ() {
           <Accordion type="single" collapsible>
             <AccordionItem value="1">
               <AccordionTrigger>
-                Как да създам отбор за Hack TUES X?
+                Как да създам отбор за {HT_EDITION_NAME}?
               </AccordionTrigger>
               <AccordionContent>
                 След като сте си създали акаунт, отидете в страницата за отбори
@@ -185,7 +186,7 @@ export default function FAQ() {
               </AccordionTrigger>
               <AccordionContent>
                 За повече информация за критериите за оценка може да видите
-                регламента на Hack TUES X на страницата Регламент.
+                регламента на {HT_EDITION_NAME} на страницата Регламент.
               </AccordionContent>
             </AccordionItem>
             */}

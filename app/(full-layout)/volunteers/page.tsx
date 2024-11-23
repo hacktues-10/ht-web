@@ -1,15 +1,16 @@
 import { Metadata } from "next";
 import Image from "next/image";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { volunteers } from "~/app/_configs/volunteers";
 import { Card, CardDescription, CardHeader } from "~/app/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Доброволци",
-  description: "Доброволците на Hack TUES X",
+  description: `Доброволците, които ни помогнаха да осъществим ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Доброволци",
-    description: "Доброволците на Hack TUES X",
+    description: `Доброволците, които ни помогнаха да осъществим ${HT_EDITION_NAME}`,
   },
 };
 

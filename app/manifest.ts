@@ -1,15 +1,21 @@
 import { MetadataRoute } from "next";
 
+import { HT_EDITION_NAME } from "./_configs/hackathon";
+import {
+  HT_EDITION_BACKGROUND_COLOR,
+  HT_EDITION_PRIMARY_COLOR,
+  HT_EVENT_HEADLINE,
+} from "./_configs/pr";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Hack TUES X",
-    short_name: "Hack TUES X",
-    description:
-      "Единственият хакатон в България, организиран от ученици за ученици. ⌛",
+    name: HT_EDITION_NAME,
+    short_name: HT_EDITION_NAME,
+    description: HT_EVENT_HEADLINE,
     start_url: "/",
     display: "standalone",
-    background_color: "#030712",
-    theme_color: "#ffdfa8",
+    background_color: HT_EDITION_BACKGROUND_COLOR,
+    theme_color: HT_EDITION_PRIMARY_COLOR,
     icons: [
       {
         src: "/favicon.ico",

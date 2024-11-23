@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { MEDIA_ARTICLES, MediaArticle } from "~/app/_configs/podkrepq";
 import DateDisplayWrongTimezone from "~/app/components/date-display/wrong-timezone/date-display";
 import {
@@ -14,12 +15,10 @@ import { cn } from "~/app/utils";
 
 export const metadata: Metadata = {
   title: "Медиите за нас",
-  description:
-    "Медиите, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+  description: `Медиите, които подкрепиха десетото юбилейно издание на ${HT_EDITION_NAME} и ни помогнаха да го осъществим.`,
   openGraph: {
     title: "Медиите за нас",
-    description:
-      "Медиите, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+    description: `Медиите, които подкрепиха десетото юбилейно издание на ${HT_EDITION_NAME} и ни помогнаха да го осъществим.`,
   },
 };
 

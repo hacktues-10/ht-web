@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 
-import { MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
+import { HT_EDITION_NAME, MAX_TEAMS_STUDENTS } from "~/app/_configs/hackathon";
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import TeamCard from "~/app/components/Team/teamCard";
 import { Button } from "~/app/components/ui/button";
@@ -16,10 +16,10 @@ import { getAllTeams, isTeamConfirmed } from "./service";
 
 export const metadata: Metadata = {
   title: "Отбори",
-  description: "Отборите, които участват в Hack TUES X",
+  description: `Отборите, които участват в ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Отбори",
-    description: "Отборите, които участват в Hack TUES X",
+    description: `Отборите, които участват в ${HT_EDITION_NAME}`,
   },
 };
 

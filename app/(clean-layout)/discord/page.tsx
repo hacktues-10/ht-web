@@ -3,6 +3,7 @@ import Link from "next/link";
 import { XIcon } from "lucide-react";
 import { FaDiscord } from "react-icons/fa6";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { SOCIAL_MEDIA } from "~/app/_configs/pr";
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getUserAuthorization, signInRedirect } from "~/app/api/auth/session";
@@ -14,10 +15,10 @@ import { DiscordLoadingLink } from "./_components/discord-loading-link";
 
 export const metadata: Metadata = {
   title: "Discord Профил",
-  description: "Свържете своя Discord профил с Hack TUES X",
+  description: `Свържете своя Discord профил с ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Discord Профил",
-    description: "Свържете своя Discord профил с Hack TUES X",
+    description: `Свържете своя Discord профил с ${HT_EDITION_NAME}`,
   },
 };
 
@@ -92,7 +93,7 @@ export default async function DiscordPage() {
         <Separator />
         <h2 className="text-center text-lg leading-7 [&:not(:first-child)]:mt-6">
           Свържете своя Discord профил и станете част от Discord сървъра на{" "}
-          <HTLogo className="text-inherit">Hack&nbsp;TUES&nbsp;X</HTLogo>!
+          <HTLogo className="text-inherit">{HT_EDITION_NAME}</HTLogo>!
         </h2>
         <div className="relative pb-6 pt-12">
           <DiscordLoadingLink

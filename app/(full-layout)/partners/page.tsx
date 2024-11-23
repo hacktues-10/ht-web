@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import { Metadata } from "next";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import {
   ALPHA_SPONSORS,
   BETA_SPONSORS,
@@ -12,12 +13,10 @@ import PodkrepqAutoDisplay from "~/app/components/podkrepq-auto-display";
 
 export const metadata: Metadata = {
   title: "Спонсори и партньори",
-  description:
-    "Компании, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+  description: `Компании, които подкрепиха десетото юбилейно издание на ${HT_EDITION_NAME} и ни помогнаха да го осъществим.`,
   openGraph: {
     title: "Спонсори и партньори",
-    description:
-      "Компании, които подкрепиха десетото юбилейно издание на Hack TUES X и ни помогнаха да го осъществим.",
+    description: `Компании, които подкрепиха десетото юбилейно издание на ${HT_EDITION_NAME} и ни помогнаха да го осъществим.`,
   },
 };
 

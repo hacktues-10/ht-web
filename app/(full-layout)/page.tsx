@@ -80,8 +80,8 @@ function CountdownHero() {
     <div className="mx-auto flex min-h-fit w-full max-w-sm flex-col items-center justify-between gap-10 md:max-w-5xl md:flex-row">
       <section className="flex h-full w-full flex-col items-center justify-center gap-4">
         <div className="flex flex-col items-center justify-center">
-          <h1 className="relative inline-block text-center font-llpixel text-5xl md:text-7xl">
-            Hack TUES X
+          <h1 className="relative inline-block text-center text-5xl md:text-7xl">
+            <HTEditionLogo />
           </h1>
           <LandingSubtitle />
         </div>

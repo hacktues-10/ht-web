@@ -3,16 +3,18 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import invariant from "tiny-invariant";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
+import { HT_EDITION_BACKGROUND_COLOR } from "~/app/_configs/pr";
 import { getHTSession, signInRedirect } from "~/app/api/auth/session";
 import { getParticipantFromSession } from "~/app/participants/service";
 import { ParticipantForm } from "./_components/participant-form";
 
 export const metadata: Metadata = {
   title: "Регистрация",
-  description: "Регистрирайте се за участие в Hack TUES X",
+  description: `Регистрирайте се за участие в ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Регистрация",
-    description: "Регистрирайте се за участие в Hack TUES X",
+    description: `Регистрирайте се за участие в ${HT_EDITION_NAME}`,
   },
 };
 

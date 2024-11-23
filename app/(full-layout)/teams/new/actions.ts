@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { zact } from "~/app/_zact/server";
 import { env } from "~/app/env.mjs";
@@ -27,7 +28,7 @@ export const createTeamAction = zact(
     // TODO: да извадим съобщенията в отделен файл
     return {
       success: false,
-      error: "Не сте влезли в своя Hack TUES X акаунт.",
+      error: `Не сте влезли в своя ${HT_EDITION_NAME} акаунт.`,
     } as const;
   }
 

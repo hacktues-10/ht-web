@@ -2,7 +2,10 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-import { STUDENTS_REGISTRATION_START } from "~/app/_configs/hackathon";
+import {
+  HT_EDITION_NAME,
+  STUDENTS_REGISTRATION_START,
+} from "~/app/_configs/hackathon";
 import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import { IfDateInFuture, IfDateInPast } from "~/app/components/countdowns";
 import { DateDisplay } from "~/app/components/date-display";
@@ -13,10 +16,10 @@ import { Separator } from "~/app/components/ui/separator";
 
 export const metadata: Metadata = {
   title: "Възникна грешка при влизането",
-  description: "Възникна грешка при влизането ви в Hack TUES X",
+  description: `Възникна грешка при влизането ви в ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Възникна грешка при влизането",
-    description: "Възникна грешка при влизането ви в Hack TUES X",
+    description: `Възникна грешка при влизането ви в ${HT_EDITION_NAME}`,
   },
 };
 

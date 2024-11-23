@@ -4,7 +4,11 @@ import Link from "next/link";
 import { MapPin, Youtube } from "lucide-react";
 import invariant from "tiny-invariant";
 
-import { SCHEDULE, ScheduleEvent } from "~/app/_configs/hackathon";
+import {
+  HT_EDITION_NAME,
+  SCHEDULE,
+  ScheduleEvent,
+} from "~/app/_configs/hackathon";
 import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import {
   Accordion,
@@ -262,7 +266,7 @@ function WorkshopsDisplay({ children }: React.PropsWithChildren<{}>) {
           <AccordionItem value="workshops">
             <Card>
               <AccordionTrigger className="w-full">
-                Workshop-и преди Hack TUES X
+                Workshop-и преди {HT_EDITION_NAME}
               </AccordionTrigger>
             </Card>
             <AccordionContent className="px-0">{children}</AccordionContent>

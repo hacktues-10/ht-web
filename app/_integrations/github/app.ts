@@ -1,6 +1,7 @@
 import { App } from "octokit";
 import invariant from "tiny-invariant";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { getTeamByProjectId } from "~/app/(full-layout)/teams/service";
 import { env } from "~/app/env.mjs";
 import { SECOND } from "~/app/utils";
@@ -77,7 +78,7 @@ app.webhooks.on(
           repos,
         )} ${reposList} бе премахнат и ${pluralizeRepo(
           repos,
-        )} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
+        )} ${getWereRemovedText(repos)} от сайта на ${HT_EDITION_NAME}.
 
 Ако това е нежелано, моля, възстановете достъпа и добавете отново ${pluralizeRepo(
           repos,
@@ -126,7 +127,7 @@ app.webhooks.on("installation.deleted", async ({ octokit, payload }) => {
       )} ${getWereRemovedText(repos)} от сайта!
 Достъпът на GitHub приложението до вашия акаунт бе отстранен и ${getYourRepositoriesText(
         repos,
-      )} ${reposList} ${getWereRemovedText(repos)} от сайта на Hack TUES X.
+      )} ${reposList} ${getWereRemovedText(repos)} от сайта на ${HT_EDITION_NAME}.
 
 Ако това е нежелано, моля, възстановете достъпа и добавете отново ${pluralizeRepo(
         repos,
@@ -179,7 +180,7 @@ app.webhooks.on("installation.suspend", async ({ octokit, payload }) => {
         repos,
       )} ${reposList} беше временно ограничен с бутона "Suspend" и ${pluralizeRepo(
         repos,
-      )} временно ${getWereRemovedText(repos)} от сайта на Hack TUES X.
+      )} временно ${getWereRemovedText(repos)} от сайта на ${HT_EDITION_NAME}.
 
 Ако това е нежелано, моля, възстановете достъпа чрез "Unsuspend" бутона в GitHub за да добавите ${pluralizeRepo(
         repos,
@@ -255,7 +256,7 @@ app.webhooks.on("repository.privatized", async ({ octokit, payload }) => {
       }> Вашето хранилище бе направено отново публично!
 Вие променихте видимостта на ${formatReposList([
         existingRepo,
-      ])} в GitHub от "Public" на "Private". Тъй като не можете да участвате в Hack TUES X с частни хранилища, ние го направихме отново публично.
+      ])} в GitHub от "Public" на "Private". Тъй като не можете да участвате в ${HT_EDITION_NAME} с частни хранилища, ние го направихме отново публично.
 
 Ако желаете да премахнете хранилището от сайта, можете да го направите от страницата на отбора.
 

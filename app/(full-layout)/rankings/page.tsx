@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import {
   IfAnyHTFeatureOn,
   IfHTFeatureOn,
@@ -9,12 +10,10 @@ import { getTeamsBySemiFinal } from "./service";
 
 export const metadata: Metadata = {
   title: "Класация",
-  description:
-    "Как се класираха отборите в полуфиналите и финалите на Hack TUES X",
+  description: `Как се класираха отборите в полуфиналите и финалите на ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Класация",
-    description:
-      "Как се класираха отборите в полуфиналите и финалите на Hack TUES X",
+    description: `Как се класираха отборите в полуфиналите и финалите на ${HT_EDITION_NAME}`,
   },
 };
 

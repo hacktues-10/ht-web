@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { signInRedirect } from "~/app/api/auth/session";
 import { getParticipantFromSession } from "~/app/participants/service";
@@ -12,10 +13,10 @@ import CreateProjectFrom from "./CreateProjectForm";
 
 export const metadata: Metadata = {
   title: "Създай проект",
-  description: "Създай проект към твоя отбор за Hack TUES X",
+  description: `Създай проект към твоя отбор за ${HT_EDITION_NAME}`,
   openGraph: {
     title: "Създай проект",
-    description: "Създай проект към твоя отбор за Hack TUES X",
+    description: `Създай проект към твоя отбор за ${HT_EDITION_NAME}`,
     type: "website",
   },
 };

@@ -7,9 +7,10 @@ import { LogOutIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { SignOutButton } from "~/app/components/buttons";
-import { Button, buttonVariants } from "~/app/components/ui/button";
-import { Card, CardContent } from "~/app/components/ui/card";
+import { Button } from "~/app/components/ui/button";
+import { Card } from "~/app/components/ui/card";
 import { Checkbox } from "~/app/components/ui/checkbox";
 import {
   Form,
@@ -134,7 +135,7 @@ export const StudentStep1 = ({
                         className="font-medium underline underline-offset-4"
                         target="_blank"
                       >
-                        регламента на Hack TUES X
+                        регламента на ${HT_EDITION_NAME}
                       </Link>
                     </FormLabel>
                   </div>
@@ -157,7 +158,7 @@ export const StudentStep1 = ({
                       <FormLabel>
                         Съгласен/а съм името ми, телефонът ми и логистичната ми
                         информация да се съхранява и обработва само и единствено
-                        от организационния екип на Hack TUES X
+                        от организационния екип на ${HT_EDITION_NAME}
                       </FormLabel>
                     </div>
                   </FormItem>
@@ -177,7 +178,7 @@ export const StudentStep1 = ({
                     <div className="space-y-1 leading-none">
                       <FormLabel>
                         Съгласен/а съм името и фамилията ми да бъдат публикувани
-                        на сайта и социалните мрежи на Hack TUES X.
+                        на сайта и социалните мрежи на ${HT_EDITION_NAME}
                       </FormLabel>
                     </div>
                   </FormItem>

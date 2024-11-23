@@ -6,9 +6,11 @@ import localFont from "next/font/local";
 
 import AuthProvider from "~/app/_context/auth-provider";
 import { GrowthBookServerProvider } from "~/app/_context/growthbook/GrowthBookServerProvider";
+import { HT_EDITION_NAME } from "./_configs/hackathon";
 import { HTQueryClientProvider } from "./_context/query-client-provider";
 import { Toaster } from "./components/ui/toaster";
-import { cn } from "./utils";
+import { HT_EDITION_NAME, cn } from "./utils";
+import { HT_EVENT_HEADLINE } from "./_configs/pr";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
@@ -29,19 +31,19 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://hacktues.bg/"),
   title: {
     default:
-      "Hack TUES X – Единственият хакатон в България, организиран от ученици за ученици",
-    template: "%s | Hack TUES X",
+      `${HT_EDITION_NAME} – ${HT_EVENT_HEADLINE}`,
+    template: `%s | ${HT_EDITION_NAME}`,
   },
-  description: "Hack TUES",
+  description: HT_EVENT_HEADLINE,
   openGraph: {
     title: {
-      default: "Hack TUES X",
-      template: "%s | Hack TUES X",
+      default: HT_EDITION_NAME,
+      template: `%s | ${HT_EDITION_NAME}`,
     },
     description:
-      "Единственият хакатон в България, организиран от ученици за ученици. ⌛",
+      `${HT_EVENT_HEADLINE}.`,
     url: "https://hacktues.bg",
-    siteName: "Hack TUES X",
+    siteName: HT_EDITION_NAME,
     locale: "bg_BG",
     type: "website",
   },
@@ -57,7 +59,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "Hack TUES X",
+    title: HT_EDITION_NAME,
     card: "summary_large_image",
   },
   // verification: {
