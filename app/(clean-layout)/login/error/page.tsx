@@ -2,9 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-import {
-  STUDENTS_REGISTRATION_START,
-} from "~/app/_configs/hackathon";
+import { STUDENTS_REGISTRATION_START } from "~/app/_configs/hackathon";
 import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import { IfDateInFuture, IfDateInPast } from "~/app/components/countdowns";
 import { DateDisplay } from "~/app/components/date-display";

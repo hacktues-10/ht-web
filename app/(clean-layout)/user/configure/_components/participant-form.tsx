@@ -9,7 +9,5 @@ export const ParticipantForm = async () => {
     session?.user?.email,
     "No email in session or no session at all even :(",
   );
-  return (
-    <StudentForm email={session.user.email} />
-  );
+  return <StudentForm email={session.user.email} />;
 };

@@ -1,6 +1,4 @@
-import {
-  getStudentParticipantsAdmin,
-} from "~/app/participants/service";
+import { getStudentParticipantsAdmin } from "~/app/participants/service";
 import { AdminOrNotFound } from "./components/server";
 import { getAdminFromSession } from "./service";
 import { getTeamsAdmin } from "./teams/service";

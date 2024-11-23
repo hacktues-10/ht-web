@@ -54,7 +54,7 @@ export default function SemiFinalResultsTeams({
   async function handleClick() {
     const res = await addTeamResultFinal(selectedTeam, finalResult);
     toast({
-      variant: res?.success ? "sand" : "destructive",
+      variant: res?.success ? "default" : "destructive",
       title: res?.message,
     });
     setOpenTeam(false);

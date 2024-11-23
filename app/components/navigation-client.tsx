@@ -82,15 +82,10 @@ export const MobileNavigationRoot = ({
             </SignOutButton>
           </MobileActionButtons>
         ) : (
-          <IfAnyHTFeatureOn
-            outOf={[
-              "signin-students",
-              "register-students",
-            ]}
-          >
+          <IfAnyHTFeatureOn outOf={["signin-students", "register-students"]}>
             <MobileActionButtons>
-            <IfHTFeatureOn feature="signin-students">
-            <SignInButton
+              <IfHTFeatureOn feature="signin-students">
+                <SignInButton
                   className={cn(navigationMenuTriggerStyle(), "w-full text-lg")}
                 >
                   Вход

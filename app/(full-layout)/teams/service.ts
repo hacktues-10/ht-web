@@ -151,9 +151,7 @@ export async function createTeam(team: {
 }
 
 export async function checkIfTeamEligableToJoin() {
-  const teamsNumber = await db
-    .select()
-    .from(teams)
+  const teamsNumber = await db.select().from(teams);
 
   const minMembers = MIN_TEAM_MEMBERS_STUDENTS;
   const maxMembers = MAX_TEAM_MEMBERS_STUDENTS;
@@ -162,9 +160,7 @@ export async function checkIfTeamEligableToJoin() {
     return team.memberCount >= minMembers && team.memberCount <= maxMembers;
   });
 
-  if (
-    (teamsNumberFinal.length >= MAX_TEAMS_STUDENTS)
-  ) {
+  if (teamsNumberFinal.length >= MAX_TEAMS_STUDENTS) {
     return false;
   }
 
@@ -179,14 +175,12 @@ export function isParticipantEligableToJoin(
     return false;
   }
   const grade = parseInt(participant.grade);
-  return (grade < 13);
+  return grade < 13;
 }
 
 export function isTeamConfirmed(team: Team) {
-  const minMembers =
-    MIN_TEAM_MEMBERS_STUDENTS;
-  const maxMembers =
-    MAX_TEAM_MEMBERS_STUDENTS;
+  const minMembers = MIN_TEAM_MEMBERS_STUDENTS;
+  const maxMembers = MAX_TEAM_MEMBERS_STUDENTS;
   return team.memberCount >= minMembers && team.memberCount <= maxMembers;
 }
 

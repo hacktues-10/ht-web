@@ -114,20 +114,18 @@ export const StudentForm = ({ email }: { email: string }) => {
     const response = await registerStudent(updatedData);
     try {
       if (response.success) {
-        toast({ variant: "sand", title: "Успешно се регистрирахте!" });
+        toast({ title: "Успешно се регистрирахте!" });
         localStorage.removeItem("studentRegistrationDataCurrentStep");
         localStorage.removeItem("studentRegistrationData");
         router.refresh();
       } else {
         toast({
-          variant: "sand",
           title: "Възникна грешка",
           description: response.error,
         });
       }
     } catch (e) {
       toast({
-        variant: "sand",
         title: "Възникна грешка при регистрацията",
         description:
           "Моля, опитайте отново по-късно. Ако проблемът продължава, свържете се с нас на адрес hacktues@elsys-bg.org.",

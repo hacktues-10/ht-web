@@ -35,4 +35,3 @@ export const getTeamsBySemiFinal = unstable_cache(
     tags: ["teams"],
   },
 );
-

@@ -38,8 +38,7 @@ export const SignInForm = (props: { isRegister: boolean }) => {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
-  const shouldBeInactive =
-    props.isRegister && !canSignInStudents;
+  const shouldBeInactive = props.isRegister && !canSignInStudents;
 
   useEffect(() => {
     if (error) {
@@ -78,28 +77,24 @@ export const SignInForm = (props: { isRegister: boolean }) => {
           disabled={shouldBeInactive}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                {props.isRegister ??
-                  "Ученически имейл"
-                  }
-              </FormLabel>
+              <FormLabel>{props.isRegister ?? "Ученически имейл"}</FormLabel>
               <FormControl>
                 <Input
                   placeholder={
                     canSignInStudents
-                      ? "tuesar.t.tuesarov.2024@elsys-bg.org" : ""
+                      ? "tuesar.t.tuesarov.2024@elsys-bg.org"
+                      : ""
                   }
                   {...field}
                 />
               </FormControl>
               <FormMessage />
-              {props.isRegister &&
-                canRegisterStudents && (
-                  <FormDescription>
-                    Вашият служебен имейл адрес, който използвате за достъп до
-                    Google Classroom.
-                  </FormDescription>
-                )}
+              {props.isRegister && canRegisterStudents && (
+                <FormDescription>
+                  Вашият служебен имейл адрес, който използвате за достъп до
+                  Google Classroom.
+                </FormDescription>
+              )}
             </FormItem>
           )}
         />

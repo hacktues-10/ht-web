@@ -4,8 +4,8 @@ import { z } from "zod";
 
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { zact } from "~/app/_zact/server";
+import { env } from "~/app/env.mjs";
 import { getParticipantFromSession } from "~/app/participants/service";
-import { env } from "~/app/env.mjs"
 import { createTeam } from "../service";
 
 export const createTeamAction = zact(

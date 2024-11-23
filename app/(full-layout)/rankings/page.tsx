@@ -29,12 +29,7 @@ export default async function RankingsPage() {
     .sort((a, b) => Number(b.finalResult) - Number(a.finalResult));
 
   return (
-    <IfAnyHTFeatureOn
-      outOf={[
-        "show-student-finalists",
-        "show-semi-finals",
-      ]}
-    >
+    <IfAnyHTFeatureOn outOf={["show-student-finalists", "show-semi-finals"]}>
       <h1 className="mt-5 flex-col gap-5 text-center text-5xl font-extrabold">
         Класация
       </h1>

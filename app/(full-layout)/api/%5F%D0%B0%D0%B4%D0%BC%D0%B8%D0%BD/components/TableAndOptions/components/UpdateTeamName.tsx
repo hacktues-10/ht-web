@@ -51,7 +51,7 @@ export default function UpdateTeamName({
     });
 
     toast({
-      variant: rename?.success ? "sand" : "destructive",
+      variant: rename?.success ? "default" : "destructive",
       title: rename?.message,
     });
   }

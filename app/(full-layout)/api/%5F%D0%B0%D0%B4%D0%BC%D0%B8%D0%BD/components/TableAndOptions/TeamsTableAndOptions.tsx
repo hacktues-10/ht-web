@@ -26,9 +26,8 @@ export default function TableAndOptions({ teams }: { teams: TeamsAdmin }) {
     }
 
     if (filterSearch) {
-      filteredData = filteredData.filter(
-        (team) =>
-          (team.name + team.mentor)?.toLowerCase().includes(filterSearch),
+      filteredData = filteredData.filter((team) =>
+        (team.name + team.mentor)?.toLowerCase().includes(filterSearch),
       );
     }
     setIndex(1);

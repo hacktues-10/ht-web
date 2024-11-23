@@ -11,9 +11,7 @@ import {
   teams,
   users,
 } from "../db/schema";
-import {
-  perpareParticipantAdmin,
-} from "./actions";
+import { perpareParticipantAdmin } from "./actions";
 
 export type Participant = Awaited<
   ReturnType<typeof selectFromParticipants>
@@ -197,7 +195,6 @@ function adminSelect() {
     .leftJoin(teams, eq(particpants.teamId, teams.id))
     .leftJoin(discordUsers, eq(particpants.id, discordUsers.participantId));
 }
-
 
 export async function getParticipantsAdmin() {
   const admin = await getAdminFromSession();

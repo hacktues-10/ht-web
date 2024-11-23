@@ -82,7 +82,7 @@ export default function SemiFinalResultsTeams({
       semiFinalResult,
     );
     toast({
-      variant: res?.success ? "sand" : "destructive",
+      variant: res?.success ? "default" : "destructive",
       title: res?.message,
     });
     setOpenTeam(false);

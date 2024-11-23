@@ -8,7 +8,7 @@ import { z } from "zod";
 
 import {
   STUDENT_GRADES,
-  STUDENT_PARALLELS
+  STUDENT_PARALLELS,
 } from "~/app/_elsys/grades-parallels";
 import { parseElsysEmail } from "~/app/_elsys/service";
 import { SignOutButton } from "~/app/components/buttons";
@@ -35,7 +35,6 @@ import { studentsStep2Schema } from "../../schemas";
 import { NextStepButton, PrevStepButton, StepButtons } from "../step-buttonts";
 
 type StudentStep2Data = z.infer<typeof studentsStep2Schema>;
-
 
 export const StudentStep2 = ({
   email,

@@ -70,11 +70,9 @@ const phoneNumberSchema = z.object({
   ),
 });
 
-
 export const studentsStep1Schema = names2Schema
   .merge(consentsSchema)
   .merge(phoneNumberSchema);
-
 
 export const studentsStep2Schema = z.object({
   grade: z.enum(STUDENT_GRADES),
@@ -99,7 +97,6 @@ export const everyoneStep4Schema = z.object({
   technologies: z.string().optional(),
   isLookingForTeam: z.boolean().default(true),
 });
-
 
 export const studentRegistrationSchema = studentsStep1Schema
   .merge(studentsStep2Schema)

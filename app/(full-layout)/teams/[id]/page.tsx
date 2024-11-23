@@ -8,10 +8,7 @@ import { PropsWithChildren } from "react";
 import { LucideIcon, Pencil, Plus, Settings } from "lucide-react";
 import { LuGlobe } from "react-icons/lu";
 
-import {
-  IfHTFeatureOff,
-  IfHTFeatureOn,
-} from "~/app/_integrations/components";
+import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import {
   AddRepoButton,
   GitHubRepoDialog,
@@ -364,43 +361,40 @@ export default async function TeamDetailPage({
                   </h2>
                 </div>
               ))}
-              (team.mentorId && mentor && mentor.id && mentor.fileName ? (
-                <div className="mt-4 rounded-xl border-2 py-2">
-                  <h2 className="m-auto ml-4 text-left text-xl">Ментор</h2>
-                  <div
-                    key={mentor?.id}
-                    className="m-2 flex rounded-2xl border-2 p-2"
-                  >
-                    <div>
-                      <Avatar>
-                        <AvatarImage
-                          src={`/mentors/${mentor?.fileName}`}
-                          alt={mentor?.name}
-                        ></AvatarImage>
-                        <AvatarFallback>?</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <h2 className="m-auto ml-4 text-left text-lg">
-                      {mentor?.name}
-                    </h2>
-                  </div>
+            (team.mentorId && mentor && mentor.id && mentor.fileName ? (
+            <div className="mt-4 rounded-xl border-2 py-2">
+              <h2 className="m-auto ml-4 text-left text-xl">Ментор</h2>
+              <div
+                key={mentor?.id}
+                className="m-2 flex rounded-2xl border-2 p-2"
+              >
+                <div>
+                  <Avatar>
+                    <AvatarImage
+                      src={`/mentors/${mentor?.fileName}`}
+                      alt={mentor?.name}
+                    ></AvatarImage>
+                    <AvatarFallback>?</AvatarFallback>
+                  </Avatar>
                 </div>
-              ) : (
-                <div
-                  key={mentor?.id}
-                  className="m-2 flex rounded-2xl border-2 p-2"
-                >
-                  <div>
-                    <Avatar>
-                      <AvatarImage></AvatarImage>
-                      <AvatarFallback>?</AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <h2 className="m-auto ml-4 text-left text-lg">
-                    Все още няма ментор
-                  </h2>
-                </div>
-              ))
+                <h2 className="m-auto ml-4 text-left text-lg">
+                  {mentor?.name}
+                </h2>
+              </div>
+            </div>
+            ) : (
+            <div key={mentor?.id} className="m-2 flex rounded-2xl border-2 p-2">
+              <div>
+                <Avatar>
+                  <AvatarImage></AvatarImage>
+                  <AvatarFallback>?</AvatarFallback>
+                </Avatar>
+              </div>
+              <h2 className="m-auto ml-4 text-left text-lg">
+                Все още няма ментор
+              </h2>
+            </div>
+            ))
           </Card>
 
           <Card className="fadeInComponent m-10 ml-auto mr-auto overflow-hidden rounded-3xl border-2 p-5 sm:mr-0">

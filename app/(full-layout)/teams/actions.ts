@@ -8,6 +8,10 @@ import invariant from "tiny-invariant";
 import { slugify } from "transliteration";
 import { z } from "zod";
 
+import {
+  MAX_TEAM_MEMBERS_STUDENTS,
+  MIN_TEAM_MEMBERS_STUDENTS,
+} from "~/app/_configs/hackathon";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { zact } from "~/app/_zact/server";
 import {
@@ -48,7 +52,6 @@ import {
   Team,
   updateProject,
 } from "./service";
-import { MAX_TEAM_MEMBERS_STUDENTS, MIN_TEAM_MEMBERS_STUDENTS } from "~/app/_configs/hackathon";
 
 export async function deleteMyTeam() {
   const gb = await getServerSideGrowthBook();
@@ -265,10 +268,7 @@ export const inviteToTeam = zact(
     return { success: false, error: "Този участник не може да бъде поканен" };
   }
 
-  if (
-    invitedParticipant.grade &&
-      (parseInt(invitedParticipant?.grade) > 12)
-  ) {
+  if (invitedParticipant.grade && parseInt(invitedParticipant?.grade) > 12) {
     return { success: false, error: "Този участник не може да бъде поканен" };
   }
   try {
@@ -561,8 +561,8 @@ export async function getTeamMembers(teamId: string) {
 
 export async function updateTechnologies(teamId: string) {
   const members = await getTeamMembers(teamId);
-  const allTechnologies = members.flatMap(
-    (member) => member.technologies?.split(", "),
+  const allTechnologies = members.flatMap((member) =>
+    member.technologies?.split(", "),
   );
   const uniqueTechnologies = [...new Set(allTechnologies)];
   const technologiesString = uniqueTechnologies.join(", ");
@@ -763,9 +763,7 @@ export const updateProjectFallbackGitHubRepos = zact(
 
 export async function isTeamFull(teamId: string) {
   const team = (await db.select().from(teams).where(eq(teams.id, teamId)))[0];
-  if (
-    (team.memberCount == 5)
-  ) {
+  if (team.memberCount == 5) {
     return true;
   }
   return false;

@@ -33,13 +33,13 @@ export default function DisqualifyParticipantComponent({
     if (response.success) {
       toast({
         title: "Участникът е дисквалифициран",
-        variant: "sand",
+        variant: "destructive",
       });
     } else {
       toast({
         title: "OПА",
         description: response.message,
-        variant: "sand",
+        variant: "destructive",
       });
     }
   };

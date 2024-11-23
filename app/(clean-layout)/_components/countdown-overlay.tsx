@@ -2,9 +2,7 @@
 
 import { useMemo } from "react";
 
-import {
-  STUDENTS_REGISTRATION_START,
-} from "~/app/_configs/hackathon";
+import { STUDENTS_REGISTRATION_START } from "~/app/_configs/hackathon";
 import { IfHTFeatureOff } from "~/app/_integrations/components";
 import { CountdownTimerDisplay } from "~/app/components/countdowns";
 import { useCountdown } from "~/app/components/countdowns/hooks";
@@ -12,7 +10,7 @@ import { cn } from "~/app/utils";
 
 export const RegistrationCountdownOverlay = () => {
   const studentsCountdown = useCountdown(STUDENTS_REGISTRATION_START);
-  
+
   const firstFutureCountdown = useMemo(
     () => (studentsCountdown.diff > 0 ? studentsCountdown : null),
     [studentsCountdown],

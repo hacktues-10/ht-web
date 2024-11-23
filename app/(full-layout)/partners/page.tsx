@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function SponsorsAndPartners() {
   return (
-    <section className="light relative flex flex-col gap-14 overflow-x-visible pb-14 pt-14 text-sand-foreground">
+    <section className="light text-sand-foreground relative flex flex-col gap-14 overflow-x-visible pb-14 pt-14">
       <div className="absolute -left-[calc(100vw-100%)] bottom-0 top-0 -z-10 h-full w-[calc(100vw+(100vw-100%)/2)]" />
       <div className="grid grid-cols-1 place-items-center ">
         <div className="mb-52">
@@ -53,7 +53,7 @@ export default function SponsorsAndPartners() {
 
 function PodkrepqTitle({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className="scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight text-sand first:mt-0 md:text-5xl">
+    <h2 className="text-sand scroll-m-20 pb-2 text-center text-4xl font-extrabold tracking-tight first:mt-0 md:text-5xl">
       {children}
     </h2>
   );

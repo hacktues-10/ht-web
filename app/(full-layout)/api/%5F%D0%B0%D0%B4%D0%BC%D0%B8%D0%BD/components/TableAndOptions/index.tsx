@@ -41,18 +41,17 @@ export default function TableAndOptions({
     }
 
     if (filterSearch) {
-      filteredData = filteredData.filter(
-        (participant) =>
-          (
-            participant.email +
-            participant.firstName +
-            participant.middleName +
-            participant.lastName +
-            participant.discordUser +
-            participant.team
-          )
-            ?.toLowerCase()
-            .includes(filterSearch),
+      filteredData = filteredData.filter((participant) =>
+        (
+          participant.email +
+          participant.firstName +
+          participant.middleName +
+          participant.lastName +
+          participant.discordUser +
+          participant.team
+        )
+          ?.toLowerCase()
+          .includes(filterSearch),
       );
     }
 

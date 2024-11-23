@@ -1,3 +1,6 @@
+import { PropsWithChildren } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   Award,
@@ -10,9 +13,6 @@ import {
   Users,
   Wifi,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { PropsWithChildren } from "react";
 
 import {
   EVENT_END,

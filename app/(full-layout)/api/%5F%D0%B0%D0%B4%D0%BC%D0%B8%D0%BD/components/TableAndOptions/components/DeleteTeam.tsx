@@ -46,7 +46,7 @@ export default function DeleteTeam({
     const rename = await deleteTeamAdmin(value);
 
     toast({
-      variant: rename?.success ? "sand" : "destructive",
+      variant: rename?.success ? "default" : "destructive",
       title: rename?.message,
     });
   }

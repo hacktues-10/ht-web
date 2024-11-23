@@ -41,7 +41,7 @@ function LandingCTAButton(props: React.ComponentProps<typeof Button>) {
 const landingCTASchema = z.object({
   text: z.string(),
   href: z.string(),
-  color: z.enum(["sand", "brand"]).default("brand"),
+  color: z.enum(["default", "destructive"]).default("default"),
   icon: z.string().nullish(),
 });
 
@@ -50,7 +50,7 @@ type LandingCTA = z.infer<typeof landingCTASchema>;
 const defaultCTA = {
   text: "Разгледайте отборите",
   href: "/teams",
-  color: "sand",
+  color: "default",
   icon: undefined,
 } as const satisfies LandingCTA;
 
@@ -62,11 +62,7 @@ export function LandingCTA() {
   }, [feature.value]);
 
   return (
-    <LandingCTAButton
-      asChild
-      variant={cta.color === "brand" ? "destructive" : "default"}
-      className={cta.color === "brand" ? "bg-brand hover:bg-brand/90" : ""}
-    >
+    <LandingCTAButton asChild variant={cta.color}>
       <Link
         href={cta.href}
         className="flex items-center"

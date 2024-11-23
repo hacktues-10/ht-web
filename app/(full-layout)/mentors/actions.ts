@@ -6,7 +6,6 @@ import { eq } from "drizzle-orm";
 import { db } from "~/app/db";
 import { teams } from "~/app/db/schema";
 
-
 export async function chooseTeamMentor(mentorId: number, teamId: string) {
   try {
     const teams_res = await db.select().from(teams);
