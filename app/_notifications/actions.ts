@@ -32,9 +32,6 @@ export const getNotifications = async () => {
   return getNotificationsOfParticipant(participant);
 };
 
-// FIXME: why is this here?
-export const handleAcceptedJoinRequest = () => {};
-
 interface JoinRequest {
   id: number;
   userId: number;

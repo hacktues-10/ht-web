@@ -19,25 +19,33 @@ const htSecurityFont = localFont({
   src: "../assets/htsecurity.ttf",
 });
 
+// Roboto - HT6's font
 const roboto = Roboto({
   weight: ["400", "500", "700"],
   subsets: ["cyrillic", "latin"],
 });
+// Rubik - HT7's font
 const rubik = Rubik({
   subsets: ["cyrillic", "latin"],
 });
+// Comfortaa - HT8's font
 const comfortaa = Comfortaa({
   weight: ["400", "500", "700"],
   subsets: ["cyrillic", "latin"],
 });
+// Montserrat - HT9's font
 const montserrat = Montserrat({
   weight: ["400", "500", "700"],
   subsets: ["cyrillic", "latin"],
 });
+// (HT10's font is Inter)
 
 export function getHackathonById(id: string) {
   return HACKATHONS.find((h) => h.id === id);
 }
+
+// TODO: change this
+export const CURRENT_HACKATHON_ID = "hacktues-x";
 
 export const HACKATHONS = [
   {

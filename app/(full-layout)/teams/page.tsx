@@ -27,19 +27,17 @@ export default async function TeamListPage() {
   const teams = await getAllTeams();
   const participant = await getParticipantFromSession();
 
-  const confirmedStudentTeamsNumber =
-  teams.filter(isTeamConfirmed).length;
+  const confirmedStudentTeamsNumber = teams.filter(isTeamConfirmed).length;
 
   let canCreateTeam = false;
   if (participant?.grade) {
     canCreateTeam =
-      (confirmedStudentTeamsNumber < MAX_TEAMS_STUDENTS &&
-        parseInt(participant.grade) <= 12);
+      confirmedStudentTeamsNumber < MAX_TEAMS_STUDENTS &&
+      parseInt(participant.grade) <= 12;
   }
 
   //   TODO: move elsewhere
   return (
-    //bg-[url('./assets/background.png')]
     <div className="h-full w-full max-w-[1920px] content-center items-center justify-center">
       <IfHTFeatureOn feature="create-team">
         {participant &&

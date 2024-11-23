@@ -75,13 +75,12 @@ export default function RootLayout({
     <html lang="en" className="motion-safe:scroll-smooth ">
       <body
         className={cn(
-          "dark relative min-h-screen bg-background font-sans antialiased",
+          "dark relative min-h-screen bg-background font-sans text-foreground antialiased",
           inter.variable,
           llpixel.variable,
           lazydog.variable,
         )}
       >
-        <div className="absolute inset-0 -z-50 h-full bg-[url(./assets/bg-grid.png)] bg-[length:80px_80px] bg-repeat-round [mask-image:linear-gradient(to_bottom,transparent,10%,white,90%,transparent)]" />
         <AuthProvider>
           <GrowthBookServerProvider>
             <HTQueryClientProvider>{children}</HTQueryClientProvider>

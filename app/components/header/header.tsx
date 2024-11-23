@@ -6,7 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import { LogOutIcon, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 
-import { IfAnyHTFeatureOn, IfHTFeatureOn } from "~/app/_integrations/components";
+import {
+  IfAnyHTFeatureOn,
+  IfHTFeatureOn,
+} from "~/app/_integrations/components";
 import { NotificationsPopover } from "~/app/_notifications/_components/notifications-popover";
 import {
   Avatar,
@@ -58,7 +61,7 @@ export const Header = () => {
         href="/"
         className="rounded-sm text-center font-llpixel text-2xl text-brand ring-offset-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
-        Hack TUES <span className="text-sand">X</span>
+        Hack TUES X
       </Link>
       <DesktopNavigation className="hidden md:block" />
       <div className="w-full flex-1" />
@@ -139,12 +142,12 @@ export const Header = () => {
 
       {headerData && headerData.avatarName === null && (
         <div className="hidden gap-2 md:flex">
-        <IfHTFeatureOn feature="register-students">
-        <Button variant="secondary" asChild>
+          <IfHTFeatureOn feature="register-students">
+            <Button variant="secondary" asChild>
               <Link href="/signup">Регистрация</Link>
             </Button>
           </IfHTFeatureOn>
-          <IfHTFeatureOn feature="signin-students" >
+          <IfHTFeatureOn feature="signin-students">
             <Button asChild>
               <SignInButton>
                 <Link
