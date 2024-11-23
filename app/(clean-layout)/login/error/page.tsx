@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import {
+  HT_CONTACT_EMAIL,
   HT_EDITION_NAME,
   STUDENTS_REGISTRATION_START,
 } from "~/app/_configs/hackathon";
@@ -63,9 +64,9 @@ const errors: Record<
         се с нас на адрес{" "}
         <a
           className="font-medium underline underline-offset-4"
-          href="mailto:hacktues@elsys-bg.org"
+          href={`mailto:${HT_CONTACT_EMAIL}`}
         >
-          hacktues@elsys-bg.org
+          {HT_CONTACT_EMAIL}
         </a>
         .
       </p>

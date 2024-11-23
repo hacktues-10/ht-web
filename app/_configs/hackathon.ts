@@ -9,6 +9,11 @@ import { HACKATHONS } from "./archive";
 
 export const HT_EDITION_NAME = "Hack TUES X";
 
+// За връзка с организатор – очаквайте тука вс един рандом пич, който е стъпил
+// на някоя от нашите мотики, да ви пише<3333
+// ~Божо
+export const HT_CONTACT_EMAIL = "hacktues@elsys-bg.org";
+
 export const COUNTDOWN_START = new Date("Jan 02 2024 20:00:00 GMT+0200");
 export const EVENT_START = new Date("Mar 13 2024 18:00:00 GMT+0200");
 export const EVENT_END = new Date("Mar 16 2024 07:59:59 GMT+0200");

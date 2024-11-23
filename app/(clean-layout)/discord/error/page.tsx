@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { HT_CONTACT_EMAIL } from "~/app/_configs/hackathon";
 import { DiscordLoadingLink } from "../_components/discord-loading-link";
 
 export default function DiscordErrorPage({
@@ -38,8 +39,8 @@ export default function DiscordErrorPage({
       <div className="my-9 space-y-3 text-sm text-muted-foreground">
         <p className="text-center italic">
           Ако проблемът продължава, моля, свържете се с нас на адрес{" "}
-          <Link href="mailto:hacktues@elsys-bg.org" className="underline">
-            hacktues@elsys-bg.org
+          <Link href={`mailto:${HT_CONTACT_EMAIL}`} className="underline">
+            {HT_CONTACT_EMAIL}
           </Link>
           .
         </p>

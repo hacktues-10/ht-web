@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Router } from "next/router";
 import invariant from "tiny-invariant";
 
+import { HT_CONTACT_EMAIL } from "~/app/_configs/hackathon";
 import { useHTFeatureIsOn } from "~/app/_context/growthbook/utils";
 import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import { OverlayContainer } from "~/app/(clean-layout)/_components/countdown-overlay";
@@ -72,8 +73,8 @@ export function CreateTeamForm() {
         description: canCreateTeam ? (
           <>
             Моля, ако мислите, че има грешка, свържете се с нас на адрес{" "}
-            <Link className="underline" href="mailto:hacktues@elsys-bg.org">
-              hacktues@elsys-bg.org
+            <Link className="underline" href={`mailto:${HT_CONTACT_EMAIL}`}>
+              {HT_CONTACT_EMAIL}
             </Link>
           </>
         ) : (

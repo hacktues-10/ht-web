@@ -4,6 +4,7 @@ import { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 
+import { HT_CONTACT_EMAIL } from "~/app/_configs/hackathon";
 import { IfHTFeatureOff, IfHTFeatureOn } from "~/app/_integrations/components";
 import { Card } from "~/app/components/ui/card";
 import { useToast } from "~/app/components/ui/use-toast";
@@ -127,8 +128,7 @@ export const StudentForm = ({ email }: { email: string }) => {
     } catch (e) {
       toast({
         title: "Възникна грешка при регистрацията",
-        description:
-          "Моля, опитайте отново по-късно. Ако проблемът продължава, свържете се с нас на адрес hacktues@elsys-bg.org.",
+        description: `Моля, опитайте отново по-късно. Ако проблемът продължава, свържете се с нас на адрес ${HT_CONTACT_EMAIL}`,
       });
     }
   }

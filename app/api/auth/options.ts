@@ -4,7 +4,7 @@ import { NextAuthOptions, Theme } from "next-auth";
 import EmailProvider, { EmailConfig } from "next-auth/providers/email";
 import { createTransport } from "nodemailer";
 
-import { HT_EDITION_NAME } from "~/app/_configs/hackathon";
+import { HT_CONTACT_EMAIL, HT_EDITION_NAME } from "~/app/_configs/hackathon";
 import { parseElsysEmail } from "~/app/_elsys/service";
 import { getServerSideGrowthBook } from "~/app/_integrations/growthbook";
 import { db } from "~/app/db";
@@ -100,7 +100,7 @@ function html(params: { url: string; identifier: string; theme: Theme }) {
     <tr>
       <td align="center"
         style="padding: 0px 0px 10px 0px; font-size: 16px; line-height: 22px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};">
-        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на ${HT_EDITION_NAME}. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като пишете на hacktues@elsys-bg.org
+        Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта на ${HT_EDITION_NAME}. Ако не сте били вие, моля пренебрегнете това съобщение. При нужда се свържете с нас като пишете на ${HT_CONTACT_EMAIL}
       </td>
     </tr>
   </table>
@@ -119,7 +119,7 @@ ${url}
 Получавате това писмо, защото някой се е регистрирал с вашия адрес (${identifier}) в сайта
 на ${HT_EDITION_NAME}. Ако не сте били вие, моля пренебрегнете това съобщение.
 При нужда се свържете с нас като пишете на:
-hacktues@elsys-bg.org
+${HT_CONTACT_EMAIL}
 `;
 }
 

@@ -10,6 +10,7 @@ import { LuMail } from "react-icons/lu";
 import { SiLinktree } from "react-icons/si";
 
 import { HTFeature } from "../_context/growthbook/features";
+import { HT_CONTACT_EMAIL } from "./hackathon";
 
 // Не трябва да завършва с точка – на местата, на които тази константа
 // се използва, ако има нужда от точка, се добавя там.
@@ -80,8 +81,8 @@ export const SOCIAL_MEDIA = [
   },
   {
     platform: "Email",
-    handle: "hacktues@elsys-bg.org",
-    link: "mailto:hacktues@elsys-bg.org",
+    handle: HT_CONTACT_EMAIL,
+    link: `mailto:${HT_CONTACT_EMAIL}`,
     icon: LuMail,
     feature: "show-email" satisfies HTFeature,
     featureMobile: "show-email-mobile" satisfies HTFeature,
