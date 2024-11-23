@@ -45,7 +45,7 @@ export function getHackathonById(id: string) {
 }
 
 // TODO: change this
-export const CURRENT_HACKATHON_ID = "hacktues-x";
+export const CURRENT_HT_ARCHIVE_ID = "hacktues-x";
 
 export const HACKATHONS = [
   {

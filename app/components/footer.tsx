@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { SOCIAL_MEDIA, SocialMedia } from "~/app/_configs/pr";
 import { IfHTFeatureOn } from "../_integrations/components";
-import { HTCurrentEventLogo } from "./logos";
+import { HTEditionLogo } from "./logos";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import {
@@ -15,7 +15,7 @@ import {
 export const Footer = () => (
   <footer className="relative flex flex-col items-center justify-between gap-4 bg-background px-6 pb-2 pt-6 md:flex-row md:pt-2">
     <Link href="/" className="text-center text-2xl md:text-xl">
-      <HTCurrentEventLogo />
+      <HTEditionLogo />
     </Link>
     <p className="text-center text-sm text-muted-foreground">
       © {new Date().getFullYear()} ТУЕС към ТУ-София. Всички права са запазени.

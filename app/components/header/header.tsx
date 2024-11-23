@@ -25,7 +25,7 @@ import {
 } from "~/app/components/ui/dropdown-menu";
 import { SignInButton, SignOutButton } from "../buttons";
 import CustomizableDialog from "../CustomizableDialog";
-import { HTCurrentEventLogo } from "../logos";
+import { HTEditionLogo } from "../logos";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
 import { Button } from "../ui/button";
 import {
@@ -62,7 +62,7 @@ export const Header = () => {
         href="/"
         className="rounded-sm text-center text-2xl ring-offset-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
-        <HTCurrentEventLogo />
+        <HTEditionLogo />
       </Link>
       <DesktopNavigation className="hidden md:block" />
       <div className="w-full flex-1" />

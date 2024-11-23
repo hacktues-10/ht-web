@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 import { IfHTSession, IfNotHTSession } from "~/app/api/auth/components";
-import { HTCurrentEventLogo } from "~/app/components/logos";
+import { HTEditionLogo } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 
@@ -36,7 +36,7 @@ export default function ConfirmEmailPage() {
       </Card>
       <Separator />
       <p className="cursor-default text-center text-xl">
-        <HTCurrentEventLogo />
+        <HTEditionLogo />
       </p>
     </section>
   );

@@ -10,8 +10,8 @@ export const HTLogo = ({
 );
 
 // TODO: make this your own
-export const HTCurrentEventLogo = () => (
-  <HTLogo className="text-primary">
-    Hack&nbsp;TUES&nbsp;<span className="text-slate-400">X</span>
+export const HTEditionLogo = () => (
+  <HTLogo>
+    Hack&nbsp;<span className="text-primary">TUES</span>
   </HTLogo>
 );

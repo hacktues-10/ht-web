@@ -21,7 +21,7 @@ import {
 } from "~/app/_configs/hackathon";
 import ht8Image from "~/app/assets/img/ht8_stream_3.jpg";
 import {
-  CURRENT_HACKATHON_ID,
+  CURRENT_HT_ARCHIVE_ID,
   Hackathon,
   HACKATHONS,
 } from "../_configs/archive";
@@ -29,7 +29,7 @@ import { IfHTFeatureOn } from "../_integrations/components";
 import { IfNotHTSession } from "../api/auth/server-components";
 import { LandingCountdownTimer } from "../components/countdowns";
 import DateRangeDisplayWrongTimezone from "../components/date-display/wrong-timezone/date-range-display";
-import { HTCurrentEventLogo, HTLogo } from "../components/logos";
+import { HTEditionLogo, HTLogo } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
@@ -280,7 +280,7 @@ function PastHTArchiveSection({
         {nextHackathon ? (
           <ChevronDownLink href={`#${nextHackathon.id}`} />
         ) : (
-          <ChevronDownLink href={`#${CURRENT_HACKATHON_ID}`} />
+          <ChevronDownLink href={`#${CURRENT_HT_ARCHIVE_ID}`} />
         )}
       </div>
     </ArchiveSection>
@@ -290,12 +290,12 @@ function PastHTArchiveSection({
 function CurrentHTArchiveSection() {
   return (
     <ArchiveSection
-      id={CURRENT_HACKATHON_ID as any}
+      id={CURRENT_HT_ARCHIVE_ID as any}
       className="gap-10 sm:gap-9"
     >
       <div className="flex flex-col gap-1">
         <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
-          <HTCurrentEventLogo />
+          <HTEditionLogo />
         </h2>
         <p className="scroll-m-20 pb-2 font-lazydog text-xl font-extrabold italic tracking-tight first:mt-0">
           „Десетото юбилейно издание на емблематичния за ТУЕС хакатон“

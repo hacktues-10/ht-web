@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getHTSession } from "~/app/api/auth/session";
-import { HTCurrentEventLogo } from "~/app/components/logos";
+import { HTEditionLogo } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { RegistrationCountdownOverlay } from "../_components/countdown-overlay";
@@ -45,7 +45,7 @@ export default async function SignUpPage() {
       </IfHTFeatureOn>
       <p className="text-center text-xl">
         <Link href="/">
-          <HTCurrentEventLogo />
+          <HTEditionLogo />
         </Link>
       </p>
     </section>
