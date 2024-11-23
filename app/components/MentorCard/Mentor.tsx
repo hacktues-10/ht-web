@@ -44,7 +44,7 @@ const Mentor: React.FC<MentorInterface> = async ({
   return (
     <TooltipProvider>
       <Tooltip>
-        <Card className="hover:border-sand w-[290px] overflow-hidden border-2 border-gray-400 duration-500 hover:scale-105 hover:cursor-pointer sm:w-[360px]">
+        <Card className="w-[290px] overflow-hidden sm:w-[360px]">
           <Dialog>
             <TooltipTrigger asChild>
               <DialogTrigger>

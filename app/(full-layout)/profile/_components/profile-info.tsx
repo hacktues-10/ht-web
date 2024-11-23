@@ -81,7 +81,7 @@ export default function ProfileInfo({
 
   return (
     <div>
-      <div className="bg-sand rounded-3xl p-5 text-slate-950 md:w-[500px] ">
+      <div className="rounded-3xl p-5 text-slate-950 md:w-[500px]">
         <div
           className={`mb-5 ml-auto mr-auto mt-5 flex h-14 w-14 items-center justify-center rounded-full sm:h-32 sm:w-32 ${
             colors[(participant.firstName.charCodeAt(0) ?? 0) % 10]
@@ -127,7 +127,6 @@ export default function ProfileInfo({
               <Label htmlFor="allergies">Алергии</Label>
               <Textarea
                 id="allergies"
-                className="bg-sand"
                 value={allergies}
                 onChange={(event) => setAllergies(event.target.value)}
               />
