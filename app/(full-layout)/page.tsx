@@ -45,6 +45,7 @@ export default async function LandingPage() {
         <TheBeginningSection />
         {HACKATHONS.map((hackathon, i, hackathons) => (
           <PastHTArchiveSection
+            key={hackathon.id}
             hackathon={hackathon}
             nextHackathon={hackathons.at(i + 1)}
           />
@@ -245,7 +246,7 @@ function PastHTArchiveSection({
   nextHackathon?: Hackathon;
 }) {
   return (
-    <ArchiveSection key={hackathon.name} {...hackathon}>
+    <ArchiveSection {...hackathon}>
       <div className="flex flex-col">
         <p className="text-xl font-light uppercase text-primary">Тема</p>
         <h3 className="scroll-m-20 pb-2 text-2xl font-extrabold tracking-tight first:mt-0 sm:text-3xl">
