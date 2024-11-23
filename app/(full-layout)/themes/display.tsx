@@ -24,11 +24,7 @@ import { Theme } from "./_features/lib";
 export function MainThemeDisplay(props: { theme: Theme }) {
   return (
     <div className="flex max-w-md flex-col gap-2">
-      <div
-        className="flex select-none items-center justify-center text-center font-llpixel text-5xl text-brand sm:text-6xl"
-        role="presentation"
-      >
-        <span className="translate-x-20 sm:translate-x-16">Hack </span>
+      <div className="flex items-center justify-center" role="presentation">
         <Image
           className="w-56 sm:w-72"
           src={props.theme.image.url}
@@ -36,7 +32,6 @@ export function MainThemeDisplay(props: { theme: Theme }) {
           height={props.theme.image.height}
           alt={props.theme.image.alt}
         />
-        <span className="-translate-x-20 sm:-translate-x-16"> TUES</span>
       </div>
       <Separator />
       <h1 className="mt-5 flex flex-col gap-5 text-center font-lazydog text-3xl font-normal sm:text-5xl">

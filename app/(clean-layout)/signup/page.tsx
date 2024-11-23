@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { IfHTFeatureOn } from "~/app/_integrations/components";
 import { getHTSession } from "~/app/api/auth/session";
-import { HTCurrentEventLogo, HTLogo } from "~/app/components/logos";
+import { HTCurrentEventLogo } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 import { RegistrationCountdownOverlay } from "../_components/countdown-overlay";

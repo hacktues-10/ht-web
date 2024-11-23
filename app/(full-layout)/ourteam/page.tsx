@@ -1,4 +1,4 @@
-import { HTCurrentEventLogo, HTLogo } from "~/app/components/logos";
+import { HTCurrentEventLogo } from "~/app/components/logos";
 import OrganizatorDetailed from "./components/organizatorDetailed";
 import { organizators } from "./organizators";
 

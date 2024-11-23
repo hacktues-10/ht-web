@@ -25,6 +25,7 @@ import {
 } from "~/app/components/ui/dropdown-menu";
 import { SignInButton, SignOutButton } from "../buttons";
 import CustomizableDialog from "../CustomizableDialog";
+import { HTCurrentEventLogo } from "../logos";
 import { DesktopNavigation, MobileNavigation } from "../navigation-server";
 import { Button } from "../ui/button";
 import {
@@ -36,7 +37,7 @@ import {
 import { getHeaderData } from "./actions";
 
 export const Header = () => {
-  const MAX_OPACITY = 0.7;
+  const MAX_OPACITY = 1.0;
 
   const { scrollY } = useScroll();
   const { data: headerData } = useHeaderData();
@@ -49,7 +50,7 @@ export const Header = () => {
           .to([0, 100], [0, MAX_OPACITY])
           .to((x) => Math.min(x, MAX_OPACITY)),
       }}
-      className="sticky top-0 z-40 flex items-center gap-6 bg-background/[var(--header-bg-opacity)] px-6 py-6 backdrop-blur-md md:py-4"
+      className="sticky top-0 z-40 flex items-center gap-6 bg-background/[var(--header-bg-opacity)] px-6 py-6 md:py-4"
     >
       <a
         href="#main-content"
@@ -59,9 +60,9 @@ export const Header = () => {
       </a>
       <Link
         href="/"
-        className="rounded-sm text-center font-llpixel text-2xl text-brand ring-offset-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        className="rounded-sm text-center text-2xl ring-offset-background transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
       >
-        Hack TUES X
+        <HTCurrentEventLogo />
       </Link>
       <DesktopNavigation className="hidden md:block" />
       <div className="w-full flex-1" />

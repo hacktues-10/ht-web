@@ -46,7 +46,7 @@ export const MobileNavigationRoot = ({
           onOpenChange={setIsSheetOpen}
           className="text-3xl transition-transform hover:scale-105"
         >
-          <HTLogo className="text-secondary">Hack TUES X</HTLogo>
+          <HTLogo className="text-secondary-foreground">Hack TUES X</HTLogo>
         </MobileNavLink>
         <ScrollArea className="h-full flex-1 overflow-scroll">
           {/* HACK: because the children are rendered by the server and they need to access the state setter,
