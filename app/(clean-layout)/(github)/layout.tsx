@@ -1,4 +1,4 @@
-import { HTXLogoDuotone } from "~/app/components/logos";
+import { HTCurrentEventLogo } from "~/app/components/logos";
 import { Card } from "~/app/components/ui/card";
 import { Separator } from "~/app/components/ui/separator";
 
@@ -14,7 +14,7 @@ export default function GitHubMessageLayout({
       </Card>
       <Separator />
       <p className="cursor-default text-center text-xl">
-        <HTXLogoDuotone />
+        <HTCurrentEventLogo />
       </p>
     </section>
   );

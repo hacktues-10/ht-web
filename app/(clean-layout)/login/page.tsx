@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { IfHTFeatureOff } from "~/app/_integrations/components";
 import { getHTSession } from "~/app/api/auth/session";
-import { HTXLogoDuotone } from "~/app/components/logos";
+import { HTCurrentEventLogo } from "~/app/components/logos";
 import { IfQueryParamNotPresent } from "~/app/components/query-params";
 import { Button } from "~/app/components/ui/button";
 import { Card } from "~/app/components/ui/card";
@@ -58,7 +58,7 @@ export default async function LoginPage() {
       </IfHTFeatureOff>
       <p className="text-center text-xl">
         <Link href="/">
-          <HTXLogoDuotone />
+          <HTCurrentEventLogo />
         </Link>
       </p>
     </section>

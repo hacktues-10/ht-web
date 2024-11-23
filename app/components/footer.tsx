@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { SOCIAL_MEDIA, SocialMedia } from "~/app/_configs/pr";
 import { IfHTFeatureOn } from "../_integrations/components";
-import { HTXLogoDuotone } from "./logos";
+import { HTCurrentEventLogo } from "./logos";
 import { SleepySully } from "./logos/sleepy-sully";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
@@ -17,7 +17,7 @@ export const Footer = () => (
   <footer className="relative flex flex-col items-center justify-between gap-4 bg-background px-6 pb-2 pt-6 md:flex-row md:pt-2">
     <SleepySully className="0 -sm:translate-x-10 -sm:translate-x-10 absolute left-1/2 right-1/2 top-0 h-32 -translate-x-1/2 -translate-y-full overflow-visible sm:left-auto sm:right-10 sm:translate-x-0" />
     <Link href="/" className="text-center text-2xl md:text-xl">
-      <HTXLogoDuotone />
+      <HTCurrentEventLogo />
     </Link>
     <p className="text-center text-sm text-muted-foreground">
       © {new Date().getFullYear()} ТУЕС към ТУ-София. Всички права са запазени.

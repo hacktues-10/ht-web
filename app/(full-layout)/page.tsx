@@ -29,7 +29,7 @@ import { IfHTFeatureOn } from "../_integrations/components";
 import { IfNotHTSession } from "../api/auth/server-components";
 import { LandingCountdownTimer } from "../components/countdowns";
 import DateRangeDisplayWrongTimezone from "../components/date-display/wrong-timezone/date-range-display";
-import { HTLogo, HTXLogoDuotone } from "../components/logos";
+import { HTCurrentEventLogo, HTLogo } from "../components/logos";
 import { PageBackdrop } from "../components/page-backdrop";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
@@ -294,7 +294,7 @@ function CurrentHTArchiveSection() {
     >
       <div className="flex flex-col gap-1">
         <h2 className="scroll-m-20 pb-2 text-5xl font-extrabold tracking-tight text-destructive first:mt-0 sm:text-6xl">
-          <HTXLogoDuotone />
+          <HTCurrentEventLogo />
         </h2>
         <p className="scroll-m-20 pb-2 font-lazydog text-xl font-extrabold italic tracking-tight first:mt-0">
           „Десетото юбилейно издание на емблематичния за ТУЕС хакатон“
