@@ -51,10 +51,6 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sand: {
-          DEFAULT: "hsl(var(--sand))",
-          foreground: "hsl(var(--sand-foreground))",
-        },
         brand: {
           DEFAULT: "hsl(var(--brand))",
           foreground: "hsl(var(--brand-foreground))",
