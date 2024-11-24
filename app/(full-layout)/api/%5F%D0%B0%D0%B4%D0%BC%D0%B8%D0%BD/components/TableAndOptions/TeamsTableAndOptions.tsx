@@ -69,7 +69,7 @@ export default function TableAndOptions({ teams }: { teams: TeamsAdmin }) {
           <h1 className="m-2 mt-4 text-left text-lg font-bold">Pagination</h1>
           <div className="flex gap-2">
             <Button
-              disabled={index - 1 == 0 ?? "true"}
+              disabled={index - 1 == 0}
               onClick={() => setIndex(index - 1)}
             >
               Previous
