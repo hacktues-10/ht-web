@@ -34,11 +34,10 @@ export function CreateTeamForm() {
     const description = formData.get("description");
 
     if (
-      !name ||
-      name.length > 30 ||
-      (description && description.length > 255) ||
       typeof name !== "string" ||
-      typeof description !== "string"
+      typeof description !== "string" ||
+      name.length > 30 ||
+      description.length > 255
     ) {
       toast({
         title: "Невалидни данни",
