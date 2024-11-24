@@ -6,7 +6,7 @@ export const HTLogo = ({
   className,
   children,
 }: PropsWithChildren<{ className?: string }>) => (
-  <span className={cn("font-llpixel font-medium", className)}>{children}</span>
+  <span className={cn("font-htpixel font-medium", className)}>{children}</span>
 );
 
 // TODO: make this your own

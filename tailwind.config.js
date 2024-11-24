@@ -99,7 +99,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
-        llpixel: ["var(--font-llpixel)", ...fontFamily.sans],
+        htpixel: ["var(--font-htpixel)", ...fontFamily.sans],
         lazydog: ["var(--font-lazydog)", ...fontFamily.sans],
       },
     },

@@ -17,9 +17,9 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const llpixel = localFont({
+const htpixel = localFont({
   src: "./assets/htpixel.ttf",
-  variable: "--font-llpixel",
+  variable: "--font-htpixel",
 });
 
 const lazydog = localFont({
@@ -77,7 +77,7 @@ export default function RootLayout({
         className={cn(
           "dark relative min-h-screen font-sans antialiased",
           inter.variable,
-          llpixel.variable,
+          htpixel.variable,
           lazydog.variable,
         )}
       >
