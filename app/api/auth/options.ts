@@ -139,7 +139,7 @@ async function sendEmail(
       rejectUnauthorized: false,
     },
     host: env.EMAIL_SMTP_HOST,
-    secure: true,
+    secure: env.EMAIL_SMTP_SECURE,
     auth: {
       user: env.EMAIL_SMTP_USER,
       pass: env.EMAIL_SMTP_PASSWORD,

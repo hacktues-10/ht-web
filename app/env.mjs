@@ -29,6 +29,7 @@ export const env = createEnv({
     EMAIL_SMTP_HOST: z.string(),
     EMAIL_SMTP_USER: z.string(),
     EMAIL_SMTP_PASSWORD: z.string(),
+    EMAIL_SMTP_SECURE: z.coerce.boolean(),
 
     // TODO: rename
     HOSTNAME: z.string(),
