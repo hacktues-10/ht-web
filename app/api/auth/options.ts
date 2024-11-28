@@ -138,11 +138,11 @@ async function sendEmail(
     tls: {
       rejectUnauthorized: false,
     },
-    host: "smtp.eu.mailgun.org",
+    host: env.EMAIL_SMTP_HOST,
     secure: true,
     auth: {
-      user: "postmaster@mg.hacktues.bg",
-      pass: "eba5d107d6dea62c0fd754e959e5d6bd-69a6bd85-ad4af96f",
+      user: env.EMAIL_SMTP_USER,
+      pass: env.EMAIL_SMTP_PASSWORD,
     },
   });
 

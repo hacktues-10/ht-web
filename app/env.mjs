@@ -26,6 +26,10 @@ export const env = createEnv({
     GITHUB_PRIVATE_KEY: z.string(),
     // GITHUB_CLIENT_ID: z.string(),
 
+    EMAIL_SMTP_HOST: z.string(),
+    EMAIL_SMTP_USER: z.string(),
+    EMAIL_SMTP_PASSWORD: z.string(),
+
     // TODO: rename
     HOSTNAME: z.string(),
   },
